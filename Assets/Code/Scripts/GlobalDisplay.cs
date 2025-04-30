@@ -1,6 +1,7 @@
 using System;
+using UnityEngine;
 
-namespace Ceterra {
+namespace Assets.Code.Scripts {
     public class GlobalDisplay {
         private int initialValue;
         private int minValue;
@@ -29,14 +30,15 @@ namespace Ceterra {
         }
 
         public int CurrentValue {
-            get; set;
+            get { return currentValue; }
+            set { currentValue = value; }
         }
 
         public GlobalDisplay(int initialValue, int minValue, int maxValue) {
-            InitialValue = initialValue;
             MinValue = minValue;
             MaxValue = maxValue;
             CurrentValue = initialValue;
+            InitialValue = initialValue;
         }
 
         public void AddCurrentVaule(int add) {
