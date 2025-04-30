@@ -3,20 +3,19 @@ using UnityEngine;
 
 namespace Assets.Code.Scripts {
     public class GlobalDisplay {
-        private int initialValue;
         private int minValue;
         private int maxValue;
 
         private int currentValue;
 
-        public int InitialValue {
-            get { return initialValue; }
+        public int CurrentValue {
+            get { return this.currentValue; }
             set {
-                if (value < minValue || value > maxValue) {
-                    throw new Exception("Value must be between " + minValue + " and " + maxValue);
+                if (value < this.MinValue || value > this.MaxValue) {
+                    throw new Exception("Value must be between " + this.MinValue + " and " + this.MaxValue);
                 }
                 else {
-                    initialValue = value;
+                    this.currentValue = value;
                 }
             }
         }
@@ -29,33 +28,27 @@ namespace Assets.Code.Scripts {
             get; set;
         }
 
-        public int CurrentValue {
-            get { return currentValue; }
-            set { currentValue = value; }
+        public GlobalDisplay(int minValue, int maxValue, int currentValue) {
+            this.MinValue = minValue;
+            this.MaxValue = maxValue;
+            this.currentValue = currentValue;
         }
 
-        public GlobalDisplay(int initialValue, int minValue, int maxValue) {
-            MinValue = minValue;
-            MaxValue = maxValue;
-            CurrentValue = initialValue;
-            InitialValue = initialValue;
-        }
-
-        public void AddCurrentVaule(int add) {
-            if (currentValue + add > maxValue) {
-                currentValue = maxValue;
+        public void AddCurrentValue(int add) {
+            if (this.CurrentValue + add > this.MaxValue) {
+                this.CurrentValue = this.MaxValue;
             }
             else {
-                currentValue += add;
+                this.CurrentValue += add;
             }
         }
 
         public void SubtractCurrentValue(int subtract) {
-            if (currentValue - subtract < minValue) {
-                throw new Exception("Subtraction exceeds minimum value " + minValue);
+            if (this.CurrentValue - subtract < this.MinValue) {
+                throw new Exception("Subtraction exceeds minimum value " + this.MinValue);
             }
             else {
-                currentValue -= subtract;
+                this.CurrentValue -= subtract;
             }
         }
     }
