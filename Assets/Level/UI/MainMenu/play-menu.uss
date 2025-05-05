@@ -1,0 +1,89 @@
+.modal-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s;
+    display: none;
+    opacity: 0;
+}
+
+.modal-dialog {
+    width: 800px;
+    height: 600px;
+    background-color: rgb(30, 30, 30);
+    border-radius: 20px;
+    border-width: 3px;
+    border-color: rgb(160, 199, 100);
+    padding: 20px;
+    flex-direction: column;
+    transition: all 0.3s;
+    scale: 0.9;
+}
+
+.modal-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom-width: 2px;
+    border-bottom-color: rgb(160, 199, 100);
+    margin-bottom: 20px;
+}
+
+.modal-title {
+    font-size: 60px;
+    color: rgb(160, 199, 100);
+    -unity-font-style: bold;
+}
+
+.close-button {
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    border-radius: 25px;
+    background-color: rgb(80, 80, 80);
+    border-width: 0;
+    color: white;
+    padding: 0;
+}
+
+.close-button:hover {
+    background-color: rgb(200, 60, 60);
+    scale: 1.1;
+}
+
+.modal-content {
+    flex-grow: 1;
+    padding: 20px;
+    justify-content: center;
+}
+
+.button {
+    border-radius: 30px;
+    color: white;
+    transition: all 0.2s;
+    border-width: 5px;
+    border-color: black;
+}
+
+.button:hover {
+    scale: 1.05;
+}
+
+.modal-button {
+    width: 400px;
+    height: 80px;
+    margin: 15px auto;
+    background-color: rgb(70, 70, 70);
+    font-size: 40px;
+    align-self: center;
+}
+
+.modal-button:hover {
+    background-color: rgb(100, 100, 100);
+}

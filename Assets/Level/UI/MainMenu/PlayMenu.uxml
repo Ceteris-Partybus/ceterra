@@ -1,0 +1,16 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI/MainMenu/play-modal.uss?fileID=7433441132597879392&amp;guid=12beb740677607c4083b46270436952b&amp;type=3#play-modal" />
+    <ui:VisualElement name="ModalOverlay" class="modal-overlay">
+        <ui:VisualElement name="ModalDialog" class="modal-dialog">
+            <ui:VisualElement name="ModalHeader" class="modal-header">
+                <ui:Label text="PLAY" class="modal-title" />
+                <ui:Button name="CloseButton" text="×" class="close-button" />
+            </ui:VisualElement>
+            <ui:VisualElement name="ModalContent" class="modal-content">
+                <ui:Button name="NewGameButton" text="NEW GAME" class="button modal-button" />
+                <ui:Button name="LoadGameButton" text="LOAD GAME" class="button modal-button" />
+                <ui:Button name="TutorialButton" text="TUTORIAL" class="button modal-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
