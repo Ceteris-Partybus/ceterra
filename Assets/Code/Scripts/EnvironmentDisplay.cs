@@ -1,13 +1,17 @@
 using System;
-using UnityEngine;
 
-// veraltet, sollte nicht genutzt werden. Stattdessen die anderen Display-Klassen nehmen
-
-public class GlobalDisplay {
-    private int minValue;
-    private int maxValue;
-
+public class EnvironmentDisplay {
+    private const int minValue = 0;
+    private const int maxValue = 100;
     private int currentValue;
+
+    public int MinValue {
+        get { return minValue; }
+    }
+
+    public int MaxValue {
+        get { return maxValue; }
+    }
 
     public int CurrentValue {
         get { return this.currentValue; }
@@ -21,18 +25,8 @@ public class GlobalDisplay {
         }
     }
 
-    public int MinValue {
-        get; set;
-    }
-
-    public int MaxValue {
-        get; set;
-    }
-
-    public GlobalDisplay(int minValue, int maxValue, int currentValue) {
-        this.MinValue = minValue;
-        this.MaxValue = maxValue;
-        this.currentValue = currentValue;
+    public EnvironmentDisplay(int currentValue) {
+        this.CurrentValue = currentValue;
     }
 
     public void AddCurrentValue(int add) {
