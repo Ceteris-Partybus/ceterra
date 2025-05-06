@@ -2,7 +2,6 @@ using System.Collections;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using Assets.Code.Scripts;
 using System;
 
 public class GlobalDisplayTest {
