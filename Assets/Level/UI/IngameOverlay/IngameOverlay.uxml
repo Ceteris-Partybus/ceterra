@@ -1,0 +1,21 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="ProgressBar" src="project://database/Assets/Level/UI/Global/ProgressBar.uxml?fileID=9197481963319205126&amp;guid=b7a507bd332063d4fb87ffbd154e639a&amp;type=3#ProgressBar" />
+    <Style src="project://database/Assets/Level/UI/IngameOverlay/IngameOverlay.uss?fileID=7433441132597879392&amp;guid=7c96f86103154ed4bbcd69588431bdea&amp;type=3#IngameOverlay" />
+    <Style src="project://database/Assets/Level/UI/Global/ProgressBar.uss?fileID=7433441132597879392&amp;guid=d93a944e8d3c81a48b436f49f11a14b5&amp;type=3#ProgressBar" />
+    <ui:VisualElement name="player-card">
+        <ui:VisualElement name="player-card__header">
+            <ui:Label text="John Doe" name="player-card__name" />
+        </ui:VisualElement>
+        <ui:VisualElement name="player-card__content">
+            <ui:VisualElement name="player-card__health-wrapper">
+                <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Level/UI/Icons/heart.svg?fileID=7388822144124034973&amp;guid=1aa06dda88ee00a45bbaeda828bba690&amp;type=3#heart&quot;); background-size: 24% 24%; max-height: 12px; max-width: 12px; min-width: 12px; min-height: 12px; -unity-background-scale-mode: scale-to-fit; margin-left: 5px;" />
+                <ui:Instance template="ProgressBar" name="player-card__health-bar"  class="progress-bad" style="flex-grow: 1; display: none; visibility: visible;" />
+                <ui:ProgressBar value="50" enabled="true" name="player-card__health-bar"  title="50/100" class="progress-bad" style="width: auto; flex-grow: 1;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="player-card__coins-wrapper">
+                <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Level/UI/Icons/coins.svg?fileID=7388822144124034973&amp;guid=ef691b37bb671a14ba02463099f295b4&amp;type=3#coins&quot;); background-size: 24% 24%; max-height: 12px; max-width: 12px; min-width: 12px; min-height: 12px; -unity-background-scale-mode: scale-to-fit; margin-left: 5px;" />
+                <ui:Label name="player-card__coins-label"  text="ABC" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
