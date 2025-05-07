@@ -2,16 +2,28 @@
   -unity-font-definition: url("project://database/Assets/Level/UI/Fonts/Jersey_15/Jersey15-Regular.ttf?fileID=12800000&amp;guid=54af5735f6fb3784aa772c600074a2fd&amp;type=3#Jersey15-Regular")
 }
 
-.progress-good .unity-progress-bar__progress {
+.health-bar--green .unity-progress-bar__progress {
     background-color: #4CAF50;
 }
 
-.progress-ok .unity-progress-bar__progress {
+.health-bar--yellow .unity-progress-bar__progress {
     background-color: #FF9800;
 }
 
-.progress-bad .unity-progress-bar__progress {
+.health-bar--red .unity-progress-bar__progress {
     background-color: #F44336;
+}
+
+.progress-bar--environment .unity-progress-bar__progress {
+    background-color: #84cc16;
+}
+
+.progress-bar--economy .unity-progress-bar__progress {
+    background-color: #06b6d4;
+}
+
+.progress-bar--society .unity-progress-bar__progress {
+    background-color: #fbbf24;
 }
 
 /* Unity default overwrites */
@@ -23,16 +35,18 @@
 #unity-progress-bar {
   min-height: var(--progress-bar-height) !important;
   max-height: var(--progress-bar-height) !important;
-  border-radius: 10px !important;
+  border-radius: 3px !important;
   overflow: hidden !important;
+  border-width: 1px !important;
+  border-color: rgba(0, 0, 0, 0.8) !important;
 }
-
+ 
 .unity-progress-bar__title-container {
   background-color: transparent !important;
 }
 
 .unity-progress-bar__background {
-  background-color: rgba(0, 0, 0, 0.25) !important;
+  background-color: rgba(0, 0, 0, 0.4) !important;
   border-width: 0 !important;
 }
 
@@ -40,7 +54,7 @@
   min-height: 100% !important;
   max-height: 100% !important;
   margin: 0 !important;
-  transition: width 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .unity-progress-bar__title {
@@ -51,5 +65,5 @@
 }
 
 #unity-progress-bar:hover .unity-progress-bar__title {
-  display: block !important;
+  display: flex !important;
 }

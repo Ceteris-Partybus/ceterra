@@ -1,0 +1,23 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="ProgressBar" src="project://database/Assets/Level/UI/Global/ProgressBar.uxml?fileID=9197481963319205126&amp;guid=b7a507bd332063d4fb87ffbd154e639a&amp;type=3#ProgressBar" />
+    <Style src="project://database/Assets/Level/UI/Global/PlayerCard.uss?fileID=7433441132597879392&amp;guid=b783a0f8883b20b4e9c29526cf788c3c&amp;type=3#PlayerCard" />
+    <ui:VisualElement name="player-card">
+        <ui:VisualElement name="player-card__head">
+            <ui:Label text="John Doe" />
+        </ui:VisualElement>
+        <ui:VisualElement name="player-card__content">
+            <ui:VisualElement name="player-card__health">
+                <ui:VisualElement name="player-card__health-info">
+                    <ui:Label text="Health" />
+                    <ui:Label text="50/100" name="player-card__health-value" />
+                </ui:VisualElement>
+                <ui:Instance template="ProgressBar" name="player-card__health-bar" />
+            </ui:VisualElement>
+            <ui:VisualElement name="player-card__coins">
+                <ui:Label style="background-image: url(&quot;project://database/Assets/Level/UI/Icons/coin.svg?fileID=7388822144124034973&amp;guid=38568947665bd37468367bc43c806645&amp;type=3#coin&quot;); width: 15px; height: 15px;" />
+                <ui:Label text="100" name="player-card__coins-value" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="player-card__shadow" style="top: 2px; left: 6px;" />
+    </ui:VisualElement>
+</ui:UXML>

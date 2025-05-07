@@ -1,0 +1,74 @@
+#player-card Label {
+    margin: 0;
+    padding: 0;
+}
+
+#player-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 250px;
+    max-width: 250px;
+    height: auto;
+    background-color: rgb(245, 245, 244);
+    padding: 12px 15px 12px 15px;
+    border-color: rgb(168, 162, 158);
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 4px;
+    border-bottom-right-radius: 0;
+}
+
+#player-card__head {
+    --unity-font-style: bold;
+    color: rgb(68, 64, 60);
+    font-size: 24px;
+}
+
+#player-card__content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+}
+
+#player-card__health {
+    display: flex;
+    flex-direction: column;
+}
+
+#player-card__health-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: rgb(137, 135, 131);
+}
+
+#player-card__health-info > * {
+    margin: 0;
+    padding: 0;
+}
+
+#player-card__coins {
+    display: flex;
+    flex-direction: row;
+    margin-top: 4px;
+    color: #e9ad41; 
+    font-size: 18px;
+    align-items: center;
+}
+
+#player-card__coins-value {
+  left: 3px;
+}
+
+#player-card__shadow {
+    position: absolute;
+    top: 4px;
+    left: 6px;
+    width: 100%;
+    height: 103%;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-right-color: rgb(87, 83, 78);
+    border-bottom-color: rgb(87, 83, 78);
+    border-radius: 3px;
+}

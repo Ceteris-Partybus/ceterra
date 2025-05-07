@@ -35,6 +35,7 @@ namespace Assets.Code.Scripts.Network {
 
         private void OnHealthChanged(int previousValue, int newValue) {
             if (IsOwner && ingameOverlay != null) {
+                // TODO: rename to UpdateClientHealth and UpdateClientCoins respectively create new method in IngameOverlay where the player instance is passed as a parameter to update only the affected player in the all player list
                 ingameOverlay.UpdatePlayerHealth(newValue);
             }
         }
