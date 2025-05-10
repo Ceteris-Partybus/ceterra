@@ -1,8 +1,62 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <ui:Template name="PlayerCard" src="project://database/Assets/Level/UI/Global/PlayerCard.uxml?fileID=9197481963319205126&amp;guid=cf9272ab0a555f74e916fab91d0b2574&amp;type=3#PlayerCard" />
+    <ui:Template name="ProgressBar" src="project://database/Assets/Level/UI/Global/ProgressBar.uxml?fileID=9197481963319205126&amp;guid=b7a507bd332063d4fb87ffbd154e639a&amp;type=3#ProgressBar" />
     <Style src="project://database/Assets/Level/UI/IngameOverlay/IngameOverlay.uss?fileID=7433441132597879392&amp;guid=7c96f86103154ed4bbcd69588431bdea&amp;type=3#IngameOverlay" />
-    <Style src="project://database/Assets/Level/UI/Global/ProgressBar.uss?fileID=7433441132597879392&amp;guid=d93a944e8d3c81a48b436f49f11a14b5&amp;type=3#ProgressBar" />
+    <Style src="project://database/Assets/Level/UI/Global/ProgressBar.uss?fileID=7433441132597879392&amp;guid=d93a944e8d3c81a48b436f49f11a14b5&amp;type=3" />
+    <Style src="project://database/Assets/Level/UI/Global/Card.uss?fileID=7433441132597879392&amp;guid=788ddb1472ea9d34790d902073b1aee9&amp;type=3" />
     <ui:VisualElement style="flex-grow: 1; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px;">
-        <ui:Instance template="PlayerCard" name="client-player-card" />
+        <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-between; width: 100%; height: 100%;">
+            <ui:Instance template="PlayerCard" name="client-player-card" style="width: 250px; height: auto; min-height: 115px; max-height: 115px; min-width: 250px; max-width: 250px;" />
+            <ui:VisualElement name="right-side" style="flex-grow: 1; width: auto; align-self: flex-start; align-content: flex-start; justify-content: flex-end; align-items: flex-end; flex-direction: row;">
+                <ui:VisualElement name="ui-buttons" style="flex-grow: 0; flex-shrink: 1; align-self: flex-start; justify-content: center; height: 100%; margin-right: 20px; flex-direction: row; align-items: flex-start;">
+                    <ui:Button name="ui-buttons__resources" style="flex-grow: 1; margin-top: 0; margin-right: 10px; margin-bottom: 0; margin-left: 0; align-self: flex-start; justify-content: center; flex-direction: row;">
+                        <ui:Label style="background-image: url(&quot;project://database/Assets/Level/UI/Icons/package.svg?fileID=7388822144124034973&amp;guid=bf348c969a55b0145a837ad3543f9bf4&amp;type=3#package&quot;); height: 28px; width: 28px; margin-right: 10px;" />
+                        <ui:VisualElement style="flex-grow: 1; justify-content: center; align-self: auto; align-items: center;">
+                            <ui:VisualElement style="flex-grow: 1; position: absolute; width: 100%; height: 100%; padding-top: 2px; padding-right: 4px; padding-bottom: 2px; padding-left: 4px; background-color: rgba(168, 162, 158, 0.39); border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px;" />
+                            <ui:Label text="1000" name="resources-value" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 24px; color: rgb(233, 173, 65);" />
+                        </ui:VisualElement>
+                    </ui:Button>
+                    <ui:Button name="ui-buttons__fonds" style="flex-grow: 1; margin-top: 0; margin-right: 10px; margin-bottom: 0; margin-left: 0; align-self: flex-start; justify-content: center; flex-direction: row;">
+                        <ui:Label style="background-image: url(&quot;project://database/Assets/Level/UI/Icons/landmark.svg?fileID=7388822144124034973&amp;guid=b91cf6e0d5bbec34a92d865268dc6a73&amp;type=3#landmark&quot;); height: 28px; width: 28px; margin-right: 10px;" />
+                        <ui:VisualElement style="flex-grow: 1; justify-content: center; align-self: auto; align-items: center;">
+                            <ui:VisualElement style="flex-grow: 1; position: absolute; width: 100%; height: 100%; padding-top: 2px; padding-right: 4px; padding-bottom: 2px; padding-left: 4px; background-color: rgba(168, 162, 158, 0.39); border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px;" />
+                            <ui:Label text="1000" name="fonds-value" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 24px; color: rgb(233, 173, 65);" />
+                        </ui:VisualElement>
+                    </ui:Button>
+                    <ui:Button name="ui-buttons__invest" style="flex-grow: 1; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; align-self: flex-start; justify-content: center;">
+                        <ui:Label style="background-image: url(&quot;project://database/Assets/Level/UI/Icons/hand-coins.svg?fileID=7388822144124034973&amp;guid=2908baa18dead52499cc18cdcc24f76e&amp;type=3#hand-coins&quot;); height: 28px; width: 28px;" />
+                    </ui:Button>
+                </ui:VisualElement>
+                <ui:VisualElement name="global-displays-card" class="card" style="flex-grow: 1; min-height: 125px; max-height: 125px; width: 250px; min-width: 250px; max-width: 250px; align-self: flex-end;">
+                    <ui:VisualElement name="globa-displays-card-bars" style="flex-grow: 1; justify-content: space-evenly;">
+                        <ui:VisualElement name="environment-bar-wrapper" style="width: auto;">
+                            <ui:VisualElement name="environment-bar-info" style="flex-direction: row; justify-content: space-between;">
+                                <ui:Label text="Environment" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                <ui:Label text="50/100" name="environment-bar-value" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                            </ui:VisualElement>
+                            <ui:Instance template="ProgressBar" name="environment-bar" class="progress-bar--environment" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="society-bar-wrapper" style="width: auto;">
+                            <ui:VisualElement name="society-bar-info" style="flex-direction: row; justify-content: space-between;">
+                                <ui:Label text="Society" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                <ui:Label text="50/100" name="society-bar-value" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                            </ui:VisualElement>
+                            <ui:Instance template="ProgressBar" name="society-bar" class="progress-bar--society" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="economy-bar-wrapper" style="width: auto;">
+                            <ui:VisualElement name="economy-bar-info" style="flex-direction: row; justify-content: space-between;">
+                                <ui:Label text="Economy" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                <ui:Label text="50/100" name="economy-bar-value" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                            </ui:VisualElement>
+                            <ui:Instance template="ProgressBar" name="economy-bar" class="progress-bar--economy" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="global-displays-card-shadow" class="card-shadow" style="flex-grow: 1; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; top: 4px; bottom: -4px; right: -5px; left: 6px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 0; position: absolute; justify-content: center; bottom: 0; width: 100%; height: auto; align-self: auto; flex-direction: row; background-color: rgba(59, 59, 59, 0); align-items: auto; align-content: center;">
+                <ui:VisualElement name="player-overview" class="card" style="flex-grow: 0; position: relative; padding-top: 15px; padding-right: 15px; padding-bottom: 15px; padding-left: 15px; flex-direction: row; width: auto; justify-content: flex-start; align-self: auto; align-content: auto; align-items: auto; display: flex; overflow: visible; max-width: none; min-width: auto;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -11,18 +11,23 @@ namespace Assets.Code.Scripts.Network {
         private IngameOverlay ingameOverlay;
 
         public override void OnNetworkSpawn() {
+            ingameOverlay = FindFirstObjectByType<IngameOverlay>();
+
             if (IsOwner) {
                 Move();
-
-                ingameOverlay = FindFirstObjectByType<IngameOverlay>();
 
                 health.OnValueChanged += OnHealthChanged;
                 coins.OnValueChanged += OnCoinsChanged;
 
                 if (ingameOverlay != null) {
-                    ingameOverlay.UpdatePlayerHealth(health.Value);
-                    ingameOverlay.UpdatePlayerCoins(coins.Value);
+                    // Initialize the overlay with the default values
+                    ingameOverlay.UpdateClientName($"Player {NetworkObjectId}");
+                    ingameOverlay.UpdateClientHealth(health.Value);
+                    ingameOverlay.UpdateClientCoins(coins.Value);
                 }
+            }
+            else {
+                ingameOverlay.AddPlayerToOverview(this);
             }
         }
 
@@ -34,15 +39,20 @@ namespace Assets.Code.Scripts.Network {
         }
 
         private void OnHealthChanged(int previousValue, int newValue) {
-            if (IsOwner && ingameOverlay != null) {
-                // TODO: rename to UpdateClientHealth and UpdateClientCoins respectively create new method in IngameOverlay where the player instance is passed as a parameter to update only the affected player in the all player list
-                ingameOverlay.UpdatePlayerHealth(newValue);
+            if (ingameOverlay != null) {
+                if (IsOwner) {
+                    ingameOverlay.UpdateClientHealth(newValue);
+                }
+                ingameOverlay.UpdatePlayerHealth(newValue, this.NetworkObjectId);
             }
         }
 
         private void OnCoinsChanged(int previousValue, int newValue) {
-            if (IsOwner && ingameOverlay != null) {
-                ingameOverlay.UpdatePlayerCoins(newValue);
+            if (ingameOverlay != null) {
+                if (IsOwner) {
+                    ingameOverlay.UpdateClientCoins(newValue);
+                }
+                ingameOverlay.UpdatePlayerCoins(newValue, this.NetworkObjectId);
             }
         }
 

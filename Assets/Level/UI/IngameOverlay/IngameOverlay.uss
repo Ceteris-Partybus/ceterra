@@ -2,3 +2,42 @@
     -unity-font-definition: url("project://database/Assets/Level/UI/Fonts/Jersey_15/Jersey15-Regular.ttf?fileID=12800000&guid=54af5735f6fb3784aa772c600074a2fd&type=3#Jersey15-Regular");
 }
 
+#player-overview {
+    position: absolute;
+    bottom: 0;
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(214, 211, 209);
+}
+
+#player-overview > * {
+    padding-left: 10px;
+    padding-right: 10px;
+    min-width: 200px;
+    max-width: 200px;
+}
+
+#ui-buttons > * {
+    max-height: 60px;
+    min-height: 60px;
+    min-width: 60px;
+    border-color: rgb(168, 162, 158);
+    border-width: 3px;
+    background-color: rgb(245, 245, 244);
+    border-radius: 4px;
+}
+
+#ui-buttons__invest {
+    border-radius: 4px;
+    padding: 5px 10px 5px 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#ui-buttons__fonds, #ui-buttons__resources {
+    width: 150px;
+    max-width: 150px;
+}
