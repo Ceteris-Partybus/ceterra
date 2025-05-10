@@ -1,5 +1,9 @@
 * {
-  -unity-font-definition: url("project://database/Assets/Level/UI/Fonts/Jersey_15/Jersey15-Regular.ttf?fileID=12800000&amp;guid=54af5735f6fb3784aa772c600074a2fd&amp;type=3#Jersey15-Regular")
+  -unity-font-definition: url("project://database/Assets/Level/UI/Fonts/Jersey_15/Jersey15-Regular.ttf?fileID=12800000&amp;guid=54af5735f6fb3784aa772c600074a2fd&amp;type=3#Jersey15-Regular");
+}
+
+#progress-bar {
+  margin: 0;
 }
 
 .health-bar--green .unity-progress-bar__progress {

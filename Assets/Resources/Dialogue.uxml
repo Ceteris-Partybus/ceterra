@@ -1,0 +1,20 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI/IngameOverlay/Dialogue.uss?fileID=7433441132597879392&amp;guid=2ced4822067a4ea4b8224242013b43c7&amp;type=3#Dialogue" />
+    <Style src="project://database/Assets/Level/UI/Global/Card.uss?fileID=7433441132597879392&amp;guid=788ddb1472ea9d34790d902073b1aee9&amp;type=3" />
+    <ui:VisualElement name="background" />
+    <ui:VisualElement name="dialogue-wrapper" style="flex-grow: 1;">
+        <ui:VisualElement name="dialogue" class="card">
+            <ui:VisualElement name="dialogue__head" style="flex-grow: 1;">
+                <ui:Label name="dialogue__title">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="title" data-source-type="Dialogue, Assembly-CSharp" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:Label>
+            </ui:VisualElement>
+            <ui:Button name="dialogue__close">
+                <ui:Label style="background-image: url(&quot;project://database/Assets/Level/UI/Icons/x.svg?fileID=7388822144124034973&amp;guid=32fbf9e908c42d9498ee45e1cefd611b&amp;type=3#x&quot;); width: 18px; height: 18px;" />
+            </ui:Button>
+            <ui:VisualElement name="dialogue__content" data-source-type="Dialogue, Assembly-CSharp" style="flex-grow: 1;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

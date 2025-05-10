@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d279d351f7b6ea145926de86d384e308, type: 3}
+  m_Name: InvestmentDialogue
+  m_EditorClassIdentifier: 
+  title: Investment
+  icon: {fileID: 7388822144124034973, guid: 2908baa18dead52499cc18cdcc24f76e, type: 3}
+  content: {fileID: 9197481963319205126, guid: eeb28d0008262644cbba93d799dcd63f, type: 3}

@@ -41,6 +41,17 @@
     align-items: center;
 }
 
+#player-card__coins-icon {
+    background-image: url("project://database/Assets/Level/UI/Icons/coin.svg?fileID=7388822144124034973&guid=38568947665bd37468367bc43c806645&type=3#coin");
+    width: 15px;
+    height: 15px;
+}
+
 #player-card__coins-value {
-  left: 3px;
+    left: 3px;
+}
+
+#player-card__shadow {
+    top: 2px;
+    left: 6px;
 }

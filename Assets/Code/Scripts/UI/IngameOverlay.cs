@@ -115,7 +115,7 @@ namespace Assets.Code.Scripts.UI {
         internal void AddPlayerToOverview(NetworkPlayer player) {
             VisualElement playerCardWrapper = new VisualElement();
             playerCardWrapper.name = "player-overview-" + player.NetworkObjectId.ToString();
-            VisualTreeAsset playerCardTemplate = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Level/UI/Global/PlayerCard.uxml");
+            VisualTreeAsset playerCardTemplate = Resources.Load<VisualTreeAsset>("PlayerCard");
             VisualElement playerCardContainer = playerCardTemplate.Instantiate();
             var playerCard = playerCardContainer.Q<VisualElement>("player-card");
             var playerNameLabel = playerCard.Q<Label>("player-card__display-name");

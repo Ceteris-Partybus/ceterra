@@ -15,10 +15,10 @@
                 <ui:Instance template="ProgressBar" name="player-card__health-bar" />
             </ui:VisualElement>
             <ui:VisualElement name="player-card__coins">
-                <ui:Label style="background-image: url(&quot;project://database/Assets/Level/UI/Icons/coin.svg?fileID=7388822144124034973&amp;guid=38568947665bd37468367bc43c806645&amp;type=3#coin&quot;); width: 15px; height: 15px;" />
+                <ui:Label name="player-card__coins-icon" />
                 <ui:Label text="100" name="player-card__coins-value" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="player-card__shadow" class="card-shadow" style="top: 2px; left: 6px;" />
+        <ui:VisualElement name="player-card__shadow" class="card-shadow" />
     </ui:VisualElement>
 </ui:UXML>
