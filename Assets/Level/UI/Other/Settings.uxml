@@ -1,0 +1,33 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI/Other/settings.uss?fileID=7433441132597879392&amp;guid=b49e5940a6019634582cec31c74af891&amp;type=3#settings" />
+    <ui:VisualElement name="Overlay" class="overlay">
+        <ui:VisualElement name="SettingsTitleBar" class="menu">
+            <ui:VisualElement name="SettingsTitleBar" class="title-bar">
+                <ui:Label name="Label" class="menu-icon" />
+                <ui:Label text="Settings" class="menu-title" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Settingscontainer" class="settings-container">
+                <ui:VisualElement class="settingsitem">
+                    <ui:Label text="Volume" class="settings-label" />
+                    <ui:VisualElement style="flex-grow: 1; flex-direction: row; height: auto; flex-wrap: nowrap; align-self: auto; justify-content: flex-start; align-items: center;">
+                        <ui:Slider name="VolumeSlider" low-value="0" high-value="100" value="70" class="settings-slider" style="height: 42px; width: 520px;" />
+                        <ui:Label name="VolumeValue" text="85" class="settings-value" style="height: 74px; width: 68px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="settingsitem">
+                    <ui:Label text="Fullscreen" class="settings-label" />
+                    <ui:Toggle name="FullscreenToggle" class="settings-toggle" style="height: 55px; width: 55px;" />
+                </ui:VisualElement>
+                <ui:VisualElement class="settingsitem">
+                    <ui:Label text="Resolution" class="settings-label" />
+                    <ui:DropdownField name="ResolutionDropdown" class="settings-dropdown" />
+                </ui:VisualElement>
+                <ui:VisualElement class="settingsitem">
+                    <ui:Label text="Language" class="settings-label" />
+                    <ui:DropdownField name="LanguageDropdown" class="settings-dropdown" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:Button name="SettingsCloseButton" class="close-button button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

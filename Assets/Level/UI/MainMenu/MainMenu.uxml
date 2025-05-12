@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="Settings" src="project://database/Assets/Level/UI/Other/Settings.uxml?fileID=9197481963319205126&amp;guid=df265b82c30ec4f44bf5a9737011162b&amp;type=3#Settings" />
+    <Style src="project://database/Assets/Level/UI/MainMenu/main-menu.uss?fileID=7433441132597879392&amp;guid=12beb740677607c4083b46270436952b&amp;type=3#main-menu" />
+    <ui:VisualElement name="Panel" class="panel">
+        <ui:VisualElement name="Logo" class="logo" />
+        <ui:VisualElement name="ButtonContainer" class="menu-button-container">
+            <ui:Button name="PlayButton" text="PLAY" class="button play-button" />
+            <ui:Button name="SettingsButton" class="button settings-button">
+                <ui:VisualElement name="SettingsIcon" class="settings-icon" />
+            </ui:Button>
+            <ui:Button name="ExitButton" class="button exit-button">
+                <ui:VisualElement name="ExitIcon" class="exit-icon" />
+            </ui:Button>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:Instance template="Settings" name="SettingsTemplateContainer" class="settings-template-container" />
+</ui:UXML>

@@ -1,0 +1,114 @@
+* {
+    -unity-font-definition: resource('UI/Other/Jersey15-Regular');
+}
+
+.panel {
+    background-color: rgb(0, 0, 0);
+    flex-grow: 1;
+    background-color: rgba(84, 84, 84, 0.5);
+    background-image: url("project://database/Assets/Level/UI/MainMenu/bg.png?fileID=2800000&guid=fa5c419bf6eb14e42a37d27a9049867a&type=3#bg");
+}
+
+.logo {
+    flex-grow: 1;
+    background-image: url("project://database/Assets/Level/UI/MainMenu/Logo.png?fileID=2800000&guid=50fc191a3b601be43a557d912660b68a&type=3#Logo");
+    background-size: 80% 60%;
+    background-position-x: center;
+    background-position-y: top;
+    align-items: auto;
+    justify-content: center;
+}
+
+.button {
+    border-radius: 30px;
+    color: white;
+    transition: all 0.2s;
+    border-width: 5px;
+    border-color: black;
+}
+
+.button:hover {
+    scale: 1.05;
+}
+
+.play-button {
+    width: 550px;
+    height: 275px;
+    background-color: rgb(160, 199, 100);
+    font-size: 180px;
+    -unity-font-style: bold;
+}
+
+.play-button:hover {
+    background-color: rgb(11, 85, 71);
+}
+
+.settings-button {
+    width: 100px;
+    height: 100px;
+    background-color: rgb(59, 59, 59);
+    margin-left: 30px;
+    font-size: 35px;
+    position: relative;
+    bottom: -85px;
+    justify-content: center;
+    align-items: center;
+}
+
+.settings-button:hover {
+    background-color: rgb(99, 99, 99);
+}
+
+.exit-button:hover {
+    background-color: rgb(99, 99, 99);
+}
+
+.play-button:active {
+    scale: 1;
+}
+
+.settings-button:active {
+    scale: 1;
+}
+
+.exit-button:active {
+    scale: 1;
+}
+
+.menu-button-container {
+    margin-bottom: 25px;
+    margin-left: 25px;
+    flex-direction: row;
+    align-items: center;
+}
+
+.settings-icon {
+    background-image: resource('UI/MainMenu/Settings');
+    height: 60px;
+    width: 60px;
+}
+
+.exit-button {
+    width: 100px;
+    height: 100px;
+    background-color: rgb(59, 59, 59);
+    margin-left: 30px;
+    font-size: 35px;
+    position: relative;
+    bottom: -85px;
+    justify-content: center;
+    align-items: center;
+    -unity-background-scale-mode: stretch-to-fill;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    flex-grow: 0;
+    flex-shrink: 1;
+    align-content: flex-start;
+    align-self: auto;
+}
+
+.exit-icon {
+    background-image: resource('UI/MainMenu/Exit');
+    height: 60px;
+    width: 60px;
+}
