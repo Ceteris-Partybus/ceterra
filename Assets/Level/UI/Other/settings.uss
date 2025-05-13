@@ -136,15 +136,12 @@
 
 .settings-dropdown {
     width: 270px;
-    height: 45px;
+    height: 55px;
+    font-size: 35px;
 }
 
 .settings-dropdown .unity-base-field__input {
     background-color: var(--field-input-bg);
     border-color: var(--field-input-bg);
     border-radius: 10px;
-}
-
-.unity-base-popup-field__input {
-    font-size: 30px;
 }
