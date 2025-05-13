@@ -1,0 +1,9 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; width: 100%; height: 100%; justify-content: center; align-self: flex-start; align-items: center; align-content: flex-start;">
+        <ui:Label style="-unity-font-style: bold; font-size: 333px;">
+            <Bindings>
+                <UnityEngine.Localization.LocalizedString property="text" table="GUID:d22c87e0e7a8b9f47ad412c1d97dcaf6" entry="Id(728764874752)" />
+            </Bindings>
+        </ui:Label>
+    </ui:VisualElement>
+</ui:UXML>
