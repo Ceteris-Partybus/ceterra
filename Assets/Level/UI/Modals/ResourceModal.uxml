@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1;">
+        <ui:Label text="Example Modal 1" class="modal-title" />
+        <ui:Label text="This is an example modal with some placeholder text. You can add any UI elements here." class="modal-text" />
+        <ui:Button text="Perform Action 1" name="btn-action" class="modal-button" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,96 @@
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+public class ModalManager : MonoBehaviour {
+    private static ModalManager instance;
+    public static ModalManager Instance {
+        get {
+            if (instance == null) {
+                instance = FindFirstObjectByType<ModalManager>();
+                if (instance == null) {
+                    GameObject obj = new GameObject("ModalManager");
+                    instance = obj.AddComponent<ModalManager>();
+                }
+            }
+            return instance;
+        }
+    }
+
+    [SerializeField] private UIDocument uiDocument;
+    private VisualElement modalContainer;
+    private readonly List<Modal> activeModals = new List<Modal>();
+
+    private void Awake() {
+        if (instance != null && instance != this) {
+            Destroy(this.gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(this.gameObject);
+
+        if (this.uiDocument == null) {
+            this.uiDocument = this.GetComponent<UIDocument>();
+        }
+
+        // Get the modal container from the UI Document
+        this.modalContainer = this.uiDocument.rootVisualElement.Q<VisualElement>("modal-container");
+        if (this.modalContainer == null) {
+            Debug.LogError("Modal container not found in UI Document. Make sure there's a VisualElement with name 'modal-container'");
+        }
+    }
+
+    public void ShowModal(Modal modal) {
+        if (this.modalContainer == null) {
+            Debug.LogError("Modal container not found");
+            return;
+        }
+
+        Debug.Log("Showing modal: " + modal.GetType().Name);
+
+        // Initialize the modal
+        modal.Initialize(this.modalContainer);
+
+        // Check if the modal container is already active
+        if (!this.IsModalContainerActive()) {
+            this.ToggleModalContainer();
+        }
+
+        // Add the modal to the active modals list
+        this.activeModals.Add(modal);
+
+        // Show the modal
+        modal.Show();
+    }
+
+    private bool IsModalContainerActive() {
+        return this.modalContainer != null && this.modalContainer.ClassListContains("active");
+    }
+
+    private void ToggleModalContainer() {
+        this.modalContainer?.ToggleInClassList("active");
+    }
+
+    public void CloseModal(Modal modal) {
+        if (this.activeModals.Contains(modal)) {
+            modal.Close();
+            this.activeModals.Remove(modal);
+        }
+        if (this.activeModals.Count == 0) {
+            if (this.IsModalContainerActive()) {
+                this.ToggleModalContainer();
+            }
+        }
+    }
+
+    public void CloseAllModals() {
+        foreach (var modal in this.activeModals.ToArray()) {
+            modal.Close();
+        }
+        this.activeModals.Clear();
+        if (this.IsModalContainerActive()) {
+            this.ToggleModalContainer();
+        }
+    }
+}
