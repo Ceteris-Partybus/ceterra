@@ -3,7 +3,7 @@ using System;
 public class GlobalDisplay {
 
     protected const int MIN_VALUE = 0;
-    protected int MAX_VALUE = 100;
+    protected int maxValue = 100;
     protected int currentValue;
 
     public int MinValue {
@@ -14,16 +14,16 @@ public class GlobalDisplay {
 
     public int MaxValue {
         get {
-            return this.MAX_VALUE;
+            return this.maxValue;
         }
         set {
-            this.MAX_VALUE = value;
+            this.maxValue = value;
         }
     }
 
     public int CurrentValue {
         get {
-            return this.CurrentValue;
+            return this.currentValue;
         }
         set {
             if (value < this.MinValue || value > this.MaxValue) {
