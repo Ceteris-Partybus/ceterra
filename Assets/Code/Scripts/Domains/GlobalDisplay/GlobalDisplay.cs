@@ -1,16 +1,30 @@
 using System;
-using UnityEngine;
-
-// veraltet, sollte nicht genutzt werden. Stattdessen die anderen Display-Klassen nehmen
 
 public class GlobalDisplay {
-    private int minValue;
-    private int maxValue;
 
-    private int currentValue;
+    protected const int MIN_VALUE = 0;
+    protected int MAX_VALUE = 100;
+    protected int currentValue;
+
+    public int MinValue {
+        get {
+            return MIN_VALUE;
+        }
+    }
+
+    public int MaxValue {
+        get {
+            return this.MAX_VALUE;
+        }
+        set {
+            this.MAX_VALUE = value;
+        }
+    }
 
     public int CurrentValue {
-        get { return this.currentValue; }
+        get {
+            return this.CurrentValue;
+        }
         set {
             if (value < this.MinValue || value > this.MaxValue) {
                 throw new Exception("Value must be between " + this.MinValue + " and " + this.MaxValue);
@@ -19,20 +33,6 @@ public class GlobalDisplay {
                 this.currentValue = value;
             }
         }
-    }
-
-    public int MinValue {
-        get; set;
-    }
-
-    public int MaxValue {
-        get; set;
-    }
-
-    public GlobalDisplay(int minValue, int maxValue, int currentValue) {
-        this.MinValue = minValue;
-        this.MaxValue = maxValue;
-        this.currentValue = currentValue;
     }
 
     public void AddCurrentValue(int add) {
@@ -44,9 +44,9 @@ public class GlobalDisplay {
         }
     }
 
-    public void SubtractCurrentValue(int subtract) {
+    public virtual void SubtractCurrentValue(int subtract) {
         if (this.CurrentValue - subtract < this.MinValue) {
-            throw new Exception("Subtraction exceeds minimum value " + this.MinValue);
+            this.CurrentValue = this.MinValue;
         }
         else {
             this.CurrentValue -= subtract;
