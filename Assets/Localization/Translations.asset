@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5be51871efa6c3e4eae1703925c8f5ac, type: 3}
-  m_Name: SampleSceneStringCollection
+  m_Name: Translations
   m_EditorClassIdentifier: 
-  m_SharedTableData: {fileID: 11400000, guid: d22c87e0e7a8b9f47ad412c1d97dcaf6, type: 2}
+  m_SharedTableData: {fileID: 11400000, guid: f6b65043aacbb3644b3e3ee6fa178d36, type: 2}
   m_Tables:
-  - {fileID: 11400000, guid: 7eac0073485eabb41bf3d497b12ecdcd, type: 2}
-  - {fileID: 11400000, guid: 271b00cb35ae72e4094c273d9811ce71, type: 2}
+  - {fileID: 11400000, guid: 35046737d7e99e748bbf5157116960cd, type: 2}
+  - {fileID: 11400000, guid: a25e4471b175a9c4c93293fe2c2afd01, type: 2}
   m_Extensions: []
   m_Group: String Table
   references:

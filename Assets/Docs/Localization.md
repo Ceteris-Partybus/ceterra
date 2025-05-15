@@ -9,17 +9,11 @@
 
 ### Lokalisierung bereits vorhanden
 5. Existiert die Übersetzung bereits, wähle sie über `Select Entry...` aus
-6. 
 
 ### Neue Lokalisierung erstellen
-5. Klicke auf `Add New Table Entry` und wähle die zu deiner Szene passende Collection.
+5. Klicke auf `Add New Table Entry` und wähle die `Translations` Collection aus.
 
-#### Neue Collection erstellen
-5.1 Klicke auf `Open Table Editor` und klickt auf `New Table Collection`. \
-5.2 Wähle die zu unterstützenden Sprachen aus. Benötigst du noch weitere Sprachen, als oben dargestellt, füge diese über den `Locale Generator` hinzu. \
-5.3 Gebe der Collection einen passenden Namen wie `<SzenenName>StringCollection`.
-
-6. Gebe dem Eintrag als Namen die englische Übersetzung des Textes.
+6. Gebe dem Eintrag als Namen die englische Übersetzung des Textes mit der zugehörigen Szene als Präfix, also z.B. `SampleScene.Hello`.
 7. Trage alle Übersetzungen in die Felder ein und klicke auf `Add Binding`.
 
 ## Lokalisierung via Code setzen
@@ -30,3 +24,7 @@ private void SetLocale(int localeIndex) {
 ```
 
 Der Index der Sprache (`localeIndex`) ist entweder codeseitig herauszufinden oder kann der Reihenfolge der Sprachen in den `LocalizationSettings` (befindet sich im `Settings` Ordner) entnommen werden.
+
+## Lokalisierung exportieren
+
+Öffne die `Translations` Collection im Projekt Explorer, klicke auf `Open in Table Editor` und wähle `Export` -> `CSV` und überschriebe die `Translations.csv` im gleichen Ordner.

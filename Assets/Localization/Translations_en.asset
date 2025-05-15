@@ -10,20 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
-  m_Name: SampleSceneStringCollection_de
+  m_Name: Translations_en
   m_EditorClassIdentifier: 
   m_LocaleId:
-    m_Code: de
-  m_SharedData: {fileID: 11400000, guid: d22c87e0e7a8b9f47ad412c1d97dcaf6, type: 2}
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: f6b65043aacbb3644b3e3ee6fa178d36, type: 2}
   m_Metadata:
     m_Items: []
   m_TableData:
-  - m_Id: 728764874752
-    m_Localized: Hallo
-    m_Metadata:
-      m_Items: []
-  - m_Id: 5649950146560
-    m_Localized: Spielen
+  - m_Id: 6962905088
+    m_Localized: Hello
     m_Metadata:
       m_Items: []
   references:

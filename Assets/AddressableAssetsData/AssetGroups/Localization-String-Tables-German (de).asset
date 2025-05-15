@@ -15,8 +15,8 @@ MonoBehaviour:
   m_GroupName: Localization-String-Tables-German (de)
   m_GUID: 85a7bfdffeacbcd4dacee0d89119f077
   m_SerializeEntries:
-  - m_GUID: 7eac0073485eabb41bf3d497b12ecdcd
-    m_Address: SampleSceneStringCollection_de
+  - m_GUID: a25e4471b175a9c4c93293fe2c2afd01
+    m_Address: Translations_de
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-de

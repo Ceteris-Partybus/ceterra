@@ -10,27 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
-  m_Name: SampleSceneStringCollection Shared Data
+  m_Name: Translations Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: SampleSceneStringCollection
-  m_TableCollectionNameGuidString: d22c87e0e7a8b9f47ad412c1d97dcaf6
+  m_TableCollectionName: Translations
+  m_TableCollectionNameGuidString: f6b65043aacbb3644b3e3ee6fa178d36
   m_Entries:
-  - m_Id: 728764874752
-    m_Key: Hello
-    m_Metadata:
-      m_Items: []
-  - m_Id: 5649950146560
-    m_Key: Play
+  - m_Id: 6962905088
+    m_Key: SampleScene.Hello
     m_Metadata:
       m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
-    rid: 5902161136838246842
+    rid: 5902161160030912521
   references:
     version: 2
     RefIds:
-    - rid: 5902161136838246842
+    - rid: 5902161160030912521
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
-        m_CustomEpoch: 1747159861676
+        m_CustomEpoch: 1747246573589
