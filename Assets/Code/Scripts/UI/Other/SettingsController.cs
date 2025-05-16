@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-using System.Globalization;
-using System;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 public class SettingsController : MonoBehaviour {
-
     private TemplateContainer settingsTemplateContainer;
     private Button closeButton;
     private Slider volumeSlider;
@@ -13,106 +12,125 @@ public class SettingsController : MonoBehaviour {
     private Toggle fullscreenToggle;
     private DropdownField resolutionDropdown;
     private DropdownField languageDropdown;
+
     private Resolution[] resolutions;
     private List<string> resolutionOptions;
-    private List<string> availableLanguages = new List<string> {
-        "English",
-        "Deutsch",
-    };
+    private readonly List<string> availableLanguages = new() { "English", "Deutsch" };
 
-    void OnEnable() {
+    private void OnEnable() {
         var root = GetComponent<UIDocument>().rootVisualElement;
 
-        settingsTemplateContainer = root.Q<TemplateContainer>("SettingsTemplateContainer");
-        closeButton = settingsTemplateContainer.Q<Button>("SettingsCloseButton");
-        closeButton.clicked += OnCloseButtonClicked;
-
-        volumeSlider = root.Q<Slider>("VolumeSlider");
-        volumeValue = root.Q<Label>("VolumeValue");
-        volumeSlider.RegisterValueChangedCallback(evt => {
-            UpdateVolumeValue(evt.newValue);
-        });
-        UpdateVolumeValue(volumeSlider.value);
-
-        fullscreenToggle = root.Q<Toggle>("FullscreenToggle");
-        fullscreenToggle.RegisterValueChangedCallback(evt => {
-            UpdateRadioButtonStyle(evt.newValue);
-            SetFullscreen(evt.newValue);
-        });
-        UpdateRadioButtonStyle(fullscreenToggle.value);
-
-        resolutionDropdown = root.Q<DropdownField>("ResolutionDropdown");
+        InitializeUIElements(root);
+        SetupVolume();
+        SetupFullscreen();
         InitializeResolutionDropdown();
-
-        languageDropdown = root.Q<DropdownField>("LanguageDropdown");
         InitializeLanguageDropdown();
     }
 
-    private void OnCloseButtonClicked() {
-        settingsTemplateContainer.RemoveFromClassList("visible");
+    private void InitializeUIElements(VisualElement root) {
+        settingsTemplateContainer = root.Q<TemplateContainer>("SettingsTemplateContainer");
+
+        closeButton = settingsTemplateContainer.Q<Button>("SettingsCloseButton");
+        closeButton.clicked += () => settingsTemplateContainer.RemoveFromClassList("visible");
+
+        volumeSlider = root.Q<Slider>("VolumeSlider");
+        volumeValue = root.Q<Label>("VolumeValue");
+
+        fullscreenToggle = root.Q<Toggle>("FullscreenToggle");
+
+        resolutionDropdown = root.Q<DropdownField>("ResolutionDropdown");
+        languageDropdown = root.Q<DropdownField>("LanguageDropdown");
     }
 
-    private void InitializeLanguageDropdown() {
-        languageDropdown.choices = availableLanguages;
-        int currentLanguageIndex = 0;
-
-        languageDropdown.index = currentLanguageIndex;
-
-        languageDropdown.RegisterValueChangedCallback(evt => {
-            SetLanguage(evt.newValue);
-        });
-    }
-
-    private void SetLanguage(string language) {
-        Debug.Log($"Changing language to: {language} and it need to be implemented");
+    private void SetupVolume() {
+        volumeSlider.RegisterValueChangedCallback(evt => UpdateVolumeValue(evt.newValue));
+        UpdateVolumeValue(volumeSlider.value);
     }
 
     private void UpdateVolumeValue(float value) {
         volumeValue.text = Mathf.RoundToInt(value).ToString();
     }
 
-    private void UpdateRadioButtonStyle(bool isChecked) {
-        if (isChecked) {
-            var checkedToggleTexture = Resources.Load<Sprite>("UI/Other/Toggle_checked");
-            fullscreenToggle.style.backgroundImage = new StyleBackground(checkedToggleTexture);
-        }
-        else {
-            var uncheckedToggleTexture = Resources.Load<Sprite>("UI/Other/Toggle");
-            fullscreenToggle.style.backgroundImage = new StyleBackground(uncheckedToggleTexture);
-        }
+    private void SetupFullscreen() {
+        fullscreenToggle.RegisterValueChangedCallback(evt => {
+            UpdateToggleGraphic(evt.newValue);
+            SetFullscreen(evt.newValue);
+        });
+
+        UpdateToggleGraphic(fullscreenToggle.value);
+    }
+
+    private void UpdateToggleGraphic(bool isChecked) {
+        string resourcePath = isChecked ? "UI/Other/Toggle_checked" : "UI/Other/Toggle";
+        var toggleTexture = Resources.Load<Sprite>(resourcePath);
+        fullscreenToggle.style.backgroundImage = new StyleBackground(toggleTexture);
+    }
+
+    private void SetFullscreen(bool isFullscreen) {
+        Screen.fullScreen = isFullscreen;
     }
 
     private void InitializeResolutionDropdown() {
         resolutions = Screen.resolutions;
         resolutionOptions = new List<string>();
 
-        var currentResolutionIndex = 0;
+        var currentIndex = 0;
 
         for (int i = 0; i < resolutions.Length; i++) {
-            string option = $"{resolutions[i].width} x {resolutions[i].height}";
+            var res = resolutions[i];
+            string option = $"{res.width} x {res.height}";
             resolutionOptions.Add(option);
 
-            if (resolutions[i].width == Screen.currentResolution.width &&
-                resolutions[i].height == Screen.currentResolution.height) {
-                currentResolutionIndex = i;
+            if (res.width == Screen.currentResolution.width && res.height == Screen.currentResolution.height) {
+                currentIndex = i;
             }
         }
 
         resolutionDropdown.choices = resolutionOptions;
+        resolutionDropdown.index = currentIndex;
 
-        resolutionDropdown.index = currentResolutionIndex;
-
-        resolutionDropdown.RegisterValueChangedCallback(evt => {
-            SetResolution(resolutionDropdown.index);
-        });
+        resolutionDropdown.RegisterValueChangedCallback(_ => SetResolution(resolutionDropdown.index));
     }
 
-    private void SetResolution(int resolutionIndex) {
-        Resolution resolution = resolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    private void SetResolution(int index) {
+        var res = resolutions[index];
+        Screen.SetResolution(res.width, res.height, Screen.fullScreen);
     }
 
-    private void SetFullscreen(bool isFullscreen) {
-        Screen.fullScreen = isFullscreen;
+    private void InitializeLanguageDropdown() {
+        languageDropdown.choices = availableLanguages;
+
+        string savedLanguage = PlayerPrefs.GetString("selectedLanguage", "English");
+        int savedIndex = availableLanguages.IndexOf(savedLanguage);
+
+        languageDropdown.index = savedIndex >= 0 ? savedIndex : 0;
+
+        languageDropdown.RegisterValueChangedCallback(evt => SetLanguage(evt.newValue));
+        SetLanguage(languageDropdown.value); // Ensure correct locale on start
+    }
+
+    private async void SetLanguage(string language) {
+        string localeCode = language switch {
+            "English" => "en",
+            "Deutsch" => "de",
+            _ => null
+        };
+
+        if (localeCode == null) {
+            Debug.LogWarning($"Unknown Language: {language}");
+            return;
+        }
+
+        await LocalizationSettings.InitializationOperation.Task;
+
+        var locale = LocalizationSettings.AvailableLocales.GetLocale(localeCode);
+        if (locale != null) {
+            LocalizationSettings.SelectedLocale = locale;
+            PlayerPrefs.SetString("selectedLanguage", language);
+            PlayerPrefs.Save();
+        }
+        else {
+            Debug.LogWarning($"Kein Locale gefunden für Sprache: {language}");
+        }
     }
 }

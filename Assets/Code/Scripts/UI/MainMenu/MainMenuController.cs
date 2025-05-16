@@ -1,40 +1,34 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class MainMenuController : MonoBehaviour {
-    private UIDocument document;
     private VisualElement root;
     private Button playButton;
     private Button settingsButton;
     private Button exitButton;
-    private TemplateContainer settingsTemplateContainer;
+    private TemplateContainer settingsContainer;
 
     private void OnEnable() {
-        document = GetComponent<UIDocument>();
-        root = document.rootVisualElement;
+        root = GetComponent<UIDocument>().rootVisualElement;
 
+        InitializeUIElements();
+    }
+
+    private void InitializeUIElements() {
         playButton = root.Q<Button>("PlayButton");
+        playButton.clicked += () => SceneManager.LoadScene("PlayMenu");
+
         settingsButton = root.Q<Button>("SettingsButton");
+        settingsButton.clicked += ShowSettings;
+
         exitButton = root.Q<Button>("ExitButton");
-        settingsTemplateContainer = root.Q<TemplateContainer>("SettingsTemplateContainer");
+        exitButton.clicked += Application.Quit;
 
-        playButton.clicked += OnPlayButtonClicked;
-        settingsButton.clicked += OnSettingsButtonClicked;
-        exitButton.clicked += OnExitButtonClicked;
+        settingsContainer = root.Q<TemplateContainer>("SettingsTemplateContainer");
     }
 
-    private void OnSettingsButtonClicked() {
-        settingsTemplateContainer.style.display = DisplayStyle.Flex;
-        settingsTemplateContainer.AddToClassList("visible");
-    }
-
-    private void OnPlayButtonClicked() {
-        SceneManager.LoadScene("PlayMenu");
-    }
-
-    private void OnExitButtonClicked() {
-        Application.Quit();
+    private void ShowSettings() {
+        settingsContainer.AddToClassList("visible");
     }
 }

@@ -32,11 +32,11 @@
 }
 
 .play-button {
-    width: 550px;
+    width: 525px;
     height: 275px;
     background-color: rgb(160, 199, 100);
     font-size: 180px;
-    -unity-font-style: bold;
+    -unity-font-style: normal;
 }
 
 .play-button:hover {

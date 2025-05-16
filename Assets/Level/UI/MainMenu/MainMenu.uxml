@@ -5,7 +5,11 @@
     <ui:VisualElement name="Panel" class="panel">
         <ui:VisualElement name="Logo" class="logo" />
         <ui:VisualElement name="ButtonContainer" class="menu-button-container">
-            <ui:Button name="PlayButton" text="PLAY" class="button play-button" />
+            <ui:Button name="PlayButton" class="button play-button">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(614498603008)" />
+                </Bindings>
+            </ui:Button>
             <ui:Button name="SettingsButton" class="button settings-button">
                 <ui:VisualElement name="SettingsIcon" class="settings-icon" />
             </ui:Button>
