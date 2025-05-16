@@ -1,10 +1,15 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public class GlobalDisplay {
 
     protected const int MIN_VALUE = 0;
     protected int maxValue = 100;
     protected int currentValue;
+    protected List<int> latestValues = new();
+    protected int listIterator = 1;
+    protected DisplayTrend.Trend currentTrend;
 
     public int MinValue {
         get {
@@ -35,6 +40,10 @@ public class GlobalDisplay {
         }
     }
 
+    public DisplayTrend.Trend CurrentTrend {
+        get; set;
+    }
+
     public void AddCurrentValue(int add) {
         if (this.CurrentValue + add > this.MaxValue) {
             this.CurrentValue = this.MaxValue;
@@ -51,5 +60,31 @@ public class GlobalDisplay {
         else {
             this.CurrentValue -= subtract;
         }
+    }
+
+    public void CalculateTrend() {
+        double average = this.latestValues.Average();
+        if (average > this.CurrentValue) {
+            this.CurrentTrend = DisplayTrend.Trend.falling;
+        }
+        else if (average < this.CurrentValue) {
+            this.CurrentTrend = DisplayTrend.Trend.rising;
+        }
+        else if (average == this.CurrentValue) {
+            this.CurrentTrend = DisplayTrend.Trend.stagnant;
+        }
+        else {
+            throw new Exception("Calculated average " + average + " could not be compared with the current value " + this.CurrentValue);
+        }
+    }
+
+    public void IterateLatestValues() {
+        if (this.listIterator < 5) {
+            this.latestValues.Add(this.CurrentValue);
+        }
+        else {
+            this.latestValues[this.listIterator % 5] = this.CurrentValue;
+        }
+        this.listIterator++;
     }
 }

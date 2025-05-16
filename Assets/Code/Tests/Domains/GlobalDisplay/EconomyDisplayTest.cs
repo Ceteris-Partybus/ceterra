@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System;
+using UnityEngine;
 
 public class EconomyDisplayTest {
     [TestCase(TestName = "erster Test")] //Möglichkeit zur Annotation, wird in Unity nicht angezeigt
@@ -8,6 +9,7 @@ public class EconomyDisplayTest {
         Assert.AreEqual(0, economyDisplay.MinValue);
         Assert.AreEqual(100, economyDisplay.MaxValue);
         Assert.AreEqual(10, economyDisplay.CurrentValue);
+        Assert.AreEqual(DisplayTrend.Trend.stagnant, economyDisplay.CurrentTrend);
     }
 
     [TestCase]
@@ -35,5 +37,20 @@ public class EconomyDisplayTest {
         Assert.AreEqual(0, economyDisplay.CurrentValue);
         economyDisplay.SubtractCurrentValue(10);
         Assert.AreEqual(0, economyDisplay.CurrentValue);
+    }
+
+    [TestCase]
+    public void CalculatesTrend() {
+        EconomyDisplay economyDisplay = new EconomyDisplay(10);
+        economyDisplay.CurrentValue = 20;
+        economyDisplay.IterateLatestValues();
+        economyDisplay.CalculateTrend();
+        Assert.AreEqual(DisplayTrend.Trend.rising, economyDisplay.CurrentTrend);
+        economyDisplay.CurrentValue = 10;
+        economyDisplay.CalculateTrend();
+        Assert.AreEqual(DisplayTrend.Trend.falling, economyDisplay.CurrentTrend);
+        economyDisplay.CurrentValue = 15;
+        economyDisplay.CalculateTrend();
+        Assert.AreEqual(DisplayTrend.Trend.stagnant, economyDisplay.CurrentTrend);
     }
 }

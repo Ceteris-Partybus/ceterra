@@ -8,6 +8,7 @@ public class FondsDisplayTest {
         Assert.AreEqual(0, fondsDisplay.MinValue);
         Assert.AreEqual(2147483647, fondsDisplay.MaxValue);
         Assert.AreEqual(10, fondsDisplay.CurrentValue);
+        Assert.AreEqual(DisplayTrend.Trend.stagnant, fondsDisplay.CurrentTrend);
     }
 
     [TestCase]
@@ -31,5 +32,20 @@ public class FondsDisplayTest {
         Assert.AreEqual(0, fondsDisplay.CurrentValue);
         var ex = Assert.Throws<Exception>(() => fondsDisplay.SubtractCurrentValue(100));
         Assert.That(ex.Message, Is.EqualTo("Subtraction exceeds minimum value " + fondsDisplay.MinValue));
+    }
+
+    [TestCase]
+    public void CalculatesTrend() {
+        FondsDisplay fondsDisplay = new FondsDisplay(10);
+        fondsDisplay.CurrentValue = 20;
+        fondsDisplay.IterateLatestValues();
+        fondsDisplay.CalculateTrend();
+        Assert.AreEqual(DisplayTrend.Trend.rising, fondsDisplay.CurrentTrend);
+        fondsDisplay.CurrentValue = 10;
+        fondsDisplay.CalculateTrend();
+        Assert.AreEqual(DisplayTrend.Trend.falling, fondsDisplay.CurrentTrend);
+        fondsDisplay.CurrentValue = 15;
+        fondsDisplay.CalculateTrend();
+        Assert.AreEqual(DisplayTrend.Trend.stagnant, fondsDisplay.CurrentTrend);
     }
 }

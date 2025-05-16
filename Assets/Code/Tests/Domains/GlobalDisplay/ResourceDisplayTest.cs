@@ -8,6 +8,7 @@ public class ResourceDisplayTest {
         Assert.AreEqual(0, resourceDisplay.MinValue);
         Assert.AreEqual(100, resourceDisplay.MaxValue);
         Assert.AreEqual(10, resourceDisplay.CurrentValue);
+        Assert.AreEqual(DisplayTrend.Trend.stagnant, resourceDisplay.CurrentTrend);
     }
 
     [TestCase]
@@ -35,5 +36,20 @@ public class ResourceDisplayTest {
         Assert.AreEqual(0, resourceDisplay.CurrentValue);
         var ex = Assert.Throws<Exception>(() => resourceDisplay.SubtractCurrentValue(100));
         Assert.That(ex.Message, Is.EqualTo("Subtraction exceeds minimum value " + resourceDisplay.MinValue));
+    }
+
+    [TestCase]
+    public void CalculatesTrend() {
+        ResourceDisplay resourceDisplay = new ResourceDisplay(10);
+        resourceDisplay.CurrentValue = 20;
+        resourceDisplay.IterateLatestValues();
+        resourceDisplay.CalculateTrend();
+        Assert.AreEqual(DisplayTrend.Trend.rising, resourceDisplay.CurrentTrend);
+        resourceDisplay.CurrentValue = 10;
+        resourceDisplay.CalculateTrend();
+        Assert.AreEqual(DisplayTrend.Trend.falling, resourceDisplay.CurrentTrend);
+        resourceDisplay.CurrentValue = 15;
+        resourceDisplay.CalculateTrend();
+        Assert.AreEqual(DisplayTrend.Trend.stagnant, resourceDisplay.CurrentTrend);
     }
 }

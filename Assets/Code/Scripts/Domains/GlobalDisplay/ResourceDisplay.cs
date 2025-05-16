@@ -3,6 +3,8 @@ using System;
 public class ResourceDisplay : GlobalDisplay {
     public ResourceDisplay(int currentValue) {
         this.CurrentValue = currentValue;
+        this.latestValues.Add(currentValue);
+        this.CurrentTrend = DisplayTrend.Trend.stagnant;
     }
 
     public override void SubtractCurrentValue(int subtract) {
