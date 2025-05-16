@@ -2,27 +2,31 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class ResourceModal : Modal {
-    public ResourceModal(VisualTreeAsset contentTemplate) : base(contentTemplate) {
+
+    private Button resourcesHistoryButton;
+    private VisualTreeAsset resourceHistoryModalTemplate;
+
+    public ResourceModal(VisualTreeAsset contentTemplate, VisualTreeAsset resourceHistoryModalTemplate) : base(contentTemplate) {
+        this.resourceHistoryModalTemplate = resourceHistoryModalTemplate;
     }
 
     protected override void InitializeContent() {
-        Button actionButton = modalContent.Q<Button>("btn-action");
+        this.resourcesHistoryButton = this.modalContent.Q<Button>("resources-history-button");
 
-        if (actionButton != null) {
-            actionButton.clicked += OnActionButtonClicked;
+        if (this.resourcesHistoryButton != null) {
+            this.resourcesHistoryButton.clicked += this.OnResourcesHistoryButtonClicked;
         }
     }
 
-    private void OnActionButtonClicked() {
+    private void OnResourcesHistoryButtonClicked() {
         Debug.Log("Action button in Modal 1 was clicked!");
-        // You can trigger other actions here
+        ModalManager.Instance.ShowModal(new ResourceHistoryModal(this.resourceHistoryModalTemplate));
     }
 
     protected override void OnClose() {
         // Unregister events when modal is closed
-        Button actionButton = modalContent.Q<Button>("btn-action");
-        if (actionButton != null) {
-            actionButton.clicked -= OnActionButtonClicked;
+        if (this.resourcesHistoryButton != null) {
+            this.resourcesHistoryButton.clicked -= this.OnResourcesHistoryButtonClicked;
         }
     }
 }

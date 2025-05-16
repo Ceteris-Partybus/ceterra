@@ -23,8 +23,6 @@ public class NetworkHelper : MonoBehaviour {
         else {
             StatusLabels();
 
-            SubmitNewPosition();
-
             // Only show admin controls if we're the server
             if (networkManager.IsServer) {
                 ServerControls();
@@ -55,22 +53,6 @@ public class NetworkHelper : MonoBehaviour {
         GUILayout.Label("Transport: " +
             networkManager.NetworkConfig.NetworkTransport.GetType().Name);
         GUILayout.Label("Mode: " + mode);
-    }
-
-    private void SubmitNewPosition() {
-        if (GUILayout.Button(networkManager.IsServer ? "Move" : "Request Position Change")) {
-            if (networkManager.IsServer && !networkManager.IsClient) {
-                //! Das bewegt gerade alle Spieler, die nicht der Host sind. Für unser Spiel ist das eigentlich irrelevant, weil der Server sowas so oder so nicht machen sollte. Ist nur aus dem Tutorial gezogen. Siehe https://docs-multiplayer.unity3d.com/netcode/current/tutorials/get-started-ngo/#adding-netcode-script-to-your-player-prefab
-                foreach (ulong uid in networkManager.ConnectedClientsIds) {
-                    networkManager.SpawnManager.GetPlayerNetworkObject(uid).GetComponent<NetworkPlayer>().Move();
-                }
-            }
-            else {
-                var playerObject = networkManager.SpawnManager.GetLocalPlayerObject();
-                var player = playerObject.GetComponent<NetworkPlayer>();
-                player.Move();
-            }
-        }
     }
 
     private void ServerControls() {
@@ -167,6 +149,8 @@ public class NetworkHelper : MonoBehaviour {
                 if (player != null) {
                     Debug.Log($"Setting health to {healthValue} for player {targetClientId}");
                     player.SetHealth(healthValue);
+                    // Notify all clients about this player's health change
+                    player.NotifyHealthChangeClientRpc(healthValue, targetClientId);
                 }
                 else {
                     Debug.LogWarning($"NetworkPlayer component not found on player {targetClientId}");
@@ -195,6 +179,8 @@ public class NetworkHelper : MonoBehaviour {
                 if (player != null) {
                     Debug.Log($"Setting coins to {coinsValue} for player {targetClientId}");
                     player.SetCoins(coinsValue);
+                    // Notify all clients about this player's coins change
+                    player.NotifyCoinsChangeClientRpc(coinsValue, targetClientId);
                 }
                 else {
                     Debug.LogWarning($"NetworkPlayer component not found on player {targetClientId}");
@@ -225,6 +211,7 @@ public class NetworkHelper : MonoBehaviour {
                         Debug.Log($"Calling SetHealthServerRpc for player {clientId}");
                         // Call the ServerRpc directly since we're on the server
                         player.SetHealth(healthValue);
+                        player.NotifyHealthChangeClientRpc(healthValue, player.NetworkObjectId);
                     }
                     else {
                         Debug.LogWarning($"NetworkPlayer component not found on player {clientId}");
@@ -256,6 +243,7 @@ public class NetworkHelper : MonoBehaviour {
                         Debug.Log($"Calling SetCoinsServerRpc for player {clientId}");
                         // Call the ServerRpc directly since we're on the server
                         player.SetCoins(coinsValue);
+                        player.NotifyHealthChangeClientRpc(coinsValue, player.NetworkObjectId);
                     }
                     else {
                         Debug.LogWarning($"NetworkPlayer component not found on player {clientId}");

@@ -12,16 +12,14 @@ public class NetworkPlayer : NetworkBehaviour {
         boardOverlay = FindFirstObjectByType<BoardOverlay>();
 
         if (IsOwner) {
-            Move();
-
             health.OnValueChanged += OnHealthChanged;
             coins.OnValueChanged += OnCoinsChanged;
 
             if (boardOverlay != null) {
                 // Initialize the overlay with the default values
-                boardOverlay.UpdateClientName($"Player {NetworkObjectId}");
-                boardOverlay.UpdateClientHealth(health.Value);
-                boardOverlay.UpdateClientCoins(coins.Value);
+                boardOverlay.SetCurrentPlayerName($"Player {NetworkObjectId}");
+                boardOverlay.SetCurrentPlayerHealth(health.Value);
+                boardOverlay.SetCurrentPlayerCoins(coins.Value);
             }
         }
         else {
@@ -39,38 +37,31 @@ public class NetworkPlayer : NetworkBehaviour {
     private void OnHealthChanged(int previousValue, int newValue) {
         if (boardOverlay != null) {
             if (IsOwner) {
-                boardOverlay.UpdateClientHealth(newValue);
+                boardOverlay.SetCurrentPlayerHealth(newValue);
             }
-            boardOverlay.UpdatePlayerHealth(newValue, this.NetworkObjectId);
+        }
+    }
+
+    public void OnOtherHealthChanged(int newValue, ulong playerId) {
+        Debug.Log($"[NetworkPlayer:46] OnOtherHealthChanged called with newValue: {newValue}, playerId: {playerId}");
+        if (boardOverlay != null) {
+            Debug.Log($"[NetworkPlayer:48] Updating health for player {playerId} to {newValue}");
+            boardOverlay.SetPlayerHealth(newValue, playerId);
         }
     }
 
     private void OnCoinsChanged(int previousValue, int newValue) {
         if (boardOverlay != null) {
             if (IsOwner) {
-                boardOverlay.UpdateClientCoins(newValue);
+                boardOverlay.SetCurrentPlayerCoins(newValue);
             }
-            boardOverlay.UpdatePlayerCoins(newValue, this.NetworkObjectId);
         }
     }
 
-    public void Move() {
-        this.SubmitPositionRequestRpc();
-    }
-
-    [Rpc(SendTo.Server)]
-    private void SubmitPositionRequestRpc(RpcParams rpcParams = default) {
-        var randomPosition = GetRandomPositionOnPlane();
-        this.transform.position = randomPosition;
-        this.position.Value = randomPosition;
-    }
-
-    static Vector3 GetRandomPositionOnPlane() {
-        return new Vector3(Random.Range(-3f, 3f), 1f, Random.Range(-3f, 3f));
-    }
-
-    private void Update() {
-        this.transform.position = this.position.Value;
+    public void OnOtherCoinsChanged(int newValue, ulong playerId) {
+        if (boardOverlay != null) {
+            boardOverlay.SetPlayerCoins(newValue, playerId);
+        }
     }
 
     // This method should be used when we're already on the server
@@ -109,5 +100,25 @@ public class NetworkPlayer : NetworkBehaviour {
         // This RPC is intended for clients to call the server
         Debug.Log($"SetCoinsServerRpc called with value: {value}");
         SetCoins(value);
+    }
+
+    [ClientRpc]
+    public void NotifyHealthChangeClientRpc(int newHealthValue, ulong playerId) {
+        // Skip if this is the player whose health changed - they'll get the update via NetworkVariable
+        if (playerId != OwnerClientId) {
+            OnOtherHealthChanged(newHealthValue, playerId);
+        }
+        // TODO: This is kinda fucked, OwnerClientId is the same as playerId, now idea why, has to be fixed later, for trivial testing purposes it's ok
+        OnOtherHealthChanged(newHealthValue, playerId);
+    }
+
+    [ClientRpc]
+    public void NotifyCoinsChangeClientRpc(int newCoinsValue, ulong playerId) {
+        // Skip if this is the player whose coins changed - they'll get the update via NetworkVariable
+        if (playerId != OwnerClientId) {
+            OnOtherCoinsChanged(newCoinsValue, playerId);
+        }
+        // TODO: This is kinda fucked, OwnerClientId is the same as playerId, now idea why, has to be fixed later, for trivial testing purposes it's ok
+        OnOtherCoinsChanged(newCoinsValue, playerId);
     }
 }

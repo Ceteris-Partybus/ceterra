@@ -562,7 +562,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiDocument: {fileID: 1429801809}
   resourcesModalTemplate: {fileID: 9197481963319205126, guid: ead23cd808eda48478beec7223aa1420, type: 3}
-  fondsModalTemplate: {fileID: 9197481963319205126, guid: b05d1472dfd7a894fa5018b1676c1725, type: 3}
+  resourceHistoryModalTemplate: {fileID: 9197481963319205126, guid: 42db33fcc5b7d234c8b294bd01fc74d8, type: 3}
+  fundsModalTemplate: {fileID: 9197481963319205126, guid: b05d1472dfd7a894fa5018b1676c1725, type: 3}
+  fundsHistoryModalTemplate: {fileID: 9197481963319205126, guid: 922119e95a2ea3742be11662b507d7bd, type: 3}
+  fundsDepositModalTemplate: {fileID: 9197481963319205126, guid: 071fc08bedd6836469dc1f0742b8f39c, type: 3}
   investModalTemplate: {fileID: 9197481963319205126, guid: 205aeae53f555b04c854b7caafd4de60, type: 3}
 --- !u!114 &1429801812
 MonoBehaviour:
