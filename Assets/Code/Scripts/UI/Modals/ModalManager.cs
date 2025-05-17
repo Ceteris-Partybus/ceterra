@@ -93,4 +93,12 @@ public class ModalManager : MonoBehaviour {
             this.ToggleModalContainer();
         }
     }
+
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (this.activeModals.Count > 0) {
+                this.CloseModal(this.activeModals[this.activeModals.Count - 1]);
+            }
+        }
+    }
 }

@@ -14,6 +14,9 @@ public class BoardOverlay : MonoBehaviour {
     [SerializeField] private VisualTreeAsset fundsModalTemplate;
     [SerializeField] private VisualTreeAsset fundsHistoryModalTemplate;
     [SerializeField] private VisualTreeAsset fundsDepositModalTemplate;
+    [SerializeField] private VisualTreeAsset fundsInvestProposalModalTemplate;
+    [SerializeField] private VisualTreeAsset fundsInvestProposalSubmitModalTemplate;
+    [SerializeField] private VisualTreeAsset investProposalVoteModalTemplate;
     [Header("Investions")]
     [SerializeField] private VisualTreeAsset investModalTemplate;
 
@@ -89,7 +92,6 @@ public class BoardOverlay : MonoBehaviour {
         else {
             this.resourcesButton.clicked += () => {
                 Debug.Log("Resources button clicked");
-                // Open resources modal
                 var modal = new ResourceModal(this.resourcesModalTemplate, this.resourceHistoryModalTemplate);
                 ModalManager.Instance.ShowModal(modal);
             };
@@ -102,8 +104,7 @@ public class BoardOverlay : MonoBehaviour {
         else {
             this.fundsButton.clicked += () => {
                 Debug.Log("Fonds button clicked");
-                // Open fonds modal
-                var modal = new FundsModal(this.fundsModalTemplate, this.fundsHistoryModalTemplate, this.fundsDepositModalTemplate);
+                var modal = new FundsModal(this.fundsModalTemplate, this.fundsHistoryModalTemplate, this.fundsDepositModalTemplate, this.fundsInvestProposalModalTemplate, this.fundsInvestProposalSubmitModalTemplate);
                 ModalManager.Instance.ShowModal(modal);
             };
         }
@@ -115,8 +116,7 @@ public class BoardOverlay : MonoBehaviour {
         else {
             this.investButton.clicked += () => {
                 Debug.Log("Invest button clicked");
-                // Open invest modal
-                var modal = new InvestModal(this.investModalTemplate);
+                var modal = new InvestModal(this.investModalTemplate, this.fundsInvestProposalSubmitModalTemplate, this.investProposalVoteModalTemplate);
                 ModalManager.Instance.ShowModal(modal);
             };
         }

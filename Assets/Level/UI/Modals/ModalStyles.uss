@@ -84,6 +84,10 @@
     -unity-font-definition: resource('Fonts/Jersey_15/Jersey15-Regular');
 }
 
+.modal-content {
+    flex-grow: 1;
+}
+
 .modal-button {
     padding: 8px 16px;
     background-color: rgb(245, 245, 244);
@@ -95,6 +99,13 @@
     width: 200px;
 }
 
-.modal-content {
-    flex-grow: 1;
+.modal-button {
+    padding: 8px 16px;
+    background-color: rgb(245, 245, 244);
+    border-radius: 4px;
+    color: rgb(68, 64, 60);
+    margin: 4px;
+    border-width: 3px;
+    border-color: rgb(168, 162, 158);
+    width: 200px;
 }

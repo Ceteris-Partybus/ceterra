@@ -8,10 +8,15 @@ public class FundsModal : Modal {
     private Button depositButton;
     private VisualTreeAsset fundsHistoryModalTemplate;
     private VisualTreeAsset fundsDepositModalTemplate;
+    private VisualTreeAsset fundsInvestProposalModalTemplate;
+    private VisualTreeAsset fundsInvestProposalSubmitModalTemplate;
+    private VisualTreeAsset investProposalVoteModalTemplate;
 
-    public FundsModal(VisualTreeAsset contentTemplate, VisualTreeAsset fundsHistoryModalTemplate, VisualTreeAsset fundsDepositModalTemplate) : base(contentTemplate) {
+    public FundsModal(VisualTreeAsset contentTemplate, VisualTreeAsset fundsHistoryModalTemplate, VisualTreeAsset fundsDepositModalTemplate, VisualTreeAsset fundsInvestProposalModalTemplate, VisualTreeAsset fundsInvestProposalSubmitModalTemplate) : base(contentTemplate) {
         this.fundsHistoryModalTemplate = fundsHistoryModalTemplate;
         this.fundsDepositModalTemplate = fundsDepositModalTemplate;
+        this.fundsInvestProposalModalTemplate = fundsInvestProposalModalTemplate;
+        this.fundsInvestProposalSubmitModalTemplate = fundsInvestProposalSubmitModalTemplate;
     }
 
     protected override void InitializeContent() {
@@ -37,8 +42,7 @@ public class FundsModal : Modal {
     }
 
     private void OnInvestButtonClicked() {
-        // Handle invest button click
-        Debug.Log("Invest button clicked!");
+        ModalManager.Instance.ShowModal(new FundsInvestProposalModal(this.fundsInvestProposalModalTemplate, this.fundsInvestProposalSubmitModalTemplate, this.investProposalVoteModalTemplate));
     }
 
     private void OnDepositButtonClicked() {

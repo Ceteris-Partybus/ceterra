@@ -1,28 +1,64 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class InvestModal : Modal {
-    public InvestModal(VisualTreeAsset contentTemplate) : base(contentTemplate) {
+    private VisualTreeAsset fundsInvestProposalSubmitModalTemplate;
+    private VisualTreeAsset investProposalVoteModalTemplate;
+    private List<VisualElement> investCards = new();
+    public InvestModal(VisualTreeAsset contentTemplate, VisualTreeAsset fundsInvestProposalSubmitModalTemplate, VisualTreeAsset investProposalVoteModalTemplate) : base(contentTemplate) {
+        this.fundsInvestProposalSubmitModalTemplate = fundsInvestProposalSubmitModalTemplate;
+        this.investProposalVoteModalTemplate = investProposalVoteModalTemplate;
     }
 
     protected override void InitializeContent() {
-        Button confirmButton = modalContent.Q<Button>("btn-confirm");
+        investCards = this.modalContent.Query<VisualElement>(name: "investments-grid").Children<VisualElement>().ToList();
 
-        if (confirmButton != null) {
-            confirmButton.clicked += OnConfirmButtonClicked;
+        foreach (var investCard in investCards) {
+            if (investCard != null) {
+                Button depositButton = investCard.Q<Button>("invest-card-deposit-button");
+                Button proposeInvestButton = investCard.Q<Button>("invest-card-propose-invest-button");
+                if (depositButton != null) {
+                    depositButton.clicked += () => {
+                        this.OnInvestCardDepositButtonClicked(investCard);
+                    };
+                }
+                if (proposeInvestButton != null) {
+                    proposeInvestButton.clicked += () => {
+                        this.OnInvestCardProposeInvestButtonClicked(investCard);
+                    };
+                }
+            }
         }
     }
 
-    private void OnConfirmButtonClicked() {
-        Debug.Log("Confirm button in Modal 3 was clicked!");
-        // You can trigger other actions here
+    private void OnInvestCardDepositButtonClicked(VisualElement investCard) {
+        // Handle deposit button click
+        Debug.Log("Deposit button clicked for invest card: " + investCard.name);
+    }
+
+    private void OnInvestCardProposeInvestButtonClicked(VisualElement investCard) {
+        // Handle propose invest button click
+        Debug.Log("Propose invest button clicked for invest card: " + investCard.name);
+        ModalManager.Instance.ShowModal(new FundsInvestProposalSubmitModal(this.fundsInvestProposalSubmitModalTemplate, this.investProposalVoteModalTemplate));
     }
 
     protected override void OnClose() {
-        // Unregister events when modal is closed
-        Button confirmButton = modalContent.Q<Button>("btn-confirm");
-        if (confirmButton != null) {
-            confirmButton.clicked -= OnConfirmButtonClicked;
+        foreach (var investCard in investCards) {
+            if (investCard != null) {
+                Button depositButton = investCard.Q<Button>("invest-card-deposit-button");
+                Button proposeInvestButton = investCard.Q<Button>("invest-card-propose-invest-button");
+                if (depositButton != null) {
+                    depositButton.clicked -= () => {
+                        this.OnInvestCardDepositButtonClicked(investCard);
+                    };
+                }
+                if (proposeInvestButton != null) {
+                    proposeInvestButton.clicked -= () => {
+                        this.OnInvestCardProposeInvestButtonClicked(investCard);
+                    };
+                }
+            }
         }
     }
 }

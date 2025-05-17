@@ -566,6 +566,9 @@ MonoBehaviour:
   fundsModalTemplate: {fileID: 9197481963319205126, guid: b05d1472dfd7a894fa5018b1676c1725, type: 3}
   fundsHistoryModalTemplate: {fileID: 9197481963319205126, guid: 922119e95a2ea3742be11662b507d7bd, type: 3}
   fundsDepositModalTemplate: {fileID: 9197481963319205126, guid: 071fc08bedd6836469dc1f0742b8f39c, type: 3}
+  fundsInvestProposalModalTemplate: {fileID: 9197481963319205126, guid: 939587d1053b3424199eb0c04ed7b92e, type: 3}
+  fundsInvestProposalSubmitModalTemplate: {fileID: 9197481963319205126, guid: b6b3ec5ba6027994eb869d28837b2cba, type: 3}
+  investProposalVoteModalTemplate: {fileID: 9197481963319205126, guid: 34de54c63f83a654d9d1bf0d799b1ac4, type: 3}
   investModalTemplate: {fileID: 9197481963319205126, guid: 205aeae53f555b04c854b7caafd4de60, type: 3}
 --- !u!114 &1429801812
 MonoBehaviour:
