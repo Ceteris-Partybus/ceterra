@@ -321,6 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3b27ad7e5a0a464ea1fe0430bae9b3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uIDocument: {fileID: 1984653604}
 --- !u!114 &1984653607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,6 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 033fd5516e4e38b4c8884f9d2aeb1b54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uIDocument: {fileID: 1984653604}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

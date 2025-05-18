@@ -9,8 +9,11 @@ public class MainMenuController : MonoBehaviour {
     private Button exitButton;
     private TemplateContainer settingsContainer;
 
+    [SerializeField]
+    private UIDocument uIDocument;
+
     private void OnEnable() {
-        root = GetComponent<UIDocument>().rootVisualElement;
+        root = uIDocument.rootVisualElement;
 
         InitializeUIElements();
     }

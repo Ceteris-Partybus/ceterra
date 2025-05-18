@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 
 public class SettingsController : MonoBehaviour {
@@ -12,13 +11,15 @@ public class SettingsController : MonoBehaviour {
     private Toggle fullscreenToggle;
     private DropdownField resolutionDropdown;
     private DropdownField languageDropdown;
-
     private Resolution[] resolutions;
     private List<string> resolutionOptions;
     private readonly List<string> availableLanguages = new() { "English", "Deutsch" };
 
+    [SerializeField]
+    private UIDocument uIDocument;
+
     private void OnEnable() {
-        var root = GetComponent<UIDocument>().rootVisualElement;
+        var root = uIDocument.rootVisualElement;
 
         InitializeUIElements(root);
         SetupVolume();

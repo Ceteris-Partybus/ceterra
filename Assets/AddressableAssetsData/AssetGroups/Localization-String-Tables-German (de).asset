@@ -15,12 +15,6 @@ MonoBehaviour:
   m_GroupName: Localization-String-Tables-German (de)
   m_GUID: 3331f77df7e7098488c1d23b7776f726
   m_SerializeEntries:
-  - m_GUID: cc0d8c66874e30d4d913a04c6c307b24
-    m_Address: test_de
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-de
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ccd7f5a080adfb149bbcf9d469c4bec6
     m_Address: ceterra_de
     m_ReadOnly: 1
