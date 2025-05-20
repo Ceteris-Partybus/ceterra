@@ -1,51 +1,54 @@
 using NUnit.Framework;
 using System;
 
-public class FondsDisplayTest {
+public class FundsDisplayTest {
     [TestCase]
     public void Initializes() {
-        FondsDisplay fondsDisplay = new FondsDisplay(10);
-        Assert.AreEqual(0, fondsDisplay.MinValue);
-        Assert.AreEqual(2147483647, fondsDisplay.MaxValue);
-        Assert.AreEqual(10, fondsDisplay.CurrentValue);
-        Assert.AreEqual(DisplayTrend.Trend.stagnant, fondsDisplay.CurrentTrend);
+        FundsDisplay fundsDisplay = new FundsDisplay(10);
+        Assert.AreEqual(0, fundsDisplay.MinValue);
+        Assert.AreEqual(2147483647, fundsDisplay.MaxValue);
+        Assert.AreEqual(10, fundsDisplay.CurrentValue);
+        Assert.AreEqual(DisplayTrend.STAGNANT, fundsDisplay.CurrentTrend);
     }
 
     [TestCase]
     public void Sets() {
-        FondsDisplay fondsDisplay = new FondsDisplay(10);
-        var ex = Assert.Throws<Exception>(() => fondsDisplay.CurrentValue = -1);
-        Assert.That(ex.Message, Is.EqualTo("Value must be between " + fondsDisplay.MinValue + " and " + fondsDisplay.MaxValue));
+        FundsDisplay fundsDisplay = new FundsDisplay(10);
+        var ex = Assert.Throws<Exception>(() => fundsDisplay.CurrentValue = -1);
+        Assert.That(ex.Message, Is.EqualTo("Value must be between " + fundsDisplay.MinValue + " and " + fundsDisplay.MaxValue));
     }
 
     [TestCase]
     public void Adds() {
-        FondsDisplay fondsDisplay = new FondsDisplay(0);
-        fondsDisplay.AddCurrentValue(10);
-        Assert.AreEqual(10, fondsDisplay.CurrentValue);
+        FundsDisplay fundsDisplay = new FundsDisplay(0);
+        fundsDisplay.AddCurrentValue(10);
+        Assert.AreEqual(10, fundsDisplay.CurrentValue);
+        fundsDisplay.CurrentValue = fundsDisplay.MaxValue - 1;
+        fundsDisplay.AddCurrentValue(10);
+        Assert.AreEqual(fundsDisplay.CurrentValue, fundsDisplay.MaxValue);
     }
 
     [TestCase]
     public void Subtracts() {
-        FondsDisplay fondsDisplay = new FondsDisplay(10);
-        fondsDisplay.SubtractCurrentValue(10);
-        Assert.AreEqual(0, fondsDisplay.CurrentValue);
-        var ex = Assert.Throws<Exception>(() => fondsDisplay.SubtractCurrentValue(100));
-        Assert.That(ex.Message, Is.EqualTo("Subtraction exceeds minimum value " + fondsDisplay.MinValue));
+        FundsDisplay fundsDisplay = new FundsDisplay(10);
+        fundsDisplay.SubtractCurrentValue(10);
+        Assert.AreEqual(0, fundsDisplay.CurrentValue);
+        var ex = Assert.Throws<Exception>(() => fundsDisplay.SubtractCurrentValue(100));
+        Assert.That(ex.Message, Is.EqualTo("Subtraction exceeds minimum value " + fundsDisplay.MinValue));
     }
 
     [TestCase]
     public void CalculatesTrend() {
-        FondsDisplay fondsDisplay = new FondsDisplay(10);
-        fondsDisplay.CurrentValue = 20;
-        fondsDisplay.IterateLatestValues();
-        fondsDisplay.CalculateTrend();
-        Assert.AreEqual(DisplayTrend.Trend.rising, fondsDisplay.CurrentTrend);
-        fondsDisplay.CurrentValue = 10;
-        fondsDisplay.CalculateTrend();
-        Assert.AreEqual(DisplayTrend.Trend.falling, fondsDisplay.CurrentTrend);
-        fondsDisplay.CurrentValue = 15;
-        fondsDisplay.CalculateTrend();
-        Assert.AreEqual(DisplayTrend.Trend.stagnant, fondsDisplay.CurrentTrend);
+        FundsDisplay fundsDisplay = new FundsDisplay(10);
+        fundsDisplay.CurrentValue = 20;
+        fundsDisplay.IterateLatestValues();
+        fundsDisplay.CalculateTrend();
+        Assert.AreEqual(DisplayTrend.RISING, fundsDisplay.CurrentTrend);
+        fundsDisplay.CurrentValue = 10;
+        fundsDisplay.CalculateTrend();
+        Assert.AreEqual(DisplayTrend.FALLING, fundsDisplay.CurrentTrend);
+        fundsDisplay.CurrentValue = 15;
+        fundsDisplay.CalculateTrend();
+        Assert.AreEqual(DisplayTrend.STAGNANT, fundsDisplay.CurrentTrend);
     }
 }

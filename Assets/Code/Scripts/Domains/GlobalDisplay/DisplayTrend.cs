@@ -1,7 +1,5 @@
-public class DisplayTrend {
-    public enum Trend {
-        rising,
-        falling,
-        stagnant
-    }
+public enum DisplayTrend {
+    RISING,
+    FALLING,
+    STAGNANT
 }

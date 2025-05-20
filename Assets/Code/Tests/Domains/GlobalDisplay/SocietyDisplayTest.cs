@@ -8,7 +8,7 @@ public class SocietyDisplayTest {
         Assert.AreEqual(0, societyDisplay.MinValue);
         Assert.AreEqual(100, societyDisplay.MaxValue);
         Assert.AreEqual(10, societyDisplay.CurrentValue);
-        Assert.AreEqual(DisplayTrend.Trend.stagnant, societyDisplay.CurrentTrend);
+        Assert.AreEqual(DisplayTrend.STAGNANT, societyDisplay.CurrentTrend);
     }
 
     [TestCase]
@@ -44,12 +44,12 @@ public class SocietyDisplayTest {
         societyDisplay.CurrentValue = 20;
         societyDisplay.IterateLatestValues();
         societyDisplay.CalculateTrend();
-        Assert.AreEqual(DisplayTrend.Trend.rising, societyDisplay.CurrentTrend);
+        Assert.AreEqual(DisplayTrend.RISING, societyDisplay.CurrentTrend);
         societyDisplay.CurrentValue = 10;
         societyDisplay.CalculateTrend();
-        Assert.AreEqual(DisplayTrend.Trend.falling, societyDisplay.CurrentTrend);
+        Assert.AreEqual(DisplayTrend.FALLING, societyDisplay.CurrentTrend);
         societyDisplay.CurrentValue = 15;
         societyDisplay.CalculateTrend();
-        Assert.AreEqual(DisplayTrend.Trend.stagnant, societyDisplay.CurrentTrend);
+        Assert.AreEqual(DisplayTrend.STAGNANT, societyDisplay.CurrentTrend);
     }
 }

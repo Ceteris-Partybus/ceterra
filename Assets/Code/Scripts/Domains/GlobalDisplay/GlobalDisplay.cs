@@ -9,7 +9,7 @@ public class GlobalDisplay {
     protected int currentValue;
     protected List<int> latestValues = new();
     protected int listIterator = 1;
-    protected DisplayTrend.Trend currentTrend;
+    protected DisplayTrend currentTrend;
 
     public int MinValue {
         get {
@@ -40,11 +40,17 @@ public class GlobalDisplay {
         }
     }
 
-    public DisplayTrend.Trend CurrentTrend {
+    public DisplayTrend CurrentTrend {
         get; set;
     }
 
-    public void AddCurrentValue(int add) {
+    public GlobalDisplay(int currentValue) {
+        this.CurrentValue = currentValue;
+        this.latestValues.Add(currentValue);
+        this.CurrentTrend = DisplayTrend.STAGNANT;
+    }
+
+    public virtual void AddCurrentValue(int add) {
         if (this.CurrentValue + add > this.MaxValue) {
             this.CurrentValue = this.MaxValue;
         }
@@ -65,16 +71,13 @@ public class GlobalDisplay {
     public void CalculateTrend() {
         double average = this.latestValues.Average();
         if (average > this.CurrentValue) {
-            this.CurrentTrend = DisplayTrend.Trend.falling;
+            this.CurrentTrend = DisplayTrend.FALLING;
         }
         else if (average < this.CurrentValue) {
-            this.CurrentTrend = DisplayTrend.Trend.rising;
+            this.CurrentTrend = DisplayTrend.RISING;
         }
         else if (average == this.CurrentValue) {
-            this.CurrentTrend = DisplayTrend.Trend.stagnant;
-        }
-        else {
-            throw new Exception("Calculated average " + average + " could not be compared with the current value " + this.CurrentValue);
+            this.CurrentTrend = DisplayTrend.STAGNANT;
         }
     }
 

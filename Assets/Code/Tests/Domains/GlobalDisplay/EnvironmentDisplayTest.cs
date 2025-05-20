@@ -8,7 +8,7 @@ public class EnvironmentDisplayTest {
         Assert.AreEqual(0, environmentDisplay.MinValue);
         Assert.AreEqual(100, environmentDisplay.MaxValue);
         Assert.AreEqual(10, environmentDisplay.CurrentValue);
-        Assert.AreEqual(DisplayTrend.Trend.stagnant, environmentDisplay.CurrentTrend);
+        Assert.AreEqual(DisplayTrend.STAGNANT, environmentDisplay.CurrentTrend);
     }
 
     [TestCase]
@@ -44,12 +44,12 @@ public class EnvironmentDisplayTest {
         environmentDisplay.CurrentValue = 20;
         environmentDisplay.IterateLatestValues();
         environmentDisplay.CalculateTrend();
-        Assert.AreEqual(DisplayTrend.Trend.rising, environmentDisplay.CurrentTrend);
+        Assert.AreEqual(DisplayTrend.RISING, environmentDisplay.CurrentTrend);
         environmentDisplay.CurrentValue = 10;
         environmentDisplay.CalculateTrend();
-        Assert.AreEqual(DisplayTrend.Trend.falling, environmentDisplay.CurrentTrend);
+        Assert.AreEqual(DisplayTrend.FALLING, environmentDisplay.CurrentTrend);
         environmentDisplay.CurrentValue = 15;
         environmentDisplay.CalculateTrend();
-        Assert.AreEqual(DisplayTrend.Trend.stagnant, environmentDisplay.CurrentTrend);
+        Assert.AreEqual(DisplayTrend.STAGNANT, environmentDisplay.CurrentTrend);
     }
 }

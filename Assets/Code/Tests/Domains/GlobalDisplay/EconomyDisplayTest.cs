@@ -9,7 +9,7 @@ public class EconomyDisplayTest {
         Assert.AreEqual(0, economyDisplay.MinValue);
         Assert.AreEqual(100, economyDisplay.MaxValue);
         Assert.AreEqual(10, economyDisplay.CurrentValue);
-        Assert.AreEqual(DisplayTrend.Trend.stagnant, economyDisplay.CurrentTrend);
+        Assert.AreEqual(DisplayTrend.STAGNANT, economyDisplay.CurrentTrend);
     }
 
     [TestCase]
@@ -45,12 +45,12 @@ public class EconomyDisplayTest {
         economyDisplay.CurrentValue = 20;
         economyDisplay.IterateLatestValues();
         economyDisplay.CalculateTrend();
-        Assert.AreEqual(DisplayTrend.Trend.rising, economyDisplay.CurrentTrend);
+        Assert.AreEqual(DisplayTrend.RISING, economyDisplay.CurrentTrend);
         economyDisplay.CurrentValue = 10;
         economyDisplay.CalculateTrend();
-        Assert.AreEqual(DisplayTrend.Trend.falling, economyDisplay.CurrentTrend);
+        Assert.AreEqual(DisplayTrend.FALLING, economyDisplay.CurrentTrend);
         economyDisplay.CurrentValue = 15;
         economyDisplay.CalculateTrend();
-        Assert.AreEqual(DisplayTrend.Trend.stagnant, economyDisplay.CurrentTrend);
+        Assert.AreEqual(DisplayTrend.STAGNANT, economyDisplay.CurrentTrend);
     }
 }
