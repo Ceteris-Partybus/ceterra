@@ -7,7 +7,11 @@ public class QuestionData {
     public List<string> answerOptions;
     public int correctAnswerIndex;
     public string difficulty;
-    public string category;
 
     public QuestionData() { }
+
+    public bool CheckCorrectAnswer(int selectedOptionIndex) {
+        return selectedOptionIndex == correctAnswerIndex;
+    }
+
 }

@@ -1,22 +1,35 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class QuizManager : MonoBehaviour {
-    public string questionsFileName = "umwelt_fragen";
+
+    [SerializeField]
+    private string questionsFileName;
     private List<QuestionData> allQuestions;
-    private QuestionData currentQuestion;
 
     void Start() {
         LoadQuestions();
         if (allQuestions != null && allQuestions.Count > 0) {
-            ShowQuestion(allQuestions[0]);
+            ShowQuestion(getRandomQuestion());
         }
         else {
             Debug.LogError("Keine Fragen geladen!");
         }
     }
 
-    void LoadQuestions() {
+    private QuestionData getRandomQuestion() {
+        if (allQuestions == null || allQuestions.Count == 0) {
+            Debug.LogError("Keine Fragen verfügbar!");
+            return null;
+        }
+
+        var randomIndex = UnityEngine.Random.Range(0, allQuestions.Count);
+        allQuestions.RemoveAt(randomIndex);
+        return allQuestions[randomIndex];
+    }
+
+    private void LoadQuestions() {
         allQuestions = JsonReader.LoadJsonArrayFromResources<QuestionData>(questionsFileName);
 
         if (allQuestions != null) {
@@ -24,42 +37,15 @@ public class QuizManager : MonoBehaviour {
         }
     }
 
-    void ShowQuestion(QuestionData q_data) {
-        currentQuestion = q_data;
+    private void ShowQuestion(QuestionData currentQuestion) {
         Debug.Log("Frage: " + currentQuestion.question);
-        for (int i = 0; i < currentQuestion.answerOptions.Count; i++) {
+        for (var i = 0; i < currentQuestion.answerOptions.Count; i++) {
             Debug.Log($"Option {i + 1}: {currentQuestion.answerOptions[i]}");
         }
         Debug.Log($"Schwierigkeit: {currentQuestion.difficulty}");
-        if (!string.IsNullOrEmpty(currentQuestion.category)) {
-            Debug.Log($"Kategorie: {currentQuestion.category}");
-        }
     }
 
-    public bool CheckAnswer(int selectedOptionIndex) {
-        if (currentQuestion == null) {
-            return false;
-        }
-
-        bool isCorrect = (selectedOptionIndex == currentQuestion.correctAnswerIndex);
-        if (isCorrect) {
-            Debug.Log("Richtige Antwort!");
-        }
-        else {
-            Debug.Log($"Falsche Antwort! Richtig wäre: {currentQuestion.answerOptions[currentQuestion.correctAnswerIndex]}");
-        }
-        return isCorrect;
-    }
-
-    private void ShuffleList<T>(List<T> list) {
-        System.Random rng = new System.Random();
-        int n = list.Count;
-        while (n > 1) {
-            n--;
-            int k = rng.Next(n + 1);
-            T value = list[k];
-            list[k] = list[n];
-            list[n] = value;
-        }
+    public bool CheckAnswer(QuestionData currentQuestion, int selectedOptionIndex) {
+        return currentQuestion.CheckCorrectAnswer(selectedOptionIndex);
     }
 }
