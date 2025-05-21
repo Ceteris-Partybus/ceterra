@@ -104,7 +104,7 @@ public class BoardOverlay : MonoBehaviour {
         else {
             this.fundsButton.clicked += () => {
                 Debug.Log("Fonds button clicked");
-                var modal = new FundsModal(this.fundsModalTemplate, this.fundsHistoryModalTemplate, this.fundsDepositModalTemplate, this.fundsInvestProposalModalTemplate, this.fundsInvestProposalSubmitModalTemplate);
+                var modal = new FundsModal(this.fundsModalTemplate, this.fundsHistoryModalTemplate, this.fundsDepositModalTemplate, this.fundsInvestProposalModalTemplate, this.fundsInvestProposalSubmitModalTemplate, this.investProposalVoteModalTemplate);
                 ModalManager.Instance.ShowModal(modal);
             };
         }

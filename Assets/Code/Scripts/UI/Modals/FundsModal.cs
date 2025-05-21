@@ -12,11 +12,12 @@ public class FundsModal : Modal {
     private VisualTreeAsset fundsInvestProposalSubmitModalTemplate;
     private VisualTreeAsset investProposalVoteModalTemplate;
 
-    public FundsModal(VisualTreeAsset contentTemplate, VisualTreeAsset fundsHistoryModalTemplate, VisualTreeAsset fundsDepositModalTemplate, VisualTreeAsset fundsInvestProposalModalTemplate, VisualTreeAsset fundsInvestProposalSubmitModalTemplate) : base(contentTemplate) {
+    public FundsModal(VisualTreeAsset contentTemplate, VisualTreeAsset fundsHistoryModalTemplate, VisualTreeAsset fundsDepositModalTemplate, VisualTreeAsset fundsInvestProposalModalTemplate, VisualTreeAsset fundsInvestProposalSubmitModalTemplate, VisualTreeAsset investProposalVoteModalTemplate) : base(contentTemplate) {
         this.fundsHistoryModalTemplate = fundsHistoryModalTemplate;
         this.fundsDepositModalTemplate = fundsDepositModalTemplate;
         this.fundsInvestProposalModalTemplate = fundsInvestProposalModalTemplate;
         this.fundsInvestProposalSubmitModalTemplate = fundsInvestProposalSubmitModalTemplate;
+        this.investProposalVoteModalTemplate = investProposalVoteModalTemplate;
     }
 
     protected override void InitializeContent() {
