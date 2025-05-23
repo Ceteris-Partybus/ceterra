@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" schemaLocation="UnityEngine.UIElements ../../../../UIElementsSchema/UnityEngine.UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; align-items: center; justify-content: center; background-color: rgb(23, 154, 178);">
+        <ui:Button name="playButton" text="Play Quiz" style="display: none; margin-bottom: 20px; padding: 10px 20px; font-size: 100px; background-size: 100% 100%; height: 185px; width: 464px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;);" />
+        <ui:VisualElement name="quizArea" style="width: 100%; align-items: center; display: flex;">
+            <ui:VisualElement style="flex-grow: 1; background-color: rgb(255, 0, 0); width: 500px; height: 150px;">
+                <ui:Label name="questionLabel" text="Frage wird hier angezeigt..." style="font-size: 20px; -unity-text-align: upper-center; margin-bottom: 20px; white-space: normal;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="answerButtonsContainer" style="width: 80%; align-items: stretch;">
+                <ui:Button name="answerButton0" text="Antwort 1" style="margin-top: 5px; margin-bottom: 5px;" />
+                <ui:Button name="answerButton1" text="Antwort 2" style="margin-top: 5px; margin-bottom: 5px;" />
+                <ui:Button name="answerButton2" text="Antwort 3" style="margin-top: 5px; margin-bottom: 5px;" />
+                <ui:Button name="answerButton3" text="Antwort 4" style="margin-top: 5px; margin-bottom: 5px; display: none;" />
+            </ui:VisualElement>
+            <ui:Label name="feedbackLabel" style="margin-top: 15px; font-size: 16px;" />
+            <ui:Button name="nextQuestionButton" text="Nächste Frage" style="margin-top: 20px; padding: 10px; font-size: 18px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

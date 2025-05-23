@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
-public class QuizManager : MonoBehaviour {
+public class QuizService : MonoBehaviour {
 
     [SerializeField]
     private string questionsFileName;
@@ -11,14 +11,14 @@ public class QuizManager : MonoBehaviour {
     void Start() {
         LoadQuestions();
         if (allQuestions != null && allQuestions.Count > 0) {
-            ShowQuestion(getRandomQuestion());
+            ShowQuestion(GetRandomQuestion());
         }
         else {
             Debug.LogError("Keine Fragen geladen!");
         }
     }
 
-    private QuestionData getRandomQuestion() {
+    public QuestionData GetRandomQuestion() {
         if (allQuestions == null || allQuestions.Count == 0) {
             Debug.LogError("Keine Fragen verfügbar!");
             return null;

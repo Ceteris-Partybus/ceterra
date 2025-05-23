@@ -13,5 +13,4 @@ public class QuestionData {
     public bool CheckCorrectAnswer(int selectedOptionIndex) {
         return selectedOptionIndex == correctAnswerIndex;
     }
-
 }
