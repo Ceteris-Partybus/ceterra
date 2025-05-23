@@ -1,5 +1,5 @@
 name: Unity Tests
-on: workflow_dispatch
+on: [workflow_dispatch, pull_request]
 
 # Workflow based on example from https://game.ci/docs/github/test-runner/#complete-example
 
@@ -11,10 +11,9 @@ jobs:
         fail-fast: false
         matrix:
             projectPath:
-                - Tests
+                - .
             testMode:
                 - editmode
-                - playmode
     steps:
     - name: Checkout current branch
       uses: actions/checkout@v4
@@ -42,3 +41,10 @@ jobs:
         checkName: ${{ matrix.testMode }} Test Results
         customParameters: -testFilter=Assets/Code/Tests
         unityVersion: 6000.0.47f1
+
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: Test results for ${{ matrix.testMode }}
+        path: artifacts
