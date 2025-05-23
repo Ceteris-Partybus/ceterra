@@ -42,7 +42,7 @@ public class EnvironmentDisplayTest {
     public void CalculatesTrend() {
         EnvironmentDisplay environmentDisplay = new EnvironmentDisplay(10);
         environmentDisplay.CurrentValue = 20;
-        environmentDisplay.IterateLatestValues();
+        environmentDisplay.latestValues.IterateLatestValues(environmentDisplay.CurrentValue);
         environmentDisplay.CalculateTrend();
         Assert.AreEqual(DisplayTrend.RISING, environmentDisplay.CurrentTrend);
         environmentDisplay.CurrentValue = 10;

@@ -42,7 +42,7 @@ public class SocietyDisplayTest {
     public void CalculatesTrend() {
         SocietyDisplay societyDisplay = new SocietyDisplay(10);
         societyDisplay.CurrentValue = 20;
-        societyDisplay.IterateLatestValues();
+        societyDisplay.latestValues.IterateLatestValues(societyDisplay.CurrentValue);
         societyDisplay.CalculateTrend();
         Assert.AreEqual(DisplayTrend.RISING, societyDisplay.CurrentTrend);
         societyDisplay.CurrentValue = 10;

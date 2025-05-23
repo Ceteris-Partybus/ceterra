@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 public class GlobalDisplay {
@@ -7,7 +6,7 @@ public class GlobalDisplay {
     protected const int MIN_VALUE = 0;
     protected int maxValue = 100;
     protected int currentValue;
-    protected List<int> latestValues = new();
+    public CyclicList<int> latestValues = new();
     protected int listIterator = 1;
     protected DisplayTrend currentTrend;
 
@@ -46,7 +45,8 @@ public class GlobalDisplay {
 
     public GlobalDisplay(int currentValue) {
         this.CurrentValue = currentValue;
-        this.latestValues.Add(currentValue);
+        this.latestValues.ListLength = 5;
+        this.latestValues.IterateLatestValues(currentValue);
         this.CurrentTrend = DisplayTrend.STAGNANT;
     }
 
@@ -79,15 +79,5 @@ public class GlobalDisplay {
         else if (average == this.CurrentValue) {
             this.CurrentTrend = DisplayTrend.STAGNANT;
         }
-    }
-
-    public void IterateLatestValues() {
-        if (this.listIterator < 5) {
-            this.latestValues.Add(this.CurrentValue);
-        }
-        else {
-            this.latestValues[this.listIterator % 5] = this.CurrentValue;
-        }
-        this.listIterator++;
     }
 }

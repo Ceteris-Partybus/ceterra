@@ -43,7 +43,7 @@ public class EconomyDisplayTest {
     public void CalculatesTrend() {
         EconomyDisplay economyDisplay = new EconomyDisplay(10);
         economyDisplay.CurrentValue = 20;
-        economyDisplay.IterateLatestValues();
+        economyDisplay.latestValues.IterateLatestValues(economyDisplay.CurrentValue);
         economyDisplay.CalculateTrend();
         Assert.AreEqual(DisplayTrend.RISING, economyDisplay.CurrentTrend);
         economyDisplay.CurrentValue = 10;

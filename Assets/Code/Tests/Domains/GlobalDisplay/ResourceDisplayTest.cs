@@ -42,7 +42,7 @@ public class ResourceDisplayTest {
     public void CalculatesTrend() {
         ResourceDisplay resourceDisplay = new ResourceDisplay(10);
         resourceDisplay.CurrentValue = 20;
-        resourceDisplay.IterateLatestValues();
+        resourceDisplay.latestValues.IterateLatestValues(resourceDisplay.CurrentValue);
         resourceDisplay.CalculateTrend();
         Assert.AreEqual(DisplayTrend.RISING, resourceDisplay.CurrentTrend);
         resourceDisplay.CurrentValue = 10;

@@ -41,7 +41,7 @@ public class FundsDisplayTest {
     public void CalculatesTrend() {
         FundsDisplay fundsDisplay = new FundsDisplay(10);
         fundsDisplay.CurrentValue = 20;
-        fundsDisplay.IterateLatestValues();
+        fundsDisplay.latestValues.IterateLatestValues(fundsDisplay.CurrentValue);
         fundsDisplay.CalculateTrend();
         Assert.AreEqual(DisplayTrend.RISING, fundsDisplay.CurrentTrend);
         fundsDisplay.CurrentValue = 10;
