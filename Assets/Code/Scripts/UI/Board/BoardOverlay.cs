@@ -148,7 +148,7 @@ public class BoardOverlay : MonoBehaviour {
         else {
             Debug.LogError("Environment bar container not found");
         }
-        this.enviromentValueLabel = rootElement.Q<Label>("environment-value");
+        this.enviromentValueLabel = rootElement.Q<Label>("environment-bar-value");
         if (this.enviromentValueLabel == null) {
             Debug.LogError("Environment value label not found");
         }
@@ -163,9 +163,10 @@ public class BoardOverlay : MonoBehaviour {
         else {
             Debug.LogError("Society bar container not found");
         }
-        this.societyValueLabel = rootElement.Q<Label>("society-value");
+        this.societyValueLabel = rootElement.Q<Label>("society-bar-value");
         if (this.societyValueLabel == null) {
             Debug.LogError("Society value label not found");
+
         }
 
         var economyBarContainer = rootElement.Q<TemplateContainer>("economy-bar");
@@ -178,7 +179,7 @@ public class BoardOverlay : MonoBehaviour {
         else {
             Debug.LogError("Economy bar container not found");
         }
-        this.economyValueLabel = rootElement.Q<Label>("economy-value");
+        this.economyValueLabel = rootElement.Q<Label>("economy-bar-value");
         if (this.economyValueLabel == null) {
             Debug.LogError("Economy value label not found");
         }
