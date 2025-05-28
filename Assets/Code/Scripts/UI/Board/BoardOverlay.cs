@@ -34,8 +34,11 @@ public class BoardOverlay : MonoBehaviour {
     private Label resourceValueLabel;
     private Label fundsValueLabel;
     private ProgressBar enviromentBar;
+    private Label enviromentValueLabel;
     private ProgressBar societyBar;
+    private Label societyValueLabel;
     private ProgressBar economyBar;
+    private Label economyValueLabel;
 
     private void OnEnable() {
         this.rootElement = this.uiDocument.rootVisualElement;
@@ -145,6 +148,10 @@ public class BoardOverlay : MonoBehaviour {
         else {
             Debug.LogError("Environment bar container not found");
         }
+        this.enviromentValueLabel = rootElement.Q<Label>("environment-value");
+        if (this.enviromentValueLabel == null) {
+            Debug.LogError("Environment value label not found");
+        }
 
         var societyBarContainer = rootElement.Q<TemplateContainer>("society-bar");
         if (societyBarContainer != null) {
@@ -156,6 +163,10 @@ public class BoardOverlay : MonoBehaviour {
         else {
             Debug.LogError("Society bar container not found");
         }
+        this.societyValueLabel = rootElement.Q<Label>("society-value");
+        if (this.societyValueLabel == null) {
+            Debug.LogError("Society value label not found");
+        }
 
         var economyBarContainer = rootElement.Q<TemplateContainer>("economy-bar");
         if (economyBarContainer != null) {
@@ -166,6 +177,10 @@ public class BoardOverlay : MonoBehaviour {
         }
         else {
             Debug.LogError("Economy bar container not found");
+        }
+        this.economyValueLabel = rootElement.Q<Label>("economy-value");
+        if (this.economyValueLabel == null) {
+            Debug.LogError("Economy value label not found");
         }
     }
 
@@ -289,22 +304,31 @@ public class BoardOverlay : MonoBehaviour {
 
     public void SetEnvironmentValue(float value) {
         if (this.enviromentBar != null) {
-            this.enviromentBar.value = Mathf.Clamp01(value);
-            this.enviromentBar.title = $"{value * 100:F2} %";
+            this.enviromentBar.value = Mathf.Clamp(value, 0, 100);
+            this.enviromentBar.title = $"{value} %";
+        }
+        if (this.enviromentValueLabel != null) {
+            this.enviromentValueLabel.text = $"{value}/100";
         }
     }
 
     public void SetSocietyValue(float value) {
         if (this.societyBar != null) {
-            this.societyBar.value = Mathf.Clamp01(value);
-            this.societyBar.title = $"{value * 100:F2} %";
+            this.societyBar.value = Mathf.Clamp(value, 0, 100);
+            this.societyBar.title = $"{value}/100";
+        }
+        if (this.societyValueLabel != null) {
+            this.societyValueLabel.text = $"{value}/100";
         }
     }
 
     public void SetEconomyValue(float value) {
         if (this.economyBar != null) {
-            this.economyBar.value = Mathf.Clamp01(value);
-            this.economyBar.title = $"{value * 100:F2} %";
+            this.economyBar.value = Mathf.Clamp(value, 0, 100);
+            this.economyBar.title = $"{value} %";
+        }
+        if (this.economyValueLabel != null) {
+            this.economyValueLabel.text = $"{value}/100";
         }
     }
 }
