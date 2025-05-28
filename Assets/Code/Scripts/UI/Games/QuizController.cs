@@ -1,21 +1,21 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Collections;
 using System.Collections.Generic;
 
 public class QuizController : MonoBehaviour {
     [SerializeField] private UIDocument uiDocument;
-
     [SerializeField] private QuizService quizService;
+    [SerializeField] private const float AUTO_ADVANCE_DELAY = 5f;
 
     private VisualElement root;
     private VisualElement quizArea;
     private Button playButton;
 
     private Label questionLabel;
-    private Label feedbackLabel;
-    private Button nextQuestionButton;
     private List<Button> answerButtons = new List<Button>();
     private QuestionData currentDisplayedQuestion;
+    private Coroutine autoAdvanceCoroutine;
 
     void OnEnable() {
         root = uiDocument.rootVisualElement;
@@ -26,6 +26,7 @@ public class QuizController : MonoBehaviour {
 
     void OnDisable() {
         UnregisterButtonCallbacks();
+        StopAutoAdvanceTimer();
     }
 
     private void InitializeUIElements() {
@@ -33,13 +34,11 @@ public class QuizController : MonoBehaviour {
         quizArea = root.Q<VisualElement>("quizArea");
 
         questionLabel = quizArea.Q<Label>("questionLabel");
-        feedbackLabel = quizArea.Q<Label>("feedbackLabel");
-        nextQuestionButton = quizArea.Q<Button>("nextQuestionButton");
 
         answerButtons.Clear();
         var answerButtonsContainer = quizArea.Q<VisualElement>("answerButtonsContainer");
         if (answerButtonsContainer != null) {
-            for (var i = 0; i < 4; i++) { // Assuming max 4 answer buttons as per UXML
+            for (var i = 0; i < 3; i++) {
                 var btn = answerButtonsContainer.Q<Button>($"answerButton{i}");
                 if (btn != null) {
                     answerButtons.Add(btn);
@@ -60,9 +59,6 @@ public class QuizController : MonoBehaviour {
         if (playButton != null) {
             playButton.clicked += OnPlayButtonClicked;
         }
-        if (nextQuestionButton != null) {
-            nextQuestionButton.clicked += OnNextQuestionClicked;
-        }
 
         for (int i = 0; i < answerButtons.Count; i++) {
             var buttonIndex = i;
@@ -74,15 +70,12 @@ public class QuizController : MonoBehaviour {
         if (playButton != null) {
             playButton.clicked -= OnPlayButtonClicked;
         }
-        if (nextQuestionButton != null) {
-            nextQuestionButton.clicked -= OnNextQuestionClicked;
-        }
-        // It's good practice to also unregister answer button callbacks if they could change
-        // For this specific case, they are re-registered in OnEnable if needed,
-        // but explicit unregistration is safer if elements are dynamically added/removed.
-        foreach (var btn in answerButtons) {
-            // To fully unregister, you'd need to store the delegates or use ClearCallbacks() if appropriate.
-            // For simplicity here, if answerButtons are always the same instances, this is less critical.
+
+        for (int i = 0; i < answerButtons.Count; i++) {
+            var buttonIndex = i;
+            if (answerButtons[i] != null) {
+                answerButtons[i].clicked -= () => OnAnswerSelected(buttonIndex);
+            }
         }
     }
 
@@ -92,13 +85,15 @@ public class QuizController : MonoBehaviour {
         }
 
         if (quizArea != null) {
-            quizArea.style.display = DisplayStyle.Flex; // Show the quiz area
+            quizArea.style.display = DisplayStyle.Flex;
         }
 
         LoadAndDisplayNextQuestion();
     }
 
     private void LoadAndDisplayNextQuestion() {
+        StopAutoAdvanceTimer();
+
         currentDisplayedQuestion = quizService.GetRandomQuestion();
         Debug.Log($"Aktuelle Frage: {currentDisplayedQuestion?.question}");
 
@@ -109,10 +104,7 @@ public class QuizController : MonoBehaviour {
 
     private void DisplayQuestion(QuestionData qData) {
         questionLabel.text = qData.question;
-
-        feedbackLabel.text = "";
-        feedbackLabel.style.color = StyleKeyword.Null;
-        nextQuestionButton.style.display = DisplayStyle.None;
+        ResetButtonAppearance();
         SetAnswerButtonsState(true);
 
         for (int i = 0; i < answerButtons.Count; i++) {
@@ -128,27 +120,48 @@ public class QuizController : MonoBehaviour {
 
     private void OnAnswerSelected(int selectedAnswerIndex) {
         SetAnswerButtonsState(false);
+        StopAutoAdvanceTimer();
 
         bool isCorrect = quizService.CheckAnswer(currentDisplayedQuestion, selectedAnswerIndex);
+        int correctIndex = currentDisplayedQuestion.correctAnswerIndex;
+
+        for (int i = 0; i < answerButtons.Count; i++) {
+            if (i != selectedAnswerIndex && i != correctIndex) {
+                answerButtons[i].style.opacity = 0.5f;
+            }
+        }
 
         if (isCorrect) {
-            feedbackLabel.text = "Richtig!";
-            feedbackLabel.style.color = Color.green;
+            answerButtons[selectedAnswerIndex].style.backgroundColor = new StyleColor(new Color(0.2f, 0.8f, 0.2f));
         }
         else {
-            string correctAnswerText = "Unbekannt";
-            if (currentDisplayedQuestion.correctAnswerIndex >= 0 && currentDisplayedQuestion.correctAnswerIndex < currentDisplayedQuestion.answerOptions.Count) {
-                correctAnswerText = currentDisplayedQuestion.answerOptions[currentDisplayedQuestion.correctAnswerIndex];
+            answerButtons[selectedAnswerIndex].style.backgroundColor = new StyleColor(new Color(0.8f, 0.2f, 0.2f));
+
+            if (correctIndex >= 0 && correctIndex < answerButtons.Count) {
+                answerButtons[correctIndex].style.backgroundColor = new StyleColor(new Color(0.2f, 0.8f, 0.2f));
             }
-            feedbackLabel.text = $"Falsch. Richtig wäre: {correctAnswerText}";
-            feedbackLabel.style.color = Color.red;
         }
-        nextQuestionButton.text = "Nächste Frage";
-        nextQuestionButton.style.display = DisplayStyle.Flex;
+
+        autoAdvanceCoroutine = StartCoroutine(AutoAdvanceAfterDelay());
     }
 
-    private void OnNextQuestionClicked() {
+    private IEnumerator AutoAdvanceAfterDelay() {
+        yield return new WaitForSeconds(AUTO_ADVANCE_DELAY);
         LoadAndDisplayNextQuestion();
+    }
+
+    private void StopAutoAdvanceTimer() {
+        if (autoAdvanceCoroutine != null) {
+            StopCoroutine(autoAdvanceCoroutine);
+            autoAdvanceCoroutine = null;
+        }
+    }
+
+    private void ResetButtonAppearance() {
+        foreach (var button in answerButtons) {
+            button.style.backgroundColor = new StyleColor(new Color(77 / 255f, 152 / 255f, 157 / 255f));
+            button.style.opacity = 1.0f;
+        }
     }
 
     private void SetAnswerButtonsState(bool enabled) {
