@@ -59,7 +59,7 @@
     align-items: center;
 }
 
-#fonds-value-container {
+#funds-value-container {
     flex-grow: 1;
     justify-content: center;
     align-self: auto;
@@ -76,7 +76,7 @@
     border-radius: 5px;
 }
 
-#fonds-value-background {
+#funds-value-background {
     flex-grow: 1;
     position: absolute;
     width: 100%;
@@ -93,14 +93,14 @@
     color: rgb(233, 173, 65);
 }
 
-#fonds-value {
+#funds-value {
     margin: 0;
     padding: 0;
     font-size: 24px;
     color: rgb(233, 173, 65);
 }
 
-#fonds-icon {
+#funds-icon {
     background-image: url("project://database/Assets/Resources/Icons/landmark.svg?fileID=7388822144124034973&guid=b91cf6e0d5bbec34a92d865268dc6a73&type=3#landmark");
     height: 28px;
     width: 28px;
@@ -247,7 +247,7 @@
     justify-content: center;
 }
 
-#ui-buttons__fonds {
+#ui-buttons__funds {
     width: 150px;
     max-width: 150px;
 }
@@ -265,7 +265,7 @@
     flex-direction: row;
 }
 
-#ui-buttons__fonds {
+#ui-buttons__funds {
     flex-grow: 1;
     margin: 0 10px 0 0;
     align-self: flex-start;

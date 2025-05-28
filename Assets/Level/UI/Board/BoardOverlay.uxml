@@ -17,11 +17,11 @@
                             <ui:Label text="1000" name="resources-value" />
                         </ui:VisualElement>
                     </ui:Button>
-                    <ui:Button name="ui-buttons__fonds">
-                        <ui:Label name="fonds-icon" />
-                        <ui:VisualElement name="fonds-value-container">
-                            <ui:VisualElement name="fonds-value-background" />
-                            <ui:Label text="1000" name="fonds-value" />
+                    <ui:Button name="ui-buttons__funds">
+                        <ui:Label name="funds-icon" />
+                        <ui:VisualElement name="funds-value-container">
+                            <ui:VisualElement name="funds-value-background" />
+                            <ui:Label text="1000" name="funds-value" />
                         </ui:VisualElement>
                     </ui:Button>
                     <ui:Button name="ui-buttons__invest">

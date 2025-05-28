@@ -31,6 +31,11 @@ public class BoardOverlay : MonoBehaviour {
     private Label playerCoinsValue;
     private Label playerNameLabel;
     private VisualElement playerOverview;
+    private Label resourceValueLabel;
+    private Label fundsValueLabel;
+    private ProgressBar enviromentBar;
+    private ProgressBar societyBar;
+    private ProgressBar economyBar;
 
     private void OnEnable() {
         this.rootElement = this.uiDocument.rootVisualElement;
@@ -97,13 +102,13 @@ public class BoardOverlay : MonoBehaviour {
             };
         }
 
-        this.fundsButton = rootElement.Q<Button>("ui-buttons__fonds");
+        this.fundsButton = rootElement.Q<Button>("ui-buttons__funds");
         if (this.fundsButton == null) {
-            Debug.LogError("Fonds button not found");
+            Debug.LogError("Funds button not found");
         }
         else {
             this.fundsButton.clicked += () => {
-                Debug.Log("Fonds button clicked");
+                Debug.Log("Funds button clicked");
                 var modal = new FundsModal(this.fundsModalTemplate, this.fundsHistoryModalTemplate, this.fundsDepositModalTemplate, this.fundsInvestProposalModalTemplate, this.fundsInvestProposalSubmitModalTemplate, this.investProposalVoteModalTemplate);
                 ModalManager.Instance.ShowModal(modal);
             };
@@ -119,6 +124,48 @@ public class BoardOverlay : MonoBehaviour {
                 var modal = new InvestModal(this.investModalTemplate, this.fundsInvestProposalSubmitModalTemplate, this.investProposalVoteModalTemplate);
                 ModalManager.Instance.ShowModal(modal);
             };
+        }
+
+        this.resourceValueLabel = rootElement.Q<Label>("resources-value");
+        if (this.resourceValueLabel == null) {
+            Debug.LogError("Resource value label not found");
+        }
+        this.fundsValueLabel = rootElement.Q<Label>("funds-value");
+        if (this.fundsValueLabel == null) {
+            Debug.LogError("Funds value label not found");
+        }
+
+        var enviromentBarContainer = rootElement.Q<TemplateContainer>("environment-bar");
+        if (enviromentBarContainer != null) {
+            this.enviromentBar = enviromentBarContainer.Children().OfType<ProgressBar>().FirstOrDefault();
+            if (this.enviromentBar == null) {
+                Debug.LogError("Environment progress bar not found");
+            }
+        }
+        else {
+            Debug.LogError("Environment bar container not found");
+        }
+
+        var societyBarContainer = rootElement.Q<TemplateContainer>("society-bar");
+        if (societyBarContainer != null) {
+            this.societyBar = societyBarContainer.Children().OfType<ProgressBar>().FirstOrDefault();
+            if (this.societyBar == null) {
+                Debug.LogError("Society progress bar not found");
+            }
+        }
+        else {
+            Debug.LogError("Society bar container not found");
+        }
+
+        var economyBarContainer = rootElement.Q<TemplateContainer>("economy-bar");
+        if (economyBarContainer != null) {
+            this.economyBar = economyBarContainer.Children().OfType<ProgressBar>().FirstOrDefault();
+            if (this.economyBar == null) {
+                Debug.LogError("Economy progress bar not found");
+            }
+        }
+        else {
+            Debug.LogError("Economy bar container not found");
         }
     }
 
@@ -189,7 +236,7 @@ public class BoardOverlay : MonoBehaviour {
         }
     }
 
-    internal void AddPlayerToOverview(NetworkPlayer player) {
+    public void AddPlayerToOverview(NetworkPlayer player) {
         VisualElement playerCardWrapper = new VisualElement();
         playerCardWrapper.name = "player-card-" + player.NetworkObjectId.ToString();
         VisualTreeAsset playerCardTemplate = Resources.Load<VisualTreeAsset>("VTA/PlayerCard");
@@ -222,9 +269,42 @@ public class BoardOverlay : MonoBehaviour {
         playerOverview.Add(playerCardWrapper);
     }
 
-    internal void SetCurrentPlayerName(string value) {
+    public void SetCurrentPlayerName(string value) {
         if (this.playerNameLabel != null) {
             this.playerNameLabel.text = value;
+        }
+    }
+
+    public void SetResourceValue(int value) {
+        if (this.resourceValueLabel != null) {
+            this.resourceValueLabel.text = value.ToString();
+        }
+    }
+
+    public void SetFundsValue(int value) {
+        if (this.fundsValueLabel != null) {
+            this.fundsValueLabel.text = value.ToString();
+        }
+    }
+
+    public void SetEnvironmentValue(float value) {
+        if (this.enviromentBar != null) {
+            this.enviromentBar.value = Mathf.Clamp01(value);
+            this.enviromentBar.title = $"{value * 100:F2} %";
+        }
+    }
+
+    public void SetSocietyValue(float value) {
+        if (this.societyBar != null) {
+            this.societyBar.value = Mathf.Clamp01(value);
+            this.societyBar.title = $"{value * 100:F2} %";
+        }
+    }
+
+    public void SetEconomyValue(float value) {
+        if (this.economyBar != null) {
+            this.economyBar.value = Mathf.Clamp01(value);
+            this.economyBar.title = $"{value * 100:F2} %";
         }
     }
 }
