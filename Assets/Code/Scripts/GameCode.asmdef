@@ -1,17 +1,18 @@
 {
-  "name": "GameCode",
-  "rootNamespace": "Assets.Code.Scripts",
-  "references": [
-    "Unity.Localization",
-    "Unity.ResourceManager"
-  ],
-  "includePlatforms": [],
-  "excludePlatforms": [],
-  "allowUnsafeCode": false,
-  "overrideReferences": false,
-  "precompiledReferences": [],
-  "autoReferenced": true,
-  "defineConstraints": [],
-  "versionDefines": [],
-  "noEngineReferences": false
+    "name": "GameCode",
+    "rootNamespace": "Assets.Code.Scripts",
+    "references": [
+        "Unity.Localization",
+        "Unity.ResourceManager",
+        "Mirror"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

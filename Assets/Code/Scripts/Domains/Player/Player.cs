@@ -1,7 +1,9 @@
-public class Player {
+using Mirror;
+
+public class Player : NetworkBehaviour {
 
     protected int id;
-    protected string name;
+    protected new string name;
     protected HealthDisplay healthDisplay;
     protected MoneyDisplay moneyDisplay;
 
