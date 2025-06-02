@@ -1,0 +1,7 @@
+services:
+  unity-server:
+    build: .
+    ports:
+      - "7777:7777/tcp"
+      - "7777:7777/udp"
+    restart: unless-stopped
