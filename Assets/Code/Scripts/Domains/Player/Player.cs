@@ -3,7 +3,7 @@ using Mirror;
 public class Player : NetworkBehaviour {
 
     protected int id;
-    protected new string name;
+    protected string displayName;
     protected HealthDisplay healthDisplay;
     protected MoneyDisplay moneyDisplay;
 
@@ -11,13 +11,13 @@ public class Player : NetworkBehaviour {
         get;
     }
 
-    public string Name {
+    public string DisplayName {
         get;
     }
 
-    public Player(int id, string name) {
+    public Player(int id, string displayName) {
         this.Id = id;
-        this.Name = name;
+        this.DisplayName = displayName;
     }
 
     public (int, DisplayTrend) GetHealth() {
@@ -36,8 +36,8 @@ public class Player : NetworkBehaviour {
         return (this.moneyDisplay.CurrentValue, this.moneyDisplay.CurrentTrend);
     }
 
-    public void AddMoney(int value) {
-        this.moneyDisplay.AddCurrentValue(value);
+    public void AddMoney(int value, FundsDisplay fundsDisplay) {
+        this.moneyDisplay.AddCurrentValue(value, fundsDisplay);
     }
 
     public void SubtractMoney(int value) {
