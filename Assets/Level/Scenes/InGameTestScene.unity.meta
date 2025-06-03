@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Level/Scenes/InGameTestScene.unity.meta
 guid: 90a14682ffd38c044aaf14e19bcf08b6
+========
+guid: 84a583aea95ce40529c7d03bad377a71
+folderAsset: yes
+>>>>>>>> c14abc20df504547545db8e15969082436b6f75f:Assets/AddressableAssetsData/Linux.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
