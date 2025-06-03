@@ -72,3 +72,9 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# 3rd party plugins and libraries
+
+# https://assetstore.unity.com/packages/tools/network/mirror-129321
+/Assets/Mirror/*
+/Assets/ScriptTemplates/*

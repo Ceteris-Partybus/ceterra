@@ -22,10 +22,7 @@
                 <ui:Label text="Port:" class="input-label" />
                 <ui:TextField name="PortField" value="7777" class="input-field" />
             </ui:VisualElement>
-            <ui:VisualElement class="input-row">
-                <ui:Label text="Lobby Code:" class="input-label" />
-                <ui:TextField name="LobbyCodeField" class="input-field" />
-            </ui:VisualElement>
+
             <ui:Button text="JOIN LOBBY" name="JoinLobbyButton" class="action-button join-lobby" style="height: 89px; width: 616px;">
                 <Bindings>
                     <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(24296382042112)" />
