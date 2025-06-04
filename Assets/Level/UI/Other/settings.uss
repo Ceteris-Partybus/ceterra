@@ -1,0 +1,148 @@
+:root {
+    --overlay-bg: rgba(0, 0, 0, 0.5);
+    --menu-bg: rgb(87, 82, 82);
+    --settings-bg: rgb(119, 115, 115);
+    --close-btn-bg: rgb(217, 217, 217);
+    --font-color: rgb(255, 255, 255);
+    --slider-bg-img: resource('UI/Other/Slider');
+    --dragger-bg-img: resource('UI/Other/Dragger');
+    --toggle-img: resource('UI/Other/Toggle');
+    --dropdown-bg: rgb(60, 60, 60);
+    --dropdown-border: rgb(59, 163, 94);
+    --popup-arrow-tint: rgb(87, 82, 82);
+    --dropdown-checkmark: rgb(255, 255, 255);
+    --field-label: rgb(204, 204, 204);
+    --field-input-bg: rgb(255, 255, 255);
+    --settings-icon-img: resource('UI/Other/Settings');
+    --arrow-left-img: resource('UI/Other/Arrow_left');
+    --transparent-bg: rgba(255, 255, 255, 0);
+}
+
+* {
+    -unity-font-definition: resource('UI/Other/Jersey15-Regular');
+}
+
+.settings-template-container {
+    position: absolute;
+    left: -950px;
+    transition: all 0.5s ease-out;
+    height: 100%;
+}
+
+.settings-template-container.visible {
+    display: flex;
+    left: 0;
+    transition: all 0.5s ease-out;
+}
+
+.overlay {
+    background-color: var(--overlay-bg);
+    height: 100%;
+}
+
+.menu {
+    background-color: var(--menu-bg);
+    width: 870px;
+    height: 100%;
+}
+
+.title-bar {
+    flex-direction: row;
+    height: 15%;
+    -unity-font-style: normal;
+}
+
+.menu-icon {
+    background-image: var(--settings-icon-img);
+    width: 156px;
+}
+
+.menu-title {
+    color: var(--font-color);
+    font-size: 130px;
+    -unity-text-align: middle-left;
+    -unity-font-style: normal;
+}
+
+.settings-container {
+    position: relative;
+    background-color: var(--settings-bg);
+    padding: 20px;
+    border-radius: 20px;
+    width: 90%;
+    height: 83%;
+    margin-left: 3%;
+}
+
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: -55px;
+    background-color: var(--close-btn-bg);
+    background-image: var(--arrow-left-img);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+}
+
+.close-button:active {
+    scale: 1;
+}
+
+.settings-label {
+    color: var(--font-color);
+    font-size: 60px;
+    margin-top: 20px;
+    -unity-font-style: normal;
+}
+
+.settings-slider {
+    background-image: var(--slider-bg-img);
+}
+
+.settings-slider #unity-tracker {
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+}
+
+.settings-slider #unity-dragger {
+    background-image: var(--dragger-bg-img);
+    background-color: rgba(0, 0, 0, 0);
+    width: 40px;
+    height: 100%;
+    border-width: 0;
+    margin: 0;
+    top: 0;
+}
+
+.settings-value {
+    color: var(--font-color);
+    font-size: 50px;
+    margin-left: 15px;
+    -unity-text-align: middle-left;
+}
+
+.settings-toggle #unity-checkmark {
+    background-image: var(--toggle-img);
+    background-color: var(--transparent-bg);
+    width: 55px;
+    height: 55px;
+    border-width: 0;
+    -unity-background-image-tint-color: var(--font-color);
+}
+
+.settings-dropdown {
+    width: 270px;
+    height: 55px;
+    font-size: 35px;
+}
+
+.settings-dropdown .unity-base-field__input {
+    background-color: var(--field-input-bg);
+    border-color: var(--field-input-bg);
+    border-radius: 10px;
+}
