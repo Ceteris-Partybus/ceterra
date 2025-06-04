@@ -12,8 +12,11 @@ EditorBuildSettings:
     path: Assets/Level/Scenes/PlayMenu.unity
     guid: 743b2cba3fe2437448356822bc45898d
   - enabled: 1
-    path: Assets/Level/Scenes/InGameTestScene.unity
+    path: Assets/Level/Scenes/MirrorRoomGameInGameTestScene.unity
     guid: 90a14682ffd38c044aaf14e19bcf08b6
+  - enabled: 1
+    path: Assets/Level/Scenes/MirrorRoomOnlineLobby.unity
+    guid: ef100205475423747871db43cf76634a
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: f4d57a8966593c34cb53e606cd6a7e1a, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
