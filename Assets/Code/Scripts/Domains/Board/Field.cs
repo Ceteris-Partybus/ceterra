@@ -1,110 +1,59 @@
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Splines;
 
 public class Field {
     private int id;
-    private Lane lane;
+    private int splineId;
     private FieldType type;
-    private List<Field> nextFields;
-    private Vector3 position;
+    private List<Field> next;
     private SplineKnotIndex splineKnotIndex;
 
-    internal Field(int id, Lane lane, FieldType type, SplineKnotIndex splineKnotIndex, Vector3 position) {
+    public Field(int id, int splineId, FieldType type, SplineKnotIndex splineKnotIndex) {
         this.id = id;
-        this.lane = lane;
+        this.splineId = splineId;
         this.type = type;
+        this.next = new List<Field>();
         this.splineKnotIndex = splineKnotIndex;
-        this.position = position;
-        this.nextFields = new List<Field>();
+    }
+
+    public void AddNext(Field field) {
+        this.next.Add(field);
+        NextAdded?.Invoke();
     }
 
     public int Id {
         get {
-            return id;
+            return this.id;
         }
     }
 
-    public Lane Lane {
+    public int SplineId {
         get {
-            return lane;
+            return this.splineId;
         }
     }
 
     public FieldType Type {
         get {
-            return type;
+            return this.type;
+        }
+        set {
+            this.type = value;
         }
     }
 
-    public bool IsIntersection {
+    public IReadOnlyList<Field> Next {
         get {
-            return nextFields.Count > 1;
-        }
-    }
-
-    public IReadOnlyList<Field> NextFields {
-        get {
-            return nextFields.AsReadOnly();
+            return this.next.AsReadOnly();
         }
     }
 
     public SplineKnotIndex SplineKnotIndex {
         get {
-            return splineKnotIndex;
+            return this.splineKnotIndex;
         }
     }
 
-    public Vector3 Position {
-        get {
-            return position;
-        }
-    }
-
-    public void AddNextField(Field nextField) {
-        if (nextField != null && !nextFields.Contains(nextField)) {
-            nextFields.Add(nextField);
-        }
-    }
-
-    public static FieldBuilder Builder() {
-        return new FieldBuilder();
-    }
-
-    public class FieldBuilder {
-        private int id;
-        private Lane lane;
-        private FieldType type;
-        private Vector3 position;
-        private SplineKnotIndex splineKnotIndex;
-
-        public FieldBuilder WithId(int id) {
-            this.id = id;
-            return this;
-        }
-
-        public FieldBuilder WithLane(Lane lane) {
-            this.lane = lane;
-            return this;
-        }
-
-        public FieldBuilder WithType(FieldType type) {
-            this.type = type;
-            return this;
-        }
-
-        public FieldBuilder WithPosition(Vector3 position) {
-            this.position = position;
-            return this;
-        }
-
-        public FieldBuilder WithSplineKnotIndex(SplineKnotIndex splineKnotIndex) {
-            this.splineKnotIndex = splineKnotIndex;
-            return this;
-        }
-
-        public Field Build() {
-            return new Field(id, lane, type, splineKnotIndex, position);
-        }
-    }
+    public event Action NextAdded;
 }

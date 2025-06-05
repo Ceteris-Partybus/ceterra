@@ -1,0 +1,20 @@
+{
+    "name": "GameCode",
+    "rootNamespace": "Assets.Code.Scripts",
+    "references": [
+        "Unity.Localization",
+        "Unity.ResourceManager",
+        "Mirror",
+        "Unity.Splines",
+        "Unity.Mathematics"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2744885154020391144}
   - component: {fileID: 2245045674233884267}
   - component: {fileID: 5037105277483983715}
-  - component: {fileID: 4022759527494867293}
+  - component: {fileID: 3328545727203142804}
   m_Layer: 0
   m_Name: Field
   m_TagString: Untagged
@@ -87,7 +87,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4022759527494867293
+--- !u!114 &3328545727203142804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,11 +96,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3004888143041540625}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93c2ac8a02f6756478a7783040e781ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e1739c8e5fb5b2429097179e48160e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id:
+  fieldId: 0
+  splineId: 0
+  type: 0
+  next: []
+  splineKnotIndex:
     Spline: 0
     Knot: 0
-  isIntersection: 0
-  splineContainer: {fileID: 0}
