@@ -387,6 +387,118 @@ MonoBehaviour:
       m_Data: []
     m_ObjectData:
       m_Data: []
+  - m_EditModeType: 1
+    m_Knots:
+    - Position:
+        x: -9.441219
+        y: 0
+        z: -10.929184
+      TangentIn:
+        x: -0
+        y: -0
+        z: -0.8991134
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0.8991134
+      Rotation:
+        value:
+          x: 0
+          y: 0.9602512
+          z: 0
+          w: -0.27913713
+    - Position:
+        x: -14.261219
+        y: 0
+        z: -18.519184
+      TangentIn:
+        x: -0
+        y: -0
+        z: -2.048371
+      TangentOut:
+        x: 0
+        y: 0
+        z: 2.4344897
+      Rotation:
+        value:
+          x: 0
+          y: 0.7465128
+          z: 0
+          w: -0.6653712
+    - Position:
+        x: -23.331219
+        y: 0
+        z: -9.629185
+      TangentIn:
+        x: -0
+        y: -0
+        z: -3.2068267
+      TangentOut:
+        x: 0
+        y: 0
+        z: 2.467889
+      Rotation:
+        value:
+          x: 0
+          y: -0.14036986
+          z: -0
+          w: 0.99009913
+    - Position:
+        x: -21.60122
+        y: 0
+        z: -2.3091843
+      TangentIn:
+        x: -0
+        y: -0
+        z: -2.377973
+      TangentOut:
+        x: 0
+        y: 0
+        z: 3.0091228
+      Rotation:
+        value:
+          x: 0
+          y: 0.38426203
+          z: 0
+          w: 0.923224
+    - Position:
+        x: -9.861219
+        y: 0
+        z: 0.38081574
+      TangentIn:
+        x: -0
+        y: -0
+        z: -1.204424
+      TangentOut:
+        x: 0
+        y: 0
+        z: 1.204424
+      Rotation:
+        value:
+          x: 0
+          y: 0.62315995
+          z: 0
+          w: 0.78209436
+    m_MetaData:
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    m_Closed: 0
+    m_IntData:
+      m_Data: []
+    m_FloatData:
+      m_Data: []
+    m_Float4Data:
+      m_Data: []
+    m_ObjectData:
+      m_Data: []
   m_Knots:
     m_KnotsLink:
     - Knots:
@@ -399,6 +511,16 @@ MonoBehaviour:
         Knot: 1
       - Spline: 1
         Knot: 0
+    - Knots:
+      - Spline: 0
+        Knot: 4
+      - Spline: 2
+        Knot: 0
+    - Knots:
+      - Spline: 0
+        Knot: 5
+      - Spline: 2
+        Knot: 4
 --- !u!4 &411428948
 Transform:
   m_ObjectHideFlags: 0
