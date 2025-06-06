@@ -10,7 +10,14 @@ public class QuestionData {
 
     public QuestionData() { }
 
-    public bool CheckCorrectAnswer(int selectedOptionIndex) {
+    public QuestionData(string question, List<string> answerOptions, int correctAnswerIndex, string difficulty) {
+        this.question = question;
+        this.answerOptions = answerOptions;
+        this.correctAnswerIndex = correctAnswerIndex;
+        this.difficulty = difficulty;
+    }
+
+    public bool isCorrectAnswer(int selectedOptionIndex) {
         return selectedOptionIndex == correctAnswerIndex;
     }
 }

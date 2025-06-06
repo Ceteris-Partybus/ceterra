@@ -39,7 +39,7 @@ public static class JsonReader {
 
         if (jsonFile == null) {
             Debug.LogError($"[JsonReader] Datei nicht gefunden im Resources-Ordner: {filePathInResources}.json");
-            return default(T);
+            return default;
         }
 
         var jsonString = jsonFile.text;

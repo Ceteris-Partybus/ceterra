@@ -1,0 +1,16 @@
+{
+  "name": "GameCode",
+  "rootNamespace": "Assets.Code.Scripts",
+  "references": [
+    "Unity.Localization",
+    "Unity.ResourceManager",
+    "Mirror"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

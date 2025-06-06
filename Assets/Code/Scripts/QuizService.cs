@@ -3,49 +3,51 @@ using System.Collections.Generic;
 using System;
 
 public class QuizService : MonoBehaviour {
+    [SerializeField] private string questionsFileName;
 
-    [SerializeField]
-    private string questionsFileName;
-    private List<QuestionData> allQuestions;
+    private List<QuestionData> availableQuestions;
 
-    void Start() {
+    public QuizService(String questionsFileName) {
+        this.questionsFileName = questionsFileName;
+    }
+
+    void Awake() {
         LoadQuestions();
-        if (allQuestions != null && allQuestions.Count > 0) {
-            ShowQuestion(GetRandomQuestion());
+    }
+
+    private void LoadQuestions() {
+        availableQuestions = JsonReader.LoadJsonArrayFromResources<QuestionData>(questionsFileName);
+
+        if (availableQuestions == null) {
+            availableQuestions = new List<QuestionData>();
+        }
+
+        if (availableQuestions.Count > 0) {
+            Debug.Log($"QuizService: Erfolgreich {availableQuestions.Count} Fragen geladen.");
         }
         else {
-            Debug.LogError("Keine Fragen geladen!");
+            Debug.LogWarning("QuizService: Keine Fragen aus der Datei geladen oder die Datei war leer.");
         }
     }
 
     public QuestionData GetRandomQuestion() {
-        if (allQuestions == null || allQuestions.Count == 0) {
-            Debug.LogError("Keine Fragen verfügbar!");
+        if (availableQuestions.Count == 0) {
+            Debug.Log("QuizService: Keine Fragen mehr im Pool verfügbar.");
             return null;
         }
 
-        var randomIndex = UnityEngine.Random.Range(0, allQuestions.Count);
-        allQuestions.RemoveAt(randomIndex);
-        return allQuestions[randomIndex];
-    }
-
-    private void LoadQuestions() {
-        allQuestions = JsonReader.LoadJsonArrayFromResources<QuestionData>(questionsFileName);
-
-        if (allQuestions != null) {
-            Debug.Log($"Erfolgreich {allQuestions.Count} Fragen geladen.");
-        }
-    }
-
-    private void ShowQuestion(QuestionData currentQuestion) {
-        Debug.Log("Frage: " + currentQuestion.question);
-        for (var i = 0; i < currentQuestion.answerOptions.Count; i++) {
-            Debug.Log($"Option {i + 1}: {currentQuestion.answerOptions[i]}");
-        }
-        Debug.Log($"Schwierigkeit: {currentQuestion.difficulty}");
+        var randomIndex = UnityEngine.Random.Range(0, availableQuestions.Count);
+        QuestionData randomQuestion = availableQuestions[randomIndex];
+        availableQuestions.RemoveAt(randomIndex);
+        return randomQuestion;
     }
 
     public bool CheckAnswer(QuestionData currentQuestion, int selectedOptionIndex) {
-        return currentQuestion.CheckCorrectAnswer(selectedOptionIndex);
+        return currentQuestion.isCorrectAnswer(selectedOptionIndex);
+    }
+
+    public void SetDataSourcePath(string filePath) {
+        questionsFileName = filePath;
+        LoadQuestions();
     }
 }
