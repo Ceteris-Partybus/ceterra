@@ -4,7 +4,8 @@
     "references": [
         "Unity.Localization",
         "Unity.ResourceManager",
-        "Mirror"
+        "Mirror",
+        "Newtonsoft.Json"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
