@@ -11,57 +11,32 @@ public class PlayerUI : NetworkBehaviour {
     private BoardPlayer boardPlayer;
 
     void Start() {
-        Debug.Log($"PlayerUI Start() - isLocalPlayer: {isLocalPlayer}");
 
         boardPlayer = GetComponent<BoardPlayer>();
-        Debug.Log($"BoardPlayer found: {boardPlayer != null}");
 
         if (playerCanvas != null) {
             playerCanvas.enabled = isLocalPlayer;
-            Debug.Log($"Canvas enabled: {isLocalPlayer}");
-        }
-        else {
-            Debug.LogError("PlayerCanvas is null!");
         }
 
         if (diceButton != null) {
-            Debug.Log($"DiceButton found: {diceButton.name}");
-            Debug.Log($"DiceButton active: {diceButton.gameObject.activeInHierarchy}");
-            Debug.Log($"DiceButton interactable: {diceButton.interactable}");
-        }
-        else {
-            Debug.LogError("DiceButton is null!");
         }
     }
 
     public override void OnStartLocalPlayer() {
-        Debug.Log("PlayerUI OnStartLocalPlayer() called");
 
         if (diceButton != null) {
-            Debug.Log("Adding button listener...");
 
             diceButton.onClick.RemoveAllListeners();
 
             diceButton.onClick.AddListener(() => {
-                Debug.Log("Dice button clicked!");
                 if (boardPlayer != null) {
-                    Debug.Log("Calling CmdRollDice...");
                     boardPlayer.CmdRollDice();
-                }
-                else {
-                    Debug.LogError("BoardPlayer is null when button clicked!");
                 }
             });
 
-            Debug.Log("Button listener added successfully");
         }
-        else {
-            Debug.LogError("DiceButton is null in OnStartLocalPlayer!");
-        }
-
         if (playerCanvas != null) {
             playerCanvas.enabled = true;
-            Debug.Log("Canvas enabled for local player");
         }
     }
 

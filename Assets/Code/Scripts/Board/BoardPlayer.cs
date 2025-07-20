@@ -1,7 +1,6 @@
 using UnityEngine;
 using Mirror;
 using System.Collections;
-using System;
 using UnityEngine.Splines;
 
 public class BoardPlayer : NetworkBehaviour {
@@ -13,11 +12,8 @@ public class BoardPlayer : NetworkBehaviour {
     public float moveSpeed = 5f;
     public AnimationCurve moveCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
-    [SyncVar(hook = nameof(OnNameChanged))]
+    [SyncVar]
     public string playerName;
-
-    // [SyncVar(hook = nameof(OnFieldChanged))]
-    // public int currentFieldIndex = 0;
 
     [SyncVar(hook = nameof(OnFieldChanged))]
     public SplineKnotIndex currentSplineKnotIndex;
@@ -29,10 +25,6 @@ public class BoardPlayer : NetworkBehaviour {
 
     [SyncVar]
     public bool isMoving = false;
-
-    void OnNameChanged(string _Old, string _New) {
-        playerNameText.text = playerName;
-    }
 
     void OnFieldChanged(SplineKnotIndex oldIndex, SplineKnotIndex newIndex) {
         if (!isServer && !oldIndex.Equals(newIndex)) {
@@ -47,7 +39,7 @@ public class BoardPlayer : NetworkBehaviour {
         floatingInfo.transform.localPosition = new Vector3(0, -0.3f, 0.6f);
         floatingInfo.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
-        string name = "Player" + UnityEngine.Random.Range(100, 999);
+        string name = "Player" + Random.Range(100, 999);
         CmdSetupPlayer(name);
     }
 
@@ -72,15 +64,12 @@ public class BoardPlayer : NetworkBehaviour {
     public void CmdRollDice() {
         if (GameManager.Instance == null) { return; }
         if (!GameManager.Instance.IsPlayerTurn(this)) {
-            RpcShowMessage("It's not your turn!");
             return;
         }
         if (isMoving) { return; }
 
-        int diceValue = UnityEngine.Random.Range(1, 7);
-        Debug.Log($"{playerName} rolled a {diceValue}!");
+        int diceValue = Random.Range(1, 7);
 
-        RpcShowDiceResult(diceValue);
         GameManager.Instance.ProcessDiceRoll(this, diceValue);
     }
 
@@ -95,9 +84,6 @@ public class BoardPlayer : NetworkBehaviour {
 
     IEnumerator MoveStepByStepCoroutine(int steps) {
         for (int step = 0; step < steps; step++) {
-            // Debug.Log($"From field {currentFieldIndex}");
-            // currentFieldIndex = (currentFieldIndex + 1) % GameManager.Instance.boardFields.Count;
-            // Debug.Log($"To field {currentFieldIndex}");
             var currentField = GameManager.Instance.fieldList.Find(currentSplineKnotIndex).Next[0];
             currentSplineKnotIndex = currentField.SplineKnotIndex;
             yield return StartCoroutine(MoveToFieldCoroutine(currentField)); // TODO: Implement junction handling
@@ -105,12 +91,10 @@ public class BoardPlayer : NetworkBehaviour {
         }
 
         isMoving = false;
-        // Debug.Log($"{playerName} finished moving to field {currentFieldIndex}");
     }
 
     IEnumerator MoveToFieldCoroutine(Field targetField) {
         if (GameManager.Instance == null) { yield break; }
-        // if (targetFieldIndex >= GameManager.Instance.boardFields.Count) { yield break; }
 
         Vector3 startPos = transform.position;
         Vector3 targetPos = targetField.Position;
@@ -128,16 +112,6 @@ public class BoardPlayer : NetworkBehaviour {
         }
 
         transform.position = targetPos;
-    }
-
-    [ClientRpc]
-    void RpcShowDiceResult(int diceValue) {
-        Debug.Log($"{playerName} rolled: {diceValue}");
-    }
-
-    [ClientRpc]
-    void RpcShowMessage(string message) {
-        Debug.Log(message);
     }
 
     void Update() {
