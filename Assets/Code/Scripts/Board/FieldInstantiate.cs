@@ -1,3 +1,4 @@
+using Mirror;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,17 +6,19 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Splines;
 
-public class FieldInstantiate : MonoBehaviour {
+public class FieldInstantiate : NetworkBehaviour {
     [SerializeField] private SplineContainer splineContainer;
     [SerializeField] private GameObject fieldPrefab;
 
     private FieldList fieldList;
     private List<Field> fields;
-    private Dictionary<SplineKnotIndex, FieldType> fieldTypeMap = new Dictionary<SplineKnotIndex, FieldType>();
+
+    private readonly SyncDictionary<SplineKnotIndex, FieldType> fieldTypeMap = new();
 
     void Start() {
         this.fieldList = new FieldList();
         this.fields = new List<Field>();
+
         FillFieldTypeMap();
 
         var splines = splineContainer.Splines;
@@ -40,7 +43,6 @@ public class FieldInstantiate : MonoBehaviour {
                 }
                 var field = new Field(physicalKnotId++, i, fieldType, new SplineKnotIndex(i, k), new Vector3(position.x, position.y, position.z));
                 fields.Add(field);
-
 
                 GameObject fieldGameObject = Instantiate(fieldPrefab, position, Quaternion.identity);
                 fieldGameObject.transform.SetParent(splineContainer.transform);
