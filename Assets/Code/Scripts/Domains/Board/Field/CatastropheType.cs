@@ -1,0 +1,9 @@
+enum CatastropheType {
+    VOLCANO,
+    NUCLEAR_EXPLOSION,
+    LANDSLIDE,
+    WILDFIRE,
+    GLACIER_MELT,
+    DROUGHT,
+    TSUNAMI,
+}

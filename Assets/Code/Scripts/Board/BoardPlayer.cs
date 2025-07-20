@@ -83,14 +83,18 @@ public class BoardPlayer : NetworkBehaviour {
     }
 
     IEnumerator MoveStepByStepCoroutine(int steps) {
+        Field currentField = GameManager.Instance.fieldList.Find(currentSplineKnotIndex);
+
         for (int step = 0; step < steps; step++) {
-            var currentField = GameManager.Instance.fieldList.Find(currentSplineKnotIndex).Next[0];
+            currentField = GameManager.Instance.fieldList.Find(currentSplineKnotIndex).Next[0];
             currentSplineKnotIndex = currentField.SplineKnotIndex;
             yield return StartCoroutine(MoveToFieldCoroutine(currentField)); // TODO: Implement junction handling
             yield return new WaitForSeconds(0.2f);
         }
 
         isMoving = false;
+
+        currentField.Invoke(this);
     }
 
     IEnumerator MoveToFieldCoroutine(Field targetField) {

@@ -41,7 +41,9 @@ public class FieldInstantiate : NetworkBehaviour {
                 if (!fieldTypeMap.TryGetValue(new SplineKnotIndex(i, k), out var fieldType)) {
                     throw new Exception($"Field type for knot {i}, {k} not found in fieldTypeMap.");
                 }
-                var field = new Field(physicalKnotId++, i, fieldType, new SplineKnotIndex(i, k), new Vector3(position.x, position.y, position.z));
+
+                // (we cooked 🍜)
+                var field = Field.Create(physicalKnotId++, i, new SplineKnotIndex(i, k), new Vector3(position.x, position.y, position.z), fieldType);
                 fields.Add(field);
 
                 GameObject fieldGameObject = Instantiate(fieldPrefab, position, Quaternion.identity);

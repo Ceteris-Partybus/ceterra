@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
 
-public class Field {
+public abstract class Field {
     private int id;
     private int splineId;
     private FieldType type;
@@ -11,7 +11,7 @@ public class Field {
     private SplineKnotIndex splineKnotIndex;
     private Vector3 position;
 
-    public Field(int id, int splineId, FieldType type, SplineKnotIndex splineKnotIndex, Vector3 position) {
+    protected Field(int id, int splineId, FieldType type, SplineKnotIndex splineKnotIndex, Vector3 position) {
         this.id = id;
         this.splineId = splineId;
         this.type = type;
@@ -19,6 +19,18 @@ public class Field {
         this.splineKnotIndex = splineKnotIndex;
         this.position = position;
     }
+
+    public static Field Create(int id, int splineId, SplineKnotIndex splineKnotIndex, Vector3 position, FieldType type) {
+        return type switch {
+            FieldType.NORMAL => new NormalField(id, splineId, splineKnotIndex, position),
+            FieldType.QUESTION => new QuestionField(id, splineId, splineKnotIndex, position),
+            FieldType.EVENT => new EventField(id, splineId, splineKnotIndex, position),
+            FieldType.CATASTROPHE => new CatastropheField(id, splineId, splineKnotIndex, position),
+            _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+        };
+    }
+
+    public abstract void Invoke(BoardPlayer player);
 
     public Field() {
     }
@@ -72,6 +84,10 @@ public class Field {
             return this.id == other.id;
         }
         return false;
+    }
+
+    public override int GetHashCode() {
+        return this.id.GetHashCode();
     }
 
     public event Action NextAdded;
