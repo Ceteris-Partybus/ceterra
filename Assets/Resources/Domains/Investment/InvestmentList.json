@@ -1,0 +1,24 @@
+[
+    {
+        "id": 1,
+        "displayName": "Investment1",
+        "description": "Beschreibung des ersten Investments",
+        "moneyGoal": 100,
+        "resourceGoal": 100,
+        "investmentDisplay": "SOCIETY",
+        "investmentModifier": "DECREASES",
+        "investmentTypeInt": 10,
+        "cooldown": 1
+    },
+    {
+        "id": 2,
+        "displayName": "Investment2",
+        "description": "Beschreibung des zweiten Investments",
+        "moneyGoal": 200,
+        "resourceGoal": 200,
+        "investmentDisplay": "ENVIRONMENT",
+        "investmentModifier": "DECREASES",
+        "investmentTypeInt": 20,
+        "cooldown": 2
+    }
+]

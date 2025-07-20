@@ -256,11 +256,15 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+<<<<<<< HEAD
 <<<<<<< HEAD:Assets/Level/Scenes/SampleScene.unity
 --- !u!1 &410087039
 =======
 --- !u!1 &2005022130
 >>>>>>> 98c07819dc7d475b0cbeb84ba2d574e92845ad43:Assets/Level/Scenes/PlayMenu.unity
+=======
+--- !u!1 &2005022130
+>>>>>>> origin/main
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -278,6 +282,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD
 <<<<<<< HEAD:Assets/Level/Scenes/SampleScene.unity
 --- !u!108 &410087040
 Light:
@@ -363,6 +368,9 @@ Transform:
 =======
 --- !u!114 &2005022131
 >>>>>>> 98c07819dc7d475b0cbeb84ba2d574e92845ad43:Assets/Level/Scenes/PlayMenu.unity
+=======
+--- !u!114 &2005022131
+>>>>>>> origin/main
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -396,6 +404,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 <<<<<<< HEAD:Assets/Level/Scenes/SampleScene.unity
 --- !u!1 &1802785476
 GameObject:
@@ -420,11 +429,15 @@ GameObject:
 =======
 --- !u!114 &2005022133
 >>>>>>> 98c07819dc7d475b0cbeb84ba2d574e92845ad43:Assets/Level/Scenes/PlayMenu.unity
+=======
+--- !u!114 &2005022133
+>>>>>>> origin/main
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
 <<<<<<< HEAD:Assets/Level/Scenes/SampleScene.unity
   m_GameObject: {fileID: 1802785476}
   m_Enabled: 1
@@ -520,6 +533,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 =======
+=======
+>>>>>>> origin/main
   m_GameObject: {fileID: 2005022130}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -527,12 +542,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uIDocument: {fileID: 2005022131}
+<<<<<<< HEAD
 >>>>>>> 98c07819dc7d475b0cbeb84ba2d574e92845ad43:Assets/Level/Scenes/PlayMenu.unity
+=======
+>>>>>>> origin/main
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 330585546}
+<<<<<<< HEAD
 <<<<<<< HEAD:Assets/Level/Scenes/SampleScene.unity
   - {fileID: 410087041}
   - {fileID: 832575519}
@@ -540,3 +559,6 @@ SceneRoots:
 =======
   - {fileID: 2005022132}
 >>>>>>> 98c07819dc7d475b0cbeb84ba2d574e92845ad43:Assets/Level/Scenes/PlayMenu.unity
+=======
+  - {fileID: 2005022132}
+>>>>>>> origin/main
