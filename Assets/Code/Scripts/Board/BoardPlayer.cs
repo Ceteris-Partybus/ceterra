@@ -2,6 +2,7 @@ using UnityEngine;
 using Mirror;
 using System.Collections;
 using System;
+using UnityEngine.Splines;
 
 public class BoardPlayer : NetworkBehaviour {
     [Header("Player Settings")]
@@ -15,8 +16,16 @@ public class BoardPlayer : NetworkBehaviour {
     [SyncVar(hook = nameof(OnNameChanged))]
     public string playerName;
 
+    // [SyncVar(hook = nameof(OnFieldChanged))]
+    // public int currentFieldIndex = 0;
+
     [SyncVar(hook = nameof(OnFieldChanged))]
-    public int currentFieldIndex = 0;
+    public SplineKnotIndex currentSplineKnotIndex;
+
+    public SplineKnotIndex CurrentSplineKnotIndex {
+        get;
+        set;
+    }
 
     [SyncVar]
     public bool isMoving = false;
@@ -25,9 +34,9 @@ public class BoardPlayer : NetworkBehaviour {
         playerNameText.text = playerName;
     }
 
-    void OnFieldChanged(int oldIndex, int newIndex) {
-        if (!isServer && newIndex != oldIndex) {
-            StartCoroutine(MoveToFieldCoroutine(newIndex));
+    void OnFieldChanged(SplineKnotIndex oldIndex, SplineKnotIndex newIndex) {
+        if (!isServer && !oldIndex.Equals(newIndex)) {
+            StartCoroutine(MoveToFieldCoroutine(GameManager.Instance.fieldList.Find(newIndex)));
         }
     }
 
@@ -86,23 +95,25 @@ public class BoardPlayer : NetworkBehaviour {
 
     IEnumerator MoveStepByStepCoroutine(int steps) {
         for (int step = 0; step < steps; step++) {
-            Debug.Log($"From field {currentFieldIndex}");
-            currentFieldIndex = (currentFieldIndex + 1) % GameManager.Instance.boardFields.Count;
-            Debug.Log($"To field {currentFieldIndex}");
-            yield return StartCoroutine(MoveToFieldCoroutine(currentFieldIndex));
+            // Debug.Log($"From field {currentFieldIndex}");
+            // currentFieldIndex = (currentFieldIndex + 1) % GameManager.Instance.boardFields.Count;
+            // Debug.Log($"To field {currentFieldIndex}");
+            var currentField = GameManager.Instance.fieldList.Find(currentSplineKnotIndex).Next[0];
+            currentSplineKnotIndex = currentField.SplineKnotIndex;
+            yield return StartCoroutine(MoveToFieldCoroutine(currentField)); // TODO: Implement junction handling
             yield return new WaitForSeconds(0.2f);
         }
 
         isMoving = false;
-        Debug.Log($"{playerName} finished moving to field {currentFieldIndex}");
+        // Debug.Log($"{playerName} finished moving to field {currentFieldIndex}");
     }
 
-    IEnumerator MoveToFieldCoroutine(int targetFieldIndex) {
+    IEnumerator MoveToFieldCoroutine(Field targetField) {
         if (GameManager.Instance == null) { yield break; }
-        if (targetFieldIndex >= GameManager.Instance.boardFields.Count) { yield break; }
+        // if (targetFieldIndex >= GameManager.Instance.boardFields.Count) { yield break; }
 
         Vector3 startPos = transform.position;
-        Vector3 targetPos = GameManager.Instance.boardFields[targetFieldIndex].position + Vector3.up;
+        Vector3 targetPos = targetField.Position;
 
         float duration = Vector3.Distance(startPos, targetPos) / moveSpeed;
         float elapsed = 0f;

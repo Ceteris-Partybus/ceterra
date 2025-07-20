@@ -4,7 +4,9 @@
     "references": [
         "Unity.Localization",
         "Unity.ResourceManager",
-        "Mirror"
+        "Mirror",
+        "Unity.Splines",
+        "Unity.Mathematics"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

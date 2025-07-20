@@ -7,7 +7,9 @@ public class GameManager : NetworkBehaviour {
 
     [Header("Game Settings")]
     public int minPlayersToStart = 2;
-    public List<Transform> boardFields = new List<Transform>();
+    // public List<Transform> boardFields = new List<Transform>();
+
+    public FieldList fieldList;
 
     [SyncVar(hook = nameof(OnCurrentPlayerChanged))]
     public int currentPlayerIndex = 0;
@@ -42,15 +44,15 @@ public class GameManager : NetworkBehaviour {
     }
 
     void Start() {
-        if (boardFields.Count == 0) {
-            GameObject[] fields = GameObject.FindGameObjectsWithTag("BoardField");
-            foreach (GameObject field in fields) {
-                boardFields.Add(field.transform);
-            }
-            boardFields.Sort((a, b) => a.name.CompareTo(b.name));
-        }
+        // if (boardFields.Count == 0) {
+        //     GameObject[] fields = GameObject.FindGameObjectsWithTag("BoardField");
+        //     foreach (GameObject field in fields) {
+        //         boardFields.Add(field.transform);
+        //     }
+        //     boardFields.Sort((a, b) => a.name.CompareTo(b.name));
+        // }
 
-        Debug.Log($"GameManager started. Found {boardFields.Count} board fields.");
+        // Debug.Log($"GameManager started. Found {boardFields.Count} board fields.");
 
         Invoke(nameof(FixEventSystems), 0.1f);
     }
@@ -73,10 +75,11 @@ public class GameManager : NetworkBehaviour {
             players.Add(player);
             connectedPlayers = players.Count;
 
-            if (boardFields.Count > 0) {
-                player.transform.position = boardFields[0].position + Vector3.up;
-                player.currentFieldIndex = 0;
-            }
+            // if (boardFields.Count > 0) {
+            //     // player.transform.position = boardFields[0].position + Vector3.up;
+            // }
+            player.transform.position = fieldList.Head.Position;
+            player.currentSplineKnotIndex = fieldList.Head.SplineKnotIndex;
 
             Debug.Log($"Player registered! Total players: {connectedPlayers}");
 
