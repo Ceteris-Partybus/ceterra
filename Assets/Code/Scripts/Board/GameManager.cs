@@ -49,7 +49,9 @@ public class GameManager : NetworkBehaviour {
             players.Add(player);
             connectedPlayers = players.Count;
 
-            player.transform.position = fieldList.Head.Position;
+            var startPosition = fieldList.Head.Position;
+            startPosition.y += 1f;
+            player.transform.position = startPosition;
             player.currentSplineKnotIndex = fieldList.Head.SplineKnotIndex;
 
             if (connectedPlayers >= minPlayersToStart && gameState == GameState.WaitingForPlayers) {
@@ -75,7 +77,6 @@ public class GameManager : NetworkBehaviour {
         gameState = GameState.GameStarted;
         currentPlayerIndex = 0;
         RpcGameStarted();
-
 
         Invoke(nameof(StartPlayerTurn), 1f);
     }

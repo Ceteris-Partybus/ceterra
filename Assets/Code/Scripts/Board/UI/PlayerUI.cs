@@ -17,9 +17,6 @@ public class PlayerUI : NetworkBehaviour {
         if (playerCanvas != null) {
             playerCanvas.enabled = isLocalPlayer;
         }
-
-        if (diceButton != null) {
-        }
     }
 
     public override void OnStartLocalPlayer() {

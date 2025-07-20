@@ -98,6 +98,7 @@ public class BoardPlayer : NetworkBehaviour {
 
         Vector3 startPos = transform.position;
         Vector3 targetPos = targetField.Position;
+        targetPos.y += 1f;
 
         float duration = Vector3.Distance(startPos, targetPos) / moveSpeed;
         float elapsed = 0f;
