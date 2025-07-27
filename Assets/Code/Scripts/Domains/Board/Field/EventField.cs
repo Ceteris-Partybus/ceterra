@@ -6,7 +6,7 @@ public class EventField : Field {
         : base(id, splineId, FieldType.EVENT, splineKnotIndex, position) {
     }
 
-    public override void Invoke(BoardPlayer player) {
+    public override void Invoke(Player player) {
         Debug.Log($"Player {player.playerName} landed on an event field.");
     }
 }

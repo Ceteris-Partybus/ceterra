@@ -6,7 +6,7 @@ public class QuestionField : Field {
         : base(id, splineId, FieldType.QUESTION, splineKnotIndex, position) {
     }
 
-    public override void Invoke(BoardPlayer player) {
+    public override void Invoke(Player player) {
         Debug.Log($"Player {player.playerName} landed on a question field.");
     }
 }

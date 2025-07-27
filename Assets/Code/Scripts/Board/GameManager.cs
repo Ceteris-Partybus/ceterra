@@ -22,7 +22,7 @@ public class GameManager : NetworkBehaviour {
     [SyncVar]
     public string currentPlayerName = "";
 
-    private List<BoardPlayer> players = new List<BoardPlayer>();
+    private List<Player> players = new List<Player>();
 
     public enum GameState {
         WaitingForPlayers,
@@ -43,7 +43,7 @@ public class GameManager : NetworkBehaviour {
     }
 
     [Server]
-    public void RegisterPlayer(BoardPlayer player) {
+    public void RegisterPlayer(Player player) {
 
         if (!players.Contains(player)) {
             players.Add(player);
@@ -61,7 +61,7 @@ public class GameManager : NetworkBehaviour {
     }
 
     [Server]
-    public void UnregisterPlayer(BoardPlayer player) {
+    public void UnregisterPlayer(Player player) {
 
         if (players.Remove(player)) {
             connectedPlayers = players.Count;
@@ -91,7 +91,7 @@ public class GameManager : NetworkBehaviour {
     }
 
     [Server]
-    public void ProcessDiceRoll(BoardPlayer player, int diceValue) {
+    public void ProcessDiceRoll(Player player, int diceValue) {
         if (gameState != GameState.PlayerTurn) { return; }
         if (currentPlayerIndex >= players.Count || players[currentPlayerIndex] != player) { return; }
 
@@ -121,7 +121,7 @@ public class GameManager : NetworkBehaviour {
     void OnGameStateChanged(GameState oldState, GameState newState) {
     }
 
-    public bool IsPlayerTurn(BoardPlayer player) {
+    public bool IsPlayerTurn(Player player) {
         if (gameState != GameState.PlayerTurn) { return false; }
 
         if (isServer && players.Count > 0 && currentPlayerIndex < players.Count) {

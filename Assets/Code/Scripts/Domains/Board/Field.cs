@@ -30,7 +30,7 @@ public abstract class Field {
         };
     }
 
-    public abstract void Invoke(BoardPlayer player);
+    public abstract void Invoke(Player player);
 
     public Field() {
     }

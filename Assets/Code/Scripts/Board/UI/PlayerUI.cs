@@ -8,11 +8,11 @@ public class PlayerUI : NetworkBehaviour {
     public Button diceButton;
     public Text gameStatusText;
 
-    private BoardPlayer boardPlayer;
+    private Player boardPlayer;
 
     void Start() {
 
-        boardPlayer = GetComponent<BoardPlayer>();
+        boardPlayer = GetComponent<Player>();
 
         if (playerCanvas != null) {
             playerCanvas.enabled = isLocalPlayer;
