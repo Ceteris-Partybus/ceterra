@@ -26,19 +26,14 @@ public class Player : NetworkBehaviour {
     [SyncVar]
     public bool isMoving = false;
 
+    void Start() {
+        healthDisplay = new HealthDisplay(0);
+        moneyDisplay = new MoneyDisplay(0);
+    }
+
     // ========== Data attributes (merged from Player domain class)
-    protected int id;
-    protected string displayName;
     protected HealthDisplay healthDisplay;
     protected MoneyDisplay moneyDisplay;
-
-    public int Id {
-        get;
-    }
-
-    public string DisplayName {
-        get;
-    }
     // ==========
     // ========== Data methods (merged from Player domain class)
     public (int, DisplayTrend) GetHealth() {
@@ -132,6 +127,7 @@ public class Player : NetworkBehaviour {
         isMoving = false;
 
         // Notify GameManager that movement is complete
+        // TODO: Maybe the player needs to confirm the end of movement?
         if (GameManager.Instance != null) {
             GameManager.Instance.OnPlayerMovementComplete(this);
         }
