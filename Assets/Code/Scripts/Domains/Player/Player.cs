@@ -3,8 +3,7 @@ using Mirror;
 using System.Collections;
 using UnityEngine.Splines;
 
-public class Player : NetworkBehaviour
-{
+public class Player : NetworkBehaviour {
     [Header("Player Settings")]
     public TextMesh playerNameText;
     public GameObject floatingInfo;
@@ -19,8 +18,7 @@ public class Player : NetworkBehaviour
     [SyncVar(hook = nameof(OnFieldChanged))]
     public SplineKnotIndex currentSplineKnotIndex;
 
-    public SplineKnotIndex CurrentSplineKnotIndex
-    {
+    public SplineKnotIndex CurrentSplineKnotIndex {
         get;
         set;
     }
@@ -34,61 +32,47 @@ public class Player : NetworkBehaviour
     protected HealthDisplay healthDisplay;
     protected MoneyDisplay moneyDisplay;
 
-    public int Id
-    {
+    public int Id {
         get;
     }
 
-    public string DisplayName
-    {
+    public string DisplayName {
         get;
     }
     // ==========
     // ========== Data methods (merged from Player domain class)
-    public (int, DisplayTrend) GetHealth()
-    {
+    public (int, DisplayTrend) GetHealth() {
         return (this.healthDisplay.CurrentValue, this.healthDisplay.CurrentTrend);
     }
 
-    public void AddHealth(int value)
-    {
+    public void AddHealth(int value) {
         this.healthDisplay.AddCurrentValue(value);
     }
 
-    public void SubtractHealth(int value)
-    {
+    public void SubtractHealth(int value) {
         this.healthDisplay.SubtractCurrentValue(value);
     }
 
-    public (int, DisplayTrend) GetMoney()
-    {
+    public (int, DisplayTrend) GetMoney() {
         return (this.moneyDisplay.CurrentValue, this.moneyDisplay.CurrentTrend);
     }
 
-    public void AddMoney(int value, FundsDisplay fundsDisplay)
-    {
+    public void AddMoney(int value, FundsDisplay fundsDisplay) {
         this.moneyDisplay.AddCurrentValue(value, fundsDisplay);
     }
 
-    public void SubtractMoney(int value)
-    {
+    public void SubtractMoney(int value) {
         this.moneyDisplay.SubtractCurrentValue(value);
     }
     // ==========
 
-    void OnFieldChanged(SplineKnotIndex oldIndex, SplineKnotIndex newIndex)
-    {
-        if (!isServer && !oldIndex.Equals(newIndex))
-        {
+    void OnFieldChanged(SplineKnotIndex oldIndex, SplineKnotIndex newIndex) {
+        if (!isServer && !oldIndex.Equals(newIndex)) {
             StartCoroutine(MoveToFieldCoroutine(GameManager.Instance.fieldList.Find(newIndex)));
         }
     }
 
-    public override void OnStartLocalPlayer()
-    {
-        Camera.main.transform.SetParent(transform);
-        Camera.main.transform.localPosition = new Vector3(0, 2, -10);
-
+    public override void OnStartLocalPlayer() {
         floatingInfo.transform.localPosition = new Vector3(0, -0.3f, 0.6f);
         floatingInfo.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
@@ -96,34 +80,27 @@ public class Player : NetworkBehaviour
         CmdSetupPlayer(name);
     }
 
-    public override void OnStartServer()
-    {
-        if (GameManager.Instance != null)
-        {
+    public override void OnStartServer() {
+        if (GameManager.Instance != null) {
             GameManager.Instance.RegisterPlayer(this);
         }
     }
 
-    public override void OnStopServer()
-    {
-        if (GameManager.Instance != null)
-        {
+    public override void OnStopServer() {
+        if (GameManager.Instance != null) {
             GameManager.Instance.UnregisterPlayer(this);
         }
     }
 
     [Command]
-    public void CmdSetupPlayer(string _name)
-    {
+    public void CmdSetupPlayer(string _name) {
         playerName = _name;
     }
 
     [Command]
-    public void CmdRollDice()
-    {
+    public void CmdRollDice() {
         if (GameManager.Instance == null) { return; }
-        if (!GameManager.Instance.IsPlayerTurn(this))
-        {
+        if (!GameManager.Instance.IsPlayerTurn(this)) {
             return;
         }
         if (isMoving) { return; }
@@ -134,8 +111,7 @@ public class Player : NetworkBehaviour
     }
 
     [Server]
-    public void MoveToField(int steps)
-    {
+    public void MoveToField(int steps) {
         if (GameManager.Instance == null) { return; }
         if (isMoving) { return; }
 
@@ -143,12 +119,10 @@ public class Player : NetworkBehaviour
         StartCoroutine(MoveStepByStepCoroutine(steps));
     }
 
-    IEnumerator MoveStepByStepCoroutine(int steps)
-    {
+    IEnumerator MoveStepByStepCoroutine(int steps) {
         Field currentField = GameManager.Instance.fieldList.Find(currentSplineKnotIndex);
 
-        for (int step = 0; step < steps; step++)
-        {
+        for (int step = 0; step < steps; step++) {
             currentField = GameManager.Instance.fieldList.Find(currentSplineKnotIndex).Next[0];
             currentSplineKnotIndex = currentField.SplineKnotIndex;
             yield return StartCoroutine(MoveToFieldCoroutine(currentField)); // TODO: Implement junction handling
@@ -157,11 +131,15 @@ public class Player : NetworkBehaviour
 
         isMoving = false;
 
+        // Notify GameManager that movement is complete
+        if (GameManager.Instance != null) {
+            GameManager.Instance.OnPlayerMovementComplete(this);
+        }
+
         currentField.Invoke(this);
     }
 
-    IEnumerator MoveToFieldCoroutine(Field targetField)
-    {
+    IEnumerator MoveToFieldCoroutine(Field targetField) {
         if (GameManager.Instance == null) { yield break; }
 
         Vector3 startPos = transform.position;
@@ -171,8 +149,7 @@ public class Player : NetworkBehaviour
         float duration = Vector3.Distance(startPos, targetPos) / moveSpeed;
         float elapsed = 0f;
 
-        while (elapsed < duration)
-        {
+        while (elapsed < duration) {
             elapsed += Time.deltaTime;
             float t = elapsed / duration;
             float curveT = moveCurve.Evaluate(t);
@@ -184,10 +161,8 @@ public class Player : NetworkBehaviour
         transform.position = targetPos;
     }
 
-    void Update()
-    {
-        if (!isLocalPlayer)
-        {
+    void Update() {
+        if (!isLocalPlayer) {
             floatingInfo.transform.LookAt(Camera.main.transform);
             return;
         }

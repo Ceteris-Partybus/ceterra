@@ -22,7 +22,7 @@ public class GameManager : NetworkBehaviour {
     [SyncVar]
     public string currentPlayerName = "";
 
-    private List<Player> players = new List<Player>();
+    private readonly SyncList<Player> players = new SyncList<Player>();
 
     public enum GameState {
         WaitingForPlayers,
@@ -97,14 +97,22 @@ public class GameManager : NetworkBehaviour {
 
         gameState = GameState.PlayerMoving;
         player.MoveToField(diceValue);
-
-        Invoke(nameof(NextPlayerTurn), 2f);
     }
 
     [Server]
     void NextPlayerTurn() {
         currentPlayerIndex = (currentPlayerIndex + 1) % players.Count;
         StartPlayerTurn();
+    }
+
+    [Server]
+    public void OnPlayerMovementComplete(Player player) {
+        // Only proceed if the player who finished moving is the current player
+        if (gameState == GameState.PlayerMoving &&
+            currentPlayerIndex < players.Count &&
+            players[currentPlayerIndex] == player) {
+            NextPlayerTurn();
+        }
     }
 
     [ClientRpc]
@@ -116,6 +124,7 @@ public class GameManager : NetworkBehaviour {
     }
 
     void OnCurrentPlayerChanged(int oldValue, int newValue) {
+
     }
 
     void OnGameStateChanged(GameState oldState, GameState newState) {
@@ -129,5 +138,12 @@ public class GameManager : NetworkBehaviour {
         }
 
         return player.playerName == currentPlayerName;
+    }
+
+    public Player GetCurrentPlayer() {
+        if (players.Count > 0 && currentPlayerIndex >= 0 && currentPlayerIndex < players.Count) {
+            return players[currentPlayerIndex];
+        }
+        return null;
     }
 }
