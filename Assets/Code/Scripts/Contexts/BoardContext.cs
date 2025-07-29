@@ -2,6 +2,8 @@ using Mirror;
 using UnityEngine;
 
 public class BoardContext : NetworkedSingleton<BoardContext> {
+    protected override bool ShouldPersistAcrossScenes => true;
+
     public enum State {
         PLAYER_TURN,
         PLAYER_MOVING,

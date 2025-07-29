@@ -1,8 +1,9 @@
 using Mirror;
 
-public class NetworkedSingleton<T> : NetworkBehaviour where T : NetworkBehaviour {
+public abstract class NetworkedSingleton<T> : NetworkBehaviour where T : NetworkBehaviour {
     private static T instance;
     private static readonly object lockObj = new();
+    protected virtual bool ShouldPersistAcrossScenes => false;
 
     public static T Instance {
         get {
@@ -27,7 +28,7 @@ public class NetworkedSingleton<T> : NetworkBehaviour where T : NetworkBehaviour
     // Don't call `DontDestroyOnLoad` in Awake as mentioned in
     // https://mirror-networking.gitbook.io/docs/manual/components/networkbehaviour
     protected virtual void Start() {
-        if (instance == this) {
+        if (instance == this && ShouldPersistAcrossScenes) {
             DontDestroyOnLoad(gameObject);
         }
     }

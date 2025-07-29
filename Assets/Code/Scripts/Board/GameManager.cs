@@ -3,6 +3,7 @@ using Mirror;
 using System;
 
 public class GameManager : NetworkedSingleton<GameManager> {
+    protected override bool ShouldPersistAcrossScenes => true;
 
     [Header("Game Settings")]
     [SerializeField]
