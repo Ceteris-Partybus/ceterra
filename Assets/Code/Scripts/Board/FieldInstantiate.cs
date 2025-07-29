@@ -57,7 +57,7 @@ public class FieldInstantiate : NetworkBehaviour {
             }
         }
 
-        GameManager.Instance.fieldList = fieldList;
+        BoardContext.Instance.FieldList = fieldList;
 
         for (int i = 0; i < fields.Count(); i++) {
             var field = fields.ElementAt(i);

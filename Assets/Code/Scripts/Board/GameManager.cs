@@ -1,45 +1,34 @@
 using UnityEngine;
 using Mirror;
-using System.Collections.Generic;
+using System;
 
-public class GameManager : NetworkBehaviour {
-    public static GameManager Instance;
+public class GameManager : NetworkedSingleton<GameManager> {
 
     [Header("Game Settings")]
-    public int minPlayersToStart = 2;
+    [SerializeField]
+    private readonly int minPlayersToStart = 2;
+    public int MinPlayersToStart => minPlayersToStart;
 
-    public FieldList fieldList;
-
-    [SyncVar(hook = nameof(OnCurrentPlayerChanged))]
-    public int currentPlayerIndex = 0;
-
-    [SyncVar(hook = nameof(OnGameStateChanged))]
-    public GameState gameState = GameState.WaitingForPlayers;
+    [SyncVar(hook = nameof(OnStateChanged))]
+    private State state = State.WAITING_FOR_PLAYERS;
+    public State CurrentState => state;
 
     [SyncVar]
     public int connectedPlayers = 0;
 
-    [SyncVar]
-    public string currentPlayerName = "";
-
     private readonly SyncList<Player> players = new SyncList<Player>();
 
-    public enum GameState {
-        WaitingForPlayers,
-        GameStarted,
-        PlayerTurn,
-        PlayerMoving,
-        GameEnded
-    }
+    // Public property to allow BoardContext to access players
+    public SyncList<Player> Players => players;
 
-    void Awake() {
-        if (Instance == null) {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else {
-            Destroy(gameObject);
-        }
+    // Public property to access BoardContext's FieldList
+    public FieldList FieldList => BoardContext.Instance?.FieldList;
+
+    public enum State {
+        WAITING_FOR_PLAYERS,
+        ON_BOARD,
+        IN_MINIGAME,
+        GAME_ENDED,
     }
 
     [Server]
@@ -49,12 +38,14 @@ public class GameManager : NetworkBehaviour {
             players.Add(player);
             connectedPlayers = players.Count;
 
-            var startPosition = fieldList.Head.Position;
-            startPosition.y += 1f;
-            player.transform.position = startPosition;
-            player.currentSplineKnotIndex = fieldList.Head.SplineKnotIndex;
+            if (FieldList?.Head != null) {
+                var startPosition = FieldList.Head.Position;
+                startPosition.y += 1f;
+                player.transform.position = startPosition;
+                player.currentSplineKnotIndex = FieldList.Head.SplineKnotIndex;
+            }
 
-            if (connectedPlayers >= minPlayersToStart && gameState == GameState.WaitingForPlayers) {
+            if (connectedPlayers >= minPlayersToStart && state == State.WAITING_FOR_PLAYERS) {
                 StartGame();
             }
         }
@@ -67,83 +58,30 @@ public class GameManager : NetworkBehaviour {
             connectedPlayers = players.Count;
 
             if (connectedPlayers < minPlayersToStart) {
-                gameState = GameState.WaitingForPlayers;
+                state = State.WAITING_FOR_PLAYERS;
             }
         }
     }
 
     [Server]
     void StartGame() {
-        gameState = GameState.GameStarted;
-        currentPlayerIndex = 0;
+        state = State.ON_BOARD;
         RpcGameStarted();
 
-        Invoke(nameof(StartPlayerTurn), 1f);
+        Invoke(nameof(DelayedStartPlayerTurn), 1f); // Wenn GameManager die Methode hier nur in einer anderen Szene als der 
+        // Board Szene aufruft, kann StartPlayerTurn auch einfach in Start von BoardContext aufgerufen werden.
     }
 
     [Server]
-    void StartPlayerTurn() {
-        if (players.Count > 0 && currentPlayerIndex < players.Count) {
-            gameState = GameState.PlayerTurn;
-            currentPlayerName = players[currentPlayerIndex].playerName;
-            RpcNotifyPlayerTurn(currentPlayerIndex, currentPlayerName);
-        }
-    }
-
-    [Server]
-    public void ProcessDiceRoll(Player player, int diceValue) {
-        if (gameState != GameState.PlayerTurn) { return; }
-        if (currentPlayerIndex >= players.Count || players[currentPlayerIndex] != player) { return; }
-
-        gameState = GameState.PlayerMoving;
-        player.MoveToField(diceValue);
-    }
-
-    [Server]
-    void NextPlayerTurn() {
-        currentPlayerIndex = (currentPlayerIndex + 1) % players.Count;
-        StartPlayerTurn();
-    }
-
-    [Server]
-    public void OnPlayerMovementComplete(Player player) {
-        // Only proceed if the player who finished moving is the current player
-        if (gameState == GameState.PlayerMoving &&
-            currentPlayerIndex < players.Count &&
-            players[currentPlayerIndex] == player) {
-            NextPlayerTurn();
-        }
+    void DelayedStartPlayerTurn() {
+        BoardContext.Instance?.StartPlayerTurn();
     }
 
     [ClientRpc]
     void RpcGameStarted() {
-    }
-
-    [ClientRpc]
-    void RpcNotifyPlayerTurn(int playerIndex, string playerName) {
-    }
-
-    void OnCurrentPlayerChanged(int oldValue, int newValue) {
 
     }
 
-    void OnGameStateChanged(GameState oldState, GameState newState) {
-    }
-
-    public bool IsPlayerTurn(Player player) {
-        if (gameState != GameState.PlayerTurn) { return false; }
-
-        if (isServer && players.Count > 0 && currentPlayerIndex < players.Count) {
-            return players[currentPlayerIndex] == player;
-        }
-
-        return player.playerName == currentPlayerName;
-    }
-
-    public Player GetCurrentPlayer() {
-        if (players.Count > 0 && currentPlayerIndex >= 0 && currentPlayerIndex < players.Count) {
-            return players[currentPlayerIndex];
-        }
-        return null;
+    public void OnStateChanged(State oldState, State newState) {
     }
 }

@@ -53,13 +53,14 @@ public class CameraController : MonoBehaviour {
         }
 
         // Only follow if game is in appropriate state
-        if (GameManager.Instance.gameState != GameManager.GameState.PlayerTurn &&
-            GameManager.Instance.gameState != GameManager.GameState.PlayerMoving) {
+        if (GameManager.Instance.CurrentState != GameManager.State.ON_BOARD ||
+            BoardContext.Instance.CurrentState != BoardContext.State.PLAYER_TURN &&
+            BoardContext.Instance.CurrentState != BoardContext.State.PLAYER_MOVING) {
             return null;
         }
 
         // Get current player from GameManager using the new method
-        return GameManager.Instance.GetCurrentPlayer();
+        return BoardContext.Instance.GetCurrentPlayer();
     }
 
     void SetNewTarget(Transform newTarget) {

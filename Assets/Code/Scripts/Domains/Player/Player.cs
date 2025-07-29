@@ -63,7 +63,7 @@ public class Player : NetworkBehaviour {
 
     void OnFieldChanged(SplineKnotIndex oldIndex, SplineKnotIndex newIndex) {
         if (!isServer && !oldIndex.Equals(newIndex)) {
-            StartCoroutine(MoveToFieldCoroutine(GameManager.Instance.fieldList.Find(newIndex)));
+            StartCoroutine(MoveToFieldCoroutine(BoardContext.Instance.FieldList.Find(newIndex)));
         }
     }
 
@@ -95,14 +95,14 @@ public class Player : NetworkBehaviour {
     [Command]
     public void CmdRollDice() {
         if (GameManager.Instance == null) { return; }
-        if (!GameManager.Instance.IsPlayerTurn(this)) {
+        if (!BoardContext.Instance.IsPlayerTurn(this)) {
             return;
         }
         if (isMoving) { return; }
 
         int diceValue = Random.Range(1, 7);
 
-        GameManager.Instance.ProcessDiceRoll(this, diceValue);
+        BoardContext.Instance.ProcessDiceRoll(this, diceValue);
     }
 
     [Server]
@@ -115,10 +115,10 @@ public class Player : NetworkBehaviour {
     }
 
     IEnumerator MoveStepByStepCoroutine(int steps) {
-        Field currentField = GameManager.Instance.fieldList.Find(currentSplineKnotIndex);
+        Field currentField = BoardContext.Instance.FieldList.Find(currentSplineKnotIndex);
 
         for (int step = 0; step < steps; step++) {
-            currentField = GameManager.Instance.fieldList.Find(currentSplineKnotIndex).Next[0];
+            currentField = BoardContext.Instance.FieldList.Find(currentSplineKnotIndex).Next[0];
             currentSplineKnotIndex = currentField.SplineKnotIndex;
             yield return StartCoroutine(MoveToFieldCoroutine(currentField)); // TODO: Implement junction handling
             yield return new WaitForSeconds(0.2f);
@@ -128,9 +128,7 @@ public class Player : NetworkBehaviour {
 
         // Notify GameManager that movement is complete
         // TODO: Maybe the player needs to confirm the end of movement?
-        if (GameManager.Instance != null) {
-            GameManager.Instance.OnPlayerMovementComplete(this);
-        }
+        BoardContext.Instance.OnPlayerMovementComplete(this);
 
         currentField.Invoke(this);
     }

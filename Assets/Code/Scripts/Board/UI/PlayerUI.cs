@@ -40,10 +40,11 @@ public class PlayerUI : NetworkBehaviour {
     void Update() {
         if (!isLocalPlayer) { return; }
 
-        if (diceButton != null && GameManager.Instance != null) {
-            bool canRoll = GameManager.Instance.IsPlayerTurn(boardPlayer) &&
+        if (diceButton != null) {
+            bool canRoll = BoardContext.Instance.IsPlayerTurn(boardPlayer) &&
                           !boardPlayer.isMoving &&
-                          GameManager.Instance.gameState == GameManager.GameState.PlayerTurn;
+                          GameManager.Instance.CurrentState == GameManager.State.ON_BOARD &&
+                          BoardContext.Instance.CurrentState == BoardContext.State.PLAYER_TURN;
             diceButton.interactable = canRoll;
 
             Text buttonText = diceButton.GetComponentInChildren<Text>();
@@ -60,17 +61,15 @@ public class PlayerUI : NetworkBehaviour {
             }
         }
 
-        if (gameStatusText != null && GameManager.Instance != null) {
-            switch (GameManager.Instance.gameState) {
-                case GameManager.GameState.WaitingForPlayers:
-                    gameStatusText.text = $"Waiting for players... ({GameManager.Instance.connectedPlayers}/{GameManager.Instance.minPlayersToStart})";
-                    break;
-                case GameManager.GameState.PlayerTurn:
-                    gameStatusText.text = GameManager.Instance.IsPlayerTurn(boardPlayer) ? "Your turn!" : "Opponent's turn";
-                    break;
-                case GameManager.GameState.PlayerMoving:
-                    gameStatusText.text = "Player moving...";
-                    break;
+        if (gameStatusText != null) {
+            if (GameManager.Instance.CurrentState == GameManager.State.WAITING_FOR_PLAYERS) {
+                gameStatusText.text = $"Waiting for players... ({GameManager.Instance.connectedPlayers}/{GameManager.Instance.MinPlayersToStart})";
+            }
+            else if (BoardContext.Instance.CurrentState == BoardContext.State.PLAYER_TURN) {
+                gameStatusText.text = BoardContext.Instance.IsPlayerTurn(boardPlayer) ? "Your turn!" : "Opponent's turn";
+            }
+            else if (BoardContext.Instance.CurrentState == BoardContext.State.PLAYER_MOVING) {
+                gameStatusText.text = "Player moving...";
             }
         }
     }
