@@ -5,6 +5,8 @@
         "Unity.Localization",
         "Unity.ResourceManager",
         "Mirror",
+        "Mirror.Transports",
+        "Mirror.Components",
         "Unity.Splines",
         "Unity.Mathematics"
     ],
