@@ -1,4 +1,6 @@
 using Mirror;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LobbyManager : NetworkRoomManager {
@@ -8,9 +10,16 @@ public class LobbyManager : NetworkRoomManager {
         }
     }
 
+    public List<int> GetPlayerIds() {
+        return roomSlots.Select(slot => {
+            return slot.index;
+        }).ToList();
+    }
+
     public override void OnRoomServerSceneChanged(string sceneName) {
         if (sceneName == GameplayScene) {
             Debug.Log($"OnRoomServerSceneChanged: {sceneName}");
+            BoardContext.Instance?.StartPlayerTurn();
         }
     }
 
@@ -26,8 +35,12 @@ public class LobbyManager : NetworkRoomManager {
 
     public override bool OnRoomServerSceneLoadedForPlayer(NetworkConnectionToClient conn, GameObject roomPlayer, GameObject gamePlayer) {
         LobbyPlayer lobbyPlayer = roomPlayer.GetComponent<LobbyPlayer>();
+        BoardPlayer boardPlayer = gamePlayer.GetComponent<BoardPlayer>();
+
+        boardPlayer.Id = lobbyPlayer.index;
+        boardPlayer.PlayerName = "Player " + lobbyPlayer.index;
+
         lobbyPlayer.SetHidden(true);
-        Debug.Log($"OnRoomServerSceneLoadedForPlayer: {conn.address} - {gamePlayer.name}");
 
         return true;
     }

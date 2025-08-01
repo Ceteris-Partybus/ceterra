@@ -12,9 +12,9 @@ public class CatastropheField : Field {
         this.type = catastropheTypes[catastropheFieldCount++ % catastropheTypes.Length];
     }
 
-    public override void Invoke(Player player) {
+    public override void Invoke(BoardPlayer player) {
         if (!hasBeenInvoked) {
-            Debug.Log($"Player {player.playerName} landed on a catastrophe field of type {type}.");
+            Debug.Log($"Player landed on a catastrophe field of type {type}.");
             hasBeenInvoked = true;
         }
     }

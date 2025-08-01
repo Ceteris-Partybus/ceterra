@@ -34,7 +34,7 @@ public class CameraController : MonoBehaviour {
         }
 
         // Get the current player from GameManager
-        Player currentPlayer = GetCurrentPlayer();
+        BoardPlayer currentPlayer = GetCurrentPlayer();
 
         // Check if we need to change target
         if (currentPlayer != null && (currentTargetPlayer == null || currentTargetPlayer != currentPlayer.transform)) {
@@ -47,19 +47,17 @@ public class CameraController : MonoBehaviour {
         }
     }
 
-    Player GetCurrentPlayer() {
-        if (GameManager.Instance == null) {
+    private BoardPlayer GetCurrentPlayer() {
+        if (BoardContext.Instance == null) {
             return null;
         }
 
         // Only follow if game is in appropriate state
-        if (GameManager.Instance.CurrentState != GameManager.State.ON_BOARD ||
-            BoardContext.Instance.CurrentState != BoardContext.State.PLAYER_TURN &&
+        if (BoardContext.Instance.CurrentState != BoardContext.State.PLAYER_TURN &&
             BoardContext.Instance.CurrentState != BoardContext.State.PLAYER_MOVING) {
             return null;
         }
 
-        // Get current player from GameManager using the new method
         return BoardContext.Instance.GetCurrentPlayer();
     }
 

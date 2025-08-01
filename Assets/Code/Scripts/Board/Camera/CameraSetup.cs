@@ -1,8 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class CameraSetup : MonoBehaviour
-{
+public class CameraSetup : MonoBehaviour {
     [Header("Auto Setup")]
     public bool autoSetupOnStart = true;
 
@@ -11,29 +10,24 @@ public class CameraSetup : MonoBehaviour
     public float followSpeed = 3f;
     public float rotationSpeed = 2f;
 
-    void Start()
-    {
-        if (autoSetupOnStart)
-        {
+    void Start() {
+        if (autoSetupOnStart) {
             SetupCameraController();
         }
     }
 
     [ContextMenu("Setup Camera Controller")]
-    public void SetupCameraController()
-    {
+    public void SetupCameraController() {
         // Check if CameraController already exists
         CameraController existingController = FindAnyObjectByType<CameraController>();
-        if (existingController != null)
-        {
+        if (existingController != null) {
             Debug.Log("CameraController already exists in the scene.");
             return;
         }
 
         // Find the main camera
         Camera mainCamera = Camera.main;
-        if (mainCamera == null)
-        {
+        if (mainCamera == null) {
             Debug.LogError("No main camera found in the scene. Please ensure there's a camera tagged as 'MainCamera'.");
             return;
         }

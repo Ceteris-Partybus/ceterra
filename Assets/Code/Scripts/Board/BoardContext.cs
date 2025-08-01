@@ -1,8 +1,14 @@
 using Mirror;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BoardContext : NetworkedSingleton<BoardContext> {
-    protected override bool ShouldPersistAcrossScenes => true;
+    protected override bool ShouldPersistAcrossScenes {
+        get {
+            return true;
+        }
+    }
 
     public enum State {
         PLAYER_TURN,
@@ -24,35 +30,46 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         }
     }
 
-    // Property to access GameManager's players list
-    private SyncList<Player> Players => GameManager.Instance?.Players;
-
     [SyncVar(hook = nameof(OnCurrentPlayerChanged))]
     [SerializeField]
-    private int currentPlayerIndex = 0;
-    public int CurrentPlayerIndex => currentPlayerIndex;
+    private int currentPlayerId = 0;
+    public int CurrentPlayerId => currentPlayerId;
 
-    [SyncVar]
-    [SerializeField]
-    private string currentPlayerName = "";
-    public string CurrentPlayerName => currentPlayerName;
-
-    [Server]
-    public void StartPlayerTurn() {
-        if (Players == null || currentPlayerIndex >= Players.Count) {
-            return;
-        }
-
-        currentState = State.PLAYER_TURN;
-        currentPlayerName = Players[currentPlayerIndex].playerName;
-        RpcNotifyPlayerTurn(currentPlayerIndex, currentPlayerName);
+    protected override void Start() {
+        base.Start();
+        currentPlayerId = LobbyManager.singleton.GetPlayerIds()[0];
     }
 
     [Server]
-    public void ProcessDiceRoll(Player player, int diceValue) {
-        if (currentState != State.PLAYER_TURN) { return; }
+    public void StartPlayerTurn() {
+        currentState = State.PLAYER_TURN;
+        RpcNotifyPlayerTurn(currentPlayerId);
+    }
 
-        if (Players == null || currentPlayerIndex >= Players.Count || Players[currentPlayerIndex] != player) { return; }
+    private BoardPlayer GetBoardPlayerById(int playerId) {
+        // Debug.Log($"Looking for player with ID: {playerId}. Current player id is {currentPlayerId}");
+        var spawnedObjects = NetworkServer.active ? NetworkServer.spawned : NetworkClient.spawned;
+
+        foreach (var identity in spawnedObjects.Values) {
+            if (identity.TryGetComponent<BoardPlayer>(out var boardPlayer)) {
+                // Debug.Log($"Found a player with id {boardPlayer.Id}");
+                if (boardPlayer.Id == playerId) {
+                    return boardPlayer;
+                }
+            }
+        }
+        return null;
+    }
+
+    [Server]
+    public void ProcessDiceRoll(BoardPlayer player, int diceValue) {
+        if (currentState != State.PLAYER_TURN) {
+            return;
+        }
+
+        if (currentPlayerId != player.Id) {
+            return;
+        }
 
         currentState = State.PLAYER_MOVING;
         player.MoveToField(diceValue);
@@ -60,49 +77,54 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     [Server]
     public void NextPlayerTurn() {
-        if (Players == null || Players.Count == 0) {
-            return;
-        }
+        List<int> playerIds = LobbyManager.singleton.GetPlayerIds();
+        int indexInLobby = playerIds.IndexOf(currentPlayerId);
+        currentPlayerId = playerIds[(indexInLobby + 1) % playerIds.Count];
 
-        currentPlayerIndex = (currentPlayerIndex + 1) % Players.Count;
         StartPlayerTurn();
     }
 
     [Server]
-    public void OnPlayerMovementComplete(Player player) {
-        // Only proceed if the player who finished moving is the current player
+    public void OnPlayerMovementComplete(BoardPlayer player) {
         if (currentState == State.PLAYER_MOVING &&
-            Players != null &&
-            currentPlayerIndex < Players.Count &&
-            Players[currentPlayerIndex] == player) {
+            currentPlayerId == player.Id) {
             NextPlayerTurn();
         }
     }
 
     [ClientRpc]
-    public void RpcNotifyPlayerTurn(int playerIndex, string playerName) {
+    public void RpcNotifyPlayerTurn(int playerId) {
     }
 
-    public void OnCurrentPlayerChanged(int oldValue, int newValue) {
-
+    public void OnCurrentPlayerChanged(int _, int newPlayerId) {
+        CurrentTurnManager.Instance.UpdateCurrentPlayerName(GetBoardPlayerById(newPlayerId)?.PlayerName);
+        CurrentTurnManager.Instance.AllowRollDiceButtonFor(newPlayerId);
     }
 
     public void OnStateChanged(State oldState, State newState) {
     }
 
-    public bool IsPlayerTurn(Player player) {
+    public bool IsPlayerTurn(BoardPlayer player) {
         if (currentState != State.PLAYER_TURN) { return false; }
 
-        if (isServer && Players != null && Players.Count > 0 && currentPlayerIndex < Players.Count) {
-            return Players[currentPlayerIndex] == player;
-        }
-
-        return player.playerName == currentPlayerName;
+        return player.Id == currentPlayerId;
     }
 
-    public Player GetCurrentPlayer() {
-        if (Players != null && Players.Count > 0 && currentPlayerIndex >= 0 && currentPlayerIndex < Players.Count) {
-            return Players[currentPlayerIndex];
+    public BoardPlayer GetCurrentPlayer() {
+        return GetBoardPlayerById(currentPlayerId);
+    }
+
+    public BoardPlayer GetLocalBoardPlayer() {
+        // Find the BoardPlayer that belongs to the local client
+        var spawnedObjects = NetworkServer.active ? NetworkServer.spawned : NetworkClient.spawned;
+
+        foreach (var identity in spawnedObjects.Values) {
+            if (identity.TryGetComponent<BoardPlayer>(out var boardPlayer)) {
+                // Check if this is the local player's object
+                if (identity.isLocalPlayer) {
+                    return boardPlayer;
+                }
+            }
         }
         return null;
     }
