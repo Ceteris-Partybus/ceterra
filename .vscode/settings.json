@@ -66,25 +66,5 @@
   "explorer.fileNesting.patterns": {
     "*.sln": "*.csproj"
   },
-  "dotnet.defaultSolution": "ceterra.sln",
-  "workbench.colorCustomizations": {
-    "activityBar.activeBackground": "#24b20c",
-    "activityBar.background": "#24b20c",
-    "activityBar.foreground": "#e7e7e7",
-    "activityBar.inactiveForeground": "#e7e7e799",
-    "activityBarBadge.background": "#2e4af1",
-    "activityBarBadge.foreground": "#e7e7e7",
-    "commandCenter.border": "#e7e7e799",
-    "sash.hoverBorder": "#24b20c",
-    "statusBar.background": "#1a8209",
-    "statusBar.foreground": "#e7e7e7",
-    "statusBarItem.hoverBackground": "#24b20c",
-    "statusBarItem.remoteBackground": "#1a8209",
-    "statusBarItem.remoteForeground": "#e7e7e7",
-    "titleBar.activeBackground": "#1a8209",
-    "titleBar.activeForeground": "#e7e7e7",
-    "titleBar.inactiveBackground": "#1a820999",
-    "titleBar.inactiveForeground": "#e7e7e799"
-  },
-  "peacock.color": "#1a8209"
+  "dotnet.defaultSolution": "ceterra.sln"
 }

@@ -30,6 +30,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         }
     }
 
+    [Header("Current Player")]
     [SyncVar(hook = nameof(OnCurrentPlayerChanged))]
     [SerializeField]
     private int currentPlayerId = 0;
@@ -46,7 +47,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         RpcNotifyPlayerTurn(currentPlayerId);
     }
 
-    private BoardPlayer GetBoardPlayerById(int playerId) {
+    public BoardPlayer GetBoardPlayerById(int playerId) {
         // Debug.Log($"Looking for player with ID: {playerId}. Current player id is {currentPlayerId}");
         var spawnedObjects = NetworkServer.active ? NetworkServer.spawned : NetworkClient.spawned;
 

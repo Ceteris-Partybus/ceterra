@@ -243,7 +243,7 @@ MonoBehaviour:
   headlessStartMode: 1
   editorAutoStart: 0
   sendRate: 60
-  offlineScene: 
+  offlineScene: Assets/Level/Scenes/PlayMenu.unity
   onlineScene: Assets/Level/Scenes/Lobby.unity
   offlineSceneLoadDelay: 0
   transport: {fileID: 1926814284}
@@ -255,7 +255,11 @@ MonoBehaviour:
   playerPrefab: {fileID: 5723532665764891057, guid: 7a2889cb03ad8ea419a1d677b090770a, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 1
-  spawnPrefabs: []
+  spawnPrefabs:
+  - {fileID: 5723532665764891057, guid: 7a2889cb03ad8ea419a1d677b090770a, type: 3}
+  - {fileID: 8075969218124468958, guid: b3e151e3683897943acb00538caa6cea, type: 3}
+  - {fileID: 2345556636884331670, guid: 718e8970855b8c842bbc21318c50259c, type: 3}
+  - {fileID: 1933645271408152901, guid: aa26f95a668500b4585c1065f110b59c, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2

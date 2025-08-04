@@ -3,35 +3,32 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Splines;
 
-public class BoardPlayer : NetworkBehaviour {
-    [Header("Player")]
-    [SerializeField]
-    [SyncVar]
-    private int id;
-    public int Id {
-        get => id;
-        set => id = value;
-    }
-
-    [SerializeField]
-    [SyncVar]
-    private string playerName;
-    public string PlayerName {
-        get => playerName;
-        set => playerName = value;
-    }
-
+public class BoardPlayer : Player {
     [Header("Position")]
     [SerializeField]
     [SyncVar(hook = nameof(OnSplineKnotIndexChanged))]
     private SplineKnotIndex splineKnotIndex;
-    public SplineKnotIndex SplineKnotIndex { get; set; }
+    public SplineKnotIndex SplineKnotIndex {
+        get {
+            return splineKnotIndex;
+        }
+        set {
+            splineKnotIndex = value;
+        }
+    }
 
     [Header("Movement")]
     [SyncVar]
     [SerializeField]
     private bool isMoving = false;
-    public bool IsMoving { get; set; }
+    public bool IsMoving {
+        get {
+            return isMoving;
+        }
+        set {
+            isMoving = value;
+        }
+    }
 
     public static readonly float moveSpeed = 5f;
     public static readonly AnimationCurve moveCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);

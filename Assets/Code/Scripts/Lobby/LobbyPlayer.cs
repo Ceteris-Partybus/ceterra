@@ -7,7 +7,7 @@ public class LobbyPlayer : NetworkRoomPlayer {
     public bool isHidden = false;
 
     public override void OnStartClient() {
-        Debug.Log($"OnStartClient {gameObject}");
+        Debug.Log($"LobbyPlayer OnStartClient {gameObject}, isHidden: {isHidden}");
     }
 
     public override void OnClientEnterRoom() {
@@ -27,15 +27,51 @@ public class LobbyPlayer : NetworkRoomPlayer {
         Debug.Log($"ReadyStateChanged {newReadyState}");
     }
 
-    void OnHiddenStateChanged(bool _, bool newHidden) {
-        // Setting the scale to zero effectively hides the player in the lobby
-        // Physically disabling the GameObject would disable all components of the LobbyPlayer which we might need later on
-        gameObject.transform.localScale = newHidden ? Vector3.zero : Vector3.one;
+    void OnHiddenStateChanged(bool oldHidden, bool newHidden) {
+        Debug.Log($"[LobbyPlayer] OnHiddenStateChanged for player {index}: {oldHidden} -> {newHidden}");
+
+        // Multiple approaches to hiding the player
+        if (newHidden) {
+            // Set scale to zero
+            gameObject.transform.localScale = Vector3.zero;
+
+            // Also disable all renderers
+            Renderer[] renderers = GetComponentsInChildren<Renderer>();
+            foreach (Renderer renderer in renderers) {
+                renderer.enabled = false;
+            }
+
+            // Disable colliders to prevent interaction
+            Collider[] colliders = GetComponentsInChildren<Collider>();
+            foreach (Collider collider in colliders) {
+                collider.enabled = false;
+            }
+        }
+        else {
+            // Restore visibility
+            gameObject.transform.localScale = Vector3.one;
+
+            // Re-enable all renderers
+            Renderer[] renderers = GetComponentsInChildren<Renderer>();
+            foreach (Renderer renderer in renderers) {
+                renderer.enabled = true;
+            }
+
+            // Re-enable colliders
+            Collider[] colliders = GetComponentsInChildren<Collider>();
+            foreach (Collider collider in colliders) {
+                collider.enabled = true;
+            }
+        }
+
+        Debug.Log($"[LobbyPlayer] Set scale to: {gameObject.transform.localScale}, renderers disabled: {newHidden}");
     }
 
     [Server]
     public void SetHidden(bool hidden) {
+        Debug.Log($"[LobbyPlayer] SetHidden called for player {index}: {hidden} (current: {isHidden})");
         isHidden = hidden;
+        Debug.Log($"[LobbyPlayer] isHidden is now: {isHidden}");
     }
 
 #if !UNITY_SERVER
