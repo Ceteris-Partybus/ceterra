@@ -17,9 +17,6 @@ public class MinigameOnePlayer : MinigamePlayer {
     private CharacterController characterController;
 
     void Start() {
-        // TODO: authority likely is not what I want. (isOwned) but check first. No idea where the `authority` even comes from
-        // TODO: nvm, `authority`'s getter uses isOwned (defined in NetworkBehaviour) so it's fine the way it is
-        Debug.Log($"[{name}] isLocalPlayer={isLocalPlayer}, hasAuthority={authority}, netId={netId}");
     }
 
     [ClientCallback]
@@ -46,19 +43,15 @@ public class MinigameOnePlayer : MinigamePlayer {
 
     [Command]
     void CmdMove(Vector3 newPosition) {
-        Debug.Log($"[SERVER] CmdMove called by connection {connectionToClient?.connectionId}, hasAuthority={authority}");
         // Server validates and applies the movement
         Vector3 oldPos = transform.position;
         transform.position = newPosition;
-
-        Debug.Log($"[SERVER] Position changed from {oldPos} to {transform.position}");
 
         // Force sync to all clients
         transform.position = newPosition;
     }
 
     public override void FromBoard(BoardPlayerData boardPlayer) {
-        // This should work now - the LobbyManager handles the initialization
         if (boardPlayer != null) {
             // this.Id = boardPlayer.Id;
             // this.PlayerName = boardPlayer.PlayerName;

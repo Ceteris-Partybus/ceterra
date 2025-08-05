@@ -1,4 +1,5 @@
 using Mirror;
+using System.Linq;
 using UnityEngine;
 
 public class MinigameManager : NetworkedSingleton<MinigameManager> {
@@ -25,13 +26,16 @@ public class MinigameManager : NetworkedSingleton<MinigameManager> {
         return minigameDatabase?.GetAllSceneNames();
     }
 
+    public bool IsMinigameScene(string sceneName) {
+        return GetAllMinigameScenes()?.Contains(sceneName) ?? false;
+    }
+
     [Server]
     public void StartMinigame(string sceneName) {
         var minigameData = GetMinigameData(sceneName);
         if (minigameData != null) {
             Debug.Log($"Starting minigame: {minigameData.displayName} (Scene: {sceneName})");
 
-            // Change to the minigame scene
             LobbyManager.singleton.ServerChangeScene(sceneName);
         }
         else {

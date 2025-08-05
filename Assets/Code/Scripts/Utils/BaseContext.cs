@@ -47,10 +47,7 @@ public abstract class BaseContext<T, P> : NetworkedSingleton<T>
     public P GetLocalPlayer() {
         foreach (var identity in GetSpawnedObjects()) {
             if (identity.TryGetComponent<P>(out var player)) {
-                // TODO: This might need to check for authority instead of localPlayer because I think clients just have authority over minigameplayer
-                // TODO: But the minigameplayer isn't the localplayer
-                // TODO: Ask AI ig
-                if (identity.isLocalPlayer) {
+                if (identity.isLocalPlayer || identity.isOwned) {
                     return player;
                 }
             }
