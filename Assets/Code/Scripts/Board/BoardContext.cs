@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BoardContext : NetworkedSingleton<BoardContext> {
-    protected override bool ShouldPersistAcrossScenes {
-        get {
-            return true;
-        }
-    }
+public class BoardContext : PlayerDataContext<BoardContext, BoardPlayer, BoardPlayerData> {
+    protected override bool ShouldPersistAcrossScenes => true;
 
     public enum State {
         PLAYER_TURN,
@@ -19,15 +15,13 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     private State currentState = State.PLAYER_TURN;
     public State CurrentState => currentState;
 
+    private FundsDisplay fundsDispaly;
+    public FundsDisplay FundsDisplay => fundsDispaly;
+
     private FieldList fieldList;
     public FieldList FieldList {
-        get {
-            return fieldList;
-        }
-
-        set {
-            fieldList ??= value;
-        }
+        get => fieldList;
+        set => fieldList ??= value;
     }
 
     [Header("Current Player")]
@@ -38,28 +32,14 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     protected override void Start() {
         base.Start();
-        currentPlayerId = LobbyManager.singleton.GetPlayerIds()[0];
+        currentPlayerId = playerIds[0];
+        fundsDispaly = new FundsDisplay(0);
     }
 
     [Server]
     public void StartPlayerTurn() {
         currentState = State.PLAYER_TURN;
         RpcNotifyPlayerTurn(currentPlayerId);
-    }
-
-    public BoardPlayer GetBoardPlayerById(int playerId) {
-        // Debug.Log($"Looking for player with ID: {playerId}. Current player id is {currentPlayerId}");
-        var spawnedObjects = NetworkServer.active ? NetworkServer.spawned : NetworkClient.spawned;
-
-        foreach (var identity in spawnedObjects.Values) {
-            if (identity.TryGetComponent<BoardPlayer>(out var boardPlayer)) {
-                // Debug.Log($"Found a player with id {boardPlayer.Id}");
-                if (boardPlayer.Id == playerId) {
-                    return boardPlayer;
-                }
-            }
-        }
-        return null;
     }
 
     [Server]
@@ -98,7 +78,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     }
 
     public void OnCurrentPlayerChanged(int _, int newPlayerId) {
-        CurrentTurnManager.Instance.UpdateCurrentPlayerName(GetBoardPlayerById(newPlayerId)?.PlayerName);
+        CurrentTurnManager.Instance.UpdateCurrentPlayerName(GetPlayerById(newPlayerId)?.PlayerName);
         CurrentTurnManager.Instance.AllowRollDiceButtonFor(newPlayerId);
     }
 
@@ -112,21 +92,6 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     }
 
     public BoardPlayer GetCurrentPlayer() {
-        return GetBoardPlayerById(currentPlayerId);
-    }
-
-    public BoardPlayer GetLocalBoardPlayer() {
-        // Find the BoardPlayer that belongs to the local client
-        var spawnedObjects = NetworkServer.active ? NetworkServer.spawned : NetworkClient.spawned;
-
-        foreach (var identity in spawnedObjects.Values) {
-            if (identity.TryGetComponent<BoardPlayer>(out var boardPlayer)) {
-                // Check if this is the local player's object
-                if (identity.isLocalPlayer) {
-                    return boardPlayer;
-                }
-            }
-        }
-        return null;
+        return GetPlayerById(currentPlayerId);
     }
 }

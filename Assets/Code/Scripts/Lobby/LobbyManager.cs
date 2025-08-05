@@ -4,11 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 public class LobbyManager : NetworkRoomManager {
-    public static new LobbyManager singleton {
-        get {
-            return NetworkManager.singleton as LobbyManager;
-        }
-    }
+    public static new LobbyManager singleton => NetworkManager.singleton as LobbyManager;
 
     public List<int> GetPlayerIds() {
         return roomSlots.Select(slot => {
@@ -133,6 +129,7 @@ public class LobbyManager : NetworkRoomManager {
         // For minigame scenes, the player replacement is handled in OnRoomServerSceneChanged
         // So we just return true to allow the normal flow
         if (networkSceneName != GameplayScene) {
+            // TODO: Can this case even occur? I think this hook is only called for Lobby -> Board, not X -> Y
             Debug.Log($"Player loaded for minigame scene: {networkSceneName}");
             return true;
         }
@@ -149,18 +146,9 @@ public class LobbyManager : NetworkRoomManager {
         return true;
     }
 
-    private BoardPlayer GetBoardPlayerForLobbyPlayer(LobbyPlayer lobbyPlayer) {
-        // Find the corresponding BoardPlayer in the current scene
-        BoardPlayer[] boardPlayers = FindObjectsByType<BoardPlayer>(FindObjectsSortMode.None);
-        return boardPlayers.FirstOrDefault(bp => bp.Id == lobbyPlayer.index);
-    }
-
-    public override void OnRoomServerAddPlayer(NetworkConnectionToClient conn) {
-        Debug.Log($"OnRoomServerAddPlayer: {conn.address}");
-
-        base.OnRoomServerAddPlayer(conn);
-    }
-
+    // TODO: I think we need to keep this to prevent the base call when switching to minigame scenes.
+    // TODO: If this needs to be kept, I suppose I can move the implementation from `OnRoomServerSceneChanged` here.
+    // TODO: That would semantically make more sense
     public override void OnServerAddPlayer(NetworkConnectionToClient conn) {
         // For minigame scenes, we need to handle player addition differently
         if (networkSceneName != RoomScene && networkSceneName != GameplayScene) {
@@ -178,6 +166,7 @@ public class LobbyManager : NetworkRoomManager {
         base.OnServerAddPlayer(conn);
     }
 
+    // TODO: Maybe create a method in MinigameManager `IsMinigameScene` instead of confirming via exclusion
     public override void OnServerReady(NetworkConnectionToClient conn) {
         Debug.Log($"OnServerReady called for scene: {networkSceneName}");
 
@@ -194,13 +183,8 @@ public class LobbyManager : NetworkRoomManager {
         base.OnServerReady(conn);
     }
 
-    public override GameObject OnRoomServerCreateGamePlayer(NetworkConnectionToClient conn, GameObject roomPlayer) {
-        Debug.Log($"OnRoomServerCreateGamePlayer: {conn.address} for scene: {networkSceneName}");
-
-        // Default behavior for all scenes - let the base class handle it
-        return null;
-    }
-
+    // TODO: I think we can just remove the last three methods here. They aren't overriding anything. The OnGUI might still be necessary
+    // TODO: But it's worth checking if we can delete it
     public override void OnRoomStopClient() {
         base.OnRoomStopClient();
     }

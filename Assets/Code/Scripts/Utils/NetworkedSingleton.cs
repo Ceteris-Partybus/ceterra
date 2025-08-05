@@ -1,13 +1,9 @@
 using Mirror;
 
-public abstract class NetworkedSingleton<T> : NetworkBehaviour where T : NetworkBehaviour {
+public abstract class NetworkedSingleton<T> : NetworkBehaviour where T : NetworkedSingleton<T> {
     private static T instance;
     private static readonly object lockObj = new();
-    protected virtual bool ShouldPersistAcrossScenes {
-        get {
-            return false;
-        }
-    }
+    protected virtual bool ShouldPersistAcrossScenes => false;
 
     public static T Instance {
         get {

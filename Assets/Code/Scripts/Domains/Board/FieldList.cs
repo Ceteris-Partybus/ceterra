@@ -8,12 +8,8 @@ public class FieldList {
     }
 
     public Field Head {
-        get {
-            return this.head;
-        }
-        set {
-            this.head = value;
-        }
+        get => head;
+        set => head = value;
     }
 
     public Field Find(SplineKnotIndex splineKnotIndex) {

@@ -36,12 +36,6 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
         }
     }
 
-    // public void AllowRollDiceButtonFor(int playerId) {
-    //     if (rollDiceButton != null) {
-    //         bool isCurrentPlayer = BoardContext.Instance.CurrentPlayerId == playerId;
-    //         rollDiceButton.SetEnabled(isCurrentPlayer);
-    //     }
-    // }
     public void AllowRollDiceButtonFor(int playerId) {
         if (rollDiceButton != null) {
             // Check if the local player is the current player
@@ -53,7 +47,7 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
 
     private bool IsLocalPlayerTurn(int currentPlayerId) {
         // Find the local player's BoardPlayer component
-        BoardPlayer localPlayer = BoardContext.Instance.GetLocalBoardPlayer();
+        BoardPlayer localPlayer = BoardContext.Instance.GetLocalPlayer();
         if (localPlayer == null) {
             return false;
         }

@@ -17,6 +17,8 @@ public class MinigameOnePlayer : MinigamePlayer {
     private CharacterController characterController;
 
     void Start() {
+        // TODO: authority likely is not what I want. (isOwned) but check first. No idea where the `authority` even comes from
+        // TODO: nvm, `authority`'s getter uses isOwned (defined in NetworkBehaviour) so it's fine the way it is
         Debug.Log($"[{name}] isLocalPlayer={isLocalPlayer}, hasAuthority={authority}, netId={netId}");
     }
 
@@ -55,16 +57,16 @@ public class MinigameOnePlayer : MinigamePlayer {
         transform.position = newPosition;
     }
 
-    public override void InitializeFromBoardPlayer(BoardPlayer boardPlayer) {
+    public override void FromBoard(BoardPlayerData boardPlayer) {
         // This should work now - the LobbyManager handles the initialization
         if (boardPlayer != null) {
-            this.Id = boardPlayer.Id;
-            this.PlayerName = boardPlayer.PlayerName;
+            // this.Id = boardPlayer.Id;
+            // this.PlayerName = boardPlayer.PlayerName;
         }
         this.MinigameScore = 0;
     }
 
-    public override void TranslateToBoardPlayer(BoardPlayer boardPlayer) {
+    public override void ToBoard(BoardPlayerData boardPlayer) {
         // Transfer minigame results back to board player
         // For example: boardPlayer.AddCoins(MinigameScore);
     }

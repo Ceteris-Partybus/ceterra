@@ -2,11 +2,7 @@ using Mirror;
 using UnityEngine;
 
 public class MinigameManager : NetworkedSingleton<MinigameManager> {
-    protected override bool ShouldPersistAcrossScenes {
-        get {
-            return true;
-        }
-    }
+    protected override bool ShouldPersistAcrossScenes => true;
 
     [Header("Minigame Configuration")]
     [SerializeField]
@@ -46,6 +42,9 @@ public class MinigameManager : NetworkedSingleton<MinigameManager> {
     [Server]
     public void ReturnToBoardScene() {
         Debug.Log("Returning to board scene");
+        // TODO: Maybe do persist boardplayer? Otherwise I'd have to spawn them again
+        // TODO: And I have no idea if the boardplayer spawned by mirror is the localplayer, if so, creating them anew like I do now with
+        // TODO: The minigame players might cause the BoardPlayer to malfunciton
         NetworkManager.singleton.ServerChangeScene(LobbyManager.singleton.GameplayScene);
     }
 }

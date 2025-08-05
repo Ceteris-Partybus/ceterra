@@ -1,13 +1,7 @@
 using Mirror;
 using UnityEngine;
 
-public class MinigameOneContext : NetworkedSingleton<MinigameOneContext> {
-    protected override bool ShouldPersistAcrossScenes {
-        get {
-            return false; // Minigame contexts are scene-specific
-        }
-    }
-
+public class MinigameOneContext : PlayerDataContext<MinigameOneContext, MinigameOnePlayer, MinigameOneData> {
     [Header("Minigame State")]
     [SyncVar]
     [SerializeField]

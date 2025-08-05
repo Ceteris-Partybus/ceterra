@@ -100,7 +100,6 @@ public class FieldInstantiate : NetworkBehaviour {
     }
 
     // TODO: Placeholder, replace with actual logic later
-    // TODO: Is not synched between all clients
     private void FillFieldTypeMap() {
         for (int i = 0; i < splineContainer.Splines.Count(); i++) {
             var spline = splineContainer.Splines.ElementAt(i);

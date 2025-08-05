@@ -1,5 +1,4 @@
 using UnityEngine;
-using Mirror;
 
 public class CameraController : MonoBehaviour {
     [Header("Camera Settings")]

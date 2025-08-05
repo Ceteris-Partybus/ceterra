@@ -9,25 +9,24 @@ public class BoardPlayer : Player {
     [SyncVar(hook = nameof(OnSplineKnotIndexChanged))]
     private SplineKnotIndex splineKnotIndex;
     public SplineKnotIndex SplineKnotIndex {
-        get {
-            return splineKnotIndex;
-        }
-        set {
-            splineKnotIndex = value;
-        }
+        get => splineKnotIndex;
+        set => splineKnotIndex = value;
     }
+
+    // TODO: Can I create a local BoardPlayerData property that is then set to the respective one (key) of the BoardContexts SyncDictionary?
+    // TODO: Then I could also add a hook to it? Or would that not work?
+    // TODO: Ask AI what the way to go would be here because I don't like that I'd have to save the values twice, once here
+    // TODO: And then again in the boardcontext...
+    // TODO: Anyway, the update hook of the health, money etc would call the PlayerOverviewManager (for nonlocal players) and the MeOverview
+    // TODO: For the local player (both will be UI managers)
 
     [Header("Movement")]
     [SyncVar]
     [SerializeField]
     private bool isMoving = false;
     public bool IsMoving {
-        get {
-            return isMoving;
-        }
-        set {
-            isMoving = value;
-        }
+        get => isMoving;
+        set => isMoving = value;
     }
 
     public static readonly float moveSpeed = 5f;

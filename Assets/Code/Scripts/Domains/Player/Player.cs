@@ -1,7 +1,7 @@
 using Mirror;
 using UnityEngine;
 
-public class Player : NetworkBehaviour {
+public abstract class Player : NetworkBehaviour {
     [Header("Player")]
     [SerializeField]
     [SyncVar]

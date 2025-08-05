@@ -4,7 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class LobbyPlayer : NetworkRoomPlayer {
     [SyncVar(hook = nameof(OnHiddenStateChanged))]
-    public bool isHidden = false;
+    [SerializeField]
+    private bool isHidden = false;
+    public bool IsHidden => isHidden;
 
     public override void OnStartClient() {
         Debug.Log($"LobbyPlayer OnStartClient {gameObject}, isHidden: {isHidden}");

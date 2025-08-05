@@ -41,9 +41,7 @@ public class FieldBehaviour : NetworkBehaviour {
     }
 
     public Field Field {
-        get {
-            return this.field;
-        }
+        get => field;
         set {
             if (this.field != null) {
                 this.field.NextAdded -= OnNextAdded;

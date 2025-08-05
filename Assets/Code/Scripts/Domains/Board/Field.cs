@@ -36,58 +36,34 @@ public abstract class Field {
     }
 
     public void AddNext(Field field) {
-        this.next.Add(field);
+        next.Add(field);
         NextAdded?.Invoke();
     }
 
-    public int Id {
-        get {
-            return this.id;
-        }
-    }
+    public int Id => id;
 
-    public int SplineId {
-        get {
-            return this.splineId;
-        }
-    }
+    public int SplineId => splineId;
 
     public FieldType Type {
-        get {
-            return this.type;
-        }
-        set {
-            this.type = value;
-        }
+        get => type;
+        set => type = value;
     }
 
-    public IReadOnlyList<Field> Next {
-        get {
-            return this.next.AsReadOnly();
-        }
-    }
+    public IReadOnlyList<Field> Next => next.AsReadOnly();
 
-    public SplineKnotIndex SplineKnotIndex {
-        get {
-            return this.splineKnotIndex;
-        }
-    }
+    public SplineKnotIndex SplineKnotIndex => splineKnotIndex;
 
-    public Vector3 Position {
-        get {
-            return this.position;
-        }
-    }
+    public Vector3 Position => position;
 
     public override bool Equals(object obj) {
         if (obj is Field other) {
-            return this.id == other.id;
+            return id == other.id;
         }
         return false;
     }
 
     public override int GetHashCode() {
-        return this.id.GetHashCode();
+        return id.GetHashCode();
     }
 
     public event Action NextAdded;

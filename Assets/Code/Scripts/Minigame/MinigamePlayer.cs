@@ -1,4 +1,4 @@
 public abstract class MinigamePlayer : Player {
-    public abstract void InitializeFromBoardPlayer(BoardPlayer boardPlayer);
-    public abstract void TranslateToBoardPlayer(BoardPlayer boardPlayer);
+    public abstract void FromBoard(BoardPlayerData boardPlayerData);
+    public abstract void ToBoard(BoardPlayerData boardPlayerData);
 }
