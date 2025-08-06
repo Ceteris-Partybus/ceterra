@@ -235,12 +235,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1926814283}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 771198a7be3d5d14e92f7e09cc4de394, type: 3}
+  m_Script: {fileID: 11500000, guid: 15e6506945ce693479394588d35b4a54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
   runInBackground: 1
-  headlessStartMode: 1
+  headlessStartMode: 0
   editorAutoStart: 0
   sendRate: 60
   offlineScene: Assets/Level/Scenes/PlayMenu.unity
@@ -255,11 +255,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 5723532665764891057, guid: 7a2889cb03ad8ea419a1d677b090770a, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 1
-  spawnPrefabs:
-  - {fileID: 5723532665764891057, guid: 7a2889cb03ad8ea419a1d677b090770a, type: 3}
-  - {fileID: 8075969218124468958, guid: b3e151e3683897943acb00538caa6cea, type: 3}
-  - {fileID: 2345556636884331670, guid: 718e8970855b8c842bbc21318c50259c, type: 3}
-  - {fileID: 1933645271408152901, guid: aa26f95a668500b4585c1065f110b59c, type: 3}
+  spawnPrefabs: []
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -276,12 +272,14 @@ MonoBehaviour:
   evaluationInterval: 3
   timeInterpolationGui: 0
   showRoomGUI: 1
-  minPlayers: 2
+  minPlayers: 1
   roomPlayerPrefab: {fileID: 2166314457688432621, guid: 718e8970855b8c842bbc21318c50259c, type: 3}
   RoomScene: Assets/Level/Scenes/Lobby.unity
   GameplayScene: Assets/Level/Scenes/Board.unity
   _allPlayersReady: 0
   clientIndex: 0
+  minigameScenes:
+  - MinigameOne
 --- !u!114 &1926814289
 MonoBehaviour:
   m_ObjectHideFlags: 0
