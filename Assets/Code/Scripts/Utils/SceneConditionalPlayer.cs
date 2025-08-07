@@ -1,196 +1,224 @@
 using Mirror;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// A NetworkBehaviour that manages player components based on the current scene.
+/// Only one component per GameObject is active at a time, with automatic data transfer.
+/// </summary>
 public abstract class SceneConditionalPlayer : NetworkBehaviour {
+
+    #region Core Properties
     [SyncVar]
-    [SerializeField]
-    private int id = -1;
-    public int Id {
-        get => id;
-        set {
-            if (id == -1) {
-                id = value;
-            }
-        }
+    private int playerId = -1;
+    public int PlayerId {
+        get => playerId;
+        private set => playerId = value;
     }
 
-    private string playerName;
+    [SyncVar]
+    private string playerName = "";
     public string PlayerName {
         get => playerName;
-        set => playerName = value;
+        private set => playerName = value;
     }
 
-    [SyncVar(hook = nameof(OnEnabledChanged))]
-    [SerializeField]
-    private bool isEnabled = true;
+    [SyncVar(hook = nameof(OnActiveStateChanged))]
+    private bool isActiveForCurrentScene = false;
+    public bool IsActiveForCurrentScene => isActiveForCurrentScene;
+    #endregion
 
-    public bool IsEnabled => isEnabled;
-    public bool IsDisabled => !isEnabled;
+    #region Server-Only State
+    private static Dictionary<GameObject, ScenePlayerManager> playerManagers =
+        new Dictionary<GameObject, ScenePlayerManager>();
 
-    private static readonly Dictionary<GameObject, List<SceneConditionalPlayer>> playerScripts =
-        new Dictionary<GameObject, List<SceneConditionalPlayer>>();
+    private bool isInitialized = false;
+    #endregion
 
-    private bool hasInitialized = false;
-    private bool isWaitingForDataTransfer = false;
-
-    private void OnEnabledChanged(bool _, bool newValue) {
-        Debug.Log($"SceneConditionalPlayer {name} enabled state changed to {newValue}");
-        enabled = newValue;
+    #region Lifecycle
+    public override void OnStartServer() {
+        base.OnStartServer();
+        GetOrCreateManager().RegisterComponent(this);
     }
 
-    protected virtual void Start() {
-        Recalculate();
+    public override void OnStopServer() {
+        base.OnStopServer();
+        if (playerManagers.ContainsKey(gameObject)) {
+            playerManagers[gameObject].UnregisterComponent(this);
+        }
     }
 
-    public void Recalculate() {
-        Debug.Log($"Recalculating SceneConditionalPlayer {name} for scene {NetworkManager.networkSceneName}");
-        RegisterScript();
+    public override void OnStartClient() {
+        base.OnStartClient();
+        // Apply initial state on clients
+        OnActiveStateChanged(false, isActiveForCurrentScene);
+    }
+    #endregion
 
-        if (IsEnabledForScene(NetworkManager.networkSceneName)) {
-            Enable();
-            StartCoroutine(InitializeWhenReady());
+    #region Server Management
+    [Server]
+    private ScenePlayerManager GetOrCreateManager() {
+        if (!playerManagers.ContainsKey(gameObject)) {
+            playerManagers[gameObject] = new ScenePlayerManager(gameObject);
+        }
+        return playerManagers[gameObject];
+    }
+
+    [Server]
+    public void HandleSceneChange(string newSceneName) {
+        GetOrCreateManager().HandleSceneChange(newSceneName);
+    }
+
+    [Server]
+    internal void SetActiveState(bool active) {
+        if (isActiveForCurrentScene == active) {
+            return;
+        }
+
+        isActiveForCurrentScene = active;
+
+        if (active) {
+            if (!isInitialized) {
+                OnServerInitialize();
+                isInitialized = true;
+            }
         }
         else {
-            StartCoroutine(DisableWhenDataTransferred());
-        }
-    }
-
-    private void RegisterScript() {
-        Debug.Log($"Registering SceneConditionalPlayer {name} for scene {NetworkManager.networkSceneName}");
-        if (!playerScripts.ContainsKey(gameObject)) {
-            playerScripts[gameObject] = new List<SceneConditionalPlayer>();
-        }
-        playerScripts[gameObject].Add(this);
-    }
-
-    private void OnDestroy() {
-        if (playerScripts.ContainsKey(gameObject)) {
-            playerScripts[gameObject].Remove(this);
-            if (playerScripts[gameObject].Count == 0) {
-                playerScripts.Remove(gameObject);
+            if (isInitialized) {
+                OnServerCleanup();
+                isInitialized = false;
             }
         }
     }
 
-    private IEnumerator InitializeWhenReady() {
-        yield return new WaitUntil(() => AreAllDataTransfersComplete());
+    [Server]
+    internal void TransferDataFrom(SceneConditionalPlayer source) {
+        // Transfer core data
+        PlayerId = source.PlayerId;
+        PlayerName = source.PlayerName;
 
-        if (!hasInitialized) {
-            hasInitialized = true;
-            Initialize();
+        // Transfer custom data
+        OnServerReceiveData(source);
+    }
 
-            OnScriptInitialized();
+    [Server]
+    public void SetPlayerData(int id, string name) {
+        if (PlayerId == -1) {
+            PlayerId = id;
+        }
+
+        PlayerName = name;
+    }
+    #endregion
+
+    #region Client Sync
+    private void OnActiveStateChanged(bool oldValue, bool newValue) {
+        enabled = newValue;
+        OnClientActiveStateChanged(newValue);
+        Debug.Log($"[Client] {GetType().Name} on {name} is now {(newValue ? "active" : "inactive")}");
+    }
+    #endregion
+
+    #region Abstract/Virtual Methods
+    /// <summary>
+    /// Determines if this component should be active for the given scene
+    /// </summary>
+    public abstract bool ShouldBeActiveInScene(string sceneName);
+
+    /// <summary>
+    /// Called on server when this component becomes active
+    /// </summary>
+    [Server]
+    protected virtual void OnServerInitialize() { }
+
+    /// <summary>
+    /// Called on server when this component becomes inactive
+    /// </summary>
+    [Server]
+    protected virtual void OnServerCleanup() { }
+
+    /// <summary>
+    /// Called on server to receive data from previously active component
+    /// </summary>
+    [Server]
+    protected virtual void OnServerReceiveData(SceneConditionalPlayer source) { }
+
+    /// <summary>
+    /// Called on client when active state changes
+    /// </summary>
+    protected virtual void OnClientActiveStateChanged(bool isActive) { }
+    #endregion
+}
+
+/// <summary>
+/// Server-only manager that handles component switching for a single GameObject
+/// </summary>
+internal class ScenePlayerManager {
+    private readonly GameObject gameObject;
+    private readonly List<SceneConditionalPlayer> components = new List<SceneConditionalPlayer>();
+    private SceneConditionalPlayer activeComponent;
+    private string currentScene;
+
+    public ScenePlayerManager(GameObject gameObject) {
+        this.gameObject = gameObject;
+        this.currentScene = NetworkManager.networkSceneName;
+    }
+
+    public void RegisterComponent(SceneConditionalPlayer component) {
+        if (!components.Contains(component)) {
+            components.Add(component);
+            Debug.Log($"[Server] Registered {component.GetType().Name} on {gameObject.name}");
+
+            // Check if this component should be active in current scene
+            UpdateActiveComponent();
         }
     }
 
-    private IEnumerator DisableWhenDataTransferred() {
-        if (ShouldWaitForDataTransfer()) {
-            isWaitingForDataTransfer = true;
-
-            yield return new WaitUntil(() => HasEnabledScriptInitialized());
-
-            yield return new WaitForEndOfFrame();
+    public void UnregisterComponent(SceneConditionalPlayer component) {
+        components.Remove(component);
+        if (activeComponent == component) {
+            activeComponent = null;
         }
-
-        Disable();
     }
 
-    private bool ShouldWaitForDataTransfer() {
-        if (!playerScripts.ContainsKey(gameObject)) {
-            return false;
-        }
-
-        return playerScripts[gameObject].Any(script =>
-            script != this &&
-            script.IsEnabledForScene(NetworkManager.networkSceneName));
-    }
-
-    private bool AreAllDataTransfersComplete() {
-        if (!playerScripts.ContainsKey(gameObject)) {
-            return true;
-        }
-
-        return playerScripts[gameObject]
-            .Where(script => !script.IsEnabledForScene(NetworkManager.networkSceneName))
-            .All(script => !script.isWaitingForDataTransfer);
-    }
-
-    private bool HasEnabledScriptInitialized() {
-        if (!playerScripts.ContainsKey(gameObject)) {
-            return false;
-        }
-
-        return playerScripts[gameObject].Any(script =>
-            script != this &&
-            script.IsEnabledForScene(NetworkManager.networkSceneName) &&
-            script.hasInitialized);
-    }
-
-    private void OnScriptInitialized() {
-        if (!playerScripts.ContainsKey(gameObject)) {
+    public void HandleSceneChange(string newSceneName) {
+        if (currentScene == newSceneName) {
             return;
         }
 
-        var scriptsToDisable = playerScripts[gameObject]
-            .Where(script =>
-                script != this &&
-                !script.IsEnabledForScene(NetworkManager.networkSceneName) &&
-                script.isWaitingForDataTransfer)
-            .ToList();
+        string previousScene = currentScene;
+        currentScene = newSceneName;
 
-        foreach (var script in scriptsToDisable) {
-            script.InternalTransferDataTo(this);
-            script.isWaitingForDataTransfer = false;
-        }
+        Debug.Log($"[Server] Scene changed from {previousScene} to {newSceneName} for {gameObject.name}");
+        UpdateActiveComponent();
     }
 
-    private void InternalTransferDataTo(SceneConditionalPlayer enabledScript) {
-        enabledScript.Id = Id;
-        enabledScript.PlayerName = PlayerName;
-        OnTransferDataTo(enabledScript);
-    }
+    private void UpdateActiveComponent() {
+        // Find component that should be active in current scene
+        var targetComponent = components.FirstOrDefault(c => c.ShouldBeActiveInScene(currentScene));
 
-    /// <summary>
-    /// Called when this script should transfer its data to the newly enabled script.
-    /// Override this method to implement data transfer logic.
-    /// The id and playerName properties are automatically transferred internally.
-    /// </summary>
-    /// <param name="enabledScript">The script that is being enabled and should receive the data</param>
-    protected abstract void OnTransferDataTo(SceneConditionalPlayer enabledScript);
-
-    /// <summary>
-    /// Called when this script is being disabled to reset/cleanup its state.
-    /// Override this method to implement custom cleanup logic (e.g., reset scores, clear temporary data).
-    /// This is the opposite of Initialize() and should restore the script to a clean state.
-    /// </summary>
-    protected abstract void Cleanup();
-
-    /// <summary>
-    /// Called when this script is initializing and can receive data from other scripts.
-    /// Override this method to implement custom initialization logic.
-    /// </summary>
-    protected abstract void Initialize();
-
-    public abstract bool IsEnabledForScene(string sceneName);
-
-    private void Enable() {
-        if (isEnabled) {
-            return;
+        if (targetComponent == activeComponent) {
+            return; // No change needed
         }
 
-        isEnabled = true;
-    }
-
-    private void Disable() {
-        if (!isEnabled) {
-            return;
+        // Transfer data from old to new component
+        if (activeComponent != null && targetComponent != null) {
+            Debug.Log($"[Server] Transferring data from {activeComponent.GetType().Name} to {targetComponent.GetType().Name}");
+            targetComponent.TransferDataFrom(activeComponent);
         }
 
-        Cleanup();
-        hasInitialized = false;
-        isEnabled = false;
+        // Deactivate old component
+        if (activeComponent != null) {
+            activeComponent.SetActiveState(false);
+        }
+
+        // Activate new component
+        activeComponent = targetComponent;
+        if (activeComponent != null) {
+            activeComponent.SetActiveState(true);
+        }
+
+        Debug.Log($"[Server] Active component for {gameObject.name} is now {activeComponent?.GetType().Name ?? "none"}");
     }
 }

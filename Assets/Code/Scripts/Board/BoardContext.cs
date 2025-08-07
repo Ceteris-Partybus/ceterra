@@ -52,7 +52,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
             return;
         }
 
-        if (currentPlayerId != player.Id) {
+        if (currentPlayerId != player.PlayerId) {
             return;
         }
 
@@ -72,7 +72,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     [Server]
     public void OnPlayerMovementComplete(BoardPlayer player) {
         if (currentState == State.PLAYER_MOVING &&
-            currentPlayerId == player.Id) {
+            currentPlayerId == player.PlayerId) {
 
             totalMovementsCompleted++;
 
@@ -94,7 +94,13 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     }
 
     public void OnCurrentPlayerChanged(int _, int newPlayerId) {
-        CurrentTurnManager.Instance.UpdateCurrentPlayerName(GetPlayerById(newPlayerId)?.PlayerName);
+        BoardPlayer newPlayer = GetPlayerById(newPlayerId);
+        if (newPlayer == null) {
+            Debug.LogWarning($"No player found with ID {newPlayerId}");
+            return;
+
+        }
+        CurrentTurnManager.Instance.UpdateCurrentPlayerName(newPlayer.PlayerName);
         CurrentTurnManager.Instance.AllowRollDiceButtonFor(newPlayerId);
     }
 
@@ -104,7 +110,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     public bool IsPlayerTurn(BoardPlayer player) {
         if (currentState != State.PLAYER_TURN) { return false; }
 
-        return player.Id == currentPlayerId;
+        return player.PlayerId == currentPlayerId;
     }
 
     public BoardPlayer GetCurrentPlayer() {
@@ -117,6 +123,6 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     }
 
     public BoardPlayer GetPlayerById(int playerId) {
-        return FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).FirstOrDefault(p => p.Id == playerId);
+        return FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).FirstOrDefault(p => p.PlayerId == playerId);
     }
 }

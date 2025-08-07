@@ -18,7 +18,7 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
         BoardPlayer currentPlayer = BoardContext.Instance.GetCurrentPlayer();
         if (currentPlayer != null) {
             UpdateCurrentPlayerName(currentPlayer.PlayerName);
-            AllowRollDiceButtonFor(currentPlayer.Id);
+            AllowRollDiceButtonFor(currentPlayer.PlayerId);
         }
 
         rollDiceButton.clicked += OnRollDiceButtonClicked;
@@ -53,6 +53,6 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
         }
 
         // Check if the local player's ID matches the current player ID
-        return localPlayer.Id == currentPlayerId;
+        return localPlayer.PlayerId == currentPlayerId;
     }
 }
