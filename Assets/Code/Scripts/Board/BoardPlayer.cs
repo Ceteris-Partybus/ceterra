@@ -35,6 +35,9 @@ public class BoardPlayer : SceneConditionalPlayer {
         // Initialize board-specific state
         isMoving = false;
         // Set spawn position, etc.
+        Vector3 spawnPosition = BoardContext.Instance.FieldList.Find(splineKnotIndex).Position;
+        spawnPosition.y += 1f;
+        gameObject.transform.position = spawnPosition;
     }
 
     [Server]
