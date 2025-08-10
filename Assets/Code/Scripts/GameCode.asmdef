@@ -1,19 +1,23 @@
 {
-    "name": "GameCode",
-    "rootNamespace": "Assets.Code.Scripts",
-    "references": [
-        "Unity.Localization",
-        "Unity.ResourceManager",
-        "Mirror",
-        "Newtonsoft.Json"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+        "name": "GameCode",
+        "rootNamespace": "Assets.Code.Scripts",
+        "references": [
+                "Unity.Localization",
+                "Unity.ResourceManager",
+                "Mirror",
+                "Mirror.Transports",
+                "Mirror.Components",
+                "Unity.Splines",
+                "Unity.Mathematics",
+                "Newtonsoft.Json"
+        ],
+        "includePlatforms": [],
+        "excludePlatforms": [],
+        "allowUnsafeCode": false,
+        "overrideReferences": false,
+        "precompiledReferences": [],
+        "autoReferenced": true,
+        "defineConstraints": [],
+        "versionDefines": [],
+        "noEngineReferences": false
 }

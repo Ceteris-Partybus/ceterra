@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 using System;
+using Mirror;
+using UnityEditor;
 
 public class PlayMenuController : MonoBehaviour {
     private Button backButton;
@@ -11,7 +13,9 @@ public class PlayMenuController : MonoBehaviour {
     private UIDocument uIDocument;
 
     private const string MAIN_MENU_SCENE = "MainMenu";
-    private const string EXAMPLE_PLAY_SCENE = "ExamplePlayScene";
+
+    private TextField ipAddressField;
+    private TextField portField;
 
     private void OnEnable() {
         var root = uIDocument.rootVisualElement;
@@ -23,7 +27,38 @@ public class PlayMenuController : MonoBehaviour {
         backButton.clicked += () => LoadScene(MAIN_MENU_SCENE);
 
         joinLobbyButton = root.Q<Button>("JoinLobbyButton");
-        joinLobbyButton.clicked += () => LoadScene(EXAMPLE_PLAY_SCENE);
+        joinLobbyButton.clicked += OnJoinLobbyClicked;
+
+        ipAddressField = root.Q<TextField>("IPAddressField");
+        portField = root.Q<TextField>("PortField");
+    }
+
+    private void OnJoinLobbyClicked() {
+        string ipAddress = ipAddressField.value;
+        string port = portField.value;
+
+        if (string.IsNullOrEmpty(ipAddress) || string.IsNullOrEmpty(port)) {
+            Debug.LogError("IP Address or Port is empty.");
+            return;
+        }
+
+        Debug.Log($"Connecting to server at {ipAddress}:{port}");
+
+        NetworkManager.singleton.networkAddress = ipAddress;
+
+        if (Transport.active is PortTransport portTransport) {
+            if (ushort.TryParse(port, out ushort parsedPort)) {
+                portTransport.Port = parsedPort;
+            }
+            else {
+                Debug.LogError("Invalid port number");
+                return;
+            }
+        }
+
+        // Scene change is done indirectly by the NetworkManager when a client connects
+        // Scene will change to the Scene defined in NetworkManager's "Online Scene"
+        NetworkManager.singleton.StartClient();
     }
 
     private void Update() {
