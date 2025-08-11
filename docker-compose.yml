@@ -1,0 +1,25 @@
+services:
+  unity-server:
+    build: .
+    container_name: unity-server
+    user: mpukgame
+    ports:
+      - "7777:7777/udp"
+      - "7777:7777/tcp"
+    restart: unless-stopped
+    environment:
+      - SERVER_IP=0.0.0.0
+      - TRANSPORT_PROTOCOL=kcp
+      - KCP_NODELAY=true
+      - KCP_INTERVAL=10
+      - KCP_FASTRESEND=2
+      - KCP_CONGESTIONWINDOW=false
+      - KCP_SENDWINDOW=4096
+      - KCP_RECVWINDOW=4096
+      - KCP_TIMEOUT=30000
+    healthcheck:
+      test: ["CMD", "sh", "-c", "ps aux | grep Server | grep -v grep"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
