@@ -298,7 +298,7 @@ public class DockerServerBuilder : EditorWindow
         try 
         {
             UnityEngine.Debug.Log("Starting Docker build process...");
-            RunCommand("docker-compose", "build --no-cache");
+            RunCompose("build --no-cache");
             UnityEngine.Debug.Log("Docker build completed successfully");
         }
         catch (Exception e)
@@ -310,23 +310,35 @@ public class DockerServerBuilder : EditorWindow
     
     void StartDockerContainer()
     {
-        // Use docker-compose to start the container in detached mode
-        RunCommand("docker-compose", "up -d");
+        // Use docker compose to start the container in detached mode
+        RunCompose("up -d");
     }
     
     void StopDockerContainer()
     {
-        RunCommand("docker-compose", "down");
+        RunCompose("down");
         EditorUtility.DisplayDialog("Stopped", "Docker containers stopped and removed.", "OK");
     }
 
     void RestartDockerContainer()
     {
         // Restart the container
-        RunCommand("docker-compose", "restart");
+        RunCompose("restart");
         EditorUtility.DisplayDialog("Restarted", "Docker containers restarted successfully.", "OK");
     }
 
+    void RunCompose(string arguments)
+    {
+        // Prefer modern `docker compose`, fallback to legacy `docker-compose`
+        try
+        {
+            RunCommand("docker", $"compose {arguments}");
+        }
+        catch
+        {
+            RunCommand("docker-compose", arguments);
+        }
+    }
     
     string RunCommandWithOutput(string command, string arguments)
     {

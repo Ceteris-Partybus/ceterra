@@ -6,9 +6,8 @@ USER root
 
 # Set up the game directory
 WORKDIR /game
-COPY ./Builds/LinuxServer/ .
+COPY --chown=mpukgame:mpukgame ./Builds/LinuxServer/ .
 RUN chmod +x ./Server
-RUN chown -R mpukgame:mpukgame /game
 
 # Switch back to the game user
 USER mpukgame
