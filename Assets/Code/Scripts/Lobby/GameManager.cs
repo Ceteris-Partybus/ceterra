@@ -24,6 +24,15 @@ public class GameManager : NetworkRoomManager {
         }
     }
 
+    public override void OnClientSceneChanged() {
+        base.OnClientSceneChanged();
+        if (networkSceneName != RoomScene) {
+            foreach (var player in FindObjectsByType<LobbyPlayer>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
+                player.Hide();
+            }
+        }
+    }
+
     public override bool OnRoomServerSceneLoadedForPlayer(NetworkConnectionToClient conn, GameObject roomPlayer, GameObject gamePlayer) {
         var lobbyPlayer = roomPlayer.GetComponent<LobbyPlayer>();
 

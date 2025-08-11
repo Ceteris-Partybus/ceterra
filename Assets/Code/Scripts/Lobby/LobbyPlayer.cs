@@ -10,7 +10,6 @@ public class LobbyPlayer : NetworkRoomPlayer {
     private string playerName;
     public string PlayerName => playerName;
 
-    // TODO: Start wird nur einmal aufgerufen, das hiden in ne neue mehtode die vom GameManager aufgerufen wird
     public override void Start() {
         base.Start();
 
@@ -20,13 +19,13 @@ public class LobbyPlayer : NetworkRoomPlayer {
         if (string.IsNullOrEmpty(playerName)) {
             playerName = $"Player[{id}]";
         }
-
-        if (NetworkManager.networkSceneName != GameManager.singleton.RoomScene) {
-            gameObject.SetActive(false);
-        }
     }
 
     public override void OnClientEnterRoom() {
         gameObject.transform.position = GameManager.singleton.GetStartPosition().position;
+    }
+
+    public void Hide() {
+        GetComponent<Renderer>().enabled = false;
     }
 }
