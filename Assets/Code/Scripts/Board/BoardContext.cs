@@ -15,14 +15,35 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     private State currentState = State.PLAYER_TURN;
     public State CurrentState => currentState;
 
-    private FundsDisplay fundsDispaly;
-    public FundsDisplay FundsDisplay => fundsDispaly;
-
     private FieldList fieldList;
     public FieldList FieldList {
         get => fieldList;
         set => fieldList ??= value;
     }
+
+    #region Global Stats
+    [Header("Global Stats")]
+    [SerializeField]
+    private FundsStat fundsStat;
+    public FundsStat FundsStat => fundsStat;
+
+    [SerializeField]
+    private ResourceStat resourceStat;
+    public ResourceStat ResourceStat => resourceStat;
+
+    [SerializeField]
+    public EconomyStat economyStat;
+    public EconomyStat EconomyStat => economyStat;
+
+    [SerializeField]
+    private SocietyStat societyStat;
+    public SocietyStat SocietyStat => societyStat;
+
+    [SerializeField]
+    private EnvironmentStat environmentStat;
+    public EnvironmentStat EnvironmentStat => environmentStat;
+
+    #endregion
 
     [Header("Current Player")]
     [SyncVar(hook = nameof(OnCurrentPlayerChanged))]
@@ -37,7 +58,12 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     protected override void Start() {
         base.Start();
         currentPlayerId = GameManager.singleton.PlayerIds[0];
-        fundsDispaly = new FundsDisplay(0);
+
+        this.fundsStat = new FundsStat(0);
+        this.resourceStat = new ResourceStat(0);
+        this.economyStat = new EconomyStat(50);
+        this.societyStat = new SocietyStat(50);
+        this.environmentStat = new EnvironmentStat(50);
     }
 
     [Server]

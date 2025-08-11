@@ -1,4 +1,4 @@
-public enum DisplayTrend {
+public enum StatTrend {
     RISING,
     FALLING,
     STAGNANT

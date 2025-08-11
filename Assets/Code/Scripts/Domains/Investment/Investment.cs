@@ -82,8 +82,8 @@ public class Investment {
         }
     }
 
-    public void FulfillInvestment(ResourceDisplay resourceDisplay) {
-        if (this.MoneyGoal == this.MoneyCurrentValue && this.resourceGoal <= resourceDisplay.CurrentValue) {
+    public void FulfillInvestment(ResourceStat resourceStat) {
+        if (this.MoneyGoal == this.MoneyCurrentValue && this.resourceGoal <= resourceStat.Base.CurrentValue) {
             this.Fulfilled = true;
         }
         else {

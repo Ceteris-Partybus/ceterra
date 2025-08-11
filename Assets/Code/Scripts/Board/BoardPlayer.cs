@@ -2,6 +2,7 @@ using Mirror;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Splines;
+using Random = UnityEngine.Random;
 
 public class BoardPlayer : SceneConditionalPlayer {
     [Header("Position")]
@@ -18,11 +19,28 @@ public class BoardPlayer : SceneConditionalPlayer {
     private bool isMoving = false;
     public bool IsMoving => isMoving;
 
+    [SyncVar]
+    [SerializeField]
+    private MoneyStat moneyStat;
+    public MoneyStat MoneyStat => moneyStat;
+
+    [SyncVar]
+    [SerializeField]
+    private HealthStat healthStat;
+    public HealthStat HealthStat => healthStat;
+
     public static readonly float moveSpeed = 5f;
     public static readonly AnimationCurve moveCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     protected void Start() {
         DontDestroyOnLoad(gameObject);
+    }
+
+    public override void OnStartServer() {
+        base.OnStartServer();
+
+        this.moneyStat = new MoneyStat(0);
+        this.healthStat = new HealthStat(100);
     }
 
     public override bool ShouldBeActiveInScene(string sceneName) {
