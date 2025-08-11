@@ -22,26 +22,28 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     }
 
     #region Global Stats
+    public const uint MAX_STATS_VALUE = 100;
+
     [Header("Global Stats")]
     [SerializeField]
-    private FundsStat fundsStat;
-    public FundsStat FundsStat => fundsStat;
+    private uint fundsStat;
+    public uint FundsStat => fundsStat;
 
     [SerializeField]
-    private ResourceStat resourceStat;
-    public ResourceStat ResourceStat => resourceStat;
+    private uint resourceStat;
+    public uint ResourceStat => resourceStat;
 
     [SerializeField]
-    public EconomyStat economyStat;
-    public EconomyStat EconomyStat => economyStat;
+    private uint economyStat;
+    public uint EconomyStat => economyStat;
 
     [SerializeField]
-    private SocietyStat societyStat;
-    public SocietyStat SocietyStat => societyStat;
+    private uint societyStat;
+    public uint SocietyStat => societyStat;
 
     [SerializeField]
-    private EnvironmentStat environmentStat;
-    public EnvironmentStat EnvironmentStat => environmentStat;
+    private uint environmentStat;
+    public uint EnvironmentStat => environmentStat;
 
     #endregion
 
@@ -59,11 +61,11 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         base.Start();
         currentPlayerId = GameManager.singleton.PlayerIds[0];
 
-        this.fundsStat = new FundsStat(0);
-        this.resourceStat = new ResourceStat(0);
-        this.economyStat = new EconomyStat(50);
-        this.societyStat = new SocietyStat(50);
-        this.environmentStat = new EnvironmentStat(50);
+        this.fundsStat = 0;
+        this.resourceStat = 0;
+        this.economyStat = 50;
+        this.societyStat = 50;
+        this.environmentStat = 50;
     }
 
     [Server]
@@ -151,4 +153,28 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     public BoardPlayer GetPlayerById(int playerId) {
         return FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).FirstOrDefault(p => p.PlayerId == playerId);
     }
+
+    #region Global Stat Update
+
+    public void UpdateFundsStat(uint amount) {
+        fundsStat = (uint)Mathf.Clamp(fundsStat + amount, 0, MAX_STATS_VALUE);
+    }
+
+    public void UpdateResourceStat(uint amount) {
+        resourceStat = (uint)Mathf.Clamp(resourceStat + amount, 0, MAX_STATS_VALUE);
+    }
+
+    public void UpdateEconomyStat(uint amount) {
+        economyStat = (uint)Mathf.Clamp(economyStat + amount, 0, MAX_STATS_VALUE);
+    }
+
+    public void UpdateSocietyStat(uint amount) {
+        societyStat = (uint)Mathf.Clamp(societyStat + amount, 0, MAX_STATS_VALUE);
+    }
+
+    public void UpdateEnvironmentStat(uint amount) {
+        environmentStat = (uint)Mathf.Clamp(environmentStat + amount, 0, MAX_STATS_VALUE);
+    }
+
+    #endregion
 }
