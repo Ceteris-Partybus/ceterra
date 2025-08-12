@@ -11,6 +11,7 @@ public abstract class SceneConditionalPlayer : NetworkBehaviour {
 
     #region Core Properties
     [SyncVar]
+    [SerializeField]
     private int playerId = -1;
     public int PlayerId {
         get => playerId;
@@ -18,6 +19,7 @@ public abstract class SceneConditionalPlayer : NetworkBehaviour {
     }
 
     [SyncVar]
+    [SerializeField]
     private string playerName = "";
     public string PlayerName {
         get => playerName;

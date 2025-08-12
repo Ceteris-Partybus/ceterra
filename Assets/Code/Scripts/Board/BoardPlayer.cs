@@ -1,7 +1,9 @@
 using Mirror;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Splines;
+using Random = UnityEngine.Random;
 
 public class BoardPlayer : SceneConditionalPlayer {
     [Header("Position")]
@@ -18,11 +20,53 @@ public class BoardPlayer : SceneConditionalPlayer {
     private bool isMoving = false;
     public bool IsMoving => isMoving;
 
+    [SyncVar]
+    [SerializeField]
+    private uint coins;
+    public uint Coins => coins;
+    public const uint MAX_COINS = 1000;
+
+    [SyncVar]
+    [SerializeField]
+    private uint health;
+    public uint Health => health;
+    public const uint MAX_HEALTH = 100;
+
     public static readonly float moveSpeed = 5f;
     public static readonly AnimationCurve moveCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     protected void Start() {
         DontDestroyOnLoad(gameObject);
+    }
+
+    public override void OnStartServer() {
+        base.OnStartServer();
+
+        this.coins = 0;
+        this.health = MAX_HEALTH;
+    }
+
+    public void AddCoins(uint amount) {
+        if (coins + amount > MAX_COINS) {
+            coins = MAX_COINS;
+            uint remaining = coins + amount - MAX_COINS;
+            BoardContext.Instance.UpdateFundsStat(remaining);
+        }
+        else {
+            coins += amount;
+        }
+    }
+
+    public void AddHealth(uint amount) {
+        health = (uint)Mathf.Min(health + amount, MAX_HEALTH);
+    }
+
+    public void RemoveCoins(uint amount) {
+        coins -= amount;
+    }
+
+    public void RemoveHealth(uint amount) {
+        health -= amount;
     }
 
     public override bool ShouldBeActiveInScene(string sceneName) {
@@ -52,6 +96,10 @@ public class BoardPlayer : SceneConditionalPlayer {
     protected override void OnServerReceiveData(SceneConditionalPlayer source) {
         // Receive data from minigame players or other sources
         Debug.Log($"[Server] BoardPlayer received data from {source.GetType().Name}");
+
+        if (source is MinigameOnePlayer minigamePlayer) {
+            AddCoins((uint)Math.Max(0, minigamePlayer.Score));
+        }
     }
 
     // Client-side hook for position updates

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class MinigameOnePlayer : SceneConditionalPlayer {
     [SyncVar]
+    [SerializeField]
     private int score;
     public int Score => score;
 
@@ -58,6 +59,17 @@ public class MinigameOnePlayer : SceneConditionalPlayer {
         }
 
         characterController?.Move(movement * moveSpeed * Time.deltaTime);
+
+        // Increment score when space is pressed (client -> server authority)
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            CmdIncrementScore();
+        }
+    }
+
+    [Command]
+    private void CmdIncrementScore() {
+        // Server authoritative increment; SyncVar will propagate
+        score++;
     }
 
     // Handle component enabling/disabling locally on each client

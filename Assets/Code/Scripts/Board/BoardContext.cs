@@ -15,14 +15,37 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     private State currentState = State.PLAYER_TURN;
     public State CurrentState => currentState;
 
-    private FundsDisplay fundsDispaly;
-    public FundsDisplay FundsDisplay => fundsDispaly;
-
     private FieldList fieldList;
     public FieldList FieldList {
         get => fieldList;
         set => fieldList ??= value;
     }
+
+    #region Global Stats
+    public const uint MAX_STATS_VALUE = 100;
+
+    [Header("Global Stats")]
+    [SerializeField]
+    private uint fundsStat;
+    public uint FundsStat => fundsStat;
+
+    [SerializeField]
+    private uint resourceStat;
+    public uint ResourceStat => resourceStat;
+
+    [SerializeField]
+    private uint economyStat;
+    public uint EconomyStat => economyStat;
+
+    [SerializeField]
+    private uint societyStat;
+    public uint SocietyStat => societyStat;
+
+    [SerializeField]
+    private uint environmentStat;
+    public uint EnvironmentStat => environmentStat;
+
+    #endregion
 
     [Header("Current Player")]
     [SyncVar(hook = nameof(OnCurrentPlayerChanged))]
@@ -37,7 +60,12 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     protected override void Start() {
         base.Start();
         currentPlayerId = GameManager.singleton.PlayerIds[0];
-        fundsDispaly = new FundsDisplay(0);
+
+        this.fundsStat = 0;
+        this.resourceStat = 0;
+        this.economyStat = 50;
+        this.societyStat = 50;
+        this.environmentStat = 50;
     }
 
     [Server]
@@ -125,4 +153,28 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     public BoardPlayer GetPlayerById(int playerId) {
         return FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).FirstOrDefault(p => p.PlayerId == playerId);
     }
+
+    #region Global Stat Update
+
+    public void UpdateFundsStat(uint amount) {
+        fundsStat = (uint)Mathf.Clamp(fundsStat + amount, 0, MAX_STATS_VALUE);
+    }
+
+    public void UpdateResourceStat(uint amount) {
+        resourceStat = (uint)Mathf.Clamp(resourceStat + amount, 0, MAX_STATS_VALUE);
+    }
+
+    public void UpdateEconomyStat(uint amount) {
+        economyStat = (uint)Mathf.Clamp(economyStat + amount, 0, MAX_STATS_VALUE);
+    }
+
+    public void UpdateSocietyStat(uint amount) {
+        societyStat = (uint)Mathf.Clamp(societyStat + amount, 0, MAX_STATS_VALUE);
+    }
+
+    public void UpdateEnvironmentStat(uint amount) {
+        environmentStat = (uint)Mathf.Clamp(environmentStat + amount, 0, MAX_STATS_VALUE);
+    }
+
+    #endregion
 }
