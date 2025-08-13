@@ -1,0 +1,10 @@
+# Ignore everything by default
+**
+
+# Allow Docker files
+!Dockerfile
+!docker-compose.yml
+
+# Allow only the Linux server build output
+!Builds/
+!Builds/LinuxServer/**
