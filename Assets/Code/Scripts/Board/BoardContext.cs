@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BoardContext : PlayerDataContext<BoardContext, BoardPlayer, BoardPlayerData> {
+public class BoardContext : NetworkedSingleton<BoardContext> {
     protected override bool ShouldPersistAcrossScenes => true;
 
     public enum State {
@@ -15,14 +15,37 @@ public class BoardContext : PlayerDataContext<BoardContext, BoardPlayer, BoardPl
     private State currentState = State.PLAYER_TURN;
     public State CurrentState => currentState;
 
-    private FundsDisplay fundsDispaly;
-    public FundsDisplay FundsDisplay => fundsDispaly;
-
     private FieldList fieldList;
     public FieldList FieldList {
         get => fieldList;
         set => fieldList ??= value;
     }
+
+    #region Global Stats
+    public const uint MAX_STATS_VALUE = 100;
+
+    [Header("Global Stats")]
+    [SerializeField]
+    private uint fundsStat;
+    public uint FundsStat => fundsStat;
+
+    [SerializeField]
+    private uint resourceStat;
+    public uint ResourceStat => resourceStat;
+
+    [SerializeField]
+    private uint economyStat;
+    public uint EconomyStat => economyStat;
+
+    [SerializeField]
+    private uint societyStat;
+    public uint SocietyStat => societyStat;
+
+    [SerializeField]
+    private uint environmentStat;
+    public uint EnvironmentStat => environmentStat;
+
+    #endregion
 
     [Header("Current Player")]
     [SyncVar(hook = nameof(OnCurrentPlayerChanged))]
@@ -30,10 +53,19 @@ public class BoardContext : PlayerDataContext<BoardContext, BoardPlayer, BoardPl
     private int currentPlayerId = 0;
     public int CurrentPlayerId => currentPlayerId;
 
+    [Header("Movement Tracking")]
+    [SerializeField]
+    private int totalMovementsCompleted = 0;
+
     protected override void Start() {
         base.Start();
-        currentPlayerId = playerIds[0];
-        fundsDispaly = new FundsDisplay(0);
+        currentPlayerId = GameManager.singleton.PlayerIds[0];
+
+        this.fundsStat = 0;
+        this.resourceStat = 0;
+        this.economyStat = 50;
+        this.societyStat = 50;
+        this.environmentStat = 50;
     }
 
     [Server]
@@ -48,7 +80,7 @@ public class BoardContext : PlayerDataContext<BoardContext, BoardPlayer, BoardPl
             return;
         }
 
-        if (currentPlayerId != player.Id) {
+        if (currentPlayerId != player.PlayerId) {
             return;
         }
 
@@ -58,9 +90,9 @@ public class BoardContext : PlayerDataContext<BoardContext, BoardPlayer, BoardPl
 
     [Server]
     public void NextPlayerTurn() {
-        List<int> playerIds = LobbyManager.singleton.GetPlayerIds();
-        int indexInLobby = playerIds.IndexOf(currentPlayerId);
-        currentPlayerId = playerIds[(indexInLobby + 1) % playerIds.Count];
+        int[] playerIds = GameManager.singleton.PlayerIds;
+        int indexInLobby = System.Array.IndexOf(playerIds, currentPlayerId);
+        currentPlayerId = playerIds[(indexInLobby + 1) % playerIds.Length];
 
         StartPlayerTurn();
     }
@@ -68,7 +100,19 @@ public class BoardContext : PlayerDataContext<BoardContext, BoardPlayer, BoardPl
     [Server]
     public void OnPlayerMovementComplete(BoardPlayer player) {
         if (currentState == State.PLAYER_MOVING &&
-            currentPlayerId == player.Id) {
+            currentPlayerId == player.PlayerId) {
+
+            totalMovementsCompleted++;
+
+            // Check if all players have had one movement
+            int totalPlayers = GameManager.singleton.PlayerIds.Length;
+            if (totalMovementsCompleted >= totalPlayers) {
+                totalMovementsCompleted = 0;
+                // All players have moved at least once, start minigame
+                GameManager.singleton.StartMinigame("MinigameOne");
+                return;
+            }
+
             NextPlayerTurn();
         }
     }
@@ -78,7 +122,13 @@ public class BoardContext : PlayerDataContext<BoardContext, BoardPlayer, BoardPl
     }
 
     public void OnCurrentPlayerChanged(int _, int newPlayerId) {
-        CurrentTurnManager.Instance.UpdateCurrentPlayerName(GetPlayerById(newPlayerId)?.PlayerName);
+        BoardPlayer newPlayer = GetPlayerById(newPlayerId);
+        if (newPlayer == null) {
+            Debug.LogWarning($"No player found with ID {newPlayerId}");
+            return;
+
+        }
+        CurrentTurnManager.Instance.UpdateCurrentPlayerName(newPlayer.PlayerName);
         CurrentTurnManager.Instance.AllowRollDiceButtonFor(newPlayerId);
     }
 
@@ -88,10 +138,43 @@ public class BoardContext : PlayerDataContext<BoardContext, BoardPlayer, BoardPl
     public bool IsPlayerTurn(BoardPlayer player) {
         if (currentState != State.PLAYER_TURN) { return false; }
 
-        return player.Id == currentPlayerId;
+        return player.PlayerId == currentPlayerId;
     }
 
     public BoardPlayer GetCurrentPlayer() {
         return GetPlayerById(currentPlayerId);
     }
+
+    public BoardPlayer GetLocalPlayer() {
+        return FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
+            .FirstOrDefault(p => p.isLocalPlayer);
+    }
+
+    public BoardPlayer GetPlayerById(int playerId) {
+        return FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).FirstOrDefault(p => p.PlayerId == playerId);
+    }
+
+    #region Global Stat Update
+
+    public void UpdateFundsStat(uint amount) {
+        fundsStat = (uint)Mathf.Clamp(fundsStat + amount, 0, MAX_STATS_VALUE);
+    }
+
+    public void UpdateResourceStat(uint amount) {
+        resourceStat = (uint)Mathf.Clamp(resourceStat + amount, 0, MAX_STATS_VALUE);
+    }
+
+    public void UpdateEconomyStat(uint amount) {
+        economyStat = (uint)Mathf.Clamp(economyStat + amount, 0, MAX_STATS_VALUE);
+    }
+
+    public void UpdateSocietyStat(uint amount) {
+        societyStat = (uint)Mathf.Clamp(societyStat + amount, 0, MAX_STATS_VALUE);
+    }
+
+    public void UpdateEnvironmentStat(uint amount) {
+        environmentStat = (uint)Mathf.Clamp(environmentStat + amount, 0, MAX_STATS_VALUE);
+    }
+
+    #endregion
 }
