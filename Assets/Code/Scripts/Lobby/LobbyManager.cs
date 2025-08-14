@@ -6,6 +6,8 @@ using UnityEngine;
 public class LobbyManager : NetworkRoomManager {
     public static new LobbyManager singleton => NetworkManager.singleton as LobbyManager;
 
+    public EnvironmentDisplay environmentDisplay;
+
     public List<int> GetPlayerIds() {
         return roomSlots.Select(slot => {
             return slot.index;

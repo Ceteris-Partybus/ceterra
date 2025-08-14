@@ -1,3 +1,4 @@
+using Mirror;
 using System;
 using System.Linq;
 
@@ -5,9 +6,13 @@ public class GeneralDisplay {
 
     protected const int MIN_VALUE = 0;
     protected int maxValue = 100;
+    [SyncVar]
     protected int currentValue;
+    [SyncVar]
     public CyclicList<int> latestValues = new();
+    [SyncVar]
     protected int listIterator = 1;
+    [SyncVar]
     protected DisplayTrend currentTrend;
 
     public int MinValue {
