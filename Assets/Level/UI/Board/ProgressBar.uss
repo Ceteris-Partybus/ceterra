@@ -1,0 +1,73 @@
+* {
+  -unity-font-definition: resource('Fonts/Jersey_15/Jersey15-Regular');
+}
+
+#progress-bar {
+  margin: 0;
+}
+
+.health-bar--green .unity-progress-bar__progress {
+    background-color: #4CAF50;
+}
+
+.health-bar--yellow .unity-progress-bar__progress {
+    background-color: #FF9800;
+}
+
+.health-bar--red .unity-progress-bar__progress {
+    background-color: #F44336;
+}
+
+.progress-bar--environment .unity-progress-bar__progress {
+    background-color: #84cc16;
+}
+
+.progress-bar--economy .unity-progress-bar__progress {
+    background-color: #06b6d4;
+}
+
+.progress-bar--society .unity-progress-bar__progress {
+    background-color: #fbbf24;
+}
+
+/* Unity default overwrites */
+
+:root {
+  --progress-bar-height: 15px;
+}
+
+#unity-progress-bar {
+  min-height: var(--progress-bar-height) !important;
+  max-height: var(--progress-bar-height) !important;
+  border-radius: 3px !important;
+  overflow: hidden !important;
+  border-width: 1px !important;
+  border-color: rgba(0, 0, 0, 0.8) !important;
+}
+ 
+.unity-progress-bar__title-container {
+  background-color: transparent !important;
+}
+
+.unity-progress-bar__background {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  border-width: 0 !important;
+}
+
+.unity-progress-bar__progress {
+  min-height: 100% !important;
+  max-height: 100% !important;
+  margin: 0 !important;
+  transition: all 0.5s ease-in-out;
+}
+
+.unity-progress-bar__title {
+  padding: 0 !important;
+  display: none !important;
+  font-size: 18px !important;
+  letter-spacing: 3px;
+}
+
+#unity-progress-bar:hover .unity-progress-bar__title {
+  display: flex !important;
+}

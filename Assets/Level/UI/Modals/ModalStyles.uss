@@ -1,0 +1,111 @@
+* {
+    -unity-font-definition: resource('Fonts/Jersey_15/Jersey15-Regular');
+}
+
+#modal-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+
+#modal-container.active {
+    display: flex;
+}
+
+.modal-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-box {
+    min-width: 300px;
+    max-width: 75%;
+    width: auto;
+    min-height: 200px;
+    background-color: rgb(245, 245, 244);
+    border-radius: 4px;
+    border-width: 3px;
+    border-color: rgb(168, 162, 158);
+    border-bottom-right-radius: 0;
+    position: relative;
+}
+
+.modal-header {
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 8px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(168, 162, 158);
+}
+
+.modal-close-button {
+    width: 26px;
+    height: 26px;
+    background-color: rgb(214, 211, 209);
+    border-radius: 4px;
+    color: rgb(68, 64, 60);
+    -unity-font-style: bold;
+    border-width: 2px;
+    border-color: rgb(168, 162, 158);
+}
+
+.modal-content-container {
+    padding: 16px;
+    flex-grow: 1;
+}
+
+.modal-content {
+    flex-grow: 1;
+}
+
+.modal-button:hover {
+    background-color: rgb(233, 229, 227);
+}
+
+.modal-title {
+    font-size: 48px;
+    padding: 0;
+    margin: 0;
+    color: rgb(68, 64, 60);
+    margin-bottom: 16px;
+    -unity-font-definition: resource('Fonts/Jersey_15/Jersey15-Regular');
+}
+
+.modal-text {
+    color: rgb(87, 83, 78);
+    margin-bottom: 16px;
+    -unity-font-definition: resource('Fonts/Jersey_15/Jersey15-Regular');
+}
+
+.modal-content {
+    flex-grow: 1;
+}
+
+.modal-button {
+    padding: 8px 16px;
+    background-color: rgb(245, 245, 244);
+    border-radius: 4px;
+    color: rgb(68, 64, 60);
+    margin: 4px;
+    border-width: 3px;
+    border-color: rgb(168, 162, 158);
+    width: 200px;
+}
+
+.modal-button {
+    padding: 8px 16px;
+    background-color: rgb(245, 245, 244);
+    border-radius: 4px;
+    color: rgb(68, 64, 60);
+    margin: 4px;
+    border-width: 3px;
+    border-color: rgb(168, 162, 158);
+    width: 200px;
+}

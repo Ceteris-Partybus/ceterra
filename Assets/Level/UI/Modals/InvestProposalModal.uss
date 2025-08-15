@@ -1,0 +1,11 @@
+.invest-card__warpper {}
+
+.invest-card {}
+
+.invest-card__proposal_info {
+  display: none;
+}
+
+.invest-card__wrapper:hover .invest-card__proposal_info {
+  display: flex;
+}
