@@ -252,9 +252,9 @@ public class BoardOverlay : MonoBehaviour {
         }
     }
 
-    public void AddPlayerToOverview(NetworkPlayer player) {
+    public void AddPlayerToOverview(BoardPlayer player) {
         VisualElement playerCardWrapper = new VisualElement();
-        playerCardWrapper.name = "player-card-" + player.NetworkObjectId.ToString();
+        playerCardWrapper.name = "player-card-" + player.PlayerId.ToString();
         VisualTreeAsset playerCardTemplate = Resources.Load<VisualTreeAsset>("VTA/PlayerCard");
         VisualElement playerCardContainer = playerCardTemplate.Instantiate();
         var playerCard = playerCardContainer.Q<VisualElement>("player-card");
@@ -264,23 +264,23 @@ public class BoardOverlay : MonoBehaviour {
         if (healthBarContainer != null) {
             var playerHealthBar = healthBarContainer.Children().OfType<ProgressBar>().FirstOrDefault();
             if (playerHealthBar != null) {
-                playerHealthBar.value = Mathf.Clamp(player.health.Value, 0, 100);
+                playerHealthBar.value = Mathf.Clamp(player.Health, 0, 100);
                 playerHealthBar.title = $"{playerHealthBar.value} / 100";
                 playerHealthBar.ClearClassList();
-                playerHealthBar.AddToClassList(this.GetHealthBarClassName(player.health.Value));
+                playerHealthBar.AddToClassList(this.GetHealthBarClassName((int)player.Health));
             }
         }
         var healthBarLabel = playerCard.Q<Label>("player-card__health-value");
         if (healthBarLabel != null) {
-            healthBarLabel.text = player.health.Value.ToString() + " / 100";
+            healthBarLabel.text = player.Health.ToString() + " / 100";
         }
 
         var playerCoinsLabel = playerCard.Q<Label>("player-card__coins-value");
         if (playerCoinsLabel != null) {
-            playerCoinsLabel.text = player.coins.Value.ToString();
+            playerCoinsLabel.text = player.Coins.ToString();
         }
 
-        playerNameLabel.text = "Player " + player.NetworkObjectId;
+        playerNameLabel.text = player.PlayerName;
         playerCardWrapper.Add(playerCardContainer);
         playerOverview.Add(playerCardWrapper);
     }
