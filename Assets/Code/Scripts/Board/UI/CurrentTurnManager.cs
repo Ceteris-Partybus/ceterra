@@ -4,6 +4,39 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
+
+    //TODO: Die Sachen mit dem Quiz sind nur provisorisch hier drin und werden später entfernt.    
+    [SerializeField]
+    private GameObject quizGameObject;
+    private Button quizDiceButton;
+    private BoardquizController boardquizController;
+
+    private void OnQuizButtonClicked() {
+        Debug.Log("Quiz-Button geklickt.");
+
+        if (quizGameObject != null && boardquizController != null) {
+            var activePlayer = BoardContext.Instance.GetCurrentPlayer();
+
+            if (activePlayer != null) {
+                boardquizController.InitializeQuizForPlayer(activePlayer);
+
+                quizGameObject.SetActive(true);
+            }
+            else {
+                Debug.LogError("Konnte das Quiz nicht starten, da kein aktueller Spieler gefunden wurde!");
+            }
+        }
+    }
+
+    private void InitQuizComponents() {
+        quizDiceButton = rootElement.Q<Button>("open-quiz-button");
+        quizDiceButton.clicked += OnQuizButtonClicked;
+        boardquizController = quizGameObject.GetComponent<BoardquizController>();
+    }
+
+    // bis hier löschen 
+
+    VisualElement rootElement;
     [SerializeField]
     private UIDocument uiDocument;
     private Label currentPlayerNameLabel;
@@ -11,9 +44,9 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
 
     protected override void Start() {
         base.Start();
-        var root = uiDocument.rootVisualElement;
-        currentPlayerNameLabel = root.Q<Label>("current-player-name");
-        rollDiceButton = root.Q<Button>("roll-dice-button");
+        rootElement = uiDocument.rootVisualElement;
+        currentPlayerNameLabel = rootElement.Q<Label>("current-player-name");
+        rollDiceButton = rootElement.Q<Button>("roll-dice-button");
 
         BoardPlayer currentPlayer = BoardContext.Instance.GetCurrentPlayer();
         if (currentPlayer != null) {
@@ -22,6 +55,8 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
         }
 
         rollDiceButton.clicked += OnRollDiceButtonClicked;
+
+        InitQuizComponents(); // LÖSCHEN WENN NICHT MEHR BENÖTIGT
     }
 
     private void OnRollDiceButtonClicked() {

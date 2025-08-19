@@ -5,7 +5,7 @@ using System.Linq;
 
 public class QuizServiceTests {
     private GameObject quizServiceGO;
-    private QuizService quizService;
+    private BoardquizService quizService;
     private const string TEST_QUESTIONS_FILE_PATH = "Data/Testdata/Economic_Questions/questions_example";
 
     private List<QuestionData> expectedQuestions = new() {
@@ -17,7 +17,7 @@ public class QuizServiceTests {
     [SetUp]
     public void SetUp() {
         quizServiceGO = new GameObject();
-        quizService = quizServiceGO.AddComponent<QuizService>();
+        quizService = quizServiceGO.AddComponent<BoardquizService>();
         quizService.SetDataSourcePath(TEST_QUESTIONS_FILE_PATH);
     }
 
