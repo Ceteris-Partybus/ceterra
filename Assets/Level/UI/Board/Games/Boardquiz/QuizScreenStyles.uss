@@ -1,0 +1,45 @@
+* {
+    -unity-font-definition: resource("UI/Other/Jersey15-Regular");
+}
+
+.root-container {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(23, 154, 178);
+}
+
+.play-button {
+    display: none;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 100px;
+    background-size: 100% 100%;
+    height: 185px;
+    width: 464px;
+}
+
+.quiz-area {
+    width: 1587px;
+    height: 820px;
+    align-items: center;
+    flex-direction: column;
+}
+
+.quiz-content-spacer {
+    flex-grow: 1;
+    min-height: 50px;
+}
+
+.feedback-label {
+    margin-top: 15px;
+    font-size: 24px;
+    -unity-text-align: center;
+    color: white;
+}
+
+.next-question-button {
+    margin-top: 20px;
+    padding: 15px 30px;
+    font-size: 22px;
+}
