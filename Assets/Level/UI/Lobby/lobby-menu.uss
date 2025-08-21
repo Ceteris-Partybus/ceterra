@@ -1,0 +1,44 @@
+/* Lobby Menu Styles */
+
+#Switch_Character {
+    background-color: #3a7ca5;
+    color: white;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    width: 180px;
+    height: 48px;
+    margin-right: 16px;
+}
+
+#Take_Character {
+    background-color: #4caf50;
+    color: white;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    width: 180px;
+    height: 48px;
+    margin-left: 16px;
+}
+
+#CharacterTitle {
+    color: #222;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+}
+
+#Display_Character {
+    background-color: #e3eaf2;
+    border-radius: 16px;
+    border-width: 2px;
+    border-color: #3a7ca5;
+    border-style: solid;
+    box-shadow: 0 2px 8px rgba(58,124,165,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4342209585082839626}
   - component: {fileID: 7966419981308003105}
   - component: {fileID: -3016622981439582665}
+  - component: {fileID: 8282008749986061514}
   m_Layer: 0
   m_Name: BoardPlayer
   m_TagString: Untagged
@@ -147,12 +148,10 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  id: -1
-  isEnabled: 1
-  splineKnotIndex:
-    Spline: 0
-    Knot: 0
-  isMoving: 0
+  playerId: -1
+  playerName: 
+  coins: 0
+  health: 0
 --- !u!114 &4342209585082839626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,8 +167,9 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  id: -1
-  isEnabled: 1
+  playerId: -1
+  playerName: 
+  score: 0
   moveSpeed: 5
   characterController: {fileID: 7966419981308003105}
   networkTransform: {fileID: -3016622981439582665}
@@ -232,3 +232,22 @@ MonoBehaviour:
   positionSensitivity: 0.01
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
+--- !u!114 &8282008749986061514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5723532665764891057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69b62d59a8d16447a863ed35fa15eae7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  meshFilter: {fileID: 1244759641608686228}
+  availableMeshes:
+  - {fileID: 4300000, guid: 1fe56a0e685b8434ebfeb53c69b59a5e, type: 3}
+  - {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}

@@ -41,6 +41,13 @@ public class GameManager : NetworkRoomManager {
             scenePlayer.SetPlayerData(lobbyPlayer.Id, lobbyPlayer.PlayerName);
         }
 
+        // Transfer mesh index to in-game player mesh controller
+        var meshController = gamePlayer.GetComponent<PlayerMeshController>();
+        if (meshController != null)
+        {
+            meshController.SetMeshIndex(lobbyPlayer.selectedMeshIndex);
+        }
+
         return true;
     }
 
