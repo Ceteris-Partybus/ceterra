@@ -1,0 +1,32 @@
+[
+  {
+    "question": "Question 1?",
+    "answerOptions": [
+      "A",
+      "B",
+      "C"
+    ],
+    "correctAnswerIndex": 0,
+    "difficulty": "easy"
+  },
+  {
+    "question": "Question 2?",
+    "answerOptions": [
+      "D",
+      "E",
+      "F"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "medium"
+  },
+  {
+    "question": "Question 3?",
+    "answerOptions": [
+      "G",
+      "H",
+      "I"
+    ],
+    "correctAnswerIndex": 2,
+    "difficulty": "hard"
+  }
+]

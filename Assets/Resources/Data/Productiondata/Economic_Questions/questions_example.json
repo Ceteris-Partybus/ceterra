@@ -1,0 +1,102 @@
+[
+  {
+    "question": "Auch Getränkekartons tragen zum Müllberg bei. Wie kannst du ihn verringern?",
+    "answerOptions": [
+      "Indem Du nur noch Tee trinkst",
+      "Indem Du die Getränkekartons erst zerkleinerst und dann wegwirfst",
+      "Indem Du Getränke nur noch in Mehrwegflaschen kaufst"
+    ],
+    "correctAnswerIndex": 2,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Vitamin C, Vitamin B und viele andere Vitamine sollten ausreichend in unserer Nahrung vorkommen. Was heißt das Wort “Vitamin” übersetzt?",
+    "answerOptions": [
+      "Konservierungsstoff",
+      "Lebensstoff",
+      "Spurenelemente"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Warum wird bei uns die Trinkwassergewinnung zunehmend schwieriger?",
+    "answerOptions": [
+      "Weil es zu wenig regnet",
+      "Weil das Grundwasser zunehmend durch Nitrat belastet wird",
+      "Weil das Grundwasser aufkommen steigt"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Zuviel Nitrat im Trinkwasser gefährdet vor allem Säuglinge und deren Mütter. Was sollten diese tun?",
+    "answerOptions": [
+      "Mineralwasser statt Wasser benutzen",
+      "Das Wasser vor Gebrauch abkochen",
+      "Auf Wasser ganz verzichten"
+    ],
+    "correctAnswerIndex": 0,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Was bedeutet es, wenn im Gewässern übermäßig große Fische auftreten?",
+    "answerOptions": [
+      "Reichliches Planktonangebot für Wassertiere",
+      "Große Fische bedeuten immer sauberes Wasser",
+      "Schlechte Wasserqualität"
+    ],
+    "correctAnswerIndex": 2,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Der Güterzustand eines Fließgewässers wird im allgemeinen durch 4 Güteklassen charakterisiert. Was sagt Güteklasse IV aus?",
+    "answerOptions": [
+      "Es handelt sich um ein verunreinigtes Fließgewässer",
+      "Es handelt sich um ein bereits umgekipptes Gewässer",
+      "Es handelt sich um ein sehr stark verschmutztes Fließgewässer"
+    ],
+    "correctAnswerIndex": 2,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Mit Hilfe der Jahresringe informieren wir uns über das Alter der Bäume. Was erfahren wir noch über sie?",
+    "answerOptions": [
+      "Wie der Wachstumsprozess verlaufen ist",
+      "Die Umweltbedingungen der letzten Jahrzehnte",
+      "Die Lichtverhältnisse der letzten Jahre"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Woran kann man an einer gefällten Fichte erkennen, dass sie dem Waldsterben erlag?",
+    "answerOptions": [
+      "Ihre letzten Jahresringe sind deutlich schmäler und es liegt erweiterter Nasskern im Stammbereich vor",
+      "Das Holz ist morsch",
+      "Sie hat starken Flechtenbewuchs"
+    ],
+    "correctAnswerIndex": 0,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "In Naturkostläden werden Bioprodukte angeboten. Warum haben diese die Bezeichnung “Bio”?",
+    "answerOptions": [
+      "Weil nach ihrem Verzehr die Zähne nicht geputzt werden müssen",
+      "Weil sie naturgemäß d.h. ohne Chemie angebaut werden",
+      "Weil “Bio” ein Modewort ist, das bessere Umsätze verspricht"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Was meinst Du: wieviel Müll produziert ein Einwohner in Deutschland in einem Jahr?",
+    "answerOptions": [
+      "200 kg",
+      "500 kg",
+      "750 kg"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "mittel"
+  }
+]
