@@ -47,6 +47,8 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     #endregion
 
+    public static QuizService quizService = new QuizService("");
+
     [Header("Current Player")]
     [SyncVar(hook = nameof(OnCurrentPlayerChanged))]
     [SerializeField]
@@ -59,13 +61,15 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     protected override void Start() {
         base.Start();
-        currentPlayerId = GameManager.singleton.PlayerIds[0];
+        currentPlayerId = GameManager.Singleton.PlayerIds[0];
 
         this.fundsStat = 0;
         this.resourceStat = 0;
         this.economyStat = 50;
         this.societyStat = 50;
         this.environmentStat = 50;
+
+        quizService.SetDataSourcePath("Assets/Resources/Domains/Investment/QuestionList.json");
     }
 
     [Server]
@@ -90,7 +94,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     [Server]
     public void NextPlayerTurn() {
-        int[] playerIds = GameManager.singleton.PlayerIds;
+        int[] playerIds = GameManager.Singleton.PlayerIds;
         int indexInLobby = System.Array.IndexOf(playerIds, currentPlayerId);
         currentPlayerId = playerIds[(indexInLobby + 1) % playerIds.Length];
 
@@ -105,11 +109,11 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
             totalMovementsCompleted++;
 
             // Check if all players have had one movement
-            int totalPlayers = GameManager.singleton.PlayerIds.Length;
+            int totalPlayers = GameManager.Singleton.PlayerIds.Length;
             if (totalMovementsCompleted >= totalPlayers) {
                 totalMovementsCompleted = 0;
                 // All players have moved at least once, start minigame
-                GameManager.singleton.StartMinigame("MinigameOne");
+                GameManager.Singleton.StartMinigame("MinigameOne");
                 return;
             }
 

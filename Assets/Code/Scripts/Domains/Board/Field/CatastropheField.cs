@@ -20,7 +20,7 @@ public class CatastropheField : Field {
         if (!hasBeenInvoked) {
             Debug.Log($"Player landed on a catastrophe field of type {type}.");
             hasBeenInvoked = true;
-            player.healthDisplay.SubtractCurrentValue(healthEffect);
+            player.RemoveHealth((uint)healthEffect);
         }
     }
 }

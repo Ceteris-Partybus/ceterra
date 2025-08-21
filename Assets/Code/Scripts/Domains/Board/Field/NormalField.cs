@@ -11,7 +11,7 @@ public class NormalField : Field {
 
     public override void Invoke(BoardPlayer player) {
         Debug.Log($"Playerlanded on a normal field.");
-        player.moneyDisplay.AddCurrentValue(MONEYEFFECT);
-        player.healthDisplay.AddCurrentValue(HEALTHEFFECT);
+        player.AddCoins(MONEYEFFECT);
+        player.AddHealth(HEALTHEFFECT);
     }
 }

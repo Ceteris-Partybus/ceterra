@@ -164,12 +164,4 @@ public class BoardPlayer : SceneConditionalPlayer {
 
         transform.position = targetPos;
     }
-
-    public MoneyDisplay moneyDisplay;
-    public HealthDisplay healthDisplay;
-
-    public BoardPlayer(int initialMoney, int initialHealth) {
-        moneyDisplay.AddCurrentValue(initialMoney);
-        healthDisplay.AddCurrentValue(initialHealth);
-    }
 }

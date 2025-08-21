@@ -3,7 +3,11 @@ using System.Linq;
 using UnityEngine;
 
 public class GameManager : NetworkRoomManager {
-    public static new GameManager singleton => NetworkManager.singleton as GameManager;
+    public static new GameManager Singleton {
+        get {
+            return NetworkManager.singleton as GameManager;
+        }
+    }
 
     [SerializeField]
     private string[] minigameScenes;
