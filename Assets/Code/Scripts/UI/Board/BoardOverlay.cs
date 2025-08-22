@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class BoardOverlay : MonoBehaviour {
+public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
 
     [SerializeField] private UIDocument uiDocument;
 
@@ -19,6 +20,10 @@ public class BoardOverlay : MonoBehaviour {
     [SerializeField] private VisualTreeAsset investProposalVoteModalTemplate;
     [Header("Investions")]
     [SerializeField] private VisualTreeAsset investModalTemplate;
+    [Header("Player")]
+    [SerializeField] private VisualTreeAsset playerCardTemplate;
+
+    private Dictionary<int, VisualElement> playerElements = new Dictionary<int, VisualElement>();
 
     private VisualElement rootElement;
 
@@ -185,7 +190,55 @@ public class BoardOverlay : MonoBehaviour {
         }
     }
 
-    private string GetHealthBarClassName(int health) {
+    public bool IsPlayerAdded(int playerId) {
+        return playerElements.ContainsKey(playerId);
+    }
+
+    public void AddPlayer(BoardPlayer player) {
+        var playerElement = playerCardTemplate.CloneTree();
+        var card = playerElement.Q<VisualElement>("player-card");
+        var playerNameLabel = card.Q<Label>("player-card__display-name");
+        var healthBarContainer = card.Q<TemplateContainer>("player-card__health-bar");
+
+        if (healthBarContainer != null) {
+            var playerHealthBar = healthBarContainer.Children().OfType<ProgressBar>().FirstOrDefault();
+            if (playerHealthBar != null) {
+                playerHealthBar.value = BoardPlayer.MAX_HEALTH;
+                playerHealthBar.title = $"{BoardPlayer.MAX_HEALTH} / {BoardPlayer.MAX_HEALTH}";
+                playerHealthBar.ClearClassList();
+                playerHealthBar.AddToClassList(this.GetHealthBarClassName(BoardPlayer.MAX_HEALTH));
+            }
+        }
+        else {
+            Debug.LogError("Health bar container not found in player card template");
+        }
+
+        var healthBarLabel = card.Q<Label>("player-card__health-value");
+        if (healthBarLabel != null) {
+            healthBarLabel.text = $"{player.Health} / 100";
+        }
+
+        var coinsLabel = card.Q<Label>("player-card__coins-value");
+        if (coinsLabel != null) {
+            coinsLabel.text = player.Coins.ToString();
+        }
+
+        playerNameLabel.text = player.PlayerName;
+        playerOverview.Add(playerElement);
+        playerElements[player.PlayerId] = playerElement;
+    }
+
+    public void RemovePlayer(BoardPlayer player) {
+        if (playerElements.TryGetValue(player.PlayerId, out var playerElement)) {
+            playerOverview.Remove(playerElement);
+            playerElements.Remove(player.PlayerId);
+        }
+        else {
+            Debug.LogWarning($"Player with ID {player.PlayerId} not found in player elements");
+        }
+    }
+
+    private string GetHealthBarClassName(uint health) {
         if (health > 70) {
             return "health-bar--green";
         }
@@ -197,7 +250,7 @@ public class BoardOverlay : MonoBehaviour {
         }
     }
 
-    public void SetCurrentPlayerHealth(int newHealth) {
+    public void UpdateLocalPlayerHealth(uint newHealth) {
         if (this.playerHealthBar != null) {
             this.playerHealthBar.value = Mathf.Clamp(newHealth, 0, 100);
             this.playerHealthBar.title = $"{this.playerHealthBar.value} / 100";
@@ -209,101 +262,62 @@ public class BoardOverlay : MonoBehaviour {
         }
     }
 
-    public void SetPlayerHealth(int newHealth, ulong playerId) {
-        Debug.Log($"Updating health for player {playerId} to {newHealth}");
-        var playerCard = rootElement.Q<TemplateContainer>("client-player-card")?
-            .Q<VisualElement>("player-card-" + playerId.ToString());
-        var healthBarContainer = playerCard.Q<TemplateContainer>("player-card__health-bar");
-        if (healthBarContainer != null) {
-            var otherPlayerHealthbar = healthBarContainer.Children().OfType<ProgressBar>().FirstOrDefault();
-            if (otherPlayerHealthbar == null) {
-                Debug.LogError("Health progress bar not found");
+    public void UpdateRemotePlayerHealth(uint newHealth, int playerId) {
+        if (playerElements.TryGetValue(playerId, out var playerCard)) {
+            var healthBarContainer = playerCard.Q<TemplateContainer>("player-card__health-bar");
+            if (healthBarContainer != null) {
+                var otherPlayerHealthbar = healthBarContainer.Children().OfType<ProgressBar>().FirstOrDefault();
+                if (otherPlayerHealthbar == null) {
+                    Debug.LogError("Health progress bar not found");
+                }
+                if (otherPlayerHealthbar != null) {
+                    otherPlayerHealthbar.value = newHealth;
+                    otherPlayerHealthbar.title = $"{newHealth} / 100";
+                    otherPlayerHealthbar.ClearClassList();
+                    otherPlayerHealthbar.AddToClassList(this.GetHealthBarClassName(newHealth));
+                    var healthTextLabel = playerCard.Q<Label>("player-card__health-value");
+                    if (healthTextLabel != null) {
+                        healthTextLabel.text = $"{newHealth} / 100";
+                    }
+                }
             }
-            if (otherPlayerHealthbar != null) {
-                otherPlayerHealthbar.value = Mathf.Clamp(newHealth, 0, 100);
-                otherPlayerHealthbar.title = $"{otherPlayerHealthbar.value} / 100";
-                otherPlayerHealthbar.ClearClassList();
-                otherPlayerHealthbar.AddToClassList(this.GetHealthBarClassName(newHealth));
-            }
-        }
-        else {
-            Debug.LogError("Health bar container not found");
         }
     }
 
-    public void SetCurrentPlayerCoins(int newCoins) {
+    public void UpdateLocalPlayerCoins(uint newCoins) {
         if (this.playerCoinsValue != null) {
             this.playerCoinsValue.text = newCoins.ToString();
         }
     }
 
-    public void SetPlayerCoins(int newCoins, ulong playerId) {
-        Debug.Log($"Updating coins for player {playerId} to {newCoins}");
-        var playerCard = this.playerOverview.Q<VisualElement>("player-card-" + playerId.ToString());
-        if (playerCard == null) {
-            Debug.LogError($"Player card for player {playerId} not found");
-            return;
-        }
-        if (playerCard != null) {
-            var playerCoinsLabel = playerCard.Q<Label>("player-card__coins-value");
-            if (playerCoinsLabel != null) {
-                playerCoinsLabel.text = newCoins.ToString();
+    public void UpdateRemotePlayerCoins(uint newCoins, int playerId) {
+        if (playerElements.TryGetValue(playerId, out var playerCard)) {
+            if (playerCard == null) {
+                Debug.LogError($"Player card for player {playerId} not found");
+                return;
+            }
+            if (playerCard != null) {
+                var playerCoinsLabel = playerCard.Q<Label>("player-card__coins-value");
+                if (playerCoinsLabel != null) {
+                    playerCoinsLabel.text = newCoins.ToString();
+                }
             }
         }
     }
 
-    public void AddPlayerToOverview(BoardPlayer player) {
-        VisualElement playerCardWrapper = new VisualElement();
-        playerCardWrapper.name = "player-card-" + player.PlayerId.ToString();
-        VisualTreeAsset playerCardTemplate = Resources.Load<VisualTreeAsset>("VTA/PlayerCard");
-        VisualElement playerCardContainer = playerCardTemplate.Instantiate();
-        var playerCard = playerCardContainer.Q<VisualElement>("player-card");
-        var playerNameLabel = playerCard.Q<Label>("player-card__display-name");
-
-        var healthBarContainer = playerCard.Q<TemplateContainer>("player-card__health-bar");
-        if (healthBarContainer != null) {
-            var playerHealthBar = healthBarContainer.Children().OfType<ProgressBar>().FirstOrDefault();
-            if (playerHealthBar != null) {
-                playerHealthBar.value = Mathf.Clamp(player.Health, 0, 100);
-                playerHealthBar.title = $"{playerHealthBar.value} / 100";
-                playerHealthBar.ClearClassList();
-                playerHealthBar.AddToClassList(this.GetHealthBarClassName((int)player.Health));
-            }
-        }
-        var healthBarLabel = playerCard.Q<Label>("player-card__health-value");
-        if (healthBarLabel != null) {
-            healthBarLabel.text = player.Health.ToString() + " / 100";
-        }
-
-        var playerCoinsLabel = playerCard.Q<Label>("player-card__coins-value");
-        if (playerCoinsLabel != null) {
-            playerCoinsLabel.text = player.Coins.ToString();
-        }
-
-        playerNameLabel.text = player.PlayerName;
-        playerCardWrapper.Add(playerCardContainer);
-        playerOverview.Add(playerCardWrapper);
-    }
-
-    public void SetCurrentPlayerName(string value) {
-        if (this.playerNameLabel != null) {
-            this.playerNameLabel.text = value;
-        }
-    }
-
-    public void SetResourceValue(int value) {
+    public void UpdateResourceValue(int value) {
         if (this.resourceValueLabel != null) {
             this.resourceValueLabel.text = value.ToString();
         }
     }
 
-    public void SetFundsValue(int value) {
+    public void UpdateFundsValue(int value) {
         if (this.fundsValueLabel != null) {
             this.fundsValueLabel.text = value.ToString();
         }
     }
 
-    public void SetEnvironmentValue(float value) {
+    public void UpdateEnvironmentValue(float value) {
         if (this.enviromentBar != null) {
             this.enviromentBar.value = Mathf.Clamp(value, 0, 100);
             this.enviromentBar.title = $"{value} %";
@@ -313,7 +327,7 @@ public class BoardOverlay : MonoBehaviour {
         }
     }
 
-    public void SetSocietyValue(float value) {
+    public void UpdateSocietyValue(float value) {
         if (this.societyBar != null) {
             this.societyBar.value = Mathf.Clamp(value, 0, 100);
             this.societyBar.title = $"{value}/100";
@@ -323,7 +337,7 @@ public class BoardOverlay : MonoBehaviour {
         }
     }
 
-    public void SetEconomyValue(float value) {
+    public void UpdateEconomyValue(float value) {
         if (this.economyBar != null) {
             this.economyBar.value = Mathf.Clamp(value, 0, 100);
             this.economyBar.title = $"{value} %";

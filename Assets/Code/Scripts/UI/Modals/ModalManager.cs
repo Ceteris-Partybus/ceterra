@@ -2,33 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ModalManager : MonoBehaviour {
-    private static ModalManager instance;
-    public static ModalManager Instance {
-        get {
-            if (instance == null) {
-                instance = FindFirstObjectByType<ModalManager>();
-                if (instance == null) {
-                    GameObject obj = new GameObject("ModalManager");
-                    instance = obj.AddComponent<ModalManager>();
-                }
-            }
-            return instance;
-        }
-    }
-
+public class ModalManager : NetworkedSingleton<ModalManager> {
     [SerializeField] private UIDocument uiDocument;
     private VisualElement modalContainer;
     private readonly List<Modal> activeModals = new List<Modal>();
 
-    private void Awake() {
-        if (instance != null && instance != this) {
-            Destroy(this.gameObject);
-            return;
-        }
-
-        instance = this;
-        DontDestroyOnLoad(this.gameObject);
+    protected override void Awake() {
+        base.Awake();
 
         if (this.uiDocument == null) {
             this.uiDocument = this.GetComponent<UIDocument>();

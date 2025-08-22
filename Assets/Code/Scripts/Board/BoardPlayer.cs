@@ -20,13 +20,13 @@ public class BoardPlayer : SceneConditionalPlayer {
     private bool isMoving = false;
     public bool IsMoving => isMoving;
 
-    [SyncVar]
+    [SyncVar(hook = nameof(OnCoinsChanged))]
     [SerializeField]
     private uint coins;
     public uint Coins => coins;
     public const uint MAX_COINS = 1000;
 
-    [SyncVar]
+    [SyncVar(hook = nameof(OnHealthChanged))]
     [SerializeField]
     private uint health;
     public uint Health => health;
@@ -99,7 +99,47 @@ public class BoardPlayer : SceneConditionalPlayer {
 
         if (source is MinigameOnePlayer minigamePlayer) {
             AddCoins((uint)Math.Max(0, minigamePlayer.Score));
+            RemoveHealth((uint)minigamePlayer.Score);
         }
+    }
+
+    protected override void OnClientActiveStateChanged(bool isActive) {
+        base.OnClientActiveStateChanged(isActive);
+
+        if (!isLocalPlayer && isActive && BoardOverlay.Instance != null) {
+            if (!BoardOverlay.Instance.IsPlayerAdded(PlayerId)) {
+                BoardOverlay.Instance.AddPlayer(this);
+            }
+            BoardOverlay.Instance.UpdateRemotePlayerHealth(health, PlayerId);
+            BoardOverlay.Instance.UpdateRemotePlayerCoins(coins, PlayerId);
+        }
+        else if (isLocalPlayer && isActive && BoardOverlay.Instance != null) {
+            BoardOverlay.Instance.UpdateLocalPlayerHealth(health);
+            BoardOverlay.Instance.UpdateLocalPlayerCoins(coins);
+        }
+    }
+
+    private void OnCoinsChanged(uint old, uint new_) {
+        if (isLocalPlayer) {
+            BoardOverlay.Instance.UpdateLocalPlayerCoins(new_);
+        }
+        else {
+            BoardOverlay.Instance.UpdateRemotePlayerCoins(new_, PlayerId);
+        }
+    }
+
+    private void OnHealthChanged(uint old, uint new_) {
+        if (isLocalPlayer) {
+            BoardOverlay.Instance.UpdateLocalPlayerHealth(new_);
+        }
+        else {
+            BoardOverlay.Instance.UpdateRemotePlayerHealth(new_, PlayerId);
+        }
+    }
+
+    public override void OnStopClient() {
+        base.OnStopClient();
+        BoardOverlay.Instance.RemovePlayer(this);
     }
 
     // Client-side hook for position updates
