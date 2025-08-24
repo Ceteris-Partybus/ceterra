@@ -1,6 +1,8 @@
 using Mirror;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Splines;
 using Random = UnityEngine.Random;
@@ -18,11 +20,19 @@ public class BoardPlayer : SceneConditionalPlayer {
     [Header("Movement")]
     [SyncVar]
     private bool isMoving = false;
-    public bool IsMoving => isMoving;
+
+    [SyncVar]
+    private bool isWaitingForJunctionChoice = false;
 
     [Header("References")]
     [SerializeField] private Transform junctionArrowPrefab;
     private List<GameObject> junctionArrows = new List<GameObject>();
+
+    [Header("Movement Parameters")]
+    [SerializeField] private float moveSpeed = 10f;
+    private SplineKnotIndex nextKnot;
+
+    [Header("Stats")]
     [SyncVar]
     [SerializeField]
     private uint coins;
@@ -34,9 +44,6 @@ public class BoardPlayer : SceneConditionalPlayer {
     private uint health;
     public uint Health => health;
     public const uint MAX_HEALTH = 100;
-
-    public static readonly float moveSpeed = 5f;
-    public static readonly AnimationCurve moveCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     protected void Start() {
         DontDestroyOnLoad(gameObject);
@@ -108,7 +115,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     // Client-side hook for position updates
     private void OnSplineKnotIndexChanged(SplineKnotIndex oldIndex, SplineKnotIndex newIndex) {
         if (IsActiveForCurrentScene) {
-            Field field = BoardContext.Instance.FieldList.Find(newIndex);
+            var field = BoardContext.Instance.FieldList.Find(newIndex);
             StartCoroutine(MoveToFieldCoroutine(field));
         }
     }
@@ -130,38 +137,140 @@ public class BoardPlayer : SceneConditionalPlayer {
         }
 
         isMoving = true;
-        StartCoroutine(MoveStepByStepCoroutine(steps));
+        StartCoroutine(MoveAlongSplineCoroutine(steps));
     }
 
     [Server]
-    private IEnumerator MoveStepByStepCoroutine(int steps) {
-        FieldList fieldList = BoardContext.Instance.FieldList;
-        Field currentField = fieldList.Find(splineKnotIndex);
+    private IEnumerator MoveAlongSplineCoroutine(int steps) {
+        var fieldList = BoardContext.Instance.FieldList;
+        var remainingSteps = steps;
+        while (remainingSteps > 0) {
+            var currentField = fieldList.Find(splineKnotIndex);
+            var nextFields = currentField.Next;
 
-        for (int step = 0; step < steps; step++) {
-            currentField = fieldList.Find(splineKnotIndex).Next[0];
-            SplineKnotIndex = currentField.SplineKnotIndex;
-            yield return new WaitForSeconds(0.8f); // Wait for movement animation
+            var targetField = nextFields.First();
+            nextKnot = targetField.SplineKnotIndex;
+            if (nextFields.Count > 1) {
+                isWaitingForJunctionChoice = true;
+                TargetShowJunctionChoice(nextFields.Count);
+                yield return new WaitUntil(() => !isWaitingForJunctionChoice);
+
+                targetField = fieldList.Find(nextKnot);
+            }
+            yield return StartCoroutine(SmoothMoveToKnot(targetField));
+
+            SplineKnotIndex = nextKnot;
+            remainingSteps--;
+            yield return new WaitForSeconds(0.1f);
         }
 
         isMoving = false;
+        var finalField = fieldList.Find(splineKnotIndex);
         BoardContext.Instance.OnPlayerMovementComplete(this);
-        currentField.Invoke(this);
+        finalField.Invoke(this);
     }
 
-    private IEnumerator MoveToFieldCoroutine(Field targetField) {
-        Vector3 startPos = transform.position;
-        Vector3 targetPos = targetField.Position;
-        targetPos.y += gameObject.transform.localScale.y / 2f;
+    [Server]
+    private IEnumerator SmoothMoveToKnot(Field targetField) {
+        var targetPos = targetField.Position;
+        targetPos.y += 1f;
 
-        float duration = Vector3.Distance(startPos, targetPos) / moveSpeed;
-        float elapsed = 0f;
+        var duration = Vector3.Distance(transform.position, targetPos) / moveSpeed;
+        var elapsed = 0f;
+        var startPos = transform.position;
 
         while (elapsed < duration) {
             elapsed += Time.deltaTime;
-            float t = elapsed / duration;
-            float curveT = moveCurve.Evaluate(t);
-            transform.position = Vector3.Lerp(startPos, targetPos, curveT);
+            var t = elapsed / duration;
+            transform.position = Vector3.Lerp(startPos, targetPos, t);
+
+            yield return null;
+        }
+
+        transform.position = targetPos;
+    }
+
+    private IEnumerator SmoothMoveToPositionCoroutine(Vector3 targetPos) {
+        var startPos = transform.position;
+        var duration = Vector3.Distance(startPos, targetPos) / moveSpeed;
+        var elapsed = 0f;
+
+        while (elapsed < duration && Vector3.Distance(transform.position, targetPos) > 0.1f) {
+            elapsed += Time.deltaTime;
+            var t = elapsed / duration;
+            transform.position = Vector3.Lerp(startPos, targetPos, t);
+            yield return null;
+        }
+
+        transform.position = targetPos;
+    }
+
+    [TargetRpc]
+    private void TargetShowJunctionChoice(int optionCount) {
+        if (!isLocalPlayer || junctionArrowPrefab == null) { return; }
+
+        for (int i = 0; i < optionCount; i++) {
+            var junctionArrow = Instantiate(junctionArrowPrefab.gameObject);
+            junctionArrow.transform.position = transform.position + Vector3.right * (i - optionCount / 2f) * 2f;
+            junctionArrow.transform.LookAt(transform.position + Vector3.forward);
+            junctionArrows.Add(junctionArrow);
+        }
+    }
+
+    private void Update() {
+        if (!isLocalPlayer || !isWaitingForJunctionChoice) { return; }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            CmdChooseJunctionPath(0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2)) {
+            CmdChooseJunctionPath(1);
+        }
+    }
+
+    [Command]
+    public void CmdChooseJunctionPath(int pathIndex) {
+        if (!IsActiveForCurrentScene || !isWaitingForJunctionChoice) {
+            return;
+        }
+
+        var fieldList = BoardContext.Instance.FieldList;
+        var currentField = fieldList.Find(splineKnotIndex);
+        var nextFields = currentField.Next;
+
+        if (pathIndex < 0 || pathIndex >= nextFields.Count) {
+            return;
+        }
+
+        var chosenField = nextFields[pathIndex];
+
+        nextKnot = chosenField.SplineKnotIndex;
+        isWaitingForJunctionChoice = false;
+        TargetHideJunctionChoice();
+    }
+
+    [TargetRpc]
+    private void TargetHideJunctionChoice() {
+        foreach (var arrow in junctionArrows) {
+            if (arrow != null) {
+                Destroy(arrow);
+            }
+        }
+        junctionArrows.Clear();
+    }
+
+    private IEnumerator MoveToFieldCoroutine(Field targetField) {
+        var startPos = transform.position;
+        var targetPos = targetField.Position;
+        targetPos.y += gameObject.transform.localScale.y / 2f;
+
+        var duration = Vector3.Distance(startPos, targetPos) / moveSpeed;
+        var elapsed = 0f;
+
+        while (elapsed < duration) {
+            elapsed += Time.deltaTime;
+            var t = elapsed / duration;
+            transform.position = Vector3.Lerp(startPos, targetPos, t);
             yield return null;
         }
 
