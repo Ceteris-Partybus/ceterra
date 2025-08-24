@@ -20,6 +20,9 @@ public class BoardPlayer : SceneConditionalPlayer {
     private bool isMoving = false;
     public bool IsMoving => isMoving;
 
+    [Header("References")]
+    [SerializeField] private Transform junctionArrowPrefab;
+    private List<GameObject> junctionArrows = new List<GameObject>();
     [SyncVar]
     [SerializeField]
     private uint coins;
