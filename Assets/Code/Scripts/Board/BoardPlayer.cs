@@ -175,14 +175,14 @@ public class BoardPlayer : SceneConditionalPlayer {
 
         isMoving = false;
         var finalField = fieldList.Find(splineKnotIndex);
-        BoardContext.Instance.OnPlayerMovementComplete(this);
         finalField.Invoke(this);
+        BoardContext.Instance.OnPlayerMovementComplete(this);
     }
 
     [Server]
     private IEnumerator SmoothMoveToKnot(Field targetField) {
         var targetPos = targetField.Position;
-        targetPos.y += 1f;
+        targetPos.y = transform.position.y;
         targetPosition = targetPos;
 
         var duration = Vector3.Distance(transform.position, targetPos) / moveSpeed;
@@ -280,7 +280,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     private IEnumerator MoveToFieldCoroutine(Field targetField) {
         var startPos = transform.position;
         var targetPos = targetField.Position;
-        targetPos.y += gameObject.transform.localScale.y / 2f;
+        targetPos.y = transform.position.y;
 
         var duration = Vector3.Distance(startPos, targetPos) / moveSpeed;
         var elapsed = 0f;
