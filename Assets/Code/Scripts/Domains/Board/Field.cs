@@ -58,13 +58,13 @@ public abstract class Field {
 
     public override bool Equals(object obj) {
         if (obj is Field other) {
-            return id == other.id;
+            return splineKnotIndex.Equals(other.splineKnotIndex);
         }
         return false;
     }
 
     public override int GetHashCode() {
-        return id.GetHashCode();
+        return splineKnotIndex.GetHashCode();
     }
 
     public event Action NextAdded;
