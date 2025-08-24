@@ -161,7 +161,7 @@ public class BoardPlayer : SceneConditionalPlayer {
             nextKnot = targetField.SplineKnotIndex;
             if (nextFields.Count > 1) {
                 isWaitingForJunctionChoice = true;
-                TargetShowJunctionChoice(nextFields.Count);
+                TargetShowJunctionChoice();
                 yield return new WaitUntil(() => !isWaitingForJunctionChoice);
 
                 targetField = fieldList.Find(nextKnot);
@@ -216,13 +216,21 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     [TargetRpc]
-    private void TargetShowJunctionChoice(int optionCount) {
+    private void TargetShowJunctionChoice() {
         if (!isLocalPlayer || junctionArrowPrefab == null) { return; }
 
-        for (int i = 0; i < optionCount; i++) {
+        var fieldList = BoardContext.Instance.FieldList;
+        var currentField = fieldList.Find(splineKnotIndex);
+        var nextFields = currentField.Next;
+
+        foreach (var nextField in nextFields) {
             var junctionArrow = Instantiate(junctionArrowPrefab.gameObject);
-            junctionArrow.transform.position = transform.position + Vector3.right * (i - optionCount / 2f) * 2f;
-            junctionArrow.transform.LookAt(transform.position + Vector3.forward);
+
+            var deltaX = (nextField.Position.x - currentField.Position.x) / 5;
+            var deltaZ = (nextField.Position.z - currentField.Position.z) / 5;
+            junctionArrow.transform.position = new Vector3(currentField.Position.x + deltaX, 0f, currentField.Position.z + deltaZ);
+
+            junctionArrow.transform.LookAt(nextField.Position, transform.up);
             junctionArrows.Add(junctionArrow);
         }
     }
