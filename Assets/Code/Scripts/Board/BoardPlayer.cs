@@ -18,6 +18,9 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     [Header("Movement")]
+    [SyncVar(hook = nameof(OnTargetPositionChanged))]
+    private Vector3 targetPosition;
+
     [SyncVar]
     private bool isMoving = false;
 
@@ -120,6 +123,12 @@ public class BoardPlayer : SceneConditionalPlayer {
         }
     }
 
+    private void OnTargetPositionChanged(Vector3 oldPos, Vector3 newPos) {
+        if (IsActiveForCurrentScene && !isServer) {
+            StartCoroutine(SmoothMoveToPositionCoroutine(newPos));
+        }
+    }
+
     [Command]
     public void CmdRollDice() {
         if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving) {
@@ -174,6 +183,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     private IEnumerator SmoothMoveToKnot(Field targetField) {
         var targetPos = targetField.Position;
         targetPos.y += 1f;
+        targetPosition = targetPos;
 
         var duration = Vector3.Distance(transform.position, targetPos) / moveSpeed;
         var elapsed = 0f;
