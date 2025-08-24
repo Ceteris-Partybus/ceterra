@@ -25,11 +25,11 @@ public class BoardPlayer : SceneConditionalPlayer {
     private bool isMoving = false;
 
     [SyncVar]
-    private bool isWaitingForJunctionChoice = false;
+    private bool isWaitingForBranchChoice = false;
 
     [Header("References")]
-    [SerializeField] private Transform junctionArrowPrefab;
-    private List<GameObject> junctionArrows = new List<GameObject>();
+    [SerializeField] private Transform branchArrowPrefab;
+    private List<GameObject> branchArrows = new List<GameObject>();
 
     [Header("Movement Parameters")]
     [SerializeField] private float moveSpeed = 10f;
@@ -160,9 +160,9 @@ public class BoardPlayer : SceneConditionalPlayer {
             var targetField = nextFields.First();
             nextKnot = targetField.SplineKnotIndex;
             if (nextFields.Count > 1) {
-                isWaitingForJunctionChoice = true;
-                TargetShowJunctionChoice();
-                yield return new WaitUntil(() => !isWaitingForJunctionChoice);
+                isWaitingForBranchChoice = true;
+                TargetShowBranchArrows();
+                yield return new WaitUntil(() => !isWaitingForBranchChoice);
 
                 targetField = fieldList.Find(nextKnot);
             }
@@ -216,39 +216,37 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     [TargetRpc]
-    private void TargetShowJunctionChoice() {
-        if (!isLocalPlayer || junctionArrowPrefab == null) { return; }
+    private void TargetShowBranchArrows() {
+        if (!isLocalPlayer || branchArrowPrefab == null) { return; }
 
         var fieldList = BoardContext.Instance.FieldList;
         var currentField = fieldList.Find(splineKnotIndex);
         var nextFields = currentField.Next;
 
-        foreach (var nextField in nextFields) {
-            var junctionArrow = Instantiate(junctionArrowPrefab.gameObject);
+        for (var i = 0; i < nextFields.Count; i++) {
+            var branchArrow = Instantiate(branchArrowPrefab.gameObject);
 
-            var deltaX = (nextField.Position.x - currentField.Position.x) / 5;
-            var deltaZ = (nextField.Position.z - currentField.Position.z) / 5;
-            junctionArrow.transform.position = new Vector3(currentField.Position.x + deltaX, 0f, currentField.Position.z + deltaZ);
+            var deltaX = (nextFields[i].Position.x - currentField.Position.x) / 2;
+            var deltaZ = (nextFields[i].Position.z - currentField.Position.z) / 2;
+            branchArrow.transform.position = new Vector3(currentField.Position.x + deltaX, 0f, currentField.Position.z + deltaZ);
+            branchArrow.transform.LookAt(nextFields[i].Position, transform.up);
 
-            junctionArrow.transform.LookAt(nextField.Position, transform.up);
-            junctionArrows.Add(junctionArrow);
+            branchArrow.GetComponent<BranchArrowMouseEventHandler>()?.Initialize(this, i);
+            branchArrows.Add(branchArrow);
         }
     }
 
-    private void Update() {
-        if (!isLocalPlayer || !isWaitingForJunctionChoice) { return; }
-
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            CmdChooseJunctionPath(0);
+    [TargetRpc]
+    private void TargetHideBranchArrows() {
+        foreach (var arrow in branchArrows) {
+            Destroy(arrow);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2)) {
-            CmdChooseJunctionPath(1);
-        }
+        branchArrows.Clear();
     }
 
     [Command]
-    public void CmdChooseJunctionPath(int pathIndex) {
-        if (!IsActiveForCurrentScene || !isWaitingForJunctionChoice) {
+    public void CmdChooseBranchPath(int pathIndex) {
+        if (!IsActiveForCurrentScene || !isWaitingForBranchChoice) {
             return;
         }
 
@@ -263,18 +261,8 @@ public class BoardPlayer : SceneConditionalPlayer {
         var chosenField = nextFields[pathIndex];
 
         nextKnot = chosenField.SplineKnotIndex;
-        isWaitingForJunctionChoice = false;
-        TargetHideJunctionChoice();
-    }
-
-    [TargetRpc]
-    private void TargetHideJunctionChoice() {
-        foreach (var arrow in junctionArrows) {
-            if (arrow != null) {
-                Destroy(arrow);
-            }
-        }
-        junctionArrows.Clear();
+        isWaitingForBranchChoice = false;
+        TargetHideBranchArrows();
     }
 
     private IEnumerator MoveToFieldCoroutine(Field targetField) {
