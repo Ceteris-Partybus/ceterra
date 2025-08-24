@@ -43,7 +43,7 @@ public class FieldInstantiate : NetworkBehaviour {
                 }
 
                 // (we cooked 🍜)
-                var field = Field.Create(physicalKnotId++, i, new SplineKnotIndex(i, k), new Vector3(position.x, position.y, position.z), fieldType);
+                var field = Field.Create(physicalKnotId++, i, new SplineKnotIndex(i, k), new Vector3(position.x, position.y, position.z), fieldType, splineContainer.transform);
                 fields.Add(field);
 
                 GameObject fieldGameObject = Instantiate(fieldPrefab, position, Quaternion.identity);
