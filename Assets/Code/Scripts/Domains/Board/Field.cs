@@ -32,9 +32,6 @@ public abstract class Field {
 
     public abstract void Invoke(BoardPlayer player);
 
-    public Field() {
-    }
-
     public void AddNext(Field field) {
         next.Add(field);
         NextAdded?.Invoke();
@@ -57,13 +54,13 @@ public abstract class Field {
 
     public override bool Equals(object obj) {
         if (obj is Field other) {
-            return id == other.id;
+            return splineKnotIndex.Equals(other.splineKnotIndex);
         }
         return false;
     }
 
     public override int GetHashCode() {
-        return id.GetHashCode();
+        return splineKnotIndex.GetHashCode();
     }
 
     public event Action NextAdded;

@@ -27,5 +27,6 @@ public class LobbyPlayer : NetworkRoomPlayer {
 
     public void Hide() {
         GetComponent<Renderer>().enabled = false;
+        GetComponent<Collider>().enabled = false;
     }
 }
