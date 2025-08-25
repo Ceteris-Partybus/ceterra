@@ -18,9 +18,6 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     [Header("Movement")]
-    [SyncVar(hook = nameof(OnTargetPositionChanged))]
-    private Vector3 targetPosition;
-
     [SyncVar]
     private bool isMoving = false;
 
@@ -119,13 +116,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     private void OnSplineKnotIndexChanged(SplineKnotIndex oldIndex, SplineKnotIndex newIndex) {
         if (IsActiveForCurrentScene) {
             var field = BoardContext.Instance.FieldList.Find(newIndex);
-            StartCoroutine(MoveToFieldCoroutine(field));
-        }
-    }
-
-    private void OnTargetPositionChanged(Vector3 oldPos, Vector3 newPos) {
-        if (IsActiveForCurrentScene && !isServer) {
-            StartCoroutine(SmoothMoveToPositionCoroutine(newPos));
+            StartCoroutine(SmoothMoveToKnot(field));
         }
     }
 
@@ -166,9 +157,9 @@ public class BoardPlayer : SceneConditionalPlayer {
 
                 targetField = fieldList.Find(nextKnot);
             }
+            SplineKnotIndex = nextKnot;
             yield return StartCoroutine(SmoothMoveToKnot(targetField));
 
-            SplineKnotIndex = nextKnot;
             remainingSteps--;
             yield return new WaitForSeconds(0.1f);
         }
@@ -179,33 +170,16 @@ public class BoardPlayer : SceneConditionalPlayer {
         BoardContext.Instance.OnPlayerMovementComplete(this);
     }
 
-    [Server]
     private IEnumerator SmoothMoveToKnot(Field targetField) {
+        var startPos = transform.position;
         var targetPos = targetField.Position;
         targetPos.y = transform.position.y;
-        targetPosition = targetPos;
 
-        var duration = Vector3.Distance(transform.position, targetPos) / moveSpeed;
-        var elapsed = 0f;
-        var startPos = transform.position;
-
-        while (elapsed < duration) {
-            elapsed += Time.deltaTime;
-            var t = elapsed / duration;
-            transform.position = Vector3.Lerp(startPos, targetPos, t);
-
-            yield return null;
-        }
-
-        transform.position = targetPos;
-    }
-
-    private IEnumerator SmoothMoveToPositionCoroutine(Vector3 targetPos) {
-        var startPos = transform.position;
         var duration = Vector3.Distance(startPos, targetPos) / moveSpeed;
         var elapsed = 0f;
 
-        while (elapsed < duration && Vector3.Distance(transform.position, targetPos) > 0.1f) {
+
+        while (elapsed < duration) {
             elapsed += Time.deltaTime;
             var t = elapsed / duration;
             transform.position = Vector3.Lerp(startPos, targetPos, t);
@@ -263,23 +237,5 @@ public class BoardPlayer : SceneConditionalPlayer {
         nextKnot = chosenField.SplineKnotIndex;
         isWaitingForBranchChoice = false;
         TargetHideBranchArrows();
-    }
-
-    private IEnumerator MoveToFieldCoroutine(Field targetField) {
-        var startPos = transform.position;
-        var targetPos = targetField.Position;
-        targetPos.y = transform.position.y;
-
-        var duration = Vector3.Distance(startPos, targetPos) / moveSpeed;
-        var elapsed = 0f;
-
-        while (elapsed < duration) {
-            elapsed += Time.deltaTime;
-            var t = elapsed / duration;
-            transform.position = Vector3.Lerp(startPos, targetPos, t);
-            yield return null;
-        }
-
-        transform.position = targetPos;
     }
 }
