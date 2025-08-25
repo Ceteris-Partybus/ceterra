@@ -10,24 +10,22 @@ public abstract class Field {
     private List<Field> next;
     private SplineKnotIndex splineKnotIndex;
     private Vector3 position;
-    private Transform transform;
 
-    protected Field(int id, int splineId, FieldType type, SplineKnotIndex splineKnotIndex, Vector3 position, Transform transform) {
+    protected Field(int id, int splineId, FieldType type, SplineKnotIndex splineKnotIndex, Vector3 position) {
         this.id = id;
         this.splineId = splineId;
         this.type = type;
         this.next = new List<Field>();
         this.splineKnotIndex = splineKnotIndex;
         this.position = position;
-        this.transform = transform;
     }
 
-    public static Field Create(int id, int splineId, SplineKnotIndex splineKnotIndex, Vector3 position, FieldType type, Transform transform) {
+    public static Field Create(int id, int splineId, SplineKnotIndex splineKnotIndex, Vector3 position, FieldType type) {
         return type switch {
-            FieldType.NORMAL => new NormalField(id, splineId, splineKnotIndex, position, transform),
-            FieldType.QUESTION => new QuestionField(id, splineId, splineKnotIndex, position, transform),
-            FieldType.EVENT => new EventField(id, splineId, splineKnotIndex, position, transform),
-            FieldType.CATASTROPHE => new CatastropheField(id, splineId, splineKnotIndex, position, transform),
+            FieldType.NORMAL => new NormalField(id, splineId, splineKnotIndex, position),
+            FieldType.QUESTION => new QuestionField(id, splineId, splineKnotIndex, position),
+            FieldType.EVENT => new EventField(id, splineId, splineKnotIndex, position),
+            FieldType.CATASTROPHE => new CatastropheField(id, splineId, splineKnotIndex, position),
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
         };
     }
@@ -53,8 +51,6 @@ public abstract class Field {
     public SplineKnotIndex SplineKnotIndex => splineKnotIndex;
 
     public Vector3 Position => position;
-
-    public Transform Transform => transform;
 
     public override bool Equals(object obj) {
         if (obj is Field other) {

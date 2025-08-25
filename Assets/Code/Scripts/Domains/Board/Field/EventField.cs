@@ -2,8 +2,8 @@ using UnityEngine;
 using UnityEngine.Splines;
 
 public class EventField : Field {
-    public EventField(int id, int splineId, SplineKnotIndex splineKnotIndex, Vector3 position, Transform transform)
-        : base(id, splineId, FieldType.EVENT, splineKnotIndex, position, transform) {
+    public EventField(int id, int splineId, SplineKnotIndex splineKnotIndex, Vector3 position)
+        : base(id, splineId, FieldType.EVENT, splineKnotIndex, position) {
     }
 
     public override void Invoke(BoardPlayer player) {

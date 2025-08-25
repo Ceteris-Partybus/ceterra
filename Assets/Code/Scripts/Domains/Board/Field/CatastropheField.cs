@@ -7,8 +7,8 @@ public class CatastropheField : Field {
     private static int catastropheFieldCount = 0;
     private static readonly CatastropheType[] catastropheTypes = (CatastropheType[])System.Enum.GetValues(typeof(CatastropheType));
 
-    public CatastropheField(int id, int splineId, SplineKnotIndex splineKnotIndex, Vector3 position, Transform transform)
-        : base(id, splineId, FieldType.CATASTROPHE, splineKnotIndex, position, transform) {
+    public CatastropheField(int id, int splineId, SplineKnotIndex splineKnotIndex, Vector3 position)
+        : base(id, splineId, FieldType.CATASTROPHE, splineKnotIndex, position) {
         this.type = catastropheTypes[catastropheFieldCount++ % catastropheTypes.Length];
     }
 
