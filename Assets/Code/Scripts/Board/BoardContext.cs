@@ -1,4 +1,5 @@
 using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -26,24 +27,49 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     [Header("Global Stats")]
     [SerializeField]
+    [SyncVar(hook = nameof(OnFundsStatChanged))]
     private uint fundsStat;
     public uint FundsStat => fundsStat;
 
     [SerializeField]
+    [SyncVar(hook = nameof(OnResourceStatChanged))]
     private uint resourceStat;
     public uint ResourceStat => resourceStat;
 
     [SerializeField]
+    [SyncVar(hook = nameof(OnEconomyStatChanged))]
     private uint economyStat;
     public uint EconomyStat => economyStat;
 
     [SerializeField]
+    [SyncVar(hook = nameof(OnSocietyStatChanged))]
     private uint societyStat;
     public uint SocietyStat => societyStat;
 
     [SerializeField]
+    [SyncVar(hook = nameof(OnEnvironmentStatChanged))]
     private uint environmentStat;
     public uint EnvironmentStat => environmentStat;
+
+    #endregion
+
+    #region Global Stats Hooks
+
+    private void OnFundsStatChanged(uint old, uint new_) {
+        BoardOverlay.Instance.UpdateFundsValue(new_);
+    }
+    private void OnResourceStatChanged(uint old, uint new_) {
+        BoardOverlay.Instance.UpdateResourceValue(new_);
+    }
+    private void OnEconomyStatChanged(uint old, uint new_) {
+        BoardOverlay.Instance.UpdateEconomyValue(new_);
+    }
+    private void OnSocietyStatChanged(uint old, uint new_) {
+        BoardOverlay.Instance.UpdateSocietyValue(new_);
+    }
+    private void OnEnvironmentStatChanged(uint old, uint new_) {
+        BoardOverlay.Instance.UpdateEnvironmentValue(new_);
+    }
 
     #endregion
 
@@ -66,6 +92,23 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         this.economyStat = 50;
         this.societyStat = 50;
         this.environmentStat = 50;
+
+        // TODO: Remove, this is just for testing purposes
+        if (isServer) {
+            StartCoroutine(StartValuesIncrease());
+        }
+    }
+
+    [ServerCallback]
+    private IEnumerator StartValuesIncrease() {
+        while (true) {
+            yield return new WaitForSeconds(1f);
+            UpdateFundsStat(1);
+            UpdateResourceStat(1);
+            UpdateEconomyStat(1);
+            UpdateSocietyStat(1);
+            UpdateEnvironmentStat(1);
+        }
     }
 
     [Server]

@@ -129,7 +129,7 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         else {
             this.investButton.clicked += () => {
                 Debug.Log("Invest button clicked");
-                var modal = new InvestModal(this.investModalTemplate, this.fundsInvestProposalSubmitModalTemplate, this.investProposalVoteModalTemplate);
+                var modal = new InvestModal(this.investModalTemplate, this.fundsInvestProposalSubmitModalTemplate, this.investProposalVoteModalTemplate, this.fundsDepositModalTemplate);
                 ModalManager.Instance.ShowModal(modal);
             };
         }
@@ -188,6 +188,16 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         if (this.economyValueLabel == null) {
             Debug.LogError("Economy value label not found");
         }
+    }
+
+    protected override void Start() {
+        base.Start();
+
+        UpdateFundsValue(BoardContext.Instance.FundsStat);
+        UpdateResourceValue(BoardContext.Instance.ResourceStat);
+        UpdateEconomyValue(BoardContext.Instance.EconomyStat);
+        UpdateSocietyValue(BoardContext.Instance.SocietyStat);
+        UpdateEnvironmentValue(BoardContext.Instance.EnvironmentStat);
     }
 
     public bool IsPlayerAdded(int playerId) {
@@ -288,6 +298,12 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         if (this.playerCoinsValue != null) {
             this.playerCoinsValue.text = newCoins.ToString();
         }
+
+        foreach (var modal in ModalManager.Instance.ActiveModals) {
+            if (modal.ModalContent.Q<Label>("coins-current-value") is Label coinsValue) {
+                coinsValue.text = newCoins.ToString();
+            }
+        }
     }
 
     public void UpdateRemotePlayerCoins(uint newCoins, int playerId) {
@@ -305,19 +321,31 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         }
     }
 
-    public void UpdateResourceValue(int value) {
+    public void UpdateResourceValue(uint value) {
         if (this.resourceValueLabel != null) {
             this.resourceValueLabel.text = value.ToString();
         }
-    }
 
-    public void UpdateFundsValue(int value) {
-        if (this.fundsValueLabel != null) {
-            this.fundsValueLabel.text = value.ToString();
+        foreach (var modal in ModalManager.Instance.ActiveModals) {
+            if (modal.ModalContent.Q<Label>("resource-current-value") is Label resourceValue) {
+                resourceValue.text = value.ToString();
+            }
         }
     }
 
-    public void UpdateEnvironmentValue(float value) {
+    public void UpdateFundsValue(uint value) {
+        if (this.fundsValueLabel != null) {
+            this.fundsValueLabel.text = value.ToString();
+        }
+
+        foreach (var modal in ModalManager.Instance.ActiveModals) {
+            if (modal.ModalContent.Q<Label>("funds-current-value") is Label fundsValue) {
+                fundsValue.text = value.ToString();
+            }
+        }
+    }
+
+    public void UpdateEnvironmentValue(uint value) {
         if (this.enviromentBar != null) {
             this.enviromentBar.value = Mathf.Clamp(value, 0, 100);
             this.enviromentBar.title = $"{value} %";
@@ -327,7 +355,7 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         }
     }
 
-    public void UpdateSocietyValue(float value) {
+    public void UpdateSocietyValue(uint value) {
         if (this.societyBar != null) {
             this.societyBar.value = Mathf.Clamp(value, 0, 100);
             this.societyBar.title = $"{value}/100";
@@ -337,7 +365,7 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         }
     }
 
-    public void UpdateEconomyValue(float value) {
+    public void UpdateEconomyValue(uint value) {
         if (this.economyBar != null) {
             this.economyBar.value = Mathf.Clamp(value, 0, 100);
             this.economyBar.title = $"{value} %";

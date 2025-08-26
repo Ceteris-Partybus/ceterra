@@ -3,6 +3,7 @@ using UnityEngine.UIElements;
 public abstract class Modal {
     protected VisualElement root;
     protected VisualElement modalContent;
+    public VisualElement ModalContent => modalContent;
     protected Button closeButton;
     protected VisualTreeAsset contentTemplate;
 

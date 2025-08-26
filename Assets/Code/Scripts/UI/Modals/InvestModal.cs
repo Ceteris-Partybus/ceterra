@@ -5,10 +5,12 @@ using UnityEngine.UIElements;
 public class InvestModal : Modal {
     private VisualTreeAsset fundsInvestProposalSubmitModalTemplate;
     private VisualTreeAsset investProposalVoteModalTemplate;
+    private VisualTreeAsset investDepositModal;
     private List<VisualElement> investCards = new();
-    public InvestModal(VisualTreeAsset contentTemplate, VisualTreeAsset fundsInvestProposalSubmitModalTemplate, VisualTreeAsset investProposalVoteModalTemplate) : base(contentTemplate) {
+    public InvestModal(VisualTreeAsset contentTemplate, VisualTreeAsset fundsInvestProposalSubmitModalTemplate, VisualTreeAsset investProposalVoteModalTemplate, VisualTreeAsset investDepositModal) : base(contentTemplate) {
         this.fundsInvestProposalSubmitModalTemplate = fundsInvestProposalSubmitModalTemplate;
         this.investProposalVoteModalTemplate = investProposalVoteModalTemplate;
+        this.investDepositModal = investDepositModal;
     }
 
     protected override void InitializeContent() {
@@ -35,6 +37,9 @@ public class InvestModal : Modal {
     private void OnInvestCardDepositButtonClicked(VisualElement investCard) {
         // Handle deposit button click
         Debug.Log("Deposit button clicked for invest card: " + investCard.name);
+        // TODO: query investment ID from investCard
+        var investmentIdentifier = "REPLACE_ME";
+        ModalManager.Instance.ShowModal(new InvestDepositModal(this.investDepositModal, investmentIdentifier));
     }
 
     private void OnInvestCardProposeInvestButtonClicked(VisualElement investCard) {

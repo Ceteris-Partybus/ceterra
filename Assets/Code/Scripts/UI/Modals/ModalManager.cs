@@ -6,6 +6,7 @@ public class ModalManager : NetworkedSingleton<ModalManager> {
     [SerializeField] private UIDocument uiDocument;
     private VisualElement modalContainer;
     private readonly List<Modal> activeModals = new List<Modal>();
+    public IReadOnlyList<Modal> ActiveModals => activeModals.AsReadOnly();
 
     protected override void Awake() {
         base.Awake();
@@ -39,6 +40,16 @@ public class ModalManager : NetworkedSingleton<ModalManager> {
 
         // Add the modal to the active modals list
         this.activeModals.Add(modal);
+
+        BoardOverlay.Instance.UpdateFundsValue(BoardContext.Instance.FundsStat);
+        BoardOverlay.Instance.UpdateResourceValue(BoardContext.Instance.ResourceStat);
+        BoardOverlay.Instance.UpdateEconomyValue(BoardContext.Instance.EconomyStat);
+        BoardOverlay.Instance.UpdateSocietyValue(BoardContext.Instance.SocietyStat);
+        BoardOverlay.Instance.UpdateEnvironmentValue(BoardContext.Instance.EnvironmentStat);
+        if (BoardContext.Instance.GetLocalPlayer() != null) {
+            BoardOverlay.Instance.UpdateLocalPlayerHealth(BoardContext.Instance.GetLocalPlayer().Health);
+            BoardOverlay.Instance.UpdateLocalPlayerCoins(BoardContext.Instance.GetLocalPlayer().Coins);
+        }
 
         // Show the modal
         modal.Show();

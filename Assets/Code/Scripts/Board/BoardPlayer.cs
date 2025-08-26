@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Splines;
+using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class BoardPlayer : SceneConditionalPlayer {

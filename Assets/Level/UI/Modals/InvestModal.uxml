@@ -7,13 +7,13 @@
         <ui:VisualElement style="flex-grow: 0; align-items: flex-end; height: 100%;">
             <ui:VisualElement style="flex-grow: 0; align-items: auto; flex-direction: row; width: 500px; align-self: auto; align-content: auto;">
                 <ui:VisualElement class="modal-button" style="flex-grow: 1; width: auto; padding-left: 30px; padding-right: 30px;">
-                    <ui:Label text="X.XXX" enable-rich-text="true" name="invest-player-coins-value" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 24px;" />
+                    <ui:Label text="X.XXX" enable-rich-text="true" name="coins-current-value" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 24px;" />
                 </ui:VisualElement>
                 <ui:VisualElement class="modal-button" style="flex-grow: 1; width: auto; padding-left: 30px; padding-right: 30px;">
-                    <ui:Label text="X.XXX" enable-rich-text="true" name="invest-funds-value" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 24px;" />
+                    <ui:Label text="X.XXX" enable-rich-text="true" name="funds-current-value" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 24px;" />
                 </ui:VisualElement>
                 <ui:VisualElement class="modal-button" style="flex-grow: 1; width: auto; padding-left: 30px; padding-right: 30px;">
-                    <ui:Label text="X.XXX" enable-rich-text="true" name="invest-resources-value" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 24px;" />
+                    <ui:Label text="X.XXX" enable-rich-text="true" name="resource-current-value" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 24px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement style="flex-grow: 1; width: 100%; height: 100%;">

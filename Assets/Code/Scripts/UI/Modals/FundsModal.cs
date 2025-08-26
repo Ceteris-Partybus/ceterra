@@ -6,6 +6,7 @@ public class FundsModal : Modal {
     private Button fundsHistoryButton;
     private Button investButton;
     private Button depositButton;
+    private Label fundsValueLabel;
     private VisualTreeAsset fundsHistoryModalTemplate;
     private VisualTreeAsset fundsDepositModalTemplate;
     private VisualTreeAsset fundsInvestProposalModalTemplate;
@@ -24,6 +25,7 @@ public class FundsModal : Modal {
         this.fundsHistoryButton = modalContent.Q<Button>("funds-history-button");
         this.investButton = modalContent.Q<Button>("funds-invest-button");
         this.depositButton = modalContent.Q<Button>("funds-deposit-button");
+        this.fundsValueLabel = modalContent.Q<Label>("funds-current-value");
 
         if (this.fundsHistoryButton != null) {
             this.fundsHistoryButton.clicked += OnFundsHistoryButtonClicked;
@@ -35,6 +37,10 @@ public class FundsModal : Modal {
 
         if (this.depositButton != null) {
             this.depositButton.clicked += OnDepositButtonClicked;
+        }
+
+        if (fundsValueLabel != null) {
+            this.fundsValueLabel.text = BoardContext.Instance.FundsStat.ToString();
         }
     }
 
