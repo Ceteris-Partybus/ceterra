@@ -1,6 +1,8 @@
 using Mirror;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Splines;
 using Random = UnityEngine.Random;
@@ -18,8 +20,19 @@ public class BoardPlayer : SceneConditionalPlayer {
     [Header("Movement")]
     [SyncVar]
     private bool isMoving = false;
-    public bool IsMoving => isMoving;
 
+    [SyncVar]
+    private bool isWaitingForBranchChoice = false;
+
+    [Header("References")]
+    [SerializeField] private Transform branchArrowPrefab;
+    private List<GameObject> branchArrows = new List<GameObject>();
+
+    [Header("Movement Parameters")]
+    [SerializeField] private float moveSpeed = 10f;
+    private SplineKnotIndex nextKnot;
+
+    [Header("Stats")]
     [SyncVar]
     [SerializeField]
     private uint coins;
@@ -32,9 +45,6 @@ public class BoardPlayer : SceneConditionalPlayer {
     public uint Health => health;
     public const uint MAX_HEALTH = 100;
 
-    public static readonly float moveSpeed = 5f;
-    public static readonly AnimationCurve moveCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
-
     protected void Start() {
         DontDestroyOnLoad(gameObject);
     }
@@ -46,6 +56,12 @@ public class BoardPlayer : SceneConditionalPlayer {
         this.health = MAX_HEALTH;
     }
 
+    [Command]
+    public void CmdClaimQuizReward(uint amount) {
+        AddCoins(amount);
+    }
+
+    [Server]
     public void AddCoins(uint amount) {
         if (coins + amount > MAX_COINS) {
             coins = MAX_COINS;
@@ -108,8 +124,8 @@ public class BoardPlayer : SceneConditionalPlayer {
     // Client-side hook for position updates
     private void OnSplineKnotIndexChanged(SplineKnotIndex oldIndex, SplineKnotIndex newIndex) {
         if (IsActiveForCurrentScene) {
-            Field field = BoardContext.Instance.FieldList.Find(newIndex);
-            StartCoroutine(MoveToFieldCoroutine(field));
+            var field = BoardContext.Instance.FieldList.Find(newIndex);
+            StartCoroutine(SmoothMoveToKnot(field));
         }
     }
 
@@ -130,41 +146,105 @@ public class BoardPlayer : SceneConditionalPlayer {
         }
 
         isMoving = true;
-        StartCoroutine(MoveStepByStepCoroutine(steps));
+        StartCoroutine(MoveAlongSplineCoroutine(steps));
     }
 
     [Server]
-    private IEnumerator MoveStepByStepCoroutine(int steps) {
-        FieldList fieldList = BoardContext.Instance.FieldList;
-        Field currentField = fieldList.Find(splineKnotIndex);
+    private IEnumerator MoveAlongSplineCoroutine(int steps) {
+        var fieldList = BoardContext.Instance.FieldList;
+        var remainingSteps = steps;
+        while (remainingSteps > 0) {
+            var currentField = fieldList.Find(splineKnotIndex);
+            var nextFields = currentField.Next;
 
-        for (int step = 0; step < steps; step++) {
-            currentField = fieldList.Find(splineKnotIndex).Next[0];
-            SplineKnotIndex = currentField.SplineKnotIndex;
-            yield return new WaitForSeconds(0.8f); // Wait for movement animation
+            var targetField = nextFields.First();
+            nextKnot = targetField.SplineKnotIndex;
+            if (nextFields.Count > 1) {
+                isWaitingForBranchChoice = true;
+                TargetShowBranchArrows();
+                yield return new WaitUntil(() => !isWaitingForBranchChoice);
+
+                targetField = fieldList.Find(nextKnot);
+            }
+            SplineKnotIndex = nextKnot;
+            yield return StartCoroutine(SmoothMoveToKnot(targetField));
+
+            remainingSteps--;
+            yield return new WaitForSeconds(0.1f);
         }
 
         isMoving = false;
+        var finalField = fieldList.Find(splineKnotIndex);
+        finalField.Invoke(this);
         BoardContext.Instance.OnPlayerMovementComplete(this);
-        currentField.Invoke(this);
     }
 
-    private IEnumerator MoveToFieldCoroutine(Field targetField) {
-        Vector3 startPos = transform.position;
-        Vector3 targetPos = targetField.Position;
-        targetPos.y += gameObject.transform.localScale.y / 2f;
+    private IEnumerator SmoothMoveToKnot(Field targetField) {
+        var startPos = transform.position;
+        var targetPos = targetField.Position;
+        targetPos.y = transform.position.y;
 
-        float duration = Vector3.Distance(startPos, targetPos) / moveSpeed;
-        float elapsed = 0f;
+        var duration = Vector3.Distance(startPos, targetPos) / moveSpeed;
+        var elapsed = 0f;
+
 
         while (elapsed < duration) {
             elapsed += Time.deltaTime;
-            float t = elapsed / duration;
-            float curveT = moveCurve.Evaluate(t);
-            transform.position = Vector3.Lerp(startPos, targetPos, curveT);
+            var t = elapsed / duration;
+            transform.position = Vector3.Lerp(startPos, targetPos, t);
             yield return null;
         }
 
         transform.position = targetPos;
+    }
+
+    [TargetRpc]
+    private void TargetShowBranchArrows() {
+        if (!isLocalPlayer || branchArrowPrefab == null) { return; }
+
+        var fieldList = BoardContext.Instance.FieldList;
+        var currentField = fieldList.Find(splineKnotIndex);
+        var nextFields = currentField.Next;
+
+        for (var i = 0; i < nextFields.Count; i++) {
+            var branchArrow = Instantiate(branchArrowPrefab.gameObject);
+
+            var deltaX = (nextFields[i].Position.x - currentField.Position.x) / 2;
+            var deltaZ = (nextFields[i].Position.z - currentField.Position.z) / 2;
+            branchArrow.transform.position = new Vector3(currentField.Position.x + deltaX, 0f, currentField.Position.z + deltaZ);
+            branchArrow.transform.LookAt(nextFields[i].Position, transform.up);
+
+            branchArrow.GetComponent<BranchArrowMouseEventHandler>()?.Initialize(this, i);
+            branchArrows.Add(branchArrow);
+        }
+    }
+
+    [TargetRpc]
+    private void TargetHideBranchArrows() {
+        foreach (var arrow in branchArrows) {
+            Destroy(arrow);
+        }
+        branchArrows.Clear();
+    }
+
+    [Command]
+    public void CmdChooseBranchPath(int pathIndex) {
+        if (!IsActiveForCurrentScene || !isWaitingForBranchChoice) {
+            return;
+        }
+
+        var fieldList = BoardContext.Instance.FieldList;
+        var currentField = fieldList.Find(splineKnotIndex);
+        var nextFields = currentField.Next;
+
+        if (pathIndex < 0 || pathIndex >= nextFields.Count) {
+            return;
+        }
+
+        var chosenField = nextFields[pathIndex];
+
+        nextKnot = chosenField.SplineKnotIndex;
+        isWaitingForBranchChoice = false;
+        TargetHideBranchArrows();
     }
 }

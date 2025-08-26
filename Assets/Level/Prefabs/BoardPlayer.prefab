@@ -150,6 +150,8 @@ MonoBehaviour:
   syncInterval: 0
   playerId: -1
   playerName: 
+  branchArrowPrefab: {fileID: 4160029262607009644, guid: 34c995e2318f501468807eaf18a2a918, type: 3}
+  moveSpeed: 10
   coins: 0
   health: 0
 --- !u!114 &4342209585082839626
