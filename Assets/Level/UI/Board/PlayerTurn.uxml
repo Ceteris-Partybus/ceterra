@@ -1,12 +1,11 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Level/UI/Board/PlayerTurn.uss?fileID=7433441132597879392&amp;guid=1e5aae09b54b817448c8bb687983844c&amp;type=3#PlayerTurn" />
-    <ui:VisualElement style="flex-grow: 1; position: absolute; bottom: 390px; left: 44px;">
-        <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-items: center; max-height: 100px; align-content: flex-start; align-self: flex-start;">
-            <ui:Label text="Am Zug:" style="font-size: 50px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;);" />
-            <ui:Label name="current-player-name" text="Platzhalter" style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 50px; -unity-font-style: normal; color: rgb(255, 0, 0);" />
-        </ui:VisualElement>
-        <ui:VisualElement name="VisualElement" style="flex-grow: 1;">
-            <ui:Button text="Würfeln" name="roll-dice-button" enabled="false" style="max-width: 200px; min-height: 50px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 32px; -unity-font-style: normal; background-color: rgb(84, 255, 76);" />
-        </ui:VisualElement>
+    <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-items: center; max-height: 100px; position: absolute; top: 481px; left: 34px;">
+        <ui:Label text="Am Zug:" style="font-size: 50px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;);" />
+        <ui:Label name="current-player-name" text="Platzhalter" style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 50px; -unity-font-style: normal; color: rgb(255, 0, 0);" />
+    </ui:VisualElement>
+    <ui:VisualElement style="flex-grow: 1; position: absolute; width: 321px; top: 556px; left: 34px;">
+        <ui:Button text="Würfeln" name="roll-dice-button" enabled="false" style="max-width: 200px; min-height: 50px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 32px; -unity-font-style: normal; background-color: rgb(84, 255, 76);" />
+        <ui:Button text="Quiz-Test" name="open-quiz-button" style="max-width: 200px; min-height: 50px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 32px; -unity-font-style: normal; background-color: rgb(255, 230, 76);" />
     </ui:VisualElement>
 </ui:UXML>

@@ -47,6 +47,12 @@ public class BoardPlayer : SceneConditionalPlayer {
         this.health = MAX_HEALTH;
     }
 
+    [Command]
+    public void CmdClaimQuizReward(uint amount) {
+        AddCoins(amount);
+    }
+
+    [Server]
     public void AddCoins(uint amount) {
         if (coins + amount > MAX_COINS) {
             coins = MAX_COINS;
