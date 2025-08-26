@@ -114,6 +114,16 @@ public abstract class SceneConditionalPlayer : NetworkBehaviour {
     }
     #endregion
 
+    public void Hide() {
+        GetComponent<Renderer>().enabled = false;
+        GetComponent<Collider>().enabled = false;
+    }
+
+    public void Show() {
+        GetComponent<Renderer>().enabled = true;
+        GetComponent<Collider>().enabled = true;
+    }
+
     #region Client Sync
     private void OnActiveStateChanged(bool oldValue, bool newValue) {
         enabled = newValue;

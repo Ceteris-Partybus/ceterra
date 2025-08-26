@@ -29,6 +29,18 @@ public class MgGarbagePlayer : SceneConditionalPlayer {
             }
             RemotePlayerHUD.Instance.UpdatePlayerScore(PlayerId, score);
         }
+
+        var boardPlayers = FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        if (isActive) {
+            foreach (var bp in boardPlayers) {
+                bp.Hide();
+            }
+        }
+        else {
+            foreach (var bp in boardPlayers) {
+                bp.Show();
+            }
+        }
     }
 
     [Server]
