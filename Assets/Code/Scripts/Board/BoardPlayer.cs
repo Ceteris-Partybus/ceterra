@@ -116,6 +116,9 @@ public class BoardPlayer : SceneConditionalPlayer {
         if (source is MinigameOnePlayer minigamePlayer) {
             AddCoins((uint)Math.Max(0, minigamePlayer.Score));
         }
+        else if (source is MgGarbagePlayer garbagePlayer) {
+            AddCoins((uint)Math.Max(0, garbagePlayer.Score));
+        }
     }
 
     // Client-side hook for position updates
