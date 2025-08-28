@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:Template name="PlayerCard" src="project://database/Assets/Resources/VTA/PlayerCard.uxml?fileID=9197481963319205126&amp;guid=cf9272ab0a555f74e916fab91d0b2574&amp;type=3#PlayerCard" />
+    <ui:Template name="PlayerCard" src="project://database/Assets/Level/UI/Board/PlayerCard.uxml?fileID=9197481963319205126&amp;guid=cf9272ab0a555f74e916fab91d0b2574&amp;type=3#PlayerCard" />
     <ui:Template name="ProgressBar" src="project://database/Assets/Level/UI/Board/ProgressBar.uxml?fileID=9197481963319205126&amp;guid=b7a507bd332063d4fb87ffbd154e639a&amp;type=3#ProgressBar" />
     <Style src="project://database/Assets/Level/UI/Board/Card.uss?fileID=7433441132597879392&amp;guid=788ddb1472ea9d34790d902073b1aee9&amp;type=3#Card" />
     <Style src="project://database/Assets/Level/UI/Board/ProgressBar.uss?fileID=7433441132597879392&amp;guid=d93a944e8d3c81a48b436f49f11a14b5&amp;type=3#ProgressBar" />
