@@ -123,14 +123,14 @@ public class BoardPlayer : SceneConditionalPlayer {
     protected override void OnClientActiveStateChanged(bool isActive) {
         base.OnClientActiveStateChanged(isActive);
 
-        if (!isLocalPlayer && isActive && BoardOverlay.Instance != null) {
+        if (!isLocalPlayer && isActive) {
             if (!BoardOverlay.Instance.IsPlayerAdded(PlayerId)) {
                 BoardOverlay.Instance.AddPlayer(this);
             }
             BoardOverlay.Instance.UpdateRemotePlayerHealth(health, PlayerId);
             BoardOverlay.Instance.UpdateRemotePlayerCoins(coins, PlayerId);
         }
-        else if (isLocalPlayer && isActive && BoardOverlay.Instance != null) {
+        else if (isLocalPlayer && isActive) {
             BoardOverlay.Instance.UpdateLocalPlayerHealth(health);
             BoardOverlay.Instance.UpdateLocalPlayerCoins(coins);
         }

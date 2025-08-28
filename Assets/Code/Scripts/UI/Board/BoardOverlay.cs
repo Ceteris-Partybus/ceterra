@@ -312,11 +312,9 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
                 Debug.LogError($"Player card for player {playerId} not found");
                 return;
             }
-            if (playerCard != null) {
-                var playerCoinsLabel = playerCard.Q<Label>("player-card__coins-value");
-                if (playerCoinsLabel != null) {
-                    playerCoinsLabel.text = newCoins.ToString();
-                }
+            var playerCoinsLabel = playerCard.Q<Label>("player-card__coins-value");
+            if (playerCoinsLabel != null) {
+                playerCoinsLabel.text = newCoins.ToString();
             }
         }
     }

@@ -19,9 +19,7 @@ public class FundsInvestProposalModal : Modal {
         investCards = this.modalContent.Query<Button>(className: "invest-card__wrapper").ToList();
         foreach (var investCard in investCards) {
             if (investCard != null) {
-                investCard.clicked += () => {
-                    this.OnInvestCardButtonClicked(investCard);
-                };
+                investCard.clicked += () => this.OnInvestCardButtonClicked(investCard);
             }
         }
     }
