@@ -1,0 +1,21 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI/Modals/ModalStyles.uss?fileID=7433441132597879392&amp;guid=7765ef12d5826884abfaffcb5834fca5&amp;type=3#ModalStyles" />
+    <ui:VisualElement style="flex-grow: 1; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; width: 400px; height: 420px;">
+        <ui:Label text="Funds" class="modal-title" style="width: 100%;" />
+        <ui:VisualElement style="flex-grow: 1; align-items: center;">
+            <ui:VisualElement style="flex-grow: 0; width: 200px;">
+                <ui:VisualElement class="modal-button" style="flex-grow: 1; background-image: resource(&apos;Board/Safe&apos;); height: 200px;" />
+                <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                    <ui:VisualElement class="modal-button" style="flex-grow: 1; justify-content: center; align-items: center;">
+                        <ui:Label text="XX.XXX" name="funds-current-value" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 24px;" />
+                    </ui:VisualElement>
+                    <ui:Button name="funds-history-button" class="modal-button" style="background-size: 50% 50%; background-image: resource(&apos;Icons/history&apos;); width: 50px; height: 50px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 0; margin-top: 25px; flex-direction: row; width: 100%; justify-content: center;">
+                <ui:Button text="Invest" name="funds-invest-button" class="modal-button" style="width: 100px;" />
+                <ui:Button text="Deposit" name="funds-deposit-button" class="modal-button" style="width: 100px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

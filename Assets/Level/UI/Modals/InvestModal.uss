@@ -1,0 +1,13 @@
+#unity-tab__header {
+  font-size: 24px;
+  margin-right: 2px;
+}
+
+#unity-tab__header:checked {
+  border-bottom-color: transparent !important;
+  background-color: rgb(168, 162, 158) !important;
+}
+
+#unity-tab__header, #unity-tab-view__header-container {
+  height: 40px;
+}

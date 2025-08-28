@@ -1,0 +1,30 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI/Modals/ModalStyles.uss?fileID=7433441132597879392&amp;guid=7765ef12d5826884abfaffcb5834fca5&amp;type=3#ModalStyles" />
+    <ui:VisualElement style="flex-grow: 1; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; width: 450px; height: 325px;">
+        <ui:Label text="Vote" class="modal-title" />
+        <ui:VisualElement style="flex-grow: 1; align-items: center;">
+            <ui:Label text="Player 1 has proposed investing in sea cleaner via the funds. Cast your vote." style="white-space: normal; font-size: 20px; -unity-text-align: upper-center;" />
+            <ui:VisualElement style="flex-grow: 0; width: auto; flex-direction: row; justify-content: center; align-items: center;">
+                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: 80px; align-items: center; justify-content: center;">
+                    <ui:Label text="X.XXX" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                </ui:VisualElement>
+                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: 80px; align-items: center; justify-content: center;">
+                    <ui:Label text="X.XXX" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                </ui:VisualElement>
+                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: 80px; align-items: center; justify-content: center;">
+                    <ui:Label text="X.XXX" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 0; margin-top: 34px; flex-direction: row;">
+                <ui:Button text="Yes" class="modal-button" style="width: auto;" />
+                <ui:Button text="No" class="modal-button" style="width: auto;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 0; margin-top: 34px; flex-direction: row; width: 60%; justify-content: space-around;">
+                <ui:VisualElement style="flex-grow: 0; background-size: 80% 80%; background-image: resource(&apos;Icons/black-x&apos;); background-color: rgba(0, 0, 0, 0); width: 30px; height: 30px;" />
+                <ui:VisualElement style="flex-grow: 0; background-size: 80% 80%; background-image: resource(&apos;Icons/loader-circle&apos;); background-color: rgba(0, 0, 0, 0); width: 30px; height: 30px;" />
+                <ui:VisualElement style="flex-grow: 0; background-size: 80% 80%; background-image: resource(&apos;Icons/check&apos;); background-color: rgba(0, 0, 0, 0); width: 30px; height: 30px;" />
+                <ui:VisualElement style="flex-grow: 0; background-size: 80% 80%; background-image: resource(&apos;Icons/check&apos;); background-color: rgba(0, 0, 0, 0); width: 30px; height: 30px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,346 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="ProgressBar" src="project://database/Assets/Level/UI/Board/ProgressBar.uxml?fileID=9197481963319205126&amp;guid=b7a507bd332063d4fb87ffbd154e639a&amp;type=3#ProgressBar" />
+    <Style src="project://database/Assets/Level/UI/Modals/ModalStyles.uss?fileID=7433441132597879392&amp;guid=7765ef12d5826884abfaffcb5834fca5&amp;type=3#ModalStyles" />
+    <Style src="project://database/Assets/Level/UI/Modals/InvestModal.uss?fileID=7433441132597879392&amp;guid=dc966b25264122c47bd97da562b3a83f&amp;type=3#InvestModal" />
+    <ui:VisualElement style="flex-grow: 1; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; width: 1200px; height: 800px;">
+        <ui:Label text="Invest" class="modal-title" />
+        <ui:VisualElement style="flex-grow: 0; align-items: flex-end; height: 100%;">
+            <ui:VisualElement style="flex-grow: 0; align-items: auto; flex-direction: row; width: 500px; align-self: auto; align-content: auto;">
+                <ui:VisualElement class="modal-button" style="flex-grow: 1; width: auto; padding-left: 30px; padding-right: 30px;">
+                    <ui:Label text="X.XXX" enable-rich-text="true" name="coins-current-value" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 24px;" />
+                </ui:VisualElement>
+                <ui:VisualElement class="modal-button" style="flex-grow: 1; width: auto; padding-left: 30px; padding-right: 30px;">
+                    <ui:Label text="X.XXX" enable-rich-text="true" name="funds-current-value" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 24px;" />
+                </ui:VisualElement>
+                <ui:VisualElement class="modal-button" style="flex-grow: 1; width: auto; padding-left: 30px; padding-right: 30px;">
+                    <ui:Label text="X.XXX" enable-rich-text="true" name="resource-current-value" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 24px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; width: 100%; height: 100%;">
+                <ui:TabView style="flex-grow: 1;">
+                    <ui:Tab label="All" style="flex-grow: 1; width: 100%; height: 100%;">
+                        <ui:ScrollView horizontal-scroller-visibility="Hidden" style="flex-grow: 1; height: 100%; margin-top: 10px;">
+                            <ui:VisualElement name="investments-grid" style="flex-grow: 1; width: 100%; height: 100%; margin-top: 10px; flex-direction: row; justify-content: space-evenly; flex-wrap: wrap; flex-basis: auto;">
+                                <ui:VisualElement class="modal-button" style="flex-grow: 0; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; width: 45%; margin-right: 0; margin-top: 0; margin-bottom: 25px; margin-left: 0;">
+                                    <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; justify-content: center;">
+                                        <ui:VisualElement class="modal-button" style="flex-grow: 0; width: 100px; height: 100px; align-self: center;" />
+                                        <ui:VisualElement style="flex-grow: 1; margin-left: 10px;">
+                                            <ui:Label text="Sea Cleaner" style="font-size: 32px; -unity-font-style: normal; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                            <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                            <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; align-items: center;">
+                                                <ui:Instance template="ProgressBar" style="flex-grow: 1; margin-right: 25px;" />
+                                                <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                    <ui:Button text="Dep." name="invest-card-deposit-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                    <ui:Button text="Inv." name="invest-card-propose-invest-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                        </ui:VisualElement>
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="modal-button" style="flex-grow: 0; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; width: 45%; margin-right: 0; margin-top: 0; margin-bottom: 25px; margin-left: 0;">
+                                    <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; justify-content: center;">
+                                        <ui:VisualElement class="modal-button" style="flex-grow: 0; width: 100px; height: 100px; align-self: center;" />
+                                        <ui:VisualElement style="flex-grow: 1; margin-left: 10px;">
+                                            <ui:Label text="Sea Cleaner" style="font-size: 32px; -unity-font-style: normal; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                            <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                            <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; align-items: center;">
+                                                <ui:Instance template="ProgressBar" style="flex-grow: 1; margin-right: 25px;" />
+                                                <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                    <ui:Button text="Dep." name="invest-card-deposit-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                    <ui:Button text="Inv." name="invest-card-propose-invest-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                        </ui:VisualElement>
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="modal-button" style="flex-grow: 0; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; width: 45%; margin-right: 0; margin-top: 0; margin-bottom: 25px; margin-left: 0;">
+                                    <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; justify-content: center;">
+                                        <ui:VisualElement class="modal-button" style="flex-grow: 0; width: 100px; height: 100px; align-self: center;" />
+                                        <ui:VisualElement style="flex-grow: 1; margin-left: 10px;">
+                                            <ui:Label text="Sea Cleaner" style="font-size: 32px; -unity-font-style: normal; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                            <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                            <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; align-items: center;">
+                                                <ui:Instance template="ProgressBar" style="flex-grow: 1; margin-right: 25px;" />
+                                                <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                    <ui:Button text="Dep." name="invest-card-deposit-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                    <ui:Button text="Inv." name="invest-card-propose-invest-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                        </ui:VisualElement>
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="modal-button" style="flex-grow: 0; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; width: 45%; margin-right: 0; margin-top: 0; margin-bottom: 25px; margin-left: 0;">
+                                    <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; justify-content: center;">
+                                        <ui:VisualElement class="modal-button" style="flex-grow: 0; width: 100px; height: 100px; align-self: center;" />
+                                        <ui:VisualElement style="flex-grow: 1; margin-left: 10px;">
+                                            <ui:Label text="Sea Cleaner" style="font-size: 32px; -unity-font-style: normal; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                            <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                            <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; align-items: center;">
+                                                <ui:Instance template="ProgressBar" style="flex-grow: 1; margin-right: 25px;" />
+                                                <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                    <ui:Button text="Dep." name="invest-card-deposit-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                    <ui:Button text="Inv." name="invest-card-propose-invest-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                        </ui:VisualElement>
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="modal-button" style="flex-grow: 0; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; width: 45%; margin-right: 0; margin-top: 0; margin-bottom: 25px; margin-left: 0;">
+                                    <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; justify-content: center;">
+                                        <ui:VisualElement class="modal-button" style="flex-grow: 0; width: 100px; height: 100px; align-self: center;" />
+                                        <ui:VisualElement style="flex-grow: 1; margin-left: 10px;">
+                                            <ui:Label text="Sea Cleaner" style="font-size: 32px; -unity-font-style: normal; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                            <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                            <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; align-items: center;">
+                                                <ui:Instance template="ProgressBar" style="flex-grow: 1; margin-right: 25px;" />
+                                                <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                    <ui:Button text="Dep." name="invest-card-deposit-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                    <ui:Button text="Inv." name="invest-card-propose-invest-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                        </ui:VisualElement>
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="modal-button" style="flex-grow: 0; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; width: 45%; margin-right: 0; margin-top: 0; margin-bottom: 25px; margin-left: 0;">
+                                    <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; justify-content: center;">
+                                        <ui:VisualElement class="modal-button" style="flex-grow: 0; width: 100px; height: 100px; align-self: center;" />
+                                        <ui:VisualElement style="flex-grow: 1; margin-left: 10px;">
+                                            <ui:Label text="Sea Cleaner" style="font-size: 32px; -unity-font-style: normal; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                            <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                            <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; align-items: center;">
+                                                <ui:Instance template="ProgressBar" style="flex-grow: 1; margin-right: 25px;" />
+                                                <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                    <ui:Button text="Dep." name="invest-card-deposit-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                    <ui:Button text="Inv." name="invest-card-propose-invest-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                        </ui:VisualElement>
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="modal-button" style="flex-grow: 0; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; width: 45%; margin-right: 0; margin-top: 0; margin-bottom: 25px; margin-left: 0;">
+                                    <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; justify-content: center;">
+                                        <ui:VisualElement class="modal-button" style="flex-grow: 0; width: 100px; height: 100px; align-self: center;" />
+                                        <ui:VisualElement style="flex-grow: 1; margin-left: 10px;">
+                                            <ui:Label text="Sea Cleaner" style="font-size: 32px; -unity-font-style: normal; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                            <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                            <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; align-items: center;">
+                                                <ui:Instance template="ProgressBar" style="flex-grow: 1; margin-right: 25px;" />
+                                                <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                    <ui:Button text="Dep." name="invest-card-deposit-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                    <ui:Button text="Inv." name="invest-card-propose-invest-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                        </ui:VisualElement>
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="modal-button" style="flex-grow: 0; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; width: 45%; margin-right: 0; margin-top: 0; margin-bottom: 25px; margin-left: 0;">
+                                    <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; justify-content: center;">
+                                        <ui:VisualElement class="modal-button" style="flex-grow: 0; width: 100px; height: 100px; align-self: center;" />
+                                        <ui:VisualElement style="flex-grow: 1; margin-left: 10px;">
+                                            <ui:Label text="Sea Cleaner" style="font-size: 32px; -unity-font-style: normal; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                            <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                            <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; align-items: center;">
+                                                <ui:Instance template="ProgressBar" style="flex-grow: 1; margin-right: 25px;" />
+                                                <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                    <ui:Button text="Dep." name="invest-card-deposit-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                    <ui:Button text="Inv." name="invest-card-propose-invest-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                        </ui:VisualElement>
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="modal-button" style="flex-grow: 0; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; width: 45%; margin-right: 0; margin-top: 0; margin-bottom: 25px; margin-left: 0;">
+                                    <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; justify-content: center;">
+                                        <ui:VisualElement class="modal-button" style="flex-grow: 0; width: 100px; height: 100px; align-self: center;" />
+                                        <ui:VisualElement style="flex-grow: 1; margin-left: 10px;">
+                                            <ui:Label text="Sea Cleaner" style="font-size: 32px; -unity-font-style: normal; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                            <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                            <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; align-items: center;">
+                                                <ui:Instance template="ProgressBar" style="flex-grow: 1; margin-right: 25px;" />
+                                                <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                    <ui:Button text="Dep." name="invest-card-deposit-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                    <ui:Button text="Inv." name="invest-card-propose-invest-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                        </ui:VisualElement>
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="modal-button" style="flex-grow: 0; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; width: 45%; margin-right: 0; margin-top: 0; margin-bottom: 25px; margin-left: 0;">
+                                    <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; justify-content: center;">
+                                        <ui:VisualElement class="modal-button" style="flex-grow: 0; width: 100px; height: 100px; align-self: center;" />
+                                        <ui:VisualElement style="flex-grow: 1; margin-left: 10px;">
+                                            <ui:Label text="Sea Cleaner" style="font-size: 32px; -unity-font-style: normal; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                            <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                            <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; align-items: center;">
+                                                <ui:Instance template="ProgressBar" style="flex-grow: 1; margin-right: 25px;" />
+                                                <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                    <ui:Button text="Dep." name="invest-card-deposit-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                    <ui:Button text="Inv." name="invest-card-propose-invest-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                        </ui:VisualElement>
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="modal-button" style="flex-grow: 0; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; width: 45%; margin-right: 0; margin-top: 0; margin-bottom: 25px; margin-left: 0;">
+                                    <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; justify-content: center;">
+                                        <ui:VisualElement class="modal-button" style="flex-grow: 0; width: 100px; height: 100px; align-self: center;" />
+                                        <ui:VisualElement style="flex-grow: 1; margin-left: 10px;">
+                                            <ui:Label text="Sea Cleaner" style="font-size: 32px; -unity-font-style: normal; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                            <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                            <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; align-items: center;">
+                                                <ui:Instance template="ProgressBar" style="flex-grow: 1; margin-right: 25px;" />
+                                                <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                    <ui:Button text="Dep." name="invest-card-deposit-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                    <ui:Button text="Inv." name="invest-card-propose-invest-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                        </ui:VisualElement>
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="modal-button" style="flex-grow: 0; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; width: 45%; margin-right: 0; margin-top: 0; margin-bottom: 25px; margin-left: 0;">
+                                    <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; justify-content: center;">
+                                        <ui:VisualElement class="modal-button" style="flex-grow: 0; width: 100px; height: 100px; align-self: center;" />
+                                        <ui:VisualElement style="flex-grow: 1; margin-left: 10px;">
+                                            <ui:Label text="Sea Cleaner" style="font-size: 32px; -unity-font-style: normal; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                            <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                                                    <ui:Label text="200&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                            <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; align-items: center;">
+                                                <ui:Instance template="ProgressBar" style="flex-grow: 1; margin-right: 25px;" />
+                                                <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                                                    <ui:Button text="Dep." name="invest-card-deposit-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                    <ui:Button text="Inv." name="invest-card-propose-invest-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                        </ui:VisualElement>
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:ScrollView>
+                    </ui:Tab>
+                    <ui:Tab label="Economy" />
+                    <ui:Tab label="Society" />
+                    <ui:Tab label="Environment" />
+                </ui:TabView>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
