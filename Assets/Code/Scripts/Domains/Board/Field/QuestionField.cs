@@ -6,19 +6,22 @@ public class QuestionField : Field {
         : base(id, splineId, FieldType.QUESTION, splineKnotIndex, position) {
     }
 
-    private QuestionData currentQuestion;
     private const int HEALTHEFFECT = 10;
     private const int MONEYEFFECT = 10;
+    private BoardquizController boardquizController;
+    private GameObject quizGameObject;
 
     public override void Invoke(BoardPlayer player) {
         Debug.Log($"Player landed on a question field.");
-        currentQuestion = BoardContext.quizService.GetRandomQuestion();
-    }
+        if (quizGameObject != null && boardquizController != null) {
+            if (player != null) {
+                boardquizController.InitializeQuizForPlayer(player);
 
-    public void CheckAnswer(BoardPlayer player, int selectedOptionIndex) {
-        if (BoardContext.quizService.CheckAnswer(currentQuestion, selectedOptionIndex)) {
-            player.AddCoins(MONEYEFFECT);
-            player.AddHealth(HEALTHEFFECT);
+                quizGameObject.SetActive(true);
+            }
+            else {
+                Debug.LogError("Konnte das Quiz nicht starten, da kein aktueller Spieler gefunden wurde!");
+            }
         }
     }
 }

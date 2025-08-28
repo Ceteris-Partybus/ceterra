@@ -10,6 +10,5 @@ public class MinigameOneContext : NetworkedSingleton<MinigameOneContext> {
 
     private IEnumerator EndMinigameAfterDelay() {
         yield return new WaitForSeconds(10f);
-        GameManager.singleton.EndMinigame();
     }
 }

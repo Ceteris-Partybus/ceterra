@@ -47,7 +47,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     #endregion
 
-    public static QuizService quizService = new QuizService("");
+    public static BoardquizService boardquizService;
 
     [Header("Current Player")]
     [SyncVar(hook = nameof(OnCurrentPlayerChanged))]
@@ -69,7 +69,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         this.societyStat = 50;
         this.environmentStat = 50;
 
-        quizService.SetDataSourcePath("Assets/Resources/Domains/Investment/QuestionList.json");
+        boardquizService.SetDataSourcePath("Assets/Resources/Domains/Investment/QuestionList.json");
     }
 
     [Server]
