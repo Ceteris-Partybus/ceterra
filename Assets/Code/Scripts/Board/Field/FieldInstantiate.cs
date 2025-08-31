@@ -108,7 +108,12 @@ public class FieldInstantiate : NetworkBehaviour {
                     var fieldTypes = Enum.GetValues(typeof(FieldType)).Cast<FieldType>().ToArray();
                     var randomFieldType = fieldTypes[UnityEngine.Random.Range(0, fieldTypes.Length)];
                     // fieldTypeMap[new SplineKnotIndex(i, k)] = randomFieldType;
-                    fieldTypeMap[new SplineKnotIndex(i, k)] = FieldType.QUESTION;
+                    if (i == 0 && k == 0) {
+                        fieldTypeMap[new SplineKnotIndex(i, k)] = FieldType.NORMAL;
+                    }
+                    else {
+                        fieldTypeMap[new SplineKnotIndex(i, k)] = FieldType.QUESTION;
+                    }
                 }
             }
         }

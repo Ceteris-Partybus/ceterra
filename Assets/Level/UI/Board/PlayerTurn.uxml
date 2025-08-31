@@ -6,8 +6,5 @@
     </ui:VisualElement>
     <ui:VisualElement style="flex-grow: 1;">
         <ui:Button text="Würfeln" name="roll-dice-button" enabled="false" style="max-width: 200px; min-height: 50px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 32px; -unity-font-style: normal; background-color: rgb(84, 255, 76);" />
-
-         <!-- Provisorischer Button zum Öffnen des Quiz | kann später entfernt werden -->
-        <ui:Button text="Quiz-Test" name="open-quiz-button" style="max-width: 200px; min-height: 50px; -unity-font-definition: resource('UI/Other/Jersey15-Regular'); font-size: 32px; -unity-font-style: normal; background-color: rgb(255, 230, 76);" />
     </ui:VisualElement>
 </ui:UXML>

@@ -1,4 +1,5 @@
 using Mirror;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -47,11 +48,6 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     #endregion
 
-    private BoardquizController boardquizController;
-    public BoardquizController BoardquizController => boardquizController;
-    private BoardquizNetworkProxy boardquizNetworkProxy;
-    public BoardquizNetworkProxy BoardquizNetworkProxy => boardquizNetworkProxy;
-
     [Header("Current Player")]
     [SyncVar(hook = nameof(OnCurrentPlayerChanged))]
     [SerializeField]
@@ -71,9 +67,6 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         this.economyStat = 50;
         this.societyStat = 50;
         this.environmentStat = 50;
-
-        this.boardquizController = FindObjectsByType<BoardquizController>(FindObjectsInactive.Include, FindObjectsSortMode.None)[0];
-        this.boardquizNetworkProxy = FindObjectsByType<BoardquizNetworkProxy>(FindObjectsInactive.Include, FindObjectsSortMode.None)[0];
     }
 
     [Server]
@@ -182,6 +175,22 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     public void UpdateEnvironmentStat(uint amount) {
         environmentStat = (uint)Mathf.Clamp(environmentStat + amount, 0, MAX_STATS_VALUE);
+    }
+
+    [ServerCallback]
+    internal void ShowQuizForPlayer(int playerId) {
+        RpcShowQuizForPlayer(GetPlayerById(playerId));
+    }
+
+    [ClientRpc]
+    private void RpcShowQuizForPlayer(BoardPlayer player) {
+        if (isClient && GetLocalPlayer().Equals(player)) {
+            Debug.Log("Calling InitializeQuizForPlayer");
+            Debug.Log($"BoardQuizController is {BoardquizController.Instance}");
+            BoardquizController.Instance.InitializeQuizForPlayer(player);
+            Debug.Log("Calling DoStartQuiz");
+            BoardquizController.Instance.DoStartQuiz();
+        }
     }
 
     #endregion

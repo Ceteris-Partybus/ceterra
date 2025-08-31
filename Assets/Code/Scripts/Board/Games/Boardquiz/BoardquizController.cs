@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System;
 using Mirror;
 
-public class BoardquizController : MonoBehaviour {
+public class BoardquizController : NetworkedSingleton<BoardquizController> {
     [SerializeField] private UIDocument uiDocument;
     [SerializeField] private BoardquizService boardquizService;
 
@@ -41,13 +41,22 @@ public class BoardquizController : MonoBehaviour {
         this.currentPlayer = player;
     }
 
-    void OnEnable() {
+    protected override void Start() {
+        base.Start();
+        GetComponent<UIDocument>().enabled = false;
+    }
+
+    public void DoStartQuiz() {
+        Debug.Log("Getting UI Document");
+        var uiDocument = GetComponent<UIDocument>();
+        Debug.Log($"UIDocument is {uiDocument}");
+        uiDocument.enabled = true;
         root = uiDocument.rootVisualElement;
         InitializeUIElements();
         StartQuiz();
     }
 
-    void OnDisable() {
+    public void StopQuiz() {
         UnregisterButtonCallbacks();
         StopAutoAdvanceTimer();
         if (autoCloseCoroutine != null) {
@@ -57,11 +66,15 @@ public class BoardquizController : MonoBehaviour {
     }
 
     private void InitializeUIElements() {
+        Debug.Log($"Root element is {root}");
         quizArea = root.Q<VisualElement>("quizArea");
         resultsScreen = root.Q<VisualElement>("resultsScreen");
+        Debug.Log($"Quizarea is {quizArea}");
         questionLabel = quizArea.Q<Label>("questionLabel");
+        Debug.Log($"Results is {resultsScreen}");
         resultsLabel = resultsScreen.Q<Label>("resultsLabel");
         playAgainButton = resultsScreen.Q<Button>("playAgainButton");
+        Debug.Log("AJSDKASJ)");
         SetElementDisplay(playAgainButton, false);
 
         var answerButtonsContainer = quizArea.Q<VisualElement>("answerButtonsContainer");
