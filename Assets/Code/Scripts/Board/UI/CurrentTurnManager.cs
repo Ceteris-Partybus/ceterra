@@ -31,7 +31,7 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
     private void InitQuizComponents() {
         quizDiceButton = rootElement.Q<Button>("open-quiz-button");
         quizDiceButton.clicked += OnQuizButtonClicked;
-        boardquizController = quizGameObject.GetComponent<BoardquizController>();
+        boardquizController = BoardContext.Instance.BoardquizController;
     }
 
     // bis hier löschen 

@@ -1,3 +1,4 @@
+using Mirror;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -10,14 +11,18 @@ public class QuestionField : Field {
     private const int MONEYEFFECT = 10;
     private BoardquizController boardquizController;
     private GameObject quizGameObject;
+    private BoardquizNetworkProxy proxy;
 
     public override void Invoke(BoardPlayer player) {
+        this.boardquizController = BoardContext.Instance.BoardquizController;
+        this.quizGameObject = BoardContext.Instance.BoardquizController.gameObject;
+        this.proxy = BoardContext.Instance.BoardquizNetworkProxy;
+
         Debug.Log($"Player landed on a question field.");
         if (quizGameObject != null && boardquizController != null) {
             if (player != null) {
                 boardquizController.InitializeQuizForPlayer(player);
-
-                quizGameObject.SetActive(true);
+                this.proxy.TargetShowQuiz(player.connectionToClient);
             }
             else {
                 Debug.LogError("Konnte das Quiz nicht starten, da kein aktueller Spieler gefunden wurde!");
