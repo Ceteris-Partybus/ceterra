@@ -25,7 +25,6 @@ public abstract class FieldBehaviour : NetworkBehaviour {
     [SyncVar]
     [SerializeField] private Vector3 position;
 
-    // Event to signal when field invocation is complete
     public event Action OnFieldInvocationComplete;
 
     public void Initialize(int id, int splineId, FieldType type, SplineKnotIndex splineKnotIndex, Vector3 position) {
@@ -50,30 +49,24 @@ public abstract class FieldBehaviour : NetworkBehaviour {
 
     [Server]
     public IEnumerator InvokeFieldAsync(BoardPlayer player) {
-        // Start the field invocation
         OnFieldInvoked(player);
 
-        // Wait until the field signals completion
         bool completed = false;
         Action completionHandler = () => completed = true;
 
         OnFieldInvocationComplete += completionHandler;
 
-        // Wait for completion
         yield return new WaitUntil(() => completed);
 
-        // Clean up
         OnFieldInvocationComplete -= completionHandler;
     }
 
     protected abstract void OnFieldInvoked(BoardPlayer player);
 
-    // Call this method when the field action is complete
     protected void CompleteFieldInvocation() {
         OnFieldInvocationComplete?.Invoke();
     }
 
-    // Properties
     public int FieldId => fieldId;
     public int SplineId => splineId;
     public FieldType Type => type;

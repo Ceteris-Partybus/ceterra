@@ -8,7 +8,7 @@ public class QuestionFieldBehaviour : FieldBehaviour {
         Debug.Log($"Player landed on a question field.");
         if (BoardquizController.Instance.gameObject != null && BoardquizController.Instance != null) {
             if (player != null) {
-                // Subscribe to quiz completion event
+                // Note, that OnQuizClosed must be invoked on server side!
                 BoardquizController.Instance.OnQuizClosed += OnQuizCompleted;
                 BoardContext.Instance.ShowQuizForPlayer(player.PlayerId);
             }
@@ -24,12 +24,10 @@ public class QuestionFieldBehaviour : FieldBehaviour {
     }
 
     private void OnQuizCompleted() {
-        // Unsubscribe from the event
         if (BoardquizController.Instance != null) {
             BoardquizController.Instance.OnQuizClosed -= OnQuizCompleted;
         }
 
-        // Signal that this field's action is complete
         Debug.Log("Completing quiz....");
         CompleteFieldInvocation();
     }

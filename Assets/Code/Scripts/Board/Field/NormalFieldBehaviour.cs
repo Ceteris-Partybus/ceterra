@@ -11,7 +11,6 @@ public class NormalFieldBehaviour : FieldBehaviour {
         player.AddCoins(MONEYEFFECT);
         player.AddHealth(HEALTHEFFECT);
 
-        // Complete immediately since this field has no async actions
         CompleteFieldInvocation();
     }
 }
