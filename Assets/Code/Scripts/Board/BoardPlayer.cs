@@ -96,7 +96,7 @@ public class BoardPlayer : SceneConditionalPlayer {
         // Initialize board-specific state
         isMoving = false;
         // Set spawn position, etc.
-        Vector3 spawnPosition = BoardContext.Instance.FieldList.Find(splineKnotIndex).Position;
+        Vector3 spawnPosition = BoardContext.Instance.FieldBehaviourList.Find(splineKnotIndex).Position;
         spawnPosition.y += 1f;
         gameObject.transform.position = spawnPosition;
     }
@@ -165,8 +165,8 @@ public class BoardPlayer : SceneConditionalPlayer {
     // Client-side hook for position updates
     private void OnSplineKnotIndexChanged(SplineKnotIndex oldIndex, SplineKnotIndex newIndex) {
         if (IsActiveForCurrentScene) {
-            var field = BoardContext.Instance.FieldList.Find(newIndex);
-            StartCoroutine(SmoothMoveToKnot(field));
+            var fieldBehaviour = BoardContext.Instance.FieldBehaviourList.Find(newIndex);
+            StartCoroutine(SmoothMoveToKnot(fieldBehaviour));
         }
     }
 
@@ -192,10 +192,10 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [Server]
     private IEnumerator MoveAlongSplineCoroutine(int steps) {
-        var fieldList = BoardContext.Instance.FieldList;
+        var fieldBehaviourList = BoardContext.Instance.FieldBehaviourList;
         var remainingSteps = steps;
         while (remainingSteps > 0) {
-            var currentField = fieldList.Find(splineKnotIndex);
+            var currentField = fieldBehaviourList.Find(splineKnotIndex);
             var nextFields = currentField.Next;
 
             var targetField = nextFields.First();
@@ -205,7 +205,7 @@ public class BoardPlayer : SceneConditionalPlayer {
                 TargetShowBranchArrows();
                 yield return new WaitUntil(() => !isWaitingForBranchChoice);
 
-                targetField = fieldList.Find(nextKnot);
+                targetField = fieldBehaviourList.Find(nextKnot);
             }
             SplineKnotIndex = nextKnot;
             yield return StartCoroutine(SmoothMoveToKnot(targetField));
@@ -215,12 +215,14 @@ public class BoardPlayer : SceneConditionalPlayer {
         }
 
         isMoving = false;
-        var finalField = fieldList.Find(splineKnotIndex);
-        finalField.Invoke(this);
+        var finalField = fieldBehaviourList.Find(splineKnotIndex);
+
+        yield return StartCoroutine(finalField.InvokeFieldAsync(this));
+
         BoardContext.Instance.OnPlayerMovementComplete(this);
     }
 
-    private IEnumerator SmoothMoveToKnot(Field targetField) {
+    private IEnumerator SmoothMoveToKnot(FieldBehaviour targetField) {
         var startPos = transform.position;
         var targetPos = targetField.Position;
         targetPos.y = transform.position.y;
@@ -243,8 +245,8 @@ public class BoardPlayer : SceneConditionalPlayer {
     private void TargetShowBranchArrows() {
         if (!isLocalPlayer || branchArrowPrefab == null) { return; }
 
-        var fieldList = BoardContext.Instance.FieldList;
-        var currentField = fieldList.Find(splineKnotIndex);
+        var fieldBehaviourList = BoardContext.Instance.FieldBehaviourList;
+        var currentField = fieldBehaviourList.Find(splineKnotIndex);
         var nextFields = currentField.Next;
 
         for (var i = 0; i < nextFields.Count; i++) {
@@ -274,8 +276,8 @@ public class BoardPlayer : SceneConditionalPlayer {
             return;
         }
 
-        var fieldList = BoardContext.Instance.FieldList;
-        var currentField = fieldList.Find(splineKnotIndex);
+        var fieldBehaviourList = BoardContext.Instance.FieldBehaviourList;
+        var currentField = fieldBehaviourList.Find(splineKnotIndex);
         var nextFields = currentField.Next;
 
         if (pathIndex < 0 || pathIndex >= nextFields.Count) {

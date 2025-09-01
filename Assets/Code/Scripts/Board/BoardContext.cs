@@ -17,10 +17,10 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     private State currentState = State.PLAYER_TURN;
     public State CurrentState => currentState;
 
-    private FieldList fieldList;
-    public FieldList FieldList {
-        get => fieldList;
-        set => fieldList ??= value;
+    private FieldBehaviourList fieldBehaviourList;
+    public FieldBehaviourList FieldBehaviourList {
+        get => fieldBehaviourList;
+        set => fieldBehaviourList ??= value;
     }
 
     #region Global Stats

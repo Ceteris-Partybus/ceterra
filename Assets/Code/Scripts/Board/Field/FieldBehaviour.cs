@@ -1,60 +1,94 @@
 using Mirror;
+using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Splines;
 
-public class FieldBehaviour : NetworkBehaviour {
+public abstract class FieldBehaviour : NetworkBehaviour {
 
     [Header("Field Data")]
+    [SyncVar]
+    [SerializeField] private int fieldId;
+
+    [SyncVar]
     [SerializeField] private int splineId;
+
+    [SyncVar]
     [SerializeField] private FieldType type;
-    [SerializeField] private List<SplineKnotIndex> next;
+
+    [SerializeField] private List<FieldBehaviour> nextFields = new List<FieldBehaviour>();
+
+    [SyncVar]
     [SerializeField] private SplineKnotIndex splineKnotIndex;
 
-    private Field field;
+    [SyncVar]
+    [SerializeField] private Vector3 position;
 
-    void OnFieldUpdate() {
-        this.splineId = field.SplineId;
-        this.type = field.Type;
-        this.next = field.Next.Select((f) => {
-            return f.SplineKnotIndex;
-        }).ToList();
-        this.splineKnotIndex = field.SplineKnotIndex;
+    // Event to signal when field invocation is complete
+    public event Action OnFieldInvocationComplete;
 
+    public void Initialize(int id, int splineId, FieldType type, SplineKnotIndex splineKnotIndex, Vector3 position) {
+        this.fieldId = id;
+        this.splineId = splineId;
+        this.type = type;
+        this.splineKnotIndex = splineKnotIndex;
+        this.position = position;
         SetColor();
     }
 
-    void OnNextAdded() {
-        this.next = field.Next.Select((f) => {
-            return f.SplineKnotIndex;
-        }).ToList();
+    public void AddNext(FieldBehaviour field) {
+        nextFields.Add(field);
     }
 
     private void SetColor() {
         var renderer = GetComponent<Renderer>();
         if (renderer != null) {
-            renderer.material.color = field.Type.ToColor();
+            renderer.material.color = type.ToColor();
         }
     }
 
-    public Field Field {
-        get => field;
-        set {
-            if (this.field != null) {
-                this.field.NextAdded -= OnNextAdded;
-            }
-            this.field = value;
-            if (this.field != null) {
-                this.field.NextAdded += OnNextAdded;
-            }
-            OnFieldUpdate();
-        }
+    [Server]
+    public IEnumerator InvokeFieldAsync(BoardPlayer player) {
+        // Start the field invocation
+        OnFieldInvoked(player);
+
+        // Wait until the field signals completion
+        bool completed = false;
+        Action completionHandler = () => completed = true;
+
+        OnFieldInvocationComplete += completionHandler;
+
+        // Wait for completion
+        yield return new WaitUntil(() => completed);
+
+        // Clean up
+        OnFieldInvocationComplete -= completionHandler;
     }
 
-    void OnDestroy() {
-        if (this.field != null) {
-            this.field.NextAdded -= OnNextAdded;
+    protected abstract void OnFieldInvoked(BoardPlayer player);
+
+    // Call this method when the field action is complete
+    protected void CompleteFieldInvocation() {
+        OnFieldInvocationComplete?.Invoke();
+    }
+
+    // Properties
+    public int FieldId => fieldId;
+    public int SplineId => splineId;
+    public FieldType Type => type;
+    public IReadOnlyList<FieldBehaviour> Next => nextFields.AsReadOnly();
+    public SplineKnotIndex SplineKnotIndex => splineKnotIndex;
+    public Vector3 Position => position;
+
+    public override bool Equals(object obj) {
+        if (obj is FieldBehaviour other) {
+            return splineKnotIndex.Equals(other.splineKnotIndex);
         }
+        return false;
+    }
+
+    public override int GetHashCode() {
+        return splineKnotIndex.GetHashCode();
     }
 }

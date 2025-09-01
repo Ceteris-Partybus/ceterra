@@ -2,24 +2,25 @@ using System;
 using UnityEngine.Splines;
 using System.Collections.Generic;
 
-public class FieldList {
-    private Field head;
+// List to manage FieldBehaviour objects
+public class FieldBehaviourList {
+    private FieldBehaviour head;
 
-    public FieldList() {
+    public FieldBehaviourList() {
     }
 
-    public Field Head {
+    public FieldBehaviour Head {
         get => head;
         set => head = value;
     }
 
-    public Field Find(SplineKnotIndex splineKnotIndex) {
+    public FieldBehaviour Find(SplineKnotIndex splineKnotIndex) {
         if (head == null) {
-            throw new Exception("FieldList is empty.");
+            throw new Exception("FieldBehaviourList is empty.");
         }
 
-        var queue = new Queue<Field>();
-        var visited = new HashSet<Field>();
+        var queue = new Queue<FieldBehaviour>();
+        var visited = new HashSet<FieldBehaviour>();
 
         queue.Enqueue(head);
         visited.Add(head);
@@ -37,6 +38,6 @@ public class FieldList {
                 }
             }
         }
-        throw new Exception($"Field with SplineKnotIndex {splineKnotIndex} not found.");
+        throw new Exception($"FieldBehaviour with SplineKnotIndex {splineKnotIndex} not found.");
     }
 }

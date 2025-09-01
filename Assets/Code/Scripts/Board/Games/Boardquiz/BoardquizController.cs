@@ -18,7 +18,7 @@ public class BoardquizController : NetworkedSingleton<BoardquizController> {
     private static readonly StyleColor COLOR_INCORRECT = new StyleColor(new Color(183f / 255f, 22f / 255f, 58f / 255f));
     private static readonly StyleColor COLOR_DEFAULT_PROGRESS = new StyleColor(new Color(164f / 255f, 154f / 255f, 154f / 255f));
     private static readonly StyleColor COLOR_BORDER_PROGRESS_ACTIVE = new StyleColor(Color.white);
-    private static readonly StyleColor COLOR_BUTTON_DEFAULT_BACKGROUND = new StyleColor(new Color(77f / 255f, 152f / 255f, 157f / 255f));
+    private static readonly StyleColor COLOR_BUTTON_DEFAULT_BACKGROUND = new StyleColor(new Color(77f / 255f, 152f / 157f, 157f / 255f));
 
     private VisualElement root;
     private VisualElement quizArea;
@@ -36,6 +36,10 @@ public class BoardquizController : NetworkedSingleton<BoardquizController> {
     private int correctAnswers = 0;
     private BoardPlayer currentPlayer;
     private readonly List<Action> answerButtonActions = new List<Action>();
+
+    // Event that fires when the quiz is closed
+    [SerializeField]
+    public event System.Action OnQuizClosed;
 
     public void InitializeQuizForPlayer(BoardPlayer player) {
         this.currentPlayer = player;
@@ -74,7 +78,6 @@ public class BoardquizController : NetworkedSingleton<BoardquizController> {
         Debug.Log($"Results is {resultsScreen}");
         resultsLabel = resultsScreen.Q<Label>("resultsLabel");
         playAgainButton = resultsScreen.Q<Button>("playAgainButton");
-        Debug.Log("AJSDKASJ)");
         SetElementDisplay(playAgainButton, false);
 
         var answerButtonsContainer = quizArea.Q<VisualElement>("answerButtonsContainer");
@@ -121,9 +124,16 @@ public class BoardquizController : NetworkedSingleton<BoardquizController> {
         LoadAndDisplayNextQuestion();
     }
 
+    [Client]
     private void CloseQuizUI() {
         AwardReward();
         GetComponent<UIDocument>().enabled = false;
+        CmdOnQuizClosed();
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdOnQuizClosed() {
+        OnQuizClosed?.Invoke();
     }
 
     private void LoadAndDisplayNextQuestion() {
@@ -184,6 +194,7 @@ public class BoardquizController : NetworkedSingleton<BoardquizController> {
         autoAdvanceCoroutine = StartCoroutine(AutoAdvanceAfterDelay());
     }
 
+    [Client]
     private void AwardReward() {
         if (currentPlayer != null && correctAnswers > 0) {
             var totalReward = boardquizService.CalculateTotalReward(correctAnswers);

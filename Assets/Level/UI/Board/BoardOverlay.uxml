@@ -11,21 +11,21 @@
             <ui:VisualElement name="right-side">
                 <ui:VisualElement name="ui-buttons">
                     <ui:Button name="ui-buttons__resources">
-                        <ui:Label name="resources-icon" />
+                        <ui:Label name="resources-icon" style="background-image: resource(&apos;Icons/package&apos;);" />
                         <ui:VisualElement name="resources-value-container">
                             <ui:VisualElement name="resources-value-background" />
                             <ui:Label text="1000" name="resources-value" />
                         </ui:VisualElement>
                     </ui:Button>
                     <ui:Button name="ui-buttons__funds">
-                        <ui:Label name="funds-icon" />
+                        <ui:Label name="funds-icon" style="background-image: resource(&apos;Icons/landmark&apos;);" />
                         <ui:VisualElement name="funds-value-container">
                             <ui:VisualElement name="funds-value-background" />
                             <ui:Label text="1000" name="funds-value" />
                         </ui:VisualElement>
                     </ui:Button>
                     <ui:Button name="ui-buttons__invest">
-                        <ui:Label name="invest-icon" />
+                        <ui:Label name="invest-icon" style="background-image: resource(&apos;Icons/hand-coins&apos;);" />
                     </ui:Button>
                 </ui:VisualElement>
                 <ui:VisualElement name="global-displays-card" class="card">

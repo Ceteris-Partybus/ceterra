@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 8999306372696015511}
   - component: {fileID: 2105378709840674115}
   - component: {fileID: 5085193788262411953}
-  - component: {fileID: 5791126349677114425}
   - component: {fileID: 6372503883427123404}
+  - component: {fileID: -37993535002583235}
   m_Layer: 0
-  m_Name: Field
+  m_Name: CatastropheField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,28 +110,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5791126349677114425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8075969218124468958}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e1739c8e5fb5b2429097179e48160e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  fieldId: 0
-  splineId: 0
-  type: 0
-  next: []
-  splineKnotIndex:
-    Spline: 0
-    Knot: 0
 --- !u!114 &6372503883427123404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,7 +123,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
-  _assetId: 2635683949
+  _assetId: 1153118423
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
+--- !u!114 &-37993535002583235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8075969218124468958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa43c73250cd17546a46fe398ec4af4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  fieldId: 0
+  splineId: 0
+  type: 3
+  nextFields: []
+  splineKnotIndex:
+    Spline: 0
+    Knot: 0
+  position: {x: 0, y: 0, z: 0}
