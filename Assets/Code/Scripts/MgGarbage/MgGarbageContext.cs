@@ -73,7 +73,7 @@ public class MgGarbageContext : NetworkedSingleton<MgGarbageContext> {
             interval = Mathf.Max(minSpawnInterval, interval * spawnAcceleration);
         }
 
-        GameManager.singleton.EndMinigame();
+        GameManager.Singleton.EndMinigame();
     }
 
     public MgGarbagePlayer GetLocalPlayer() {

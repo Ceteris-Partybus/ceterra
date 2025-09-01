@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 
 public class GameManager : NetworkRoomManager {
-    public static new GameManager Singleton {
+    public static GameManager Singleton {
         get {
             return NetworkManager.singleton as GameManager;
         }
