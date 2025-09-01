@@ -67,6 +67,15 @@ public abstract class FieldBehaviour : NetworkBehaviour {
         OnFieldInvocationComplete?.Invoke();
     }
 
+    public void Hide() {
+        GetComponent<Renderer>().enabled = false;
+        GetComponent<Collider>().enabled = false;
+    }
+
+    public void Show() {
+        GetComponent<Renderer>().enabled = true;
+    }
+
     public int FieldId => fieldId;
     public int SplineId => splineId;
     public FieldType Type => type;

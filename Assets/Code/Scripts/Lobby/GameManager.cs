@@ -35,6 +35,17 @@ public class GameManager : NetworkRoomManager {
                 player.Hide();
             }
         }
+
+        if (networkSceneName == GameplayScene) {
+            foreach (var field in FindObjectsByType<FieldBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
+                field.Show();
+            }
+        }
+        else {
+            foreach (var field in FindObjectsByType<FieldBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
+                field.Hide();
+            }
+        }
     }
 
     public override bool OnRoomServerSceneLoadedForPlayer(NetworkConnectionToClient conn, GameObject roomPlayer, GameObject gamePlayer) {

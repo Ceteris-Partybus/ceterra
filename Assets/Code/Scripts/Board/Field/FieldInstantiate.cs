@@ -7,7 +7,8 @@ using UnityEngine;
 using UnityEngine.Splines;
 
 // FieldInstantiate creates field behaviours on the spline
-public class FieldInstantiate : NetworkBehaviour {
+public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
+    protected override bool ShouldPersistAcrossScenes => true;
     [SerializeField] private SplineContainer splineContainer;
     [SerializeField] private GameObject normalFieldPrefab;
     [SerializeField] private GameObject questionFieldPrefab;
@@ -19,7 +20,8 @@ public class FieldInstantiate : NetworkBehaviour {
 
     private readonly SyncDictionary<SplineKnotIndex, FieldType> fieldTypeMap = new();
 
-    void Start() {
+    protected override void Start() {
+        base.Start();
         this.fieldBehaviourList = new FieldBehaviourList();
         this.fieldBehaviours = new List<FieldBehaviour>();
 
