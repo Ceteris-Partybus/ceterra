@@ -44,6 +44,8 @@ LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 13
   m_BakeOnSceneLoad: 0
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1

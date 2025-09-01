@@ -1,5 +1,6 @@
 using System;
 using UnityEngine.Splines;
+using System.Collections.Generic;
 
 public class FieldList {
     private Field head;
@@ -17,14 +18,25 @@ public class FieldList {
             throw new Exception("FieldList is empty.");
         }
 
-        Field current = head;
-        while (current != null) {
+        var queue = new Queue<Field>();
+        var visited = new HashSet<Field>();
+
+        queue.Enqueue(head);
+        visited.Add(head);
+
+        while (queue.Count > 0) {
+            var current = queue.Dequeue();
             if (current.SplineKnotIndex.Equals(splineKnotIndex)) {
                 return current;
             }
-            current = current.Next.Count > 0 ? current.Next[0] : null; // Assuming a single next for simplicity
-        }
 
+            foreach (var next in current.Next) {
+                if (!visited.Contains(next)) {
+                    queue.Enqueue(next);
+                    visited.Add(next);
+                }
+            }
+        }
         throw new Exception($"Field with SplineKnotIndex {splineKnotIndex} not found.");
     }
 }

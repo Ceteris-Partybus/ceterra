@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4612666714758916702}
   - component: {fileID: 8933770453035700392}
   - component: {fileID: 4342209585082839626}
+  - component: {fileID: -1593627563914632954}
   - component: {fileID: 7966419981308003105}
   - component: {fileID: -3016622981439582665}
   m_Layer: 0
@@ -147,12 +148,12 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  id: -1
-  isEnabled: 1
-  splineKnotIndex:
-    Spline: 0
-    Knot: 0
-  isMoving: 0
+  playerId: -1
+  playerName: 
+  branchArrowPrefab: {fileID: 4160029262607009644, guid: 34c995e2318f501468807eaf18a2a918, type: 3}
+  moveSpeed: 10
+  coins: 0
+  health: 0
 --- !u!114 &4342209585082839626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,11 +169,29 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  id: -1
-  isEnabled: 1
+  playerId: -1
+  playerName: 
+  score: 0
   moveSpeed: 5
   characterController: {fileID: 7966419981308003105}
   networkTransform: {fileID: -3016622981439582665}
+--- !u!114 &-1593627563914632954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5723532665764891057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64c6663d9980c944db5ab476102b36db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  playerId: -1
+  playerName: 
 --- !u!143 &7966419981308003105
 CharacterController:
   m_ObjectHideFlags: 0

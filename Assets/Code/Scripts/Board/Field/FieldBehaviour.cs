@@ -7,7 +7,6 @@ using UnityEngine.Splines;
 public class FieldBehaviour : NetworkBehaviour {
 
     [Header("Field Data")]
-    [SerializeField] private int fieldId;
     [SerializeField] private int splineId;
     [SerializeField] private FieldType type;
     [SerializeField] private List<SplineKnotIndex> next;
@@ -16,7 +15,6 @@ public class FieldBehaviour : NetworkBehaviour {
     private Field field;
 
     void OnFieldUpdate() {
-        this.fieldId = field.Id;
         this.splineId = field.SplineId;
         this.type = field.Type;
         this.next = field.Next.Select((f) => {
