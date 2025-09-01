@@ -222,18 +222,17 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     [ServerCallback]
     internal void ShowQuizForPlayer(int playerId) {
-        RpcShowQuizForPlayer(GetPlayerById(playerId));
+        var player = GetPlayerById(playerId);
+        RpcShowQuizForPlayer(player.connectionToClient, player);
     }
 
-    [ClientRpc]
-    private void RpcShowQuizForPlayer(BoardPlayer player) {
-        if (isClient && GetLocalPlayer().Equals(player)) {
-            Debug.Log("Calling InitializeQuizForPlayer");
-            Debug.Log($"BoardQuizController is {BoardquizController.Instance}");
-            BoardquizController.Instance.InitializeQuizForPlayer(player);
-            Debug.Log("Calling DoStartQuiz");
-            BoardquizController.Instance.DoStartQuiz();
-        }
+    [TargetRpc]
+    private void RpcShowQuizForPlayer(NetworkConnectionToClient target, BoardPlayer player) {
+        Debug.Log("Calling InitializeQuizForPlayer");
+        Debug.Log($"BoardQuizController is {BoardquizController.Instance}");
+        BoardquizController.Instance.InitializeQuizForPlayer(player);
+        Debug.Log("Calling DoStartQuiz");
+        BoardquizController.Instance.DoStartQuiz();
     }
 
     #endregion
