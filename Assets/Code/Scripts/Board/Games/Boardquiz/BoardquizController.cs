@@ -123,7 +123,7 @@ public class BoardquizController : NetworkedSingleton<BoardquizController> {
 
     private void CloseQuizUI() {
         AwardReward();
-        gameObject.SetActive(false);
+        GetComponent<UIDocument>().enabled = false;
     }
 
     private void LoadAndDisplayNextQuestion() {
