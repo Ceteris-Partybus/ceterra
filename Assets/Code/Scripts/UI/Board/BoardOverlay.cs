@@ -6,20 +6,6 @@ using UnityEngine.UIElements;
 public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
 
     [SerializeField] private UIDocument uiDocument;
-
-    [Header("Modals")]
-    [Header("Resources")]
-    [SerializeField] private VisualTreeAsset resourcesModalTemplate;
-    [SerializeField] private VisualTreeAsset resourceHistoryModalTemplate;
-    [Header("Funds")]
-    [SerializeField] private VisualTreeAsset fundsModalTemplate;
-    [SerializeField] private VisualTreeAsset fundsHistoryModalTemplate;
-    [SerializeField] private VisualTreeAsset fundsDepositModalTemplate;
-    [SerializeField] private VisualTreeAsset fundsInvestProposalModalTemplate;
-    [SerializeField] private VisualTreeAsset fundsInvestProposalSubmitModalTemplate;
-    [SerializeField] private VisualTreeAsset investProposalVoteModalTemplate;
-    [Header("Investions")]
-    [SerializeField] private VisualTreeAsset investModalTemplate;
     [Header("Player")]
     [SerializeField] private VisualTreeAsset playerCardTemplate;
 
@@ -102,37 +88,9 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         if (this.resourcesButton == null) {
             Debug.LogError("Resources button not found");
         }
-        else {
-            this.resourcesButton.clicked += () => {
-                Debug.Log("Resources button clicked");
-                var modal = new ResourceModal(this.resourcesModalTemplate, this.resourceHistoryModalTemplate);
-                ModalManager.Instance.ShowModal(modal);
-            };
-        }
 
         this.fundsButton = rootElement.Q<Button>("ui-buttons__funds");
-        if (this.fundsButton == null) {
-            Debug.LogError("Funds button not found");
-        }
-        else {
-            this.fundsButton.clicked += () => {
-                Debug.Log("Funds button clicked");
-                var modal = new FundsModal(this.fundsModalTemplate, this.fundsHistoryModalTemplate, this.fundsDepositModalTemplate, this.fundsInvestProposalModalTemplate, this.fundsInvestProposalSubmitModalTemplate, this.investProposalVoteModalTemplate);
-                ModalManager.Instance.ShowModal(modal);
-            };
-        }
-
-        this.investButton = rootElement.Q<Button>("ui-buttons__invest");
-        if (this.investButton == null) {
-            Debug.LogError("Invest button not found");
-        }
-        else {
-            this.investButton.clicked += () => {
-                Debug.Log("Invest button clicked");
-                var modal = new InvestModal(this.investModalTemplate, this.fundsInvestProposalSubmitModalTemplate, this.investProposalVoteModalTemplate, this.fundsDepositModalTemplate);
-                ModalManager.Instance.ShowModal(modal);
-            };
-        }
+        fundsButton.clicked += () => NewModalManager.Instance.Show(FindObjectsByType<NewFundsModal>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).FirstOrDefault());
 
         this.resourceValueLabel = rootElement.Q<Label>("resources-value");
         if (this.resourceValueLabel == null) {

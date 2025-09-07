@@ -53,7 +53,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     public override void OnStartServer() {
         base.OnStartServer();
 
-        this.coins = 0;
+        this.coins = 50;
         this.health = MAX_HEALTH;
     }
 
