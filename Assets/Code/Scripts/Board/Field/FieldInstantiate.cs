@@ -88,11 +88,12 @@ public class FieldInstantiate : NetworkBehaviour {
                         continue;
                     }
 
-                    if (link.Knot == 0) {
+                    try {
                         field.AddNext(FindField(link.Spline, link.Knot));
                     }
-                    else {
-                        field.AddNext(FindField(link.Spline, link.Knot));
+                    catch (Exception _) {
+                        Debug.Log($"Failed to add next field for {field}: {link}");
+                        continue;
                     }
                 }
             }

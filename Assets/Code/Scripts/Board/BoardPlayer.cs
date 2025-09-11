@@ -177,7 +177,8 @@ public class BoardPlayer : SceneConditionalPlayer {
         }
 
         int diceValue = Random.Range(1, 7);
-        BoardContext.Instance.ProcessDiceRoll(this, diceValue);
+        // TODO: Replace 20 with actual dice value
+        BoardContext.Instance.ProcessDiceRoll(this, 20);
     }
 
     [Server]
@@ -250,9 +251,9 @@ public class BoardPlayer : SceneConditionalPlayer {
         for (var i = 0; i < nextFields.Count; i++) {
             var branchArrow = Instantiate(branchArrowPrefab.gameObject);
 
-            var deltaX = (nextFields[i].Position.x - currentField.Position.x) / 2;
-            var deltaZ = (nextFields[i].Position.z - currentField.Position.z) / 2;
-            branchArrow.transform.position = new Vector3(currentField.Position.x + deltaX, 0f, currentField.Position.z + deltaZ);
+            var deltaX = Math.Max((nextFields[i].Position.x - currentField.Position.x) / 2, 2);
+            var deltaZ = Math.Max((nextFields[i].Position.z - currentField.Position.z) / 2, 2);
+            branchArrow.transform.position = new Vector3(currentField.Position.x + deltaX, 3f, currentField.Position.z + deltaZ);
             branchArrow.transform.LookAt(nextFields[i].Position, transform.up);
 
             branchArrow.GetComponent<BranchArrowMouseEventHandler>()?.Initialize(this, i);
