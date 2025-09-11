@@ -1,0 +1,57 @@
+#player-card Label {
+    margin: 0;
+    padding: 0;
+}
+
+#player-card__head {
+    --unity-font-style: bold;
+    color: rgb(68, 64, 60);
+    font-size: 24px;
+}
+
+#player-card__content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+}
+
+#player-card__health {
+    display: flex;
+    flex-direction: column;
+}
+
+#player-card__health-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: rgb(137, 135, 131);
+}
+
+#player-card__health-info > * {
+    margin: 0;
+    padding: 0;
+}
+
+#player-card__coins {
+    display: flex;
+    flex-direction: row;
+    margin-top: 4px;
+    color: #e9ad41; 
+    font-size: 18px;
+    align-items: center;
+}
+
+#player-card__coins-icon {
+    background-image: url("project://database/Assets/Resources/Icons/coin.svg?fileID=7388822144124034973&guid=38568947665bd37468367bc43c806645&type=3#coin");
+    width: 15px;
+    height: 15px;
+}
+
+#player-card__coins-value {
+    left: 3px;
+}
+
+#player-card__shadow {
+    top: 2px;
+    left: 6px;
+}

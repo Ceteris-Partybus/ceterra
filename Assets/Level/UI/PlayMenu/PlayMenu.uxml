@@ -22,7 +22,7 @@
                 <ui:Label text="Port:" class="input-label" />
                 <ui:TextField name="PortField" value="7777" class="input-field" />
             </ui:VisualElement>
-            <ui:VisualElement class="input-row">
+            <ui:VisualElement class="input-row" style="display: flex; visibility: hidden;">
                 <ui:Label text="Lobby Code:" class="input-label" />
                 <ui:TextField name="LobbyCodeField" class="input-field" />
             </ui:VisualElement>
