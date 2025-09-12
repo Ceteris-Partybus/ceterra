@@ -7,10 +7,11 @@ using UnityEngine;
 using UnityEngine.Splines;
 using TMPro;
 using Random = UnityEngine.Random;
+using Unity.Mathematics;
 
 public class BoardPlayer : SceneConditionalPlayer {
     [Header("Position")]
-    [SyncVar(hook = nameof(OnSplineKnotIndexChanged))]
+    [SyncVar]
     private SplineKnotIndex splineKnotIndex;
     public SplineKnotIndex SplineKnotIndex {
         get => splineKnotIndex;
@@ -18,9 +19,17 @@ public class BoardPlayer : SceneConditionalPlayer {
         set => splineKnotIndex = value;
     }
 
+    private SplineContainer splineContainer;
+
     [Header("Movement")]
     [SyncVar]
     private bool isMoving = false;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float movementLerp;
+    [SerializeField] private float rotationLerp;
+
+    [SyncVar(hook = nameof(OnNormalizedSplinePositionChanged))]
+    private float normalizedSplinePosition;
 
     [SyncVar]
     private bool isWaitingForBranchChoice = false;
@@ -41,9 +50,6 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [Header("States")]
     private bool diceSpinning;
-
-    [Header("Movement Parameters")]
-    [SerializeField] private float moveSpeed = 10f;
     private SplineKnotIndex nextKnot;
 
     [Header("Stats")]
@@ -63,6 +69,7 @@ public class BoardPlayer : SceneConditionalPlayer {
         DontDestroyOnLoad(gameObject);
         playerDice.gameObject.SetActive(false);
         diceResultLabel.gameObject.SetActive(false);
+        splineContainer = FindFirstObjectByType<SplineContainer>();
     }
 
     public override void OnStartServer() {
@@ -177,14 +184,6 @@ public class BoardPlayer : SceneConditionalPlayer {
         BoardOverlay.Instance.RemovePlayer(this);
     }
 
-    // Client-side hook for position updates
-    private void OnSplineKnotIndexChanged(SplineKnotIndex oldIndex, SplineKnotIndex newIndex) {
-        if (IsActiveForCurrentScene) {
-            var field = BoardContext.Instance.FieldList.Find(newIndex);
-            StartCoroutine(SmoothMoveToKnot(field));
-        }
-    }
-
     [Command]
     public void CmdRollDice() {
         if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving) {
@@ -255,17 +254,17 @@ public class BoardPlayer : SceneConditionalPlayer {
             var targetField = nextFields.First();
             nextKnot = targetField.SplineKnotIndex;
             if (nextFields.Count > 1) {
+                isMoving = false;
                 isWaitingForBranchChoice = true;
                 TargetShowBranchArrows();
                 yield return new WaitUntil(() => !isWaitingForBranchChoice);
-
                 targetField = fieldList.Find(nextKnot);
+                isMoving = true;
             }
+            yield return StartCoroutine(ServerSmoothMoveToKnot(targetField));
             SplineKnotIndex = nextKnot;
-            yield return StartCoroutine(SmoothMoveToKnot(targetField));
-
             remainingSteps--;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.2f);
         }
 
         isMoving = false;
@@ -275,23 +274,52 @@ public class BoardPlayer : SceneConditionalPlayer {
         BoardContext.Instance.OnPlayerMovementComplete(this);
     }
 
-    private IEnumerator SmoothMoveToKnot(Field targetField) {
-        var startPos = transform.position;
-        var targetPos = targetField.Position;
-        targetPos.y = transform.position.y;
+    [Server]
+    private IEnumerator ServerSmoothMoveToKnot(Field targetField) {
+        var currentSpline = splineContainer.Splines[splineKnotIndex.Spline];
+        var targetSpline = splineContainer.Splines[targetField.SplineKnotIndex.Spline];
+        var spline = targetSpline;
+        var normalizedTargetPosition = targetField.NormalizedSplinePosition;
 
-        var duration = Vector3.Distance(startPos, targetPos) / moveSpeed;
-        var elapsed = 0f;
+        if (SplineKnotIndex.Spline != targetField.SplineKnotIndex.Spline) {
+            if (targetField.SplineKnotIndex.Knot == 1) {
+                SplineKnotIndex = targetField.SplineKnotIndex;
+                normalizedSplinePosition = 0f;
+            }
+            else {
+                normalizedTargetPosition = 1f;
+                spline = currentSpline;
+            }
+        }
 
-
-        while (elapsed < duration) {
-            elapsed += Time.deltaTime;
-            var t = elapsed / duration;
-            transform.position = Vector3.Lerp(startPos, targetPos, t);
+        while (Mathf.Abs(normalizedSplinePosition - normalizedTargetPosition) > 0.001f) {
+            normalizedSplinePosition = Mathf.MoveTowards(normalizedSplinePosition, normalizedTargetPosition, moveSpeed / spline.GetLength() * Time.deltaTime);
             yield return null;
         }
 
-        transform.position = targetPos;
+        normalizedSplinePosition = targetField.NormalizedSplinePosition;
+    }
+
+    private void OnNormalizedSplinePositionChanged(float _, float newValue) {
+        if (!isServer && IsActiveForCurrentScene) {
+            normalizedSplinePosition = newValue;
+        }
+    }
+
+    void MoveAndRotate() {
+        var movementBlend = Mathf.Pow(0.5f, Time.deltaTime * movementLerp);
+        var targetPosition = splineContainer.EvaluatePosition(splineKnotIndex.Spline, normalizedSplinePosition);
+
+        transform.position = Vector3.Lerp(transform.position, targetPosition, 1f - movementBlend);
+
+        if (isMoving) {
+            splineContainer.Splines[splineKnotIndex.Spline].Evaluate(normalizedSplinePosition, out float3 _, out float3 direction, out float3 _);
+            var worldDirection = splineContainer.transform.TransformDirection(direction);
+
+            if (worldDirection.sqrMagnitude > 0.0001f) {
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(worldDirection, Vector3.up), rotationLerp * Time.deltaTime);
+            }
+        }
     }
 
     [TargetRpc]
@@ -344,11 +372,10 @@ public class BoardPlayer : SceneConditionalPlayer {
         TargetHideBranchArrows();
     }
 
-    private void OnRollEnd() {
-        playerDice.gameObject.SetActive(false);
-    }
-
     void Update() {
+        if (isMoving) {
+            MoveAndRotate();
+        }
         if (!diceSpinning) { return; }
         if (isLocalPlayer && Input.GetKeyDown(KeyCode.Space)) {
             CmdEndRollDice();
