@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Splines;
-using UnityEngine.UIElements;
+using TMPro;
 using Random = UnityEngine.Random;
 
 public class BoardPlayer : SceneConditionalPlayer {
@@ -28,6 +28,19 @@ public class BoardPlayer : SceneConditionalPlayer {
     [Header("References")]
     [SerializeField] private Transform branchArrowPrefab;
     private List<GameObject> branchArrows = new List<GameObject>();
+    [SerializeField] private Transform playerDice;
+    [Header("Dice Parameters")]
+    public float rotationSpeed;
+    public float tiltAmplitude;
+    public float tiltFrequency;
+    private float tiltTime = 0f;
+    [SerializeField] private float numberAnimationSpeed;
+
+    [SerializeField] private TextMeshPro[] numberLabels;
+    [SerializeField] private TextMeshPro diceResultLabel;
+
+    [Header("States")]
+    private bool diceSpinning;
 
     [Header("Movement Parameters")]
     [SerializeField] private float moveSpeed = 10f;
@@ -48,6 +61,8 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     protected void Start() {
         DontDestroyOnLoad(gameObject);
+        playerDice.gameObject.SetActive(false);
+        diceResultLabel.gameObject.SetActive(false);
     }
 
     public override void OnStartServer() {
@@ -175,10 +190,46 @@ public class BoardPlayer : SceneConditionalPlayer {
         if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving) {
             return;
         }
+        diceSpinning = true;
+        RpcStartDiceRoll();
+        playerDice.gameObject.SetActive(true);
+    }
 
-        int diceValue = Random.Range(1, 7);
-        // TODO: Replace 20 with actual dice value
-        BoardContext.Instance.ProcessDiceRoll(this, 20);
+    [Command]
+    public void CmdEndRollDice() {
+        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving) {
+            return;
+        }
+
+        var diceValue = Random.Range(1, 11);
+        diceSpinning = false;
+        RpcEndDiceRoll();
+        playerDice.transform.eulerAngles = Vector3.zero;
+        BoardContext.Instance.ProcessDiceRoll(this, diceValue);
+    }
+
+    [ClientRpc]
+    private void RpcStartDiceRoll() {
+        diceSpinning = true;
+        StartCoroutine(RandomDiceNumberCoroutine());
+        playerDice.gameObject.SetActive(true);
+    }
+
+    [ClientRpc]
+    private void RpcEndDiceRoll() {
+        diceSpinning = false;
+        playerDice.gameObject.SetActive(false);
+        playerDice.transform.eulerAngles = Vector3.zero;
+    }
+
+    [ClientRpc]
+    private void RpcToggleDiceResultLabel(bool value) {
+        diceResultLabel.gameObject.SetActive(value);
+    }
+
+    [ClientRpc]
+    private void RpcUpdateDiceResultLabel(string value) {
+        diceResultLabel.text = value;
     }
 
     [Server]
@@ -195,7 +246,9 @@ public class BoardPlayer : SceneConditionalPlayer {
     private IEnumerator MoveAlongSplineCoroutine(int steps) {
         var fieldList = BoardContext.Instance.FieldList;
         var remainingSteps = steps;
+        RpcToggleDiceResultLabel(true);
         while (remainingSteps > 0) {
+            RpcUpdateDiceResultLabel(remainingSteps.ToString());
             var currentField = fieldList.Find(splineKnotIndex);
             var nextFields = currentField.Next;
 
@@ -216,6 +269,7 @@ public class BoardPlayer : SceneConditionalPlayer {
         }
 
         isMoving = false;
+        RpcToggleDiceResultLabel(false);
         var finalField = fieldList.Find(splineKnotIndex);
         finalField.Invoke(this);
         BoardContext.Instance.OnPlayerMovementComplete(this);
@@ -288,5 +342,41 @@ public class BoardPlayer : SceneConditionalPlayer {
         nextKnot = chosenField.SplineKnotIndex;
         isWaitingForBranchChoice = false;
         TargetHideBranchArrows();
+    }
+
+    private void OnRollEnd() {
+        playerDice.gameObject.SetActive(false);
+    }
+
+    void Update() {
+        if (!diceSpinning) { return; }
+        if (isLocalPlayer && Input.GetKeyDown(KeyCode.Space)) {
+            CmdEndRollDice();
+        }
+        SpinDice();
+    }
+
+    void SpinDice() {
+        playerDice.Rotate(Vector3.up, rotationSpeed * Time.deltaTime, Space.World);
+
+        tiltTime += Time.deltaTime * tiltFrequency;
+        var tiltAngle = Mathf.Sin(tiltTime) * tiltAmplitude;
+
+        playerDice.rotation = Quaternion.Euler(tiltAngle, playerDice.rotation.eulerAngles.y, 0);
+    }
+
+    IEnumerator RandomDiceNumberCoroutine() {
+        if (diceSpinning == false) { yield break; }
+
+        var num = Random.Range(1, 11);
+        SetDiceNumber(num);
+        yield return new WaitForSeconds(numberAnimationSpeed);
+        StartCoroutine(RandomDiceNumberCoroutine());
+    }
+
+    public void SetDiceNumber(int value) {
+        foreach (var label in numberLabels) {
+            label.text = value.ToString();
+        }
     }
 }
