@@ -9,6 +9,7 @@
     "Mirror.Components",
     "Unity.Splines",
     "Unity.Mathematics",
+    "Unity.TextMeshPro",
     "Newtonsoft.Json"
   ],
   "includePlatforms": [],
