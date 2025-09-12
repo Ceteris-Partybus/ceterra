@@ -292,6 +292,10 @@ public class BoardPlayer : SceneConditionalPlayer {
             }
         }
 
+        if (targetField.SplineKnotIndex.Knot == 0 && targetSpline.Closed) {
+            normalizedTargetPosition = 1f;
+        }
+
         while (Mathf.Abs(normalizedSplinePosition - normalizedTargetPosition) > 0.001f) {
             normalizedSplinePosition = Mathf.MoveTowards(normalizedSplinePosition, normalizedTargetPosition, moveSpeed / spline.GetLength() * Time.deltaTime);
             yield return null;
