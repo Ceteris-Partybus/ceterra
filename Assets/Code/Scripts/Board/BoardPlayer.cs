@@ -37,6 +37,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     [Header("References")]
     [SerializeField] private Transform branchArrowPrefab;
     private List<GameObject> branchArrows = new List<GameObject>();
+    private float branchArrowRadius = 2f;
     [SerializeField] private Transform playerDice;
     [Header("Dice Parameters")]
     public float rotationSpeed;
@@ -335,16 +336,27 @@ public class BoardPlayer : SceneConditionalPlayer {
         var nextFields = currentField.Next;
 
         for (var i = 0; i < nextFields.Count; i++) {
-            var branchArrow = Instantiate(branchArrowPrefab.gameObject);
-
-            var deltaX = Math.Max((nextFields[i].Position.x - currentField.Position.x) / 2, 2);
-            var deltaZ = Math.Max((nextFields[i].Position.z - currentField.Position.z) / 2, 2);
-            branchArrow.transform.position = new Vector3(currentField.Position.x + deltaX, 3f, currentField.Position.z + deltaZ);
-            branchArrow.transform.LookAt(nextFields[i].Position, transform.up);
+            var branchArrow = InstantiateBranchArrow(nextFields[i]);
 
             branchArrow.GetComponent<BranchArrowMouseEventHandler>()?.Initialize(this, i);
             branchArrows.Add(branchArrow);
         }
+    }
+
+    private GameObject InstantiateBranchArrow(Field targetField) {
+        var targetSpline = splineContainer.Splines[targetField.SplineKnotIndex.Spline];
+        var normalizedPlayerPosition = normalizedSplinePosition;
+
+        if (splineKnotIndex.Spline != targetField.SplineKnotIndex.Spline && targetField.SplineKnotIndex.Knot == 1) {
+            normalizedPlayerPosition = 0f;
+        }
+
+        var offset = 0.01f;
+        var tangent = targetSpline.EvaluateTangent(normalizedPlayerPosition + offset);
+        var worldTangent = splineContainer.transform.TransformDirection(tangent).normalized;
+
+        var branchArrowPosition = transform.position + worldTangent * branchArrowRadius;
+        return Instantiate(branchArrowPrefab.gameObject, branchArrowPosition, Quaternion.LookRotation(worldTangent, Vector3.up));
     }
 
     [TargetRpc]
