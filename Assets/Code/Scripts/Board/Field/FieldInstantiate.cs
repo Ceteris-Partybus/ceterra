@@ -81,20 +81,9 @@ public class FieldInstantiate : NetworkBehaviour {
                     return link.Spline != field.SplineId;
                 });
 
-                for (int k = 0; k < relevantLinks.Count(); k++) {
-                    var link = relevantLinks.ElementAt(k);
-
-                    if (field.SplineId == 0 && link.Knot != 0) {
-                        continue;
-                    }
-
-                    try {
-                        field.AddNext(FindField(link.Spline, link.Knot));
-                    }
-                    catch (Exception _) {
-                        Debug.Log($"Failed to add next field for {field}: {link}");
-                        continue;
-                    }
+                foreach (var link in relevantLinks) {
+                    if (CountSplineFields(link.Spline) < link.Knot) { continue; }
+                    field.AddNext(FindField(link.Spline, link.Knot));
                 }
             }
         }
