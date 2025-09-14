@@ -1,8 +1,7 @@
-using Mirror;
 using UnityEngine;
 using System.Collections;
 
-public class BoardPlayerVisualHandler : NetworkBehaviour {
+public class BoardPlayerVisualHandler : MonoBehaviour {
     [Header("Particles")]
     [SerializeField] private ParticleSystem coinGainParticle;
     [SerializeField] private ParticleSystem coinLossParticle;
