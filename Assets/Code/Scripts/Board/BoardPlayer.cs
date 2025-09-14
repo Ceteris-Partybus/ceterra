@@ -173,10 +173,10 @@ public class BoardPlayer : SceneConditionalPlayer {
         }
         var diff = (int)new_ - (int)old;
         if (diff > 0) {
-            visualHandler.PlayCoinGainParticle();
+            StartCoroutine(visualHandler.PlayCoinGainParticle());
             return;
         }
-        visualHandler.PlayCoinLossParticle();
+        StartCoroutine(visualHandler.PlayCoinLossParticle());
     }
 
     private void OnHealthChanged(uint old, uint new_) {
