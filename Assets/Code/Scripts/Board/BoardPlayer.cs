@@ -65,12 +65,14 @@ public class BoardPlayer : SceneConditionalPlayer {
     private uint health;
     public uint Health => health;
     public const uint MAX_HEALTH = 100;
+    private BoardPlayerVisualHandler visualHandler;
 
     protected void Start() {
         DontDestroyOnLoad(gameObject);
         playerDice.gameObject.SetActive(false);
         diceResultLabel.gameObject.SetActive(false);
         splineContainer = FindFirstObjectByType<SplineContainer>();
+        visualHandler = GetComponentInChildren<BoardPlayerVisualHandler>();
     }
 
     public override void OnStartServer() {
@@ -169,6 +171,12 @@ public class BoardPlayer : SceneConditionalPlayer {
         else {
             BoardOverlay.Instance.UpdateRemotePlayerCoins(new_, PlayerId);
         }
+        var diff = (int)new_ - (int)old;
+        if (diff > 0) {
+            visualHandler.PlayCoinGainParticle();
+            return;
+        }
+        visualHandler.PlayCoinLossParticle();
     }
 
     private void OnHealthChanged(uint old, uint new_) {
