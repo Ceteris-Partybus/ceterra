@@ -38,19 +38,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     [SerializeField] private Transform branchArrowPrefab;
     private List<GameObject> branchArrows = new List<GameObject>();
     private float branchArrowRadius = 2f;
-    [SerializeField] private Transform playerDice;
-    [Header("Dice Parameters")]
-    public float rotationSpeed;
-    public float tiltAmplitude;
-    public float tiltFrequency;
-    private float tiltTime = 0f;
-    [SerializeField] private float numberAnimationSpeed;
 
-    [SerializeField] private TextMeshPro[] numberLabels;
-    [SerializeField] private TextMeshPro diceResultLabel;
-
-    [Header("States")]
-    private bool diceSpinning;
     private SplineKnotIndex nextKnot;
 
     [Header("Stats")]
@@ -69,8 +57,6 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     protected void Start() {
         DontDestroyOnLoad(gameObject);
-        playerDice.gameObject.SetActive(false);
-        diceResultLabel.gameObject.SetActive(false);
         splineContainer = FindFirstObjectByType<SplineContainer>();
         visualHandler = GetComponentInChildren<BoardPlayerVisualHandler>();
     }
@@ -198,9 +184,7 @@ public class BoardPlayer : SceneConditionalPlayer {
         if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving) {
             return;
         }
-        diceSpinning = true;
         RpcStartDiceRoll();
-        playerDice.gameObject.SetActive(true);
     }
 
     [Command]
@@ -210,41 +194,38 @@ public class BoardPlayer : SceneConditionalPlayer {
         }
 
         var diceValue = Random.Range(1, 11);
-        diceSpinning = false;
         RpcEndDiceRoll();
-        playerDice.transform.eulerAngles = Vector3.zero;
         BoardContext.Instance.ProcessDiceRoll(this, diceValue);
     }
 
     [ClientRpc]
     private void RpcStartDiceRoll() {
-        diceSpinning = true;
-        StartCoroutine(RandomDiceNumberCoroutine());
-        playerDice.gameObject.SetActive(true);
+        visualHandler.StartDiceSpinning();
     }
 
     [ClientRpc]
     private void RpcEndDiceRoll() {
-        diceSpinning = false;
-        playerDice.gameObject.SetActive(false);
-        playerDice.transform.eulerAngles = Vector3.zero;
+        visualHandler.StopDiceSpinning();
     }
 
     [ClientRpc]
-    private void RpcToggleDiceResultLabel(bool value) {
-        diceResultLabel.gameObject.SetActive(value);
+    private void RpcShowDiceResultLabel() {
+        visualHandler.ShowDiceResultLabel();
+    }
+
+    [ClientRpc]
+    private void RpcHideDiceResultLabel() {
+        visualHandler.HideDiceResultLabel();
     }
 
     [ClientRpc]
     private void RpcUpdateDiceResultLabel(string value) {
-        diceResultLabel.text = value;
+        visualHandler.DiceResultLabel = value;
     }
 
     [Server]
     public void MoveToField(int steps) {
-        if (!IsActiveForCurrentScene || isMoving) {
-            return;
-        }
+        if (!IsActiveForCurrentScene || isMoving) { return; }
 
         isMoving = true;
         StartCoroutine(MoveAlongSplineCoroutine(steps));
@@ -254,7 +235,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     private IEnumerator MoveAlongSplineCoroutine(int steps) {
         var fieldList = BoardContext.Instance.FieldList;
         var remainingSteps = steps;
-        RpcToggleDiceResultLabel(true);
+        RpcShowDiceResultLabel();
         while (remainingSteps > 0) {
             RpcUpdateDiceResultLabel(remainingSteps.ToString());
             var currentField = fieldList.Find(splineKnotIndex);
@@ -277,7 +258,7 @@ public class BoardPlayer : SceneConditionalPlayer {
         }
 
         isMoving = false;
-        RpcToggleDiceResultLabel(false);
+        RpcHideDiceResultLabel();
         var finalField = fieldList.Find(splineKnotIndex);
         finalField.Invoke(this);
         BoardContext.Instance.OnPlayerMovementComplete(this);
@@ -332,8 +313,6 @@ public class BoardPlayer : SceneConditionalPlayer {
             if (worldDirection.sqrMagnitude > 0.0001f) {
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(worldDirection, Vector3.up), rotationLerp * Time.deltaTime);
             }
-
-            diceResultLabel.transform.rotation = Quaternion.LookRotation(diceResultLabel.transform.position - Camera.main.transform.position);
         }
     }
 
@@ -402,34 +381,8 @@ public class BoardPlayer : SceneConditionalPlayer {
         if (isMoving) {
             MoveAndRotate();
         }
-        if (!diceSpinning) { return; }
-        if (isLocalPlayer && Input.GetKeyDown(KeyCode.Space)) {
+        if (isLocalPlayer && visualHandler.IsDiceSpinning && Input.GetKeyDown(KeyCode.Space)) {
             CmdEndRollDice();
-        }
-        SpinDice();
-    }
-
-    void SpinDice() {
-        playerDice.Rotate(Vector3.up, rotationSpeed * Time.deltaTime, Space.World);
-
-        tiltTime += Time.deltaTime * tiltFrequency;
-        var tiltAngle = Mathf.Sin(tiltTime) * tiltAmplitude;
-
-        playerDice.rotation = Quaternion.Euler(tiltAngle, playerDice.rotation.eulerAngles.y, 0);
-    }
-
-    IEnumerator RandomDiceNumberCoroutine() {
-        if (diceSpinning == false) { yield break; }
-
-        var num = Random.Range(1, 11);
-        SetDiceNumber(num);
-        yield return new WaitForSeconds(numberAnimationSpeed);
-        StartCoroutine(RandomDiceNumberCoroutine());
-    }
-
-    public void SetDiceNumber(int value) {
-        foreach (var label in numberLabels) {
-            label.text = value.ToString();
         }
     }
 }

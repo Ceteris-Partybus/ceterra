@@ -45,11 +45,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24583222dd374ba479a5004c358dd8f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
   coinGainParticle: {fileID: 6994341659083258631}
   coinLossParticle: {fileID: 3178236987638146672}
+  playerDice: {fileID: 936660301216716977}
+  rotationSpeed: 500
+  tiltAmplitude: 60
+  tiltFrequency: 5
+  numberAnimationSpeed: 0.05
+  numberLabels:
+  - {fileID: 5808163574065948259}
+  - {fileID: 8597898014358026891}
+  - {fileID: 7209247160544623224}
+  - {fileID: 7154534010507034487}
+  - {fileID: 9104172380786715830}
+  - {fileID: 8743080132776498714}
+  diceResultLabel: {fileID: 1334658887156960655}
 --- !u!1 &1583010479622140144
 GameObject:
   m_ObjectHideFlags: 0
@@ -10140,19 +10150,6 @@ MonoBehaviour:
   movementLerp: 20
   rotationLerp: 10
   branchArrowPrefab: {fileID: 4160029262607009644, guid: 34c995e2318f501468807eaf18a2a918, type: 3}
-  playerDice: {fileID: 936660301216716977}
-  rotationSpeed: 500
-  tiltAmplitude: 60
-  tiltFrequency: 5
-  numberAnimationSpeed: 0.05
-  numberLabels:
-  - {fileID: 5808163574065948259}
-  - {fileID: 8597898014358026891}
-  - {fileID: 7209247160544623224}
-  - {fileID: 7154534010507034487}
-  - {fileID: 9104172380786715830}
-  - {fileID: 8743080132776498714}
-  diceResultLabel: {fileID: 1334658887156960655}
   coins: 0
   health: 0
 --- !u!114 &4342209585082839626
