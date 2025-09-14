@@ -324,6 +324,8 @@ public class BoardPlayer : SceneConditionalPlayer {
             if (worldDirection.sqrMagnitude > 0.0001f) {
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(worldDirection, Vector3.up), rotationLerp * Time.deltaTime);
             }
+
+            diceResultLabel.transform.rotation = Quaternion.LookRotation(diceResultLabel.transform.position - Camera.main.transform.position);
         }
     }
 
