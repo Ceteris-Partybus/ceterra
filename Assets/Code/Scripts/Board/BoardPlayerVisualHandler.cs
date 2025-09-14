@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
+using UnityEngine.Splines;
 
 public class BoardPlayerVisualHandler : MonoBehaviour {
     [Header("Particles")]
@@ -15,6 +17,11 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
     [SerializeField] private float numberAnimationSpeed;
     [SerializeField] private TextMeshPro[] numberLabels;
     [SerializeField] private TextMeshPro diceResultLabel;
+
+    [Header("Branch Arrows")]
+    [SerializeField] private Transform branchArrowPrefab;
+    [SerializeField] private float branchArrowRadius;
+    private List<GameObject> branchArrows = new List<GameObject>();
 
     private bool diceSpinning;
     private float tiltTime = 0f;
@@ -73,6 +80,21 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
         }
     }
 
+    public void ShowBranchArrows(IReadOnlyList<Field> nextFields, BoardPlayer player) {
+        for (var i = 0; i < nextFields.Count; i++) {
+            var branchArrow = InstantiateBranchArrow(nextFields[i], player);
+            branchArrow.GetComponent<BranchArrowMouseEventHandler>()?.Initialize(player, i);
+            branchArrows.Add(branchArrow);
+        }
+    }
+
+    public void HideBranchArrows() {
+        foreach (var arrow in branchArrows) {
+            Destroy(arrow);
+        }
+        branchArrows.Clear();
+    }
+
     private void Update() {
         if (diceSpinning) { SpinDice(); }
 
@@ -97,5 +119,21 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
         SetDiceNumber(num);
         yield return new WaitForSeconds(numberAnimationSpeed);
         StartCoroutine(RandomDiceNumberCoroutine());
+    }
+
+    private GameObject InstantiateBranchArrow(Field targetField, BoardPlayer player) {
+        var targetSpline = player.SplineContainer.Splines[targetField.SplineKnotIndex.Spline];
+        var normalizedPlayerPosition = player.NormalizedSplinePosition;
+
+        if (player.SplineKnotIndex.Spline != targetField.SplineKnotIndex.Spline && targetField.SplineKnotIndex.Knot == 1) {
+            normalizedPlayerPosition = 0f;
+        }
+
+        var offset = 0.01f;
+        var tangent = targetSpline.EvaluateTangent(normalizedPlayerPosition + offset);
+        var worldTangent = player.SplineContainer.transform.TransformDirection(tangent).normalized;
+
+        var branchArrowPosition = transform.position + worldTangent * branchArrowRadius;
+        return Instantiate(branchArrowPrefab.gameObject, branchArrowPosition, Quaternion.LookRotation(worldTangent, Vector3.up));
     }
 }

@@ -1,11 +1,9 @@
 using Mirror;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Splines;
-using TMPro;
 using Random = UnityEngine.Random;
 using Unity.Mathematics;
 
@@ -20,6 +18,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     private SplineContainer splineContainer;
+    public SplineContainer SplineContainer => splineContainer;
 
     [Header("Movement")]
     [SyncVar]
@@ -30,14 +29,10 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [SyncVar(hook = nameof(OnNormalizedSplinePositionChanged))]
     private float normalizedSplinePosition;
+    public float NormalizedSplinePosition => normalizedSplinePosition;
 
     [SyncVar]
     private bool isWaitingForBranchChoice = false;
-
-    [Header("References")]
-    [SerializeField] private Transform branchArrowPrefab;
-    private List<GameObject> branchArrows = new List<GameObject>();
-    private float branchArrowRadius = 2f;
 
     private SplineKnotIndex nextKnot;
 
@@ -318,42 +313,16 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [TargetRpc]
     private void TargetShowBranchArrows() {
-        if (!isLocalPlayer || branchArrowPrefab == null) { return; }
+        if (!isLocalPlayer) { return; }
 
-        var fieldList = BoardContext.Instance.FieldList;
-        var currentField = fieldList.Find(splineKnotIndex);
-        var nextFields = currentField.Next;
+        var nextFields = BoardContext.Instance.FieldList.Find(splineKnotIndex).Next;
 
-        for (var i = 0; i < nextFields.Count; i++) {
-            var branchArrow = InstantiateBranchArrow(nextFields[i]);
-
-            branchArrow.GetComponent<BranchArrowMouseEventHandler>()?.Initialize(this, i);
-            branchArrows.Add(branchArrow);
-        }
-    }
-
-    private GameObject InstantiateBranchArrow(Field targetField) {
-        var targetSpline = splineContainer.Splines[targetField.SplineKnotIndex.Spline];
-        var normalizedPlayerPosition = normalizedSplinePosition;
-
-        if (splineKnotIndex.Spline != targetField.SplineKnotIndex.Spline && targetField.SplineKnotIndex.Knot == 1) {
-            normalizedPlayerPosition = 0f;
-        }
-
-        var offset = 0.01f;
-        var tangent = targetSpline.EvaluateTangent(normalizedPlayerPosition + offset);
-        var worldTangent = splineContainer.transform.TransformDirection(tangent).normalized;
-
-        var branchArrowPosition = transform.position + worldTangent * branchArrowRadius;
-        return Instantiate(branchArrowPrefab.gameObject, branchArrowPosition, Quaternion.LookRotation(worldTangent, Vector3.up));
+        visualHandler.ShowBranchArrows(nextFields, this);
     }
 
     [TargetRpc]
     private void TargetHideBranchArrows() {
-        foreach (var arrow in branchArrows) {
-            Destroy(arrow);
-        }
-        branchArrows.Clear();
+        visualHandler.HideBranchArrows();
     }
 
     [Command]
