@@ -23,9 +23,15 @@ public class BoardPlayer : SceneConditionalPlayer {
     [Header("Movement")]
     [SyncVar]
     private bool isMoving = false;
+    private bool IsMoving {
+        get => isMoving;
+        set { isMoving = value; animator.SetBool("IsRunning", value); }
+    }
+
     [SerializeField] private float moveSpeed;
     [SerializeField] private float movementLerp;
     [SerializeField] private float rotationLerp;
+    [SerializeField] private Animator animator;
 
     [SyncVar(hook = nameof(OnNormalizedSplinePositionChanged))]
     private float normalizedSplinePosition;
@@ -100,7 +106,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     protected override void OnServerInitialize() {
         Debug.Log($"[Server] BoardPlayer {name} initialized for board scene");
         // Initialize board-specific state
-        isMoving = false;
+        IsMoving = false;
         // Set spawn position, etc.
         Vector3 spawnPosition = BoardContext.Instance.FieldList.Find(splineKnotIndex).Position;
         spawnPosition.y += 1f;
@@ -112,7 +118,7 @@ public class BoardPlayer : SceneConditionalPlayer {
         Debug.Log($"[Server] BoardPlayer {name} cleaned up");
         // Stop any ongoing movement
         StopAllCoroutines();
-        isMoving = false;
+        IsMoving = false;
     }
 
     [Server]
@@ -189,7 +195,15 @@ public class BoardPlayer : SceneConditionalPlayer {
         }
 
         var diceValue = Random.Range(1, 11);
+        StartCoroutine(WaitForJumpAnimationThenMove(diceValue));
+    }
+
+    [Server]
+    private IEnumerator WaitForJumpAnimationThenMove(int diceValue) {
+        animator.SetBool("IsJumping", true);
+        yield return new WaitForSeconds(0.7f);
         RpcEndDiceRoll();
+        animator.SetBool("IsJumping", false);
         BoardContext.Instance.ProcessDiceRoll(this, diceValue);
     }
 
@@ -220,9 +234,9 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [Server]
     public void MoveToField(int steps) {
-        if (!IsActiveForCurrentScene || isMoving) { return; }
+        if (!IsActiveForCurrentScene || IsMoving) { return; }
 
-        isMoving = true;
+        IsMoving = true;
         StartCoroutine(MoveAlongSplineCoroutine(steps));
     }
 
@@ -239,12 +253,12 @@ public class BoardPlayer : SceneConditionalPlayer {
             var targetField = nextFields.First();
             nextKnot = targetField.SplineKnotIndex;
             if (nextFields.Count > 1) {
-                isMoving = false;
+                IsMoving = false;
                 isWaitingForBranchChoice = true;
                 TargetShowBranchArrows();
                 yield return new WaitUntil(() => !isWaitingForBranchChoice);
                 targetField = fieldList.Find(nextKnot);
-                isMoving = true;
+                IsMoving = true;
             }
             yield return StartCoroutine(ServerSmoothMoveToKnot(targetField));
             SplineKnotIndex = nextKnot;
@@ -252,7 +266,7 @@ public class BoardPlayer : SceneConditionalPlayer {
             yield return new WaitForSeconds(0.2f);
         }
 
-        isMoving = false;
+        IsMoving = false;
         RpcHideDiceResultLabel();
         var finalField = fieldList.Find(splineKnotIndex);
         finalField.Invoke(this);
@@ -301,7 +315,7 @@ public class BoardPlayer : SceneConditionalPlayer {
 
         transform.position = Vector3.Lerp(transform.position, targetPosition, 1f - movementBlend);
 
-        if (isMoving) {
+        if (IsMoving) {
             splineContainer.Splines[splineKnotIndex.Spline].Evaluate(normalizedSplinePosition, out float3 _, out float3 direction, out float3 _);
             var worldDirection = splineContainer.transform.TransformDirection(direction);
 
@@ -347,11 +361,25 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     void Update() {
-        if (isMoving) {
+        if (IsMoving) {
             MoveAndRotate();
+            return;
         }
+
+        FaceCamera();
+
         if (isLocalPlayer && visualHandler.IsDiceSpinning && Input.GetKeyDown(KeyCode.Space)) {
             CmdEndRollDice();
         }
+    }
+
+    private void FaceCamera() {
+        var directionToCamera = Camera.main.transform.position - transform.position;
+        directionToCamera.y = 0;
+        if (directionToCamera.sqrMagnitude > 0.0001f) {
+            var targetRotation = Quaternion.LookRotation(directionToCamera, Vector3.up);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationLerp * Time.deltaTime);
+        }
+        visualHandler.CleanRotation();
     }
 }

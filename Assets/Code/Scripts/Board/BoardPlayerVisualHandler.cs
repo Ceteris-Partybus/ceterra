@@ -136,4 +136,8 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
         var branchArrowPosition = transform.position + worldTangent * branchArrowRadius;
         return Instantiate(branchArrowPrefab.gameObject, branchArrowPosition, Quaternion.LookRotation(worldTangent, Vector3.up));
     }
+
+    public void CleanRotation() {
+        transform.rotation = Quaternion.identity;
+    }
 }
