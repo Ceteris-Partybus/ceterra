@@ -1,11 +1,9 @@
 using Mirror;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Splines;
-using TMPro;
 using Random = UnityEngine.Random;
 using Unity.Mathematics;
 
@@ -20,6 +18,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     private SplineContainer splineContainer;
+    public SplineContainer SplineContainer => splineContainer;
 
     [Header("Movement")]
     [SyncVar]
@@ -30,27 +29,11 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [SyncVar(hook = nameof(OnNormalizedSplinePositionChanged))]
     private float normalizedSplinePosition;
+    public float NormalizedSplinePosition => normalizedSplinePosition;
 
     [SyncVar]
     private bool isWaitingForBranchChoice = false;
 
-    [Header("References")]
-    [SerializeField] private Transform branchArrowPrefab;
-    private List<GameObject> branchArrows = new List<GameObject>();
-    private float branchArrowRadius = 2f;
-    [SerializeField] private Transform playerDice;
-    [Header("Dice Parameters")]
-    public float rotationSpeed;
-    public float tiltAmplitude;
-    public float tiltFrequency;
-    private float tiltTime = 0f;
-    [SerializeField] private float numberAnimationSpeed;
-
-    [SerializeField] private TextMeshPro[] numberLabels;
-    [SerializeField] private TextMeshPro diceResultLabel;
-
-    [Header("States")]
-    private bool diceSpinning;
     private SplineKnotIndex nextKnot;
 
     [Header("Stats")]
@@ -65,12 +48,12 @@ public class BoardPlayer : SceneConditionalPlayer {
     private uint health;
     public uint Health => health;
     public const uint MAX_HEALTH = 100;
+    private BoardPlayerVisualHandler visualHandler;
 
     protected void Start() {
         DontDestroyOnLoad(gameObject);
-        playerDice.gameObject.SetActive(false);
-        diceResultLabel.gameObject.SetActive(false);
         splineContainer = FindFirstObjectByType<SplineContainer>();
+        visualHandler = GetComponentInChildren<BoardPlayerVisualHandler>();
     }
 
     public override void OnStartServer() {
@@ -169,6 +152,12 @@ public class BoardPlayer : SceneConditionalPlayer {
         else {
             BoardOverlay.Instance.UpdateRemotePlayerCoins(new_, PlayerId);
         }
+        var diff = (int)new_ - (int)old;
+        if (diff > 0) {
+            StartCoroutine(visualHandler.PlayCoinGainParticle());
+            return;
+        }
+        StartCoroutine(visualHandler.PlayCoinLossParticle());
     }
 
     private void OnHealthChanged(uint old, uint new_) {
@@ -190,9 +179,7 @@ public class BoardPlayer : SceneConditionalPlayer {
         if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving) {
             return;
         }
-        diceSpinning = true;
         RpcStartDiceRoll();
-        playerDice.gameObject.SetActive(true);
     }
 
     [Command]
@@ -202,41 +189,38 @@ public class BoardPlayer : SceneConditionalPlayer {
         }
 
         var diceValue = Random.Range(1, 11);
-        diceSpinning = false;
         RpcEndDiceRoll();
-        playerDice.transform.eulerAngles = Vector3.zero;
         BoardContext.Instance.ProcessDiceRoll(this, diceValue);
     }
 
     [ClientRpc]
     private void RpcStartDiceRoll() {
-        diceSpinning = true;
-        StartCoroutine(RandomDiceNumberCoroutine());
-        playerDice.gameObject.SetActive(true);
+        visualHandler.StartDiceSpinning();
     }
 
     [ClientRpc]
     private void RpcEndDiceRoll() {
-        diceSpinning = false;
-        playerDice.gameObject.SetActive(false);
-        playerDice.transform.eulerAngles = Vector3.zero;
+        visualHandler.StopDiceSpinning();
     }
 
     [ClientRpc]
-    private void RpcToggleDiceResultLabel(bool value) {
-        diceResultLabel.gameObject.SetActive(value);
+    private void RpcShowDiceResultLabel() {
+        visualHandler.ShowDiceResultLabel();
+    }
+
+    [ClientRpc]
+    private void RpcHideDiceResultLabel() {
+        visualHandler.HideDiceResultLabel();
     }
 
     [ClientRpc]
     private void RpcUpdateDiceResultLabel(string value) {
-        diceResultLabel.text = value;
+        visualHandler.DiceResultLabel = value;
     }
 
     [Server]
     public void MoveToField(int steps) {
-        if (!IsActiveForCurrentScene || isMoving) {
-            return;
-        }
+        if (!IsActiveForCurrentScene || isMoving) { return; }
 
         isMoving = true;
         StartCoroutine(MoveAlongSplineCoroutine(steps));
@@ -246,7 +230,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     private IEnumerator MoveAlongSplineCoroutine(int steps) {
         var fieldList = BoardContext.Instance.FieldList;
         var remainingSteps = steps;
-        RpcToggleDiceResultLabel(true);
+        RpcShowDiceResultLabel();
         while (remainingSteps > 0) {
             RpcUpdateDiceResultLabel(remainingSteps.ToString());
             var currentField = fieldList.Find(splineKnotIndex);
@@ -269,7 +253,7 @@ public class BoardPlayer : SceneConditionalPlayer {
         }
 
         isMoving = false;
-        RpcToggleDiceResultLabel(false);
+        RpcHideDiceResultLabel();
         var finalField = fieldList.Find(splineKnotIndex);
         finalField.Invoke(this);
         BoardContext.Instance.OnPlayerMovementComplete(this);
@@ -329,42 +313,16 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [TargetRpc]
     private void TargetShowBranchArrows() {
-        if (!isLocalPlayer || branchArrowPrefab == null) { return; }
+        if (!isLocalPlayer) { return; }
 
-        var fieldList = BoardContext.Instance.FieldList;
-        var currentField = fieldList.Find(splineKnotIndex);
-        var nextFields = currentField.Next;
+        var nextFields = BoardContext.Instance.FieldList.Find(splineKnotIndex).Next;
 
-        for (var i = 0; i < nextFields.Count; i++) {
-            var branchArrow = InstantiateBranchArrow(nextFields[i]);
-
-            branchArrow.GetComponent<BranchArrowMouseEventHandler>()?.Initialize(this, i);
-            branchArrows.Add(branchArrow);
-        }
-    }
-
-    private GameObject InstantiateBranchArrow(Field targetField) {
-        var targetSpline = splineContainer.Splines[targetField.SplineKnotIndex.Spline];
-        var normalizedPlayerPosition = normalizedSplinePosition;
-
-        if (splineKnotIndex.Spline != targetField.SplineKnotIndex.Spline && targetField.SplineKnotIndex.Knot == 1) {
-            normalizedPlayerPosition = 0f;
-        }
-
-        var offset = 0.01f;
-        var tangent = targetSpline.EvaluateTangent(normalizedPlayerPosition + offset);
-        var worldTangent = splineContainer.transform.TransformDirection(tangent).normalized;
-
-        var branchArrowPosition = transform.position + worldTangent * branchArrowRadius;
-        return Instantiate(branchArrowPrefab.gameObject, branchArrowPosition, Quaternion.LookRotation(worldTangent, Vector3.up));
+        visualHandler.ShowBranchArrows(nextFields, this);
     }
 
     [TargetRpc]
     private void TargetHideBranchArrows() {
-        foreach (var arrow in branchArrows) {
-            Destroy(arrow);
-        }
-        branchArrows.Clear();
+        visualHandler.HideBranchArrows();
     }
 
     [Command]
@@ -392,34 +350,8 @@ public class BoardPlayer : SceneConditionalPlayer {
         if (isMoving) {
             MoveAndRotate();
         }
-        if (!diceSpinning) { return; }
-        if (isLocalPlayer && Input.GetKeyDown(KeyCode.Space)) {
+        if (isLocalPlayer && visualHandler.IsDiceSpinning && Input.GetKeyDown(KeyCode.Space)) {
             CmdEndRollDice();
-        }
-        SpinDice();
-    }
-
-    void SpinDice() {
-        playerDice.Rotate(Vector3.up, rotationSpeed * Time.deltaTime, Space.World);
-
-        tiltTime += Time.deltaTime * tiltFrequency;
-        var tiltAngle = Mathf.Sin(tiltTime) * tiltAmplitude;
-
-        playerDice.rotation = Quaternion.Euler(tiltAngle, playerDice.rotation.eulerAngles.y, 0);
-    }
-
-    IEnumerator RandomDiceNumberCoroutine() {
-        if (diceSpinning == false) { yield break; }
-
-        var num = Random.Range(1, 11);
-        SetDiceNumber(num);
-        yield return new WaitForSeconds(numberAnimationSpeed);
-        StartCoroutine(RandomDiceNumberCoroutine());
-    }
-
-    public void SetDiceNumber(int value) {
-        foreach (var label in numberLabels) {
-            label.text = value.ToString();
         }
     }
 }
