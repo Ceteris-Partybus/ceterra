@@ -349,9 +349,22 @@ public class BoardPlayer : SceneConditionalPlayer {
     void Update() {
         if (isMoving) {
             MoveAndRotate();
+            return;
         }
+
+        FaceCamera();
+
         if (isLocalPlayer && visualHandler.IsDiceSpinning && Input.GetKeyDown(KeyCode.Space)) {
             CmdEndRollDice();
+        }
+    }
+
+    private void FaceCamera() {
+        var directionToCamera = Camera.main.transform.position - transform.position;
+        directionToCamera.y = 0;
+        if (directionToCamera.sqrMagnitude > 0.0001f) {
+            var targetRotation = Quaternion.LookRotation(directionToCamera, Vector3.up);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationLerp * Time.deltaTime);
         }
     }
 }
