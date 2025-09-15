@@ -380,5 +380,6 @@ public class BoardPlayer : SceneConditionalPlayer {
             var targetRotation = Quaternion.LookRotation(directionToCamera, Vector3.up);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationLerp * Time.deltaTime);
         }
+        visualHandler.CleanRotation();
     }
 }
