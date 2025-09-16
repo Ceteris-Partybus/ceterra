@@ -9,15 +9,15 @@ public enum CatastropheType {
 }
 
 public static class CatastropheTypeExtensions {
-    public static (int, int) GetEffects(this CatastropheType catastropheType) {
+    public static (int, int, int) GetEffects(this CatastropheType catastropheType) {
         return catastropheType switch {
-            CatastropheType.VOLCANO => (50, 20),
-            CatastropheType.NUCLEAR_EXPLOSION => (50, 20),
-            CatastropheType.LANDSLIDE => (50, 20),
-            CatastropheType.WILDFIRE => (50, 20),
-            CatastropheType.GLACIER_MELT => (50, 20),
-            CatastropheType.DROUGHT => (50, 20),
-            CatastropheType.TSUNAMI => (50, 20),
+            CatastropheType.VOLCANO => (-50, 20, 5),
+            CatastropheType.NUCLEAR_EXPLOSION => (-50, 20, 5),
+            CatastropheType.LANDSLIDE => (-50, 20, 5),
+            CatastropheType.WILDFIRE => (-50, 20, 5),
+            CatastropheType.GLACIER_MELT => (-50, 20, 5),
+            CatastropheType.DROUGHT => (-50, 20, 5),
+            CatastropheType.TSUNAMI => (-50, 20, 5),
             _ => throw new System.ArgumentOutOfRangeException(nameof(catastropheType), catastropheType, null)
         };
     }

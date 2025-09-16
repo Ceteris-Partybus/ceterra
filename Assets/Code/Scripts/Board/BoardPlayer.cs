@@ -11,7 +11,8 @@ using Random = UnityEngine.Random;
 public class BoardPlayer : SceneConditionalPlayer {
     [Header("Position")]
     [SyncVar(hook = nameof(OnSplineKnotIndexChanged))]
-    private SplineKnotIndex splineKnotIndex;
+    public SplineKnotIndex splineKnotIndex;
+
     public SplineKnotIndex SplineKnotIndex {
         get => splineKnotIndex;
         [Server]

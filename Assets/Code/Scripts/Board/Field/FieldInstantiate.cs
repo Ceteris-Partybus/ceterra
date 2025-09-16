@@ -125,7 +125,7 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
                         fieldTypeMap[new SplineKnotIndex(i, k)] = FieldType.NORMAL;
                     }
                     else {
-                        fieldTypeMap[new SplineKnotIndex(i, k)] = FieldType.QUESTION;
+                        fieldTypeMap[new SplineKnotIndex(i, k)] = FieldType.CATASTROPHE;
                     }
                 }
             }
