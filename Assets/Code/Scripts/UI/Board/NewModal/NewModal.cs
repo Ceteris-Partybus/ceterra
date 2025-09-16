@@ -10,7 +10,10 @@ public abstract class NewModal : NetworkBehaviour {
     [SerializeField] protected bool closeOnEscapeKey = true;
 
     protected VisualElement modalElement;
+    protected VisualElement modalBoxWrapper;
+    protected VisualElement modalBackground;
     protected VisualElement backgroundElement;
+    protected Button closeButton;
     private bool isVisible = false;
 
     protected virtual void Start() {
@@ -40,17 +43,52 @@ public abstract class NewModal : NetworkBehaviour {
             return;
         }
 
-        // Create the modal UI from the template
+        // Clean up any existing modal first
+        if (modalBackground != null) {
+            Hide();
+        }
+
+        // Create the modal background (for overlay and click detection)
+        modalBackground = new VisualElement();
+        modalBackground.name = "modal-background";
+        modalBackground.AddToClassList("modal-background");
+
+        // Create the modal box container
+        modalBoxWrapper = new VisualElement();
+        modalBoxWrapper.name = "modal-box";
+        modalBoxWrapper.AddToClassList("modal-box");
+        modalBackground.Add(modalBoxWrapper);
+
+        // Create header with close button
+        var header = new VisualElement();
+        header.name = "modal-header";
+        header.AddToClassList("modal-header");
+        modalBoxWrapper.Add(header);
+
+        closeButton = new Button(() => OnCloseRequested());
+        closeButton.text = "×";
+        closeButton.name = "close-button";
+        closeButton.AddToClassList("modal-close-button");
+        header.Add(closeButton);
+
+        // Create content container
+        var contentContainer = new VisualElement();
+        contentContainer.name = "modal-content-container";
+        contentContainer.AddToClassList("modal-content-container");
+        modalBoxWrapper.Add(contentContainer);
+
+        // Create the modal UI from the template and add to content container
         modalElement = visualTreeAsset.Instantiate();
-        parentElement.Add(modalElement);
+        modalElement.AddToClassList("modal-content");
+        contentContainer.Add(modalElement);
+
+        // Add the background to the parent (modal-container)
+        parentElement.Add(modalBackground);
 
         // Setup background click detection if enabled
         if (closeOnBackgroundClick) {
             SetupBackgroundClickDetection();
         }
-
-        // Setup close button if it exists
-        SetupCloseButton();
 
         SetVisible(true);
         OnModalShown();
@@ -60,23 +98,24 @@ public abstract class NewModal : NetworkBehaviour {
     /// Hides the modal from screen
     /// </summary>
     public virtual void Hide() {
-        if (modalElement != null) {
-            modalElement.RemoveFromHierarchy();
-            modalElement = null;
+        if (modalBackground != null) {
+            modalBackground.RemoveFromHierarchy();
+            modalBackground = null;
         }
 
+        modalBoxWrapper = null;
+        modalElement = null;
+        closeButton = null;
         SetVisible(false);
         OnModalHidden();
-    }
-
-    /// <summary>
-    /// Sets the visibility without affecting the UI hierarchy
-    /// </summary>
+    }    /// <summary>
+         /// Sets the visibility without affecting the UI hierarchy
+         /// </summary>
     public virtual void SetVisible(bool visible) {
         isVisible = visible;
 
-        if (modalElement != null) {
-            modalElement.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+        if (modalBackground != null) {
+            modalBackground.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
         }
     }
 
@@ -112,36 +151,20 @@ public abstract class NewModal : NetworkBehaviour {
     /// Sets up background click detection for closing the modal
     /// </summary>
     private void SetupBackgroundClickDetection() {
-        if (modalElement == null) {
+        if (modalBackground == null) {
             return;
         }
 
-        backgroundElement = modalElement.Q("background");
-        if (backgroundElement != null) {
-            backgroundElement.RegisterCallback<ClickEvent>(OnBackgroundClicked);
-        }
-    }
-
-    /// <summary>
-    /// Sets up the close button if it exists in the UXML
-    /// </summary>
-    private void SetupCloseButton() {
-        if (modalElement == null) {
-            return;
-        }
-
-        Button closeButton = modalElement.Q<Button>("close-button");
-        if (closeButton != null) {
-            closeButton.clicked += OnCloseRequested;
-        }
+        // Use the modal background itself for click detection
+        modalBackground.RegisterCallback<ClickEvent>(OnBackgroundClicked);
     }
 
     /// <summary>
     /// Handles background click events
     /// </summary>
     private void OnBackgroundClicked(ClickEvent evt) {
-        // Only close if the click was directly on the background, not a child element
-        if (evt.target == backgroundElement) {
+        // Only close if the click was directly on the modal background, not a child element
+        if (evt.target == modalBackground) {
             OnCloseRequested();
         }
     }

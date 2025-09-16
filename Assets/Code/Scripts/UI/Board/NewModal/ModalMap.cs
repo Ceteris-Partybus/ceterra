@@ -5,4 +5,5 @@ public class ModalMap : NetworkedSingleton<ModalMap> {
     [SerializeField] public VisualTreeAsset ResourceModalTemplate;
     [SerializeField] public VisualTreeAsset FundsModalTemplate;
     [SerializeField] public VisualTreeAsset InvestModalTemplate;
+    [SerializeField] public VisualTreeAsset FundsHistoryModalTemplate;
 }

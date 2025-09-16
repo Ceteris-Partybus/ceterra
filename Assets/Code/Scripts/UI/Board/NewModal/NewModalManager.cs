@@ -18,7 +18,11 @@ public class NewModalManager : NetworkedSingleton<NewModalManager> {
         }
 
         if (uiDocument != null) {
-            rootElement = uiDocument.rootVisualElement;
+            Debug.Log("ModalManager initialized with UIDocument.");
+            rootElement = uiDocument.rootVisualElement.Q<VisualElement>("modal-container");
+            if (rootElement == null) {
+                Debug.LogError("ModalManager requires a 'modal-container' VisualElement in the UIDocument.");
+            }
         }
     }
 
@@ -89,6 +93,12 @@ public class NewModalManager : NetworkedSingleton<NewModalManager> {
             modalStack.Peek().SetVisible(false);
         }
 
+        // Show the modal container
+        if (rootElement != null) {
+            rootElement.AddToClassList("active");
+            rootElement.style.display = DisplayStyle.Flex;
+        }
+
         // Add new modal to stack and show it
         modalStack.Push(modal);
         modal.Show(rootElement);
@@ -113,6 +123,13 @@ public class NewModalManager : NetworkedSingleton<NewModalManager> {
         // Show the previous modal if there is one
         if (modalStack.Count > 0) {
             modalStack.Peek().SetVisible(true);
+        }
+        else {
+            // Hide the modal container if no modals are left
+            if (rootElement != null) {
+                rootElement.RemoveFromClassList("active");
+                rootElement.style.display = DisplayStyle.None;
+            }
         }
     }
 
@@ -168,6 +185,12 @@ public class NewModalManager : NetworkedSingleton<NewModalManager> {
         while (modalStack.Count > 0) {
             NewModal modal = modalStack.Pop();
             modal.Hide();
+        }
+
+        // Hide the modal container
+        if (rootElement != null) {
+            rootElement.RemoveFromClassList("active");
+            rootElement.style.display = DisplayStyle.None;
         }
     }
 

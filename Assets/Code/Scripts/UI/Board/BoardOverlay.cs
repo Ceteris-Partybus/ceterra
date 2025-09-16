@@ -90,7 +90,9 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         }
 
         this.fundsButton = rootElement.Q<Button>("ui-buttons__funds");
-        fundsButton.clicked += () => NewModalManager.Instance.Show(FindObjectsByType<NewFundsModal>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).FirstOrDefault());
+        fundsButton.clicked += () => {
+            NewModalManager.Instance.Show(FindObjectsByType<NewFundsModal>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).FirstOrDefault());
+        };
 
         this.resourceValueLabel = rootElement.Q<Label>("resources-value");
         if (this.resourceValueLabel == null) {
