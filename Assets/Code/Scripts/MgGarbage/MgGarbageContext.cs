@@ -22,7 +22,9 @@ public class MgGarbageContext : NetworkedSingleton<MgGarbageContext> {
     [SerializeField]
     private float spawnAcceleration = 0.97f; // each step is 97% of the last delay
     [SerializeField]
-    private float gameDuration = 90f;
+    private float gameDuration = 15f;
+
+    private float countdownTimer; // Separate timer for countdown display
 
     protected override void Start() {
         base.Start();
@@ -33,12 +35,13 @@ public class MgGarbageContext : NetworkedSingleton<MgGarbageContext> {
     }
 
     private IEnumerator UpdateCountdown() {
-        int lastSeconds = Mathf.CeilToInt(gameDuration);
+        countdownTimer = gameDuration; // Initialize countdown timer
+        int lastSeconds = Mathf.CeilToInt(countdownTimer);
         LocalPlayerHUD.Instance.UpdateCountdown(lastSeconds);
 
-        while (gameDuration > 0f) {
-            gameDuration -= Time.deltaTime;
-            int seconds = Mathf.CeilToInt(Mathf.Max(0f, gameDuration));
+        while (countdownTimer > 0f) {
+            countdownTimer -= Time.deltaTime;
+            int seconds = Mathf.CeilToInt(Mathf.Max(0f, countdownTimer));
             if (seconds != lastSeconds) {
                 LocalPlayerHUD.Instance.UpdateCountdown(seconds);
                 lastSeconds = seconds;
@@ -50,7 +53,7 @@ public class MgGarbageContext : NetworkedSingleton<MgGarbageContext> {
     }
 
     private IEnumerator SpawnTrashRoutine() {
-        float timer = 0f;
+        float startTime = Time.time;
         float interval = initialSpawnInterval;
 
         Transform[] spawnPoints = new Transform[spawnPointsHolder.transform.childCount];
@@ -58,7 +61,7 @@ public class MgGarbageContext : NetworkedSingleton<MgGarbageContext> {
             spawnPoints[i] = spawnPointsHolder.transform.GetChild(i);
         }
 
-        while (timer < gameDuration) {
+        while (Time.time - startTime < gameDuration) {
             // Pick random prefab and spawn point
             GameObject prefab = trashPrefabs[Random.Range(0, trashPrefabs.Length)];
             Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
@@ -67,13 +70,12 @@ public class MgGarbageContext : NetworkedSingleton<MgGarbageContext> {
             NetworkServer.Spawn(go);
 
             yield return new WaitForSeconds(interval);
-            timer += interval;
 
             // Accelerate spawn rate
             interval = Mathf.Max(minSpawnInterval, interval * spawnAcceleration);
         }
 
-        GameManager.singleton.EndMinigame();
+        GameManager.Singleton.EndMinigame();
     }
 
     public MgGarbagePlayer GetLocalPlayer() {

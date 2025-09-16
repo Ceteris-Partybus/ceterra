@@ -80,7 +80,7 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
         }
     }
 
-    public void ShowBranchArrows(IReadOnlyList<Field> nextFields, BoardPlayer player) {
+    public void ShowBranchArrows(IReadOnlyList<FieldBehaviour> nextFields, BoardPlayer player) {
         for (var i = 0; i < nextFields.Count; i++) {
             var branchArrow = InstantiateBranchArrow(nextFields[i], player);
             branchArrow.GetComponent<BranchArrowMouseEventHandler>()?.Initialize(player, i);
@@ -121,7 +121,7 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
         StartCoroutine(RandomDiceNumberCoroutine());
     }
 
-    private GameObject InstantiateBranchArrow(Field targetField, BoardPlayer player) {
+    private GameObject InstantiateBranchArrow(FieldBehaviour targetField, BoardPlayer player) {
         var targetSpline = player.SplineContainer.Splines[targetField.SplineKnotIndex.Spline];
         var normalizedPlayerPosition = player.NormalizedSplinePosition;
 

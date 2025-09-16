@@ -1430,7 +1430,7 @@ MonoBehaviour:
   initialSpawnInterval: 5
   minSpawnInterval: 1.25
   spawnAcceleration: 0.97
-  gameDuration: 3
+  gameDuration: 15
 --- !u!114 &1364274353
 MonoBehaviour:
   m_ObjectHideFlags: 0

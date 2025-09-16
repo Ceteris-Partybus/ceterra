@@ -3,8 +3,9 @@ using UnityEngine.UIElements;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using Mirror;
 
-public class BoardquizController : MonoBehaviour {
+public class BoardquizController : NetworkedSingleton<BoardquizController> {
     [SerializeField] private UIDocument uiDocument;
     [SerializeField] private BoardquizService boardquizService;
 
@@ -17,7 +18,7 @@ public class BoardquizController : MonoBehaviour {
     private static readonly StyleColor COLOR_INCORRECT = new StyleColor(new Color(183f / 255f, 22f / 255f, 58f / 255f));
     private static readonly StyleColor COLOR_DEFAULT_PROGRESS = new StyleColor(new Color(164f / 255f, 154f / 255f, 154f / 255f));
     private static readonly StyleColor COLOR_BORDER_PROGRESS_ACTIVE = new StyleColor(Color.white);
-    private static readonly StyleColor COLOR_BUTTON_DEFAULT_BACKGROUND = new StyleColor(new Color(77f / 255f, 152f / 255f, 157f / 255f));
+    private static readonly StyleColor COLOR_BUTTON_DEFAULT_BACKGROUND = new StyleColor(new Color(77f / 255f, 152f / 157f, 157f / 255f));
 
     private VisualElement root;
     private VisualElement quizArea;
@@ -36,17 +37,30 @@ public class BoardquizController : MonoBehaviour {
     private BoardPlayer currentPlayer;
     private readonly List<Action> answerButtonActions = new List<Action>();
 
+    // Event that fires when the quiz is closed
+    [SerializeField]
+    public event System.Action OnQuizClosed;
+
     public void InitializeQuizForPlayer(BoardPlayer player) {
         this.currentPlayer = player;
     }
 
-    void OnEnable() {
+    protected override void Start() {
+        base.Start();
+        GetComponent<UIDocument>().enabled = false;
+    }
+
+    public void DoStartQuiz() {
+        Debug.Log("Getting UI Document");
+        var uiDocument = GetComponent<UIDocument>();
+        Debug.Log($"UIDocument is {uiDocument}");
+        uiDocument.enabled = true;
         root = uiDocument.rootVisualElement;
         InitializeUIElements();
         StartQuiz();
     }
 
-    void OnDisable() {
+    public void StopQuiz() {
         UnregisterButtonCallbacks();
         StopAutoAdvanceTimer();
         if (autoCloseCoroutine != null) {
@@ -56,9 +70,12 @@ public class BoardquizController : MonoBehaviour {
     }
 
     private void InitializeUIElements() {
+        Debug.Log($"Root element is {root}");
         quizArea = root.Q<VisualElement>("quizArea");
         resultsScreen = root.Q<VisualElement>("resultsScreen");
+        Debug.Log($"Quizarea is {quizArea}");
         questionLabel = quizArea.Q<Label>("questionLabel");
+        Debug.Log($"Results is {resultsScreen}");
         resultsLabel = resultsScreen.Q<Label>("resultsLabel");
         playAgainButton = resultsScreen.Q<Button>("playAgainButton");
         SetElementDisplay(playAgainButton, false);
@@ -107,9 +124,16 @@ public class BoardquizController : MonoBehaviour {
         LoadAndDisplayNextQuestion();
     }
 
+    [Client]
     private void CloseQuizUI() {
         AwardReward();
-        gameObject.SetActive(false);
+        GetComponent<UIDocument>().enabled = false;
+        CmdOnQuizClosed();
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdOnQuizClosed() {
+        OnQuizClosed?.Invoke();
     }
 
     private void LoadAndDisplayNextQuestion() {
@@ -170,6 +194,7 @@ public class BoardquizController : MonoBehaviour {
         autoAdvanceCoroutine = StartCoroutine(AutoAdvanceAfterDelay());
     }
 
+    [Client]
     private void AwardReward() {
         if (currentPlayer != null && correctAnswers > 0) {
             var totalReward = boardquizService.CalculateTotalReward(correctAnswers);

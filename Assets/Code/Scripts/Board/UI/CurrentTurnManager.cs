@@ -5,37 +5,6 @@ using UnityEngine.UIElements;
 
 public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
 
-    //TODO: Die Sachen mit dem Quiz sind nur provisorisch hier drin und werden später entfernt.    
-    [SerializeField]
-    private GameObject quizGameObject;
-    private Button quizDiceButton;
-    private BoardquizController boardquizController;
-
-    private void OnQuizButtonClicked() {
-        Debug.Log("Quiz-Button geklickt.");
-
-        if (quizGameObject != null && boardquizController != null) {
-            var activePlayer = BoardContext.Instance.GetCurrentPlayer();
-
-            if (activePlayer != null) {
-                boardquizController.InitializeQuizForPlayer(activePlayer);
-
-                quizGameObject.SetActive(true);
-            }
-            else {
-                Debug.LogError("Konnte das Quiz nicht starten, da kein aktueller Spieler gefunden wurde!");
-            }
-        }
-    }
-
-    private void InitQuizComponents() {
-        quizDiceButton = rootElement.Q<Button>("open-quiz-button");
-        quizDiceButton.clicked += OnQuizButtonClicked;
-        boardquizController = quizGameObject.GetComponent<BoardquizController>();
-    }
-
-    // bis hier löschen 
-
     VisualElement rootElement;
     [SerializeField]
     private UIDocument uiDocument;
@@ -55,8 +24,6 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
         }
 
         rollDiceButton.clicked += OnRollDiceButtonClicked;
-
-        InitQuizComponents(); // LÖSCHEN WENN NICHT MEHR BENÖTIGT
     }
 
     private void OnRollDiceButtonClicked() {

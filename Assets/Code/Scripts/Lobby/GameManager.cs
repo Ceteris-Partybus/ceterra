@@ -3,7 +3,11 @@ using System.Linq;
 using UnityEngine;
 
 public class GameManager : NetworkRoomManager {
-    public static new GameManager singleton => NetworkManager.singleton as GameManager;
+    public static GameManager Singleton {
+        get {
+            return NetworkManager.singleton as GameManager;
+        }
+    }
 
     [SerializeField]
     private string[] minigameScenes;
@@ -29,6 +33,17 @@ public class GameManager : NetworkRoomManager {
         if (networkSceneName != RoomScene) {
             foreach (var player in FindObjectsByType<LobbyPlayer>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
                 player.Hide();
+            }
+        }
+
+        if (networkSceneName == GameplayScene) {
+            foreach (var field in FindObjectsByType<FieldBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
+                field.Show();
+            }
+        }
+        else {
+            foreach (var field in FindObjectsByType<FieldBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
+                field.Hide();
             }
         }
     }

@@ -15,10 +15,10 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     private State currentState = State.PLAYER_TURN;
     public State CurrentState => currentState;
 
-    private FieldList fieldList;
-    public FieldList FieldList {
-        get => fieldList;
-        set => fieldList ??= value;
+    private FieldBehaviourList fieldBehaviourList;
+    public FieldBehaviourList FieldBehaviourList {
+        get => fieldBehaviourList;
+        set => fieldBehaviourList ??= value;
     }
 
     #region Global Stats
@@ -84,7 +84,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     protected override void Start() {
         base.Start();
-        currentPlayerId = GameManager.singleton.PlayerIds[0];
+        currentPlayerId = GameManager.Singleton.PlayerIds[0];
 
         this.fundsStat = 0;
         this.resourceStat = 0;
@@ -132,7 +132,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     [Server]
     public void NextPlayerTurn() {
-        int[] playerIds = GameManager.singleton.PlayerIds;
+        int[] playerIds = GameManager.Singleton.PlayerIds;
         int indexInLobby = System.Array.IndexOf(playerIds, currentPlayerId);
         currentPlayerId = playerIds[(indexInLobby + 1) % playerIds.Length];
 
@@ -147,13 +147,12 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
             totalMovementsCompleted++;
 
             // Check if all players have had one movement
-            int totalPlayers = GameManager.singleton.PlayerIds.Length;
+            int totalPlayers = GameManager.Singleton.PlayerIds.Length;
             if (totalMovementsCompleted >= totalPlayers) {
                 totalMovementsCompleted = 0;
                 // All players have moved at least once, start minigame
-                // TODO: Add when done debugging
-                // GameManager.singleton.StartMinigame("MgGarbage");
-                // return;
+                //GameManager.Singleton.StartMinigame("MgGarbage");
+                //return;
             }
 
             NextPlayerTurn();
@@ -217,6 +216,21 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     public void UpdateEnvironmentStat(uint amount) {
         environmentStat = (uint)Mathf.Clamp(environmentStat + amount, 0, MAX_STATS_VALUE);
+    }
+
+    [ServerCallback]
+    internal void ShowQuizForPlayer(int playerId) {
+        var player = GetPlayerById(playerId);
+        RpcShowQuizForPlayer(player.connectionToClient, player);
+    }
+
+    [TargetRpc]
+    private void RpcShowQuizForPlayer(NetworkConnectionToClient target, BoardPlayer player) {
+        Debug.Log("Calling InitializeQuizForPlayer");
+        Debug.Log($"BoardQuizController is {BoardquizController.Instance}");
+        BoardquizController.Instance.InitializeQuizForPlayer(player);
+        Debug.Log("Calling DoStartQuiz");
+        BoardquizController.Instance.DoStartQuiz();
     }
 
     #endregion
