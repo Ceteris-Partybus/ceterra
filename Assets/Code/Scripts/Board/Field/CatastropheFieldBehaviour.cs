@@ -1,6 +1,6 @@
 using Mirror;
 using UnityEngine;
-using UnityEngine.Splines;
+using System.Collections;
 
 public class CatastropheFieldBehaviour : FieldBehaviour {
     [SyncVar]

@@ -57,11 +57,12 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
                     _ => throw new ArgumentOutOfRangeException(nameof(fieldType), fieldType, null)
                 };
 
+                var normalizedSplinePosition = splines.ElementAt(i).ConvertIndexUnit(k, PathIndexUnit.Knot, PathIndexUnit.Normalized);
                 GameObject fieldGameObject = Instantiate(fieldPrefab, position, Quaternion.identity);
                 fieldGameObject.transform.SetParent(splineContainer.transform);
                 FieldBehaviour fieldBehaviour = fieldGameObject.GetComponent<FieldBehaviour>();
 
-                fieldBehaviour.Initialize(physicalKnotId++, i, fieldType, new SplineKnotIndex(i, k), new Vector3(position.x, position.y, position.z));
+                fieldBehaviour.Initialize(physicalKnotId++, i, fieldType, new SplineKnotIndex(i, k), new Vector3(position.x, position.y, position.z), normalizedSplinePosition);
                 fieldBehaviours.Add(fieldBehaviour);
 
                 if (i == 0 && k == 0) {
@@ -94,19 +95,9 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
                     return link.Spline != fieldBehaviour.SplineId;
                 });
 
-                for (int k = 0; k < relevantLinks.Count(); k++) {
-                    var link = relevantLinks.ElementAt(k);
-
-                    if (fieldBehaviour.SplineId == 0 && link.Knot != 0) {
-                        continue;
-                    }
-
-                    if (link.Knot == 0) {
-                        fieldBehaviour.AddNext(FindFieldBehaviour(link.Spline, link.Knot));
-                    }
-                    else {
-                        fieldBehaviour.AddNext(FindFieldBehaviour(link.Spline, link.Knot));
-                    }
+                foreach (var link in relevantLinks) {
+                    if (CountSplineFields(link.Spline) < link.Knot) { continue; }
+                    fieldBehaviour.AddNext(FindFieldBehaviour(link.Spline, link.Knot));
                 }
             }
         }

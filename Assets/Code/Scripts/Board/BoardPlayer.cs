@@ -1,37 +1,45 @@
 using Mirror;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Splines;
-using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
+using Unity.Mathematics;
 
 public class BoardPlayer : SceneConditionalPlayer {
     [Header("Position")]
-    [SyncVar(hook = nameof(OnSplineKnotIndexChanged))]
-    public SplineKnotIndex splineKnotIndex;
-
+    [SyncVar]
+    private SplineKnotIndex splineKnotIndex;
     public SplineKnotIndex SplineKnotIndex {
         get => splineKnotIndex;
         [Server]
         set => splineKnotIndex = value;
     }
 
+    private SplineContainer splineContainer;
+    public SplineContainer SplineContainer => splineContainer;
+
     [Header("Movement")]
     [SyncVar]
     private bool isMoving = false;
+    private bool IsMoving {
+        get => isMoving;
+        set { isMoving = value; animator.SetBool("IsRunning", value); }
+    }
+
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float movementLerp;
+    [SerializeField] private float rotationLerp;
+    [SerializeField] private Animator animator;
+
+    [SyncVar(hook = nameof(OnNormalizedSplinePositionChanged))]
+    private float normalizedSplinePosition;
+    public float NormalizedSplinePosition => normalizedSplinePosition;
 
     [SyncVar]
     private bool isWaitingForBranchChoice = false;
 
-    [Header("References")]
-    [SerializeField] private Transform branchArrowPrefab;
-    private List<GameObject> branchArrows = new List<GameObject>();
-
-    [Header("Movement Parameters")]
-    [SerializeField] private float moveSpeed = 10f;
     private SplineKnotIndex nextKnot;
 
     [Header("Stats")]
@@ -46,9 +54,12 @@ public class BoardPlayer : SceneConditionalPlayer {
     private uint health;
     public uint Health => health;
     public const uint MAX_HEALTH = 100;
+    private BoardPlayerVisualHandler visualHandler;
 
     protected void Start() {
         DontDestroyOnLoad(gameObject);
+        splineContainer = FindFirstObjectByType<SplineContainer>();
+        visualHandler = GetComponentInChildren<BoardPlayerVisualHandler>();
     }
 
     public override void OnStartServer() {
@@ -95,7 +106,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     protected override void OnServerInitialize() {
         Debug.Log($"[Server] BoardPlayer {name} initialized for board scene");
         // Initialize board-specific state
-        isMoving = false;
+        IsMoving = false;
         // Set spawn position, etc.
         Vector3 spawnPosition = BoardContext.Instance.FieldBehaviourList.Find(splineKnotIndex).Position;
         spawnPosition.y += 1f;
@@ -107,7 +118,7 @@ public class BoardPlayer : SceneConditionalPlayer {
         Debug.Log($"[Server] BoardPlayer {name} cleaned up");
         // Stop any ongoing movement
         StopAllCoroutines();
-        isMoving = false;
+        IsMoving = false;
     }
 
     [Server]
@@ -147,6 +158,12 @@ public class BoardPlayer : SceneConditionalPlayer {
         else {
             BoardOverlay.Instance.UpdateRemotePlayerCoins(new_, PlayerId);
         }
+        var diff = (int)new_ - (int)old;
+        if (diff > 0) {
+            StartCoroutine(visualHandler.PlayCoinGainParticle());
+            return;
+        }
+        StartCoroutine(visualHandler.PlayCoinLossParticle());
     }
 
     private void OnHealthChanged(uint old, uint new_) {
@@ -163,31 +180,63 @@ public class BoardPlayer : SceneConditionalPlayer {
         BoardOverlay.Instance.RemovePlayer(this);
     }
 
-    // Client-side hook for position updates
-    private void OnSplineKnotIndexChanged(SplineKnotIndex oldIndex, SplineKnotIndex newIndex) {
-        if (IsActiveForCurrentScene) {
-            var fieldBehaviour = BoardContext.Instance.FieldBehaviourList.Find(newIndex);
-            StartCoroutine(SmoothMoveToKnot(fieldBehaviour));
-        }
-    }
-
     [Command]
     public void CmdRollDice() {
         if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving) {
             return;
         }
+        RpcStartDiceRoll();
+    }
 
-        int diceValue = Random.Range(1, 7);
+    [Command]
+    public void CmdEndRollDice() {
+        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving) {
+            return;
+        }
+
+        var diceValue = Random.Range(1, 11);
+        StartCoroutine(WaitForJumpAnimationThenMove(diceValue));
+    }
+
+    [Server]
+    private IEnumerator WaitForJumpAnimationThenMove(int diceValue) {
+        animator.SetBool("IsJumping", true);
+        yield return new WaitForSeconds(0.7f);
+        RpcEndDiceRoll();
+        animator.SetBool("IsJumping", false);
         BoardContext.Instance.ProcessDiceRoll(this, diceValue);
+    }
+
+    [ClientRpc]
+    private void RpcStartDiceRoll() {
+        visualHandler.StartDiceSpinning();
+    }
+
+    [ClientRpc]
+    private void RpcEndDiceRoll() {
+        visualHandler.StopDiceSpinning();
+    }
+
+    [ClientRpc]
+    private void RpcShowDiceResultLabel() {
+        visualHandler.ShowDiceResultLabel();
+    }
+
+    [ClientRpc]
+    private void RpcHideDiceResultLabel() {
+        visualHandler.HideDiceResultLabel();
+    }
+
+    [ClientRpc]
+    private void RpcUpdateDiceResultLabel(string value) {
+        visualHandler.DiceResultLabel = value;
     }
 
     [Server]
     public void MoveToField(int steps) {
-        if (!IsActiveForCurrentScene || isMoving) {
-            return;
-        }
+        if (!IsActiveForCurrentScene || IsMoving) { return; }
 
-        isMoving = true;
+        IsMoving = true;
         StartCoroutine(MoveAlongSplineCoroutine(steps));
     }
 
@@ -195,80 +244,100 @@ public class BoardPlayer : SceneConditionalPlayer {
     private IEnumerator MoveAlongSplineCoroutine(int steps) {
         var fieldBehaviourList = BoardContext.Instance.FieldBehaviourList;
         var remainingSteps = steps;
+        RpcShowDiceResultLabel();
         while (remainingSteps > 0) {
-            var currentField = fieldBehaviourList.Find(splineKnotIndex);
-            var nextFields = currentField.Next;
+            RpcUpdateDiceResultLabel(remainingSteps.ToString());
+            var nextFields = fieldBehaviourList.Find(splineKnotIndex).Next;
 
             var targetField = nextFields.First();
             nextKnot = targetField.SplineKnotIndex;
             if (nextFields.Count > 1) {
+                IsMoving = false;
                 isWaitingForBranchChoice = true;
                 TargetShowBranchArrows();
                 yield return new WaitUntil(() => !isWaitingForBranchChoice);
 
                 targetField = fieldBehaviourList.Find(nextKnot);
+                IsMoving = true;
             }
+            yield return StartCoroutine(ServerSmoothMoveToKnot(targetField));
             SplineKnotIndex = nextKnot;
-            yield return StartCoroutine(SmoothMoveToKnot(targetField));
-
             remainingSteps--;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.15f);
         }
 
-        isMoving = false;
+        IsMoving = false;
+        RpcHideDiceResultLabel();
         var finalField = fieldBehaviourList.Find(splineKnotIndex);
-
         yield return StartCoroutine(finalField.InvokeFieldAsync(this));
 
         BoardContext.Instance.OnPlayerMovementComplete(this);
     }
 
-    private IEnumerator SmoothMoveToKnot(FieldBehaviour targetField) {
-        var startPos = transform.position;
-        var targetPos = targetField.Position;
-        targetPos.y = transform.position.y;
+    [Server]
+    private IEnumerator ServerSmoothMoveToKnot(FieldBehaviour targetField) {
+        var currentSpline = splineContainer.Splines[splineKnotIndex.Spline];
+        var targetSpline = splineContainer.Splines[targetField.SplineKnotIndex.Spline];
+        var spline = targetSpline;
+        var normalizedTargetPosition = targetField.NormalizedSplinePosition;
 
-        var duration = Vector3.Distance(startPos, targetPos) / moveSpeed;
-        var elapsed = 0f;
+        if (SplineKnotIndex.Spline != targetField.SplineKnotIndex.Spline) {
+            if (targetField.SplineKnotIndex.Knot == 1) {
+                SplineKnotIndex = targetField.SplineKnotIndex;
+                normalizedSplinePosition = 0f;
+            }
+            else {
+                normalizedTargetPosition = 1f;
+                spline = currentSpline;
+            }
+        }
 
+        if (targetField.SplineKnotIndex.Knot == 0 && targetSpline.Closed) {
+            normalizedTargetPosition = 1f;
+        }
 
-        while (elapsed < duration) {
-            elapsed += Time.deltaTime;
-            var t = elapsed / duration;
-            transform.position = Vector3.Lerp(startPos, targetPos, t);
+        while (Mathf.Abs(normalizedSplinePosition - normalizedTargetPosition) > 0.001f) {
+            normalizedSplinePosition = Mathf.MoveTowards(normalizedSplinePosition, normalizedTargetPosition, moveSpeed / spline.GetLength() * Time.deltaTime);
             yield return null;
         }
 
-        transform.position = targetPos;
+        normalizedSplinePosition = targetField.NormalizedSplinePosition;
+    }
+
+    private void OnNormalizedSplinePositionChanged(float _, float newValue) {
+        if (!isServer && IsActiveForCurrentScene) {
+            normalizedSplinePosition = newValue;
+        }
+    }
+
+    void MoveAndRotate() {
+        var movementBlend = Mathf.Pow(0.5f, Time.deltaTime * movementLerp);
+        var targetPosition = splineContainer.EvaluatePosition(splineKnotIndex.Spline, normalizedSplinePosition);
+
+        transform.position = Vector3.Lerp(transform.position, targetPosition, 1f - movementBlend);
+
+        if (IsMoving) {
+            splineContainer.Splines[splineKnotIndex.Spline].Evaluate(normalizedSplinePosition, out float3 _, out float3 direction, out float3 _);
+            var worldDirection = splineContainer.transform.TransformDirection(direction);
+
+            if (worldDirection.sqrMagnitude > 0.0001f) {
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(worldDirection, Vector3.up), rotationLerp * Time.deltaTime);
+            }
+        }
     }
 
     [TargetRpc]
     private void TargetShowBranchArrows() {
-        if (!isLocalPlayer || branchArrowPrefab == null) { return; }
+        if (!isLocalPlayer) { return; }
 
-        var fieldBehaviourList = BoardContext.Instance.FieldBehaviourList;
-        var currentField = fieldBehaviourList.Find(splineKnotIndex);
-        var nextFields = currentField.Next;
+        var nextFields = BoardContext.Instance.FieldBehaviourList.Find(splineKnotIndex).Next;
 
-        for (var i = 0; i < nextFields.Count; i++) {
-            var branchArrow = Instantiate(branchArrowPrefab.gameObject);
-
-            var deltaX = (nextFields[i].Position.x - currentField.Position.x) / 2;
-            var deltaZ = (nextFields[i].Position.z - currentField.Position.z) / 2;
-            branchArrow.transform.position = new Vector3(currentField.Position.x + deltaX, 0f, currentField.Position.z + deltaZ);
-            branchArrow.transform.LookAt(nextFields[i].Position, transform.up);
-
-            branchArrow.GetComponent<BranchArrowMouseEventHandler>()?.Initialize(this, i);
-            branchArrows.Add(branchArrow);
-        }
+        visualHandler.ShowBranchArrows(nextFields, this);
     }
 
     [TargetRpc]
     private void TargetHideBranchArrows() {
-        foreach (var arrow in branchArrows) {
-            Destroy(arrow);
-        }
-        branchArrows.Clear();
+        visualHandler.HideBranchArrows();
     }
 
     [Command]
@@ -290,5 +359,28 @@ public class BoardPlayer : SceneConditionalPlayer {
         nextKnot = chosenField.SplineKnotIndex;
         isWaitingForBranchChoice = false;
         TargetHideBranchArrows();
+    }
+
+    void Update() {
+        if (IsMoving) {
+            MoveAndRotate();
+            return;
+        }
+
+        FaceCamera();
+
+        if (isLocalPlayer && visualHandler.IsDiceSpinning && Input.GetKeyDown(KeyCode.Space)) {
+            CmdEndRollDice();
+        }
+    }
+
+    private void FaceCamera() {
+        var directionToCamera = Camera.main.transform.position - transform.position;
+        directionToCamera.y = 0;
+        if (directionToCamera.sqrMagnitude > 0.0001f) {
+            var targetRotation = Quaternion.LookRotation(directionToCamera, Vector3.up);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationLerp * Time.deltaTime);
+        }
+        visualHandler.CleanRotation();
     }
 }

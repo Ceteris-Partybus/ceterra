@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5085193788262411953}
   - component: {fileID: 6372503883427123404}
   - component: {fileID: 2374410779428454469}
+  - component: {fileID: 8481943272382942188}
   m_Layer: 0
   m_Name: NormalField
   m_TagString: Untagged
@@ -67,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: a159e05199dbb43498c4c773831c47c8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -150,3 +151,28 @@ MonoBehaviour:
     Spline: 0
     Knot: 0
   position: {x: 0, y: 0, z: 0}
+  normalizedSplinePosition: 0
+--- !u!114 &8481943272382942188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8075969218124468958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2d2061249c354f4c9a4647416ec3149, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  fieldId: 0
+  splineId: 0
+  type: 0
+  nextFields: []
+  splineKnotIndex:
+    Spline: 0
+    Knot: 0
+  position: {x: 0, y: 0, z: 0}
+  normalizedSplinePosition: 0

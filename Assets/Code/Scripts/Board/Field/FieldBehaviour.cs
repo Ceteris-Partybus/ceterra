@@ -25,14 +25,18 @@ public abstract class FieldBehaviour : NetworkBehaviour {
     [SyncVar]
     [SerializeField] private Vector3 position;
 
+    [SyncVar]
+    [SerializeField] private float normalizedSplinePosition;
+
     public event Action OnFieldInvocationComplete;
 
-    public void Initialize(int id, int splineId, FieldType type, SplineKnotIndex splineKnotIndex, Vector3 position) {
+    public void Initialize(int id, int splineId, FieldType type, SplineKnotIndex splineKnotIndex, Vector3 position, float normalizedSplinePosition) {
         this.fieldId = id;
         this.splineId = splineId;
         this.type = type;
         this.splineKnotIndex = splineKnotIndex;
         this.position = position;
+        this.normalizedSplinePosition = normalizedSplinePosition;
         SetColor();
     }
 
@@ -49,13 +53,10 @@ public abstract class FieldBehaviour : NetworkBehaviour {
 
     [Server]
     public IEnumerator InvokeFieldAsync(BoardPlayer player) {
-        OnFieldInvoked(player);
-
         bool completed = false;
         Action completionHandler = () => completed = true;
-
         OnFieldInvocationComplete += completionHandler;
-
+        OnFieldInvoked(player);
         yield return new WaitUntil(() => completed);
 
         OnFieldInvocationComplete -= completionHandler;
@@ -82,6 +83,8 @@ public abstract class FieldBehaviour : NetworkBehaviour {
     public IReadOnlyList<FieldBehaviour> Next => nextFields.AsReadOnly();
     public SplineKnotIndex SplineKnotIndex => splineKnotIndex;
     public Vector3 Position => position;
+
+    public float NormalizedSplinePosition => normalizedSplinePosition;
 
     public override bool Equals(object obj) {
         if (obj is FieldBehaviour other) {

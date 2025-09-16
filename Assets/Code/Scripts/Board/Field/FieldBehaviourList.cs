@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 // List to manage FieldBehaviour objects
 public class FieldBehaviourList {
+    private readonly Dictionary<SplineKnotIndex, FieldBehaviour> cache = new();
     private FieldBehaviour head;
 
-    public FieldBehaviourList() {
-    }
+    public FieldBehaviourList() { }
 
     public FieldBehaviour Head {
         get => head;
@@ -15,8 +15,21 @@ public class FieldBehaviourList {
     }
 
     public FieldBehaviour Find(SplineKnotIndex splineKnotIndex) {
+        if (cache.Count == 0) {
+            InitializeCache();
+        }
+
+        if (cache.TryGetValue(splineKnotIndex, out FieldBehaviour field)) {
+            return field;
+        }
+
+        throw new InvalidOperationException($"Field with SplineKnotIndex {splineKnotIndex} not found in cache.");
+    }
+
+    private void InitializeCache() {
+        var head = BoardContext.Instance?.FieldBehaviourList?.Head;
         if (head == null) {
-            throw new Exception("FieldBehaviourList is empty.");
+            throw new InvalidOperationException("BoardContext or FieldList is not initialized yet.");
         }
 
         var queue = new Queue<FieldBehaviour>();
@@ -27,9 +40,7 @@ public class FieldBehaviourList {
 
         while (queue.Count > 0) {
             var current = queue.Dequeue();
-            if (current.SplineKnotIndex.Equals(splineKnotIndex)) {
-                return current;
-            }
+            cache[current.SplineKnotIndex] = current;
 
             foreach (var next in current.Next) {
                 if (!visited.Contains(next)) {
@@ -38,6 +49,5 @@ public class FieldBehaviourList {
                 }
             }
         }
-        throw new Exception($"FieldBehaviour with SplineKnotIndex {splineKnotIndex} not found.");
     }
 }
