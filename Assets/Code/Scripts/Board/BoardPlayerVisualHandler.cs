@@ -97,6 +97,10 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
 
     private void Update() {
         if (diceSpinning) { SpinDice(); }
+
+        if (diceResultLabel.gameObject.activeSelf) {
+            diceResultLabel.transform.rotation = Quaternion.LookRotation(diceResultLabel.transform.position - Camera.main.transform.position);
+        }
     }
 
     private void SpinDice() {
