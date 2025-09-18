@@ -7,10 +7,12 @@
     "Mirror",
     "Mirror.Transports",
     "Mirror.Components",
+    "Unity.Cinemachine",
     "Unity.Splines",
     "Unity.Mathematics",
     "Unity.TextMeshPro",
-    "Newtonsoft.Json"
+    "Newtonsoft.Json",
+    "DOTween.Modules"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],
