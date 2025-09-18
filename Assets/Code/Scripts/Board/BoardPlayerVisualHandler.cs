@@ -30,7 +30,6 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
     private List<GameObject> branchArrows = new List<GameObject>();
 
     [Header("Player Parameters")]
-    [SerializeField] private Animator animator;
     [SerializeField] private Transform playerModel;
     [SerializeField] private int jumpPower = 1;
     [SerializeField] private float jumpDuration = .2f;
@@ -184,14 +183,6 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
         diceResultLabel.transform.DOScale(0, .2f).From().SetEase(scaleEase);
     }
 
-    private void OnMovementStart(bool movement) {
-        if (movement) {
-            transform.DOLocalRotate(Vector3.zero, .3f);
-        }
-        else {
-            transform.DOLookAt(Camera.main.transform.position, .35f, AxisConstraint.Y);
-        }
-    }
     public void CleanRotation() {
         particles.transform.rotation = Quaternion.identity;
     }

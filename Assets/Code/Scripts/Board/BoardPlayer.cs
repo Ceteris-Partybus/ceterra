@@ -194,6 +194,14 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     [Command]
+    public void CmdToggleBoardOverview() {
+        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving || isRolling) {
+            return;
+        }
+        RpcToggleBoardOverview();
+    }
+
+    [Command]
     public void CmdEndRollDice() {
         if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving) {
             return;
@@ -231,22 +239,30 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     [ClientRpc]
+    private void RpcToggleBoardOverview() {
+        CameraHandler.Instance.ToggleBoardOverview();
+    }
+
+    [ClientRpc]
     private void RpcOnRollJump() {
         visualHandler.OnRollJump();
     }
 
     [ClientRpc]
     private void RpcEndDiceCancel() {
+        CameraHandler.Instance.OnRollEnd();
         visualHandler.OnRollCancel();
     }
 
     [ClientRpc]
     private void RpcStartDiceRoll() {
+        CameraHandler.Instance.OnRollStart();
         visualHandler.OnRollStart();
     }
 
     [ClientRpc]
     private void RpcEndDiceRoll(int roll) {
+        CameraHandler.Instance.OnRollEnd();
         visualHandler.OnRollEnd(roll);
     }
 
@@ -403,12 +419,17 @@ public class BoardPlayer : SceneConditionalPlayer {
 
         FaceCamera();
 
-        if (isLocalPlayer && visualHandler.IsDiceSpinning) {
-            if (Input.GetKeyDown(KeyCode.Space)) {
+        if (isLocalPlayer) {
+            if (Input.GetKeyDown(KeyCode.Space) && visualHandler.IsDiceSpinning) {
                 CmdEndRollDice();
             }
             else if (Input.GetKeyDown(KeyCode.Escape)) {
-                CmdRollDiceCancel();
+                if (visualHandler.IsDiceSpinning) {
+                    CmdRollDiceCancel();
+                }
+                else if (CameraHandler.Instance.IsShowingBoard) {
+                    CmdToggleBoardOverview();
+                }
             }
         }
     }
