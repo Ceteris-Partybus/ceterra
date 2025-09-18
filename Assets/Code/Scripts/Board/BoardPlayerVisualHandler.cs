@@ -3,11 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.Splines;
+using DG.Tweening;
+using Unity.Cinemachine;
 
 public class BoardPlayerVisualHandler : MonoBehaviour {
     [Header("Particles")]
+    [SerializeField] private Transform particles;
     [SerializeField] private ParticleSystem coinGainParticle;
     [SerializeField] private ParticleSystem coinLossParticle;
+    [SerializeField] private ParticleSystem diceHitParticle;
+    [SerializeField] private ParticleSystem diceResultParticle;
 
     [Header("Dice Parameters")]
     [SerializeField] private Transform playerDice;
@@ -17,11 +22,17 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
     [SerializeField] private float numberAnimationSpeed;
     [SerializeField] private TextMeshPro[] numberLabels;
     [SerializeField] private TextMeshPro diceResultLabel;
+    [SerializeField] private AnimationCurve scaleEase;
 
     [Header("Branch Arrows")]
     [SerializeField] private Transform branchArrowPrefab;
     [SerializeField] private float branchArrowRadius;
     private List<GameObject> branchArrows = new List<GameObject>();
+
+    [Header("Player Parameters")]
+    [SerializeField] private Transform playerModel;
+    [SerializeField] private int jumpPower = 1;
+    [SerializeField] private float jumpDuration = .2f;
 
     private bool diceSpinning;
     private float tiltTime = 0f;
@@ -51,19 +62,8 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
     }
 
     private void HideDice() {
+        playerDice.transform.localScale = Vector3.one;
         playerDice.gameObject.SetActive(false);
-        playerDice.transform.eulerAngles = Vector3.zero;
-    }
-
-    public void StartDiceSpinning() {
-        diceSpinning = true;
-        ShowDice();
-        StartCoroutine(RandomDiceNumberCoroutine());
-    }
-
-    public void StopDiceSpinning() {
-        diceSpinning = false;
-        HideDice();
     }
 
     public void ShowDiceResultLabel() {
@@ -137,7 +137,53 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
         return Instantiate(branchArrowPrefab.gameObject, branchArrowPosition, Quaternion.LookRotation(worldTangent, Vector3.up));
     }
 
+    public void OnRollStart() {
+        transform.DOLookAt(Camera.main.transform.position, .35f, AxisConstraint.Y);
+
+        diceSpinning = true;
+
+        StartCoroutine(RandomDiceNumberCoroutine());
+
+        ShowDice();
+        playerDice.DOScale(0, .3f).From();
+    }
+
+    public void OnRollCancel() {
+        diceSpinning = false;
+        playerDice.DOComplete();
+        playerDice.DOScale(0, .12f).OnComplete(() => HideDice());
+    }
+
+    public void OnRollJump() {
+        playerModel.DOComplete();
+        playerModel.DOJump(transform.position, jumpPower, 1, jumpDuration);
+    }
+
+    public void OnRollDisplay(int roll) {
+        diceHitParticle.Play();
+        if (diceHitParticle.GetComponent<CinemachineImpulseSource>() != null) {
+            diceHitParticle.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
+        }
+        playerDice.DOComplete();
+        diceSpinning = false;
+        SetDiceNumber(roll);
+        playerDice.transform.eulerAngles = Vector3.zero;
+        Vector3 diceLocalPos = playerDice.localPosition;
+        playerDice.DOLocalJump(diceLocalPos, .8f, 1, .25f);
+        playerDice.DOPunchScale(Vector3.one / 4, .3f, 10, 1);
+    }
+
+    public void OnRollEnd(int roll) {
+        HideDice();
+        diceResultParticle.Play();
+
+        ShowDiceResultLabel();
+        diceResultLabel.text = roll.ToString();
+        diceResultLabel.transform.DOComplete();
+        diceResultLabel.transform.DOScale(0, .2f).From().SetEase(scaleEase);
+    }
+
     public void CleanRotation() {
-        transform.rotation = Quaternion.identity;
+        particles.transform.rotation = Quaternion.identity;
     }
 }
