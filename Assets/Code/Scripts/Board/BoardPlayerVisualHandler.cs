@@ -63,6 +63,7 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
     }
 
     private void HideDice() {
+        playerDice.transform.localScale = Vector3.one;
         playerDice.gameObject.SetActive(false);
     }
 
@@ -148,10 +149,10 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
         playerDice.DOScale(0, .3f).From();
     }
 
-    private void OnRollCancel() {
+    public void OnRollCancel() {
         diceSpinning = false;
         playerDice.DOComplete();
-        playerDice.DOScale(0, .12f).OnComplete(() => { playerDice.gameObject.SetActive(false); playerDice.transform.localScale = Vector3.one; });
+        playerDice.DOScale(0, .12f).OnComplete(() => HideDice());
     }
 
     public void OnRollJump() {

@@ -203,6 +203,16 @@ public class BoardPlayer : SceneConditionalPlayer {
         StartCoroutine(WaitForJumpAnimationThenMove(diceValue));
     }
 
+    [Command]
+    public void CmdRollDiceCancel() {
+        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving) {
+            return;
+        }
+
+        isRolling = false;
+        RpcEndDiceCancel();
+    }
+
     [Server]
     private IEnumerator WaitForJumpAnimationThenMove(int diceValue) {
         RpcOnRollJump();
@@ -223,6 +233,11 @@ public class BoardPlayer : SceneConditionalPlayer {
     [ClientRpc]
     private void RpcOnRollJump() {
         visualHandler.OnRollJump();
+    }
+
+    [ClientRpc]
+    private void RpcEndDiceCancel() {
+        visualHandler.OnRollCancel();
     }
 
     [ClientRpc]
@@ -388,8 +403,13 @@ public class BoardPlayer : SceneConditionalPlayer {
 
         FaceCamera();
 
-        if (isLocalPlayer && visualHandler.IsDiceSpinning && Input.GetKeyDown(KeyCode.Space)) {
-            CmdEndRollDice();
+        if (isLocalPlayer && visualHandler.IsDiceSpinning) {
+            if (Input.GetKeyDown(KeyCode.Space)) {
+                CmdEndRollDice();
+            }
+            else if (Input.GetKeyDown(KeyCode.Escape)) {
+                CmdRollDiceCancel();
+            }
         }
     }
 
