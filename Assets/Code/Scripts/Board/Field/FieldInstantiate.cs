@@ -15,92 +15,75 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
     [SerializeField] private GameObject eventFieldPrefab;
     [SerializeField] private GameObject catastropheFieldPrefab;
 
-    private FieldBehaviourList fieldBehaviourList;
-    private List<FieldBehaviour> fieldBehaviours;
-
     private readonly SyncDictionary<SplineKnotIndex, FieldType> fieldTypeMap = new();
+    private Dictionary<SplineKnotIndex, FieldBehaviour> fields = new();
 
     protected override void Start() {
         base.Start();
-        this.fieldBehaviourList = new FieldBehaviourList();
-        this.fieldBehaviours = new List<FieldBehaviour>();
-
         FillFieldTypeMap();
 
         var splines = splineContainer.Splines;
         var linkCollection = splineContainer.KnotLinkCollection;
 
-        for (int i = 0; i < splines.Count(); i++) {
-            var knots = splines.ElementAt(i).Knots;
+        for (var splineId = 0; splineId < splines.Count(); splineId++) {
+            var isclosed = splines.ElementAt(splineId).Closed;
+            var knots = splines.ElementAt(splineId).Knots;
+            var knotId = isclosed ? 0 : 1;
+            var first = CreateField(new SplineKnotIndex(splineId, knotId));
+            fields.Add(first.SplineKnotIndex, first);
+            var previous = first;
+            var knotCount = isclosed ? knots.Count() : knots.Count() - 1;
+            while (++knotId < knotCount) {
+                var current = CreateField(new SplineKnotIndex(splineId, knotId));
+                fields.Add(current.SplineKnotIndex, current);
+                previous.AddNext(current);
+                previous = current;
+            }
+            if (isclosed) {
+                previous.AddNext(first);
+            }
+        }
 
-            var physicalKnotId = 0;
-            for (int k = 0; k < knots.Count(); k++) {
-                if (i != 0 && (k == 0 || k == knots.Count() - 1)) {
-                    continue;
-                }
-
-                var knot = knots.ElementAt(k);
-
-                // knot.Position is relative to splineContainer, so we need to adjust it
-                float3 position = (float3)splineContainer.transform.position + knot.Position;
-
-                if (!fieldTypeMap.TryGetValue(new SplineKnotIndex(i, k), out var fieldType)) {
-                    throw new Exception($"Field type for knot {i}, {k} not found in fieldTypeMap.");
-                }
-
-                // Create the appropriate field prefab based on type
-                GameObject fieldPrefab = fieldType switch {
-                    FieldType.NORMAL => normalFieldPrefab,
-                    FieldType.QUESTION => questionFieldPrefab,
-                    FieldType.EVENT => eventFieldPrefab,
-                    FieldType.CATASTROPHE => catastropheFieldPrefab,
-                    _ => throw new ArgumentOutOfRangeException(nameof(fieldType), fieldType, null)
-                };
-
-                var normalizedSplinePosition = splines.ElementAt(i).ConvertIndexUnit(k, PathIndexUnit.Knot, PathIndexUnit.Normalized);
-                GameObject fieldGameObject = Instantiate(fieldPrefab, position, Quaternion.identity);
-                fieldGameObject.transform.SetParent(splineContainer.transform);
-                FieldBehaviour fieldBehaviour = fieldGameObject.GetComponent<FieldBehaviour>();
-
-                fieldBehaviour.Initialize(physicalKnotId++, i, fieldType, new SplineKnotIndex(i, k), new Vector3(position.x, position.y, position.z), normalizedSplinePosition);
-                fieldBehaviours.Add(fieldBehaviour);
-
-                if (i == 0 && k == 0) {
-                    fieldBehaviourList.Head = fieldBehaviour;
+        foreach ((var i, var currentField) in fields) {
+            var knotLinks = linkCollection.GetKnotLinks(i);
+            if (knotLinks != null) {
+                foreach (var link in knotLinks) {
+                    if (link != i) {
+                        if (link.Knot == 0) {
+                            fields.TryGetValue(new SplineKnotIndex(link.Spline, link.Knot + 1), out var nextField);
+                            currentField.AddNext(nextField);
+                        }
+                        if (link.Knot == splineContainer.Splines.ElementAt(link.Spline).Knots.Count() - 1) {
+                            fields.TryGetValue(new SplineKnotIndex(link.Spline, link.Knot - 1), out var previousField);
+                            previousField.AddNext(currentField);
+                        }
+                    }
                 }
             }
         }
 
-        BoardContext.Instance.FieldBehaviourList = fieldBehaviourList;
+        BoardContext.Instance.FieldBehaviourList = new FieldBehaviourList(fields);
+    }
 
-        for (int i = 0; i < fieldBehaviours.Count(); i++) {
-            var fieldBehaviour = fieldBehaviours.ElementAt(i);
-            SplineKnotIndex splineKnotIndex;
-
-            if (fieldBehaviour.SplineId == 0 || fieldBehaviour.FieldId != CountSplineFields(fieldBehaviour.SplineId) - 1) {
-                splineKnotIndex = fieldBehaviour.SplineKnotIndex;
-            }
-            else {
-                splineKnotIndex = new SplineKnotIndex(fieldBehaviour.SplineId, CountSplineFields(fieldBehaviour.SplineId) + 1);
-            }
-
-            linkCollection.TryGetKnotLinks(splineKnotIndex, out var links);
-
-            if (fieldBehaviour.SplineId == 0 || fieldBehaviour.FieldId != CountSplineFields(fieldBehaviour.SplineId) - 1) {
-                fieldBehaviour.AddNext(FindFieldBehaviour(fieldBehaviour.SplineId, (fieldBehaviour.FieldId + 1) % CountSplineFields(fieldBehaviour.SplineId)));
-            }
-
-            if (links != null) {
-                var relevantLinks = links.Where((link) => {
-                    return link.Spline != fieldBehaviour.SplineId;
-                });
-
-                foreach (var link in relevantLinks) {
-                    if (CountSplineFields(link.Spline) < link.Knot) { continue; }
-                    fieldBehaviour.AddNext(FindFieldBehaviour(link.Spline, link.Knot));
-                }
-            }
+    private FieldBehaviour CreateField(SplineKnotIndex i) {
+        if (!fieldTypeMap.TryGetValue(i, out var type)) {
+            throw new Exception($"Field type for knot not found in fieldTypeMap.");
         }
+
+        var prefab = type switch {
+            FieldType.NORMAL => normalFieldPrefab,
+            FieldType.QUESTION => questionFieldPrefab,
+            FieldType.EVENT => eventFieldPrefab,
+            FieldType.CATASTROPHE => catastropheFieldPrefab,
+            _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+        };
+
+        var spline = splineContainer.Splines.ElementAt(i.Spline);
+        var absolutePosition = (float3)splineContainer.transform.position + spline.Knots.ElementAt(i.Knot).Position;
+        var normalizedPosition = spline.ConvertIndexUnit(i.Knot, PathIndexUnit.Knot, PathIndexUnit.Normalized);
+        return Instantiate(prefab, absolutePosition, Quaternion.identity, splineContainer.transform)
+                .GetComponent<FieldBehaviour>()
+                .Initialize(type, i, normalizedPosition);
     }
 
     // TODO: Placeholder, replace with actual logic later
@@ -121,17 +104,5 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
                 }
             }
         }
-    }
-
-    private int CountSplineFields(int splineId) {
-        return this.fieldBehaviours.Count((fieldBehaviour) => {
-            return fieldBehaviour.SplineId == splineId;
-        });
-    }
-
-    private FieldBehaviour FindFieldBehaviour(int splineId, int fieldId) {
-        return this.fieldBehaviours.First((fieldBehaviour) => {
-            return fieldBehaviour.SplineId == splineId && fieldBehaviour.FieldId == fieldId;
-        });
     }
 }
