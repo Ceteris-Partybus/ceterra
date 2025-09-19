@@ -1,25 +1,25 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class InvestDepositModal : Modal {
+public class NewFundsDepositModal : NewModal {
 
     private Button depositSubmitButton;
     private UnsignedIntegerField depositValueField;
     private Button depositAdd10Button;
     private Button depositAdd100Button;
     private Button depositAdd1000Button;
-    private object investmentIdentifier;
 
-    public InvestDepositModal(VisualTreeAsset contentTemplate, object investmentIdentifier) : base(contentTemplate) {
-        this.investmentIdentifier = investmentIdentifier;
+    protected override void Start() {
+        this.visualTreeAsset = ModalMap.Instance.FundsDepositModalTemplate;
+        base.Start();
     }
 
-    protected override void InitializeContent() {
-        this.depositSubmitButton = this.modalContent.Q<Button>("deposit-submit-button");
-        this.depositValueField = this.modalContent.Q<UnsignedIntegerField>("deposit-value");
-        this.depositAdd10Button = this.modalContent.Q<Button>("deposit-add-10");
-        this.depositAdd100Button = this.modalContent.Q<Button>("deposit-add-100");
-        this.depositAdd1000Button = this.modalContent.Q<Button>("deposit-add-1000");
+    protected override void OnModalShown() {
+        this.depositSubmitButton = modalElement.Q<Button>("deposit-submit-button");
+        this.depositValueField = modalElement.Q<UnsignedIntegerField>("deposit-value");
+        this.depositAdd10Button = modalElement.Q<Button>("deposit-add-10");
+        this.depositAdd100Button = modalElement.Q<Button>("deposit-add-100");
+        this.depositAdd1000Button = modalElement.Q<Button>("deposit-add-1000");
 
         if (this.depositSubmitButton != null) {
             this.depositSubmitButton.clicked += this.OnDepositSubmitButtonClicked;
@@ -63,8 +63,7 @@ public class InvestDepositModal : Modal {
         }
     }
 
-    protected override void OnClose() {
-        // Unregister events when modal is closed
+    protected override void OnModalHidden() {
         if (this.depositSubmitButton != null) {
             this.depositSubmitButton.clicked -= this.OnDepositSubmitButtonClicked;
         }

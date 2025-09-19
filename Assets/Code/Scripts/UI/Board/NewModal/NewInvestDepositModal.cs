@@ -1,23 +1,26 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class FundsDepositModal : Modal {
+public class NewInvestDepositModal : NewModal {
 
     private Button depositSubmitButton;
     private UnsignedIntegerField depositValueField;
     private Button depositAdd10Button;
     private Button depositAdd100Button;
     private Button depositAdd1000Button;
+    private object investmentIdentifier;
 
-    public FundsDepositModal(VisualTreeAsset contentTemplate) : base(contentTemplate) {
+    protected override void Start() {
+        this.visualTreeAsset = ModalMap.Instance.InvestDepositModalTemplate;
+        base.Start();
     }
 
-    protected override void InitializeContent() {
-        this.depositSubmitButton = this.modalContent.Q<Button>("deposit-submit-button");
-        this.depositValueField = this.modalContent.Q<UnsignedIntegerField>("deposit-value");
-        this.depositAdd10Button = this.modalContent.Q<Button>("deposit-add-10");
-        this.depositAdd100Button = this.modalContent.Q<Button>("deposit-add-100");
-        this.depositAdd1000Button = this.modalContent.Q<Button>("deposit-add-1000");
+    protected override void OnModalShown() {
+        this.depositSubmitButton = modalElement.Q<Button>("deposit-submit-button");
+        this.depositValueField = modalElement.Q<UnsignedIntegerField>("deposit-value");
+        this.depositAdd10Button = modalElement.Q<Button>("deposit-add-10");
+        this.depositAdd100Button = modalElement.Q<Button>("deposit-add-100");
+        this.depositAdd1000Button = modalElement.Q<Button>("deposit-add-1000");
 
         if (this.depositSubmitButton != null) {
             this.depositSubmitButton.clicked += this.OnDepositSubmitButtonClicked;
@@ -58,22 +61,6 @@ public class FundsDepositModal : Modal {
     private void OnDepositAddButtonClicked(uint amount) {
         if (this.depositValueField != null) {
             this.depositValueField.value += amount;
-        }
-    }
-
-    protected override void OnClose() {
-        // Unregister events when modal is closed
-        if (this.depositSubmitButton != null) {
-            this.depositSubmitButton.clicked -= this.OnDepositSubmitButtonClicked;
-        }
-        if (this.depositAdd10Button != null) {
-            this.depositAdd10Button.clicked -= this.OnDepositAdd10ButtonClicked;
-        }
-        if (this.depositAdd100Button != null) {
-            this.depositAdd100Button.clicked -= this.OnDepositAdd100ButtonClicked;
-        }
-        if (this.depositAdd1000Button != null) {
-            this.depositAdd1000Button.clicked -= this.OnDepositAdd1000ButtonClicked;
         }
     }
 }

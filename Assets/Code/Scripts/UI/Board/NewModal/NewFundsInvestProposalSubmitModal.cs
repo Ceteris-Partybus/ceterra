@@ -1,20 +1,22 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class FundsInvestProposalSubmitModal : Modal {
+public class NewFundsInvestProposalSubmitModal : NewModal {
+
     private UnsignedIntegerField amountField;
     private Button addAllFundingButton;
     private Button submitProposalButton;
-    private VisualTreeAsset investProposalVoteModalTemplate;
 
-    public FundsInvestProposalSubmitModal(VisualTreeAsset contentTemplate, VisualTreeAsset investProposalVoteModalTemplate) : base(contentTemplate) {
-        this.investProposalVoteModalTemplate = investProposalVoteModalTemplate;
+    protected override void Start() {
+        this.visualTreeAsset = ModalMap.Instance.FundsInvestProposalSubmitModalTemplate;
+        base.Start();
     }
 
-    protected override void InitializeContent() {
-        this.amountField = modalContent.Q<UnsignedIntegerField>("investment-proposal-value");
-        this.addAllFundingButton = modalContent.Q<Button>("add-all-funding-button");
-        this.submitProposalButton = modalContent.Q<Button>("propose-investment-button");
+    protected override void OnModalShown() {
+        this.amountField = modalElement.Q<UnsignedIntegerField>("investment-proposal-value");
+        this.addAllFundingButton = modalElement.Q<Button>("add-all-funding-button");
+        this.submitProposalButton = modalElement.Q<Button>("propose-investment-button");
 
         if (this.addAllFundingButton != null) {
             this.addAllFundingButton.clicked += OnAddAllFundingButtonClicked;
@@ -34,6 +36,6 @@ public class FundsInvestProposalSubmitModal : Modal {
     private void OnSubmitProposalButtonClicked() {
         Debug.Log("Investment proposal submitted with amount: " + this.amountField.value);
         // This is just a placeholder, the vote should be submitted to the server and then shown at a fitting time.
-        ModalManager.Instance.ShowModal(new InvestProposalVoteModal(this.investProposalVoteModalTemplate));
+        NewModalManager.Instance.Show(FindObjectsByType<NewInvestProposalVoteModal>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).FirstOrDefault(), true);
     }
 }

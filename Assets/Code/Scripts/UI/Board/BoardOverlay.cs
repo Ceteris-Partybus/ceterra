@@ -85,13 +85,18 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
 
         // Setup buttons
         this.resourcesButton = rootElement.Q<Button>("ui-buttons__resources");
-        if (this.resourcesButton == null) {
-            Debug.LogError("Resources button not found");
-        }
+        resourcesButton.clicked += () => {
+            NewModalManager.Instance.Show(FindObjectsByType<NewResourceModal>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).FirstOrDefault());
+        };
 
         this.fundsButton = rootElement.Q<Button>("ui-buttons__funds");
         fundsButton.clicked += () => {
             NewModalManager.Instance.Show(FindObjectsByType<NewFundsModal>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).FirstOrDefault());
+        };
+
+        this.investButton = rootElement.Q<Button>("ui-buttons__invest");
+        investButton.clicked += () => {
+            NewModalManager.Instance.Show(FindObjectsByType<NewInvestModal>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).FirstOrDefault());
         };
 
         this.resourceValueLabel = rootElement.Q<Label>("resources-value");
@@ -259,8 +264,8 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
             this.playerCoinsValue.text = newCoins.ToString();
         }
 
-        foreach (var modal in ModalManager.Instance.ActiveModals) {
-            if (modal.ModalContent.Q<Label>("coins-current-value") is Label coinsValue) {
+        foreach (var modal in NewModalManager.Instance.ModalStack) {
+            if (modal.ModalElement.Q<Label>("coins-current-value") is Label coinsValue) {
                 coinsValue.text = newCoins.ToString();
             }
         }
@@ -284,8 +289,8 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
             this.resourceValueLabel.text = value.ToString();
         }
 
-        foreach (var modal in ModalManager.Instance.ActiveModals) {
-            if (modal.ModalContent.Q<Label>("resource-current-value") is Label resourceValue) {
+        foreach (var modal in NewModalManager.Instance.ModalStack) {
+            if (modal.ModalElement.Q<Label>("resource-current-value") is Label resourceValue) {
                 resourceValue.text = value.ToString();
             }
         }
@@ -296,8 +301,8 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
             this.fundsValueLabel.text = value.ToString();
         }
 
-        foreach (var modal in ModalManager.Instance.ActiveModals) {
-            if (modal.ModalContent.Q<Label>("funds-current-value") is Label fundsValue) {
+        foreach (var modal in NewModalManager.Instance.ModalStack) {
+            if (modal.ModalElement.Q<Label>("funds-current-value") is Label fundsValue) {
                 fundsValue.text = value.ToString();
             }
         }

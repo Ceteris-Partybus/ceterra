@@ -10,6 +10,7 @@ public abstract class NewModal : NetworkBehaviour {
     [SerializeField] protected bool closeOnEscapeKey = true;
 
     protected VisualElement modalElement;
+    public VisualElement ModalElement => modalElement;
     protected VisualElement modalBoxWrapper;
     protected VisualElement modalBackground;
     protected VisualElement backgroundElement;
@@ -19,7 +20,7 @@ public abstract class NewModal : NetworkBehaviour {
     protected virtual void Start() {
         // Generate a unique modal ID if not set
         if (string.IsNullOrEmpty(modalId)) {
-            modalId = GetType().Name + "_" + GetInstanceID();
+            modalId = GetType().Name;
         }
 
         // Validate required components

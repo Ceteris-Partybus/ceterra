@@ -8,6 +8,7 @@ public class NewModalManager : NetworkedSingleton<NewModalManager> {
     [SerializeField] private int maxModalStackSize = 10;
 
     private Stack<NewModal> modalStack = new Stack<NewModal>();
+    public Stack<NewModal> ModalStack => modalStack;
     private VisualElement rootElement;
 
     protected override void Awake() {
