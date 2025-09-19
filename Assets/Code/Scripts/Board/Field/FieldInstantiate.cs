@@ -23,18 +23,18 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
         FillFieldTypeMap();
 
         var splines = splineContainer.Splines;
-        var linkCollection = splineContainer.KnotLinkCollection;
+        foreach (var (splineId, spline) in splines.Select((s, i) => (i, s))) {
+            var isclosed = spline.Closed;
+            var knots = spline.Knots;
+            var knotStart = isclosed ? 0 : 1;
+            var knotEnd = isclosed ? knots.Count() : knots.Count() - 1;
 
-        for (var splineId = 0; splineId < splines.Count(); splineId++) {
-            var isclosed = splines.ElementAt(splineId).Closed;
-            var knots = splines.ElementAt(splineId).Knots;
-            var knotId = isclosed ? 0 : 1;
-            var first = CreateField(new SplineKnotIndex(splineId, knotId));
+            var first = CreateField(splineId, knotStart++);
             fields.Add(first.SplineKnotIndex, first);
+
             var previous = first;
-            var knotCount = isclosed ? knots.Count() : knots.Count() - 1;
-            while (++knotId < knotCount) {
-                var current = CreateField(new SplineKnotIndex(splineId, knotId));
+            foreach (var knotId in Enumerable.Range(knotStart, knotEnd - knotStart)) {
+                var current = CreateField(splineId, knotId);
                 fields.Add(current.SplineKnotIndex, current);
                 previous.AddNext(current);
                 previous = current;
@@ -43,30 +43,14 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
                 previous.AddNext(first);
             }
         }
-
-        foreach ((var i, var currentField) in fields) {
-            var knotLinks = linkCollection.GetKnotLinks(i);
-            if (knotLinks != null) {
-                foreach (var link in knotLinks) {
-                    if (link != i) {
-                        if (link.Knot == 0) {
-                            fields.TryGetValue(new SplineKnotIndex(link.Spline, link.Knot + 1), out var nextField);
-                            currentField.AddNext(nextField);
-                        }
-                        if (link.Knot == splineContainer.Splines.ElementAt(link.Spline).Knots.Count() - 1) {
-                            fields.TryGetValue(new SplineKnotIndex(link.Spline, link.Knot - 1), out var previousField);
-                            previousField.AddNext(currentField);
-                        }
-                    }
-                }
-            }
-        }
-
+        LinkBranches();
         BoardContext.Instance.FieldBehaviourList = new FieldBehaviourList(fields);
     }
 
-    private FieldBehaviour CreateField(SplineKnotIndex i) {
-        if (!fieldTypeMap.TryGetValue(i, out var type)) {
+    private FieldBehaviour CreateField(int splineId, int knotId) {
+        var splineKnotIndex = new SplineKnotIndex(splineId, knotId);
+        Debug.LogWarning($"Create splineKnotIndex {splineKnotIndex}");
+        if (!fieldTypeMap.TryGetValue(splineKnotIndex, out var type)) {
             throw new Exception($"Field type for knot not found in fieldTypeMap.");
         }
 
@@ -78,12 +62,30 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
         };
 
-        var spline = splineContainer.Splines.ElementAt(i.Spline);
-        var absolutePosition = (float3)splineContainer.transform.position + spline.Knots.ElementAt(i.Knot).Position;
-        var normalizedPosition = spline.ConvertIndexUnit(i.Knot, PathIndexUnit.Knot, PathIndexUnit.Normalized);
+        var spline = splineContainer.Splines.ElementAt(splineId);
+        var absolutePosition = (float3)splineContainer.transform.position + spline.Knots.ElementAt(knotId).Position;
+        var normalizedPosition = spline.ConvertIndexUnit(knotId, PathIndexUnit.Knot, PathIndexUnit.Normalized);
         return Instantiate(prefab, absolutePosition, Quaternion.identity, splineContainer.transform)
                 .GetComponent<FieldBehaviour>()
-                .Initialize(type, i, normalizedPosition);
+                .Initialize(type, splineKnotIndex, normalizedPosition);
+    }
+
+    private void LinkBranches() {
+        var linkCollection = splineContainer.KnotLinkCollection;
+        foreach (var (i, currentField) in fields) {
+            var knotLinks = linkCollection.GetKnotLinks(i);
+            if (knotLinks == null) { continue; }
+
+            foreach (var link in knotLinks.Where(link => link != i)) {
+                if (link.Knot == 0) {
+                    fields.TryGetValue(new SplineKnotIndex(link.Spline, link.Knot + 1), out var nextField);
+                    currentField.AddNext(nextField);
+                    continue;
+                }
+                fields.TryGetValue(new SplineKnotIndex(link.Spline, link.Knot - 1), out var previousField);
+                previousField.AddNext(currentField);
+            }
+        }
     }
 
     // TODO: Placeholder, replace with actual logic later
