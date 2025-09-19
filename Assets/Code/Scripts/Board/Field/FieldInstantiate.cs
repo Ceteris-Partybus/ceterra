@@ -49,7 +49,6 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
 
     private FieldBehaviour CreateField(int splineId, int knotId) {
         var splineKnotIndex = new SplineKnotIndex(splineId, knotId);
-        Debug.LogWarning($"Create splineKnotIndex {splineKnotIndex}");
         if (!fieldTypeMap.TryGetValue(splineKnotIndex, out var type)) {
             throw new Exception($"Field type for knot not found in fieldTypeMap.");
         }
