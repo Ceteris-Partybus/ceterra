@@ -11,6 +11,8 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
     [SerializeField] private Transform particles;
     [SerializeField] private ParticleSystem coinGainParticle;
     [SerializeField] private ParticleSystem coinLossParticle;
+    [SerializeField] private ParticleSystem heartGainParticle;
+    [SerializeField] private ParticleSystem heartLossParticle;
     [SerializeField] private ParticleSystem diceHitParticle;
     [SerializeField] private ParticleSystem diceResultParticle;
 
@@ -55,6 +57,16 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
     public IEnumerator PlayCoinLossParticle() {
         coinLossParticle.Play();
         yield return new WaitWhile(() => coinLossParticle.isPlaying);
+    }
+
+    public IEnumerator PlayHeartGainParticle() {
+        heartGainParticle.Play();
+        yield return new WaitWhile(() => heartGainParticle.isPlaying);
+    }
+
+    public IEnumerator PlayHeartLossParticle() {
+        heartLossParticle.Play();
+        yield return new WaitWhile(() => heartLossParticle.isPlaying);
     }
 
     private void ShowDice() {

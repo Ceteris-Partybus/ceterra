@@ -163,7 +163,7 @@ public class BoardPlayer : SceneConditionalPlayer {
             BoardOverlay.Instance.UpdateRemotePlayerCoins(new_, PlayerId);
         }
         var diff = (int)new_ - (int)old;
-        if (diff > 0) {
+        if (diff >= 0) {
             StartCoroutine(visualHandler.PlayCoinGainParticle());
             return;
         }
@@ -177,6 +177,12 @@ public class BoardPlayer : SceneConditionalPlayer {
         else {
             BoardOverlay.Instance.UpdateRemotePlayerHealth(new_, PlayerId);
         }
+        var diff = (int)new_ - (int)old;
+        if (diff >= 0) {
+            StartCoroutine(visualHandler.PlayHeartGainParticle());
+            return;
+        }
+        StartCoroutine(visualHandler.PlayHeartLossParticle());
     }
 
     public override void OnStopClient() {
