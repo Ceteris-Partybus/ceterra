@@ -141,9 +141,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     [Server]
     public void OnPlayerMovementComplete(BoardPlayer player) {
-        if (currentState == State.PLAYER_MOVING &&
-            currentPlayerId == player.PlayerId) {
-
+        if (currentState == State.PLAYER_MOVING && currentPlayerId == player.PlayerId) {
             totalMovementsCompleted++;
 
             // Check if all players have had one movement

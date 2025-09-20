@@ -1,5 +1,6 @@
 using Unity.Cinemachine;
 using UnityEngine;
+using Mirror;
 
 public class CameraHandler : NetworkedSingleton<CameraHandler> {
     [Header("References")]
@@ -16,11 +17,21 @@ public class CameraHandler : NetworkedSingleton<CameraHandler> {
         SetupInitialPosition();
     }
 
-    public void OnRollStart() {
+    [ClientRpc]
+    public void RpcZoomIn() {
+        ZoomIn();
+    }
+
+    [ClientRpc]
+    public void RpcZoomOut() {
+        ZoomOut();
+    }
+
+    public void ZoomIn() {
         ZoomCamera(true);
     }
 
-    public void OnRollEnd() {
+    public void ZoomOut() {
         ZoomCamera(false);
     }
 
