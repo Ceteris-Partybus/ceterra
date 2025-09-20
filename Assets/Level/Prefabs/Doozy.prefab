@@ -5397,6 +5397,7 @@ MonoBehaviour:
   meshFilter: {fileID: 5172224235973035515}
   animator: {fileID: 5127181789975966508}
   playerCollider: {fileID: -3997500579556939084}
+  skinnedMeshRenderer: {fileID: 7585700981688611429}
 --- !u!1 &1519440671413165371
 GameObject:
   m_ObjectHideFlags: 0
@@ -50636,5 +50637,10 @@ MonoBehaviour:
 --- !u!4 &4173287131947472584 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 39e59d289fe81e649a320c897ab2fad4, type: 3}
+  m_PrefabInstance: {fileID: 4494812280710328611}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &7585700981688611429 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -2943923492859624634, guid: 39e59d289fe81e649a320c897ab2fad4, type: 3}
   m_PrefabInstance: {fileID: 4494812280710328611}
   m_PrefabAsset: {fileID: 0}

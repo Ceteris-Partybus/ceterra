@@ -9,6 +9,12 @@ public class PlayerAppearanceData
     public Material[] materials;
     public RuntimeAnimatorController animatorController;
     public Sprite icon; // For GUI display
+    
+    [Header("Skinned Mesh Support")]
+    public bool useSkinnedMesh;
+    public SkinnedMeshRenderer skinnedMeshPrefab; // Reference to a prefab with SkinnedMeshRenderer
+    public Mesh skinnedMesh;
+    public Material[] skinnedMaterials;
 }
 
 [CreateAssetMenu(fileName = "PlayerAppearanceController", menuName = "Game/Player Appearance Controller")]
