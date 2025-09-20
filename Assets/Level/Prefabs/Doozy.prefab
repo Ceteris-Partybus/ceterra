@@ -15674,7 +15674,7 @@ GameObject:
   - component: {fileID: 8796756399833606749}
   - component: {fileID: 5025183965535173864}
   m_Layer: 0
-  m_Name: HeartGainParticle
+  m_Name: HealthGainParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50126,8 +50126,8 @@ MonoBehaviour:
   particles: {fileID: 6260566232119685227}
   coinGainParticle: {fileID: 8344039122417785737}
   coinLossParticle: {fileID: 8129745241793133869}
-  heartGainParticle: {fileID: 8796756399833606749}
-  heartLossParticle: {fileID: 773896437005955996}
+  healthGainParticle: {fileID: 8796756399833606749}
+  healthLossParticle: {fileID: 773896437005955996}
   diceHitParticle: {fileID: 6015583873639797677}
   diceResultParticle: {fileID: 4009464247510309595}
   playerDice: {fileID: 432991988106241172}
@@ -50184,8 +50184,8 @@ MonoBehaviour:
   animator: {fileID: 5127181789975966508}
   coinGainTrigger: clap
   coinLossTrigger: angry
-  heartGainTrigger: clap
-  heartLossTrigger: pain
+  healthGainTrigger: clap
+  healthLossTrigger: pain
   runTrigger: run
   jumpTrigger: jump
   idleTrigger: idle
@@ -60106,7 +60106,7 @@ GameObject:
   - component: {fileID: 773896437005955996}
   - component: {fileID: 3909099356624283274}
   m_Layer: 0
-  m_Name: HeartLossParticle
+  m_Name: HealthLossParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
