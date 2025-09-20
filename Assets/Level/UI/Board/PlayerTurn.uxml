@@ -6,5 +6,6 @@
     </ui:VisualElement>
     <ui:VisualElement style="flex-grow: 1; position: absolute; width: 321px; top: 556px; left: 34px;">
         <ui:Button text="Würfeln" name="roll-dice-button" enabled="false" style="max-width: 200px; min-height: 50px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 32px; -unity-font-style: normal; background-color: rgb(84, 255, 76);" />
+        <ui:Button text="Board" name="board-button" enabled="false" style="max-width: 200px; min-height: 50px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 32px; -unity-font-style: normal; background-color: rgb(84, 255, 76);" />
     </ui:VisualElement>
 </ui:UXML>

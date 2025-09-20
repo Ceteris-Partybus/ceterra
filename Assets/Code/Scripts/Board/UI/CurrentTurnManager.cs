@@ -10,6 +10,7 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
     private UIDocument uiDocument;
     private Label currentPlayerNameLabel;
     private Button rollDiceButton;
+    private Button boardButton;
 
     protected override void Start() {
         base.Start();
@@ -22,6 +23,7 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
         rootElement = uiDocument.rootVisualElement;
         currentPlayerNameLabel = rootElement.Q<Label>("current-player-name");
         rollDiceButton = rootElement.Q<Button>("roll-dice-button");
+        boardButton = rootElement.Q<Button>("board-button");
 
         if (currentPlayerNameLabel == null) {
             Debug.LogError("currentPlayerNameLabel is null in CurrentTurnManager!");
@@ -39,6 +41,7 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
         }
 
         rollDiceButton.clicked += OnRollDiceButtonClicked;
+        boardButton.clicked += OnBoardButtonClicked;
     }
 
     private void OnRollDiceButtonClicked() {
@@ -59,6 +62,10 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
         }
     }
 
+    private void OnBoardButtonClicked() {
+        BoardContext.Instance.GetCurrentPlayer().CmdToggleBoardOverview();
+    }
+
     public void UpdateCurrentPlayerName(string playerName) {
         if (currentPlayerNameLabel != null) {
             currentPlayerNameLabel.text = playerName;
@@ -70,6 +77,7 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
             // Check if the local player is the current player
             bool isLocalPlayerTurn = IsLocalPlayerTurn(playerId);
             rollDiceButton.SetEnabled(isLocalPlayerTurn);
+            boardButton.SetEnabled(isLocalPlayerTurn);
             Debug.Log($"Setting button enabled to {isLocalPlayerTurn} for local player");
         }
     }
