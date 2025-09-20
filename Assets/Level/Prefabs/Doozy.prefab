@@ -5181,7 +5181,6 @@ MonoBehaviour:
   moveSpeed: 20
   movementLerp: 20
   rotationLerp: 10
-  animator: {fileID: 5127181789975966508}
   playerModel: {fileID: 4173287131947472584}
   coins: 0
   health: 0
@@ -40270,7 +40269,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6127872351071976084}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 1.25
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -50182,6 +50181,16 @@ MonoBehaviour:
   playerModel: {fileID: 4173287131947472584}
   jumpPower: 1
   jumpDuration: 0.4
+  animator: {fileID: 5127181789975966508}
+  coinGainTrigger: clap
+  coinLossTrigger: angry
+  heartGainTrigger: clap
+  heartLossTrigger: pain
+  runTrigger: run
+  jumpTrigger: jump
+  idleTrigger: idle
+  danceTrigger: dance
+  thinkTrigger: think
 --- !u!1 &6823813706703860864
 GameObject:
   m_ObjectHideFlags: 0
@@ -60126,7 +60135,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9107521153539797431}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 1.25
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0

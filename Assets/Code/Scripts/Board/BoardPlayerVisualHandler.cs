@@ -5,14 +5,16 @@ using TMPro;
 using UnityEngine.Splines;
 using DG.Tweening;
 using Unity.Cinemachine;
+using System;
+using Random = UnityEngine.Random;
 
 public class BoardPlayerVisualHandler : MonoBehaviour {
     [Header("Particles")]
     [SerializeField] private Transform particles;
     [SerializeField] private ParticleSystem coinGainParticle;
     [SerializeField] private ParticleSystem coinLossParticle;
-    [SerializeField] private ParticleSystem heartGainParticle;
-    [SerializeField] private ParticleSystem heartLossParticle;
+    [SerializeField] private ParticleSystem healthGainParticle;
+    [SerializeField] private ParticleSystem healthLossParticle;
     [SerializeField] private ParticleSystem diceHitParticle;
     [SerializeField] private ParticleSystem diceResultParticle;
 
@@ -36,6 +38,18 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
     [SerializeField] private int jumpPower = 1;
     [SerializeField] private float jumpDuration = .2f;
 
+    [Header("Animation Parameters")]
+    [SerializeField] private Animator animator;
+    [SerializeField] private string coinGainTrigger;
+    [SerializeField] private string coinLossTrigger;
+    [SerializeField] private string healthGainTrigger;
+    [SerializeField] private string healthLossTrigger;
+    [SerializeField] private string runTrigger;
+    [SerializeField] private string jumpTrigger;
+    [SerializeField] private string idleTrigger;
+    [SerializeField] private string danceTrigger;
+    [SerializeField] private string thinkTrigger;
+
     private bool diceSpinning;
     private float tiltTime = 0f;
 
@@ -49,24 +63,69 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
         HideDiceResultLabel();
     }
 
-    public IEnumerator PlayCoinGainParticle() {
+    public WaitWhile OnCoinGain() {
         coinGainParticle.Play();
-        yield return new WaitWhile(() => coinGainParticle.isPlaying);
+        animator.SetTrigger(coinGainTrigger);
+        return new WaitWhile(() => coinGainParticle.isPlaying || IsAnimationPlaying(coinGainTrigger));
     }
 
-    public IEnumerator PlayCoinLossParticle() {
+    public WaitWhile OnCoinLoss() {
         coinLossParticle.Play();
-        yield return new WaitWhile(() => coinLossParticle.isPlaying);
+        animator.SetTrigger(coinLossTrigger);
+        return new WaitWhile(() => coinLossParticle.isPlaying || IsAnimationPlaying(coinLossTrigger));
     }
 
-    public IEnumerator PlayHeartGainParticle() {
-        heartGainParticle.Play();
-        yield return new WaitWhile(() => heartGainParticle.isPlaying);
+    public WaitWhile OnHealthGain() {
+        healthGainParticle.Play();
+        animator.SetTrigger(healthGainTrigger);
+        return new WaitWhile(() => healthGainParticle.isPlaying || IsAnimationPlaying(healthGainTrigger));
     }
 
-    public IEnumerator PlayHeartLossParticle() {
-        heartLossParticle.Play();
-        yield return new WaitWhile(() => heartLossParticle.isPlaying);
+    public WaitWhile OnHealthLoss() {
+        healthLossParticle.Play();
+        animator.SetTrigger(healthLossTrigger);
+        return new WaitWhile(() => healthLossParticle.isPlaying || IsAnimationPlaying(healthLossTrigger));
+    }
+
+    public void OnRun() {
+        animator.SetTrigger(runTrigger);
+    }
+
+    public void OnJump() {
+        animator.SetTrigger(jumpTrigger);
+    }
+
+    public void OnIdle() {
+        animator.SetTrigger(idleTrigger);
+    }
+
+    public void OnDance() {
+        animator.SetTrigger(danceTrigger);
+    }
+
+    public void OnThink() {
+        animator.SetTrigger(thinkTrigger);
+    }
+
+    public WaitWhile TriggerBlockingAnimation(AnimationType animationType) {
+        return animationType switch {
+            AnimationType.COIN_GAIN => OnCoinGain(),
+            AnimationType.COIN_LOSS => OnCoinLoss(),
+            AnimationType.HEALTH_GAIN => OnHealthGain(),
+            AnimationType.HEALTH_LOSS => OnHealthLoss(),
+            _ => new WaitWhile(() => false)
+        };
+    }
+
+    public void TriggerAnimation(AnimationType animationType) {
+        (animationType switch {
+            AnimationType.JUMP => OnJump,
+            AnimationType.IDLE => OnIdle,
+            AnimationType.DANCE => OnDance,
+            AnimationType.THINK => OnThink,
+            AnimationType.RUN => OnRun,
+            _ => new Action(() => { })
+        }).Invoke();
     }
 
     private void ShowDice() {
@@ -158,17 +217,20 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
 
         ShowDice();
         playerDice.DOScale(0, .3f).From();
+        OnDance();
     }
 
     public void OnRollCancel() {
         diceSpinning = false;
         playerDice.DOComplete();
         playerDice.DOScale(0, .12f).OnComplete(() => HideDice());
+        OnIdle();
     }
 
     public void OnRollJump() {
         playerModel.DOComplete();
         playerModel.DOJump(transform.position, jumpPower, 1, jumpDuration);
+        OnJump();
     }
 
     public void OnRollDisplay(int roll) {
@@ -180,7 +242,7 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
         diceSpinning = false;
         SetDiceNumber(roll);
         playerDice.transform.eulerAngles = Vector3.zero;
-        Vector3 diceLocalPos = playerDice.localPosition;
+        var diceLocalPos = playerDice.localPosition;
         playerDice.DOLocalJump(diceLocalPos, .8f, 1, .25f);
         playerDice.DOPunchScale(Vector3.one / 4, .3f, 10, 1);
     }
@@ -197,5 +259,9 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
 
     public void CleanRotation() {
         particles.transform.rotation = Quaternion.identity;
+    }
+
+    private bool IsAnimationPlaying(string trigger) {
+        return animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).IsName(trigger);
     }
 }
