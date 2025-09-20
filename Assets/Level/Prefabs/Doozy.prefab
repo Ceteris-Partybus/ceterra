@@ -35287,7 +35287,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ab04b9bf5b616dc4b9c8a49e299ae292, type: 2}
+  - {fileID: 2100000, guid: 91b6ca1bfa4a6814a9f3ea9ce2dcb2cc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -45339,9 +45339,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  branchArrowPrefab: {fileID: 4160029262607009644, guid: 34c995e2318f501468807eaf18a2a918, type: 3}
+  branchArrowPrefab: {fileID: 7803521452796931048, guid: 729bde1ecc57b3c40a3f5637165575f2, type: 3}
   branchArrowRadius: 2
-  animator: {fileID: 5127181789975966508}
   playerModel: {fileID: 4173287131947472584}
   jumpPower: 1
   jumpDuration: 0.4
