@@ -13,6 +13,13 @@ public class CameraController : MonoBehaviour {
     private Transform currentTargetPlayer;
     private bool isTransitioning = false;
 
+    [SerializeField]
+    private float smoothTime = 0.3f;
+    private Vector3 velocity = Vector3.zero;
+    private Transform target;
+    private float lastPlayerCheckTime = 0f;
+    private const float PLAYER_CHECK_INTERVAL = 1f; // Check for player every 1 second
+
     void Start() {
         // Auto-find the main camera if not set and auto-detection is enabled
         if (autoFindCamera && targetCamera == null) {
@@ -44,6 +51,21 @@ public class CameraController : MonoBehaviour {
         if (currentTargetPlayer != null) {
             FollowTarget();
         }
+
+        // Check if target is still null, but not every frame to avoid spam
+        if (target == null) {
+            if (Time.time - lastPlayerCheckTime > PLAYER_CHECK_INTERVAL) {
+                GetCurrentPlayer();
+                lastPlayerCheckTime = Time.time;
+            }
+            return;
+        }
+
+        // Define a target position which replaces the Z component of object position
+        Vector3 targetPosition = new Vector3(target.position.x, target.position.y, transform.position.z);
+
+        // Smoothly move the camera towards that target position
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
     }
 
     private BoardPlayer GetCurrentPlayer() {

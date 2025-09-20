@@ -56,10 +56,17 @@ public class BoardPlayer : SceneConditionalPlayer {
     public const uint MAX_HEALTH = 100;
     private BoardPlayerVisualHandler visualHandler;
 
+    [Header("Appearance")]
+    [SerializeField] private PlayerAppearanceLinker appearanceLinker;
+
     protected void Start() {
         DontDestroyOnLoad(gameObject);
         splineContainer = FindFirstObjectByType<SplineContainer>();
         visualHandler = GetComponentInChildren<BoardPlayerVisualHandler>();
+        
+        // Initialize appearance linker
+        if (appearanceLinker == null)
+            appearanceLinker = GetComponent<PlayerAppearanceLinker>();
     }
 
     public override void OnStartServer() {

@@ -1229,9 +1229,23 @@ namespace Mirror
             // otherwise look in NetworkManager registered prefabs
             if (GetPrefab(message.assetId, out GameObject prefab))
             {
-                GameObject obj = GameObject.Instantiate(prefab, message.position, message.rotation);
-                //Debug.Log($"Client spawn handler instantiating [netId{message.netId} asset ID:{message.assetId} pos:{message.position} rotation:{message.rotation}]");
-                return obj.GetComponent<NetworkIdentity>();
+                try
+                {
+                    GameObject obj = GameObject.Instantiate(prefab, message.position, message.rotation);
+                    //Debug.Log($"Client spawn handler instantiating [netId{message.netId} asset ID:{message.assetId} pos:{message.position} rotation:{message.rotation}]");
+                    return obj.GetComponent<NetworkIdentity>();
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError($"Failed to instantiate prefab with assetId={message.assetId}: {ex.Message}\nThis might be because a component like PlayerAppearanceLinker depends on another component (e.g. MeshRenderer) that wasn't properly preserved during instantiation.");
+                    // Try to provide more context about the prefab
+                    if (prefab != null)
+                    {
+                        Component[] components = prefab.GetComponents<Component>();
+                        Debug.LogWarning($"Prefab '{prefab.name}' has the following components: {string.Join(", ", components.Select(c => c.GetType().Name))}");
+                    }
+                    return null;
+                }
             }
 
             Debug.LogError($"Failed to spawn server object, did you forget to add it to the NetworkManager? assetId={message.assetId} netId={message.netId}");

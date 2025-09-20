@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8727144781808983978}
   - component: {fileID: 2166314457688432621}
   - component: {fileID: -1004448468528375181}
+  - component: {fileID: 2447969056716122205}
   m_Layer: 0
   m_Name: LobbyPlayer
   m_TagString: Untagged
@@ -130,7 +131,8 @@ MonoBehaviour:
   showRoomGUI: 1
   readyToBegin: 0
   index: 0
-  isHidden: 0
+  selectedAppearanceIndex: 0
+  appearanceLinker: {fileID: 2447969056716122205}
 --- !u!114 &-1004448468528375181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,3 +150,22 @@ MonoBehaviour:
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
+--- !u!114 &2447969056716122205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2345556636884331670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16044ecebf7060c4c84d081afa787d3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  meshRenderer: {fileID: 5559157364601958420}
+  meshFilter: {fileID: 9167977562579277865}
+  animator: {fileID: 0}
+  playerCollider: {fileID: 8727144781808983978}

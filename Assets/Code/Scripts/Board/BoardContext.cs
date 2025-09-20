@@ -84,18 +84,49 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     protected override void Start() {
         base.Start();
-        currentPlayerId = GameManager.Singleton.PlayerIds[0];
-
+        
+        // Initialize stats first
         this.fundsStat = 0;
         this.resourceStat = 0;
         this.economyStat = 50;
         this.societyStat = 50;
         this.environmentStat = 50;
 
+        // Wait a frame to ensure all players are initialized
+        StartCoroutine(InitializeCurrentPlayer());
+
         // TODO: Remove, this is just for testing purposes
         if (isServer) {
             StartCoroutine(StartValuesIncrease());
         }
+    }
+
+    [Server]
+    private IEnumerator InitializeCurrentPlayer() {
+        // Wait a few frames to ensure all players are spawned and initialized
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+        
+        // Try to find any available player and set as current
+        var allPlayers = FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        if (allPlayers.Length > 0) {
+            currentPlayerId = allPlayers[0].PlayerId;
+            Debug.Log($"Initialized current player ID to {currentPlayerId}");
+            StartPlayerTurn();
+        } else {
+            Debug.LogWarning("No BoardPlayers found to initialize current player");
+        }
+    }
+
+    protected void OnDestroy() {
+        // Stop all coroutines to prevent issues during cleanup
+        StopAllCoroutines();
+    }
+
+    // Override OnDisable to ensure proper cleanup
+    protected void OnDisable() {
+        // Stop coroutines when disabled
+        StopAllCoroutines();
     }
 
     [ServerCallback]
@@ -132,6 +163,11 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     [Server]
     public void NextPlayerTurn() {
+        if (GameManager.Singleton?.PlayerIds == null || GameManager.Singleton.PlayerIds.Length == 0) {
+            Debug.LogWarning("Cannot advance to next player: PlayerIds is null or empty");
+            return;
+        }
+        
         int[] playerIds = GameManager.Singleton.PlayerIds;
         int indexInLobby = System.Array.IndexOf(playerIds, currentPlayerId);
         currentPlayerId = playerIds[(indexInLobby + 1) % playerIds.Length];
@@ -147,12 +183,14 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
             totalMovementsCompleted++;
 
             // Check if all players have had one movement
-            int totalPlayers = GameManager.Singleton.PlayerIds.Length;
-            if (totalMovementsCompleted >= totalPlayers) {
-                totalMovementsCompleted = 0;
-                // All players have moved at least once, start minigame
-                //GameManager.Singleton.StartMinigame("MgGarbage");
-                //return;
+            if (GameManager.Singleton?.PlayerIds != null && GameManager.Singleton.PlayerIds.Length > 0) {
+                int totalPlayers = GameManager.Singleton.PlayerIds.Length;
+                if (totalMovementsCompleted >= totalPlayers) {
+                    totalMovementsCompleted = 0;
+                    // All players have moved at least once, start minigame
+                    //GameManager.Singleton.StartMinigame("MgGarbage");
+                    //return;
+                }
             }
 
             NextPlayerTurn();
@@ -168,23 +206,48 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         if (newPlayer == null) {
             Debug.LogWarning($"No player found with ID {newPlayerId}");
             return;
-
         }
-        CurrentTurnManager.Instance.UpdateCurrentPlayerName(newPlayer.PlayerName);
-        CurrentTurnManager.Instance.AllowRollDiceButtonFor(newPlayerId);
+        
+        if (CurrentTurnManager.Instance != null) {
+            CurrentTurnManager.Instance.UpdateCurrentPlayerName(newPlayer.PlayerName);
+            CurrentTurnManager.Instance.AllowRollDiceButtonFor(newPlayerId);
+        }
+        Debug.Log($"Current player changed to {newPlayerId}");
     }
 
     public void OnStateChanged(State oldState, State newState) {
+        Debug.Log($"State changed from {oldState} to {newState}");
     }
 
     public bool IsPlayerTurn(BoardPlayer player) {
-        if (currentState != State.PLAYER_TURN) { return false; }
+        if (currentState != State.PLAYER_TURN) {
+            Debug.Log("Not player turn");
+            return false;
+        }
 
-        return player.PlayerId == currentPlayerId;
+        bool isTurn = player.PlayerId == currentPlayerId;
+        Debug.Log($"IsPlayerTurn: Player ID = {player.PlayerId}, Current player ID = {currentPlayerId}, Result = {isTurn}");
+        return isTurn;
     }
 
     public BoardPlayer GetCurrentPlayer() {
-        return GetPlayerById(currentPlayerId);
+        // First try to get player by current player ID
+        BoardPlayer player = GetPlayerById(currentPlayerId);
+        
+        // If no player found with current ID, try to find any available player
+        if (player == null) {
+            var allPlayers = FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+            if (allPlayers.Length > 0) {
+                player = allPlayers[0];
+                if (isServer) {
+                    // Update current player ID to match the found player
+                    currentPlayerId = player.PlayerId;
+                    Debug.Log($"Updated current player ID to {currentPlayerId}");
+                }
+            }
+        }
+        
+        return player;
     }
 
     public BoardPlayer GetLocalPlayer() {

@@ -55,8 +55,22 @@ public class GameManager : NetworkRoomManager {
         foreach (var scenePlayer in gamePlayer.GetComponents<SceneConditionalPlayer>()) {
             scenePlayer.SetPlayerData(lobbyPlayer.Id, lobbyPlayer.PlayerName);
         }
+        
+        // Transfer appearance data to game player
+        var gamePlayerLinker = gamePlayer.GetComponent<PlayerAppearanceLinker>();
+        if (gamePlayerLinker != null && lobbyPlayer != null)
+        {
+            // Use a coroutine to ensure the appearance is applied after the player is fully initialized
+            StartCoroutine(ApplyAppearanceAfterDelay(gamePlayerLinker, lobbyPlayer.SelectedAppearanceIndex));
+        }
 
         return true;
+    }
+
+    private System.Collections.IEnumerator ApplyAppearanceAfterDelay(PlayerAppearanceLinker linker, int appearanceIndex)
+    {
+        yield return new WaitForEndOfFrame();
+        linker.SetAppearance(appearanceIndex);
     }
 
     /// <summary>
