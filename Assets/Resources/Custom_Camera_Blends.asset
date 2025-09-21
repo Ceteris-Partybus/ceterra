@@ -17,7 +17,7 @@ MonoBehaviour:
     To: Zoom
     Blend:
       Style: 2
-      Time: 0.75
+      Time: 0.5
       CustomCurve:
         serializedVersion: 2
         m_Curve: []
@@ -28,7 +28,7 @@ MonoBehaviour:
     To: Player (Default)
     Blend:
       Style: 3
-      Time: 0.75
+      Time: 0.5
       CustomCurve:
         serializedVersion: 2
         m_Curve: []
