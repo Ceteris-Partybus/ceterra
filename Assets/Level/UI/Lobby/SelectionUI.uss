@@ -1,0 +1,85 @@
+#MainContainer {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-left: 50%;
+}
+
+.selector-box {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 600px;
+}
+
+.selector-button {
+    width: 80px;
+    height: 80px;
+    background-color: rgb(60, 80, 40);
+    color: white;
+    font-size: 24px;
+    border-width: 0;
+}
+
+#DicePreviousBtn, #CharacterPreviousBtn {
+    margin-right: 5px;
+}
+
+#DiceNextBtn, #CharacterNextBtn {
+    margin-left: 5px;
+}
+
+.selector-content {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(60, 60, 60);
+    padding: 20px;
+    flex-grow: 1;
+    height: 80px;
+}
+
+.selector-title {
+    font-size: 24px;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.selector-info {
+    font-size: 16px;
+    color: rgb(200, 200, 200);
+}
+
+.input-container {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.input-label {
+    color: white;
+    font-size: 18px;
+    margin-right: 15px;
+    width: 120px;
+}
+
+.player-input {
+    width: 250px;
+    height: 40px;
+    background-color: rgb(60, 80, 40);
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    border-width: 0;
+}
+
+
+.select-button {
+    width: 300px;
+    height: 50px;
+    background-color: rgb(80, 80, 80);
+    color: white;
+    font-size: 18px;
+    border-width: 0;
+}
