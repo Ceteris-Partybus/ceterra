@@ -34,7 +34,6 @@ public class BoardPlayer : SceneConditionalPlayer {
     [SerializeField] private float moveSpeed;
     [SerializeField] private float movementLerp;
     [SerializeField] private float rotationLerp;
-    [SerializeField] private Transform playerModel;
 
     [SyncVar(hook = nameof(OnNormalizedSplinePositionChanged))]
     private float normalizedSplinePosition;
@@ -70,7 +69,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     protected void Start() {
         DontDestroyOnLoad(gameObject);
         splineContainer = FindFirstObjectByType<SplineContainer>();
-        visualHandler = GetComponentInChildren<BoardPlayerVisualHandler>();
+        visualHandler = GetComponentInChildren<CharacterSelection>().SelectablePrefabs[CurrentActivePlayerModel].GetComponent<BoardPlayerVisualHandler>();
     }
 
     public override void OnStartServer() {
@@ -473,6 +472,10 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     private void FaceCamera() {
+        if (visualHandler == null) {
+            return;
+        }
+
         var directionToCamera = Camera.main.transform.position - transform.position;
         directionToCamera.y = 0;
         if (directionToCamera.sqrMagnitude > 0.0001f) {

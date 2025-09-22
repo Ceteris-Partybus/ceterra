@@ -252,14 +252,10 @@ MonoBehaviour:
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 1327792165429298674, guid: d2235388f7f89c743ae8613c0ad7ad57, type: 3}
+  playerPrefab: {fileID: 3676788033899490170, guid: ad018b65ef3689d41909299c8121550e, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 1
-  spawnPrefabs:
-  - {fileID: 2404444015749587495, guid: 79d611ea2e650774188fa6738dcf08a9, type: 3}
-  - {fileID: 3477816848428461303, guid: 60a489e9ace376e428e23b64a103028b, type: 3}
-  - {fileID: 7172665633344585209, guid: c22cfcc6515a47949a2b73f37b7b223f, type: 3}
-  - {fileID: 8492755588919212329, guid: 32885a6d742c88c4ab63d04ef7333fad, type: 3}
+  spawnPrefabs: []
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -277,7 +273,7 @@ MonoBehaviour:
   timeInterpolationGui: 0
   showRoomGUI: 1
   minPlayers: 1
-  roomPlayerPrefab: {fileID: 2166314457688432621, guid: 718e8970855b8c842bbc21318c50259c, type: 3}
+  roomPlayerPrefab: {fileID: 4830612802768388873, guid: 7ed4399adc2e75e438eb42c36b42c20d, type: 3}
   RoomScene: Assets/Level/Scenes/Lobby.unity
   GameplayScene: Assets/Level/Scenes/Board.unity
   _allPlayersReady: 0

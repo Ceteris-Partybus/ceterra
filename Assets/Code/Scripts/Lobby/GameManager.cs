@@ -18,7 +18,6 @@ public class GameManager : NetworkRoomManager {
     public override void OnRoomServerSceneChanged(string sceneName) {
         Debug.Log($"[Server] Scene changed to {sceneName}");
 
-        // Handle all scene conditional players
         foreach (var player in FindObjectsByType<SceneConditionalPlayer>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
             player.HandleSceneChange(sceneName);
         }
@@ -35,7 +34,6 @@ public class GameManager : NetworkRoomManager {
                 player.Hide();
             }
         }
-
         if (networkSceneName == GameplayScene) {
             foreach (var field in FindObjectsByType<FieldBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
                 field.Show();
@@ -53,7 +51,7 @@ public class GameManager : NetworkRoomManager {
 
         // Set player data on all scene conditional components
         foreach (var scenePlayer in gamePlayer.GetComponents<SceneConditionalPlayer>()) {
-            scenePlayer.SetPlayerData(lobbyPlayer.Id, lobbyPlayer.PlayerName);
+            scenePlayer.SetPlayerData(lobbyPlayer.Id, lobbyPlayer.PlayerName, 1);
         }
 
         return true;

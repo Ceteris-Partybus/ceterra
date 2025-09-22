@@ -1,6 +1,5 @@
 using Mirror;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LobbyPlayer : NetworkRoomPlayer {
 
@@ -10,8 +9,32 @@ public class LobbyPlayer : NetworkRoomPlayer {
     private string playerName;
     public string PlayerName => playerName;
 
+    [SyncVar(hook = nameof(OnChangeCurrentActivePlayerModel))]
+    private int currentActivePlayerModel = 0;
+    public int CurrentActivePlayerModel => currentActivePlayerModel;
+    private GameObject PlayerModel => GetComponentInChildren<CharacterSelection>().SelectablePrefabs[currentActivePlayerModel];
+
+    private void ChangeCurrentActivePlayerModel(int modelIndex) {
+        PlayerModel.SetActive(false);
+        currentActivePlayerModel = modelIndex;
+        PlayerModel.SetActive(true);
+        SetReferences();
+    }
+
+    private void OnChangeCurrentActivePlayerModel(int _, int newValue) {
+        ChangeCurrentActivePlayerModel(newValue);
+    }
+
+    private void SetReferences() {
+        var references = PlayerModel.GetComponent<CharacterReferences>();
+        gameObject.GetComponent<MeshRenderer>().material = references.material;
+        gameObject.GetComponent<MeshRenderer>().enabled = false;
+        gameObject.GetComponent<MeshCollider>().sharedMesh = references.mesh;
+    }
+
     public override void Start() {
         base.Start();
+        SetReferences();
 
         if (id == -1) {
             id = (int)netId;

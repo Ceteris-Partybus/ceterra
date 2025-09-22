@@ -1,3 +1,4 @@
+using Edgegap;
 using Mirror;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,14 @@ public abstract class SceneConditionalPlayer : NetworkBehaviour {
     public string PlayerName {
         get => playerName;
         private set => playerName = value;
+    }
+
+    [SyncVar(hook = nameof(OnCurrentActivePlayerModelChanged))]
+    [SerializeField]
+    private int currentActivePlayerModel = 0;
+    public int CurrentActivePlayerModel {
+        get => currentActivePlayerModel;
+        private set => currentActivePlayerModel = value;
     }
 
     [SyncVar(hook = nameof(OnActiveStateChanged))]
@@ -105,23 +114,25 @@ public abstract class SceneConditionalPlayer : NetworkBehaviour {
     }
 
     [Server]
-    public void SetPlayerData(int id, string name) {
+    public virtual void SetPlayerData(int id, string name, int modelIndex) {
         if (PlayerId == -1) {
             PlayerId = id;
         }
 
         PlayerName = name;
+        OnCurrentActivePlayerModelChanged(CurrentActivePlayerModel, modelIndex);
+        CurrentActivePlayerModel = modelIndex;
     }
     #endregion
 
     public void Hide() {
-        GetComponent<Renderer>().enabled = false;
-        GetComponent<Collider>().enabled = false;
+        var character = GetComponentInChildren<CharacterSelection>().SelectablePrefabs[CurrentActivePlayerModel];
+        character.SetActive(false);
     }
 
     public void Show() {
-        GetComponent<Renderer>().enabled = true;
-        GetComponent<Collider>().enabled = true;
+        var character = GetComponentInChildren<CharacterSelection>().SelectablePrefabs[CurrentActivePlayerModel];
+        character.SetActive(true);
     }
 
     #region Client Sync
@@ -129,6 +140,12 @@ public abstract class SceneConditionalPlayer : NetworkBehaviour {
         enabled = newValue;
         OnClientActiveStateChanged(newValue);
         Debug.Log($"[Client] {GetType().Name} on {name} is now {(newValue ? "active" : "inactive")}");
+    }
+
+    private void OnCurrentActivePlayerModelChanged(int oldValue, int newValue) {
+        var selectablePrefabs = GetComponentInChildren<CharacterSelection>().SelectablePrefabs;
+        selectablePrefabs[newValue].SetActive(true);
+        selectablePrefabs[oldValue].SetActive(false);
     }
     #endregion
 
