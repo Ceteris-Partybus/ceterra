@@ -9,12 +9,6 @@ public abstract class FieldBehaviour : NetworkBehaviour {
 
     [Header("Field Data")]
     [SyncVar]
-    [SerializeField] private int fieldId;
-
-    [SyncVar]
-    [SerializeField] private int splineId;
-
-    [SyncVar]
     [SerializeField] private FieldType type;
 
     [SerializeField] private List<FieldBehaviour> nextFields = new List<FieldBehaviour>();
@@ -23,21 +17,16 @@ public abstract class FieldBehaviour : NetworkBehaviour {
     [SerializeField] private SplineKnotIndex splineKnotIndex;
 
     [SyncVar]
-    [SerializeField] private Vector3 position;
-
-    [SyncVar]
     [SerializeField] private float normalizedSplinePosition;
 
     public event Action OnFieldInvocationComplete;
 
-    public void Initialize(int id, int splineId, FieldType type, SplineKnotIndex splineKnotIndex, Vector3 position, float normalizedSplinePosition) {
-        this.fieldId = id;
-        this.splineId = splineId;
+    public FieldBehaviour Initialize(FieldType type, SplineKnotIndex splineKnotIndex, float normalizedSplinePosition) {
         this.type = type;
         this.splineKnotIndex = splineKnotIndex;
-        this.position = position;
         this.normalizedSplinePosition = normalizedSplinePosition;
         SetColor();
+        return this;
     }
 
     public void AddNext(FieldBehaviour field) {
@@ -56,8 +45,10 @@ public abstract class FieldBehaviour : NetworkBehaviour {
         bool completed = false;
         Action completionHandler = () => completed = true;
         OnFieldInvocationComplete += completionHandler;
+        player.IsAnimationFinished = false;
         OnFieldInvoked(player);
-        yield return new WaitUntil(() => completed);
+
+        yield return new WaitUntil(() => completed && player.IsAnimationFinished);
 
         OnFieldInvocationComplete -= completionHandler;
     }
@@ -76,13 +67,10 @@ public abstract class FieldBehaviour : NetworkBehaviour {
     public void Show() {
         GetComponent<Renderer>().enabled = true;
     }
-
-    public int FieldId => fieldId;
-    public int SplineId => splineId;
     public FieldType Type => type;
     public IReadOnlyList<FieldBehaviour> Next => nextFields.AsReadOnly();
     public SplineKnotIndex SplineKnotIndex => splineKnotIndex;
-    public Vector3 Position => position;
+    public Vector3 Position => transform.position;
 
     public float NormalizedSplinePosition => normalizedSplinePosition;
 

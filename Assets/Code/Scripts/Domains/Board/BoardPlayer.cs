@@ -22,16 +22,19 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [Header("Movement")]
     [SyncVar]
+    private bool isRolling = false;
+
+    [SyncVar]
     private bool isMoving = false;
     private bool IsMoving {
         get => isMoving;
-        set { isMoving = value; animator.SetBool("IsRunning", value); }
+        set { isMoving = value; }
     }
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float movementLerp;
     [SerializeField] private float rotationLerp;
-    [SerializeField] private Animator animator;
+    [SerializeField] private Transform playerModel;
 
     [SyncVar(hook = nameof(OnNormalizedSplinePositionChanged))]
     private float normalizedSplinePosition;
@@ -55,6 +58,14 @@ public class BoardPlayer : SceneConditionalPlayer {
     public uint Health => health;
     public const uint MAX_HEALTH = 100;
     private BoardPlayerVisualHandler visualHandler;
+    private float zoomBlendTime = 0.5f;
+
+    [SyncVar]
+    private bool animationFinished = true;
+    public bool IsAnimationFinished {
+        get => animationFinished;
+        set { animationFinished = value; }
+    }
 
     protected void Start() {
         DontDestroyOnLoad(gameObject);
@@ -84,18 +95,46 @@ public class BoardPlayer : SceneConditionalPlayer {
         else {
             coins += amount;
         }
+        RpcTriggerBlockingAnimation(AnimationType.COIN_GAIN);
     }
 
     public void AddHealth(uint amount) {
         health = (uint)Mathf.Min(health + amount, MAX_HEALTH);
+        RpcTriggerBlockingAnimation(AnimationType.HEALTH_GAIN);
     }
 
     public void RemoveCoins(uint amount) {
         coins -= amount;
+        RpcTriggerBlockingAnimation(AnimationType.COIN_LOSS);
     }
 
     public void RemoveHealth(uint amount) {
         health -= amount;
+        RpcTriggerBlockingAnimation(AnimationType.HEALTH_LOSS);
+    }
+
+    [ClientRpc]
+    private void RpcTriggerBlockingAnimation(AnimationType animationType) {
+        IsAnimationFinished = false;
+        StartCoroutine(TriggerAnimationCoroutine());
+
+        IEnumerator TriggerAnimationCoroutine() {
+            var waitWhile = visualHandler.TriggerBlockingAnimation(animationType);
+            yield return null;
+            yield return waitWhile;
+
+            if (isLocalPlayer) { CmdAnimationComplete(); }
+        }
+    }
+
+    [ClientRpc]
+    private void RpcTriggerAnimation(AnimationType animationType) {
+        visualHandler.TriggerAnimation(animationType);
+    }
+
+    [Command]
+    private void CmdAnimationComplete() {
+        IsAnimationFinished = true;
     }
 
     public override bool ShouldBeActiveInScene(string sceneName) {
@@ -158,12 +197,6 @@ public class BoardPlayer : SceneConditionalPlayer {
         else {
             BoardOverlay.Instance.UpdateRemotePlayerCoins(new_, PlayerId);
         }
-        var diff = (int)new_ - (int)old;
-        if (diff > 0) {
-            StartCoroutine(visualHandler.PlayCoinGainParticle());
-            return;
-        }
-        StartCoroutine(visualHandler.PlayCoinLossParticle());
     }
 
     private void OnHealthChanged(uint old, uint new_) {
@@ -182,10 +215,19 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [Command]
     public void CmdRollDice() {
-        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving) {
+        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving || isRolling) {
             return;
         }
+        isRolling = true;
         RpcStartDiceRoll();
+    }
+
+    [Command]
+    public void CmdToggleBoardOverview() {
+        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving || isRolling) {
+            return;
+        }
+        RpcToggleBoardOverview();
     }
 
     [Command]
@@ -195,36 +237,65 @@ public class BoardPlayer : SceneConditionalPlayer {
         }
 
         var diceValue = Random.Range(1, 11);
-        StartCoroutine(WaitForJumpAnimationThenMove(diceValue));
+        StartCoroutine(StartRollSequence(diceValue));
+    }
+
+    [Command]
+    public void CmdRollDiceCancel() {
+        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving) {
+            return;
+        }
+
+        isRolling = false;
+        RpcEndDiceCancel();
     }
 
     [Server]
-    private IEnumerator WaitForJumpAnimationThenMove(int diceValue) {
-        animator.SetBool("IsJumping", true);
-        yield return new WaitForSeconds(0.7f);
-        RpcEndDiceRoll();
-        animator.SetBool("IsJumping", false);
+    private IEnumerator StartRollSequence(int diceValue) {
+        RpcOnRollJump();
+        yield return new WaitForSeconds(0.09f);
+
+        RpcShowDiceResultLabel(diceValue);
+        yield return new WaitForSeconds(0.5f);
+
+        isRolling = false;
+        RpcEndDiceRoll(diceValue);
+        yield return new WaitForSeconds(0.6f);
+
         BoardContext.Instance.ProcessDiceRoll(this, diceValue);
     }
 
     [ClientRpc]
+    private void RpcToggleBoardOverview() {
+        CameraHandler.Instance.ToggleBoardOverview();
+    }
+
+    [ClientRpc]
+    private void RpcOnRollJump() {
+        visualHandler.OnRollJump();
+    }
+
+    [ClientRpc]
+    private void RpcEndDiceCancel() {
+        CameraHandler.Instance.ZoomOut();
+        visualHandler.OnRollCancel();
+    }
+
+    [ClientRpc]
     private void RpcStartDiceRoll() {
-        visualHandler.StartDiceSpinning();
+        CameraHandler.Instance.ZoomIn();
+        visualHandler.OnRollStart();
     }
 
     [ClientRpc]
-    private void RpcEndDiceRoll() {
-        visualHandler.StopDiceSpinning();
+    private void RpcEndDiceRoll(int roll) {
+        CameraHandler.Instance.ZoomOut();
+        visualHandler.OnRollEnd(roll);
     }
 
     [ClientRpc]
-    private void RpcShowDiceResultLabel() {
-        visualHandler.ShowDiceResultLabel();
-    }
-
-    [ClientRpc]
-    private void RpcHideDiceResultLabel() {
-        visualHandler.HideDiceResultLabel();
+    private void RpcShowDiceResultLabel(int steps) {
+        visualHandler.OnRollDisplay(steps);
     }
 
     [ClientRpc]
@@ -232,11 +303,15 @@ public class BoardPlayer : SceneConditionalPlayer {
         visualHandler.DiceResultLabel = value;
     }
 
+    [ClientRpc]
+    private void RpcHideDiceResultLabel() {
+        visualHandler.HideDiceResultLabel();
+    }
+
     [Server]
     public void MoveToField(int steps) {
         if (!IsActiveForCurrentScene || IsMoving) { return; }
 
-        IsMoving = true;
         StartCoroutine(MoveAlongSplineCoroutine(steps));
     }
 
@@ -244,7 +319,10 @@ public class BoardPlayer : SceneConditionalPlayer {
     private IEnumerator MoveAlongSplineCoroutine(int steps) {
         var fieldBehaviourList = BoardContext.Instance.FieldBehaviourList;
         var remainingSteps = steps;
-        RpcShowDiceResultLabel();
+
+        IsMoving = true;
+
+        RpcTriggerAnimation(AnimationType.RUN);
         while (remainingSteps > 0) {
             RpcUpdateDiceResultLabel(remainingSteps.ToString());
             var nextFields = fieldBehaviourList.Find(splineKnotIndex).Next;
@@ -253,11 +331,13 @@ public class BoardPlayer : SceneConditionalPlayer {
             nextKnot = targetField.SplineKnotIndex;
             if (nextFields.Count > 1) {
                 IsMoving = false;
+                RpcTriggerAnimation(AnimationType.THINK);
                 isWaitingForBranchChoice = true;
                 TargetShowBranchArrows();
                 yield return new WaitUntil(() => !isWaitingForBranchChoice);
 
                 targetField = fieldBehaviourList.Find(nextKnot);
+                RpcTriggerAnimation(AnimationType.RUN);
                 IsMoving = true;
             }
             yield return StartCoroutine(ServerSmoothMoveToKnot(targetField));
@@ -266,10 +346,18 @@ public class BoardPlayer : SceneConditionalPlayer {
             yield return new WaitForSeconds(0.15f);
         }
 
+        RpcTriggerAnimation(AnimationType.IDLE);
         IsMoving = false;
         RpcHideDiceResultLabel();
+
+        CameraHandler.Instance.RpcZoomIn();
+        yield return new WaitForSeconds(zoomBlendTime);
+
         var finalField = fieldBehaviourList.Find(splineKnotIndex);
         yield return StartCoroutine(finalField.InvokeFieldAsync(this));
+
+        CameraHandler.Instance.RpcZoomOut();
+        yield return new WaitForSeconds(zoomBlendTime);
 
         BoardContext.Instance.OnPlayerMovementComplete(this);
     }
@@ -369,8 +457,18 @@ public class BoardPlayer : SceneConditionalPlayer {
 
         FaceCamera();
 
-        if (isLocalPlayer && visualHandler.IsDiceSpinning && Input.GetKeyDown(KeyCode.Space)) {
-            CmdEndRollDice();
+        if (isLocalPlayer) {
+            if (Input.GetKeyDown(KeyCode.Space) && visualHandler.IsDiceSpinning) {
+                CmdEndRollDice();
+            }
+            else if (Input.GetKeyDown(KeyCode.Escape)) {
+                if (visualHandler.IsDiceSpinning) {
+                    CmdRollDiceCancel();
+                }
+                else if (CameraHandler.Instance.IsShowingBoard) {
+                    CmdToggleBoardOverview();
+                }
+            }
         }
     }
 
