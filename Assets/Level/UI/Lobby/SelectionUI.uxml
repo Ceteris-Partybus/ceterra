@@ -1,14 +1,6 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Level/UI/Lobby/SelectionUI.uss?fileID=7433441132597879392&amp;guid=573f00564fa588c448f4da35f83007d9&amp;type=3#SelectionUI" />
     <ui:VisualElement name="MainContainer">
-        <ui:VisualElement name="DiceSelector" class="selector-box">
-            <ui:Button text="&lt;" name="DicePreviousBtn" class="selector-button" />
-            <ui:VisualElement class="selector-content">
-                <ui:Label text="Dice name" name="DiceNameLabel" class="selector-title" />
-                <ui:Label text="Values: 1,2,3,4,5,6" name="DiceInfoLabel" class="selector-info" />
-            </ui:VisualElement>
-            <ui:Button text="&gt;" name="DiceNextBtn" class="selector-button" />
-        </ui:VisualElement>
         <ui:VisualElement name="CharacterSelector" class="selector-box">
             <ui:Button text="&lt;" name="CharacterPreviousBtn" class="selector-button" />
             <ui:VisualElement class="selector-content">
@@ -16,6 +8,14 @@
                 <ui:Label text="Character info" name="CharacterInfoLabel" class="selector-info" />
             </ui:VisualElement>
             <ui:Button text="&gt;" name="CharacterNextBtn" class="selector-button" />
+        </ui:VisualElement>
+        <ui:VisualElement name="DiceSelector" class="selector-box">
+            <ui:Button text="&lt;" name="DicePreviousBtn" class="selector-button" />
+            <ui:VisualElement class="selector-content">
+                <ui:Label text="Dice name" name="DiceNameLabel" class="selector-title" />
+                <ui:Label text="Values: 1,2,3,4,5,6" name="DiceInfoLabel" class="selector-info" />
+            </ui:VisualElement>
+            <ui:Button text="&gt;" name="DiceNextBtn" class="selector-button" />
         </ui:VisualElement>
        <ui:VisualElement class="input-container">
             <ui:Label text="Player name" class="input-label" />
