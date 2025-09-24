@@ -1,55 +1,72 @@
 using Mirror;
+using System.Linq;
 using UnityEngine;
 
 public class LobbyPlayer : NetworkRoomPlayer {
-
-    private int id = -1;
-    public int Id => id;
+    public int Id => index;
 
     private string playerName;
     public string PlayerName => playerName;
 
-    [SyncVar(hook = nameof(OnChangeCurrentActivePlayerModel))]
-    private int currentActivePlayerModel = 0;
-    public int CurrentActivePlayerModel => currentActivePlayerModel;
-    private GameObject PlayerModel => GetComponentInChildren<CharacterSelection>().SelectablePrefabs[currentActivePlayerModel];
+    [SyncVar(hook = nameof(OnSelectedCharacterChanged))]
+    private int selectedCharacterIndex = -1;
+    public int SelectedCharacterIndex => selectedCharacterIndex;
+    private GameObject currentCharacterInstance;
 
-    private void ChangeCurrentActivePlayerModel(int modelIndex) {
-        PlayerModel.SetActive(false);
-        currentActivePlayerModel = modelIndex;
-        PlayerModel.SetActive(true);
-        SetReferences();
-    }
-
-    private void OnChangeCurrentActivePlayerModel(int _, int newValue) {
-        ChangeCurrentActivePlayerModel(newValue);
-    }
-
-    private void SetReferences() {
-        var references = PlayerModel.GetComponent<CharacterReferences>();
-        gameObject.GetComponent<MeshRenderer>().material = references.material;
-        gameObject.GetComponent<MeshRenderer>().enabled = false;
-        gameObject.GetComponent<MeshCollider>().sharedMesh = references.mesh;
-    }
+    [SyncVar(hook = nameof(OnSelectedDiceChanged))]
+    private int selectedDiceIndex = -1;
+    public int SelectedDiceIndex => selectedDiceIndex;
+    private GameObject currentDiceInstance;
+    private GameObject CharacterModel => GameManager.Singleton.GetCharacter(selectedCharacterIndex);
+    private GameObject DiceModel => GameManager.Singleton.GetDice(selectedDiceIndex);
 
     public override void Start() {
         base.Start();
-        SetReferences();
 
-        if (id == -1) {
-            id = (int)netId;
-        }
         if (string.IsNullOrEmpty(playerName)) {
-            playerName = $"Player[{id}]";
+            playerName = $"Player[{index}]";
         }
     }
 
     public override void OnClientEnterRoom() {
-        gameObject.transform.position = GameManager.singleton.GetStartPosition().position;
+        gameObject.transform.position = GameManager.Singleton.GetStartPosition().position;
     }
 
     public void Hide() {
         GetComponent<Renderer>().enabled = false;
         GetComponent<Collider>().enabled = false;
+    }
+
+    [Command]
+    public void CmdSetCharacterSelection(int characterIndex, int diceIndex) {
+        var characterHasChanged = characterIndex != selectedCharacterIndex;
+        if (characterHasChanged) {
+            selectedCharacterIndex = characterIndex;
+            ChangeSelectedCharacter();
+        }
+        if (diceIndex != selectedDiceIndex || characterHasChanged) {
+            selectedDiceIndex = diceIndex;
+            ChangeSelectedDice();
+        }
+    }
+
+    public void ChangeSelectedCharacter() {
+        if (currentCharacterInstance != null) { Destroy(currentCharacterInstance); }
+        currentCharacterInstance = Instantiate(CharacterModel, transform);
+        currentCharacterInstance.transform.localRotation = Quaternion.Euler(0, 180, 0);
+    }
+
+    public void OnSelectedCharacterChanged(int _old, int _new) {
+        ChangeSelectedCharacter();
+    }
+
+    public void ChangeSelectedDice() {
+        if (currentDiceInstance != null) { Destroy(currentDiceInstance); }
+        var dicePosition = currentCharacterInstance.GetComponentsInChildren<Transform>().FirstOrDefault(t => t.CompareTag("DicePosition"));
+        currentDiceInstance = Instantiate(DiceModel, dicePosition);
+    }
+
+    public void OnSelectedDiceChanged(int _old, int _new) {
+        ChangeSelectedDice();
     }
 }

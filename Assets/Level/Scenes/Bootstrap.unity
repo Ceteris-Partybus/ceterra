@@ -273,11 +273,17 @@ MonoBehaviour:
   timeInterpolationGui: 0
   showRoomGUI: 1
   minPlayers: 1
-  roomPlayerPrefab: {fileID: 4830612802768388873, guid: 7ed4399adc2e75e438eb42c36b42c20d, type: 3}
+  roomPlayerPrefab: {fileID: 4830612802768388873, guid: 952d626fe1f0ee74eab496a30b390b33, type: 3}
   RoomScene: Assets/Level/Scenes/Lobby.unity
   GameplayScene: Assets/Level/Scenes/Board.unity
   _allPlayersReady: 0
   clientIndex: 0
+  selectableCharacters:
+  - {fileID: 8313941121211207586, guid: b9eb311b0649fae41ad5ad962bc2eae8, type: 3}
+  - {fileID: 8695115523406977269, guid: f39a71aa5ffb54f459a1fb88bbd8c3f7, type: 3}
+  selectableDices:
+  - {fileID: 5754625222157326443, guid: ce1d4306273adfb43ad9b0da4a68151e, type: 3}
+  - {fileID: 5754625222157326443, guid: 29be8da3abdb685439646832481bfb5b, type: 3}
   minigameScenes:
   - MgGarbage
 --- !u!114 &1926814289

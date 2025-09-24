@@ -8,7 +8,15 @@ public class GameManager : NetworkRoomManager {
             return NetworkManager.singleton as GameManager;
         }
     }
+    [Header("Character Selection")]
+    [SerializeField] private GameObject[] selectableCharacters;
+    public int CharacterCount => selectableCharacters.Length;
+    public GameObject GetCharacter(int index) => selectableCharacters[index];
+    [SerializeField] private GameObject[] selectableDices;
+    public int DiceCount => selectableDices.Length;
+    public GameObject GetDice(int index) => selectableDices[index];
 
+    [Header("Minigames")]
     [SerializeField]
     private string[] minigameScenes;
     public string[] MinigameScenes => minigameScenes;

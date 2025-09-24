@@ -1,4 +1,5 @@
 using Mirror;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -7,19 +8,48 @@ public class PlayerHud : NetworkBehaviour {
     private Button characterSelectionButton;
 
     [Header("Character Selection")]
-    [SerializeField] private Camera characterSelectionCamera;
-    [SerializeField] private Camera mainCamera;
-    [SerializeField] private Canvas characterSelectionCanvas;
+    [SerializeField] private LobbyCameraHandler lobbyCameraHandler;
+    [SerializeField] private CharacterSelectionController characterSelectionController;
 
-    private void OnEnable() {
+    void Start() {
+        if (isServer) {
+            characterSelectionController.gameObject.SetActive(false);
+            StartCoroutine(lobbyCameraHandler.ToggleCharacterSelection());
+            return;
+        }
         this.characterSelectionButton = this.uiDocument.rootVisualElement.Q<Button>("CharacterSelectionBtn");
         this.characterSelectionButton.clicked += OnCharacterSelectionButtonClicked;
     }
 
-    public void OnCharacterSelectionButtonClicked() {
-        characterSelectionCamera.enabled = !characterSelectionCamera.enabled;
-        mainCamera.enabled = !mainCamera.enabled;
-        characterSelectionCanvas.enabled = !characterSelectionCanvas.enabled;
-        characterSelectionButton.text = characterSelectionCamera.enabled ? "x Close" : "Character Selection";
+    private void OnCharacterSelectionButtonClicked() {
+        if (lobbyCameraHandler.IsShowingLobby) {
+            ShowCharacterSelection();
+            return;
+        }
+        HideCharacterSelection();
+    }
+
+    private void ShowCharacterSelection() {
+        StartCoroutine(TransitionToCharacterSelection());
+
+        IEnumerator TransitionToCharacterSelection() {
+            characterSelectionButton.SetEnabled(false);
+            yield return StartCoroutine(lobbyCameraHandler.ToggleCharacterSelection());
+            characterSelectionButton.SetEnabled(true);
+            characterSelectionController.ToggleCharacterSelection();
+            characterSelectionButton.text = "x Close";
+        }
+    }
+
+    private void HideCharacterSelection() {
+        StartCoroutine(TransitionToLobby());
+
+        IEnumerator TransitionToLobby() {
+            characterSelectionButton.SetEnabled(false);
+            characterSelectionController.ToggleCharacterSelection();
+            yield return StartCoroutine(lobbyCameraHandler.ToggleCharacterSelection());
+            characterSelectionButton.SetEnabled(true);
+            characterSelectionButton.text = "Close Character Selection";
+        }
     }
 }
