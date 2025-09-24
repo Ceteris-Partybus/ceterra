@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6e26a501548c5c3408fe677284459d1b
+guid: 87f0362e7d7cd774a8bac56f42114ef6
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -31,11 +31,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: victory_idle
+      name: JunctionEntry
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 50
+      lastFrame: 194
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

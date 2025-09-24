@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f39e4ae15c664c64091e3720e5b20c64
+guid: 525b7a6452b283e48a672619afe2fd06
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -31,7 +31,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: pain
+      name: HealthLoss
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0

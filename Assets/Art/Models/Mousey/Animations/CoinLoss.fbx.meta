@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6b90712a6a456774b90fef7f2fe32b77
+guid: ad9fdcfd57ffe714cbe912aee2a28eae
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -31,11 +31,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: clap
+      name: CoinLoss
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 35
+      lastFrame: 98
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

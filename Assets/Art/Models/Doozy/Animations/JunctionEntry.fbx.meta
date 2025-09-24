@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f15a4176f514f10479918910fb132ea9
+guid: 064932f73cdc1f1438e769d43788103a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -31,11 +31,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: dance
+      name: JunctionEntry
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 460
+      lastFrame: 190
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
