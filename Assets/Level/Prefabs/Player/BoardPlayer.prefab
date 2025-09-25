@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 769855207147994158}
   - component: {fileID: 2846966920017188754}
   - component: {fileID: 7353643439254260286}
-  - component: {fileID: 3613776708591534332}
+  - component: {fileID: 1591609028840897619}
   m_Layer: 0
   m_Name: BoardPlayer
   m_TagString: Untagged
@@ -53,7 +53,6 @@ MonoBehaviour:
   syncInterval: 0
   playerId: -1
   playerName: 
-  currentActivePlayerModel: 0
   moveSpeed: 20
   movementLerp: 20
   rotationLerp: 10
@@ -76,7 +75,6 @@ MonoBehaviour:
   syncInterval: 0
   playerId: -1
   playerName: 
-  currentActivePlayerModel: 0
   score: 0
 --- !u!114 &2846966920017188754
 MonoBehaviour:
@@ -129,7 +127,7 @@ MonoBehaviour:
   rotationSensitivity: 0.01
   positionPrecision: 0.01
   scalePrecision: 0.01
---- !u!114 &3613776708591534332
+--- !u!114 &1591609028840897619
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,38 +139,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24583222dd374ba479a5004c358dd8f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particles: {fileID: 0}
-  coinGainParticle: {fileID: 0}
-  coinLossParticle: {fileID: 0}
-  healthGainParticle: {fileID: 0}
-  healthLossParticle: {fileID: 0}
-  diceHitParticle: {fileID: 0}
-  diceResultParticle: {fileID: 0}
-  playerDice: {fileID: 0}
-  rotationSpeed: 0
-  tiltAmplitude: 0
-  tiltFrequency: 0
-  numberAnimationSpeed: 0
-  numberLabels: []
-  diceResultLabel: {fileID: 0}
-  scaleEase:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   branchArrowPrefab: {fileID: 7803521452796931048, guid: 729bde1ecc57b3c40a3f5637165575f2, type: 3}
   branchArrowRadius: 2
-  playerModel: {fileID: 0}
-  jumpPower: 1
-  jumpDuration: 0.2
-  animator: {fileID: 0}
   coinGainTrigger: CoinGain
   coinLossTrigger: CoinLoss
   healthGainTrigger: HealthGain
   healthLossTrigger: HealthLoss
   runTrigger: Run
-  jumpTrigger: DiceJump
+  diceJumpTrigger: DiceJump
   idleTrigger: Idle
-  danceTrigger: DiceSpin
-  thinkTrigger: JunctionEntry
+  diceSpinTrigger: DiceSpin
+  junctionEntryTrigger: JunctionEntry

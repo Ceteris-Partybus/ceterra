@@ -27,14 +27,6 @@ public abstract class SceneConditionalPlayer : NetworkBehaviour {
         private set => playerName = value;
     }
 
-    [SyncVar(hook = nameof(OnCurrentActivePlayerModelChanged))]
-    [SerializeField]
-    private int currentActivePlayerModel = 0;
-    public int CurrentActivePlayerModel {
-        get => currentActivePlayerModel;
-        private set => currentActivePlayerModel = value;
-    }
-
     [SyncVar(hook = nameof(OnActiveStateChanged))]
     private bool isActiveForCurrentScene = false;
     public bool IsActiveForCurrentScene => isActiveForCurrentScene;
@@ -114,25 +106,19 @@ public abstract class SceneConditionalPlayer : NetworkBehaviour {
     }
 
     [Server]
-    public virtual void SetPlayerData(int id, string name, int modelIndex) {
+    public virtual void SetPlayerData(int id, string name) {
         if (PlayerId == -1) {
             PlayerId = id;
         }
 
         PlayerName = name;
-        OnCurrentActivePlayerModelChanged(CurrentActivePlayerModel, modelIndex);
-        CurrentActivePlayerModel = modelIndex;
     }
     #endregion
 
     public void Hide() {
-        var character = GetComponentInChildren<CharacterSelection>().SelectablePrefabs[CurrentActivePlayerModel];
-        character.SetActive(false);
     }
 
     public void Show() {
-        var character = GetComponentInChildren<CharacterSelection>().SelectablePrefabs[CurrentActivePlayerModel];
-        character.SetActive(true);
     }
 
     #region Client Sync
@@ -140,12 +126,6 @@ public abstract class SceneConditionalPlayer : NetworkBehaviour {
         enabled = newValue;
         OnClientActiveStateChanged(newValue);
         Debug.Log($"[Client] {GetType().Name} on {name} is now {(newValue ? "active" : "inactive")}");
-    }
-
-    private void OnCurrentActivePlayerModelChanged(int oldValue, int newValue) {
-        var selectablePrefabs = GetComponentInChildren<CharacterSelection>().SelectablePrefabs;
-        selectablePrefabs[newValue].SetActive(true);
-        selectablePrefabs[oldValue].SetActive(false);
     }
     #endregion
 

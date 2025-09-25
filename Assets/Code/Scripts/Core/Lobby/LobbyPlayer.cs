@@ -12,11 +12,14 @@ public class LobbyPlayer : NetworkRoomPlayer {
     private int selectedCharacterIndex = -1;
     public int SelectedCharacterIndex => selectedCharacterIndex;
     private GameObject currentCharacterInstance;
+    public GameObject CurrentCharacterInstance => currentCharacterInstance;
 
     [SyncVar(hook = nameof(OnSelectedDiceChanged))]
     private int selectedDiceIndex = -1;
     public int SelectedDiceIndex => selectedDiceIndex;
     private GameObject currentDiceInstance;
+    public GameObject CurrentDiceInstance => currentDiceInstance;
+
     private GameObject CharacterModel => GameManager.Singleton.GetCharacter(selectedCharacterIndex);
     private GameObject DiceModel => GameManager.Singleton.GetDice(selectedDiceIndex);
 
@@ -30,11 +33,6 @@ public class LobbyPlayer : NetworkRoomPlayer {
 
     public override void OnClientEnterRoom() {
         gameObject.transform.position = GameManager.Singleton.GetStartPosition().position;
-    }
-
-    public void Hide() {
-        GetComponent<Renderer>().enabled = false;
-        GetComponent<Collider>().enabled = false;
     }
 
     [Command]

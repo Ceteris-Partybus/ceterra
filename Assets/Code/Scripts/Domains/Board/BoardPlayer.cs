@@ -22,9 +22,6 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [Header("Movement")]
     [SyncVar]
-    private bool isRolling = false;
-
-    [SyncVar]
     private bool isMoving = false;
     private bool IsMoving {
         get => isMoving;
@@ -69,7 +66,6 @@ public class BoardPlayer : SceneConditionalPlayer {
     protected void Start() {
         DontDestroyOnLoad(gameObject);
         splineContainer = FindFirstObjectByType<SplineContainer>();
-        visualHandler = GetComponentInChildren<CharacterSelection>().SelectablePrefabs[CurrentActivePlayerModel].GetComponent<BoardPlayerVisualHandler>();
     }
 
     public override void OnStartServer() {
@@ -77,6 +73,28 @@ public class BoardPlayer : SceneConditionalPlayer {
 
         this.coins = 0;
         this.health = MAX_HEALTH;
+    }
+
+    [Server]
+    public void ServerTransferCharacterSelection(LobbyPlayer lobbyPlayer) {
+        TransferCharacterSelection(lobbyPlayer);
+        StartCoroutine(DelayedRpcTransfer());
+
+        IEnumerator DelayedRpcTransfer() {
+            yield return new WaitUntil(() => netIdentity != null && netIdentity.isActiveAndEnabled);
+            RpcTransferCharacterSelection(lobbyPlayer);
+        }
+    }
+
+    private void TransferCharacterSelection(LobbyPlayer lobbyPlayer) {
+        var character = lobbyPlayer.CurrentCharacterInstance;
+        character.transform.SetParent(transform, false);
+        visualHandler = GetComponent<BoardPlayerVisualHandler>().Initialize(character.GetComponent<Character>(), character.GetComponentInChildren<Dice>());
+    }
+
+    [ClientRpc]
+    private void RpcTransferCharacterSelection(LobbyPlayer lobbyPlayer) {
+        TransferCharacterSelection(lobbyPlayer);
     }
 
     [Command]
@@ -214,16 +232,15 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [Command]
     public void CmdRollDice() {
-        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving || isRolling) {
+        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving || visualHandler.IsDiceSpinning) {
             return;
         }
-        isRolling = true;
         RpcStartDiceRoll();
     }
 
     [Command]
     public void CmdToggleBoardOverview() {
-        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving || isRolling) {
+        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving || visualHandler.IsDiceSpinning) {
             return;
         }
         RpcToggleBoardOverview();
@@ -235,7 +252,8 @@ public class BoardPlayer : SceneConditionalPlayer {
             return;
         }
 
-        var diceValue = Random.Range(1, 11);
+        var diceValue = visualHandler.RandomDiceValue;
+        RpcStartRollSequence(diceValue);
         StartCoroutine(StartRollSequence(diceValue));
     }
 
@@ -244,24 +262,12 @@ public class BoardPlayer : SceneConditionalPlayer {
         if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving) {
             return;
         }
-
-        isRolling = false;
         RpcEndDiceCancel();
     }
 
-    [Server]
     private IEnumerator StartRollSequence(int diceValue) {
-        RpcOnRollJump();
-        yield return new WaitForSeconds(0.09f);
-
-        RpcShowDiceResultLabel(diceValue);
-        yield return new WaitForSeconds(0.5f);
-
-        isRolling = false;
-        RpcEndDiceRoll(diceValue);
-        yield return new WaitForSeconds(0.6f);
-
-        BoardContext.Instance.ProcessDiceRoll(this, diceValue);
+        yield return visualHandler.StartRollSequence(diceValue);
+        if (isServer) { BoardContext.Instance.ProcessDiceRoll(this, diceValue); }
     }
 
     [ClientRpc]
@@ -270,8 +276,8 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     [ClientRpc]
-    private void RpcOnRollJump() {
-        visualHandler.OnRollJump();
+    private void RpcStartRollSequence(int diceValue) {
+        StartCoroutine(StartRollSequence(diceValue));
     }
 
     [ClientRpc]
@@ -282,24 +288,12 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [ClientRpc]
     private void RpcStartDiceRoll() {
-        CameraHandler.Instance.ZoomIn();
         visualHandler.OnRollStart();
     }
 
     [ClientRpc]
-    private void RpcEndDiceRoll(int roll) {
-        CameraHandler.Instance.ZoomOut();
-        visualHandler.OnRollEnd(roll);
-    }
-
-    [ClientRpc]
-    private void RpcShowDiceResultLabel(int steps) {
-        visualHandler.OnRollDisplay(steps);
-    }
-
-    [ClientRpc]
     private void RpcUpdateDiceResultLabel(string value) {
-        visualHandler.DiceResultLabel = value;
+        visualHandler.DiceResultLabel(value);
     }
 
     [ClientRpc]
@@ -319,9 +313,8 @@ public class BoardPlayer : SceneConditionalPlayer {
         var fieldBehaviourList = BoardContext.Instance.FieldBehaviourList;
         var remainingSteps = steps;
 
-        IsMoving = true;
-
         RpcTriggerAnimation(AnimationType.RUN);
+        IsMoving = true;
         while (remainingSteps > 0) {
             RpcUpdateDiceResultLabel(remainingSteps.ToString());
             var nextFields = fieldBehaviourList.Find(splineKnotIndex).Next;
@@ -330,7 +323,7 @@ public class BoardPlayer : SceneConditionalPlayer {
             nextKnot = targetField.SplineKnotIndex;
             if (nextFields.Count > 1) {
                 IsMoving = false;
-                RpcTriggerAnimation(AnimationType.THINK);
+                RpcTriggerAnimation(AnimationType.JUNCTION_ENTRY);
                 isWaitingForBranchChoice = true;
                 TargetShowBranchArrows();
                 yield return new WaitUntil(() => !isWaitingForBranchChoice);
@@ -408,7 +401,7 @@ public class BoardPlayer : SceneConditionalPlayer {
             var worldDirection = splineContainer.transform.TransformDirection(direction);
 
             if (worldDirection.sqrMagnitude > 0.0001f) {
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(worldDirection, Vector3.up), rotationLerp * Time.deltaTime);
+                visualHandler.SetMovementRotation(Quaternion.LookRotation(worldDirection, Vector3.up), rotationLerp * Time.deltaTime);
             }
         }
     }
@@ -449,39 +442,19 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     void Update() {
-        if (IsMoving) {
-            MoveAndRotate();
-            return;
-        }
-
-        FaceCamera();
-
-        if (isLocalPlayer) {
-            if (Input.GetKeyDown(KeyCode.Space) && visualHandler.IsDiceSpinning) {
-                CmdEndRollDice();
-            }
-            else if (Input.GetKeyDown(KeyCode.Escape)) {
-                if (visualHandler.IsDiceSpinning) {
-                    CmdRollDiceCancel();
-                }
-                else if (CameraHandler.Instance.IsShowingBoard) {
-                    CmdToggleBoardOverview();
-                }
-            }
-        }
+        if (IsMoving) { MoveAndRotate(); return; }
+        if (isLocalPlayer) { HandleInput(); }
+        visualHandler?.MakeCharacterFaceCamera();
     }
 
-    private void FaceCamera() {
-        if (visualHandler == null) {
-            return;
-        }
+    private void HandleInput() {
+        var pressedSpaceToEndRoll = Input.GetKeyDown(KeyCode.Space) && visualHandler.IsDiceSpinning;
+        if (pressedSpaceToEndRoll) { CmdEndRollDice(); return; }
 
-        var directionToCamera = Camera.main.transform.position - transform.position;
-        directionToCamera.y = 0;
-        if (directionToCamera.sqrMagnitude > 0.0001f) {
-            var targetRotation = Quaternion.LookRotation(directionToCamera, Vector3.up);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationLerp * Time.deltaTime);
-        }
-        visualHandler.CleanRotation();
+        var pressedEscapeToCancelRoll = Input.GetKeyDown(KeyCode.Escape) && visualHandler.IsDiceSpinning;
+        if (pressedEscapeToCancelRoll) { CmdRollDiceCancel(); return; }
+
+        var pressedEscapeToCancelBoardOverview = Input.GetKeyDown(KeyCode.Escape) && CameraHandler.Instance.IsShowingBoard;
+        if (pressedEscapeToCancelBoardOverview) { CmdToggleBoardOverview(); return; }
     }
 }

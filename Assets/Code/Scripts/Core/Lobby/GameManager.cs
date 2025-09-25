@@ -21,7 +21,7 @@ public class GameManager : NetworkRoomManager {
     private string[] minigameScenes;
     public string[] MinigameScenes => minigameScenes;
 
-    public int[] PlayerIds => roomSlots.Select(slot => (int)slot.netId).ToArray();
+    public int[] PlayerIds => roomSlots.Select(slot => slot.index).ToArray();
 
     public override void OnRoomServerSceneChanged(string sceneName) {
         Debug.Log($"[Server] Scene changed to {sceneName}");
@@ -37,11 +37,6 @@ public class GameManager : NetworkRoomManager {
 
     public override void OnClientSceneChanged() {
         base.OnClientSceneChanged();
-        if (networkSceneName != RoomScene) {
-            foreach (var player in FindObjectsByType<LobbyPlayer>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
-                player.Hide();
-            }
-        }
         if (networkSceneName == GameplayScene) {
             foreach (var field in FindObjectsByType<FieldBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
                 field.Show();
@@ -57,12 +52,13 @@ public class GameManager : NetworkRoomManager {
     public override bool OnRoomServerSceneLoadedForPlayer(NetworkConnectionToClient conn, GameObject roomPlayer, GameObject gamePlayer) {
         var lobbyPlayer = roomPlayer.GetComponent<LobbyPlayer>();
 
-        // Set player data on all scene conditional components
         foreach (var scenePlayer in gamePlayer.GetComponents<SceneConditionalPlayer>()) {
-            scenePlayer.SetPlayerData(lobbyPlayer.Id, lobbyPlayer.PlayerName, 1);
+            scenePlayer.SetPlayerData(lobbyPlayer.Id, lobbyPlayer.PlayerName);
         }
 
-        return true;
+        gamePlayer.GetComponent<BoardPlayer>().ServerTransferCharacterSelection(lobbyPlayer);
+
+        return base.OnRoomServerSceneLoadedForPlayer(conn, roomPlayer, gamePlayer);
     }
 
     /// <summary>
