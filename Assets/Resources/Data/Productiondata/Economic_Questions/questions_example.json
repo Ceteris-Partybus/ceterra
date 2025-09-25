@@ -98,5 +98,395 @@
     ],
     "correctAnswerIndex": 1,
     "difficulty": "mittel"
+  },
+  {
+    "question": "Was ist der wichtigste Vorteil der Kreislaufwirtschaft?",
+    "answerOptions": [
+      "Ressourcen werden mehrfach genutzt",
+      "Arbeitsplätze werden reduziert",
+      "Produktionskosten steigen"
+    ],
+    "correctAnswerIndex": 0,
+    "difficulty": "leicht"
+  },
+  {
+    "question": "Welcher Energieträger ist am klimafreundlichsten?",
+    "answerOptions": [
+      "Kohle",
+      "Erdgas",
+      "Windkraft"
+    ],
+    "correctAnswerIndex": 2,
+    "difficulty": "leicht"
+  },
+  {
+    "question": "Was bedeutet 'Carbon Footprint'?",
+    "answerOptions": [
+      "Die Anzahl der Schritte pro Tag",
+      "Der CO2-Fußabdruck einer Person oder eines Produkts",
+      "Die Größe des Fußes"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Welche Transportart hat den geringsten CO2-Ausstoß pro Person?",
+    "answerOptions": [
+      "Flugzeug",
+      "Auto",
+      "Zug"
+    ],
+    "correctAnswerIndex": 2,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Was ist Fair Trade?",
+    "answerOptions": [
+      "Kostenloser Handel",
+      "Fairer Handel mit besseren Bedingungen für Produzenten",
+      "Schneller Handel"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "leicht"
+  },
+  {
+    "question": "Wie viel Wasser wird für die Herstellung einer Jeans benötigt?",
+    "answerOptions": [
+      "200 Liter",
+      "2.000 Liter",
+      "8.000 Liter"
+    ],
+    "correctAnswerIndex": 2,
+    "difficulty": "schwer"
+  },
+  {
+    "question": "Was ist das Ziel der Sustainable Development Goals (SDGs)?",
+    "answerOptions": [
+      "Nachhaltige Entwicklung bis 2030",
+      "Wirtschaftswachstum um jeden Preis",
+      "Bevölkerungsreduktion"
+    ],
+    "correctAnswerIndex": 0,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Welcher Sektor verursacht die meisten Treibhausgasemissionen weltweit?",
+    "answerOptions": [
+      "Verkehr",
+      "Energieerzeugung",
+      "Landwirtschaft"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Was ist 'Greenwashing'?",
+    "answerOptions": [
+      "Umweltfreundliches Waschen",
+      "Vorgetäuschte Umweltfreundlichkeit von Unternehmen",
+      "Grüne Farbe verwenden"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Welches Material ist am besten recycelbar?",
+    "answerOptions": [
+      "Plastik",
+      "Glas",
+      "Papier"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "leicht"
+  },
+  {
+    "question": "Was ist der Hauptgrund für die Abholzung des Regenwaldes?",
+    "answerOptions": [
+      "Holzgewinnung",
+      "Landwirtschaft und Viehzucht",
+      "Städtebau"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Wie viele Planeten würden wir brauchen, wenn alle Menschen so leben würden wie in Deutschland?",
+    "answerOptions": [
+      "2 Planeten",
+      "3 Planeten",
+      "5 Planeten"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "schwer"
+  },
+  {
+    "question": "Was ist der Unterschied zwischen Wetter und Klima?",
+    "answerOptions": [
+      "Wetter ist kurzfristig, Klima langfristig",
+      "Wetter ist warm, Klima ist kalt",
+      "Es gibt keinen Unterschied"
+    ],
+    "correctAnswerIndex": 0,
+    "difficulty": "leicht"
+  },
+  {
+    "question": "Welche Energiequelle hat die geringsten Umweltauswirkungen?",
+    "answerOptions": [
+      "Atomkraft",
+      "Solarenergie",
+      "Wasserkraft"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Was bedeutet 'Peak Oil'?",
+    "answerOptions": [
+      "Der höchste Ölpreis aller Zeiten",
+      "Der Zeitpunkt maximaler Ölförderung",
+      "Die beste Ölqualität"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "schwer"
+  },
+  {
+    "question": "Welcher Anteil der Weltbevölkerung hat keinen Zugang zu sauberem Trinkwasser?",
+    "answerOptions": [
+      "10%",
+      "25%",
+      "40%"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "schwer"
+  },
+  {
+    "question": "Was ist der größte Vorteil von Elektroautos?",
+    "answerOptions": [
+      "Sie sind billiger",
+      "Sie produzieren lokal keine Abgase",
+      "Sie fahren schneller"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "leicht"
+  },
+  {
+    "question": "Welches Land ist der größte CO2-Emittent weltweit?",
+    "answerOptions": [
+      "USA",
+      "China",
+      "Indien"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Was ist 'Urban Farming'?",
+    "answerOptions": [
+      "Landwirtschaft in der Stadt",
+      "Moderne Landmaschinen",
+      "Gentechnik in der Landwirtschaft"
+    ],
+    "correctAnswerIndex": 0,
+    "difficulty": "leicht"
+  },
+  {
+    "question": "Wie lange dauert es, bis eine Plastikflasche in der Natur vollständig abgebaut ist?",
+    "answerOptions": [
+      "50 Jahre",
+      "200 Jahre",
+      "450 Jahre"
+    ],
+    "correctAnswerIndex": 2,
+    "difficulty": "schwer"
+  },
+  {
+    "question": "Was ist der Hauptbestandteil von Biogas?",
+    "answerOptions": [
+      "Wasserstoff",
+      "Methan",
+      "Kohlendioxid"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Welche Aussage über erneuerbare Energien ist richtig?",
+    "answerOptions": [
+      "Sie sind unerschöpflich",
+      "Sie verursachen nie Umweltprobleme",
+      "Sie sind immer billiger als fossile Energien"
+    ],
+    "correctAnswerIndex": 0,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Was versteht man unter 'Sharing Economy'?",
+    "answerOptions": [
+      "Gemeinsame Nutzung von Ressourcen",
+      "Kostenlose Verteilung von Gütern",
+      "Staatliche Wirtschaftsplanung"
+    ],
+    "correctAnswerIndex": 0,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Welcher Wirtschaftssektor wächst durch die Digitalisierung am stärksten?",
+    "answerOptions": [
+      "Landwirtschaft",
+      "Dienstleistungen",
+      "Schwerindustrie"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "leicht"
+  },
+  {
+    "question": "Was ist das Hauptziel der Agenda 2030?",
+    "answerOptions": [
+      "Weltfrieden schaffen",
+      "Nachhaltige Entwicklung fördern",
+      "Weltwirtschaft stärken"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Welche Folge hat die Überfischung der Meere?",
+    "answerOptions": [
+      "Mehr Fische für alle",
+      "Zusammenbruch von Ökosystemen",
+      "Sauberes Meerwasser"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "leicht"
+  },
+  {
+    "question": "Was bedeutet 'Corporate Social Responsibility' (CSR)?",
+    "answerOptions": [
+      "Gewinnmaximierung",
+      "Gesellschaftliche Verantwortung von Unternehmen",
+      "Steueroptimierung"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Welche Auswirkung hat der Klimawandel auf die Landwirtschaft?",
+    "answerOptions": [
+      "Nur positive Effekte",
+      "Veränderte Wachstumsbedingungen und Ernteausfälle",
+      "Keine Auswirkungen"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "leicht"
+  },
+  {
+    "question": "Was ist der wichtigste Faktor für nachhaltigen Konsum?",
+    "answerOptions": [
+      "Nur teure Produkte kaufen",
+      "Bewusste Kaufentscheidungen treffen",
+      "Viel konsumieren"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "leicht"
+  },
+  {
+    "question": "Was ist der größte Vorteil von Secondhand-Kleidung?",
+    "answerOptions": [
+      "Sie ist immer modisch",
+      "Ressourcen werden gespart",
+      "Sie ist immer billiger"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "leicht"
+  },
+  {
+    "question": "Welche Auswirkung hat Fast Fashion auf die Umwelt?",
+    "answerOptions": [
+      "Positive Auswirkungen",
+      "Hoher Ressourcenverbrauch und Umweltverschmutzung",
+      "Keine Auswirkungen"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Was bedeutet 'Upcycling'?",
+    "answerOptions": [
+      "Gegenstände wegwerfen",
+      "Aus Abfall neue Produkte mit höherem Wert schaffen",
+      "Fahrrad fahren"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Welche Ernährungsweise hat den geringsten CO2-Fußabdruck?",
+    "answerOptions": [
+      "Nur Fleisch essen",
+      "Vegane Ernährung",
+      "Nur Milchprodukte"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Was ist 'Mikroplastik'?",
+    "answerOptions": [
+      "Sehr kleine Plastikpartikel in der Umwelt",
+      "Besonders starkes Plastik",
+      "Biologisch abbaubares Plastik"
+    ],
+    "correctAnswerIndex": 0,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Welcher Anteil der globalen Treibhausgasemissionen stammt aus der Tierhaltung?",
+    "answerOptions": [
+      "5%",
+      "15%",
+      "30%"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "schwer"
+  },
+  {
+    "question": "Was ist ein 'Ökologischer Fußabdruck'?",
+    "answerOptions": [
+      "Abdruck eines Tieres",
+      "Maß für den Ressourcenverbrauch",
+      "Größe des Gartens"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "leicht"
+  },
+  {
+    "question": "Welches ist KEIN Prinzip der nachhaltigen Entwicklung?",
+    "answerOptions": [
+      "Ökologische Verträglichkeit",
+      "Soziale Gerechtigkeit",
+      "Maximaler Profit"
+    ],
+    "correctAnswerIndex": 2,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Was versteht man unter 'Green Jobs'?",
+    "answerOptions": [
+      "Arbeitsplätze im Freien",
+      "Arbeitsplätze im Umwelt- und Klimaschutz",
+      "Arbeitsplätze in grünen Gebäuden"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "mittel"
+  },
+  {
+    "question": "Wie viel Prozent des weltweiten Energieverbrauchs stammen aus erneuerbaren Quellen?",
+    "answerOptions": [
+      "12%",
+      "28%",
+      "45%"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "schwer"
   }
 ]

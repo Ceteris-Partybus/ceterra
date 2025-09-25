@@ -1,0 +1,92 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" xsi:schemaLocation="UnityEngine.UIElements ../../../../UIElementsSchema/UnityEngine.UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="game-container" style="flex-grow: 1; width: 100%; height: 100%; background-color: rgb(70, 70, 75);">
+
+        <!-- Der Quiz-Screen -->
+        <ui:VisualElement name="quiz-screen" style="flex-grow: 1; width: 100%; height: 100%; flex-direction: column; justify-content: flex-start; display: flex;">
+
+            <!-- Der Countdown-Header -->
+            <ui:VisualElement name="header" style="width: 100%; height: 15%; flex-shrink: 0; flex-direction: row; justify-content: center; align-items: center; padding: 20px;">
+                <ui:VisualElement name="countdown-container" style="background-color: rgba(0, 0, 0, 0.4); border-radius: 20px; padding: 10px 30px;">
+                    <ui:Label name="countdown-label" text="..:.." style="-unity-font-definition: resource('UI/Other/Jersey15-Regular'); font-size: 70px; color: white;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="quizArea" style="flex-grow: 1; width: 90%; background-color: rgb(111, 111, 115); align-self: center; flex-direction: column; display: flex; border-top-left-radius: 30px; border-top-right-radius: 30px; margin-bottom: 2%;">
+
+                <ui:VisualElement name="Question" style="flex-shrink: 0; background-color: rgb(164, 154, 154); height: 200px; width: 95%; align-self: center; border-radius: 50px; flex-direction: column; margin-top: 2%; -unity-font-definition: resource('UI/Other/Jersey15-Regular'); font-size: 50px; justify-content: center;">
+                    <ui:Label name="questionLabel" text="Lade Frage ..." style="width: 100%; -unity-font-definition: resource('UI/Other/Jersey15-Regular'); font-size: 60px; -unity-text-align: middle-center; white-space: normal;" />
+                </ui:VisualElement>
+                
+                <ui:VisualElement name="Progressindicator" style="flex-shrink: 0; flex-direction: row; justify-content: center; margin-top: 1%; margin-bottom: 1%;">
+                    <ui:VisualElement name="progressDot0" style="background-color: rgb(164, 154, 154); width: 40px; height: 40px; border-radius: 100%; margin: 0 10px;" />
+                    <ui:VisualElement name="progressDot1" style="background-color: rgb(164, 154, 154); width: 40px; height: 40px; border-radius: 100%; margin: 0 10px;" />
+                    <ui:VisualElement name="progressDot2" style="background-color: rgb(164, 154, 154); width: 40px; height: 40px; border-radius: 100%; margin: 0 10px;" />
+                    <ui:VisualElement name="progressDot3" style="background-color: rgb(164, 154, 154); width: 40px; height: 40px; border-radius: 100%; margin: 0 10px;" />
+                    <ui:VisualElement name="progressDot4" style="background-color: rgb(164, 154, 154); width: 40px; height: 40px; border-radius: 100%; margin: 0 10px;" />
+                    <ui:VisualElement name="progressDot5" style="background-color: rgb(164, 154, 154); width: 40px; height: 40px; border-radius: 100%; margin: 0 10px;" />
+                </ui:VisualElement>
+                
+                <ui:VisualElement name="answerButtonsContainer" style="flex-grow: 1; justify-content: space-evenly; width: 95%; align-self: center; margin-bottom: 2%;">
+                    <ui:Button name="answerButton0" text="Lade Antwort ..." style="height: 100px; border-radius: 30px; background-color: rgb(77, 152, 157); -unity-font-definition: resource('UI/Other/Jersey15-Regular'); font-size: 40px;" />
+                    <ui:Button name="answerButton1" text="Lade Antwort ..." style="height: 100px; border-radius: 30px; background-color: rgb(77, 152, 157); -unity-font-definition: resource('UI/Other/Jersey15-Regular'); font-size: 40px;" />
+                    <ui:Button name="answerButton2" text="Lade Antwort ..." style="height: 100px; border-radius: 30px; background-color: rgb(77, 152, 157); -unity-font-definition: resource('UI/Other/Jersey15-Regular'); font-size: 40px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        
+        <!-- Der Wartescreen -->
+        <ui:VisualElement name="waiting-screen" style="position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center;">
+            <ui:VisualElement style="background-color: rgb(77, 77, 77); border-radius: 30px; padding: 40px 60px; align-items: center;">
+                <ui:Label name="waiting-label" text="Warten auf andere Spieler..." style="-unity-font-definition: resource('UI/Other/Jersey15-Regular'); font-size: 50px; color: white; -unity-text-align: middle-center;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        
+        <!-- Das Scoreboard -->
+        <ui:VisualElement name="scoreboard-screen" style="position: absolute; width: 100%; height: 100%; background-color: rgb(70, 70, 75); display: none; justify-content: center; align-items: center;">
+            <ui:VisualElement style="width: 80%; max-width: 1400px; height: 85%; background-color: rgb(111, 111, 115); border-radius: 30px; padding: 20px; flex-direction: column; align-items: center; justify-content: space-between;">
+                <ui:Label text="Endstand" style="-unity-font-definition: resource('UI/Other/Jersey15-Regular'); font-size: 80px; -unity-text-align: upper-center; margin-bottom: 20px;" />
+                <ui:VisualElement name="ranking-container" style="width: 95%; flex-grow: 1; justify-content: space-around;">
+                    <!-- Platz 1 -->
+                    <ui:VisualElement name="player-rank-1" style="flex-direction: row; align-items: center; background-color: rgba(212, 175, 55, 0.4); width: 100%; padding: 15px; border-radius: 20px;">
+                        <ui:Label text="#1" style="font-size: 60px; width: 10%; -unity-text-align: center;" />
+                        <ui:Label name="player-name-1" text="Spieler Alpha" style="font-size: 45px; width: 40%;" />
+                        <ui:Label name="player-score-1" text="6/6" style="font-size: 45px; width: 15%; -unity-text-align: center;" />
+                        <ui:VisualElement name="player-reward-1" style="width: 35%; flex-direction: row; justify-content: flex-end; align-items: center;">
+                            <ui:Label text="+100 Coins" style="font-size: 40px;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <!-- Platz 2 -->
+                    <ui:VisualElement name="player-rank-2" style="flex-direction: row; align-items: center; background-color: rgba(192, 192, 192, 0.4); width: 100%; padding: 15px; border-radius: 20px;">
+                        <ui:Label text="#2" style="font-size: 60px; width: 10%; -unity-text-align: center;" />
+                        <ui:Label name="player-name-2" text="Spieler Beta" style="font-size: 45px; width: 40%;" />
+                        <ui:Label name="player-score-2" text="5/6" style="font-size: 45px; width: 15%; -unity-text-align: center;" />
+                        <ui:VisualElement name="player-reward-2" style="width: 35%; flex-direction: row; justify-content: flex-end; align-items: center;">
+                            <ui:Label text="+50 Coins" style="font-size: 40px;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <!-- Platz 3 -->
+                    <ui:VisualElement name="player-rank-3" style="flex-direction: row; align-items: center; background-color: rgba(205, 127, 50, 0.4); width: 100%; padding: 15px; border-radius: 20px;">
+                        <ui:Label text="#3" style="font-size: 60px; width: 10%; -unity-text-align: center;" />
+                        <ui:Label name="player-name-3" text="Spieler Gamma" style="font-size: 45px; width: 40%;" />
+                        <ui:Label name="player-score-3" text="3/6" style="font-size: 45px; width: 15%; -unity-text-align: center;" />
+                        <ui:VisualElement name="player-reward-3" style="width: 35%; flex-direction: row; justify-content: flex-end; align-items: center;">
+                            <ui:Label text="+25 Coins" style="font-size: 40px;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    
+                    <!-- Platz 4 -->
+                    <ui:VisualElement name="player-rank-4" style="flex-direction: row; align-items: center; background-color: rgba(100, 100, 100, 0.4); width: 100%; padding: 15px; border-radius: 20px; display: flex;">
+                        <ui:Label text="#4" style="font-size: 60px; width: 10%; -unity-text-align: center;" />
+                        <ui:Label name="player-name-4" text="Spieler Delta" style="font-size: 45px; width: 40%;" />
+                        <ui:Label name="player-score-4" text="1/6" style="font-size: 45px; width: 15%; -unity-text-align: center;" />
+                        <ui:VisualElement name="player-reward-4" style="width: 35%; flex-direction: row; justify-content: flex-end; align-items: center;">
+                            <ui:Label text="+10 XP" style="font-size: 40px;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -284,6 +284,7 @@ MonoBehaviour:
   clientIndex: 0
   minigameScenes:
   - MgGarbage
+  - MgQuizduel
 --- !u!114 &1926814289
 MonoBehaviour:
   m_ObjectHideFlags: 0
