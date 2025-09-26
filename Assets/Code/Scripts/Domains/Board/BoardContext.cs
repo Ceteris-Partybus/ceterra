@@ -149,7 +149,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
             if (totalMovementsCompleted >= totalPlayers) {
                 totalMovementsCompleted = 0;
                 // All players have moved at least once, start minigame
-                GameManager.Singleton.StartMinigame("MgGarbage");
+                GameManager.Singleton.StartMinigame("MgQuizduel");
                 return;
             }
 

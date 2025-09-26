@@ -172,6 +172,9 @@ public class BoardPlayer : SceneConditionalPlayer {
         else if (source is MgGarbagePlayer garbagePlayer) {
             AddCoins((uint)Math.Max(0, garbagePlayer.Score));
         }
+        else if (source is MgQuizduelPlayer quizDuelPlayer) {
+            AddCoins((uint)Math.Max(0, quizDuelPlayer.EarnedCoinReward));
+        }
     }
 
     protected override void OnClientActiveStateChanged(bool isActive) {
