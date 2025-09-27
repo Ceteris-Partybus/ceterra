@@ -24,8 +24,6 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
 
     private Character character;
     private Dice dice;
-    public int RandomDiceValue => dice.RandomValue;
-    public bool IsDiceSpinning => dice.IsSpinning;
     public string DiceResultLabel(string value) => dice.ResultLabel(value);
 
     public BoardPlayerVisualHandler Initialize(Character character, Dice dice) {

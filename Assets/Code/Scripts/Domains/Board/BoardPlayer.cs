@@ -4,7 +4,6 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Splines;
-using Random = UnityEngine.Random;
 using Unity.Mathematics;
 
 public class BoardPlayer : SceneConditionalPlayer {
@@ -23,10 +22,6 @@ public class BoardPlayer : SceneConditionalPlayer {
     [Header("Movement")]
     [SyncVar]
     private bool isMoving = false;
-    private bool IsMoving {
-        get => isMoving;
-        set { isMoving = value; }
-    }
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float movementLerp;
@@ -63,6 +58,9 @@ public class BoardPlayer : SceneConditionalPlayer {
         set { animationFinished = value; }
     }
 
+    private Character character;
+    private Dice dice;
+
     protected void Start() {
         DontDestroyOnLoad(gameObject);
         splineContainer = FindFirstObjectByType<SplineContainer>();
@@ -87,9 +85,10 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     private void TransferCharacterSelection(LobbyPlayer lobbyPlayer) {
-        var character = lobbyPlayer.CurrentCharacterInstance;
-        character.transform.SetParent(transform, false);
-        visualHandler = GetComponent<BoardPlayerVisualHandler>().Initialize(character.GetComponent<Character>(), character.GetComponentInChildren<Dice>());
+        this.character = lobbyPlayer.CurrentCharacterInstance.GetComponent<Character>();
+        this.character.transform.SetParent(transform, false);
+        this.dice = lobbyPlayer.CurrentDiceInstance.GetComponent<Dice>();
+        visualHandler = GetComponent<BoardPlayerVisualHandler>().Initialize(this.character, this.dice);
     }
 
     [ClientRpc]
@@ -162,7 +161,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     protected override void OnServerInitialize() {
         Debug.Log($"[Server] BoardPlayer {name} initialized for board scene");
         // Initialize board-specific state
-        IsMoving = false;
+        isMoving = false;
         // Set spawn position, etc.
         Vector3 spawnPosition = BoardContext.Instance.FieldBehaviourList.Find(splineKnotIndex).Position;
         spawnPosition.y += 1f;
@@ -174,7 +173,7 @@ public class BoardPlayer : SceneConditionalPlayer {
         Debug.Log($"[Server] BoardPlayer {name} cleaned up");
         // Stop any ongoing movement
         StopAllCoroutines();
-        IsMoving = false;
+        isMoving = false;
     }
 
     [Server]
@@ -232,7 +231,7 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [Command]
     public void CmdRollDice() {
-        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving || visualHandler.IsDiceSpinning) {
+        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving || dice.IsSpinning) {
             return;
         }
         RpcStartDiceRoll();
@@ -240,7 +239,7 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [Command]
     public void CmdToggleBoardOverview() {
-        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving || visualHandler.IsDiceSpinning) {
+        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving || dice.IsSpinning) {
             return;
         }
         RpcToggleBoardOverview();
@@ -252,7 +251,7 @@ public class BoardPlayer : SceneConditionalPlayer {
             return;
         }
 
-        var diceValue = visualHandler.RandomDiceValue;
+        var diceValue = dice.RandomValue;
         RpcStartRollSequence(diceValue);
         StartCoroutine(StartRollSequence(diceValue));
     }
@@ -303,7 +302,7 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [Server]
     public void MoveToField(int steps) {
-        if (!IsActiveForCurrentScene || IsMoving) { return; }
+        if (!IsActiveForCurrentScene || isMoving) { return; }
 
         StartCoroutine(MoveAlongSplineCoroutine(steps));
     }
@@ -314,7 +313,7 @@ public class BoardPlayer : SceneConditionalPlayer {
         var remainingSteps = steps;
 
         RpcTriggerAnimation(AnimationType.RUN);
-        IsMoving = true;
+        isMoving = true;
         while (remainingSteps > 0) {
             RpcUpdateDiceResultLabel(remainingSteps.ToString());
             var nextFields = fieldBehaviourList.Find(splineKnotIndex).Next;
@@ -322,7 +321,7 @@ public class BoardPlayer : SceneConditionalPlayer {
             var targetField = nextFields.First();
             nextKnot = targetField.SplineKnotIndex;
             if (nextFields.Count > 1) {
-                IsMoving = false;
+                isMoving = false;
                 RpcTriggerAnimation(AnimationType.JUNCTION_ENTRY);
                 isWaitingForBranchChoice = true;
                 TargetShowBranchArrows();
@@ -330,7 +329,7 @@ public class BoardPlayer : SceneConditionalPlayer {
 
                 targetField = fieldBehaviourList.Find(nextKnot);
                 RpcTriggerAnimation(AnimationType.RUN);
-                IsMoving = true;
+                isMoving = true;
             }
             yield return StartCoroutine(ServerSmoothMoveToKnot(targetField));
             SplineKnotIndex = nextKnot;
@@ -339,7 +338,7 @@ public class BoardPlayer : SceneConditionalPlayer {
         }
 
         RpcTriggerAnimation(AnimationType.IDLE);
-        IsMoving = false;
+        isMoving = false;
         RpcHideDiceResultLabel();
 
         CameraHandler.Instance.RpcZoomIn();
@@ -396,7 +395,7 @@ public class BoardPlayer : SceneConditionalPlayer {
 
         transform.position = Vector3.Lerp(transform.position, targetPosition, 1f - movementBlend);
 
-        if (IsMoving) {
+        if (isMoving) {
             splineContainer.Splines[splineKnotIndex.Spline].Evaluate(normalizedSplinePosition, out float3 _, out float3 direction, out float3 _);
             var worldDirection = splineContainer.transform.TransformDirection(direction);
 
@@ -442,16 +441,16 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     void Update() {
-        if (IsMoving) { MoveAndRotate(); return; }
+        if (isMoving) { MoveAndRotate(); return; }
         if (isLocalPlayer) { HandleInput(); }
         visualHandler?.MakeCharacterFaceCamera();
     }
 
     private void HandleInput() {
-        var pressedSpaceToEndRoll = Input.GetKeyDown(KeyCode.Space) && visualHandler.IsDiceSpinning;
+        var pressedSpaceToEndRoll = Input.GetKeyDown(KeyCode.Space) && dice.IsSpinning;
         if (pressedSpaceToEndRoll) { CmdEndRollDice(); return; }
 
-        var pressedEscapeToCancelRoll = Input.GetKeyDown(KeyCode.Escape) && visualHandler.IsDiceSpinning;
+        var pressedEscapeToCancelRoll = Input.GetKeyDown(KeyCode.Escape) && dice.IsSpinning;
         if (pressedEscapeToCancelRoll) { CmdRollDiceCancel(); return; }
 
         var pressedEscapeToCancelBoardOverview = Input.GetKeyDown(KeyCode.Escape) && CameraHandler.Instance.IsShowingBoard;
