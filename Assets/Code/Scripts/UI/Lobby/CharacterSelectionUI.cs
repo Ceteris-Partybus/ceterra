@@ -3,26 +3,16 @@ using UnityEngine.UIElements;
 
 public class CharacterSelectionUI : MonoBehaviour {
     [SerializeField] private UIDocument selectionUI;
-    private Button previousDiceBtn;
-    public Button PreviousDiceBtn => previousDiceBtn;
-    private Button nextDiceBtn;
-    public Button NextDiceBtn => nextDiceBtn;
-    private Label diceNameLabel;
-    public Label DiceNameLabel => diceNameLabel;
-    private Label diceInfoLabel;
-    public Label DiceInfoLabel => diceInfoLabel;
-    private Button previousCharacterBtn;
-    public Button PreviousCharacterBtn => previousCharacterBtn;
-    private Button nextCharacterBtn;
-    public Button NextCharacterBtn => nextCharacterBtn;
-    private Label characterNameLabel;
-    public Label CharacterNameLabel => characterNameLabel;
-    private Label characterInfoLabel;
-    public Label CharacterInfoLabel => characterInfoLabel;
-    private TextField playerNameInput;
-    public TextField PlayerNameInput => playerNameInput;
-    private Button confirmChoiceBtn;
-    public Button ConfirmChoiceBtn => confirmChoiceBtn;
+    public Button previousDiceBtn;
+    public Button nextDiceBtn;
+    public Label diceNameLabel;
+    public Label diceInfoLabel;
+    public Button previousCharacterBtn;
+    public Button nextCharacterBtn;
+    public Label characterNameLabel;
+    public Label characterInfoLabel;
+    public TextField playerNameInput;
+    public Button confirmSelectionBtn;
 
     void OnEnable() {
         var root = selectionUI.rootVisualElement;
@@ -35,6 +25,6 @@ public class CharacterSelectionUI : MonoBehaviour {
         characterNameLabel = root.Q<Label>("CharacterNameLabel");
         characterInfoLabel = root.Q<Label>("CharacterInfoLabel");
         playerNameInput = root.Q<TextField>("PlayerNameInput");
-        confirmChoiceBtn = root.Q<Button>("SelectButton");
+        confirmSelectionBtn = root.Q<Button>("SelectButton");
     }
 }

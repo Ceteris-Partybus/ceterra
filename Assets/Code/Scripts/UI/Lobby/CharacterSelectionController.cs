@@ -1,13 +1,16 @@
+using System;
 using System.Linq;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.UIElements;
+using System.Text.RegularExpressions;
 
 public class CharacterSelectionController : MonoBehaviour {
     [Header("References")]
     [SerializeField] private GameObject selectionUi;
     [SerializeField] private CinemachineCamera characterSelectionCamera;
     [SerializeField] private CharacterSelectionUI characterSelectionUI;
-
+    private string playerName;
     private GameObject[] characterInstances;
     private int currentCharacterIndex = 0;
     private GameObject currentCharacter;
@@ -21,10 +24,12 @@ public class CharacterSelectionController : MonoBehaviour {
     [SerializeField] private Transform characterPosition;
     [SerializeField] private Transform dicePosition;
 
+    public Action OnRequestBackToLobby;
+
     void Start() {
         var characterCount = GameManager.Singleton.CharacterCount;
         characterInstances = new GameObject[characterCount];
-        for (int i = 0; i < characterCount; i++) {
+        for (var i = 0; i < characterCount; i++) {
             characterInstances[i] = Instantiate(GameManager.Singleton.GetCharacter(i), characterPosition.position, Quaternion.identity, characterPosition);
             var targetPosition = characterSelectionCamera.transform.position;
             targetPosition.y = characterInstances[i].transform.position.y;
@@ -33,7 +38,7 @@ public class CharacterSelectionController : MonoBehaviour {
         }
         var diceCount = GameManager.Singleton.DiceCount;
         diceInstances = new GameObject[diceCount];
-        for (int i = 0; i < diceCount; i++) {
+        for (var i = 0; i < diceCount; i++) {
             diceInstances[i] = Instantiate(GameManager.Singleton.GetDice(i), dicePosition.position, Quaternion.identity, dicePosition);
             diceInstances[i].SetActive(i == 0);
         }
@@ -44,21 +49,31 @@ public class CharacterSelectionController : MonoBehaviour {
     }
 
     private void setListeners() {
-        characterSelectionUI.PreviousCharacterBtn.clicked += OnPreviousCharacter;
-        characterSelectionUI.PreviousCharacterBtn.clicked += UpdateCharacterInfo;
+        characterSelectionUI.previousCharacterBtn.clicked += OnPreviousCharacter;
+        characterSelectionUI.previousCharacterBtn.clicked += OnCharacterChanged;
 
-        characterSelectionUI.NextCharacterBtn.clicked += OnNextCharacter;
-        characterSelectionUI.NextCharacterBtn.clicked += UpdateCharacterInfo;
+        characterSelectionUI.nextCharacterBtn.clicked += OnNextCharacter;
+        characterSelectionUI.nextCharacterBtn.clicked += OnCharacterChanged;
 
-        characterSelectionUI.PreviousDiceBtn.clicked += OnPreviousDice;
-        characterSelectionUI.PreviousDiceBtn.clicked += UpdateDiceInfo;
+        characterSelectionUI.previousDiceBtn.clicked += OnPreviousDice;
+        characterSelectionUI.previousDiceBtn.clicked += OnDiceChanged;
 
-        characterSelectionUI.NextDiceBtn.clicked += OnNextDice;
-        characterSelectionUI.NextDiceBtn.clicked += UpdateDiceInfo;
+        characterSelectionUI.nextDiceBtn.clicked += OnNextDice;
+        characterSelectionUI.nextDiceBtn.clicked += OnDiceChanged;
 
-        characterSelectionUI.ConfirmChoiceBtn.clicked += OnConfirmChoice;
-        UpdateCharacterInfo();
-        UpdateDiceInfo();
+        characterSelectionUI.confirmSelectionBtn.clicked += OnSelectionConfirmed;
+
+        characterSelectionUI.playerNameInput.RegisterValueChangedCallback(e => OnPlayerNameChanged(e.newValue));
+        characterSelectionUI.playerNameInput.value = playerName;
+
+        OnCharacterChanged();
+        OnDiceChanged();
+    }
+
+    private void OnPlayerNameChanged(string newValue) {
+        playerName = Regex.Replace(newValue ?? "", @"\s+", " ");
+        characterSelectionUI.playerNameInput.SetValueWithoutNotify(playerName);
+        characterSelectionUI.confirmSelectionBtn.SetEnabled(!string.IsNullOrWhiteSpace(playerName));
     }
 
     private void OnNextDice() {
@@ -91,23 +106,25 @@ public class CharacterSelectionController : MonoBehaviour {
         currentCharacter.SetActive(true);
     }
 
-    private void OnConfirmChoice() {
+    private void OnSelectionConfirmed() {
+        playerName = playerName.Trim();
         GameManager.Singleton.roomSlots
              .OfType<LobbyPlayer>()
              .FirstOrDefault(player => player.isLocalPlayer)
-             .CmdSetCharacterSelection(currentCharacterIndex, currentDiceIndex);
+             .CmdSetCharacterSelection(currentCharacterIndex, currentDiceIndex, playerName);
+        OnRequestBackToLobby?.Invoke();
     }
 
-    private void UpdateDiceInfo() {
+    private void OnDiceChanged() {
         var dice = CurrentDice;
-        characterSelectionUI.DiceNameLabel.text = dice.DiceName;
-        characterSelectionUI.DiceInfoLabel.text = string.Join(", ", dice.Values);
+        characterSelectionUI.diceNameLabel.text = dice.DiceName;
+        characterSelectionUI.diceInfoLabel.text = string.Join(", ", dice.Values);
     }
 
-    private void UpdateCharacterInfo() {
+    private void OnCharacterChanged() {
         var character = CurrentCharacter;
-        characterSelectionUI.CharacterNameLabel.text = character.CharacterName;
-        characterSelectionUI.CharacterInfoLabel.text = character.Info;
+        characterSelectionUI.characterNameLabel.text = character.CharacterName;
+        characterSelectionUI.characterInfoLabel.text = character.Info;
     }
 
     public void ToggleCharacterSelection() {

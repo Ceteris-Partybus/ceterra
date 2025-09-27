@@ -19,6 +19,7 @@ public class PlayerHud : NetworkBehaviour {
         }
         this.characterSelectionButton = this.uiDocument.rootVisualElement.Q<Button>("CharacterSelectionBtn");
         this.characterSelectionButton.clicked += OnCharacterSelectionButtonClicked;
+        characterSelectionController.OnRequestBackToLobby += HideCharacterSelection;
     }
 
     private void OnCharacterSelectionButtonClicked() {
