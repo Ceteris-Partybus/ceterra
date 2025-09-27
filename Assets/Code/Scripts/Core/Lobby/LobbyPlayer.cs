@@ -3,14 +3,15 @@ using System.Linq;
 using UnityEngine;
 
 public class LobbyPlayer : NetworkRoomPlayer {
+    private const int INVALID_INDEX = -1;
     public int Id => index;
     [SyncVar] private string playerName;
     public string PlayerName => playerName;
-    private int selectedCharacterIndex = -1;
+    [SyncVar(hook = nameof(OnSelectedCharacterChanged))] private int selectedCharacterIndex = INVALID_INDEX;
     public int SelectedCharacterIndex => selectedCharacterIndex;
     private GameObject currentCharacterInstance;
     public GameObject CurrentCharacterInstance => currentCharacterInstance;
-    private int selectedDiceIndex = -1;
+    [SyncVar(hook = nameof(OnSelectedDiceChanged))] private int selectedDiceIndex = INVALID_INDEX;
     public int SelectedDiceIndex => selectedDiceIndex;
     private GameObject currentDiceInstance;
     public GameObject CurrentDiceInstance => currentDiceInstance;
@@ -24,39 +25,53 @@ public class LobbyPlayer : NetworkRoomPlayer {
 
     [Command]
     public void CmdSetCharacterSelection(int characterIndex, int diceIndex, string playerName) {
-        var characterHasChanged = characterIndex != selectedCharacterIndex;
-        if (characterHasChanged) {
-            ChangeSelectedCharacter(characterIndex);
-            RpcChangeSelectedCharacter(characterIndex);
-        }
-        if (diceIndex != selectedDiceIndex || characterHasChanged) {
-            ChangeSelectedDice(diceIndex);
-            RpcChangeSelectedDice(diceIndex);
-        }
+        this.selectedCharacterIndex = characterIndex;
+        this.selectedDiceIndex = diceIndex;
         this.playerName = playerName;
     }
 
-    public void ChangeSelectedCharacter(int characterIndex) {
-        if (currentCharacterInstance != null) { Destroy(currentCharacterInstance); }
-        selectedCharacterIndex = characterIndex;
+    [Command]
+    private void CmdChangeSelectedCharacter() {
+        ChangeSelectedCharacter();
+    }
+
+    [Command]
+    private void CmdChangeSelectedDice() {
+        ChangeSelectedDice();
+    }
+
+    private void OnSelectedCharacterChanged(int _old, int _new) {
+        ChangeSelectedCharacter();
+        if (isLocalPlayer) { CmdChangeSelectedCharacter(); }
+    }
+
+    private void OnSelectedDiceChanged(int _old, int _new) {
+        ChangeSelectedDice();
+        if (isLocalPlayer) { CmdChangeSelectedDice(); }
+    }
+
+    private void ChangeSelectedCharacter() {
+        if (currentCharacterInstance != null) {
+            DetachDiceFromCharacter();
+            Destroy(currentCharacterInstance);
+        }
         currentCharacterInstance = Instantiate(CharacterModel, transform);
         currentCharacterInstance.transform.localRotation = Quaternion.Euler(0, 180, 0);
+        AttachDiceToCharacter();
     }
 
-    [ClientRpc]
-    public void RpcChangeSelectedCharacter(int characterIndex) {
-        ChangeSelectedCharacter(characterIndex);
-    }
-
-    public void ChangeSelectedDice(int diceIndex) {
+    private void ChangeSelectedDice() {
         if (currentDiceInstance != null) { Destroy(currentDiceInstance); }
-        selectedDiceIndex = diceIndex;
-        var dicePosition = currentCharacterInstance.GetComponentsInChildren<Transform>().FirstOrDefault(t => t.CompareTag("DicePosition"));
-        currentDiceInstance = Instantiate(DiceModel, dicePosition);
+        currentDiceInstance = Instantiate(DiceModel);
+        AttachDiceToCharacter();
     }
 
-    [ClientRpc]
-    public void RpcChangeSelectedDice(int diceIndex) {
-        ChangeSelectedDice(diceIndex);
+    private void AttachDiceToCharacter() {
+        var dicePosition = currentCharacterInstance.GetComponentsInChildren<Transform>().FirstOrDefault(t => t.CompareTag("DicePosition"));
+        currentDiceInstance?.transform.SetParent(dicePosition, false);
+    }
+
+    private void DetachDiceFromCharacter() {
+        currentDiceInstance?.transform.SetParent(null, false);
     }
 }
