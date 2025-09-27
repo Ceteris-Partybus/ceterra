@@ -400,7 +400,7 @@ public class BoardPlayer : SceneConditionalPlayer {
             var worldDirection = splineContainer.transform.TransformDirection(direction);
 
             if (worldDirection.sqrMagnitude > 0.0001f) {
-                visualHandler.SetMovementRotation(Quaternion.LookRotation(worldDirection, Vector3.up), rotationLerp * Time.deltaTime);
+                visualHandler.SetMovementRotation(Quaternion.LookRotation(worldDirection, Vector3.up), rotationLerp);
             }
         }
     }
