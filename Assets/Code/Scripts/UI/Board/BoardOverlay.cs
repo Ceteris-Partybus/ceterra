@@ -9,7 +9,6 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
 
     [SerializeField] private UIDocument uiDocument;
 
-
     [Header("Player")]
     [SerializeField] private VisualTreeAsset playerCardTemplate;
 
@@ -141,6 +140,11 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         else {
             return "health-bar--red";
         }
+    }
+
+    [ClientCallback]
+    public void UpdateLocalPlayerName(string playerName) {
+        this.playerNameLabel.text = playerName;
     }
 
     public void UpdateLocalPlayerHealth(uint newHealth) {

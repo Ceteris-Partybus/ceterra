@@ -188,6 +188,7 @@ public class BoardPlayer : SceneConditionalPlayer {
             BoardOverlay.Instance.UpdateRemotePlayerCoins(coins, PlayerId);
         }
         else if (isLocalPlayer && isActive) {
+            BoardOverlay.Instance.UpdateLocalPlayerName(PlayerName);
             BoardOverlay.Instance.UpdateLocalPlayerHealth(health);
             BoardOverlay.Instance.UpdateLocalPlayerCoins(coins);
         }
