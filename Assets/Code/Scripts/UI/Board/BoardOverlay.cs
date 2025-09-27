@@ -1,3 +1,5 @@
+using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,19 +9,7 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
 
     [SerializeField] private UIDocument uiDocument;
 
-    [Header("Modals")]
-    [Header("Resources")]
-    [SerializeField] private VisualTreeAsset resourcesModalTemplate;
-    [SerializeField] private VisualTreeAsset resourceHistoryModalTemplate;
-    [Header("Funds")]
-    [SerializeField] private VisualTreeAsset fundsModalTemplate;
-    [SerializeField] private VisualTreeAsset fundsHistoryModalTemplate;
-    [SerializeField] private VisualTreeAsset fundsDepositModalTemplate;
-    [SerializeField] private VisualTreeAsset fundsInvestProposalModalTemplate;
-    [SerializeField] private VisualTreeAsset fundsInvestProposalSubmitModalTemplate;
-    [SerializeField] private VisualTreeAsset investProposalVoteModalTemplate;
-    [Header("Investions")]
-    [SerializeField] private VisualTreeAsset investModalTemplate;
+
     [Header("Player")]
     [SerializeField] private VisualTreeAsset playerCardTemplate;
 
@@ -47,147 +37,40 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
 
     private void OnEnable() {
         this.rootElement = this.uiDocument.rootVisualElement;
-        if (rootElement == null) {
-            Debug.LogError("UIDocument or root visual element is null");
-            return;
-        }
-
-        // Find the client player card
         var clientPlayerCard = rootElement.Q<TemplateContainer>("client-player-card")?
             .Q<VisualElement>("player-card");
-
-        if (clientPlayerCard == null) {
-            Debug.LogError("Client player card not found");
-            return;
-        }
-
-        // Setup player name
         this.playerNameLabel = clientPlayerCard.Q<Label>("player-card__display-name");
-        if (this.playerNameLabel == null) {
-            Debug.LogError("Player name label not found");
-        }
-
-        // Setup health bar
         var healthBarContainer = clientPlayerCard.Q<TemplateContainer>("player-card__health-bar");
-        if (healthBarContainer != null) {
-            this.playerHealthBar = healthBarContainer.Children().OfType<ProgressBar>().FirstOrDefault();
-            if (this.playerHealthBar == null) {
-                Debug.LogError("Health progress bar not found");
-            }
-        }
-        else {
-            Debug.LogError("Health bar container not found");
-        }
-
-        // Setup health value
+        this.playerHealthBar = healthBarContainer.Children().OfType<ProgressBar>().FirstOrDefault();
         this.playerHealthValue = clientPlayerCard.Q<Label>("player-card__health-value");
-        if (this.playerHealthValue == null) {
-            Debug.LogError("Health value label not found");
-        }
-
-        // Setup coins display
         this.playerCoinsValue = rootElement.Q<Label>("player-card__coins-value");
-        if (this.playerCoinsValue == null) {
-            Debug.LogError("Coins value label not found");
-        }
-
-        // Setup player overview
         this.playerOverview = rootElement.Q<VisualElement>("player-overview");
-        if (this.playerOverview == null) {
-            Debug.LogError("Player overview not found");
-        }
-
-        // Setup buttons
         this.resourcesButton = rootElement.Q<Button>("ui-buttons__resources");
-        if (this.resourcesButton == null) {
-            Debug.LogError("Resources button not found");
-        }
-        else {
-            this.resourcesButton.clicked += () => {
-                Debug.Log("Resources button clicked");
-                var modal = new ResourceModal(this.resourcesModalTemplate, this.resourceHistoryModalTemplate);
-                ModalManager.Instance.ShowModal(modal);
-            };
-        }
-
         this.fundsButton = rootElement.Q<Button>("ui-buttons__funds");
-        if (this.fundsButton == null) {
-            Debug.LogError("Funds button not found");
-        }
-        else {
-            this.fundsButton.clicked += () => {
-                Debug.Log("Funds button clicked");
-                var modal = new FundsModal(this.fundsModalTemplate, this.fundsHistoryModalTemplate, this.fundsDepositModalTemplate, this.fundsInvestProposalModalTemplate, this.fundsInvestProposalSubmitModalTemplate, this.investProposalVoteModalTemplate);
-                ModalManager.Instance.ShowModal(modal);
-            };
-        }
-
         this.investButton = rootElement.Q<Button>("ui-buttons__invest");
-        if (this.investButton == null) {
-            Debug.LogError("Invest button not found");
-        }
-        else {
-            this.investButton.clicked += () => {
-                Debug.Log("Invest button clicked");
-                var modal = new InvestModal(this.investModalTemplate, this.fundsInvestProposalSubmitModalTemplate, this.investProposalVoteModalTemplate, this.fundsDepositModalTemplate);
-                ModalManager.Instance.ShowModal(modal);
-            };
-        }
-
         this.resourceValueLabel = rootElement.Q<Label>("resources-value");
-        if (this.resourceValueLabel == null) {
-            Debug.LogError("Resource value label not found");
-        }
         this.fundsValueLabel = rootElement.Q<Label>("funds-value");
-        if (this.fundsValueLabel == null) {
-            Debug.LogError("Funds value label not found");
-        }
-
         var enviromentBarContainer = rootElement.Q<TemplateContainer>("environment-bar");
-        if (enviromentBarContainer != null) {
-            this.enviromentBar = enviromentBarContainer.Children().OfType<ProgressBar>().FirstOrDefault();
-            if (this.enviromentBar == null) {
-                Debug.LogError("Environment progress bar not found");
-            }
-        }
-        else {
-            Debug.LogError("Environment bar container not found");
-        }
+        this.enviromentBar = enviromentBarContainer.Children().OfType<ProgressBar>().FirstOrDefault();
         this.enviromentValueLabel = rootElement.Q<Label>("environment-bar-value");
-        if (this.enviromentValueLabel == null) {
-            Debug.LogError("Environment value label not found");
-        }
-
         var societyBarContainer = rootElement.Q<TemplateContainer>("society-bar");
-        if (societyBarContainer != null) {
-            this.societyBar = societyBarContainer.Children().OfType<ProgressBar>().FirstOrDefault();
-            if (this.societyBar == null) {
-                Debug.LogError("Society progress bar not found");
-            }
-        }
-        else {
-            Debug.LogError("Society bar container not found");
-        }
+        this.societyBar = societyBarContainer.Children().OfType<ProgressBar>().FirstOrDefault();
         this.societyValueLabel = rootElement.Q<Label>("society-bar-value");
-        if (this.societyValueLabel == null) {
-            Debug.LogError("Society value label not found");
-
-        }
-
         var economyBarContainer = rootElement.Q<TemplateContainer>("economy-bar");
-        if (economyBarContainer != null) {
-            this.economyBar = economyBarContainer.Children().OfType<ProgressBar>().FirstOrDefault();
-            if (this.economyBar == null) {
-                Debug.LogError("Economy progress bar not found");
-            }
-        }
-        else {
-            Debug.LogError("Economy bar container not found");
-        }
+        this.economyBar = economyBarContainer.Children().OfType<ProgressBar>().FirstOrDefault();
         this.economyValueLabel = rootElement.Q<Label>("economy-bar-value");
-        if (this.economyValueLabel == null) {
-            Debug.LogError("Economy value label not found");
-        }
+
+        resourcesButton.clicked += () => {
+            ModalManager.Instance.Show(ResourceModal.Instance);
+        };
+
+        fundsButton.clicked += () => {
+            ModalManager.Instance.Show(FundsModal.Instance);
+        };
+
+        investButton.clicked += () => {
+            ModalManager.Instance.Show(InvestModal.Instance);
+        };
     }
 
     protected override void Start() {
@@ -298,12 +181,7 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         if (this.playerCoinsValue != null) {
             this.playerCoinsValue.text = newCoins.ToString();
         }
-
-        foreach (var modal in ModalManager.Instance.ActiveModals) {
-            if (modal.ModalContent.Q<Label>("coins-current-value") is Label coinsValue) {
-                coinsValue.text = newCoins.ToString();
-            }
-        }
+        FillModalsWithCurrentValues();
     }
 
     public void UpdateRemotePlayerCoins(uint newCoins, int playerId) {
@@ -323,23 +201,62 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         if (this.resourceValueLabel != null) {
             this.resourceValueLabel.text = value.ToString();
         }
-
-        foreach (var modal in ModalManager.Instance.ActiveModals) {
-            if (modal.ModalContent.Q<Label>("resource-current-value") is Label resourceValue) {
-                resourceValue.text = value.ToString();
-            }
-        }
+        FillModalsWithCurrentValues();
     }
 
     public void UpdateFundsValue(uint value) {
         if (this.fundsValueLabel != null) {
             this.fundsValueLabel.text = value.ToString();
         }
+        FillModalsWithCurrentValues();
+    }
 
-        foreach (var modal in ModalManager.Instance.ActiveModals) {
-            if (modal.ModalContent.Q<Label>("funds-current-value") is Label fundsValue) {
-                fundsValue.text = value.ToString();
+    public void FillModalsWithCurrentValues() {
+        foreach (var modal in ModalManager.Instance.ModalStack) {
+
+            if (modal == null || modal.ModalElement == null) {
+                continue;
             }
+
+            if (modal.ModalElement.Q<Label>("funds-current-value") is Label fundsValue) {
+                fundsValue.text = BoardContext.Instance.FundsStat.ToString();
+            }
+            if (modal.ModalElement.Q<Label>("resource-current-value") is Label resourceValue) {
+                resourceValue.text = BoardContext.Instance.ResourceStat.ToString();
+            }
+            if (modal.ModalElement.Q<Label>("coins-current-value") is Label coinsValue) {
+                coinsValue.text = BoardContext.Instance.GetLocalPlayer().Coins.ToString();
+            }
+        }
+    }
+
+    public void RecalculateInvestment(int investmentId) {
+        StartCoroutine(DelayedRecalculateInvestment(investmentId));
+    }
+
+    private IEnumerator DelayedRecalculateInvestment(int investmentId) {
+        yield return new WaitForEndOfFrame();
+
+        var investModal = InvestModal.Instance;
+
+        if (investModal.IsVisible() == false) {
+            yield break;
+        }
+
+        if (investModal != null) {
+            investModal.Recalculate(investmentId);
+        }
+    }
+
+    public void UpdateFundsHistory(FundsHistoryEntry entry) {
+        if (FundsHistoryModal.Instance.IsVisible()) {
+            FundsHistoryModal.Instance.AddEntryToTop(entry);
+        }
+    }
+
+    public void UpdateResourceHistory(ResourceHistoryEntry entry) {
+        if (ResourceHistoryModal.Instance.IsVisible()) {
+            ResourceHistoryModal.Instance.AddEntryToTop(entry);
         }
     }
 
@@ -350,6 +267,13 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         }
         if (this.enviromentValueLabel != null) {
             this.enviromentValueLabel.text = $"{value}/100";
+        }
+    }
+
+    [ClientCallback]
+    public void UpdateResourcesNextRoundValue() {
+        if (ResourceModal.Instance?.IsVisible() ?? false) {
+            ResourceModal.Instance.Refresh();
         }
     }
 

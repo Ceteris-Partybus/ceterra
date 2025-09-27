@@ -1,24 +1,202 @@
 [
     {
-        "id": 1,
-        "displayName": "Investment1",
-        "description": "Beschreibung des ersten Investments",
-        "moneyGoal": 100,
-        "resourceGoal": 100,
-        "investmentDisplay": "SOCIETY",
-        "investmentModifier": "DECREASES",
-        "investmentTypeInt": 10,
+        "displayName": "Test",
+        "description": "Dies ist ein Test-Investment.",
+        "requiredMoney": 50,
+        "requiredResources": 50,
+        "type": "ECONOMY",
+        "modifier": [
+            {
+                "type": "ECONOMY",
+                "effect": "INCREASES",
+                "magnitude": 5
+            }
+        ],
+        "cooldown": 2
+    },
+    {
+        "displayName": "Meeresreiniger",
+        "description": "Säubert die Meere von Plastikmüll.",
+        "requiredMoney": 300,
+        "requiredResources": 500,
+        "type": "ENVIRONMENT",
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "INCREASES",
+                "magnitude": 10
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "DECREASES",
+                "magnitude": 5
+            }
+        ],
+        "cooldown": 2
+    },
+    {
+        "displayName": "Solarpark",
+        "description": "Erzeugt erneuerbare Energie durch Sonnenkraft.",
+        "requiredMoney": 400,
+        "requiredResources": 300,
+        "type": "ENVIRONMENT",
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "INCREASES",
+                "magnitude": 8
+            },
+            {
+                "type": "SOCIETY",
+                "effect": "INCREASES",
+                "magnitude": 5
+            }
+        ],
+        "cooldown": 3
+    },
+    {
+        "displayName": "Bildungsprogramm",
+        "description": "Verbessert den Zugang zu Bildung und Wissen über Nachhaltigkeit.",
+        "requiredMoney": 250,
+        "requiredResources": 200,
+        "type": "SOCIETY",
+        "modifier": [
+            {
+                "type": "SOCIETY",
+                "effect": "INCREASES",
+                "magnitude": 7
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "INCREASES",
+                "magnitude": 5
+            }
+        ],
+        "cooldown": 2
+    },
+    {
+        "displayName": "Fair-Trade-Netzwerk",
+        "description": "Unterstützt lokale Produzenten mit fairen Preisen.",
+        "requiredMoney": 350,
+        "requiredResources": 150,
+        "type": "ECONOMY",
+        "modifier": [
+            {
+                "type": "ECONOMY",
+                "effect": "INCREASES",
+                "magnitude": 6
+            },
+            {
+                "type": "SOCIETY",
+                "effect": "INCREASES",
+                "magnitude": 4
+            }
+        ],
+        "cooldown": 3
+    },
+    {
+        "displayName": "Aufforstung",
+        "description": "Pflanzt Bäume zur Verbesserung von Luftqualität und Biodiversität.",
+        "requiredMoney": 200,
+        "requiredResources": 400,
+        "type": "ENVIRONMENT",
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "INCREASES",
+                "magnitude": 9
+            },
+            {
+                "type": "SOCIETY",
+                "effect": "INCREASES",
+                "magnitude": 3
+            }
+        ],
+        "cooldown": 2
+    },
+    {
+        "displayName": "Abfallreduktions-Kampagne",
+        "description": "Senkt die Menge an produziertem Abfall durch Aufklärung und Recycling.",
+        "requiredMoney": 150,
+        "requiredResources": 250,
+        "type": "SOCIETY",
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "DECREASES",
+                "magnitude": 7
+            },
+            {
+                "type": "SOCIETY",
+                "effect": "INCREASES",
+                "magnitude": 5
+            }
+        ],
         "cooldown": 1
     },
     {
-        "id": 2,
-        "displayName": "Investment2",
-        "description": "Beschreibung des zweiten Investments",
-        "moneyGoal": 200,
-        "resourceGoal": 200,
-        "investmentDisplay": "ENVIRONMENT",
-        "investmentModifier": "DECREASES",
-        "investmentTypeInt": 20,
+        "displayName": "Grüner Verkehr",
+        "description": "Fördert Fahrräder, Elektrobusse und Bahnverkehr.",
+        "requiredMoney": 500,
+        "requiredResources": 300,
+        "type": "ENVIRONMENT",
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "DECREASES",
+                "magnitude": 10
+            },
+            {
+                "type": "SOCIETY",
+                "effect": "INCREASES",
+                "magnitude": 5
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "INCREASES",
+                "magnitude": 6
+            }
+        ],
+        "cooldown": 3
+    },
+    {
+        "displayName": "Regionale Lebensmittel-Initiative",
+        "description": "Reduziert Transportwege und unterstützt nachhaltige Landwirtschaft.",
+        "requiredMoney": 280,
+        "requiredResources": 180,
+        "type": "ECONOMY",
+        "modifier": [
+            {
+                "type": "ECONOMY",
+                "effect": "INCREASES",
+                "magnitude": 5
+            },
+            {
+                "type": "ENVIRONMENT",
+                "effect": "DECREASES",
+                "magnitude": 6
+            }
+        ],
         "cooldown": 2
+    },
+    {
+        "displayName": "Gesundheitsversorgung",
+        "description": "Verbessert die Gesundheitsversorgung in benachteiligten Regionen.",
+        "requiredMoney": 450,
+        "requiredResources": 200,
+        "type": "SOCIETY",
+        "modifier": [
+            {
+                "type": "SOCIETY",
+                "effect": "INCREASES",
+                "magnitude": 8
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "DECREASES",
+                "magnitude": 3
+            }
+        ],
+        "cooldown": 3
     }
 ]

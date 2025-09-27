@@ -109,3 +109,24 @@
     border-color: rgb(168, 162, 158);
     width: 200px;
 }
+
+.vote-entry {
+    min-height: 30px;
+    max-height: 30px;
+    min-width: 30px;
+    max-width: 30px; 
+    flex-grow: 0;
+    background-size: 80% 80%;
+}
+
+.vote-entry.approved {
+    background-image: resource('Icons/check');
+}
+
+.vote-entry.rejected {
+    background-image: resource('Icons/black-x');
+}
+
+.vote-entry.pending { 
+    background-image: resource('Icons/loader-circle');
+}

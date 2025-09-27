@@ -3,7 +3,7 @@
     <ui:VisualElement style="flex-grow: 1; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; width: 450px; height: 250px;">
         <ui:Label text="Deposit" class="modal-title" />
         <ui:VisualElement style="flex-grow: 1; align-items: center;">
-            <ui:UnsignedIntegerField value="42" name="deposit-value" class="modal-button" style="-unity-text-align: upper-left; font-size: 24px;" />
+            <ui:UnsignedIntegerField value="0" name="deposit-value" class="modal-button" style="-unity-text-align: upper-left; font-size: 24px;" />
             <ui:VisualElement style="flex-grow: 0; margin-top: 5px; flex-direction: row; justify-content: space-between; width: 207px;">
                 <ui:Button text="+10" name="deposit-add-10" class="modal-button" style="height: 26px; width: 54px;" />
                 <ui:Button text="+100" name="deposit-add-100" class="modal-button" style="height: 26px; width: 54px;" />

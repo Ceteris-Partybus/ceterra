@@ -42,7 +42,7 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
                     }
                 }
             }
-            BoardContext.Instance.UpdateEnvironmentStat((uint)environmentEffect);
+            BoardContext.Instance.UpdateEnvironmentStat(environmentEffect);
         }
         CompleteFieldInvocation();
     }

@@ -76,7 +76,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     public override void OnStartServer() {
         base.OnStartServer();
 
-        this.coins = 0;
+        this.coins = 50;
         this.health = MAX_HEALTH;
     }
 
@@ -89,7 +89,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     public void AddCoins(uint amount) {
         if (coins + amount > MAX_COINS) {
             coins = MAX_COINS;
-            uint remaining = coins + amount - MAX_COINS;
+            int remaining = (int)(coins + amount - MAX_COINS);
             BoardContext.Instance.UpdateFundsStat(remaining);
         }
         else {
