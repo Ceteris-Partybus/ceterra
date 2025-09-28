@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5134854811975097747}
-  - component: {fileID: 2174385867906725985}
-  - component: {fileID: 769855207147994158}
   - component: {fileID: 2846966920017188754}
   - component: {fileID: 7353643439254260286}
+  - component: {fileID: 2174385867906725985}
+  - component: {fileID: 769855207147994158}
   - component: {fileID: 1591609028840897619}
   m_Layer: 0
   m_Name: BoardPlayer
@@ -36,46 +36,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2174385867906725985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3676788033899490170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6367ffe02f2e9af48914918f5cafc641, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  playerId: -1
-  playerName: 
-  moveSpeed: 20
-  movementLerp: 20
-  rotationLerp: 10
-  coins: 0
-  health: 100
---- !u!114 &769855207147994158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3676788033899490170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64c6663d9980c944db5ab476102b36db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  playerId: -1
-  playerName: 
-  score: 0
 --- !u!114 &2846966920017188754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +87,46 @@ MonoBehaviour:
   rotationSensitivity: 0.01
   positionPrecision: 0.01
   scalePrecision: 0.01
+--- !u!114 &2174385867906725985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3676788033899490170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6367ffe02f2e9af48914918f5cafc641, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  playerId: -1
+  playerName: 
+  moveSpeed: 20
+  movementLerp: 20
+  rotationLerp: 10
+  coins: 0
+  health: 100
+--- !u!114 &769855207147994158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3676788033899490170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64c6663d9980c944db5ab476102b36db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  playerId: -1
+  playerName: 
+  score: 0
 --- !u!114 &1591609028840897619
 MonoBehaviour:
   m_ObjectHideFlags: 0
