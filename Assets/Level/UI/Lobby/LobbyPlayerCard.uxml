@@ -1,0 +1,17 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI/Board/PlayerCard.uss?fileID=7433441132597879392&amp;guid=b783a0f8883b20b4e9c29526cf788c3c&amp;type=3#PlayerCard" />
+    <Style src="project://database/Assets/Level/UI/Board/Card.uss?fileID=7433441132597879392&amp;guid=788ddb1472ea9d34790d902073b1aee9&amp;type=3#Card" />
+    <Style src="project://database/Assets/Level/UI/Lobby/LobbyPlayerCard.uss?fileID=7433441132597879392&amp;guid=5a14ad66fa810b54f89e057016f10715&amp;type=3#LobbyPlayerCard" />
+    <ui:VisualElement name="player-card" class="card">
+        <ui:VisualElement name="player-card__head" >
+            <ui:Label name="player-card__display-name" />
+            <ui:Label text="24ms" name="player-card__ping" />
+        </ui:VisualElement>
+        <ui:VisualElement name="player-card__content"/>
+        <ui:VisualElement name="player-card__button-group">
+            <ui:Button text="Customize character" name="player-card__character-selection-btn" />
+            <ui:Button text="Ready" name="player-card__ready-btn" />
+        </ui:VisualElement>
+        <ui:VisualElement name="player-card__shadow" class="card-shadow" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class PlayerHud : NetworkBehaviour {
-    [SerializeField] private UIDocument uiDocument;
-    private Button characterSelectionButton;
+    [SerializeField] private UIDocument lobbyUI;
 
     [Header("Character Selection")]
     [SerializeField] private LobbyCameraHandler lobbyCameraHandler;
@@ -17,8 +16,6 @@ public class PlayerHud : NetworkBehaviour {
             StartCoroutine(lobbyCameraHandler.ToggleCharacterSelection());
             return;
         }
-        this.characterSelectionButton = this.uiDocument.rootVisualElement.Q<Button>("CharacterSelectionBtn");
-        this.characterSelectionButton.clicked += OnCharacterSelectionButtonClicked;
         characterSelectionController.OnRequestBackToLobby += HideCharacterSelection;
     }
 
@@ -34,11 +31,11 @@ public class PlayerHud : NetworkBehaviour {
         StartCoroutine(TransitionToCharacterSelection());
 
         IEnumerator TransitionToCharacterSelection() {
-            characterSelectionButton.SetEnabled(false);
+            //characterSelectionButton.SetEnabled(false);
             yield return StartCoroutine(lobbyCameraHandler.ToggleCharacterSelection());
-            characterSelectionButton.SetEnabled(true);
+            // characterSelectionButton.SetEnabled(true);
             characterSelectionController.ToggleCharacterSelection();
-            characterSelectionButton.text = "x Close";
+            // characterSelectionButton.text = "x Close";
         }
     }
 
@@ -46,11 +43,11 @@ public class PlayerHud : NetworkBehaviour {
         StartCoroutine(TransitionToLobby());
 
         IEnumerator TransitionToLobby() {
-            characterSelectionButton.SetEnabled(false);
+            //   characterSelectionButton.SetEnabled(false);
             characterSelectionController.ToggleCharacterSelection();
             yield return StartCoroutine(lobbyCameraHandler.ToggleCharacterSelection());
-            characterSelectionButton.SetEnabled(true);
-            characterSelectionButton.text = "Close Character Selection";
+            // characterSelectionButton.SetEnabled(true);
+            // characterSelectionButton.text = "Close Character Selection";
         }
     }
 }

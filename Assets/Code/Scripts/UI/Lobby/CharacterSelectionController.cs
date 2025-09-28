@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 public class CharacterSelectionController : MonoBehaviour {
     [Header("References")]
-    [SerializeField] private GameObject selectionUi;
+    [SerializeField] private GameObject selectionUI;
     [SerializeField] private CinemachineCamera characterSelectionCamera;
     [SerializeField] private CharacterSelectionUI characterSelectionUI;
     private string playerName;
@@ -128,8 +128,8 @@ public class CharacterSelectionController : MonoBehaviour {
     }
 
     public void ToggleCharacterSelection() {
-        selectionUi.gameObject.SetActive(!selectionUi.gameObject.activeSelf);
-        if (selectionUi.gameObject.activeSelf) {
+        selectionUI.gameObject.SetActive(!selectionUI.gameObject.activeSelf);
+        if (selectionUI.gameObject.activeSelf) {
             setListeners();
         }
     }

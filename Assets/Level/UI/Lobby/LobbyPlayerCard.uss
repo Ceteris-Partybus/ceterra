@@ -1,0 +1,69 @@
+#player-card__head {
+    flex-direction: row;
+}
+
+#player-card__display-name {
+    flex-direction: row; 
+    flex-grow: 1;
+}
+
+#player-card__ping {
+    align-content: flex-end; 
+    font-size: 12px; 
+    align-self: center;
+}
+
+#player-card__button-group {
+    flex-direction: column;
+    align-items: center;
+}
+
+#player-card__character-selection-btn {
+     width: 100%;
+    height: 30px;
+    font-size: 15px;
+    border-radius: 6px;
+    border-width: 2px;
+    background-color: rgba(80, 120, 160, 0.9);
+    border-color: rgba(60, 100, 140, 1);
+    color: white;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+    -unity-font-style: bold;
+}
+
+#player-card__character-selection-btn:hover {
+    background-color: rgba(100, 140, 180, 1);
+    border-color: rgba(80, 120, 160, 1);
+}
+
+#player-card__ready-btn {
+    width: 100%;
+    height: 30px;
+    font-size: 15px;
+    border-radius: 6px;
+    border-width: 2px;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+    -unity-font-style: bold;
+}
+
+#player-card__ready-btn {
+    background-color: rgba(100, 200, 100, 0.9);
+    border-color: rgba(80, 160, 80, 1);
+    color: white;
+}
+
+#player-card__ready-btn:hover {
+    background-color: rgba(120, 220, 120, 1);
+    border-color: rgba(100, 180, 100, 1);
+}
+
+#player-card__ready-btn.unready {
+    background-color: rgba(200, 120, 80, 0.9);
+    border-color: rgba(160, 100, 60, 1);
+    color: white;
+}
+
+#player-card__ready-btn.unready:hover {
+    background-color: rgba(220, 140, 100, 1);
+    border-color: rgba(180, 120, 80, 1);
+}
