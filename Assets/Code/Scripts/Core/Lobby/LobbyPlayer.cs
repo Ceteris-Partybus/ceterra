@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class LobbyPlayer : NetworkRoomPlayer {
     private const int INVALID_INDEX = -1;
-    public int Id => index;
     [SyncVar] private string playerName;
     public string PlayerName => playerName;
     [SyncVar(hook = nameof(OnSelectedCharacterChanged))] private int selectedCharacterIndex = INVALID_INDEX;
