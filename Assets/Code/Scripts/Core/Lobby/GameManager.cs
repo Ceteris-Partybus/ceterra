@@ -54,7 +54,7 @@ public class GameManager : NetworkRoomManager {
         var lobbyPlayer = roomPlayer.GetComponent<LobbyPlayer>();
 
         foreach (var scenePlayer in gamePlayer.GetComponents<SceneConditionalPlayer>()) {
-            scenePlayer.SetPlayerData(lobbyPlayer.index, lobbyPlayer.PlayerName);
+            scenePlayer.SetPlayerData(lobbyPlayer.index, lobbyPlayer.playerName);
         }
 
         gamePlayer.GetComponent<BoardPlayer>().ServerTransferCharacterSelection(lobbyPlayer);
@@ -84,21 +84,5 @@ public class GameManager : NetworkRoomManager {
         if (NetworkServer.active) {
             ServerChangeScene(GameplayScene);
         }
-    }
-
-    public override void OnServerAddPlayer(NetworkConnectionToClient conn) {
-        base.OnServerAddPlayer(conn);
-        var lobbyPlayer = conn.identity.GetComponent<LobbyPlayer>();
-        var playerHud = FindFirstObjectByType<PlayerHud>();
-        playerHud.lobbyPlayers.Add(lobbyPlayer);
-    }
-
-    public override void OnRoomServerDisconnect(NetworkConnectionToClient conn) {
-        var disconnectingPlayer = conn.identity.GetComponent<LobbyPlayer>();
-
-        base.OnRoomServerDisconnect(conn);
-
-        var playerHud = FindFirstObjectByType<PlayerHud>();
-        playerHud.lobbyPlayers.Remove(disconnectingPlayer);
     }
 }

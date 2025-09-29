@@ -1,4 +1,3 @@
-using Mirror;
 using System.Collections;
 using UnityEngine;
 
@@ -7,14 +6,8 @@ public class PlayerHud : NetworkedSingleton<PlayerHud> {
     [SerializeField] private LobbyCameraHandler lobbyCameraHandler;
     [SerializeField] private CharacterSelectionController characterSelectionController;
     [SerializeField] private LobbyPlayerSlotController lobbyPlayerSlotController;
-
-    public readonly SyncList<LobbyPlayer> lobbyPlayers = new();
-
     protected override void Start() {
         base.Start();
-
-        lobbyPlayers.OnAdd += OnLobbyPlayerAdded;
-        lobbyPlayers.OnRemove += OnLobbyPlayerRemoved;
 
         if (isServer) {
             characterSelectionController.SelectionUI.SetActive(false);
@@ -25,20 +18,7 @@ public class PlayerHud : NetworkedSingleton<PlayerHud> {
         characterSelectionController.OnRequestBackToLobby += HideCharacterSelection;
     }
 
-    public override void OnStopClient() {
-        lobbyPlayers.OnAdd -= OnLobbyPlayerAdded;
-        lobbyPlayers.OnRemove -= OnLobbyPlayerRemoved;
-    }
-
-    private void OnLobbyPlayerAdded(int index) {
-        lobbyPlayerSlotController.OnLobbyPlayerAdded(lobbyPlayers[index], ShowCharacterSelection);
-    }
-
-    private void OnLobbyPlayerRemoved(int _, LobbyPlayer removedLobbyPlayer) {
-        lobbyPlayerSlotController.OnLobbyPlayerRemoved(removedLobbyPlayer);
-    }
-
-    private void ShowCharacterSelection() {
+    public void ShowCharacterSelection() {
         StartCoroutine(TransitionToCharacterSelection());
 
         IEnumerator TransitionToCharacterSelection() {

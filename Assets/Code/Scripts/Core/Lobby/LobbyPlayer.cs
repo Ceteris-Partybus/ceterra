@@ -1,19 +1,16 @@
 using Mirror;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
 public class LobbyPlayer : NetworkRoomPlayer {
     private const int INVALID_INDEX = -1;
-    [SyncVar] private int ping;
-    public int Ping => ping;
-    [SyncVar] private string playerName;
-    public string PlayerName => playerName;
+    [SyncVar] public int ping;
+    [SyncVar] public string playerName;
     [SyncVar(hook = nameof(OnSelectedCharacterChanged))] private int selectedCharacterIndex = INVALID_INDEX;
-    public int SelectedCharacterIndex => selectedCharacterIndex;
     private GameObject currentCharacterInstance;
     public GameObject CurrentCharacterInstance => currentCharacterInstance;
     [SyncVar(hook = nameof(OnSelectedDiceChanged))] private int selectedDiceIndex = INVALID_INDEX;
-    public int SelectedDiceIndex => selectedDiceIndex;
     private GameObject currentDiceInstance;
     public GameObject CurrentDiceInstance => currentDiceInstance;
 
@@ -76,9 +73,31 @@ public class LobbyPlayer : NetworkRoomPlayer {
         currentDiceInstance?.transform.SetParent(null, false);
     }
 
-    void Update() {
-        if (isLocalPlayer) {
-            ping = (int)(NetworkTime.rtt * 1000);
+    private const float PING_UPDATE_INTERVAL = 2f;
+    private Coroutine pingUpdateCoroutine;
+    public override void OnStartLocalPlayer() {
+        base.OnStartLocalPlayer();
+        pingUpdateCoroutine = StartCoroutine(UpdatePing());
+
+        IEnumerator UpdatePing() {
+            while (isLocalPlayer) {
+                int currentPing = (int)(NetworkTime.rtt * 1000);
+                CmdUpdatePing(currentPing);
+                yield return new WaitForSeconds(PING_UPDATE_INTERVAL);
+            }
         }
+    }
+
+    public override void OnStopLocalPlayer() {
+        base.OnStopLocalPlayer();
+        if (pingUpdateCoroutine != null) {
+            StopCoroutine(pingUpdateCoroutine);
+            pingUpdateCoroutine = null;
+        }
+    }
+
+    [Command]
+    private void CmdUpdatePing(int newPing) {
+        ping = newPing;
     }
 }

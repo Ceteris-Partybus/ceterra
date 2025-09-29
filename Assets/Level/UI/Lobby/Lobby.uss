@@ -29,27 +29,28 @@
     align-items: center;
 }
 
-/* Empty slot styling */
 .lobby-player-slot.empty-slot {
     background-color: rgba(50, 50, 50, 0.3);
     border-color: rgba(100, 100, 100, 0.3);
 }
 
-/* Occupied slot styling */
-.lobby-player-slot.occupied {
+.lobby-player-slot {
+    background-color: rgba(200, 140, 100, 0.05);
+    border-color: rgba(200, 140, 100, 0.6);
+}
+
+.lobby-player-slot.ready {
     background-color: rgba(160, 199, 100, 0.05);
     border-color: rgba(160, 199, 100, 0.6);
 }
 
-/* Empty slot placeholder text */
-.empty-slot-text {
+.empty-slot {
     color: rgba(255, 255, 255, 0.5);
     font-size: 14px;
     -unity-text-align: middle-center;
     -unity-font-style: italic;
 }
 
-/* Player name and ping row */
 .player-name-row {
     flex-direction: row;
     justify-content: space-between;
@@ -58,7 +59,6 @@
     margin-bottom: 8px;
 }
 
-/* Player name styling */
 .player-name {
     font-size: 18px;
     color: #ffffff;
@@ -66,7 +66,6 @@
     -unity-font-style: bold;
 }
 
-/* Player ping styling */
 .player-ping {
     font-size: 14px;
     color: rgba(160, 199, 100, 1);
@@ -103,21 +102,21 @@
     -unity-font-style: bold;
     color: white;
 
-    background-color: rgba(180, 120, 80, 0.9);
-    border-color: rgba(150, 100, 60, 1);
-}
-
-.ready-button:hover {
-    background-color: rgba(200, 140, 100, 1);
-    border-color: rgba(180, 120, 80, 1);
-}
-
-.ready-button.ready {
     background-color: rgba(100, 180, 100, 0.9);
     border-color: rgba(80, 150, 80, 1);
 }
 
-.ready-button.ready:hover {
+.ready-button:hover {
     background-color: rgba(120, 200, 120, 1);
     border-color: rgba(100, 180, 100, 1);
+}
+
+.ready-button.ready {
+    background-color: rgba(180, 120, 80, 0.9);
+    border-color: rgba(150, 100, 60, 1);
+}
+
+.ready-button.ready:hover {
+    background-color: rgba(200, 140, 100, 1);
+    border-color: rgba(180, 120, 80, 1);
 }
