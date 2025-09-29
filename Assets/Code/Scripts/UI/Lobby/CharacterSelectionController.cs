@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 public class CharacterSelectionController : MonoBehaviour {
     [Header("References")]
     [SerializeField] private GameObject selectionUI;
+    public GameObject SelectionUI => selectionUI;
     [SerializeField] private CinemachineCamera characterSelectionCamera;
     [SerializeField] private CharacterSelectionUI characterSelectionUI;
     private string playerName;

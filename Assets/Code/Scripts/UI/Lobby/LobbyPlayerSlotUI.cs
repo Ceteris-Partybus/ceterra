@@ -1,43 +1,81 @@
 using System;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 public class LobbyPlayerSlotUI {
-    private TemplateContainer root;
+    private LobbyPlayer lobbyPlayer;
+    public VisualElement parent;
+    private VisualElement container;
     public Label playerDisplayName;
     public Label playerPing;
     public Button characterSelectionBtn;
     public Button readyBtn;
+    private IVisualElementScheduledItem waitingAnimation;
+    private int dotCount = 0;
 
-    public LobbyPlayerSlotUI() {
-        var asset = Resources.Load<VisualTreeAsset>("PlayerSlot");
-        root = asset.Instantiate();
-        playerDisplayName = root.Q<Label>("PlayerNameLabel");
-        playerPing = root.Q<Label>("PingLabel");
-        characterSelectionBtn = root.Q<Button>("CustomizeButton");
-        readyBtn = root.Q<Button>("ReadyButton");
+    public LobbyPlayerSlotUI(VisualElement parent) {
+        this.parent = parent;
+        this.container = parent.Q<VisualElement>("player-slot");
+        playerDisplayName = parent.Q<Label>("player-name-label");
+        playerPing = parent.Q<Label>("ping-label");
+        characterSelectionBtn = parent.Q<Button>("character-selection-button");
+        readyBtn = parent.Q<Button>("ready-button");
 
-        playerDisplayName.text = "Waiting for player...";
-        playerPing.text = "-- ms";
-
-        root.Remove(characterSelectionBtn);
-        root.Remove(readyBtn);
+        Clear();
     }
 
-    public void assignSlotTo(LobbyPlayer lobbyPlayer, Action showCharacterSelection) {
+    public void AssignTo(LobbyPlayer lobbyPlayer, Action showCharacterSelection) {
+        if (this.lobbyPlayer.index == lobbyPlayer.index) { return; }
+
+        this.lobbyPlayer = lobbyPlayer;
+        StopWaitingAnimation();
         playerDisplayName.text = lobbyPlayer.PlayerName ?? "New Player";
         if (lobbyPlayer.isLocalPlayer) {
             characterSelectionBtn.clicked += showCharacterSelection;
             readyBtn.clicked += OnReadyBtnClicked;
             readyBtn.clicked += () => lobbyPlayer.CmdChangeReadyState(!lobbyPlayer.readyToBegin);
-            root.Add(characterSelectionBtn);
-            root.Add(readyBtn);
+            container.Add(characterSelectionBtn);
+            container.Add(readyBtn);
         }
+    }
+
+    public void Clear() {
+        lobbyPlayer = null;
+        playerPing.text = "";
+
+        container.Remove(characterSelectionBtn);
+        container.Remove(readyBtn);
+
+        StartWaitingAnimation();
     }
 
     private void OnReadyBtnClicked() {
         var isReady = readyBtn.ClassListContains("ready");
         readyBtn.text = isReady ? "Not Ready" : "Ready";
         readyBtn.ToggleInClassList("ready");
+    }
+
+    private void StartWaitingAnimation() {
+        StopWaitingAnimation();
+        dotCount = 0;
+        waitingAnimation = playerDisplayName.schedule.Execute(AnimateWaitingText).Every(500);
+    }
+
+    private void StopWaitingAnimation() {
+        waitingAnimation?.Pause();
+        waitingAnimation = null;
+    }
+
+    private void AnimateWaitingText() {
+        if (lobbyPlayer != null) { return; }
+
+        dotCount = (dotCount + 1) % 4;
+        var dots = new string('.', dotCount);
+        playerDisplayName.text = $"Waiting for player{dots}";
+    }
+
+    void Update() {
+        if (lobbyPlayer == null) { return; }
+        playerDisplayName.text = lobbyPlayer.PlayerName ?? "New Player";
+        playerPing.text = lobbyPlayer.Ping.ToString() + " ms";
     }
 }

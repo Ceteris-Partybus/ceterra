@@ -1,4 +1,5 @@
 using Mirror;
+using System;
 using System.Linq;
 using UnityEngine;
 
@@ -83,5 +84,21 @@ public class GameManager : NetworkRoomManager {
         if (NetworkServer.active) {
             ServerChangeScene(GameplayScene);
         }
+    }
+
+    public override void OnServerAddPlayer(NetworkConnectionToClient conn) {
+        base.OnServerAddPlayer(conn);
+        var lobbyPlayer = conn.identity.GetComponent<LobbyPlayer>();
+        var playerHud = FindFirstObjectByType<PlayerHud>();
+        playerHud.lobbyPlayers.Add(lobbyPlayer);
+    }
+
+    public override void OnRoomServerDisconnect(NetworkConnectionToClient conn) {
+        var disconnectingPlayer = conn.identity.GetComponent<LobbyPlayer>();
+
+        base.OnRoomServerDisconnect(conn);
+
+        var playerHud = FindFirstObjectByType<PlayerHud>();
+        playerHud.lobbyPlayers.Remove(disconnectingPlayer);
     }
 }

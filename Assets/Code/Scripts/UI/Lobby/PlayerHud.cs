@@ -1,41 +1,50 @@
 using Mirror;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class PlayerHud : NetworkBehaviour {
-    [SerializeField] private UIDocument lobbyUI;
-
+public class PlayerHud : NetworkedSingleton<PlayerHud> {
     [Header("Character Selection")]
     [SerializeField] private LobbyCameraHandler lobbyCameraHandler;
     [SerializeField] private CharacterSelectionController characterSelectionController;
+    [SerializeField] private LobbyPlayerSlotController lobbyPlayerSlotController;
 
-    void Start() {
+    public readonly SyncList<LobbyPlayer> lobbyPlayers = new();
+
+    protected override void Start() {
+        base.Start();
+
+        lobbyPlayers.OnAdd += OnLobbyPlayerAdded;
+        lobbyPlayers.OnRemove += OnLobbyPlayerRemoved;
+
         if (isServer) {
-            characterSelectionController.gameObject.SetActive(false);
+            characterSelectionController.SelectionUI.SetActive(false);
             StartCoroutine(lobbyCameraHandler.ToggleCharacterSelection());
             return;
         }
+        lobbyPlayerSlotController.Hide();
         characterSelectionController.OnRequestBackToLobby += HideCharacterSelection;
     }
 
-    private void OnCharacterSelectionButtonClicked() {
-        if (lobbyCameraHandler.IsShowingLobby) {
-            ShowCharacterSelection();
-            return;
-        }
-        HideCharacterSelection();
+    public override void OnStopClient() {
+        lobbyPlayers.OnAdd -= OnLobbyPlayerAdded;
+        lobbyPlayers.OnRemove -= OnLobbyPlayerRemoved;
+    }
+
+    private void OnLobbyPlayerAdded(int index) {
+        lobbyPlayerSlotController.OnLobbyPlayerAdded(lobbyPlayers[index], ShowCharacterSelection);
+    }
+
+    private void OnLobbyPlayerRemoved(int _, LobbyPlayer removedLobbyPlayer) {
+        lobbyPlayerSlotController.OnLobbyPlayerRemoved(removedLobbyPlayer);
     }
 
     private void ShowCharacterSelection() {
         StartCoroutine(TransitionToCharacterSelection());
 
         IEnumerator TransitionToCharacterSelection() {
-            //characterSelectionButton.SetEnabled(false);
+            lobbyPlayerSlotController.Hide();
             yield return StartCoroutine(lobbyCameraHandler.ToggleCharacterSelection());
-            // characterSelectionButton.SetEnabled(true);
             characterSelectionController.ToggleCharacterSelection();
-            // characterSelectionButton.text = "x Close";
         }
     }
 
@@ -43,11 +52,9 @@ public class PlayerHud : NetworkBehaviour {
         StartCoroutine(TransitionToLobby());
 
         IEnumerator TransitionToLobby() {
-            //   characterSelectionButton.SetEnabled(false);
             characterSelectionController.ToggleCharacterSelection();
             yield return StartCoroutine(lobbyCameraHandler.ToggleCharacterSelection());
-            // characterSelectionButton.SetEnabled(true);
-            // characterSelectionButton.text = "Close Character Selection";
+            lobbyPlayerSlotController.Show();
         }
     }
 }

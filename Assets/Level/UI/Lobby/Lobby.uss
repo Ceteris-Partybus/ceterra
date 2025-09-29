@@ -14,9 +14,12 @@
     align-items: stretch;
 }
 
-/* Base lobby player slot styling */
 .lobby-player-slot {
+    flex-direction: column;
+    justify-content: space-between;
     flex-grow: 1;
+    height: 100%;
+    width: 100%;
     margin: 0 10px;
     border-radius: 12px;
     border-width: 2px;
@@ -46,15 +49,6 @@
     -unity-font-style: italic;
 }
 
-/* Player slot content container */
-.player-slot-content {
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    align-items: center;
-    width: 100%;
-}
-
 /* Player name and ping row */
 .player-name-row {
     flex-direction: row;
@@ -80,8 +74,7 @@
     -unity-font-style: bold;
 }
 
-/* Customize character button */
-.customize-button {
+.character-selection-button {
     width: 100%;
     height: 40px;
     background-color: rgba(70, 130, 180, 0.9);
@@ -95,7 +88,7 @@
     margin-bottom: 8px;
 }
 
-.customize-button:hover {
+.character-selection-button:hover {
     background-color: rgba(90, 150, 200, 1);
     border-color: rgba(70, 130, 180, 1);
 }

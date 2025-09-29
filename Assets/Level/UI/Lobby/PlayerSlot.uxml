@@ -1,10 +1,10 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement class="player-slot-content">
+    <ui:VisualElement name="player-slot" class="player-slot-content">
         <ui:VisualElement class="player-name-row">
-            <ui:Label text="Player Name" name="PlayerNameLabel" class="player-name" />
-            <ui:Label text="--" name="PingLabel" class="player-ping" />
+            <ui:Label text="Player Name" name="player-name-label" class="player-name" />
+            <ui:Label text="--" name="ping-label" class="player-ping" />
         </ui:VisualElement>
-        <ui:Button text="Customize character" name="CustomizeButton" class="customize-button" />
-        <ui:Button text="Not Ready" name="ReadyButton" class="ready-button not-ready" />
+        <ui:Button text="Character Selection" name="character-selection-button" class="character-selection-button" />
+        <ui:Button text="Not Ready" name="ready-button" class="ready-button" />
     </ui:VisualElement>
 </ui:UXML>

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LobbyPlayer : NetworkRoomPlayer {
     private const int INVALID_INDEX = -1;
+    [SyncVar] private int ping;
+    public int Ping => ping;
     [SyncVar] private string playerName;
     public string PlayerName => playerName;
     [SyncVar(hook = nameof(OnSelectedCharacterChanged))] private int selectedCharacterIndex = INVALID_INDEX;
@@ -72,5 +74,11 @@ public class LobbyPlayer : NetworkRoomPlayer {
 
     private void DetachDiceFromCharacter() {
         currentDiceInstance?.transform.SetParent(null, false);
+    }
+
+    void Update() {
+        if (isLocalPlayer) {
+            ping = (int)(NetworkTime.rtt * 1000);
+        }
     }
 }
