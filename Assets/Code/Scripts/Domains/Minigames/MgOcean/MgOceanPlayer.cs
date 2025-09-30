@@ -28,6 +28,10 @@ public class MgOceanPlayer : SceneConditionalPlayer {
             MgOceanRemotePlayerHUD.Instance.UpdatePlayerScore(PlayerId, score);
         }
 
+        if (isActive && isLocalPlayer) {
+            CmdSpawnPlayer(connectionToClient);
+        }
+
         var boardPlayers = FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
         if (isActive) {
             foreach (var bp in boardPlayers) {
@@ -51,10 +55,17 @@ public class MgOceanPlayer : SceneConditionalPlayer {
         MgOceanRemotePlayerHUD.Instance?.RemovePlayer(PlayerId);
     }
 
-    [Command(requiresAuthority = false)]
-    private void CmdSpawnPlayer(NetworkConnectionToClient conn) {
+    [Command]
+    private void CmdSpawnPlayer(NetworkConnectionToClient conn = null) {
         Debug.Log($"Spawning player model for player {PlayerId}");
         var model = Instantiate(playerModel);
+        
+        Camera mainCamera = Camera.main;
+        if (mainCamera != null) {
+            float spawnY = -mainCamera.orthographicSize * 0.5f;
+            model.transform.position = new Vector3(0f, spawnY, 0f);
+        }
+        
         NetworkServer.Spawn(model, conn);
     }
 
@@ -67,4 +78,6 @@ public class MgOceanPlayer : SceneConditionalPlayer {
     public override bool ShouldBeActiveInScene(string sceneName) {
         return sceneName == "MgOcean";
     }
+
+    public uint Score => score;
 }
