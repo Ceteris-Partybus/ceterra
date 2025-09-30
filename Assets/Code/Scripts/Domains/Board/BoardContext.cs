@@ -178,6 +178,10 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         if (currentState == State.PLAYER_MOVING && currentPlayerId == player.PlayerId) {
             totalMovementsCompleted++;
 
+            // TODO: REMOVE THIS IS JUST FOR TESTING
+            GameManager.Singleton.StartMinigame("MgOcean");
+            return;
+
             // Check if all players have had one movement
             int totalPlayers = GameManager.Singleton.PlayerIds.Length;
             if (totalMovementsCompleted >= totalPlayers) {
@@ -198,14 +202,13 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
                 }
 
                 // All players have moved at least once, start minigame
-                // GameManager.Singleton.StartMinigame("MgQuizduel");
+                // GameManager.Singleton.StartMinigame("MgOcean");
                 // return;
             }
 
             NextPlayerTurn();
         }
     }
-
 
     [Server]
     private uint CalculateResourcesNextRound() {

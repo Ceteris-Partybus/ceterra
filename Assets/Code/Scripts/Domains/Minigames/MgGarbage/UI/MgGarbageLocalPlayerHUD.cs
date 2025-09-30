@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class LocalPlayerHUD : NetworkedSingleton<LocalPlayerHUD> {
+public class MgGarbageLocalPlayerHUD : NetworkedSingleton<MgGarbageLocalPlayerHUD> {
     [SerializeField]
     private UIDocument uiDocument;
     [SerializeField]

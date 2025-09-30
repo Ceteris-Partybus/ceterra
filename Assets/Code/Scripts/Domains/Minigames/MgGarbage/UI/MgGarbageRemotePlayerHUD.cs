@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class RemotePlayerHUD : NetworkedSingleton<RemotePlayerHUD> {
+public class MgGarbageRemotePlayerHUD : NetworkedSingleton<MgGarbageRemotePlayerHUD> {
     [SerializeField]
     private UIDocument uiDocument;
 
