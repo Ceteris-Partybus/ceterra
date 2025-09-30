@@ -25768,7 +25768,7 @@ MonoBehaviour:
   diceName: Crazy Dice
   values: 010000000100000001000000060000000600000006000000
   boardScale: 0.75
-  previewScale: 0.35
+  previewScale: 0.4
   boardRotationSpeed: 500
   previewRotationSpeed: 200
   boardTiltAmplitude: 60

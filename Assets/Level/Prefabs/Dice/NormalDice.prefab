@@ -20968,7 +20968,7 @@ MonoBehaviour:
   diceName: Normal Dice
   values: 010000000200000003000000040000000500000006000000
   boardScale: 0.75
-  previewScale: 0.35
+  previewScale: 0.4
   boardRotationSpeed: 500
   previewRotationSpeed: 200
   boardTiltAmplitude: 60

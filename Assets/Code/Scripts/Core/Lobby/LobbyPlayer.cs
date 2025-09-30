@@ -20,7 +20,11 @@ public class LobbyPlayer : NetworkRoomPlayer {
     private GameObject DiceModel => GameManager.Singleton.GetDice(selectedDiceIndex);
 
     public override void OnClientEnterRoom() {
-        gameObject.transform.position = GameManager.Singleton.GetStartPosition().position;
+        gameObject.transform.position = LobbySpawnPointManager.Instance.GetSpawnPoint(index).position;
+    }
+
+    public override void IndexChanged(int _old, int _new) {
+        gameObject.transform.position = LobbySpawnPointManager.Instance.GetSpawnPoint(_new).position;
     }
 
     [Command]
