@@ -69,10 +69,14 @@ public class MgOceanPlayer : SceneConditionalPlayer {
         NetworkServer.Spawn(model, conn);
     }
 
-    public void AddScore(uint points) {
-        if (isServer) {
-            score += points;
-        }
+    [Command]
+    public void CmdAddScore(uint points) {
+        ServerAddScore(points);
+    }
+
+    [Server]
+    public void ServerAddScore(uint points) {
+        score += points;
     }
 
     public override bool ShouldBeActiveInScene(string sceneName) {

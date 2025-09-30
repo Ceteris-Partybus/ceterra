@@ -465,7 +465,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  spawnAreaHolder: {fileID: 0}
+  spawnAreaHolder: {fileID: 301842504}
   trashPrefabs:
   - {fileID: 3241251890801266441, guid: b6b3f13ed5c99a441be43962096ea79b, type: 3}
   initialSpawnInterval: 3
@@ -512,7 +512,7 @@ Transform:
   m_GameObject: {fileID: 951907682}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.8, y: 0, z: 0}
+  m_LocalPosition: {x: 1.32, y: 2.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
