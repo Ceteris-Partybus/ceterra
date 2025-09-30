@@ -28,7 +28,7 @@ public class LobbyPlayerSlotUI {
         parent.RemoveFromClassList("empty-slot");
 
         playerDisplayName.text = lobbyPlayer.PlayerName ?? "New Player";
-        playerPing.text = lobbyPlayer.ping.ToString() + " ms";
+        playerPing.text = lobbyPlayer.Ping.ToString() + " ms";
 
         var isReady = lobbyPlayer.readyToBegin;
         parent.EnableInClassList("ready", isReady);

@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class LobbyPlayer : NetworkRoomPlayer {
     private const int INVALID_INDEX = -1;
-    [SyncVar] public int ping;
+    [SyncVar] private int ping;
+    public int Ping => ping;
     [SyncVar] private string playerName;
     public string PlayerName => playerName;
 
@@ -86,8 +87,7 @@ public class LobbyPlayer : NetworkRoomPlayer {
 
         IEnumerator UpdatePing() {
             while (isLocalPlayer) {
-                int currentPing = (int)(NetworkTime.rtt * 1000);
-                CmdUpdatePing(currentPing);
+                CmdUpdatePing((int)(NetworkTime.rtt * 1000));
                 yield return new WaitForSeconds(PING_UPDATE_INTERVAL);
             }
         }
