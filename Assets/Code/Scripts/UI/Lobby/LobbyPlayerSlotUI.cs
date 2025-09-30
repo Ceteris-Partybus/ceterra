@@ -27,7 +27,7 @@ public class LobbyPlayerSlotUI {
         if (waitingAnimation != null) { StopWaitingAnimation(); }
         parent.RemoveFromClassList("empty-slot");
 
-        playerDisplayName.text = lobbyPlayer.playerName ?? "New Player";
+        playerDisplayName.text = lobbyPlayer.PlayerName ?? "New Player";
         playerPing.text = lobbyPlayer.ping.ToString() + " ms";
 
         var isReady = lobbyPlayer.readyToBegin;

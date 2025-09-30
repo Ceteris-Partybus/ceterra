@@ -54,7 +54,7 @@ public class GameManager : NetworkRoomManager {
         var lobbyPlayer = roomPlayer.GetComponent<LobbyPlayer>();
 
         foreach (var scenePlayer in gamePlayer.GetComponents<SceneConditionalPlayer>()) {
-            scenePlayer.SetPlayerData(lobbyPlayer.index, lobbyPlayer.playerName);
+            scenePlayer.SetPlayerData(lobbyPlayer.index, lobbyPlayer.PlayerName);
         }
 
         gamePlayer.GetComponent<BoardPlayer>().ServerTransferCharacterSelection(lobbyPlayer);
