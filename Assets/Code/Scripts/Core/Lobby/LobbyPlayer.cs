@@ -60,7 +60,6 @@ public class LobbyPlayer : NetworkRoomPlayer {
             Destroy(currentCharacterInstance);
         }
         currentCharacterInstance = Instantiate(CharacterModel, transform);
-        currentCharacterInstance.transform.localRotation = Quaternion.Euler(0, 180, 0);
         AttachDiceToCharacter();
     }
 
@@ -105,5 +104,9 @@ public class LobbyPlayer : NetworkRoomPlayer {
     [Command]
     private void CmdUpdatePing(int newPing) {
         ping = newPing;
+    }
+
+    void Update() {
+        currentCharacterInstance?.GetComponent<Character>().FaceCamera();
     }
 }
