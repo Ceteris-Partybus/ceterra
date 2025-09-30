@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.Localization.Settings;
 
 public class MgQuizduelController : NetworkedSingleton<MgQuizduelController> {
     [SerializeField] private UIDocument uiDocument;
+
+    private const string LOCALIZATION_TABLE = "ceterra";
+    private const long LOCALIZATION_KEY_REWARD = 50359450810896384; // "+{0} Münzen" (DE) / "+{0} Coins" (EN)
+    private const long LOCALIZATION_KEY_WAITING = 50355143541706752; // "Warten auf andere Spieler..." (DE) / "Waiting for other players..." (EN)
 
     private static readonly StyleColor COLOR_CORRECT = new StyleColor(new Color(31f / 255f, 156f / 255f, 51f / 255f));
     private static readonly StyleColor COLOR_INCORRECT = new StyleColor(new Color(183f / 255f, 22f / 255f, 58f / 255f));
@@ -18,6 +23,7 @@ public class MgQuizduelController : NetworkedSingleton<MgQuizduelController> {
     private Button answerButton1;
     private Button answerButton2;
     private readonly List<VisualElement> progressDots = new();
+    private Label waitingLabel;
 
     private VisualElement quizScreen;
     private VisualElement scoreboardScreen;
@@ -26,6 +32,9 @@ public class MgQuizduelController : NetworkedSingleton<MgQuizduelController> {
     private readonly List<Label> playerScoreLabels = new();
     private readonly List<Label> playerRewardLabels = new();
     private readonly List<VisualElement> playerRankElements = new();
+
+    private int dotCount = 0;
+    private IVisualElementScheduledItem waitingAnimation;
 
     private int currentQuestionIndex = 0;
     public int CurrentQuestionIndex => currentQuestionIndex;
@@ -51,6 +60,7 @@ public class MgQuizduelController : NetworkedSingleton<MgQuizduelController> {
         quizScreen = root.Q<VisualElement>("quiz-screen");
         scoreboardScreen = root.Q<VisualElement>("scoreboard-screen");
         waitingScreen = root.Q<VisualElement>("waiting-screen");
+        waitingLabel = root.Q<Label>("waiting-label");
 
         for (var i = 1; i <= 4; i++) {
             playerNameLabels.Add(root.Q<Label>($"player-name-{i}"));
@@ -146,9 +156,7 @@ public class MgQuizduelController : NetworkedSingleton<MgQuizduelController> {
 
                 playerNameLabels[i].text = playerRankings[i].playerName;
                 playerScoreLabels[i].text = $"{playerRankings[i].score}/{MgQuizduelContext.Instance.MaxQuestions}";
-
-                var rewardText = playerRankings[i].reward > 0 ? $"+{playerRankings[i].reward} Münzen" : "Keine Belohnung!";
-                playerRewardLabels[i].text = rewardText;
+                playerRewardLabels[i].text = GetLocalizedRewardText(playerRankings[i].reward);
 
                 SetElementDisplay(playerRankElements[i], true);
             }
@@ -158,6 +166,12 @@ public class MgQuizduelController : NetworkedSingleton<MgQuizduelController> {
         }
     }
 
+    private string GetLocalizedRewardText(int reward) {
+        return LocalizationSettings.StringDatabase
+        .GetLocalizedStringAsync(LOCALIZATION_TABLE, LOCALIZATION_KEY_REWARD, new object[] { reward })
+        .Result;
+    }
+
     [Server]
     public void UpdateQuizUI(QuestionData questionData) {
         RpcUpdateQuizUI(questionData);
@@ -165,6 +179,7 @@ public class MgQuizduelController : NetworkedSingleton<MgQuizduelController> {
 
     [ClientRpc]
     private void RpcUpdateQuizUI(QuestionData questionData) {
+        HideWaitingMessage();
         SetQuizUI(questionData);
     }
 
@@ -192,5 +207,33 @@ public class MgQuizduelController : NetworkedSingleton<MgQuizduelController> {
     }
     private void ShowWaitingMessage() {
         SetElementDisplay(waitingScreen, true);
+        StartWaitingAnimation();
+    }
+
+    private void HideWaitingMessage() {
+        StopWaitingAnimation();
+        SetElementDisplay(waitingScreen, false);
+    }
+
+    private void StartWaitingAnimation() {
+        dotCount = 0;
+        waitingAnimation = waitingLabel.schedule.Execute(AnimateWaitingText).Every(500);
+    }
+
+    private void StopWaitingAnimation() {
+        waitingAnimation?.Pause();
+        waitingAnimation = null;
+    }
+
+    private void AnimateWaitingText() {
+        dotCount = (dotCount + 1) % 4;
+        var dots = new string('.', dotCount);
+
+        // Get the base text from localization (without dots)
+        var baseText = LocalizationSettings.StringDatabase
+            .GetLocalizedStringAsync(LOCALIZATION_TABLE, LOCALIZATION_KEY_WAITING)
+            .Result;
+
+        waitingLabel.text = $"{baseText}{dots}";
     }
 }
