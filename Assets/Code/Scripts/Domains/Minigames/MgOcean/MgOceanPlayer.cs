@@ -11,6 +11,7 @@ public class MgOceanPlayer : SceneConditionalPlayer {
     private GameObject playerModel;
 
     private void OnScoreChanged(uint old, uint new_) {
+        Debug.Log($"[MgOceanPlayer {PlayerId}] OnScoreChanged from {old} to {new_}. IsLocalPlayer: {isLocalPlayer}");
         if (isLocalPlayer) {
             MgOceanLocalPlayerHUD.Instance?.UpdateScore(new_);
         } else {
@@ -20,6 +21,7 @@ public class MgOceanPlayer : SceneConditionalPlayer {
 
     protected override void OnClientActiveStateChanged(bool isActive) {
         base.OnClientActiveStateChanged(isActive);
+        Debug.Log($"[MgOceanPlayer {PlayerId}] OnClientActiveStateChanged: {isActive}. IsLocalPlayer: {isLocalPlayer}");
 
         if (!isLocalPlayer && isActive && MgOceanRemotePlayerHUD.Instance != null) {
             if (!MgOceanRemotePlayerHUD.Instance.IsPlayerAdded(PlayerId)) {

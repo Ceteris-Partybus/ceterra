@@ -15,6 +15,7 @@ public class MgOceanRemotePlayerHUD : NetworkedSingleton<MgOceanRemotePlayerHUD>
     void OnEnable() {
         var root = uiDocument.rootVisualElement;
         remotePlayerOverview = root.Q<VisualElement>("remote-player-overview");
+        Debug.Log($"[MgOceanRemotePlayerHUD] OnEnable: remotePlayerOverview found? {remotePlayerOverview != null}");
     }
 
     public bool IsPlayerAdded(int playerId) {
@@ -22,6 +23,8 @@ public class MgOceanRemotePlayerHUD : NetworkedSingleton<MgOceanRemotePlayerHUD>
     }
 
     public void AddPlayer(MgOceanPlayer player) {
+        Debug.Log($"[MgOceanRemotePlayerHUD] AddPlayer called for PlayerId: {player.PlayerId}");
+        if (remotePlayerOverview == null) return;
         var playerElement = playerEntryTemplate.CloneTree();
         playerElement.Q<Label>("player-name").text = player.PlayerName;
         playerElement.Q<Label>("player-score").text = "0";
@@ -30,13 +33,17 @@ public class MgOceanRemotePlayerHUD : NetworkedSingleton<MgOceanRemotePlayerHUD>
     }
 
     public void RemovePlayer(int playerId) {
+        Debug.Log($"[MgOceanRemotePlayerHUD] RemovePlayer called for PlayerId: {playerId}");
         if (playerElements.TryGetValue(playerId, out var playerElement)) {
-            remotePlayerOverview.Remove(playerElement);
+            if (remotePlayerOverview != null) {
+                remotePlayerOverview.Remove(playerElement);
+            }
             playerElements.Remove(playerId);
         }
     }
 
     public void UpdatePlayerScore(int playerId, uint score) {
+        Debug.Log($"[MgOceanRemotePlayerHUD] UpdatePlayerScore called for PlayerId: {playerId} with score: {score}");
         if (playerElements.TryGetValue(playerId, out var playerElement)) {
             var scoreLabel = playerElement.Q<Label>("player-score");
             scoreLabel.text = $"{score}";

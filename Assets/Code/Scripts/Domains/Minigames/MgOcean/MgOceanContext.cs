@@ -52,6 +52,7 @@ public class MgOceanContext : NetworkedSingleton<MgOceanContext> {
     private IEnumerator UpdateCountdown() {
         countdownTimer = gameDuration;
         int lastSeconds = Mathf.CeilToInt(countdownTimer);
+        Debug.Log($"[MgOceanContext] Starting countdown from {lastSeconds}s.");
         MgOceanLocalPlayerHUD.Instance?.UpdateCountdown(lastSeconds);
 
         while (countdownTimer > 0f) {
@@ -64,6 +65,7 @@ public class MgOceanContext : NetworkedSingleton<MgOceanContext> {
             yield return null;
         }
 
+        Debug.Log("[MgOceanContext] Countdown finished.");
         MgOceanLocalPlayerHUD.Instance?.UpdateCountdown(0);
     }
 
@@ -72,7 +74,6 @@ public class MgOceanContext : NetworkedSingleton<MgOceanContext> {
         float interval = initialSpawnInterval;
 
         while (Time.time - startTime < gameDuration) {
-            // Pick random prefab
             GameObject prefab = trashPrefabs[Random.Range(0, trashPrefabs.Length)];
             
             Vector3 spawnPosition = new Vector3(
