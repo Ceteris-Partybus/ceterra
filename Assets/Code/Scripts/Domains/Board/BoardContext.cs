@@ -188,24 +188,36 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
                 this.resourceHistory.Add(entry);
                 resourcesNextRound = CalculateResourcesNextRound();
 
+                int completedInvestments = 0;
                 foreach (var investment in investments) {
                     investment.Tick();
                     if (investment.cooldown == 0 && !investment.completed) {
                         ApplyInvestment(investment);
                         investment.completed = true;
+                        RpcShowInvestInfo($"Das Investment {investment.displayName} wurde fertiggestellt!");
+                        completedInvestments++;
                     }
                     TriggerInvestmentListUpdate(investments.IndexOf(investment), investment);
                 }
 
-                // All players have moved at least once, start minigame
-                // GameManager.Singleton.StartMinigame("MgQuizduel");
-                // return;
+                if (completedInvestments > 0) {
+                    StartCoroutine(WaitBeforeMinigame(completedInvestments * 3f));
+                }
+                else {
+                    GameManager.Singleton.StartMinigame("MgQuizduel");
+                }
+                return;
             }
 
             NextPlayerTurn();
         }
     }
 
+    [Server]
+    private IEnumerator WaitBeforeMinigame(float seconds) {
+        yield return new WaitForSeconds(seconds);
+        GameManager.Singleton.StartMinigame("MgQuizduel");
+    }
 
     [Server]
     private uint CalculateResourcesNextRound() {
