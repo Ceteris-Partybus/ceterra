@@ -1,7 +1,12 @@
+using Mirror;
+using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class FundsDepositModal : Modal {
+
+    public static FundsDepositModal Instance => GetInstance<FundsDepositModal>();
 
     private Button depositSubmitButton;
     private UnsignedIntegerField depositValueField;
@@ -9,15 +14,17 @@ public class FundsDepositModal : Modal {
     private Button depositAdd100Button;
     private Button depositAdd1000Button;
 
-    public FundsDepositModal(VisualTreeAsset contentTemplate) : base(contentTemplate) {
+    protected override void Start() {
+        this.visualTreeAsset = ModalMap.Instance.FundsDepositModalTemplate;
+        base.Start();
     }
 
-    protected override void InitializeContent() {
-        this.depositSubmitButton = this.modalContent.Q<Button>("deposit-submit-button");
-        this.depositValueField = this.modalContent.Q<UnsignedIntegerField>("deposit-value");
-        this.depositAdd10Button = this.modalContent.Q<Button>("deposit-add-10");
-        this.depositAdd100Button = this.modalContent.Q<Button>("deposit-add-100");
-        this.depositAdd1000Button = this.modalContent.Q<Button>("deposit-add-1000");
+    protected override void OnModalShown() {
+        this.depositSubmitButton = modalElement.Q<Button>("deposit-submit-button");
+        this.depositValueField = modalElement.Q<UnsignedIntegerField>("deposit-value");
+        this.depositAdd10Button = modalElement.Q<Button>("deposit-add-10");
+        this.depositAdd100Button = modalElement.Q<Button>("deposit-add-100");
+        this.depositAdd1000Button = modalElement.Q<Button>("deposit-add-1000");
 
         if (this.depositSubmitButton != null) {
             this.depositSubmitButton.clicked += this.OnDepositSubmitButtonClicked;
@@ -36,11 +43,27 @@ public class FundsDepositModal : Modal {
         }
     }
 
+    [ClientCallback]
     private void OnDepositSubmitButtonClicked() {
-        Debug.Log("Deposit submit button clicked!");
-        // Handle deposit submission logic here
         uint depositValue = this.depositValueField.value;
-        Debug.Log($"Deposit value: {depositValue}");
+        var localPlayer = BoardContext.Instance.GetLocalPlayer();
+
+        if (localPlayer.Coins < depositValue) {
+            ErrorModal.Instance.Message = "Du besitzt nicht genügend Münzen.";
+            ModalManager.Instance.Show(ErrorModal.Instance);
+            return;
+        }
+
+        CmdDepositFunds(depositValue, localPlayer);
+        ModalManager.Instance.Hide();
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdDepositFunds(uint depositValue, BoardPlayer localPlayer) {
+        FundsHistoryEntry entry = new FundsHistoryEntry(depositValue, HistoryEntryType.DEPOSIT, "Einzahlung von " + localPlayer.PlayerName);
+        BoardContext.Instance.fundsHistory.Add(entry);
+        BoardContext.Instance.UpdateFundsStat((int)depositValue);
+        localPlayer.RemoveCoins(depositValue);
     }
 
     private void OnDepositAdd10ButtonClicked() {
@@ -61,8 +84,7 @@ public class FundsDepositModal : Modal {
         }
     }
 
-    protected override void OnClose() {
-        // Unregister events when modal is closed
+    protected override void OnModalHidden() {
         if (this.depositSubmitButton != null) {
             this.depositSubmitButton.clicked -= this.OnDepositSubmitButtonClicked;
         }

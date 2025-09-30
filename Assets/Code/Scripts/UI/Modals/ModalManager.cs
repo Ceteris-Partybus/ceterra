@@ -1,95 +1,223 @@
+using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class ModalManager : NetworkedSingleton<ModalManager> {
     [SerializeField] private UIDocument uiDocument;
-    private VisualElement modalContainer;
-    private readonly List<Modal> activeModals = new List<Modal>();
-    public IReadOnlyList<Modal> ActiveModals => activeModals.AsReadOnly();
+    [SerializeField] private int maxModalStackSize = 10;
+
+    private Stack<Modal> modalStack = new Stack<Modal>();
+    public Stack<Modal> ModalStack => modalStack;
+    private VisualElement rootElement;
 
     protected override void Awake() {
         base.Awake();
 
-        if (this.uiDocument == null) {
-            this.uiDocument = this.GetComponent<UIDocument>();
+        if (uiDocument == null) {
+            uiDocument = GetComponent<UIDocument>();
         }
 
-        // Get the modal container from the UI Document
-        this.modalContainer = this.uiDocument.rootVisualElement.Q<VisualElement>("modal-container");
-        if (this.modalContainer == null) {
-            Debug.LogError("Modal container not found in UI Document. Make sure there's a VisualElement with name 'modal-container'");
+        if (uiDocument != null) {
+            Debug.Log("ModalManager initialized with UIDocument.");
+            rootElement = uiDocument.rootVisualElement.Q<VisualElement>("modal-container");
+            if (rootElement == null) {
+                Debug.LogError("ModalManager requires a 'modal-container' VisualElement in the UIDocument.");
+            }
         }
     }
 
-    public void ShowModal(Modal modal) {
-        if (this.modalContainer == null) {
-            Debug.LogError("Modal container not found");
+    protected override void Start() {
+        base.Start();
+        // Ensure we have a UI Document for displaying modals
+        if (uiDocument == null) {
+            Debug.LogError("ModalManager requires a UIDocument component!");
+        }
+    }
+
+    protected void Update() {
+        Modal modal = GetTopModal();
+
+        if (modal == null) {
             return;
         }
 
-        Debug.Log("Showing modal: " + modal.GetType().Name);
-
-        // Initialize the modal
-        modal.Initialize(this.modalContainer);
-
-        // Check if the modal container is already active
-        if (!this.IsModalContainerActive()) {
-            this.ToggleModalContainer();
+        if (modal.IsVisible() && modal.CloseOnEscapeKey && Input.GetKeyDown(KeyCode.Escape)) {
+            Hide();
         }
-
-        // Add the modal to the active modals list
-        this.activeModals.Add(modal);
-
-        BoardOverlay.Instance.UpdateFundsValue(BoardContext.Instance.FundsStat);
-        BoardOverlay.Instance.UpdateResourceValue(BoardContext.Instance.ResourceStat);
-        BoardOverlay.Instance.UpdateEconomyValue(BoardContext.Instance.EconomyStat);
-        BoardOverlay.Instance.UpdateSocietyValue(BoardContext.Instance.SocietyStat);
-        BoardOverlay.Instance.UpdateEnvironmentValue(BoardContext.Instance.EnvironmentStat);
-        if (BoardContext.Instance.GetLocalPlayer() != null) {
-            BoardOverlay.Instance.UpdateLocalPlayerHealth(BoardContext.Instance.GetLocalPlayer().Health);
-            BoardOverlay.Instance.UpdateLocalPlayerCoins(BoardContext.Instance.GetLocalPlayer().Coins);
-        }
-
-        // Show the modal
-        modal.Show();
     }
 
-    private bool IsModalContainerActive() {
-        return this.modalContainer != null && this.modalContainer.ClassListContains("active");
-    }
-
-    private void ToggleModalContainer() {
-        this.modalContainer?.ToggleInClassList("active");
-    }
-
-    public void CloseModal(Modal modal) {
-        if (this.activeModals.Contains(modal)) {
-            modal.Close();
-            this.activeModals.Remove(modal);
+    /// <summary>
+    /// Shows a modal either on all clients or just the calling client
+    /// </summary>
+    /// <param name="modal">The modal to show</param>
+    /// <param name="showOnAllClients">If true, shows on all clients. If false, shows only on the calling client.</param>
+    public void Show(Modal modal, bool showOnAllClients = false) {
+        if (modal == null) {
+            Debug.LogError("Cannot show null modal!");
+            return;
         }
-        if (this.activeModals.Count == 0) {
-            if (this.IsModalContainerActive()) {
-                this.ToggleModalContainer();
+
+        if (showOnAllClients) {
+            // Show on all clients via RPC
+            if (isServer) {
+                RpcShowModal(modal.GetModalId());
+            }
+            else {
+                // If we're a client, ask the server to broadcast
+                CmdRequestShowModalOnAllClients(modal.GetModalId());
+            }
+        }
+        else {
+            // Show only on this client
+            ShowModalLocal(modal);
+        }
+    }
+
+    /// <summary>
+    /// Hides the top modal from the stack
+    /// </summary>
+    /// <param name="hideOnAllClients">If true, hides on all clients. If false, hides only on the calling client.</param>
+    public void Hide(bool hideOnAllClients = false) {
+        if (hideOnAllClients) {
+            if (isServer) {
+                RpcHideTopModal();
+            }
+            else {
+                CmdRequestHideModalOnAllClients();
+            }
+        }
+        else {
+            HideTopModalLocal();
+        }
+    }
+
+    /// <summary>
+    /// Shows a modal locally on this client only
+    /// </summary>
+    private void ShowModalLocal(Modal modal) {
+        if (modalStack.Count >= maxModalStackSize) {
+            Debug.LogWarning($"Modal stack is full! Maximum size: {maxModalStackSize}");
+            return;
+        }
+
+        // Hide the current top modal if there is one
+        // if (modalStack.Count > 0) {
+        //     modalStack.Peek().SetVisible(false);
+        // }
+
+        // Show the modal container
+        if (rootElement != null) {
+            rootElement.AddToClassList("active");
+            rootElement.style.display = DisplayStyle.Flex;
+        }
+
+        // Add new modal to stack and show it
+        modalStack.Push(modal);
+        modal.Show(rootElement);
+
+        Debug.Log($"Showing modal: {modal.GetType().Name}");
+    }
+
+    /// <summary>
+    /// Hides the top modal locally on this client only
+    /// </summary>
+    private void HideTopModalLocal() {
+        if (modalStack.Count == 0) {
+            Debug.LogWarning("No modals to hide!");
+            return;
+        }
+
+        Modal topModal = modalStack.Pop();
+        topModal.Hide();
+
+        Debug.Log($"Hiding modal: {topModal.GetType().Name}");
+
+        // Show the previous modal if there is one
+        if (modalStack.Count > 0) {
+            modalStack.Peek().SetVisible(true);
+        }
+        else {
+            // Hide the modal container if no modals are left
+            if (rootElement != null) {
+                rootElement.RemoveFromClassList("active");
+                rootElement.style.display = DisplayStyle.None;
             }
         }
     }
 
-    public void CloseAllModals() {
-        foreach (var modal in this.activeModals.ToArray()) {
-            modal.Close();
-        }
-        this.activeModals.Clear();
-        if (this.IsModalContainerActive()) {
-            this.ToggleModalContainer();
+    // Network Commands (Client -> Server)
+    [Command(requiresAuthority = false)]
+    private void CmdRequestShowModalOnAllClients(string modalId) {
+        Modal modal = FindModalById(modalId);
+        if (modal != null) {
+            RpcShowModal(modalId);
         }
     }
 
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            if (this.activeModals.Count > 0) {
-                this.CloseModal(this.activeModals[this.activeModals.Count - 1]);
+    [Command(requiresAuthority = false)]
+    private void CmdRequestHideModalOnAllClients() {
+        RpcHideTopModal();
+    }
+
+    // Network RPCs (Server -> All Clients)
+    [ClientRpc]
+    private void RpcShowModal(string modalId) {
+        Modal modal = FindModalById(modalId);
+        if (modal != null) {
+            ShowModalLocal(modal);
+        }
+        else {
+            Debug.LogError($"Modal with ID '{modalId}' not found!");
+        }
+    }
+
+    [ClientRpc]
+    private void RpcHideTopModal() {
+        HideTopModalLocal();
+    }
+
+    /// <summary>
+    /// Finds a modal by its ID. You'll need to implement your own modal registration system.
+    /// </summary>
+    private Modal FindModalById(string modalId) {
+        // This is a simple implementation - you might want a more sophisticated system
+        Modal[] allModals = FindObjectsByType<Modal>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        foreach (Modal modal in allModals) {
+            if (modal.GetModalId() == modalId) {
+                return modal;
             }
         }
+        return null;
+    }
+
+    /// <summary>
+    /// Clears all modals from the stack
+    /// </summary>
+    public void ClearAllModals() {
+        while (modalStack.Count > 0) {
+            Modal modal = modalStack.Pop();
+            modal.Hide();
+        }
+
+        // Hide the modal container
+        if (rootElement != null) {
+            rootElement.RemoveFromClassList("active");
+            rootElement.style.display = DisplayStyle.None;
+        }
+    }
+
+    /// <summary>
+    /// Gets the number of modals currently in the stack
+    /// </summary>
+    public int GetModalCount() {
+        return modalStack.Count;
+    }
+
+    /// <summary>
+    /// Gets the top modal without removing it from the stack
+    /// </summary>
+    public Modal GetTopModal() {
+        return modalStack.Count > 0 ? modalStack.Peek() : null;
     }
 }

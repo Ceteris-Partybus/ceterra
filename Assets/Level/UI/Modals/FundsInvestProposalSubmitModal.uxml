@@ -3,9 +3,12 @@
     <ui:VisualElement style="flex-grow: 1; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; width: 450px; height: 250px;">
         <ui:Label text="Propose" class="modal-title" />
         <ui:VisualElement style="flex-grow: 1; align-items: center;">
-            <ui:UnsignedIntegerField value="42" name="investment-proposal-value" class="modal-button" style="-unity-text-align: upper-left; font-size: 24px;" />
+            <ui:UnsignedIntegerField value="0" name="investment-proposal-value" class="modal-button" style="-unity-text-align: upper-left; font-size: 24px;" />
             <ui:VisualElement style="flex-grow: 0; margin-top: 5px; flex-direction: row; justify-content: space-between; width: 207px;">
-                <ui:Button text="Add 100% required funding" name="add-all-funding-button" class="modal-button" style="height: 26px; width: 54px; flex-grow: 1;" />
+                <ui:Button text="Add 100% required funding" name="add-all-funding-button" class="modal-button" style="height: 26px; width: 54px; flex-grow: 1; display: flex;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="fully-financed-info" style="flex-grow: 1; background-size: 100% 100%; width: 80%; display: none;">
+                <ui:Label text="This investment is already is fully financed. Continue with proposal to start voting." style="white-space: normal; height: 32px;" />
             </ui:VisualElement>
             <ui:VisualElement style="flex-grow: 1; margin-top: 25px;">
                 <ui:Button text="Propose investment" name="propose-investment-button" class="modal-button" />
