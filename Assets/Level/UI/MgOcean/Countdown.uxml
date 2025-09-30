@@ -1,0 +1,3 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Label text="00:00" name="countdown-label" style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 42px; position: absolute; top: 910px; left: 43px;" />
+</ui:UXML>
