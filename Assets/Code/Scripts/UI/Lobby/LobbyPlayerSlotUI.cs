@@ -13,7 +13,7 @@ public class LobbyPlayerSlotUI {
 
     public LobbyPlayerSlotUI(VisualElement parent) {
         this.parent = parent;
-        this.container = parent.Q<VisualElement>("player-slot");
+        this.container = parent.Q<VisualElement>("button-area"); // Target the button-area specifically
 
         playerDisplayName = parent.Q<Label>("player-name-label");
         playerPing = parent.Q<Label>("ping-label");
