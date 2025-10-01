@@ -146,7 +146,7 @@ MonoBehaviour:
   healthGainTrigger: HealthGain
   healthLossTrigger: HealthLoss
   runTrigger: Run
-  diceJumpTrigger: DiceJump
+  diceHitTrigger: DiceHit
   idleTrigger: Idle
   diceSpinTrigger: DiceSpin
   junctionEntryTrigger: JunctionEntry

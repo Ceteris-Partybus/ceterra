@@ -24,10 +24,10 @@ public class Character : MonoBehaviour {
     public string CharacterName => characterName;
     [SerializeField] private string info;
     public string Info => info;
-    [SerializeField] private int jumpPower;
+    [SerializeField] private float jumpPower;
     [SerializeField] private float jumpDuration;
 
-    public void Jump() {
+    public void HitDice() {
         playerModel.DOComplete();
         playerModel.DOJump(transform.position, jumpPower, 1, jumpDuration);
     }

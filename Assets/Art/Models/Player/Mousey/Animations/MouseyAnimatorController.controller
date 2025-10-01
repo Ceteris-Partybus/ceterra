@@ -106,7 +106,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DiceJump
+  m_Name: DiceHit
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -276,7 +276,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: DiceJump
+  - m_Name: DiceHit
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -310,7 +310,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: DiceJump
+    m_ConditionEvent: DiceHit
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4764108785016342377}

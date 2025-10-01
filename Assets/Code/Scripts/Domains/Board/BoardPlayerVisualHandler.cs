@@ -17,7 +17,7 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
     [SerializeField] private string healthGainTrigger;
     [SerializeField] private string healthLossTrigger;
     [SerializeField] private string runTrigger;
-    [SerializeField] private string diceJumpTrigger;
+    [SerializeField] private string diceHitTrigger;
     [SerializeField] private string idleTrigger;
     [SerializeField] private string diceSpinTrigger;
     [SerializeField] private string junctionEntryTrigger;
@@ -50,7 +50,7 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
 
     public void TriggerAnimation(AnimationType animationType) {
         character.Animator.SetTrigger(animationType switch {
-            AnimationType.DICE_JUMP => diceJumpTrigger,
+            AnimationType.DICE_HIT => diceHitTrigger,
             AnimationType.IDLE => idleTrigger,
             AnimationType.DICE_SPIN => diceSpinTrigger,
             AnimationType.JUNCTION_ENTRY => junctionEntryTrigger,
@@ -106,8 +106,8 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
     }
 
     public IEnumerator StartRollSequence(int diceValue) {
-        character.Jump();
-        TriggerAnimation(AnimationType.DICE_JUMP);
+        character.HitDice();
+        TriggerAnimation(AnimationType.DICE_HIT);
         yield return new WaitForSeconds(0.09f);
 
         dice.OnRollDisplay(diceValue);

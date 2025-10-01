@@ -281,6 +281,7 @@ MonoBehaviour:
   selectableCharacters:
   - {fileID: 8313941121211207586, guid: b9eb311b0649fae41ad5ad962bc2eae8, type: 3}
   - {fileID: 8695115523406977269, guid: f39a71aa5ffb54f459a1fb88bbd8c3f7, type: 3}
+  - {fileID: 8695115523406977269, guid: d3efe0d13d76db54e8e60a2e8ad21f1d, type: 3}
   selectableDices:
   - {fileID: 5754625222157326443, guid: ce1d4306273adfb43ad9b0da4a68151e, type: 3}
   - {fileID: 5754625222157326443, guid: 29be8da3abdb685439646832481bfb5b, type: 3}
