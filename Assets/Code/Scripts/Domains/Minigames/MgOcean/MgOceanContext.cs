@@ -76,13 +76,22 @@ public class MgOceanContext : NetworkedSingleton<MgOceanContext> {
         while (Time.time - startTime < gameDuration) {
             GameObject prefab = trashPrefabs[Random.Range(0, trashPrefabs.Length)];
             
+            bool spawnFromRight = Random.value > 0.5f;
+            float spawnX = spawnFromRight ? spawnArea.max.x + 1f : spawnArea.min.x - 1f;
+            
             Vector3 spawnPosition = new Vector3(
-                Random.Range(spawnArea.min.x, spawnArea.max.x),
-                spawnArea.max.y + 1f,
+                spawnX,
+                Random.Range(spawnArea.min.y, spawnArea.max.y),
                 0f
             );
 
             GameObject go = Instantiate(prefab, spawnPosition, Quaternion.identity);
+            
+            var trash = go.GetComponent<MgOceanTrash>();
+            if (trash != null) {
+                trash.SetMovementDirection(spawnFromRight ? Vector2.left : Vector2.right);
+            }
+            
             NetworkServer.Spawn(go);
 
             yield return new WaitForSeconds(interval);

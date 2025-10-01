@@ -174,6 +174,8 @@ public class BoardPlayer : SceneConditionalPlayer {
         }
         else if (source is MgQuizduelPlayer quizDuelPlayer) {
             AddCoins((uint)Math.Max(0, quizDuelPlayer.EarnedCoinReward));
+        } else if (source is MgOceanPlayer oceanPlayer){
+            AddCoins((uint)Math.Max(0, oceanPlayer.Score));
         }
     }
 

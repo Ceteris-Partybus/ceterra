@@ -9,6 +9,12 @@ public class MgOceanTrash : NetworkBehaviour {
     private float fallSpeed = 2f;
 
     [SerializeField]
+    private float waveAmplitude = 1f;
+
+    [SerializeField]
+    private float waveFrequency = 1f;
+
+    [SerializeField]
     private MgOceanTrashType trashType;
     public MgOceanTrashType TrashType => trashType;
 
@@ -16,6 +22,9 @@ public class MgOceanTrash : NetworkBehaviour {
     private bool isTrigger = false;
 
     private Rigidbody2D rb;
+    private float startYPosition;
+    private float elapsedTime;
+    private Vector2 movementDirection = Vector2.left;
 
     public override void OnStartClient() {
         base.OnStartClient();
@@ -40,11 +49,24 @@ public class MgOceanTrash : NetworkBehaviour {
         if (trashLayer != -1) {
             gameObject.layer = trashLayer;
         }
+
+        startYPosition = transform.position.y;
+        elapsedTime = 0f;
+    }
+
+    public void SetMovementDirection(Vector2 direction) {
+        movementDirection = direction.normalized;
     }
 
     [ServerCallback]
     void FixedUpdate() {
-        rb.MovePosition(transform.position + Vector3.down * fallSpeed * Time.fixedDeltaTime);
+        elapsedTime += Time.fixedDeltaTime;
+        
+        float yOffset = Mathf.Sin(elapsedTime * waveFrequency) * waveAmplitude;
+        float newY = startYPosition + yOffset;
+        float newX = transform.position.x + movementDirection.x * fallSpeed * Time.fixedDeltaTime;
+        
+        rb.MovePosition(new Vector3(newX, newY, transform.position.z));
     }
 
     private void OnDrawGizmos() {
