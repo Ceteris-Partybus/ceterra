@@ -2,33 +2,51 @@ using UnityEngine.UIElements;
 
 public class LobbyPlayerSlotUI {
     public VisualElement parent;
-    private VisualElement container;
+    private VisualElement buttonContainer;
     public Label playerDisplayName;
     public Label playerPing;
+    public IconWithLabel selectedCharacter;
+    public IconWithLabel selectedDice;
     public Button characterSelectionBtn;
     public Button readyBtn;
-    private IVisualElementScheduledItem waitingAnimation;
-    private int dotCount = 0;
+    private DottedAnimation waitingAnimation;
     private bool isInitialized = false;
 
     public LobbyPlayerSlotUI(VisualElement parent) {
         this.parent = parent;
-        this.container = parent.Q<VisualElement>("button-area"); // Target the button-area specifically
+        this.buttonContainer = parent.Q<VisualElement>("button-area");
 
         playerDisplayName = parent.Q<Label>("player-name-label");
         playerPing = parent.Q<Label>("ping-label");
+
+        selectedCharacter = new IconWithLabel(parent.Q<VisualElement>("character-content"), "character-icon", "character-name");
+        selectedDice = new IconWithLabel(parent.Q<VisualElement>("dice-content"), "dice-icon", "dice-name");
+
         characterSelectionBtn = parent.Q<Button>("character-selection-button");
-        readyBtn = parent.Q<Button>("ready-button");
         characterSelectionBtn.clicked += PlayerHud.Instance.ShowCharacterSelection;
+        readyBtn = parent.Q<Button>("ready-button");
+
+        waitingAnimation = new DottedAnimation(playerDisplayName, "Waiting for player");
         Clear();
     }
 
     public void AssignTo(LobbyPlayer lobbyPlayer) {
-        if (waitingAnimation != null) { StopWaitingAnimation(); }
+        if (waitingAnimation.isRunning) { waitingAnimation.Stop(); }
+
         parent.RemoveFromClassList("empty-slot");
 
         playerDisplayName.text = lobbyPlayer.PlayerName ?? "New Player";
         playerPing.text = lobbyPlayer.Ping.ToString() + " ms";
+
+        var character = lobbyPlayer?.CurrentCharacterInstance?.GetComponent<Character>();
+        if (character != null) {
+            selectedCharacter.SetIconAndLabel(character.Icon, character.CharacterName);
+        }
+
+        var dice = lobbyPlayer?.CurrentDiceInstance?.GetComponent<Dice>();
+        if (dice != null) {
+            selectedDice.SetIconAndLabel(dice.Icon, dice.DiceName);
+        }
 
         var isReady = lobbyPlayer.readyToBegin;
         parent.EnableInClassList("ready", isReady);
@@ -38,40 +56,24 @@ public class LobbyPlayerSlotUI {
 
         if (lobbyPlayer.isLocalPlayer && !isInitialized) {
             readyBtn.clicked += () => lobbyPlayer.CmdChangeReadyState(!lobbyPlayer.readyToBegin);
-            container.Add(characterSelectionBtn);
-            container.Add(readyBtn);
+            buttonContainer.Add(characterSelectionBtn);
+            buttonContainer.Add(readyBtn);
         }
         isInitialized = true;
     }
 
     public void Clear() {
-        if (waitingAnimation != null) { return; }
+        if (waitingAnimation.isRunning) { return; }
 
         isInitialized = false;
         playerPing.text = "";
         parent.AddToClassList("empty-slot");
 
-        if (container.Contains(characterSelectionBtn)) {
-            container.Remove(characterSelectionBtn);
-            container.Remove(readyBtn);
+        if (buttonContainer.Contains(characterSelectionBtn)) {
+            buttonContainer.Remove(characterSelectionBtn);
+            buttonContainer.Remove(readyBtn);
         }
 
-        StartWaitingAnimation();
-    }
-
-    private void StartWaitingAnimation() {
-        dotCount = 0;
-        waitingAnimation = playerDisplayName.schedule.Execute(AnimateWaitingText).Every(500);
-    }
-
-    private void StopWaitingAnimation() {
-        waitingAnimation?.Pause();
-        waitingAnimation = null;
-    }
-
-    private void AnimateWaitingText() {
-        dotCount = (dotCount + 1) % 4;
-        var dots = new string('.', dotCount);
-        playerDisplayName.text = $"Waiting for player{dots}";
+        waitingAnimation.Start();
     }
 }

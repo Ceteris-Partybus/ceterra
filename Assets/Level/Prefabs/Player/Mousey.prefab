@@ -24699,7 +24699,8 @@ MonoBehaviour:
   coinLossParticle: {fileID: 7691663680946589299}
   healthGainParticle: {fileID: 1545227047650701632}
   healthLossParticle: {fileID: 421549530338002864}
-  playerModel: {fileID: 5501226492289118387}
+  model: {fileID: 5501226492289118387}
+  iconTexture2D: {fileID: 2800000, guid: 2bc49707d41701848b18390997ca55c6, type: 3}
   animator: {fileID: 7310642014890231123}
   characterName: Mousey
   info: Is a mice

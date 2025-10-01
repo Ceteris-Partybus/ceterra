@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using DG.Tweening;
 using Unity.Cinemachine;
+using UnityEngine.UIElements;
 
 public class Dice : MonoBehaviour {
     [Header("Particles")]
@@ -13,6 +14,9 @@ public class Dice : MonoBehaviour {
 
     [Header("General")]
     [SerializeField] private Transform model;
+    [SerializeField] private Texture2D iconTexture2D;
+    private StyleBackground icon;
+    public StyleBackground Icon => icon;
     [SerializeField] private string diceName;
     public string DiceName => diceName;
     [SerializeField] private int[] values;
@@ -52,7 +56,10 @@ public class Dice : MonoBehaviour {
         }
     }
 
-    private void Start() { SetInPreview = true; }
+    private void Start() {
+        SetInPreview = true;
+        icon = new StyleBackground(iconTexture2D);
+    }
 
     void Update() {
         if (isSpinning) { Spin(); return; }

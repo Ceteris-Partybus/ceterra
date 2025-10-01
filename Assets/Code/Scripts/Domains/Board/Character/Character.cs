@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UIElements;
 
 public class Character : MonoBehaviour {
     [Header("Particles")]
@@ -15,7 +16,10 @@ public class Character : MonoBehaviour {
     public ParticleSystem HealthLossParticle => healthLossParticle;
 
     [Header("Player Parameters")]
-    [SerializeField] private Transform playerModel;
+    [SerializeField] private Transform model;
+    [SerializeField] private Texture2D iconTexture2D;
+    private StyleBackground icon;
+    public StyleBackground Icon => icon;
 
     [Header("General")]
     [SerializeField] private Animator animator;
@@ -27,21 +31,25 @@ public class Character : MonoBehaviour {
     [SerializeField] private float jumpPower;
     [SerializeField] private float jumpDuration;
 
+    void Start() {
+        icon = new StyleBackground(iconTexture2D);
+    }
+
     public void HitDice() {
-        playerModel.DOComplete();
-        playerModel.DOJump(transform.position, jumpPower, 1, jumpDuration);
+        model.DOComplete();
+        model.DOJump(transform.position, jumpPower, 1, jumpDuration);
     }
 
     public void FaceCamera() {
-        var directionToCamera = Camera.main.transform.position - playerModel.transform.position;
+        var directionToCamera = Camera.main.transform.position - model.transform.position;
         directionToCamera.y = 0;
         if (directionToCamera.sqrMagnitude > 0.0001f) {
             var targetRotation = Quaternion.LookRotation(directionToCamera, Vector3.up);
-            playerModel.rotation = Quaternion.Lerp(playerModel.transform.rotation, targetRotation, 10 * Time.deltaTime);
+            model.rotation = Quaternion.Lerp(model.transform.rotation, targetRotation, 10 * Time.deltaTime);
         }
     }
 
     public void SetMovementRotation(Quaternion targetRotation, float lerpSpeed) {
-        playerModel.rotation = Quaternion.Lerp(playerModel.rotation, targetRotation, lerpSpeed * Time.deltaTime);
+        model.rotation = Quaternion.Lerp(model.rotation, targetRotation, lerpSpeed * Time.deltaTime);
     }
 }

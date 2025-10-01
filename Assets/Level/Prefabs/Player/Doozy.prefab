@@ -29590,7 +29590,8 @@ MonoBehaviour:
   coinLossParticle: {fileID: 8981272167572408733}
   healthGainParticle: {fileID: 3398649944438479171}
   healthLossParticle: {fileID: 7289998885822227012}
-  playerModel: {fileID: 5723442180677544859}
+  model: {fileID: 5723442180677544859}
+  iconTexture2D: {fileID: 2800000, guid: 154580923db63de4e95a2fac95946902, type: 3}
   animator: {fileID: 6262359937227076495}
   characterName: Doozy
   info: Looks stupid

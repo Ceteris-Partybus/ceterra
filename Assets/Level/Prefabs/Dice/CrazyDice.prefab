@@ -25765,6 +25765,7 @@ MonoBehaviour:
   hitParticle: {fileID: 2564128068218431012}
   resultParticle: {fileID: 8165093758526480014}
   model: {fileID: 6047672309513502943}
+  iconTexture2D: {fileID: 2800000, guid: d719e2f26cd824fb99327420fa9e623e, type: 3}
   diceName: Crazy Dice
   values: 010000000100000001000000060000000600000006000000
   boardScale: 0.75

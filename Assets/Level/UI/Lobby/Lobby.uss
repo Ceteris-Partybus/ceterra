@@ -107,7 +107,6 @@
 .selection-area {
     flex-direction: row;
     justify-content: space-around;
-    gap: 20px;
 }
 
 .icon-selection-group {
@@ -131,12 +130,7 @@
     border-color: rgba(200, 140, 100, 0.6);
     background-size: cover;
     flex-shrink: 0;
-    background-image: url("project://database/Assets/Level/UI/Lobby/Icons/CrazyDice.jpeg?fileID=2800000&guid=d719e2f26cd824fb99327420fa9e623e&type=3#CrazyDice");
-}
-
-#character-icon {
-    background-image: url("project://database/Assets/Level/UI/Lobby/Icons/Doozy.jpeg?fileID=2800000&guid=2fe7c61bdf1f643acb7119b3511b6cc2&type=3#Doozy");
-    -unity-background-scale-mode: stretch-to-fill;
+    -unity-background-scale-mode: scale-and-crop;
 }
 
 .icon-label {
@@ -148,7 +142,6 @@
 
 .button-area {
     flex-direction: row;
-    gap: 10px;
     flex-shrink: 0;
 }
 
@@ -199,4 +192,8 @@
 .ready-button.ready:hover {
     background-color: rgba(200, 140, 100, 1);
     border-color: rgba(180, 120, 80, 1);
+}
+
+#button-templates {
+    display: none;
 }
