@@ -81,8 +81,8 @@ public class Investment : IEquatable<Investment> {
     }
 
     public static List<Investment> LoadInvestmentsFromResources() {
-        string jsonText = File.ReadAllText("Assets/Resources/Domains/Investment/InvestmentList.json");
-        List<Investment> investmentList = JsonConvert.DeserializeObject<List<Investment>>(jsonText);
+        TextAsset jsonFile = Resources.Load<TextAsset>("Domains/Investment/InvestmentList");
+        List<Investment> investmentList = JsonConvert.DeserializeObject<List<Investment>>(jsonFile.text);
         return investmentList;
     }
 }
