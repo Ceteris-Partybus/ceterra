@@ -85,6 +85,8 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     private void TransferCharacterSelection(LobbyPlayer lobbyPlayer) {
+        lobbyPlayer.StopFacingCameraCoroutine();
+
         this.character = lobbyPlayer.CurrentCharacterInstance.GetComponent<Character>();
         this.character.transform.SetParent(transform, false);
         this.dice = lobbyPlayer.CurrentDiceInstance.GetComponent<Dice>();

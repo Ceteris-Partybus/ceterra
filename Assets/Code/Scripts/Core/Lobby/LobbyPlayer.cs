@@ -20,8 +20,25 @@ public class LobbyPlayer : NetworkRoomPlayer {
     private GameObject CharacterModel => GameManager.Singleton.GetCharacter(selectedCharacterIndex);
     private GameObject DiceModel => GameManager.Singleton.GetDice(selectedDiceIndex);
 
+    private Coroutine faceCameraCoroutine;
+
     public override void OnClientEnterRoom() {
         gameObject.transform.position = LobbySpawnPointManager.Instance.GetSpawnPoint(index).position;
+        faceCameraCoroutine = StartCoroutine(FaceCameraCoroutine());
+
+        IEnumerator FaceCameraCoroutine() {
+            while (true) {
+                currentCharacterInstance?.GetComponent<Character>().FaceCamera();
+                yield return new WaitForEndOfFrame();
+            }
+        }
+    }
+
+    public void StopFacingCameraCoroutine() {
+        if (faceCameraCoroutine != null) {
+            StopCoroutine(faceCameraCoroutine);
+            faceCameraCoroutine = null;
+        }
     }
 
     public override void IndexChanged(int _old, int _new) {
@@ -104,9 +121,5 @@ public class LobbyPlayer : NetworkRoomPlayer {
     [Command]
     private void CmdUpdatePing(int newPing) {
         ping = newPing;
-    }
-
-    void Update() {
-        currentCharacterInstance?.GetComponent<Character>().FaceCamera();
     }
 }
