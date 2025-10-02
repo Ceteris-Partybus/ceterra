@@ -24,7 +24,7 @@ public class LobbyPlayer : NetworkRoomPlayer {
 
     public override void OnClientEnterRoom() {
         gameObject.transform.position = LobbySpawnPointManager.Instance.GetSpawnPoint(index).position;
-        faceCameraCoroutine = StartCoroutine(FaceCameraCoroutine());
+        faceCameraCoroutine ??= StartCoroutine(FaceCameraCoroutine());
 
         IEnumerator FaceCameraCoroutine() {
             while (true) {

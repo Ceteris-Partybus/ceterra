@@ -76,10 +76,12 @@ public class BoardPlayer : SceneConditionalPlayer {
     [Server]
     public void ServerTransferCharacterSelection(LobbyPlayer lobbyPlayer) {
         TransferCharacterSelection(lobbyPlayer);
+
+        var boardPlayers = GameManager.Singleton.roomSlots.Count;
         StartCoroutine(DelayedRpcTransfer());
 
         IEnumerator DelayedRpcTransfer() {
-            yield return new WaitUntil(() => netIdentity != null && netIdentity.isActiveAndEnabled);
+            yield return new WaitUntil(() => netIdentity != null && netIdentity.observers.Count == boardPlayers);
             RpcTransferCharacterSelection(lobbyPlayer);
         }
     }
