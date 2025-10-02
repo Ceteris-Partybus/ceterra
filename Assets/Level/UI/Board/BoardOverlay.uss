@@ -272,3 +272,18 @@
     justify-content: center;
     flex-direction: row;
 }
+
+.trend-rising {
+    background-image: resource('Icons/trend-rising');
+    rotate: 270deg;
+}
+
+.trend-falling {
+    background-image: resource('Icons/trend-falling');
+    rotate: 90deg;
+}
+
+.trend-neutral {
+    background-image: resource('Icons/trend-unchanged');
+    rotate: 0deg;
+}

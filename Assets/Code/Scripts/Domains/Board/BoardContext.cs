@@ -67,12 +67,15 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         BoardOverlay.Instance.UpdateResourceValue(new_);
     }
     private void OnEconomyStatChanged(uint old, uint new_) {
+        BoardOverlay.Instance.UpdateTrend("trend-economy", (int)old, (int)new_);
         BoardOverlay.Instance.UpdateEconomyValue(new_);
     }
     private void OnSocietyStatChanged(uint old, uint new_) {
+        BoardOverlay.Instance.UpdateTrend("trend-society", (int)old, (int)new_);
         BoardOverlay.Instance.UpdateSocietyValue(new_);
     }
     private void OnEnvironmentStatChanged(uint old, uint new_) {
+        BoardOverlay.Instance.UpdateTrend("trend-environment", (int)old, (int)new_);
         BoardOverlay.Instance.UpdateEnvironmentValue(new_);
     }
     private void OnResourceNextRoundChanged(uint old, uint new_) {
@@ -200,13 +203,13 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
                     TriggerInvestmentListUpdate(investments.IndexOf(investment), investment);
                 }
 
-                if (completedInvestments > 0) {
-                    StartCoroutine(WaitBeforeMinigame(completedInvestments * 3f));
-                }
-                else {
-                    GameManager.Singleton.StartMinigame("MgQuizduel");
-                }
-                return;
+                // if (completedInvestments > 0) {
+                //     StartCoroutine(WaitBeforeMinigame(completedInvestments * 3f));
+                // }
+                // else {
+                //     GameManager.Singleton.StartMinigame("MgQuizduel");
+                // }
+                // return;
             }
 
             NextPlayerTurn();
