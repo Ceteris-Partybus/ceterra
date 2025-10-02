@@ -48,6 +48,12 @@ public class FundsDepositModal : Modal {
         uint depositValue = this.depositValueField.value;
         var localPlayer = BoardContext.Instance.GetLocalPlayer();
 
+        if (depositValue <= 0) {
+            ErrorModal.Instance.Message = "Der Einzahlungsbetrag muss größer als 0 sein.";
+            ModalManager.Instance.Show(ErrorModal.Instance);
+            return;
+        }
+
         if (localPlayer.Coins < depositValue) {
             ErrorModal.Instance.Message = "Du besitzt nicht genügend Münzen.";
             ModalManager.Instance.Show(ErrorModal.Instance);

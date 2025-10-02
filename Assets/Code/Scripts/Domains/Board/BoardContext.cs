@@ -67,12 +67,15 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         BoardOverlay.Instance.UpdateResourceValue(new_);
     }
     private void OnEconomyStatChanged(uint old, uint new_) {
+        BoardOverlay.Instance.UpdateTrend("trend-economy", (int)old, (int)new_);
         BoardOverlay.Instance.UpdateEconomyValue(new_);
     }
     private void OnSocietyStatChanged(uint old, uint new_) {
+        BoardOverlay.Instance.UpdateTrend("trend-society", (int)old, (int)new_);
         BoardOverlay.Instance.UpdateSocietyValue(new_);
     }
     private void OnEnvironmentStatChanged(uint old, uint new_) {
+        BoardOverlay.Instance.UpdateTrend("trend-environment", (int)old, (int)new_);
         BoardOverlay.Instance.UpdateEnvironmentValue(new_);
     }
     private void OnResourceNextRoundChanged(uint old, uint new_) {
@@ -188,17 +191,24 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
                 this.resourceHistory.Add(entry);
                 resourcesNextRound = CalculateResourcesNextRound();
 
+                int completedInvestments = 0;
                 foreach (var investment in investments) {
                     investment.Tick();
                     if (investment.cooldown == 0 && !investment.completed) {
                         ApplyInvestment(investment);
                         investment.completed = true;
+                        RpcShowInvestInfo($"Das Investment {investment.displayName} wurde fertiggestellt!");
+                        completedInvestments++;
                     }
                     TriggerInvestmentListUpdate(investments.IndexOf(investment), investment);
                 }
 
-                // All players have moved at least once, start minigame
-                // GameManager.Singleton.StartMinigame("MgQuizduel");
+                // if (completedInvestments > 0) {
+                //     StartCoroutine(WaitBeforeMinigame(completedInvestments * 3f));
+                // }
+                // else {
+                //     GameManager.Singleton.StartMinigame("MgQuizduel");
+                // }
                 // return;
             }
 
@@ -206,6 +216,11 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         }
     }
 
+    [Server]
+    private IEnumerator WaitBeforeMinigame(float seconds) {
+        yield return new WaitForSeconds(seconds);
+        GameManager.Singleton.StartMinigame("MgQuizduel");
+    }
 
     [Server]
     private uint CalculateResourcesNextRound() {

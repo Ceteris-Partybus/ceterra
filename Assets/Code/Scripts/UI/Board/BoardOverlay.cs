@@ -300,4 +300,22 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
             this.economyValueLabel.text = $"{value}/100";
         }
     }
+
+    public void UpdateTrend(string label, int lastValue, int newValue) {
+        Label trendLabel = rootElement.Q<Label>(label);
+        trendLabel.ClearClassList();
+        trendLabel.AddToClassList(GetTrendClass(lastValue, newValue));
+    }
+
+    private string GetTrendClass(int lastValue, int newValue) {
+        if (newValue > lastValue) {
+            return "trend-rising";
+        }
+        else if (newValue < lastValue) {
+            return "trend-falling";
+        }
+        else {
+            return "trend-neutral";
+        }
+    }
 }

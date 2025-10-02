@@ -45,10 +45,15 @@ public class InvestDepositModal : Modal {
     [ClientCallback]
     private void OnDepositSubmitButtonClicked() {
         uint depositValue = this.depositValueField.value;
-        Debug.Log($"Submitting deposit of {depositValue} for investment ID {this.InvestmentId}");
+
+        if (depositValue <= 0) {
+            ErrorModal.Instance.Message = "Der Einzahlungsbetrag muss größer als 0 sein.";
+            ModalManager.Instance.Show(ErrorModal.Instance);
+            return;
+        }
+
         BoardPlayer player = BoardContext.Instance.GetLocalPlayer();
         CmdSubmitDeposit(player, this.InvestmentId, depositValue);
-        Debug.Log("Deposit submitted");
         ModalManager.Instance.Hide();
     }
 
