@@ -391,4 +391,72 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     }
 
     #endregion
+
+    #region Event Management
+
+    [Server]
+    public void TriggerRandomEvent() {
+        var possibleEvents = events.Where(e => e.canOccur).ToList();
+        if (possibleEvents.Count == 0) {
+            Debug.LogWarning("No possible events to trigger.");
+            return;
+        }
+
+        int totalWeight = possibleEvents.Sum(e => e.weight);
+        int randomValue = UnityEngine.Random.Range(0, totalWeight);
+        int cumulativeWeight = 0;
+
+        foreach (var eventOption in possibleEvents) {
+            cumulativeWeight += eventOption.weight;
+            if (randomValue < cumulativeWeight) {
+                Debug.Log($"Triggering event: {eventOption.title}");
+                TriggerEvent(eventOption.id);
+                eventOption.MarkOccurrence();
+                break;
+            }
+        }
+    }
+
+    [Server]
+    private void TriggerEvent(int eventId) {
+        Event eventToTrigger = events.FirstOrDefault(e => e.id == eventId);
+        if (eventToTrigger == null) {
+            throw new Exception($"No event found with ID {eventId}");
+        }
+
+        foreach (EventModifier modifier in eventToTrigger.modifier) {
+
+            int multiplier = modifier.Effect == EventEffect.INCREASES ? 1 : -1;
+            int calculatedValue = modifier.Magnitude * multiplier;
+
+            switch (modifier.Type) {
+                case EventType.FUNDS:
+                    UpdateFundsStat(calculatedValue);
+                    break;
+                case EventType.RESOURCE:
+                    UpdateResourceStat(calculatedValue);
+                    break;
+                case EventType.ECONOMY:
+                    UpdateEconomyStat(calculatedValue);
+                    break;
+                case EventType.SOCIETY:
+                    UpdateSocietyStat(calculatedValue);
+                    break;
+                case EventType.ENVIRONMENT:
+                    UpdateEnvironmentStat(calculatedValue);
+                    break;
+            }
+        }
+
+        RpcShowEventInfo(eventToTrigger);
+    }
+
+    [ClientRpc]
+    private void RpcShowEventInfo(Event eventToShow) {
+        EventModal.Instance.Title = eventToShow.title;
+        EventModal.Instance.Description = eventToShow.description;
+        ModalManager.Instance.Show(EventModal.Instance);
+    }
+
+    #endregion
 }
