@@ -143,18 +143,13 @@ public class BoardPlayer : SceneConditionalPlayer {
             yield return null;
             yield return waitWhile;
 
-            if (isLocalPlayer) { CmdAnimationComplete(); }
+            if (isLocalPlayer) { IsAnimationFinished = true; }
         }
     }
 
     [ClientRpc]
     private void RpcTriggerAnimation(AnimationType animationType) {
         visualHandler.TriggerAnimation(animationType);
-    }
-
-    [Command]
-    private void CmdAnimationComplete() {
-        IsAnimationFinished = true;
     }
 
     public override bool ShouldBeActiveInScene(string sceneName) {
