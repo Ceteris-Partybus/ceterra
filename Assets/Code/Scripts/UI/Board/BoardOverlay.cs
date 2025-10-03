@@ -80,6 +80,7 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         UpdateEconomyValue(BoardContext.Instance.EconomyStat);
         UpdateSocietyValue(BoardContext.Instance.SocietyStat);
         UpdateEnvironmentValue(BoardContext.Instance.EnvironmentStat);
+        UpdateTrends();
     }
 
     public bool IsPlayerAdded(int playerId) {
@@ -301,17 +302,23 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         }
     }
 
-    public void UpdateTrend(string label, int lastValue, int newValue) {
-        Label trendLabel = rootElement.Q<Label>(label);
-        trendLabel.ClearClassList();
-        trendLabel.AddToClassList(GetTrendClass(lastValue, newValue));
+    public void UpdateTrends() {
+        UpdateTrend("trend-economy", GetTrendClass(BoardContext.Instance.EconomyTrend));
+        UpdateTrend("trend-society", GetTrendClass(BoardContext.Instance.SocietyTrend));
+        UpdateTrend("trend-environment", GetTrendClass(BoardContext.Instance.EnvironmentTrend));
     }
 
-    private string GetTrendClass(int lastValue, int newValue) {
-        if (newValue > lastValue) {
+    private void UpdateTrend(string label, string className) {
+        Label trendLabel = rootElement.Q<Label>(label);
+        trendLabel.ClearClassList();
+        trendLabel.AddToClassList(className);
+    }
+
+    private string GetTrendClass(Trend trend) {
+        if (trend == Trend.RISING) {
             return "trend-rising";
         }
-        else if (newValue < lastValue) {
+        else if (trend == Trend.FALLING) {
             return "trend-falling";
         }
         else {

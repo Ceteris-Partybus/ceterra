@@ -56,6 +56,21 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     private int resourcesNextRound;
     public int ResourcesNextRound => resourcesNextRound;
 
+    [SerializeField]
+    [SyncVar]
+    private Trend economyTrend;
+    public Trend EconomyTrend => economyTrend;
+
+    [SerializeField]
+    [SyncVar]
+    private Trend societyTrend;
+    public Trend SocietyTrend => societyTrend;
+
+    [SerializeField]
+    [SyncVar]
+    private Trend environmentTrend;
+    public Trend EnvironmentTrend => environmentTrend;
+
     #endregion
 
     #region Global Stats Hooks
@@ -67,19 +82,52 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         BoardOverlay.Instance.UpdateResourceValue(new_);
     }
     private void OnEconomyStatChanged(int old, int new_) {
-        BoardOverlay.Instance.UpdateTrend("trend-economy", old, new_);
+        economyTrend = CalculateTrend(old, new_);
         BoardOverlay.Instance.UpdateEconomyValue(new_);
+        BoardOverlay.Instance.UpdateTrends();
+        CmdUpdateEconomyTrend(economyTrend);
     }
     private void OnSocietyStatChanged(int old, int new_) {
-        BoardOverlay.Instance.UpdateTrend("trend-society", old, new_);
+        societyTrend = CalculateTrend(old, new_);
         BoardOverlay.Instance.UpdateSocietyValue(new_);
+        BoardOverlay.Instance.UpdateTrends();
+        CmdUpdateSocietyTrend(societyTrend);
     }
     private void OnEnvironmentStatChanged(int old, int new_) {
-        BoardOverlay.Instance.UpdateTrend("trend-environment", old, new_);
+        environmentTrend = CalculateTrend(old, new_);
         BoardOverlay.Instance.UpdateEnvironmentValue(new_);
+        BoardOverlay.Instance.UpdateTrends();
+        CmdUpdateEnvironmentTrend(environmentTrend);
     }
     private void OnResourceNextRoundChanged(int old, int new_) {
         BoardOverlay.Instance.UpdateResourcesNextRoundValue();
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdUpdateEconomyTrend(Trend trend) {
+        economyTrend = trend;
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdUpdateSocietyTrend(Trend trend) {
+        societyTrend = trend;
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdUpdateEnvironmentTrend(Trend trend) {
+        environmentTrend = trend;
+    }
+
+    private Trend CalculateTrend(int oldValue, int newValue) {
+        if (newValue > oldValue) {
+            return Trend.RISING;
+        }
+        else if (newValue < oldValue) {
+            return Trend.FALLING;
+        }
+        else {
+            return Trend.NEUTRAL;
+        }
     }
 
     #endregion
@@ -103,6 +151,10 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         investments.OnInsert += OnInvestmentItemInserted;
         fundsHistory.OnAdd += OnFundsHistoryItemAdded;
         resourceHistory.OnAdd += OnResourceHistoryItemAdded;
+
+        economyTrend = Trend.NEUTRAL;
+        societyTrend = Trend.NEUTRAL;
+        environmentTrend = Trend.NEUTRAL;
 
         investments.AddRange(Investment.LoadInvestmentsFromResources());
         Debug.Log($"Loaded {investments.Count} investments from resources");
