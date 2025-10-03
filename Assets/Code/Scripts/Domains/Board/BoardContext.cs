@@ -23,62 +23,62 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     }
 
     #region Global Stats
-    public const uint MAX_STATS_VALUE = 100;
+    public const int MAX_STATS_VALUE = 100;
 
     [Header("Global Stats")]
     [SerializeField]
     [SyncVar(hook = nameof(OnFundsStatChanged))]
-    private uint fundsStat;
-    public uint FundsStat => fundsStat;
+    private int fundsStat;
+    public int FundsStat => fundsStat;
 
     [SerializeField]
     [SyncVar(hook = nameof(OnResourceStatChanged))]
-    private uint resourceStat;
-    public uint ResourceStat => resourceStat;
+    private int resourceStat;
+    public int ResourceStat => resourceStat;
 
     [SerializeField]
     [SyncVar(hook = nameof(OnEconomyStatChanged))]
-    private uint economyStat;
-    public uint EconomyStat => economyStat;
+    private int economyStat;
+    public int EconomyStat => economyStat;
 
     [SerializeField]
     [SyncVar(hook = nameof(OnSocietyStatChanged))]
-    private uint societyStat;
-    public uint SocietyStat => societyStat;
+    private int societyStat;
+    public int SocietyStat => societyStat;
 
     [SerializeField]
     [SyncVar(hook = nameof(OnEnvironmentStatChanged))]
-    private uint environmentStat;
-    public uint EnvironmentStat => environmentStat;
+    private int environmentStat;
+    public int EnvironmentStat => environmentStat;
 
     [SerializeField]
     [SyncVar(hook = nameof(OnResourceNextRoundChanged))]
-    private uint resourcesNextRound;
-    public uint ResourcesNextRound => resourcesNextRound;
+    private int resourcesNextRound;
+    public int ResourcesNextRound => resourcesNextRound;
 
     #endregion
 
     #region Global Stats Hooks
 
-    private void OnFundsStatChanged(uint old, uint new_) {
+    private void OnFundsStatChanged(int old, int new_) {
         BoardOverlay.Instance.UpdateFundsValue(new_);
     }
-    private void OnResourceStatChanged(uint old, uint new_) {
+    private void OnResourceStatChanged(int old, int new_) {
         BoardOverlay.Instance.UpdateResourceValue(new_);
     }
-    private void OnEconomyStatChanged(uint old, uint new_) {
-        BoardOverlay.Instance.UpdateTrend("trend-economy", (int)old, (int)new_);
+    private void OnEconomyStatChanged(int old, int new_) {
+        BoardOverlay.Instance.UpdateTrend("trend-economy", old, new_);
         BoardOverlay.Instance.UpdateEconomyValue(new_);
     }
-    private void OnSocietyStatChanged(uint old, uint new_) {
-        BoardOverlay.Instance.UpdateTrend("trend-society", (int)old, (int)new_);
+    private void OnSocietyStatChanged(int old, int new_) {
+        BoardOverlay.Instance.UpdateTrend("trend-society", old, new_);
         BoardOverlay.Instance.UpdateSocietyValue(new_);
     }
-    private void OnEnvironmentStatChanged(uint old, uint new_) {
-        BoardOverlay.Instance.UpdateTrend("trend-environment", (int)old, (int)new_);
+    private void OnEnvironmentStatChanged(int old, int new_) {
+        BoardOverlay.Instance.UpdateTrend("trend-environment", old, new_);
         BoardOverlay.Instance.UpdateEnvironmentValue(new_);
     }
-    private void OnResourceNextRoundChanged(uint old, uint new_) {
+    private void OnResourceNextRoundChanged(int old, int new_) {
         BoardOverlay.Instance.UpdateResourcesNextRoundValue();
     }
 
@@ -206,13 +206,13 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
                     TriggerInvestmentListUpdate(investments.IndexOf(investment), investment);
                 }
 
-                // if (completedInvestments > 0) {
-                //     StartCoroutine(WaitBeforeMinigame(completedInvestments * 3f));
-                // }
-                // else {
-                //     GameManager.Singleton.StartMinigame("MgQuizduel");
-                // }
-                // return;
+                if (completedInvestments > 0) {
+                    StartCoroutine(WaitBeforeMinigame(completedInvestments * 3f));
+                }
+                else {
+                    GameManager.Singleton.StartMinigame("MgQuizduel");
+                }
+                return;
             }
 
             NextPlayerTurn();
@@ -226,9 +226,9 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     }
 
     [Server]
-    private uint CalculateResourcesNextRound() {
+    private int CalculateResourcesNextRound() {
         int resourcesToAdd = 25 + (int)(225 * Mathf.Pow(economyStat / 100f, 2));
-        return (uint)resourcesToAdd;
+        return resourcesToAdd;
     }
 
     [ClientRpc]
@@ -271,25 +271,23 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     #region Global Stat Update
 
     public void UpdateFundsStat(int amount) {
-        // fundsStat = (uint)Mathf.Clamp(fundsStat + amount, 0, MAX_STATS_VALUE);
-        fundsStat = fundsStat + (uint)amount;
+        fundsStat = Mathf.Max(0, fundsStat + amount);
     }
 
     public void UpdateResourceStat(int amount) {
-        // resourceStat = (uint)Mathf.Clamp(resourceStat + amount, 0, MAX_STATS_VALUE);
-        resourceStat = resourceStat + (uint)amount;
+        resourceStat = Mathf.Max(0, resourceStat + amount);
     }
 
     public void UpdateEconomyStat(int amount) {
-        economyStat = (uint)Mathf.Clamp(economyStat + amount, 0, MAX_STATS_VALUE);
+        economyStat = Mathf.Clamp(economyStat + amount, 0, MAX_STATS_VALUE);
     }
 
     public void UpdateSocietyStat(int amount) {
-        societyStat = (uint)Mathf.Clamp(societyStat + amount, 0, MAX_STATS_VALUE);
+        societyStat = Mathf.Clamp(societyStat + amount, 0, MAX_STATS_VALUE);
     }
 
     public void UpdateEnvironmentStat(int amount) {
-        environmentStat = (uint)Mathf.Clamp(environmentStat + amount, 0, MAX_STATS_VALUE);
+        environmentStat = Mathf.Clamp(environmentStat + amount, 0, MAX_STATS_VALUE);
     }
 
     [ServerCallback]
@@ -312,7 +310,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     #region Investment Management
 
     [Server]
-    public void InvestInInvestment(BoardPlayer player, int investmentId, uint amount) {
+    public void InvestInInvestment(BoardPlayer player, int investmentId, int amount) {
         int index = -1;
         Investment investment = null;
 
@@ -329,7 +327,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         }
 
         int surplus = investment.Invest(amount);
-        uint coinsToRemove = amount - (uint)Math.Max(surplus, 0);
+        int coinsToRemove = amount - Math.Max(surplus, 0);
         player.RemoveCoins(coinsToRemove);
 
         TriggerInvestmentListUpdate(index, investment);
@@ -347,13 +345,13 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         int index = investments.IndexOf(investment);
 
         UpdateFundsStat(-coins);
-        FundsHistoryEntry fundsEntry = new FundsHistoryEntry((uint)coins, HistoryEntryType.WITHDRAW, $"Resourcen für {investment.displayName}");
+        FundsHistoryEntry fundsEntry = new FundsHistoryEntry(coins, HistoryEntryType.WITHDRAW, $"Resourcen für {investment.displayName}");
         this.fundsHistory.Add(fundsEntry);
 
-        investment.Invest((uint)coins);
+        investment.Invest(coins);
 
         if (investment.fullyFinanced) {
-            UpdateResourceStat(-(int)investment.requiredResources);
+            UpdateResourceStat(-investment.requiredResources);
             ResourceHistoryEntry entry = new ResourceHistoryEntry(investment.requiredResources, HistoryEntryType.WITHDRAW, $"Finanzierung {investment.displayName}");
             this.resourceHistory.Add(entry);
             investment.inConstruction = true;

@@ -2,7 +2,7 @@ using System;
 
 [Serializable]
 public class FundsHistoryEntry : IEquatable<FundsHistoryEntry> {
-    public uint amount;
+    public int amount;
     public HistoryEntryType type;
     public string source;
     public DateTime timestamp;
@@ -10,7 +10,7 @@ public class FundsHistoryEntry : IEquatable<FundsHistoryEntry> {
     public FundsHistoryEntry() {
         this.timestamp = DateTime.Now;
     }
-    public FundsHistoryEntry(uint amount, HistoryEntryType type, string source) {
+    public FundsHistoryEntry(int amount, HistoryEntryType type, string source) {
         this.amount = amount;
         this.type = type;
         this.source = source;

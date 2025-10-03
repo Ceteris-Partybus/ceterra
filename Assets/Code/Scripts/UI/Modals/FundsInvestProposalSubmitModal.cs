@@ -41,10 +41,10 @@ public class FundsInvestProposalSubmitModal : Modal {
             addAllFundingButton.clicked += OnAddAllFundingButtonClicked;
         }
 
-        amountField.RegisterCallback<ChangeEvent<uint>>(evt => {
+        amountField.RegisterCallback<ChangeEvent<int>>(evt => {
             Investment investment = BoardContext.Instance.investments.FirstOrDefault(inv => inv.id == InvestmentId);
-            int totalFunds = (int)BoardContext.Instance.FundsStat;
-            int requiredFunds = (int)(investment.requiredMoney - investment.currentMoney);
+            int totalFunds = BoardContext.Instance.FundsStat;
+            int requiredFunds = investment.requiredMoney - investment.currentMoney;
             if (evt.newValue > requiredFunds || evt.newValue > totalFunds) {
                 amountField.value = (uint)Mathf.Min(requiredFunds, totalFunds);
             }
@@ -54,7 +54,7 @@ public class FundsInvestProposalSubmitModal : Modal {
     [ClientCallback]
     private void OnAddAllFundingButtonClicked() {
         Investment investment = BoardContext.Instance.investments.FirstOrDefault(inv => inv.id == InvestmentId);
-        int requiredFunds = (int)(investment.requiredMoney - investment.currentMoney);
+        int requiredFunds = investment.requiredMoney - investment.currentMoney;
 
         if (requiredFunds > BoardContext.Instance.FundsStat) {
             InfoModal.Instance.Message = "Der Fonds hat nicht genug Geld, um diesen Investitionsvorschlag vollumfänglich zu unterstützen.";
@@ -67,7 +67,7 @@ public class FundsInvestProposalSubmitModal : Modal {
     [ClientCallback]
     private void OnSubmitProposalButtonClicked() {
         Investment investment = BoardContext.Instance.investments.FirstOrDefault(inv => inv.id == InvestmentId);
-        int requiredResources = (int)investment.requiredResources;
+        int requiredResources = investment.requiredResources;
         if (BoardContext.Instance.ResourceStat < requiredResources) {
             InfoModal.Instance.Message = "Die Stadt hat nicht genug Ressourcen, um diesen Investitionsvorschlag zu unterstützen.";
             ModalManager.Instance.Show(InfoModal.Instance);

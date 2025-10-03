@@ -130,7 +130,7 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         }
     }
 
-    private string GetHealthBarClassName(uint health) {
+    private string GetHealthBarClassName(int health) {
         if (health > 70) {
             return "health-bar--green";
         }
@@ -147,7 +147,7 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         this.playerNameLabel.text = playerName;
     }
 
-    public void UpdateLocalPlayerHealth(uint newHealth) {
+    public void UpdateLocalPlayerHealth(int newHealth) {
         if (this.playerHealthBar != null) {
             this.playerHealthBar.value = Mathf.Clamp(newHealth, 0, 100);
             this.playerHealthBar.title = $"{this.playerHealthBar.value} / 100";
@@ -159,7 +159,7 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         }
     }
 
-    public void UpdateRemotePlayerHealth(uint newHealth, int playerId) {
+    public void UpdateRemotePlayerHealth(int newHealth, int playerId) {
         if (playerElements.TryGetValue(playerId, out var playerCard)) {
             var healthBarContainer = playerCard.Q<TemplateContainer>("player-card__health-bar");
             if (healthBarContainer != null) {
@@ -181,14 +181,14 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         }
     }
 
-    public void UpdateLocalPlayerCoins(uint newCoins) {
+    public void UpdateLocalPlayerCoins(int newCoins) {
         if (this.playerCoinsValue != null) {
             this.playerCoinsValue.text = newCoins.ToString();
         }
         FillModalsWithCurrentValues();
     }
 
-    public void UpdateRemotePlayerCoins(uint newCoins, int playerId) {
+    public void UpdateRemotePlayerCoins(int newCoins, int playerId) {
         if (playerElements.TryGetValue(playerId, out var playerCard)) {
             if (playerCard == null) {
                 Debug.LogError($"Player card for player {playerId} not found");
@@ -201,14 +201,14 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         }
     }
 
-    public void UpdateResourceValue(uint value) {
+    public void UpdateResourceValue(int value) {
         if (this.resourceValueLabel != null) {
             this.resourceValueLabel.text = value.ToString();
         }
         FillModalsWithCurrentValues();
     }
 
-    public void UpdateFundsValue(uint value) {
+    public void UpdateFundsValue(int value) {
         if (this.fundsValueLabel != null) {
             this.fundsValueLabel.text = value.ToString();
         }
@@ -264,7 +264,7 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         }
     }
 
-    public void UpdateEnvironmentValue(uint value) {
+    public void UpdateEnvironmentValue(int value) {
         if (this.enviromentBar != null) {
             this.enviromentBar.value = Mathf.Clamp(value, 0, 100);
             this.enviromentBar.title = $"{value} %";
@@ -281,7 +281,7 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         }
     }
 
-    public void UpdateSocietyValue(uint value) {
+    public void UpdateSocietyValue(int value) {
         if (this.societyBar != null) {
             this.societyBar.value = Mathf.Clamp(value, 0, 100);
             this.societyBar.title = $"{value}/100";
@@ -291,7 +291,7 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         }
     }
 
-    public void UpdateEconomyValue(uint value) {
+    public void UpdateEconomyValue(int value) {
         if (this.economyBar != null) {
             this.economyBar.value = Mathf.Clamp(value, 0, 100);
             this.economyBar.title = $"{value} %";
