@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Level/UI/Modals/ModalStyles.uss?fileID=7433441132597879392&amp;guid=7765ef12d5826884abfaffcb5834fca5&amp;type=3#ModalStyles" />
     <ui:VisualElement style="flex-grow: 1; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; width: 450px; height: auto;">
-        <ui:Label name="event-title" class="modal-title" style="color: rgb(23, 67, 212);" />
+        <ui:Label name="event-title" class="modal-title" style="color: rgb(23, 67, 212); white-space: normal;" />
         <ui:Label name="event-description" style="font-size: 24px; white-space: normal;" />
     </ui:VisualElement>
 </ui:UXML>
