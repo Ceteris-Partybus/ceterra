@@ -5,9 +5,9 @@ using UnityEngine;
 public class MgGarbagePlayer : SceneConditionalPlayer {
     [SerializeField]
     [SyncVar(hook = nameof(OnScoreChanged))]
-    private uint score;
+    private int score;
 
-    private void OnScoreChanged(uint old, uint new_) {
+    private void OnScoreChanged(int old, int new_) {
         Debug.Log($"Score changed from {old} to {new_}");
         if (isLocalPlayer) {
             LocalPlayerHUD.Instance.UpdateScore(new_);
@@ -53,16 +53,16 @@ public class MgGarbagePlayer : SceneConditionalPlayer {
         RemotePlayerHUD.Instance.RemovePlayer(PlayerId);
     }
 
-    public uint Score => score;
+    public int Score => score;
 
     [Command]
-    public void CmdAddScore(uint amount) {
+    public void CmdAddScore(int amount) {
         score += amount;
     }
 
     [Command]
-    public void CmdSubtractScore(uint amount) {
-        score = (uint)Mathf.Max(score - amount, 0);
+    public void CmdSubtractScore(int amount) {
+        score = Mathf.Max(score - amount, 0);
     }
 
     public override bool ShouldBeActiveInScene(string sceneName) {

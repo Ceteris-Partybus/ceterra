@@ -44,7 +44,7 @@ public class InvestDepositModal : Modal {
 
     [ClientCallback]
     private void OnDepositSubmitButtonClicked() {
-        uint depositValue = this.depositValueField.value;
+        int depositValue = (int)this.depositValueField.value;
 
         if (depositValue <= 0) {
             ErrorModal.Instance.Message = "Der Einzahlungsbetrag muss größer als 0 sein.";
@@ -53,21 +53,23 @@ public class InvestDepositModal : Modal {
         }
 
         BoardPlayer player = BoardContext.Instance.GetLocalPlayer();
-        CmdSubmitDeposit(player, this.InvestmentId, depositValue);
-        ModalManager.Instance.Hide();
-    }
 
-    [Command(requiresAuthority = false)]
-    private void CmdSubmitDeposit(BoardPlayer player, int investmentId, uint amount) {
-
-        if (player.Coins < amount) {
+        if (player.Coins < depositValue) {
             ErrorModal.Instance.Message = "Du besitzt nicht genügend Münzen.";
             ModalManager.Instance.Show(ErrorModal.Instance);
             return;
         }
 
+        CmdSubmitDeposit(player, this.InvestmentId, depositValue);
+        ModalManager.Instance.Hide();
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdSubmitDeposit(BoardPlayer player, int investmentId, int amount) {
         BoardContext.Instance.InvestInInvestment(player, investmentId, amount);
     }
+
+
 
     private void OnDepositAdd10ButtonClicked() {
         this.OnDepositAddButtonClicked(10);
@@ -81,9 +83,9 @@ public class InvestDepositModal : Modal {
         this.OnDepositAddButtonClicked(1000);
     }
 
-    private void OnDepositAddButtonClicked(uint amount) {
+    private void OnDepositAddButtonClicked(int amount) {
         if (this.depositValueField != null) {
-            this.depositValueField.value += amount;
+            this.depositValueField.value += (uint)amount;
         }
     }
 

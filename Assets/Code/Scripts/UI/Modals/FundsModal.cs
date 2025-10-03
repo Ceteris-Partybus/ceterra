@@ -44,7 +44,7 @@ public class FundsModal : Modal {
     }
 
     // [Command(requiresAuthority = false)]
-    // private void CmdRequestDeposit(uint amount, BoardPlayer player) {
+    // private void CmdRequestDeposit(int amount, BoardPlayer player) {
     //     player.RemoveCoins(amount);
     //     BoardContext.Instance.UpdateFundsStat(amount);
     // }

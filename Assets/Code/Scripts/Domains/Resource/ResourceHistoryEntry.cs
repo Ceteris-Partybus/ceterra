@@ -2,7 +2,7 @@ using System;
 
 [Serializable]
 public class ResourceHistoryEntry : IEquatable<ResourceHistoryEntry> {
-    public uint amount;
+    public int amount;
     public HistoryEntryType type;
     public string source;
     public DateTime timestamp;
@@ -11,7 +11,7 @@ public class ResourceHistoryEntry : IEquatable<ResourceHistoryEntry> {
         this.timestamp = DateTime.Now;
     }
 
-    public ResourceHistoryEntry(uint amount, HistoryEntryType type, string source) {
+    public ResourceHistoryEntry(int amount, HistoryEntryType type, string source) {
         this.amount = amount;
         this.type = type;
         this.source = source;
