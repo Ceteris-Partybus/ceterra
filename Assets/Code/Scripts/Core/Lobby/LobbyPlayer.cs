@@ -84,6 +84,7 @@ public class LobbyPlayer : NetworkRoomPlayer {
     private void ChangeSelectedDice() {
         if (currentDiceInstance != null) { Destroy(currentDiceInstance); }
         currentDiceInstance = Instantiate(DiceModel);
+        currentDiceInstance.GetComponent<Dice>().Hide();
         AttachDiceToCharacter();
     }
 

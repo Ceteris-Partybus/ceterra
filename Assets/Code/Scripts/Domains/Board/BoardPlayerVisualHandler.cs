@@ -31,7 +31,6 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
         this.dice = dice;
         dice.SetInPreview = false;
         dice.Hide();
-        dice.HideDiceResultLabel();
         return this;
     }
 

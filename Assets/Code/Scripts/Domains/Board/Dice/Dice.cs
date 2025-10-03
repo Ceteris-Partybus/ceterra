@@ -79,6 +79,11 @@ public class Dice : MonoBehaviour {
     }
 
     public void Hide() {
+        HideModel();
+        HideDiceResultLabel();
+    }
+
+    public void HideModel() {
         model.transform.localScale = Vector3.one * scale;
         model.gameObject.SetActive(false);
         StopSpinning();
@@ -105,7 +110,7 @@ public class Dice : MonoBehaviour {
     public void OnRollCancel() {
         StopSpinning();
         model.transform.DOComplete();
-        model.transform.DOScale(0, .12f).OnComplete(() => Hide());
+        model.transform.DOScale(0, .12f).OnComplete(() => HideModel());
     }
 
     public void OnRollDisplay(int roll) {
