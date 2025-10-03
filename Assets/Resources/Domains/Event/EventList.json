@@ -1,0 +1,322 @@
+[
+    {
+        "title": "Klimawandel",
+        "description": "Der Klimawandel schreitet voran. Die Umweltverschmutzung nimmt zu, was zu extremen Wetterereignissen und dem Verlust von Biodiversität führt.",
+        "maxOccurences": 3,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "DECREASES",
+                "magnitude": 5
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "DECREASES",
+                "magnitude": 3
+            }
+        ]
+    },
+    {
+        "title": "Technologischer Durchbruch",
+        "description": "Ein bedeutender technologischer Fortschritt in den Bereichen erneuerbare Energien und nachhaltige Landwirtschaft bietet neue Möglichkeiten zur Bewältigung globaler Herausforderungen.",
+        "maxOccurences": 5,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "INCREASES",
+                "magnitude": 4
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "INCREASES",
+                "magnitude": 5
+            },
+            {
+                "type": "FUNDS",
+                "effect": "INCREASES",
+                "magnitude": 4
+            }
+        ]
+    },
+    {
+        "title": "Waldsterben",
+        "description": "Massive Entwaldung und Waldbrände zerstören kritische Ökosysteme weltweit. Der Verlust von Wäldern beschleunigt den Klimawandel und bedroht die Biodiversität.",
+        "maxOccurences": 4,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "DECREASES",
+                "magnitude": 6
+            },
+            {
+                "type": "SOCIETY",
+                "effect": "DECREASES",
+                "magnitude": 2
+            }
+        ]
+    },
+    {
+        "title": "Plastikkatastrophe",
+        "description": "Die Verschmutzung der Ozeane durch Plastik erreicht kritische Ausmaße. Mikroplastik gefährdet die Nahrungskette und die menschliche Gesundheit.",
+        "maxOccurences": 2,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "DECREASES",
+                "magnitude": 5
+            },
+            {
+                "type": "SOCIETY",
+                "effect": "DECREASES",
+                "magnitude": 3
+            }
+        ]
+    },
+    {
+        "title": "Wasserkrise",
+        "description": "Schwere Dürren und Wasserknappheit betreffen Milliarden von Menschen. Grundwasserspiegel sinken dramatisch und Konflikte um Wasserressourcen nehmen zu.",
+        "maxOccurences": 3,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "DECREASES",
+                "magnitude": 7
+            },
+            {
+                "type": "SOCIETY",
+                "effect": "DECREASES",
+                "magnitude": 5
+            },
+            {
+                "type": "RESOURCE",
+                "effect": "DECREASES",
+                "magnitude": 8
+            }
+        ]
+    },
+    {
+        "title": "Artensterben",
+        "description": "Das sechste Massenaussterben beschleunigt sich. Bestäuber verschwinden, Ökosysteme kollabieren und die genetische Vielfalt nimmt rapide ab.",
+        "maxOccurences": 2,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "DECREASES",
+                "magnitude": 8
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "DECREASES",
+                "magnitude": 3
+            }
+        ]
+    },
+    {
+        "title": "Luftverschmutzung",
+        "description": "Extreme Luftverschmutzung in Megastädten erreicht gesundheitsgefährdende Werte. Smog und Feinstaub verursachen Millionen von vorzeitigen Todesfällen.",
+        "maxOccurences": 4,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "DECREASES",
+                "magnitude": 4
+            },
+            {
+                "type": "SOCIETY",
+                "effect": "DECREASES",
+                "magnitude": 6
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "DECREASES",
+                "magnitude": 2
+            }
+        ]
+    },
+    {
+        "title": "Grüne Energiewende",
+        "description": "Massive Investitionen in erneuerbare Energien führen zu einem drastischen Rückgang der CO2-Emissionen. Solarenergie und Windkraft werden dominant.",
+        "maxOccurences": 1,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "INCREASES",
+                "magnitude": 6
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "INCREASES",
+                "magnitude": 4
+            },
+            {
+                "type": "FUNDS",
+                "effect": "DECREASES",
+                "magnitude": 5
+            }
+        ]
+    },
+    {
+        "title": "Aufforstungsinitiative",
+        "description": "Globale Aufforstungsprogramme pflanzen Milliarden von Bäumen und stellen degradierte Ökosysteme wieder her. Kohlenstoffbindung steigt dramatisch an.",
+        "maxOccurences": 3,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "INCREASES",
+                "magnitude": 5
+            },
+            {
+                "type": "SOCIETY",
+                "effect": "INCREASES",
+                "magnitude": 3
+            }
+        ]
+    },
+    {
+        "title": "Kreislaufwirtschaft",
+        "description": "Durchbruch in der Kreislaufwirtschaft: 90% aller Materialien werden recycelt oder wiederverwendet. Abfall wird zur wertvollen Ressource.",
+        "maxOccurences": 1,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "INCREASES",
+                "magnitude": 7
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "INCREASES",
+                "magnitude": 6
+            },
+            {
+                "type": "RESOURCE",
+                "effect": "INCREASES",
+                "magnitude": 8
+            }
+        ]
+    },
+    {
+        "title": "Nachhaltige Landwirtschaft",
+        "description": "Revolution in der Landwirtschaft: Präzisionsfarming, vertikale Gärten und regenerative Praktiken steigern Erträge bei gleichzeitiger Bodenerholung.",
+        "maxOccurences": 2,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "INCREASES",
+                "magnitude": 5
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "INCREASES",
+                "magnitude": 4
+            },
+            {
+                "type": "RESOURCE",
+                "effect": "INCREASES",
+                "magnitude": 6
+            }
+        ]
+    },
+    {
+        "title": "Meeresschutz",
+        "description": "Internationale Meeresschutzabkommen führen zur Errichtung riesiger Meeresschutzgebiete. Fischbestände erholen sich und Korallenriffe regenerieren.",
+        "maxOccurences": 2,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "INCREASES",
+                "magnitude": 6
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "INCREASES",
+                "magnitude": 2
+            },
+            {
+                "type": "SOCIETY",
+                "effect": "INCREASES",
+                "magnitude": 3
+            }
+        ]
+    },
+    {
+        "title": "Grüne Städte",
+        "description": "Städte verwandeln sich in grüne Oasen mit vertikalen Gärten, erneuerbarer Energie und nachhaltiger Mobilität. Lebensqualität steigt drastisch.",
+        "maxOccurences": 3,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "INCREASES",
+                "magnitude": 4
+            },
+            {
+                "type": "SOCIETY",
+                "effect": "INCREASES",
+                "magnitude": 6
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "INCREASES",
+                "magnitude": 3
+            }
+        ]
+    },
+    {
+        "title": "Elektromobilität",
+        "description": "Elektrofahrzeuge erreichen 80% Marktanteil. Batterietechnologie revolutioniert Transport und Energiespeicherung, Luftqualität verbessert sich dramatisch.",
+        "maxOccurences": 1,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "INCREASES",
+                "magnitude": 5
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "INCREASES",
+                "magnitude": 5
+            },
+            {
+                "type": "SOCIETY",
+                "effect": "INCREASES",
+                "magnitude": 3
+            }
+        ]
+    },
+    {
+        "title": "Ressourcenknappheit",
+        "description": "Kritische Rohstoffe wie seltene Erden und Lithium werden knapp. Lieferketten brechen zusammen und hemmen den Übergang zu grüner Technologie.",
+        "maxOccurences": 2,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ECONOMY",
+                "effect": "DECREASES",
+                "magnitude": 6
+            },
+            {
+                "type": "RESOURCE",
+                "effect": "DECREASES",
+                "magnitude": 8
+            },
+            {
+                "type": "SOCIETY",
+                "effect": "DECREASES",
+                "magnitude": 3
+            }
+        ]
+    }
+]

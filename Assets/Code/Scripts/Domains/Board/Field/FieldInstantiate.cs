@@ -96,7 +96,11 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
                     var fieldTypes = Enum.GetValues(typeof(FieldType)).Cast<FieldType>().ToArray();
                     var randomFieldType = fieldTypes[UnityEngine.Random.Range(0, fieldTypes.Length)];
                     // fieldTypeMap[new SplineKnotIndex(i, k)] = randomFieldType;
-                    fieldTypeMap[new SplineKnotIndex(i, k)] = FieldType.NORMAL;
+                    if (i == 0 && k == 0) {
+                        fieldTypeMap[new SplineKnotIndex(i, k)] = FieldType.NORMAL;
+                        continue;
+                    }
+                    fieldTypeMap[new SplineKnotIndex(i, k)] = FieldType.EVENT;
                 }
             }
         }
