@@ -39,7 +39,7 @@ public class MgOceanTrash : NetworkBehaviour {
         base.OnStartServer();
         
         rb = GetComponent<Rigidbody2D>();
-        rb.isKinematic = true;
+        rb.bodyType = RigidbodyType2D.Kinematic;
 
         if (TryGetComponent<Collider2D>(out var collider)) {
             collider.isTrigger = true;
@@ -78,15 +78,22 @@ public class MgOceanTrash : NetworkBehaviour {
 
     [ServerCallback]
     void OnTriggerEnter2D(Collider2D collision) {
+        Debug.Log($"[MgOceanTrash] OnTriggerEnter2D called with: {collision.gameObject.name}, tag: {collision.tag}, layer: {LayerMask.LayerToName(collision.gameObject.layer)}");
+        
         if (collision.CompareTag("Player")) {
+            Debug.Log($"[MgOceanTrash] Player tag detected!");
             var playerController = collision.GetComponent<MgOceanPlayerController>();
             if (playerController != null && playerController.connectionToClient != null) {
+                Debug.Log($"[MgOceanTrash] PlayerController found with connection");
                 var oceanPlayer = playerController.connectionToClient.identity.GetComponent<MgOceanPlayer>();
                 if (oceanPlayer != null) {
+                    Debug.Log($"[MgOceanTrash] Adding score to player {oceanPlayer.PlayerId}");
                     oceanPlayer.ServerAddScore(1);
                     NetworkServer.Destroy(gameObject);
-                }
-            }
+                } 
+            } 
+        } else {
+            Debug.Log($"[MgOceanTrash] Collision object doesn't have Player tag");
         }
     }
 }

@@ -174,7 +174,7 @@ MonoBehaviour:
   waveAmplitude: 2
   waveFrequency: 4
   trashType: 0
-  isTrigger: 0
+  isTrigger: 1
 --- !u!114 &1903938194034657352
 MonoBehaviour:
   m_ObjectHideFlags: 0
