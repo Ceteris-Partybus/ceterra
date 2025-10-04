@@ -60,7 +60,8 @@ public class MgOceanPlayer : SceneConditionalPlayer {
     [Command]
     private void CmdSpawnPlayer(NetworkConnectionToClient conn = null) {
         Debug.Log($"Spawning player model for player {PlayerId}");
-        var model = Instantiate(playerModel);
+        Vector3 spawnPosition = MgOceanContext.Instance.GetPlayerSpawnPosition();
+        var model = Instantiate(playerModel, spawnPosition, Quaternion.identity);
         
         NetworkServer.Spawn(model, conn);
         Debug.Log($"Player model spawned at {model.transform.position} with tag: {model.tag}");
