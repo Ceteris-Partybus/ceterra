@@ -1,154 +1,65 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine.Splines;
 using DG.Tweening;
-using Unity.Cinemachine;
 using System;
-using Random = UnityEngine.Random;
 
 public class BoardPlayerVisualHandler : MonoBehaviour {
-    [Header("Particles")]
-    [SerializeField] private Transform particles;
-    [SerializeField] private ParticleSystem coinGainParticle;
-    [SerializeField] private ParticleSystem coinLossParticle;
-    [SerializeField] private ParticleSystem healthGainParticle;
-    [SerializeField] private ParticleSystem healthLossParticle;
-    [SerializeField] private ParticleSystem diceHitParticle;
-    [SerializeField] private ParticleSystem diceResultParticle;
-
-    [Header("Dice Parameters")]
-    [SerializeField] private Transform playerDice;
-    [SerializeField] private float rotationSpeed;
-    [SerializeField] private float tiltAmplitude;
-    [SerializeField] private float tiltFrequency;
-    [SerializeField] private float numberAnimationSpeed;
-    [SerializeField] private TextMeshPro[] numberLabels;
-    [SerializeField] private TextMeshPro diceResultLabel;
-    [SerializeField] private AnimationCurve scaleEase;
-
     [Header("Branch Arrows")]
     [SerializeField] private Transform branchArrowPrefab;
     [SerializeField] private float branchArrowRadius;
     private List<GameObject> branchArrows = new List<GameObject>();
 
-    [Header("Player Parameters")]
-    [SerializeField] private Transform playerModel;
-    [SerializeField] private int jumpPower = 1;
-    [SerializeField] private float jumpDuration = .2f;
-
-    [Header("Animation Parameters")]
-    [SerializeField] private Animator animator;
+    [Header("Animation Trigger")]
     [SerializeField] private string coinGainTrigger;
     [SerializeField] private string coinLossTrigger;
     [SerializeField] private string healthGainTrigger;
     [SerializeField] private string healthLossTrigger;
     [SerializeField] private string runTrigger;
-    [SerializeField] private string jumpTrigger;
+    [SerializeField] private string diceHitTrigger;
     [SerializeField] private string idleTrigger;
-    [SerializeField] private string danceTrigger;
-    [SerializeField] private string thinkTrigger;
+    [SerializeField] private string diceSpinTrigger;
+    [SerializeField] private string junctionEntryTrigger;
 
-    private bool diceSpinning;
-    private float tiltTime = 0f;
+    private Character character;
+    private Dice dice;
+    public string DiceResultLabel(string value) => dice.ResultLabel(value);
 
-    public bool IsDiceSpinning => diceSpinning;
-    public string DiceResultLabel {
-        set => diceResultLabel.text = value;
-    }
-
-    protected void Start() {
-        HideDice();
-        HideDiceResultLabel();
-    }
-
-    public WaitWhile OnCoinGain() {
-        coinGainParticle.Play();
-        animator.SetTrigger(coinGainTrigger);
-        return new WaitWhile(() => coinGainParticle.isPlaying || IsAnimationPlaying(coinGainTrigger));
-    }
-
-    public WaitWhile OnCoinLoss() {
-        coinLossParticle.Play();
-        animator.SetTrigger(coinLossTrigger);
-        return new WaitWhile(() => coinLossParticle.isPlaying || IsAnimationPlaying(coinLossTrigger));
-    }
-
-    public WaitWhile OnHealthGain() {
-        healthGainParticle.Play();
-        animator.SetTrigger(healthGainTrigger);
-        return new WaitWhile(() => healthGainParticle.isPlaying || IsAnimationPlaying(healthGainTrigger));
-    }
-
-    public WaitWhile OnHealthLoss() {
-        healthLossParticle.Play();
-        animator.SetTrigger(healthLossTrigger);
-        return new WaitWhile(() => healthLossParticle.isPlaying || IsAnimationPlaying(healthLossTrigger));
-    }
-
-    public void OnRun() {
-        animator.SetTrigger(runTrigger);
-    }
-
-    public void OnJump() {
-        animator.SetTrigger(jumpTrigger);
-    }
-
-    public void OnIdle() {
-        animator.SetTrigger(idleTrigger);
-    }
-
-    public void OnDance() {
-        animator.SetTrigger(danceTrigger);
-    }
-
-    public void OnThink() {
-        animator.SetTrigger(thinkTrigger);
+    public BoardPlayerVisualHandler Initialize(Character character, Dice dice) {
+        this.character = character;
+        this.dice = dice;
+        dice.SetInPreview = false;
+        dice.Hide();
+        return this;
     }
 
     public WaitWhile TriggerBlockingAnimation(AnimationType animationType) {
-        return animationType switch {
-            AnimationType.COIN_GAIN => OnCoinGain(),
-            AnimationType.COIN_LOSS => OnCoinLoss(),
-            AnimationType.HEALTH_GAIN => OnHealthGain(),
-            AnimationType.HEALTH_LOSS => OnHealthLoss(),
-            _ => new WaitWhile(() => false)
+        var particleEffectAndTrigger = animationType switch {
+            AnimationType.COIN_GAIN => (character.CoinGainParticle, coinGainTrigger),
+            AnimationType.COIN_LOSS => (character.CoinLossParticle, coinLossTrigger),
+            AnimationType.HEALTH_GAIN => (character.HealthGainParticle, healthGainTrigger),
+            AnimationType.HEALTH_LOSS => (character.HealthLossParticle, healthLossTrigger),
+            _ => throw new ArgumentException("Invalid blocking animation type")
         };
+        particleEffectAndTrigger.Item1.Play();
+        character.Animator.SetTrigger(particleEffectAndTrigger.Item2);
+        return new WaitWhile(() => particleEffectAndTrigger.Item1.isPlaying || IsAnimationPlaying(particleEffectAndTrigger.Item2));
     }
 
     public void TriggerAnimation(AnimationType animationType) {
-        (animationType switch {
-            AnimationType.JUMP => OnJump,
-            AnimationType.IDLE => OnIdle,
-            AnimationType.DANCE => OnDance,
-            AnimationType.THINK => OnThink,
-            AnimationType.RUN => OnRun,
-            _ => new Action(() => { })
-        }).Invoke();
-    }
-
-    private void ShowDice() {
-        playerDice.gameObject.SetActive(true);
-    }
-
-    private void HideDice() {
-        playerDice.transform.localScale = Vector3.one;
-        playerDice.gameObject.SetActive(false);
-    }
-
-    public void ShowDiceResultLabel() {
-        diceResultLabel.gameObject.SetActive(true);
+        character.Animator.SetTrigger(animationType switch {
+            AnimationType.DICE_HIT => diceHitTrigger,
+            AnimationType.IDLE => idleTrigger,
+            AnimationType.DICE_SPIN => diceSpinTrigger,
+            AnimationType.JUNCTION_ENTRY => junctionEntryTrigger,
+            AnimationType.RUN => runTrigger,
+            _ => throw new ArgumentException("Invalid animation type")
+        });
     }
 
     public void HideDiceResultLabel() {
-        diceResultLabel.gameObject.SetActive(false);
-    }
-
-    public void SetDiceNumber(int value) {
-        foreach (var label in numberLabels) {
-            label.text = value.ToString();
-        }
+        dice.HideDiceResultLabel();
     }
 
     public void ShowBranchArrows(IReadOnlyList<FieldBehaviour> nextFields, BoardPlayer player) {
@@ -164,32 +75,6 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
             Destroy(arrow);
         }
         branchArrows.Clear();
-    }
-
-    private void Update() {
-        if (diceSpinning) { SpinDice(); }
-
-        if (diceResultLabel.gameObject.activeSelf) {
-            diceResultLabel.transform.rotation = Quaternion.LookRotation(diceResultLabel.transform.position - Camera.main.transform.position);
-        }
-    }
-
-    private void SpinDice() {
-        playerDice.Rotate(Vector3.up, rotationSpeed * Time.deltaTime, Space.World);
-
-        tiltTime += Time.deltaTime * tiltFrequency;
-        var tiltAngle = Mathf.Sin(tiltTime) * tiltAmplitude;
-
-        playerDice.rotation = Quaternion.Euler(tiltAngle, playerDice.rotation.eulerAngles.y, 0);
-    }
-
-    private IEnumerator RandomDiceNumberCoroutine() {
-        if (!diceSpinning) { yield break; }
-
-        var num = Random.Range(1, 11);
-        SetDiceNumber(num);
-        yield return new WaitForSeconds(numberAnimationSpeed);
-        StartCoroutine(RandomDiceNumberCoroutine());
     }
 
     private GameObject InstantiateBranchArrow(FieldBehaviour targetField, BoardPlayer player) {
@@ -209,59 +94,45 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
     }
 
     public void OnRollStart() {
-        transform.DOLookAt(Camera.main.transform.position, .35f, AxisConstraint.Y);
-
-        diceSpinning = true;
-
-        StartCoroutine(RandomDiceNumberCoroutine());
-
-        ShowDice();
-        playerDice.DOScale(0, .3f).From();
-        OnDance();
+        CameraHandler.Instance.ZoomIn();
+        dice.OnRollStart();
+        TriggerAnimation(AnimationType.DICE_SPIN);
     }
 
     public void OnRollCancel() {
-        diceSpinning = false;
-        playerDice.DOComplete();
-        playerDice.DOScale(0, .12f).OnComplete(() => HideDice());
-        OnIdle();
+        dice.OnRollCancel();
+        TriggerAnimation(AnimationType.IDLE);
     }
 
-    public void OnRollJump() {
-        playerModel.DOComplete();
-        playerModel.DOJump(transform.position, jumpPower, 1, jumpDuration);
-        OnJump();
-    }
+    public IEnumerator StartRollSequence(int diceValue) {
+        character.HitDice();
+        TriggerAnimation(AnimationType.DICE_HIT);
+        yield return new WaitForSeconds(0.09f);
 
-    public void OnRollDisplay(int roll) {
-        diceHitParticle.Play();
-        if (diceHitParticle.GetComponent<CinemachineImpulseSource>() != null) {
-            diceHitParticle.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
-        }
-        playerDice.DOComplete();
-        diceSpinning = false;
-        SetDiceNumber(roll);
-        playerDice.transform.eulerAngles = Vector3.zero;
-        var diceLocalPos = playerDice.localPosition;
-        playerDice.DOLocalJump(diceLocalPos, .8f, 1, .25f);
-        playerDice.DOPunchScale(Vector3.one / 4, .3f, 10, 1);
-    }
+        dice.OnRollDisplay(diceValue);
+        yield return new WaitForSeconds(0.5f);
 
-    public void OnRollEnd(int roll) {
-        HideDice();
-        diceResultParticle.Play();
+        dice.OnRollEnd(diceValue);
+        yield return new WaitForSeconds(0.6f);
 
-        ShowDiceResultLabel();
-        diceResultLabel.text = roll.ToString();
-        diceResultLabel.transform.DOComplete();
-        diceResultLabel.transform.DOScale(0, .2f).From().SetEase(scaleEase);
+        CameraHandler.Instance.ZoomOut();
+        yield return new WaitForSeconds(0.5f);
     }
 
     public void CleanRotation() {
-        particles.transform.rotation = Quaternion.identity;
+        dice.Particles.transform.rotation = Quaternion.identity;
+        character.Particles.transform.rotation = Quaternion.identity;
     }
 
     private bool IsAnimationPlaying(string trigger) {
-        return animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).IsName(trigger);
+        return character.Animator.IsInTransition(0) || character.Animator.GetCurrentAnimatorStateInfo(0).IsName(trigger);
+    }
+
+    public void MakeCharacterFaceCamera() {
+        character.FaceCamera();
+    }
+
+    public void SetMovementRotation(Quaternion targetRotation, float lerpSpeed) {
+        character.SetMovementRotation(targetRotation, lerpSpeed);
     }
 }

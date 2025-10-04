@@ -1,6 +1,5 @@
 using Mirror;
 using UnityEngine;
-using UnityEngine.Splines;
 
 public class QuestionFieldBehaviour : FieldBehaviour {
     [Server]
