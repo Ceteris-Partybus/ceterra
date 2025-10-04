@@ -143,8 +143,13 @@ public class BoardPlayer : SceneConditionalPlayer {
             yield return null;
             yield return waitWhile;
 
-            if (isLocalPlayer) { IsAnimationFinished = true; }
+            if (isLocalPlayer) { CmdAsdf(); }
         }
+    }
+
+    [Command]
+    private void CmdAsdf() {
+        IsAnimationFinished = true;
     }
 
     [ClientRpc]
@@ -245,7 +250,7 @@ public class BoardPlayer : SceneConditionalPlayer {
         if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving || dice.IsSpinning) {
             return;
         }
-        RpcToggleBoardOverview();
+        CameraHandler.Instance.RpcToggleBoardOverview();
     }
 
     [Command]
@@ -270,11 +275,6 @@ public class BoardPlayer : SceneConditionalPlayer {
     private IEnumerator StartRollSequence(int diceValue) {
         yield return visualHandler.StartRollSequence(diceValue);
         if (isServer) { BoardContext.Instance.ProcessDiceRoll(this, diceValue); }
-    }
-
-    [ClientRpc]
-    private void RpcToggleBoardOverview() {
-        CameraHandler.Instance.ToggleBoardOverview();
     }
 
     [ClientRpc]
