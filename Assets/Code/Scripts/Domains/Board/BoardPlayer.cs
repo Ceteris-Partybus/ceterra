@@ -39,15 +39,15 @@ public class BoardPlayer : SceneConditionalPlayer {
     [Header("Stats")]
     [SyncVar(hook = nameof(OnCoinsChanged))]
     [SerializeField]
-    private uint coins;
-    public uint Coins => coins;
-    public const uint MAX_COINS = 1000;
+    private int coins;
+    public int Coins => coins;
+    public const int MAX_COINS = 1000;
 
     [SyncVar(hook = nameof(OnHealthChanged))]
     [SerializeField]
-    private uint health;
-    public uint Health => health;
-    public const uint MAX_HEALTH = 100;
+    private int health;
+    public int Health => health;
+    public const int MAX_HEALTH = 100;
     private BoardPlayerVisualHandler visualHandler;
     private float zoomBlendTime = 0.5f;
 
@@ -69,7 +69,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     public override void OnStartServer() {
         base.OnStartServer();
 
-        this.coins = 0;
+        this.coins = 50;
         this.health = MAX_HEALTH;
     }
 
@@ -101,15 +101,15 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     [Command]
-    public void CmdClaimQuizReward(uint amount) {
+    public void CmdClaimQuizReward(int amount) {
         AddCoins(amount);
     }
 
     [Server]
-    public void AddCoins(uint amount) {
+    public void AddCoins(int amount) {
         if (coins + amount > MAX_COINS) {
             coins = MAX_COINS;
-            uint remaining = coins + amount - MAX_COINS;
+            int remaining = coins + amount - MAX_COINS;
             BoardContext.Instance.UpdateFundsStat(remaining);
         }
         else {
@@ -118,18 +118,18 @@ public class BoardPlayer : SceneConditionalPlayer {
         RpcTriggerBlockingAnimation(AnimationType.COIN_GAIN);
     }
 
-    public void AddHealth(uint amount) {
-        health = (uint)Mathf.Min(health + amount, MAX_HEALTH);
+    public void AddHealth(int amount) {
+        health = Math.Min(health + amount, MAX_HEALTH);
         RpcTriggerBlockingAnimation(AnimationType.HEALTH_GAIN);
     }
 
-    public void RemoveCoins(uint amount) {
-        coins -= amount;
+    public void RemoveCoins(int amount) {
+        coins = Math.Max(0, coins - amount);
         RpcTriggerBlockingAnimation(AnimationType.COIN_LOSS);
     }
 
-    public void RemoveHealth(uint amount) {
-        health -= amount;
+    public void RemoveHealth(int amount) {
+        health = Math.Max(0, health - amount);
         RpcTriggerBlockingAnimation(AnimationType.HEALTH_LOSS);
     }
 
@@ -181,11 +181,14 @@ public class BoardPlayer : SceneConditionalPlayer {
         Debug.Log($"[Server] BoardPlayer received data from {source.GetType().Name}");
 
         if (source is MinigameOnePlayer minigamePlayer) {
-            AddCoins((uint)Math.Max(0, minigamePlayer.Score));
-            RemoveHealth((uint)minigamePlayer.Score);
+            AddCoins(Math.Max(0, minigamePlayer.Score));
+            RemoveHealth(minigamePlayer.Score);
         }
         else if (source is MgGarbagePlayer garbagePlayer) {
-            AddCoins((uint)Math.Max(0, garbagePlayer.Score));
+            AddCoins(Math.Max(0, garbagePlayer.Score));
+        }
+        else if (source is MgQuizduelPlayer quizDuelPlayer) {
+            AddCoins(Math.Max(0, quizDuelPlayer.EarnedCoinReward));
         }
     }
 
@@ -200,12 +203,13 @@ public class BoardPlayer : SceneConditionalPlayer {
             BoardOverlay.Instance.UpdateRemotePlayerCoins(coins, PlayerId);
         }
         else if (isLocalPlayer && isActive) {
+            BoardOverlay.Instance.UpdateLocalPlayerName(PlayerName);
             BoardOverlay.Instance.UpdateLocalPlayerHealth(health);
             BoardOverlay.Instance.UpdateLocalPlayerCoins(coins);
         }
     }
 
-    private void OnCoinsChanged(uint old, uint new_) {
+    private void OnCoinsChanged(int old, int new_) {
         if (isLocalPlayer) {
             BoardOverlay.Instance.UpdateLocalPlayerCoins(new_);
         }
@@ -214,7 +218,7 @@ public class BoardPlayer : SceneConditionalPlayer {
         }
     }
 
-    private void OnHealthChanged(uint old, uint new_) {
+    private void OnHealthChanged(int old, int new_) {
         if (isLocalPlayer) {
             BoardOverlay.Instance.UpdateLocalPlayerHealth(new_);
         }

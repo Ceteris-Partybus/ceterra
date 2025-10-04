@@ -1,0 +1,23 @@
+.in-construction #investment-stats {
+  display: none;
+}
+
+.in-construction #construction-status {
+  display: flex;
+}
+
+.in-construction #completion-status {
+  display: none;
+}
+
+.completion #investment-stats {
+  display: none;
+}
+
+.completion #completion-status {
+  display: flex;
+}
+
+.completion #construction-status {
+  display: none;
+}

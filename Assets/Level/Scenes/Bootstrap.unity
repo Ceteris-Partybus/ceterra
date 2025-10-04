@@ -255,7 +255,11 @@ MonoBehaviour:
   playerPrefab: {fileID: 3676788033899490170, guid: 240504f8c69041646b454da700d6d6f0, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 1
-  spawnPrefabs: []
+  spawnPrefabs:
+  - {fileID: 5985081133323474392, guid: 55ab23f6ff40ac74d86b3b1b248f9b2f, type: 3}
+  - {fileID: 5985081133323474392, guid: 2e87e6d530c086842b055876920b2417, type: 3}
+  - {fileID: 5985081133323474392, guid: 8e8dd23bee991c649851246d41c52b29, type: 3}
+  - {fileID: 5985081133323474392, guid: ca3405e7e71e5da4c8ea74feccaf00c7, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -289,6 +293,7 @@ MonoBehaviour:
   - {fileID: 5754625222157326443, guid: 29be8da3abdb685439646832481bfb5b, type: 3}
   minigameScenes:
   - MgGarbage
+  - MgQuizduel
 --- !u!114 &1926814289
 MonoBehaviour:
   m_ObjectHideFlags: 0

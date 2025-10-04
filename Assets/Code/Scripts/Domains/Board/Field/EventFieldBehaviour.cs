@@ -1,11 +1,20 @@
 using Mirror;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.Splines;
 
 public class EventFieldBehaviour : FieldBehaviour {
     protected override void OnFieldInvoked(BoardPlayer player) {
         Debug.Log($"Player {player.PlayerName} landed on an event field.");
 
+        BoardContext.Instance.TriggerRandomEvent();
+        // Manually set animation as finished to fulfill the turn completion condition
+        player.IsAnimationFinished = true;
+
+        StartCoroutine(CompleteAfterDelay());
+    }
+
+    private IEnumerator CompleteAfterDelay() {
+        yield return new WaitForSeconds(10f);
         CompleteFieldInvocation();
     }
 }

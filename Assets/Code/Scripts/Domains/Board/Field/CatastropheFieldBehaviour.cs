@@ -37,12 +37,12 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
                 var positionYIterationPlayer = currentPlayer.SplineKnotIndex.Knot;
                 if (positionXCurrentPlayer - effectRadius <= positionXIterationPlayer && positionXCurrentPlayer + effectRadius >= positionXIterationPlayer) {
                     if (positionYCurrentPlayer - effectRadius <= positionYIterationPlayer && positionYCurrentPlayer + effectRadius >= positionYIterationPlayer) {
-                        currentPlayer.RemoveHealth((uint)healthEffect);
+                        currentPlayer.RemoveHealth(healthEffect);
                         Debug.Log($"Player {currentPlayer} got health removed by amount {healthEffect}");
                     }
                 }
             }
-            BoardContext.Instance.UpdateEnvironmentStat((uint)environmentEffect);
+            BoardContext.Instance.UpdateEnvironmentStat(environmentEffect);
         }
         else {
             player.IsAnimationFinished = true;

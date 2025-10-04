@@ -2,63 +2,6 @@
     <Style src="project://database/Assets/Level/UI/Modals/ModalStyles.uss?fileID=7433441132597879392&amp;guid=7765ef12d5826884abfaffcb5834fca5&amp;type=3#ModalStyles" />
     <ui:VisualElement style="flex-grow: 1; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; width: 400px; height: 600px;">
         <ui:Label text="Resource History" class="modal-title" style="width: 100%;" />
-        <ui:ScrollView horizontal-scroller-visibility="Hidden" style="flex-grow: 1;">
-            <ui:VisualElement class="modal-button" style="flex-grow: 1; width: 364px; height: 75px;">
-                <ui:Label text="Sea Cleaner" style="font-size: 24px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 2px;" />
-                <ui:Label text="-200" style="font-size: 18px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(212, 101, 108); -unity-font-style: bold;" />
-            </ui:VisualElement>
-            <ui:VisualElement class="modal-button" style="flex-grow: 1; width: 364px; height: 75px;">
-                <ui:Label text="Sea Cleaner" style="font-size: 24px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 2px;" />
-                <ui:Label text="-200" style="font-size: 18px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(212, 101, 108); -unity-font-style: bold;" />
-            </ui:VisualElement>
-            <ui:VisualElement class="modal-button" style="flex-grow: 1; width: 364px; height: 75px;">
-                <ui:Label text="Sea Cleaner" style="font-size: 24px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 2px;" />
-                <ui:Label text="-200" style="font-size: 18px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(212, 101, 108); -unity-font-style: bold;" />
-            </ui:VisualElement>
-            <ui:VisualElement class="modal-button" style="flex-grow: 1; width: 364px; height: 75px;">
-                <ui:Label text="Sea Cleaner" style="font-size: 24px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 2px;" />
-                <ui:Label text="-200" style="font-size: 18px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(212, 101, 108); -unity-font-style: bold;" />
-            </ui:VisualElement>
-            <ui:VisualElement class="modal-button" style="flex-grow: 1; width: 364px; height: 75px;">
-                <ui:Label text="Sea Cleaner" style="font-size: 24px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 2px;" />
-                <ui:Label text="-200" style="font-size: 18px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(212, 101, 108); -unity-font-style: bold;" />
-            </ui:VisualElement>
-            <ui:VisualElement class="modal-button" style="flex-grow: 1; width: 364px; height: 75px;">
-                <ui:Label text="Sea Cleaner" style="font-size: 24px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 2px;" />
-                <ui:Label text="-200" style="font-size: 18px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(212, 101, 108); -unity-font-style: bold;" />
-            </ui:VisualElement>
-            <ui:VisualElement class="modal-button" style="flex-grow: 1; width: 364px; height: 75px;">
-                <ui:Label text="Sea Cleaner" style="font-size: 24px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 2px;" />
-                <ui:Label text="-200" style="font-size: 18px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(212, 101, 108); -unity-font-style: bold;" />
-            </ui:VisualElement>
-            <ui:VisualElement class="modal-button" style="flex-grow: 1; width: 364px; height: 75px;">
-                <ui:Label text="Sea Cleaner" style="font-size: 24px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 2px;" />
-                <ui:Label text="-200" style="font-size: 18px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(212, 101, 108); -unity-font-style: bold;" />
-            </ui:VisualElement>
-            <ui:VisualElement class="modal-button" style="flex-grow: 1; width: 364px; height: 75px;">
-                <ui:Label text="Sea Cleaner" style="font-size: 24px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 2px;" />
-                <ui:Label text="-200" style="font-size: 18px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(212, 101, 108); -unity-font-style: bold;" />
-            </ui:VisualElement>
-            <ui:VisualElement class="modal-button" style="flex-grow: 1; width: 364px; height: 75px;">
-                <ui:Label text="Sea Cleaner" style="font-size: 24px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 2px;" />
-                <ui:Label text="-200" style="font-size: 18px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(212, 101, 108); -unity-font-style: bold;" />
-            </ui:VisualElement>
-            <ui:VisualElement class="modal-button" style="flex-grow: 1; width: 364px; height: 75px;">
-                <ui:Label text="Sea Cleaner" style="font-size: 24px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 2px;" />
-                <ui:Label text="-200" style="font-size: 18px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(212, 101, 108); -unity-font-style: bold;" />
-            </ui:VisualElement>
-            <ui:VisualElement class="modal-button" style="flex-grow: 1; width: 364px; height: 75px;">
-                <ui:Label text="Sea Cleaner" style="font-size: 24px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 2px;" />
-                <ui:Label text="-200" style="font-size: 18px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(212, 101, 108); -unity-font-style: bold;" />
-            </ui:VisualElement>
-            <ui:VisualElement class="modal-button" style="flex-grow: 1; width: 364px; height: 75px;">
-                <ui:Label text="Sea Cleaner" style="font-size: 24px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 2px;" />
-                <ui:Label text="-200" style="font-size: 18px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(212, 101, 108); -unity-font-style: bold;" />
-            </ui:VisualElement>
-            <ui:VisualElement class="modal-button" style="flex-grow: 1; width: 364px; height: 75px;">
-                <ui:Label text="Sea Cleaner" style="font-size: 24px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 2px;" />
-                <ui:Label text="-200" style="font-size: 18px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(212, 101, 108); -unity-font-style: bold;" />
-            </ui:VisualElement>
-        </ui:ScrollView>
+        <ui:ScrollView horizontal-scroller-visibility="Hidden" style="flex-grow: 1;" />
     </ui:VisualElement>
 </ui:UXML>

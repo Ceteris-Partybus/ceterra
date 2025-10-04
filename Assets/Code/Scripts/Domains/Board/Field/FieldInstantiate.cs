@@ -98,10 +98,9 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
                     // fieldTypeMap[new SplineKnotIndex(i, k)] = randomFieldType;
                     if (i == 0 && k == 0) {
                         fieldTypeMap[new SplineKnotIndex(i, k)] = FieldType.NORMAL;
+                        continue;
                     }
-                    else {
-                        fieldTypeMap[new SplineKnotIndex(i, k)] = FieldType.CATASTROPHE;
-                    }
+                    fieldTypeMap[new SplineKnotIndex(i, k)] = FieldType.EVENT;
                 }
             }
         }

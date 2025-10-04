@@ -272,3 +272,27 @@
     justify-content: center;
     flex-direction: row;
 }
+
+#trend-environment,
+#trend-economy,
+#trend-society {
+    align-self: flex-end;
+    margin-bottom: 0;
+    height: 15px;
+    width: 15px;
+}
+
+.trend-rising {
+    background-image: resource('Icons/trend-rising');
+    rotate: 270deg;
+}
+
+.trend-falling {
+    background-image: resource('Icons/trend-falling');
+    rotate: 90deg;
+}
+
+.trend-neutral {
+    background-image: resource('Icons/trend-unchanged');
+    rotate: 0deg;
+}

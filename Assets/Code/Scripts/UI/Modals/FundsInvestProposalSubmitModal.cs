@@ -1,39 +1,99 @@
+using Mirror;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class FundsInvestProposalSubmitModal : Modal {
+
+    public static FundsInvestProposalSubmitModal Instance => GetInstance<FundsInvestProposalSubmitModal>();
+
     private UnsignedIntegerField amountField;
     private Button addAllFundingButton;
     private Button submitProposalButton;
-    private VisualTreeAsset investProposalVoteModalTemplate;
+    private VisualElement fullyFinancedInfo;
 
-    public FundsInvestProposalSubmitModal(VisualTreeAsset contentTemplate, VisualTreeAsset investProposalVoteModalTemplate) : base(contentTemplate) {
-        this.investProposalVoteModalTemplate = investProposalVoteModalTemplate;
+    public int InvestmentId;
+
+    protected override void Start() {
+        this.visualTreeAsset = ModalMap.Instance.FundsInvestProposalSubmitModalTemplate;
+        base.Start();
     }
 
-    protected override void InitializeContent() {
-        this.amountField = modalContent.Q<UnsignedIntegerField>("investment-proposal-value");
-        this.addAllFundingButton = modalContent.Q<Button>("add-all-funding-button");
-        this.submitProposalButton = modalContent.Q<Button>("propose-investment-button");
-
-        if (this.addAllFundingButton != null) {
-            this.addAllFundingButton.clicked += OnAddAllFundingButtonClicked;
-        }
+    protected override void OnModalShown() {
+        this.amountField = modalElement.Q<UnsignedIntegerField>("investment-proposal-value");
+        this.addAllFundingButton = modalElement.Q<Button>("add-all-funding-button");
+        this.submitProposalButton = modalElement.Q<Button>("propose-investment-button");
+        this.fullyFinancedInfo = modalElement.Q<VisualElement>("fully-financed-info");
 
         if (this.submitProposalButton != null) {
             this.submitProposalButton.clicked += OnSubmitProposalButtonClicked;
         }
+
+        Investment investment = BoardContext.Instance.investments.FirstOrDefault(inv => inv.id == InvestmentId);
+
+        if (investment.fullyFinanced) {
+            amountField.value = 0;
+            amountField.isReadOnly = true;
+            fullyFinancedInfo.style.display = DisplayStyle.Flex;
+            addAllFundingButton.style.display = DisplayStyle.None;
+        }
+        else {
+            addAllFundingButton.clicked += OnAddAllFundingButtonClicked;
+        }
+
+        amountField.RegisterCallback<ChangeEvent<int>>(evt => {
+            Investment investment = BoardContext.Instance.investments.FirstOrDefault(inv => inv.id == InvestmentId);
+            int totalFunds = BoardContext.Instance.FundsStat;
+            int requiredFunds = investment.requiredMoney - investment.currentMoney;
+            if (evt.newValue > requiredFunds || evt.newValue > totalFunds) {
+                amountField.value = (uint)Mathf.Min(requiredFunds, totalFunds);
+            }
+        });
     }
 
+    [ClientCallback]
     private void OnAddAllFundingButtonClicked() {
-        // Get available funds, check progress in funds for current investment
-        // Set the amount field to the available funds
-        Debug.Log("Add all funding button clicked");
+        Investment investment = BoardContext.Instance.investments.FirstOrDefault(inv => inv.id == InvestmentId);
+        int requiredFunds = investment.requiredMoney - investment.currentMoney;
+
+        if (requiredFunds > BoardContext.Instance.FundsStat) {
+            InfoModal.Instance.Message = "Der Fonds hat nicht genug Geld, um diesen Investitionsvorschlag vollumfänglich zu unterstützen.";
+            ModalManager.Instance.Show(InfoModal.Instance);
+            return;
+        }
+        this.amountField.value = (uint)requiredFunds;
     }
 
+    [ClientCallback]
     private void OnSubmitProposalButtonClicked() {
-        Debug.Log("Investment proposal submitted with amount: " + this.amountField.value);
-        // This is just a placeholder, the vote should be submitted to the server and then shown at a fitting time.
-        ModalManager.Instance.ShowModal(new InvestProposalVoteModal(this.investProposalVoteModalTemplate));
+        Investment investment = BoardContext.Instance.investments.FirstOrDefault(inv => inv.id == InvestmentId);
+        int requiredResources = investment.requiredResources;
+        if (BoardContext.Instance.ResourceStat < requiredResources) {
+            InfoModal.Instance.Message = "Die Stadt hat nicht genug Ressourcen, um diesen Investitionsvorschlag zu unterstützen.";
+            ModalManager.Instance.Show(InfoModal.Instance);
+            return;
+        }
+
+        if (amountField.value == 0 && !investment.fullyFinanced) {
+            InfoModal.Instance.Message = "Du musst einen Betrag größer als 0 vorschlagen, wenn die Investition nicht bereits voll finanziert ist.";
+            ModalManager.Instance.Show(InfoModal.Instance);
+            return;
+        }
+
+        int playerId = BoardContext.Instance.GetLocalPlayer().PlayerId;
+        CmdSetVoteProperties(InvestmentId, playerId, (int)amountField.value);
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdSetVoteProperties(int investmentId, int playerId, int proposedCoins) {
+        RpcSetVoteProperties(investmentId, playerId, proposedCoins);
+    }
+
+    [ClientRpc]
+    private void RpcSetVoteProperties(int investmentId, int playerId, int proposedCoins) {
+        InvestProposalVoteModal.Instance.InvestmentId = investmentId;
+        InvestProposalVoteModal.Instance.PlayerId = playerId;
+        InvestProposalVoteModal.Instance.ProposedCoins = proposedCoins;
+        ModalManager.Instance.Show(InvestProposalVoteModal.Instance);
     }
 }

@@ -4,7 +4,7 @@
     <Style src="project://database/Assets/Level/UI/Board/Card.uss?fileID=7433441132597879392&amp;guid=788ddb1472ea9d34790d902073b1aee9&amp;type=3#Card" />
     <ui:VisualElement name="player-card" class="card">
         <ui:VisualElement name="player-card__head">
-            <ui:Label text="John Doe" name="player-card__display-name" />
+            <ui:Label name="player-card__display-name" />
         </ui:VisualElement>
         <ui:VisualElement name="player-card__content">
             <ui:VisualElement name="player-card__health">

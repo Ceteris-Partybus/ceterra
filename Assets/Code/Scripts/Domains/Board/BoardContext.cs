@@ -1,4 +1,5 @@
 using Mirror;
+using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -22,52 +23,111 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     }
 
     #region Global Stats
-    public const uint MAX_STATS_VALUE = 100;
+    public const int MAX_STATS_VALUE = 100;
 
     [Header("Global Stats")]
     [SerializeField]
     [SyncVar(hook = nameof(OnFundsStatChanged))]
-    private uint fundsStat;
-    public uint FundsStat => fundsStat;
+    private int fundsStat;
+    public int FundsStat => fundsStat;
 
     [SerializeField]
     [SyncVar(hook = nameof(OnResourceStatChanged))]
-    private uint resourceStat;
-    public uint ResourceStat => resourceStat;
+    private int resourceStat;
+    public int ResourceStat => resourceStat;
 
     [SerializeField]
     [SyncVar(hook = nameof(OnEconomyStatChanged))]
-    private uint economyStat;
-    public uint EconomyStat => economyStat;
+    private int economyStat;
+    public int EconomyStat => economyStat;
 
     [SerializeField]
     [SyncVar(hook = nameof(OnSocietyStatChanged))]
-    private uint societyStat;
-    public uint SocietyStat => societyStat;
+    private int societyStat;
+    public int SocietyStat => societyStat;
 
     [SerializeField]
     [SyncVar(hook = nameof(OnEnvironmentStatChanged))]
-    private uint environmentStat;
-    public uint EnvironmentStat => environmentStat;
+    private int environmentStat;
+    public int EnvironmentStat => environmentStat;
+
+    [SerializeField]
+    [SyncVar(hook = nameof(OnResourceNextRoundChanged))]
+    private int resourcesNextRound;
+    public int ResourcesNextRound => resourcesNextRound;
+
+    [SerializeField]
+    [SyncVar]
+    private Trend economyTrend;
+    public Trend EconomyTrend => economyTrend;
+
+    [SerializeField]
+    [SyncVar]
+    private Trend societyTrend;
+    public Trend SocietyTrend => societyTrend;
+
+    [SerializeField]
+    [SyncVar]
+    private Trend environmentTrend;
+    public Trend EnvironmentTrend => environmentTrend;
 
     #endregion
 
     #region Global Stats Hooks
 
-    private void OnFundsStatChanged(uint old, uint new_) {
+    private void OnFundsStatChanged(int old, int new_) {
         BoardOverlay.Instance.UpdateFundsValue(new_);
     }
-    private void OnResourceStatChanged(uint old, uint new_) {
+    private void OnResourceStatChanged(int old, int new_) {
         BoardOverlay.Instance.UpdateResourceValue(new_);
     }
-    private void OnEconomyStatChanged(uint old, uint new_) {
+    private void OnEconomyStatChanged(int old, int new_) {
+        economyTrend = CalculateTrend(old, new_);
         BoardOverlay.Instance.UpdateEconomyValue(new_);
+        BoardOverlay.Instance.UpdateTrends();
+        CmdUpdateEconomyTrend(economyTrend);
     }
-    private void OnSocietyStatChanged(uint old, uint new_) {
+    private void OnSocietyStatChanged(int old, int new_) {
+        societyTrend = CalculateTrend(old, new_);
         BoardOverlay.Instance.UpdateSocietyValue(new_);
+        BoardOverlay.Instance.UpdateTrends();
+        CmdUpdateSocietyTrend(societyTrend);
     }
-    private void OnEnvironmentStatChanged(uint old, uint new_) {
+    private void OnEnvironmentStatChanged(int old, int new_) {
+        environmentTrend = CalculateTrend(old, new_);
         BoardOverlay.Instance.UpdateEnvironmentValue(new_);
+        BoardOverlay.Instance.UpdateTrends();
+        CmdUpdateEnvironmentTrend(environmentTrend);
+    }
+    private void OnResourceNextRoundChanged(int old, int new_) {
+        BoardOverlay.Instance.UpdateResourcesNextRoundValue();
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdUpdateEconomyTrend(Trend trend) {
+        economyTrend = trend;
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdUpdateSocietyTrend(Trend trend) {
+        societyTrend = trend;
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdUpdateEnvironmentTrend(Trend trend) {
+        environmentTrend = trend;
+    }
+
+    private Trend CalculateTrend(int oldValue, int newValue) {
+        if (newValue > oldValue) {
+            return Trend.RISING;
+        }
+        else if (newValue < oldValue) {
+            return Trend.FALLING;
+        }
+        else {
+            return Trend.NEUTRAL;
+        }
     }
 
     #endregion
@@ -82,32 +142,64 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     [SerializeField]
     private int totalMovementsCompleted = 0;
 
+    public readonly SyncList<Investment> investments = new SyncList<Investment>();
+    public readonly SyncList<Event> events = new SyncList<Event>();
+    public readonly SyncList<FundsHistoryEntry> fundsHistory = new SyncList<FundsHistoryEntry>();
+    public readonly SyncList<ResourceHistoryEntry> resourceHistory = new SyncList<ResourceHistoryEntry>();
+
+    public override void OnStartServer() {
+        investments.OnInsert += OnInvestmentItemInserted;
+        fundsHistory.OnAdd += OnFundsHistoryItemAdded;
+        resourceHistory.OnAdd += OnResourceHistoryItemAdded;
+
+        economyTrend = Trend.NEUTRAL;
+        societyTrend = Trend.NEUTRAL;
+        environmentTrend = Trend.NEUTRAL;
+
+        investments.AddRange(Investment.LoadInvestmentsFromResources());
+        Debug.Log($"Loaded {investments.Count} investments from resources");
+        events.AddRange(Event.LoadEventsFromResources());
+        Debug.Log($"Loaded {events.Count} events from resources");
+    }
+
+    private void OnInvestmentItemInserted(int index) {
+        int investmentId = investments[index].id;
+        RpcRecalculateInvestment(investmentId);
+    }
+
+    private void OnFundsHistoryItemAdded(int index) {
+        RpcUpdateFundsHistory(fundsHistory[index]);
+    }
+
+    private void OnResourceHistoryItemAdded(int index) {
+        RpcUpdateResourceHistory(resourceHistory[index]);
+    }
+
+    [ClientRpc]
+    public void RpcRecalculateInvestment(int investmentId) {
+        BoardOverlay.Instance.RecalculateInvestment(investmentId);
+    }
+
+    [ClientRpc]
+    public void RpcUpdateFundsHistory(FundsHistoryEntry entry) {
+        BoardOverlay.Instance.UpdateFundsHistory(entry);
+    }
+
+    [ClientRpc]
+    public void RpcUpdateResourceHistory(ResourceHistoryEntry entry) {
+        BoardOverlay.Instance.UpdateResourceHistory(entry);
+    }
+
     protected override void Start() {
         base.Start();
         currentPlayerId = GameManager.Singleton.PlayerIds[0];
 
+        this.resourcesNextRound = 50;
         this.fundsStat = 0;
         this.resourceStat = 0;
         this.economyStat = 50;
         this.societyStat = 50;
         this.environmentStat = 50;
-
-        // TODO: Remove, this is just for testing purposes
-        if (isServer) {
-            StartCoroutine(StartValuesIncrease());
-        }
-    }
-
-    [ServerCallback]
-    private IEnumerator StartValuesIncrease() {
-        while (true) {
-            yield return new WaitForSeconds(1f);
-            UpdateFundsStat(1);
-            UpdateResourceStat(1);
-            UpdateEconomyStat(1);
-            UpdateSocietyStat(1);
-            UpdateEnvironmentStat(1);
-        }
     }
 
     [Server]
@@ -148,13 +240,47 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
             int totalPlayers = GameManager.Singleton.PlayerIds.Length;
             if (totalMovementsCompleted >= totalPlayers) {
                 totalMovementsCompleted = 0;
-                // All players have moved at least once, start minigame
-                //GameManager.Singleton.StartMinigame("MgGarbage");
-                //return;
+
+                UpdateResourceStat((int)resourcesNextRound);
+                ResourceHistoryEntry entry = new ResourceHistoryEntry(resourcesNextRound, HistoryEntryType.DEPOSIT, "Rundenende");
+                this.resourceHistory.Add(entry);
+                resourcesNextRound = CalculateResourcesNextRound();
+
+                int completedInvestments = 0;
+                foreach (var investment in investments) {
+                    investment.Tick();
+                    if (investment.cooldown == 0 && !investment.completed) {
+                        ApplyInvestment(investment);
+                        investment.completed = true;
+                        RpcShowInvestInfo($"Das Investment {investment.displayName} wurde fertiggestellt!");
+                        completedInvestments++;
+                    }
+                    TriggerInvestmentListUpdate(investments.IndexOf(investment), investment);
+                }
+
+                if (completedInvestments > 0) {
+                    StartCoroutine(WaitBeforeMinigame(completedInvestments * 3f));
+                }
+                else {
+                    GameManager.Singleton.StartMinigame("MgQuizduel");
+                }
+                return;
             }
 
             NextPlayerTurn();
         }
+    }
+
+    [Server]
+    private IEnumerator WaitBeforeMinigame(float seconds) {
+        yield return new WaitForSeconds(seconds);
+        GameManager.Singleton.StartMinigame("MgQuizduel");
+    }
+
+    [Server]
+    private int CalculateResourcesNextRound() {
+        int resourcesToAdd = 25 + (int)(225 * Mathf.Pow(economyStat / 100f, 2));
+        return resourcesToAdd;
     }
 
     [ClientRpc]
@@ -196,24 +322,24 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     #region Global Stat Update
 
-    public void UpdateFundsStat(uint amount) {
-        fundsStat = (uint)Mathf.Clamp(fundsStat + amount, 0, MAX_STATS_VALUE);
+    public void UpdateFundsStat(int amount) {
+        fundsStat = Mathf.Max(0, fundsStat + amount);
     }
 
-    public void UpdateResourceStat(uint amount) {
-        resourceStat = (uint)Mathf.Clamp(resourceStat + amount, 0, MAX_STATS_VALUE);
+    public void UpdateResourceStat(int amount) {
+        resourceStat = Mathf.Max(0, resourceStat + amount);
     }
 
-    public void UpdateEconomyStat(uint amount) {
-        economyStat = (uint)Mathf.Clamp(economyStat + amount, 0, MAX_STATS_VALUE);
+    public void UpdateEconomyStat(int amount) {
+        economyStat = Mathf.Clamp(economyStat + amount, 0, MAX_STATS_VALUE);
     }
 
-    public void UpdateSocietyStat(uint amount) {
-        societyStat = (uint)Mathf.Clamp(societyStat + amount, 0, MAX_STATS_VALUE);
+    public void UpdateSocietyStat(int amount) {
+        societyStat = Mathf.Clamp(societyStat + amount, 0, MAX_STATS_VALUE);
     }
 
-    public void UpdateEnvironmentStat(uint amount) {
-        environmentStat = (uint)Mathf.Clamp(environmentStat + amount, 0, MAX_STATS_VALUE);
+    public void UpdateEnvironmentStat(int amount) {
+        environmentStat = Mathf.Clamp(environmentStat + amount, 0, MAX_STATS_VALUE);
     }
 
     [ServerCallback]
@@ -229,6 +355,157 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         BoardquizController.Instance.InitializeQuizForPlayer(player);
         Debug.Log("Calling DoStartQuiz");
         BoardquizController.Instance.DoStartQuiz();
+    }
+
+    #endregion
+
+    #region Investment Management
+
+    [Server]
+    public void InvestInInvestment(BoardPlayer player, int investmentId, int amount) {
+        int index = -1;
+        Investment investment = null;
+
+        for (int i = 0; i < investments.Count; i++) {
+            if (investments[i].id == investmentId) {
+                investment = investments[i];
+                index = i;
+                break;
+            }
+        }
+
+        if (investment == null) {
+            throw new Exception($"No investment found with ID {investmentId}");
+        }
+
+        int surplus = investment.Invest(amount);
+        int coinsToRemove = amount - Math.Max(surplus, 0);
+        player.RemoveCoins(coinsToRemove);
+
+        TriggerInvestmentListUpdate(index, investment);
+    }
+
+    [Server]
+    private void TriggerInvestmentListUpdate(int index, Investment investment) {
+        investments.RemoveAt(index);
+        investments.Insert(index, investment);
+    }
+
+    [Server]
+    public void ApproveInvestment(int investmentId, int coins) {
+        Investment investment = investments.FirstOrDefault(inv => inv.id == investmentId);
+        int index = investments.IndexOf(investment);
+
+        UpdateFundsStat(-coins);
+        FundsHistoryEntry fundsEntry = new FundsHistoryEntry(coins, HistoryEntryType.WITHDRAW, $"Resourcen für {investment.displayName}");
+        this.fundsHistory.Add(fundsEntry);
+
+        investment.Invest(coins);
+
+        if (investment.fullyFinanced) {
+            UpdateResourceStat(-investment.requiredResources);
+            ResourceHistoryEntry entry = new ResourceHistoryEntry(investment.requiredResources, HistoryEntryType.WITHDRAW, $"Finanzierung {investment.displayName}");
+            this.resourceHistory.Add(entry);
+            investment.inConstruction = true;
+            RpcShowInvestInfo("Das Investment wurde vollständig finanziert und befindet sich nun im Bau.");
+        }
+        else {
+            RpcShowInvestInfo($"Das Investment wurde mit {coins} Münzen finanziert, benötigt aber noch weitere Gelder. Die Ressourcen wurden noch nicht abgezogen.");
+        }
+        TriggerInvestmentListUpdate(index, investment);
+    }
+
+    [ClientRpc]
+    private void RpcShowInvestInfo(string message) {
+        if (!string.IsNullOrEmpty(message)) {
+            InfoModal.Instance.Message = message;
+            ModalManager.Instance.Show(InfoModal.Instance);
+        }
+    }
+
+    [Server]
+    private void ApplyInvestment(Investment investment) {
+        foreach (InvestmentModifier modifier in investment.modifier) {
+            switch (modifier.Type) {
+                case InvestmentType.ECONOMY:
+                    UpdateEconomyStat(modifier.Magnitude);
+                    break;
+                case InvestmentType.SOCIETY:
+                    UpdateSocietyStat(modifier.Magnitude);
+                    break;
+                case InvestmentType.ENVIRONMENT:
+                    UpdateEnvironmentStat(modifier.Magnitude);
+                    break;
+            }
+        }
+    }
+
+    #endregion
+
+    #region Event Management
+
+    [Server]
+    public void TriggerRandomEvent() {
+        var possibleEvents = events.Where(e => e.canOccur).ToList();
+        if (possibleEvents.Count == 0) {
+            Debug.LogWarning("No possible events to trigger.");
+            return;
+        }
+
+        int totalWeight = possibleEvents.Sum(e => e.weight);
+        int randomValue = UnityEngine.Random.Range(0, totalWeight);
+        int cumulativeWeight = 0;
+
+        foreach (var eventOption in possibleEvents) {
+            cumulativeWeight += eventOption.weight;
+            if (randomValue < cumulativeWeight) {
+                Debug.Log($"Triggering event: {eventOption.title}");
+                TriggerEvent(eventOption.id);
+                eventOption.MarkOccurrence();
+                break;
+            }
+        }
+    }
+
+    [Server]
+    private void TriggerEvent(int eventId) {
+        Event eventToTrigger = events.FirstOrDefault(e => e.id == eventId);
+        if (eventToTrigger == null) {
+            throw new Exception($"No event found with ID {eventId}");
+        }
+
+        foreach (EventModifier modifier in eventToTrigger.modifier) {
+
+            int multiplier = modifier.Effect == EventEffect.INCREASES ? 1 : -1;
+            int calculatedValue = modifier.Magnitude * multiplier;
+
+            switch (modifier.Type) {
+                case EventType.FUNDS:
+                    UpdateFundsStat(calculatedValue);
+                    break;
+                case EventType.RESOURCE:
+                    UpdateResourceStat(calculatedValue);
+                    break;
+                case EventType.ECONOMY:
+                    UpdateEconomyStat(calculatedValue);
+                    break;
+                case EventType.SOCIETY:
+                    UpdateSocietyStat(calculatedValue);
+                    break;
+                case EventType.ENVIRONMENT:
+                    UpdateEnvironmentStat(calculatedValue);
+                    break;
+            }
+        }
+
+        RpcShowEventInfo(eventToTrigger);
+    }
+
+    [ClientRpc]
+    private void RpcShowEventInfo(Event eventToShow) {
+        EventModal.Instance.Title = eventToShow.title;
+        EventModal.Instance.Description = eventToShow.description;
+        ModalManager.Instance.Show(EventModal.Instance);
     }
 
     #endregion
