@@ -18,9 +18,6 @@ public class MgOceanTrash : NetworkBehaviour {
     private MgOceanTrashType trashType;
     public MgOceanTrashType TrashType => trashType;
 
-    [SerializeField]
-    private bool isTrigger = false;
-
     private Rigidbody2D rb;
     private float startYPosition;
     private float elapsedTime;

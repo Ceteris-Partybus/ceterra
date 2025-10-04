@@ -24,28 +24,24 @@ public class MgOceanContext : NetworkedSingleton<MgOceanContext> {
     protected override void Start() {
         base.Start();
 
-        // Calculate spawn area from the spawnAreaHolder or use camera bounds as fallback
+        // Calculate spawn area from the spawnAreaHolder's Collider2D
         if (spawnAreaHolder != null) {
-            Renderer renderer = spawnAreaHolder.GetComponent<Renderer>();
-            if (renderer != null) {
-                spawnArea = renderer.bounds;
+            Collider2D collider = spawnAreaHolder.GetComponent<Collider2D>();
+            if (collider != null) {
+                spawnArea = collider.bounds;
+                Debug.Log($"[MgOceanContext] Spawn area set from Collider2D: min={spawnArea.min}, max={spawnArea.max}, size={spawnArea.size}");
+            } else {
+                Debug.LogError("[MgOceanContext] spawnAreaHolder has no Collider2D component!");
             }
+        } else {
+            Debug.LogError("[MgOceanContext] spawnAreaHolder is not assigned!");
         }
         
-        // If no spawn area was set, use camera bounds
-        if (spawnArea.size == Vector3.zero) {
-            Camera mainCamera = Camera.main;
-            if (mainCamera != null) {
-                float height = 2f * mainCamera.orthographicSize;
-                float width = height * mainCamera.aspect;
-                spawnArea = new Bounds(mainCamera.transform.position, new Vector3(width, height, 1f));
-            }
-        }
-
         if (isServer) {
             StartCoroutine(SpawnTrashRoutine());
         }
         
+        CreateBoundaries();
         StartCoroutine(UpdateCountdown());
     }
 
@@ -69,6 +65,51 @@ public class MgOceanContext : NetworkedSingleton<MgOceanContext> {
         MgOceanLocalPlayerHUD.Instance?.UpdateCountdown(0);
     }
 
+    private void CreateBoundaries() {
+        if (spawnArea.size == Vector3.zero) {
+            Debug.LogError("[MgOceanContext] Cannot create boundaries, spawnArea is not set.");
+            return;
+        }
+
+        GameObject boundaryHolder = new GameObject("Boundaries");
+        boundaryHolder.transform.SetParent(transform);
+
+        // Boundary thickness
+        float thickness = 1f;
+
+        // Top
+        CreateBoundary("TopBoundary", 
+            new Vector3(spawnArea.center.x, spawnArea.max.y + thickness / 2, 0), 
+            new Vector2(spawnArea.size.x, thickness), 
+            boundaryHolder.transform);
+
+        // Bottom
+        CreateBoundary("BottomBoundary", 
+            new Vector3(spawnArea.center.x, spawnArea.min.y - thickness / 2, 0), 
+            new Vector2(spawnArea.size.x, thickness), 
+            boundaryHolder.transform);
+
+        // Left
+        CreateBoundary("LeftBoundary", 
+            new Vector3(spawnArea.min.x - thickness / 2, spawnArea.center.y, 0), 
+            new Vector2(thickness, spawnArea.size.y), 
+            boundaryHolder.transform);
+
+        // Right
+        CreateBoundary("RightBoundary", 
+            new Vector3(spawnArea.max.x + thickness / 2, spawnArea.center.y, 0), 
+            new Vector2(thickness, spawnArea.size.y), 
+            boundaryHolder.transform);
+    }
+
+    private void CreateBoundary(string name, Vector3 position, Vector2 size, Transform parent) {
+        GameObject boundary = new GameObject(name);
+        boundary.transform.SetParent(parent);
+        boundary.transform.position = position;
+        BoxCollider2D collider = boundary.AddComponent<BoxCollider2D>();
+        collider.size = size;
+    }
+
     private IEnumerator SpawnTrashRoutine() {
         float startTime = Time.time;
         float interval = initialSpawnInterval;
@@ -77,6 +118,7 @@ public class MgOceanContext : NetworkedSingleton<MgOceanContext> {
             GameObject prefab = trashPrefabs[Random.Range(0, trashPrefabs.Length)];
             
             bool spawnFromRight = Random.value > 0.5f;
+            // Spawn outside the visible area so they swim in
             float spawnX = spawnFromRight ? spawnArea.max.x + 1f : spawnArea.min.x - 1f;
             
             Vector3 spawnPosition = new Vector3(
@@ -85,11 +127,15 @@ public class MgOceanContext : NetworkedSingleton<MgOceanContext> {
                 0f
             );
 
+            Debug.Log($"[MgOceanContext] Spawning trash at {spawnPosition}, direction: {(spawnFromRight ? "left" : "right")}");
+
             GameObject go = Instantiate(prefab, spawnPosition, Quaternion.identity);
             
             var trash = go.GetComponent<MgOceanTrash>();
             if (trash != null) {
                 trash.SetMovementDirection(spawnFromRight ? Vector2.left : Vector2.right);
+            } else {
+                Debug.LogWarning($"[MgOceanContext] Spawned prefab {prefab.name} has no MgOceanTrash component!");
             }
             
             NetworkServer.Spawn(go);
@@ -126,5 +172,9 @@ public class MgOceanContext : NetworkedSingleton<MgOceanContext> {
         }
         
         return Vector3.zero;
+    }
+    
+    public Bounds GetPlayAreaBounds() {
+        return spawnArea;
     }
 }

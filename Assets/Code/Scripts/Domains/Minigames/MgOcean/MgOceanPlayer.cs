@@ -62,13 +62,6 @@ public class MgOceanPlayer : SceneConditionalPlayer {
         Debug.Log($"Spawning player model for player {PlayerId}");
         var model = Instantiate(playerModel);
         
-        var collider = model.GetComponent<BoxCollider2D>();
-        collider.isTrigger = false;
-
-        var rb = model.GetComponent<Rigidbody2D>();
-        rb.gravityScale = 0f; // No gravity in this 2D game
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-        
         NetworkServer.Spawn(model, conn);
         Debug.Log($"Player model spawned at {model.transform.position} with tag: {model.tag}");
     }
