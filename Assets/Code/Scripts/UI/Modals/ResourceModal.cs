@@ -1,6 +1,4 @@
 using Mirror;
-using System.Linq;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 public class ResourceModal : Modal {

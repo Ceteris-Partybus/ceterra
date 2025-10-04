@@ -1,6 +1,3 @@
-using Mirror;
-using System.Linq;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 public class EventModal : Modal {
