@@ -1,0 +1,129 @@
+* {
+    -unity-font-definition: resource('UI/Other/Jersey15-Regular');
+}
+
+#MainContainer {
+    position: absolute;
+    right: 15%;
+    top: 50%;
+    translate: 0 -50%;
+    flex-direction: column;
+    align-items: flex-end;
+    width: auto;
+    height: auto;
+}
+
+.selection-panel {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 18px;
+    padding: 31px;
+    width: 440px;
+    border-width: 3px;
+    border-color: rgba(160, 199, 100, 0.6);
+}
+
+.section-title {
+    font-size: 42px;
+    color: #ffffff;
+    margin-bottom: 13px;
+    -unity-text-align: middle-center;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+    -unity-font-style: bold;
+}
+
+.selector-box {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 13px;
+    padding: 13px 18px;
+    border-width: 2px;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.selector-button {
+    width: 46px;
+    height: 46px;
+    background-color: rgba(160, 199, 100, 0.8);
+    color: white;
+    font-size: 42px;
+    border-radius: 9px;
+    border-width: 0px;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+}
+
+.selector-button:hover {
+    background-color: rgba(160, 199, 100, 1);
+}
+
+.selector-content {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    margin: 0 18px;
+}
+
+.selector-title {
+    font-size: 32px;
+    color: white;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    margin-bottom: 4px;
+}
+
+.selector-info {
+    font-size: 24px;
+    color: rgba(160, 199, 100, 0.9);
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+    -unity-text-align: middle-center;
+}
+
+.input-container {
+    margin-bottom: 22px;
+    align-items: center;
+}
+
+.player-input {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: black;
+    font-size: 32px;
+    padding: 13px 18px;
+    border-radius: 13px;
+    border-width: 2px;
+    border-color: rgba(255, 255, 255, 0.1);
+    -unity-font-style: normal;
+}
+
+#unity-text-input {
+    opacity: 1;
+}
+
+.player-input:focus {
+    border-color: rgba(160, 199, 100, 0.8);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.select-button {
+    width: 100%;
+    height: 59px;
+    background-color: rgba(160, 199, 100, 0.9);
+    color: white;
+    font-size: 42px;
+    border-radius: 13px;
+    border-width: 0px;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+    -unity-font-style: bold;
+    margin-top: 13px;
+}
+
+.select-button:hover {
+    background-color: rgba(160, 199, 100, 1);
+}
+
+.select-button:active {
+    background-color: rgba(11, 85, 71, 1);
+}
