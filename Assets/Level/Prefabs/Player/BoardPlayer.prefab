@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2174385867906725985}
   - component: {fileID: 769855207147994158}
   - component: {fileID: 1591609028840897619}
+  - component: {fileID: -6749806492371377112}
   m_Layer: 0
   m_Name: BoardPlayer
   m_TagString: Untagged
@@ -150,3 +151,20 @@ MonoBehaviour:
   idleTrigger: Idle
   diceSpinTrigger: DiceSpin
   junctionEntryTrigger: JunctionEntry
+--- !u!114 &-6749806492371377112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3676788033899490170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cee2f24c5afb8044a9b41d27d28b789, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  playerId: -1
+  playerName: 
