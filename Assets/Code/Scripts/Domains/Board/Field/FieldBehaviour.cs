@@ -17,6 +17,8 @@ public abstract class FieldBehaviour : NetworkBehaviour {
 
     [SyncVar]
     [SerializeField] private float normalizedSplinePosition;
+    [SyncVar]
+    [SerializeField] private bool skipStepCount;
 
     public event Action OnFieldInvocationComplete;
 
@@ -60,6 +62,7 @@ public abstract class FieldBehaviour : NetworkBehaviour {
     public SyncList<FieldBehaviour> Next => nextFields;
     public SplineKnotIndex SplineKnotIndex => splineKnotIndex;
     public Vector3 Position => transform.position;
+    public bool SkipStepCount => skipStepCount;
 
     public float NormalizedSplinePosition => normalizedSplinePosition;
 

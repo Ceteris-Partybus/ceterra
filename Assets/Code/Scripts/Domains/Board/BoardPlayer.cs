@@ -340,7 +340,9 @@ public class BoardPlayer : SceneConditionalPlayer {
             }
             yield return StartCoroutine(ServerSmoothMoveToKnot(targetField));
             SplineKnotIndex = nextKnot;
-            remainingSteps--;
+            if (!targetField.SkipStepCount) {
+                remainingSteps--;
+            }
             yield return new WaitForSeconds(0.15f);
         }
 

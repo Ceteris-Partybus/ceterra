@@ -1,4 +1,3 @@
-using DG.Tweening;
 using Mirror;
 using System;
 using System.Collections.Generic;
@@ -14,6 +13,7 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
     [SerializeField] private GameObject questionFieldPrefab;
     [SerializeField] private GameObject eventFieldPrefab;
     [SerializeField] private GameObject catastropheFieldPrefab;
+    [SerializeField] private GameObject junctionFieldPrefab;
 
     private readonly Dictionary<SplineKnotIndex, FieldType> fieldTypeMap = new();
     private readonly SyncDictionary<SplineKnotIndex, FieldBehaviour> fields = new();
@@ -80,6 +80,7 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
             FieldType.QUESTION => questionFieldPrefab,
             FieldType.EVENT => eventFieldPrefab,
             FieldType.CATASTROPHE => catastropheFieldPrefab,
+            FieldType.JUNCTION => junctionFieldPrefab,
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
         };
     }
@@ -102,21 +103,18 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
         }
     }
 
-    // TODO: Placeholder, replace with actual logic later
     private void FillFieldTypeMap() {
-        for (int i = 0; i < splineContainer.Splines.Count(); i++) {
-            var spline = splineContainer.Splines.ElementAt(i);
-            for (int k = 0; k < spline.Knots.Count(); k++) {
-                if (!fieldTypeMap.ContainsKey(new SplineKnotIndex(i, k))) {
-                    var fieldTypes = Enum.GetValues(typeof(FieldType)).Cast<FieldType>().ToArray();
-                    var randomFieldType = fieldTypes[UnityEngine.Random.Range(0, fieldTypes.Length)];
-                    // fieldTypeMap[new SplineKnotIndex(i, k)] = randomFieldType;
-                    if (i == 0 && k == 0) {
-                        fieldTypeMap[new SplineKnotIndex(i, k)] = FieldType.NORMAL;
-                        continue;
-                    }
-                    fieldTypeMap[new SplineKnotIndex(i, k)] = FieldType.EVENT;
+        for (var splineIndex = 0; splineIndex < splineContainer.Splines.Count(); splineIndex++) {
+            var spline = splineContainer.Splines.ElementAt(splineIndex);
+            if (spline.TryGetIntData("FieldTypes", out SplineData<int> dataPoints)) {
+                foreach (var dataPoint in dataPoints) {
+                    var knot = (int)dataPoint.Index;
+                    var fieldType = (FieldType)dataPoint.Value;
+                    fieldTypeMap[new SplineKnotIndex(splineIndex, knot)] = fieldType;
                 }
+            }
+            for (var knot = 0; knot < spline.Knots.Count(); knot++) {
+                fieldTypeMap.TryAdd(new SplineKnotIndex(splineIndex, knot), FieldType.NORMAL);
             }
         }
     }
