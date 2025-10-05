@@ -5,9 +5,15 @@ using System.IO;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using Mirror;
 
 public class DockerServerBuilder : EditorWindow {
+    private const string API_URL = "http://localhost:3000/api";
+    private static readonly HttpClient httpClient = new HttpClient();
+
     [MenuItem("Tools/Docker Server Builder")]
     public static void ShowWindow() {
         GetWindow<DockerServerBuilder>("Docker Server Builder");
@@ -56,6 +62,24 @@ public class DockerServerBuilder : EditorWindow {
 
         if (GUILayout.Button("Restart Docker Container", GUILayout.Height(20))) {
             RestartDockerContainer();
+        }
+
+        GUILayout.Space(10);
+
+        if (GUILayout.Button("Deploy New Lobby", GUILayout.Height(25))) {
+            DeployNewLobbyAsync();
+        }
+
+        GUILayout.Space(10);
+
+        if (GUILayout.Button("List Active Lobbies", GUILayout.Height(20))) {
+            ListActiveLobbies();
+        }
+
+        GUILayout.Space(10);
+
+        if (GUILayout.Button("Test API Connection", GUILayout.Height(20))) {
+            TestAPIConnection();
         }
 
     }
@@ -286,6 +310,84 @@ public class DockerServerBuilder : EditorWindow {
         EditorUtility.DisplayDialog("Restarted", "Docker containers restarted successfully.", "OK");
     }
 
+    async void DeployNewLobbyAsync() {
+        try {
+            EditorUtility.DisplayProgressBar("Deploy Lobby", "Generating invite code...", 0.2f);
+            
+            // Generate unique invite code
+            string inviteCode = Guid.NewGuid().ToString().Substring(0, 8).ToUpper();
+            
+            EditorUtility.DisplayProgressBar("Deploy Lobby", "Getting instance number...", 0.4f);
+            
+            // Get next instance number
+            int instance = await GetNextInstanceAsync();
+            int port = 7777 + instance;
+
+            EditorUtility.DisplayProgressBar("Deploy Lobby", "Storing invite code...", 0.6f);
+            
+            // Store invite code in Redis via API
+            await CreateLobbyInviteAsync(inviteCode, "localhost", port.ToString(), 3600);
+
+            EditorUtility.DisplayProgressBar("Deploy Lobby", "Starting new server instance...", 0.8f);
+            
+            // Create a new server instance with unique port
+            // Use docker run instead of scale for better control
+            string containerName = $"unity-server-{instance}";
+            RunCommand("docker", $"run -d --name {containerName} " +
+                $"--network ceterra_game-network " +
+                $"-p {port}:7777/udp -p {port}:7777/tcp " +
+                $"-e INSTANCE={instance} " +
+                $"-e SERVER_IP=0.0.0.0 " +
+                $"--restart unless-stopped " +
+                $"ceterra-unity-server:latest");
+
+            EditorUtility.ClearProgressBar();
+            
+            EditorUtility.DisplayDialog("New Lobby", 
+                $"Lobby deployed!\n\nInvite Code: {inviteCode}\nPort: {port}\nContainer: {containerName}\n\nShare this code with players to join.", 
+                "OK");
+                
+            UnityEngine.Debug.Log($"Deployed lobby: Code={inviteCode}, Port={port}, Instance={instance}");
+        }
+        catch (Exception e) {
+            EditorUtility.ClearProgressBar();
+            EditorUtility.DisplayDialog("Error", $"Failed to deploy lobby: {e.Message}", "OK");
+            UnityEngine.Debug.LogError($"Deploy lobby error: {e}");
+        }
+    }
+
+    async Task<int> GetNextInstanceAsync() {
+        var response = await httpClient.PostAsync($"{API_URL}/instance/next", null);
+        response.EnsureSuccessStatusCode();
+        
+        string json = await response.Content.ReadAsStringAsync();
+        var result = JsonUtility.FromJson<InstanceResponse>(json);
+        return result.instance;
+    }
+
+    async Task CreateLobbyInviteAsync(string code, string ip, string port, int ttl) {
+        var data = new LobbyInviteRequest {
+            code = code,
+            ip = ip,
+            port = port,
+            ttl = ttl
+        };
+        
+        string json = JsonUtility.ToJson(data);
+        UnityEngine.Debug.Log($"Sending to API: {json}");
+        
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        
+        var response = await httpClient.PostAsync($"{API_URL}/lobby", content);
+        string responseBody = await response.Content.ReadAsStringAsync();
+        
+        if (!response.IsSuccessStatusCode) {
+            throw new Exception($"API Error: {response.StatusCode} - {responseBody}");
+        }
+        
+        UnityEngine.Debug.Log($"API Response: {responseBody}");
+    }
+
     void RunCompose(string arguments) {
         // Prefer modern `docker compose`, fallback to legacy `docker-compose`
         try {
@@ -366,4 +468,57 @@ public class DockerServerBuilder : EditorWindow {
             }
         }
     }
+
+    async void TestAPIConnection() {
+        try {
+            // Test health endpoint first
+            var healthResponse = await httpClient.GetAsync($"{API_URL.Replace("/api", "")}/health");
+            string healthResult = await healthResponse.Content.ReadAsStringAsync();
+            
+            // Test lobbies list
+            var lobbiesResponse = await httpClient.GetAsync($"{API_URL}/lobbies");
+            string lobbiesResult = await lobbiesResponse.Content.ReadAsStringAsync();
+            
+            EditorUtility.DisplayDialog("API Test", 
+                $"✓ Health: {healthResponse.StatusCode}\n{healthResult}\n\n✓ Lobbies: {lobbiesResponse.StatusCode}\n{lobbiesResult}\n\nAPI is running correctly!", 
+                "OK");
+        }
+        catch (Exception e) {
+            EditorUtility.DisplayDialog("API Test Failed", 
+                $"Cannot connect to API!\n\nMake sure:\n1. Docker containers are running\n2. API service is healthy\n3. Port 3000 is not blocked\n\nError: {e.Message}", 
+                "OK");
+        }
+    }
+
+    void ListActiveLobbies() {
+        try {
+            // List all running unity-server containers
+            string output = RunCommandWithOutput("docker", "ps --filter name=unity-server --format \"{{.Names}}\t{{.Ports}}\"");
+            
+            if (string.IsNullOrEmpty(output)) {
+                EditorUtility.DisplayDialog("Active Lobbies", "No active lobbies found.", "OK");
+                return;
+            }
+
+            EditorUtility.DisplayDialog("Active Lobbies", 
+                $"Running Lobby Containers:\n\n{output}\n\nNote: Use 'Deploy New Lobby' to create a new lobby with an invite code.", 
+                "OK");
+        }
+        catch (Exception e) {
+            EditorUtility.DisplayDialog("Error", $"Failed to list lobbies: {e.Message}", "OK");
+        }
+    }
+}
+
+[System.Serializable]
+public class InstanceResponse {
+    public int instance;
+}
+
+[System.Serializable]
+public class LobbyInviteRequest {
+    public string code;
+    public string ip;
+    public string port;
+    public int ttl;
 }

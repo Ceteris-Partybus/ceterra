@@ -8,7 +8,7 @@
                 </Bindings>
             </ui:Label>
         </ui:VisualElement>
-        <ui:VisualElement name="ConnectionSection" class="connection-section" style="height: 421px; width: 666px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;);">
+        <ui:VisualElement name="ConnectionSection" class="connection-section" style="height: 598px; width: 814px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;);">
             <ui:Label text="SERVER CONNECTION" class="section-title" style="height: 64px; width: 608px;">
                 <Bindings>
                     <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(23214629097472)" />
@@ -22,10 +22,15 @@
                 <ui:Label text="Port:" class="input-label" />
                 <ui:TextField name="PortField" value="7777" class="input-field" />
             </ui:VisualElement>
-            <ui:VisualElement class="input-row" style="display: flex; visibility: hidden;">
+            <ui:VisualElement class="input-row" style="display: flex; visibility: visible;">
                 <ui:Label text="Lobby Code:" class="input-label" />
                 <ui:TextField name="LobbyCodeField" class="input-field" />
             </ui:VisualElement>
+            <ui:Button text="JOIN BY CODE" name="JoinByCodeButton" class="action-button join-by-code" style="height: 89px; width: 616px;">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(24296382042112)" />
+                </Bindings>
+            </ui:Button>
             <ui:Button text="JOIN LOBBY" name="JoinLobbyButton" class="action-button join-lobby" style="height: 89px; width: 616px;">
                 <Bindings>
                     <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(24296382042112)" />

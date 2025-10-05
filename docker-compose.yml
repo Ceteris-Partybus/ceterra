@@ -1,11 +1,49 @@
 services:
+  traefik:
+    image: traefik:v2.10
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.tcp.address=:7777"
+      - "--entrypoints.udp.address=:7777/udp"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "7777:7777/tcp"
+      - "7777:7777/udp"
+      - "8080:8080"  # Traefik dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - game-network
+
+  redis:
+    image: redis:alpine
+    networks:
+      - game-network
+
+  api:
+    build:
+      context: ./API
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
+    networks:
+      - game-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api.rule=PathPrefix(`/api`)"
+      - "traefik.http.routers.api.entrypoints=web"
+      - "traefik.http.services.api.loadbalancer.server.port=3000"
+
   unity-server:
     build: .
-    container_name: unity-server
     user: mpukgame
-    ports:
-      - "7777:7777/udp"
-      - "7777:7777/tcp"
     restart: unless-stopped
     environment:
       - SERVER_IP=0.0.0.0
@@ -17,9 +55,23 @@ services:
       - KCP_SENDWINDOW=4096
       - KCP_RECVWINDOW=4096
       - KCP_TIMEOUT=30000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.tcp.routers.game-server.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.game-server.entrypoints=tcp"
+      - "traefik.tcp.services.game-server.loadbalancer.server.port=7777"
+      - "traefik.udp.routers.game-server.entrypoints=udp"
+      - "traefik.udp.services.game-server.loadbalancer.server.port=7777"
+    networks:
+      - game-network
     healthcheck:
       test: ["CMD", "sh", "-c", "ps aux | grep Server | grep -v grep"]
       interval: 30s
       timeout: 10s
       retries: 3
+
+networks:
+  game-network:
+    driver: bridge
+
 
