@@ -378,16 +378,11 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         if (currentState == State.PLAYER_MOVING && currentPlayerId == player.PlayerId) {
             totalMovementsCompleted++;
 
-            // TODO: REMOVE THIS IS JUST FOR TESTING
-            GameManager.Singleton.StartMinigame("MgOcean");
-            return;
-
-            // Check if all players have had one movement
-            int totalPlayers = GameManager.Singleton.PlayerIds.Length;
+            var totalPlayers = GameManager.Singleton.PlayerIds.Length;
             if (totalMovementsCompleted >= totalPlayers) {
                 totalMovementsCompleted = 0;
 
-                int completedInvestments = 0;
+                var completedInvestments = 0;
                 foreach (var investment in investments) {
                     investment.Tick();
                     if (investment.cooldown == 0 && !investment.completed) {
@@ -411,6 +406,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
                 }
                 else {
                     GameManager.Singleton.StartMinigame("MgQuizduel");
+                    // GameManager.Singleton.StartMinigame("MgOcean");
                 }
                 return;
             }
