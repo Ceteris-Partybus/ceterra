@@ -15,7 +15,7 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
     [SyncVar] private CatastropheType catastropheType;
 
     [Header("Settings")]
-    [SerializeField] private float zoomCameraSwitchTargetBlendTime = 1f;
+    [SerializeField] private float zoomCameraSwitchTargetBlendTime = .75f;
 
     private int environmentEffect;
     private int healthEffect;
@@ -40,8 +40,11 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
     [Server]
     private IEnumerator ProcessCatastropheSequence(BoardPlayer triggeringPlayer) {
         var affectedPlayers = GetAffectedPlayers(triggeringPlayer);
-        // RpcShowCatastropheInfo();
-        // yield return new WaitForSeconds(5f);
+        RpcShowCatastropheInfo(affectedPlayers.Select(p => p.ToString()).Aggregate((a, b) => a + "\n" + b));
+        yield return new WaitForSeconds(10f);
+
+        RpcHideCatastropheInfo();
+        yield return new WaitForSeconds(.5f);
 
         yield return ApplyDamageToPlayers(affectedPlayers);
         yield return EnsureCameraOnTriggeringPlayer(triggeringPlayer);
@@ -64,10 +67,16 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
     }
 
     [ClientRpc]
-    private void RpcShowCatastropheInfo() {
-        // CatastropheModal.Instance.Title = eventToShow.title;
-        // CatastropheModal.Instance.Description = eventToShow.description;
-        // ModalManager.Instance.Show(CatastropheModal.Instance);
+    private void RpcShowCatastropheInfo(string affectedPlayerInfo) {
+        CatastropheModal.Instance.Title = catastropheType.GetDisplayName();
+        CatastropheModal.Instance.Description = catastropheType.GetDescription();
+        CatastropheModal.Instance.AffectedPlayers = affectedPlayerInfo;
+        ModalManager.Instance.Show(CatastropheModal.Instance);
+    }
+
+    [ClientRpc]
+    private void RpcHideCatastropheInfo() {
+        ModalManager.Instance.Hide();
     }
 
     [ClientRpc]
@@ -138,6 +147,10 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
             player = Player;
             distance = Distance;
             inflictedDamage = InflictedDamage;
+        }
+
+        public override string ToString() {
+            return $"• {Player.PlayerName} - {Distance:F2}m away, takes {InflictedDamage} damage";
         }
     }
 }

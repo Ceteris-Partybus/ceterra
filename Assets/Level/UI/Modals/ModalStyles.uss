@@ -39,10 +39,22 @@
 
 .modal-header {
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     padding: 8px;
     border-bottom-width: 1px;
     border-bottom-color: rgb(168, 162, 158);
+}
+
+.modal-header.no-title {
+    justify-content: flex-end;
+}
+
+.modal-header-title {
+    flex-grow: 0;
+    color: rgb(68, 64, 60);
+    font-size: 24px;
+    -unity-font-style: bold;
 }
 
 .modal-close-button {
@@ -54,6 +66,7 @@
     -unity-font-style: bold;
     border-width: 2px;
     border-color: rgb(168, 162, 158);
+    flex-shrink: 0;
 }
 
 .modal-content-container {
