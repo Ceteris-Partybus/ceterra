@@ -11,6 +11,8 @@ public class CameraHandler : NetworkedSingleton<CameraHandler> {
     [Header("States")]
     private bool isShowingBoard = false;
     public bool IsShowingBoard => isShowingBoard;
+    private bool wasZoomedBeforeBoard = false;
+    public Transform ZoomTarget => zoomCamera.Follow;
 
     protected override void Start() {
         base.Start();
@@ -27,6 +29,30 @@ public class CameraHandler : NetworkedSingleton<CameraHandler> {
         ZoomOut();
     }
 
+    [ClientRpc]
+    public void RpcSwitchZoomTarget(BoardPlayer player) {
+        if (zoomCamera.Priority != 1) { return; }
+        zoomCamera.Follow = player.transform;
+    }
+
+    [ClientRpc]
+    public void RpcToggleBoardOverview() {
+        isShowingBoard = !isShowingBoard;
+
+        if (isShowingBoard) {
+            wasZoomedBeforeBoard = zoomCamera.Priority == 1;
+
+            defaultCamera.Priority = -1;
+            zoomCamera.Priority = -1;
+            boardCamera.Priority = 1;
+        }
+        else {
+            defaultCamera.Priority = wasZoomedBeforeBoard ? -1 : 1;
+            zoomCamera.Priority = wasZoomedBeforeBoard ? 1 : -1;
+            boardCamera.Priority = -1;
+        }
+    }
+
     public void ZoomIn() {
         ZoomCamera(true);
     }
@@ -34,13 +60,6 @@ public class CameraHandler : NetworkedSingleton<CameraHandler> {
     public void ZoomOut() {
         ZoomCamera(false);
     }
-
-    public void ToggleBoardOverview() {
-        isShowingBoard = !isShowingBoard;
-        defaultCamera.Priority = isShowingBoard ? -1 : 1;
-        boardCamera.Priority = isShowingBoard ? 1 : -1;
-    }
-
     public void ZoomCamera(bool zoom) {
         defaultCamera.Priority = zoom ? -1 : 1;
         zoomCamera.Priority = zoom ? 1 : -1;

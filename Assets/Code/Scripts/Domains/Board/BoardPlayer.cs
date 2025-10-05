@@ -143,8 +143,13 @@ public class BoardPlayer : SceneConditionalPlayer {
             yield return null;
             yield return waitWhile;
 
-            if (isLocalPlayer) { IsAnimationFinished = true; }
+            if (isLocalPlayer) { CmdAnimationComplete(); }
         }
+    }
+
+    [Command]
+    private void CmdAnimationComplete() {
+        IsAnimationFinished = true;
     }
 
     [ClientRpc]
@@ -158,13 +163,15 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [Server]
     protected override void OnServerInitialize() {
-        Debug.Log($"[Server] BoardPlayer {name} initialized for board scene");
-        // Initialize board-specific state
-        isMoving = false;
-        // Set spawn position, etc.
-        Vector3 spawnPosition = BoardContext.Instance.FieldBehaviourList.Find(splineKnotIndex).Position;
-        spawnPosition.y += 1f;
-        gameObject.transform.position = spawnPosition;
+        StartCoroutine(WaitForFieldInitialization());
+
+        IEnumerator WaitForFieldInitialization() {
+            yield return new WaitUntil(() => BoardContext.Instance != null && BoardContext.Instance.FieldBehaviourList != null);
+            isMoving = false;
+            var spawnPosition = BoardContext.Instance.FieldBehaviourList.Find(splineKnotIndex).Position;
+            spawnPosition.y += 1f;
+            gameObject.transform.position = spawnPosition;
+        }
     }
 
     [Server]
@@ -247,7 +254,7 @@ public class BoardPlayer : SceneConditionalPlayer {
         if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving || dice.IsSpinning) {
             return;
         }
-        RpcToggleBoardOverview();
+        CameraHandler.Instance.RpcToggleBoardOverview();
     }
 
     [Command]
@@ -272,11 +279,6 @@ public class BoardPlayer : SceneConditionalPlayer {
     private IEnumerator StartRollSequence(int diceValue) {
         yield return visualHandler.StartRollSequence(diceValue);
         if (isServer) { BoardContext.Instance.ProcessDiceRoll(this, diceValue); }
-    }
-
-    [ClientRpc]
-    private void RpcToggleBoardOverview() {
-        CameraHandler.Instance.ToggleBoardOverview();
     }
 
     [ClientRpc]

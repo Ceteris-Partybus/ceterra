@@ -1,7 +1,6 @@
 using Mirror;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -11,7 +10,7 @@ public abstract class FieldBehaviour : NetworkBehaviour {
     [SyncVar]
     [SerializeField] private FieldType type;
 
-    [SerializeField] private List<FieldBehaviour> nextFields = new List<FieldBehaviour>();
+    [SerializeField] private readonly SyncList<FieldBehaviour> nextFields = new();
 
     [SyncVar]
     [SerializeField] private SplineKnotIndex splineKnotIndex;
@@ -25,7 +24,6 @@ public abstract class FieldBehaviour : NetworkBehaviour {
         this.type = type;
         this.splineKnotIndex = splineKnotIndex;
         this.normalizedSplinePosition = normalizedSplinePosition;
-        SetColor();
         return this;
     }
 
@@ -33,19 +31,11 @@ public abstract class FieldBehaviour : NetworkBehaviour {
         nextFields.Add(field);
     }
 
-    private void SetColor() {
-        var renderer = GetComponent<Renderer>();
-        if (renderer != null) {
-            renderer.material.color = type.ToColor();
-        }
-    }
-
     [Server]
     public IEnumerator InvokeFieldAsync(BoardPlayer player) {
         bool completed = false;
         Action completionHandler = () => completed = true;
         OnFieldInvocationComplete += completionHandler;
-        player.IsAnimationFinished = false;
         OnFieldInvoked(player);
 
         yield return new WaitUntil(() => completed && player.IsAnimationFinished);
@@ -68,11 +58,16 @@ public abstract class FieldBehaviour : NetworkBehaviour {
         GetComponent<Renderer>().enabled = true;
     }
     public FieldType Type => type;
-    public IReadOnlyList<FieldBehaviour> Next => nextFields.AsReadOnly();
+    public SyncList<FieldBehaviour> Next => nextFields;
     public SplineKnotIndex SplineKnotIndex => splineKnotIndex;
     public Vector3 Position => transform.position;
 
     public float NormalizedSplinePosition => normalizedSplinePosition;
+
+    public override void OnStartClient() {
+        base.OnStartClient();
+        transform.SetParent(FieldInstantiate.Instance.SplineContainerTransform, false);
+    }
 
     public override bool Equals(object obj) {
         if (obj is FieldBehaviour other) {
