@@ -6,7 +6,7 @@ public class BoardquizService : MonoBehaviour {
     [SerializeField] private string questionsFileName;
     private List<QuestionData> availableQuestions;
     [SerializeField]
-    private uint COINS_PER_CORRECT_ANSWER = 10;
+    private int COINS_PER_CORRECT_ANSWER = 10;
 
     void Awake() {
         LoadQuestions();
@@ -56,8 +56,8 @@ public class BoardquizService : MonoBehaviour {
         return currentQuestion.isCorrectAnswer(selectedOptionIndex);
     }
 
-    public uint CalculateTotalReward(int numberOfCorrectAnswers) {
-        return (uint)numberOfCorrectAnswers * COINS_PER_CORRECT_ANSWER;
+    public int CalculateTotalReward(int numberOfCorrectAnswers) {
+        return numberOfCorrectAnswers * COINS_PER_CORRECT_ANSWER;
     }
 
     public void SetDataSourcePath(string filePath) {

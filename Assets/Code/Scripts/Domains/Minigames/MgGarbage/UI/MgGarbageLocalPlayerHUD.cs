@@ -19,7 +19,7 @@ public class MgGarbageLocalPlayerHUD : NetworkedSingleton<MgGarbageLocalPlayerHU
         countdownLabel = countdownRoot.Q<Label>("countdown-label");
     }
 
-    public void UpdateScore(uint score) {
+    public void UpdateScore(int score) {
         scoreLabel.text = $"{score}";
     }
 

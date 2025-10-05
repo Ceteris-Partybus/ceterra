@@ -30,29 +30,38 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="global-displays-card" class="card">
                     <ui:VisualElement name="global-displays-card-bars">
-                        <ui:VisualElement name="environment-bar-wrapper">
-                            <ui:VisualElement name="environment-bar-info">
-                                <ui:Label text="Environment" />
-                                <ui:Label text="50/100" name="environment-bar-value" />
+                        <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                            <ui:VisualElement name="environment-bar-wrapper" style="width: 186px;">
+                                <ui:VisualElement name="environment-bar-info">
+                                    <ui:Label text="Environment" />
+                                    <ui:Label text="50/100" name="environment-bar-value" />
+                                </ui:VisualElement>
+                                <ui:Instance template="ProgressBar" name="environment-bar" class="progress-bar--environment" />
                             </ui:VisualElement>
-                            <ui:Instance template="ProgressBar" name="environment-bar" class="progress-bar--environment" />
+                            <ui:Label name="trend-environment" style="background-size: 50% 50%;" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="society-bar-wrapper">
-                            <ui:VisualElement name="society-bar-info">
-                                <ui:Label text="Society" />
-                                <ui:Label text="50/100" name="society-bar-value" />
+                        <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                            <ui:VisualElement name="economy-bar-wrapper" style="width: 186px;">
+                                <ui:VisualElement name="economy-bar-info">
+                                    <ui:Label text="Economy" />
+                                    <ui:Label text="50/100" name="economy-bar-value" />
+                                </ui:VisualElement>
+                                <ui:Instance template="ProgressBar" name="economy-bar" class="progress-bar--economy" />
                             </ui:VisualElement>
-                            <ui:Instance template="ProgressBar" name="society-bar" class="progress-bar--society" />
+                            <ui:Label name="trend-economy" style="background-size: 50% 50%;" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="economy-bar-wrapper">
-                            <ui:VisualElement name="economy-bar-info">
-                                <ui:Label text="Economy" />
-                                <ui:Label text="50/100" name="economy-bar-value" />
+                        <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                            <ui:VisualElement name="society-bar-wrapper" style="width: 186px;">
+                                <ui:VisualElement name="society-bar-info">
+                                    <ui:Label text="Society" />
+                                    <ui:Label text="50/100" name="society-bar-value" />
+                                </ui:VisualElement>
+                                <ui:Instance template="ProgressBar" name="society-bar" class="progress-bar--society" />
                             </ui:VisualElement>
-                            <ui:Instance template="ProgressBar" name="economy-bar" class="progress-bar--economy" />
+                            <ui:Label name="trend-society" style="background-size: 50% 50%;" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="global-displays-card-shadow" class="card-shadow" />
+                    <ui:VisualElement name="global-displays-card-shadow" class="card-shadow" style="top: 4px; bottom: -4px; right: -4px; left: 6px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="bottom-container">

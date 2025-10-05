@@ -20,7 +20,7 @@ public class MgOceanLocalPlayerHUD : NetworkedSingleton<MgOceanLocalPlayerHUD> {
         Debug.Log($"[MgOceanLocalPlayerHUD] OnEnable: countdownLabel found? {countdownLabel != null}");
     }
 
-    public void UpdateScore(uint score) {
+    public void UpdateScore(int score) {
         Debug.Log($"[MgOceanLocalPlayerHUD] UpdateScore called with: {score}");
         if (scoreLabel != null) {
             scoreLabel.text = $"{score}";

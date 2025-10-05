@@ -5,12 +5,12 @@ using UnityEngine;
 public class MgOceanPlayer : SceneConditionalPlayer {
     [SerializeField]
     [SyncVar(hook = nameof(OnScoreChanged))]
-    private uint score;
+    private int score;
 
     [SerializeField]
     private GameObject playerModel;
 
-    private void OnScoreChanged(uint old, uint new_) {
+    private void OnScoreChanged(int old, int new_) {
         Debug.Log($"[MgOceanPlayer {PlayerId}] OnScoreChanged from {old} to {new_}. IsLocalPlayer: {isLocalPlayer}");
         if (isLocalPlayer) {
             MgOceanLocalPlayerHUD.Instance?.UpdateScore(new_);
@@ -68,12 +68,12 @@ public class MgOceanPlayer : SceneConditionalPlayer {
     }
 
     [Command]
-    public void CmdAddScore(uint points) {
+    public void CmdAddScore(int points) {
         ServerAddScore(points);
     }
 
     [Server]
-    public void ServerAddScore(uint points) {
+    public void ServerAddScore(int points) {
         score += points;
     }
 
@@ -81,5 +81,5 @@ public class MgOceanPlayer : SceneConditionalPlayer {
         return sceneName == "MgOcean";
     }
 
-    public uint Score => score;
+    public int Score => score;
 }

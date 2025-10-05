@@ -78,8 +78,13 @@ public abstract class Modal : NetworkBehaviour {
     /// Shows the modal on screen
     /// </summary>
     public virtual void Show(VisualElement parentElement) {
-        if (visualTreeAsset == null || parentElement == null) {
-            Debug.LogError($"Cannot show modal '{GetType().Name}' - missing VisualTreeAsset or parent element!");
+        if (visualTreeAsset == null) {
+            Debug.LogError($"Cannot show modal '{GetType().Name}' - missing VisualTreeAsset!");
+            return;
+        }
+
+        if (parentElement == null) {
+            Debug.LogError($"Cannot show modal '{GetType().Name}' - parentElement is null!");
             return;
         }
 

@@ -1,6 +1,5 @@
 using Mirror;
 using UnityEngine;
-using System.Collections;
 
 public class CatastropheFieldBehaviour : FieldBehaviour {
     [SyncVar]
@@ -26,23 +25,27 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
         this.effectRadius = effects.Item3;
     }
 
+    [Server]
     protected override void OnFieldInvoked(BoardPlayer player) {
         if (!hasBeenInvoked) {
             Debug.Log($"Player landed on a catastrophe field of type {catastropheType}.");
             hasBeenInvoked = true;
-            int positionXCurrentPlayer = player.SplineKnotIndex.Spline;
-            int positionYCurrentPlayer = player.SplineKnotIndex.Knot;
-            foreach (BoardPlayer currentPlayer in FindObjectsByType<BoardPlayer>(FindObjectsSortMode.None)) {
-                int positionXIterationPlayer = currentPlayer.SplineKnotIndex.Spline;
-                int positionYIterationPlayer = currentPlayer.SplineKnotIndex.Knot;
+            var positionXCurrentPlayer = player.SplineKnotIndex.Spline;
+            var positionYCurrentPlayer = player.SplineKnotIndex.Knot;
+            foreach (var currentPlayer in FindObjectsByType<BoardPlayer>(FindObjectsSortMode.None)) {
+                var positionXIterationPlayer = currentPlayer.SplineKnotIndex.Spline;
+                var positionYIterationPlayer = currentPlayer.SplineKnotIndex.Knot;
                 if (positionXCurrentPlayer - effectRadius <= positionXIterationPlayer && positionXCurrentPlayer + effectRadius >= positionXIterationPlayer) {
                     if (positionYCurrentPlayer - effectRadius <= positionYIterationPlayer && positionYCurrentPlayer + effectRadius >= positionYIterationPlayer) {
-                        currentPlayer.RemoveHealth((uint)healthEffect);
+                        currentPlayer.RemoveHealth(healthEffect);
                         Debug.Log($"Player {currentPlayer} got health removed by amount {healthEffect}");
                     }
                 }
             }
             BoardContext.Instance.UpdateEnvironmentStat(environmentEffect);
+        }
+        else {
+            player.IsAnimationFinished = true;
         }
         CompleteFieldInvocation();
     }

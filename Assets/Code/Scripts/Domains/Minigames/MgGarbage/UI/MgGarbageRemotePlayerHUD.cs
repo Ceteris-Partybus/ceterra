@@ -37,7 +37,7 @@ public class MgGarbageRemotePlayerHUD : NetworkedSingleton<MgGarbageRemotePlayer
         }
     }
 
-    public void UpdatePlayerScore(int playerId, uint score) {
+    public void UpdatePlayerScore(int playerId, int score) {
         if (playerElements.TryGetValue(playerId, out var playerElement)) {
             var scoreLabel = playerElement.Q<Label>("player-score");
             scoreLabel.text = $"{score}";

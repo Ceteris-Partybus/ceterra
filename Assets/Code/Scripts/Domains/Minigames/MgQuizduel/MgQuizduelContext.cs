@@ -7,12 +7,14 @@ using Mirror;
 using UnityEngine;
 
 public class MgQuizduelContext : NetworkedSingleton<MgQuizduelContext> {
-    [SerializeField] private float GAME_DURATION;
-    [SerializeField] private float SCOREBOARD_DURATION;
-    [SerializeField] private int MAX_QUESTIONS;
-    [SerializeField] private string QUESTION_FILE_NAME;
 
-    public int MaxQuestions => MAX_QUESTIONS;
+    [Header("Minigame Settings")]
+    [SerializeField] private float GameDuration;
+    [SerializeField] private float scoreboardDuration;
+    [SerializeField] private int maxQuestions;
+    [SerializeField] private string questionFileName;
+
+    public int MaxQuestions => maxQuestions;
     private float countdownTimer;
     private List<QuestionData> quizduelQuestions = new();
     private bool isQuizActive = false;
@@ -29,7 +31,7 @@ public class MgQuizduelContext : NetworkedSingleton<MgQuizduelContext> {
 
     [Server]
     private IEnumerator UpdateCountdown() {
-        countdownTimer = GAME_DURATION;
+        countdownTimer = GameDuration;
         var lastSeconds = Mathf.CeilToInt(countdownTimer);
 
         RpcUpdateCountdown(lastSeconds);
@@ -59,7 +61,7 @@ public class MgQuizduelContext : NetworkedSingleton<MgQuizduelContext> {
         yield return new WaitForSeconds(0.5f);
         StartQuizduel();
 
-        while (timeElapsed < GAME_DURATION && isQuizActive) {
+        while (timeElapsed < GameDuration && isQuizActive) {
             if (AreAllPlayersFinished()) {
                 break;
             }
@@ -85,7 +87,7 @@ public class MgQuizduelContext : NetworkedSingleton<MgQuizduelContext> {
         isQuizActive = false;
 
         MgQuizduelController.Instance.ShowScoreboard(rankings);
-        yield return new WaitForSeconds(SCOREBOARD_DURATION);
+        yield return new WaitForSeconds(scoreboardDuration);
 
         StopQuiz();
         GameManager.Singleton.EndMinigame();
@@ -96,10 +98,10 @@ public class MgQuizduelContext : NetworkedSingleton<MgQuizduelContext> {
     }
 
     private void InitializeQuiz() {
-        var jsonFile = Resources.Load<TextAsset>(QUESTION_FILE_NAME);
+        var jsonFile = Resources.Load<TextAsset>(questionFileName);
         quizduelQuestions = JsonConvert.DeserializeObject<List<QuestionData>>(jsonFile.text)
             .OrderBy(x => UnityEngine.Random.Range(0f, 1f))
-            .Take(MAX_QUESTIONS)
+            .Take(maxQuestions)
             .ToList();
     }
 

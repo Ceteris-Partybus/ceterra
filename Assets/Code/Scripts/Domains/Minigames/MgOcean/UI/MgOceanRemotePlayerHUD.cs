@@ -42,7 +42,7 @@ public class MgOceanRemotePlayerHUD : NetworkedSingleton<MgOceanRemotePlayerHUD>
         }
     }
 
-    public void UpdatePlayerScore(int playerId, uint score) {
+    public void UpdatePlayerScore(int playerId, int score) {
         Debug.Log($"[MgOceanRemotePlayerHUD] UpdatePlayerScore called for PlayerId: {playerId} with score: {score}");
         if (playerElements.TryGetValue(playerId, out var playerElement)) {
             var scoreLabel = playerElement.Q<Label>("player-score");
