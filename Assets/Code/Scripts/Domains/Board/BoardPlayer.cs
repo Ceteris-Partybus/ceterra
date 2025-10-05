@@ -307,16 +307,6 @@ public class BoardPlayer : SceneConditionalPlayer {
         visualHandler.HideDiceResultLabel();
     }
 
-    [TargetRpc]
-    public void TargetShowBranchArrows(JunctionFieldBehaviour junctionField) {
-        junctionField.ShowBranchArrows(this);
-    }
-
-    [TargetRpc]
-    public void TargetHideBranchArrows(JunctionFieldBehaviour junctionField) {
-        junctionField.HideBranchArrows();
-    }
-
     [Server]
     public void MoveToField(int steps) {
         if (!IsActiveForCurrentScene || isMoving) { return; }

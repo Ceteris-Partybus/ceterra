@@ -20,9 +20,12 @@ public class JunctionFieldBehaviour : FieldBehaviour {
     }
 
     [Server]
-    protected override void OnPlayerCross(BoardPlayer player) {
+    protected override void OnPlayerCross(BoardPlayer crossingPlayer) {
         Debug.Log($"Player crossed a junction field.");
-        this.crossingPlayer = player;
+        this.crossingPlayer = crossingPlayer;
+        netIdentity.AssignClientAuthority(crossingPlayer.connectionToClient);
+
+        TargetSetCrossingPlayer(crossingPlayer);
         StartCoroutine(LetPlayerChoosePath());
     }
 
@@ -31,19 +34,20 @@ public class JunctionFieldBehaviour : FieldBehaviour {
         crossingPlayer.IsMoving = false;
         crossingPlayer.RpcTriggerAnimation(AnimationType.JUNCTION_ENTRY);
         isWaitingForBranchChoice = true;
-        crossingPlayer.TargetShowBranchArrows(this);
+        TargetShowBranchArrows();
         yield return new WaitUntil(() => !isWaitingForBranchChoice);
 
         crossingPlayer.RpcTriggerAnimation(AnimationType.RUN);
         crossingPlayer.IsMoving = true;
 
+        netIdentity.RemoveClientAuthority();
         CompleteFieldInvocation();
     }
 
-    [Client]
-    public void ShowBranchArrows(BoardPlayer player) {
+    [TargetRpc]
+    public void TargetShowBranchArrows() {
         for (var i = 0; i < nextFields.Count; i++) {
-            var branchArrow = InstantiateBranchArrow(nextFields[i], player);
+            var branchArrow = InstantiateBranchArrow(nextFields[i], crossingPlayer);
             branchArrow.GetComponent<BranchArrowMouseEventHandler>()?.Initialize(this, i);
             branchArrows.Add(branchArrow);
         }
@@ -66,20 +70,24 @@ public class JunctionFieldBehaviour : FieldBehaviour {
         return Instantiate(branchArrowPrefab.gameObject, branchArrowPosition, Quaternion.LookRotation(worldTangent, Vector3.up));
     }
 
-    [Client]
-    public void HideBranchArrows() {
+    [Command(requiresAuthority = false)]
+    public void CmdChooseBranchPath(int pathIndex) {
+        if (!isWaitingForBranchChoice || pathIndex < 0 || pathIndex >= nextFields.Count) { return; }
+        targetField = nextFields[pathIndex];
+        isWaitingForBranchChoice = false;
+        TargetHideBranchArrows();
+    }
+
+    [TargetRpc]
+    public void TargetHideBranchArrows() {
         foreach (var arrow in branchArrows) {
             Destroy(arrow);
         }
         branchArrows.Clear();
     }
 
-    [Command(requiresAuthority = false)]
-    public void CmdChooseBranchPath(int pathIndex) {
-        if (!isWaitingForBranchChoice || pathIndex < 0 || pathIndex >= nextFields.Count) { return; }
-
-        targetField = nextFields[pathIndex];
-        isWaitingForBranchChoice = false;
-        crossingPlayer.TargetHideBranchArrows(this);
+    [TargetRpc]
+    private void TargetSetCrossingPlayer(BoardPlayer crossingPlayer) {
+        this.crossingPlayer = crossingPlayer;
     }
 }
