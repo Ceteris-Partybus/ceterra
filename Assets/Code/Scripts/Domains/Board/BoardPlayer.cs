@@ -143,12 +143,12 @@ public class BoardPlayer : SceneConditionalPlayer {
             yield return null;
             yield return waitWhile;
 
-            if (isLocalPlayer) { CmdAsdf(); }
+            if (isLocalPlayer) { CmdAnimationComplete(); }
         }
     }
 
     [Command]
-    private void CmdAsdf() {
+    private void CmdAnimationComplete() {
         IsAnimationFinished = true;
     }
 
