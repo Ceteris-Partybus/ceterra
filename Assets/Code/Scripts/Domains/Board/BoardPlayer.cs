@@ -163,13 +163,15 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [Server]
     protected override void OnServerInitialize() {
-        Debug.Log($"[Server] BoardPlayer {name} initialized for board scene");
-        // Initialize board-specific state
-        isMoving = false;
-        // Set spawn position, etc.
-        Vector3 spawnPosition = BoardContext.Instance.FieldBehaviourList.Find(splineKnotIndex).Position;
-        spawnPosition.y += 1f;
-        gameObject.transform.position = spawnPosition;
+        StartCoroutine(WaitForFieldInitialization());
+
+        IEnumerator WaitForFieldInitialization() {
+            yield return new WaitUntil(() => BoardContext.Instance != null && BoardContext.Instance.FieldBehaviourList != null);
+            isMoving = false;
+            var spawnPosition = BoardContext.Instance.FieldBehaviourList.Find(splineKnotIndex).Position;
+            spawnPosition.y += 1f;
+            gameObject.transform.position = spawnPosition;
+        }
     }
 
     [Server]

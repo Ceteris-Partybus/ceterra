@@ -1,25 +1,31 @@
+using DG.Tweening;
 using Mirror;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Splines;
 
-// FieldInstantiate creates field behaviours on the spline
 public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
     protected override bool ShouldPersistAcrossScenes => true;
     [SerializeField] private SplineContainer splineContainer;
     [SerializeField] private GameObject normalFieldPrefab;
+    public Material NormalFieldMaterial => normalFieldPrefab.GetComponent<Renderer>().sharedMaterial;
     [SerializeField] private GameObject questionFieldPrefab;
     [SerializeField] private GameObject eventFieldPrefab;
     [SerializeField] private GameObject catastropheFieldPrefab;
 
-    private readonly SyncDictionary<SplineKnotIndex, FieldType> fieldTypeMap = new();
-    private Dictionary<SplineKnotIndex, FieldBehaviour> fields = new();
+    private readonly Dictionary<SplineKnotIndex, FieldType> fieldTypeMap = new();
+    private readonly SyncDictionary<SplineKnotIndex, FieldBehaviour> fields = new();
+    public Transform SplineContainerTransform => splineContainer.transform;
 
     protected override void Start() {
         base.Start();
+        if (isServer) { return; }
+        SetFieldBehaviourList();
+    }
+
+    public override void OnStartServer() {
         FillFieldTypeMap();
 
         var splines = splineContainer.Splines;
@@ -44,6 +50,11 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
             }
         }
         LinkBranches();
+
+        SetFieldBehaviourList();
+    }
+
+    private void SetFieldBehaviourList() {
         BoardContext.Instance.FieldBehaviourList = new FieldBehaviourList(fields);
     }
 
@@ -53,20 +64,24 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
             throw new Exception($"Field type for knot not found in fieldTypeMap.");
         }
 
-        var prefab = type switch {
+        var spline = splineContainer.Splines.ElementAt(splineId);
+        var normalizedPosition = spline.ConvertIndexUnit(knotId, PathIndexUnit.Knot, PathIndexUnit.Normalized);
+        var fieldInstance = Instantiate(GetPrefabByType(type), spline.Knots.ElementAt(knotId).Position, Quaternion.identity);
+        fieldInstance.transform.SetParent(splineContainer.transform, false);
+
+        NetworkServer.Spawn(fieldInstance);
+        return fieldInstance.GetComponent<FieldBehaviour>()
+                .Initialize(type, splineKnotIndex, normalizedPosition);
+    }
+
+    private GameObject GetPrefabByType(FieldType type) {
+        return type switch {
             FieldType.NORMAL => normalFieldPrefab,
             FieldType.QUESTION => questionFieldPrefab,
             FieldType.EVENT => eventFieldPrefab,
             FieldType.CATASTROPHE => catastropheFieldPrefab,
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
         };
-
-        var spline = splineContainer.Splines.ElementAt(splineId);
-        var absolutePosition = (float3)splineContainer.transform.position + spline.Knots.ElementAt(knotId).Position;
-        var normalizedPosition = spline.ConvertIndexUnit(knotId, PathIndexUnit.Knot, PathIndexUnit.Normalized);
-        return Instantiate(prefab, absolutePosition, Quaternion.identity, splineContainer.transform)
-                .GetComponent<FieldBehaviour>()
-                .Initialize(type, splineKnotIndex, normalizedPosition);
     }
 
     private void LinkBranches() {
@@ -100,9 +115,28 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
                         fieldTypeMap[new SplineKnotIndex(i, k)] = FieldType.NORMAL;
                         continue;
                     }
-                    fieldTypeMap[new SplineKnotIndex(i, k)] = FieldType.EVENT;
+                    fieldTypeMap[new SplineKnotIndex(i, k)] = FieldType.CATASTROPHE;
                 }
             }
         }
+    }
+
+    [Server]
+    public void ReplaceField(FieldBehaviour oldField, FieldType newType) {
+        var fieldInstance = Instantiate(GetPrefabByType(newType), oldField.transform.localPosition, Quaternion.identity);
+        fieldInstance.transform.SetParent(oldField.transform.parent, false);
+
+        NetworkServer.Spawn(fieldInstance);
+
+        var asdf = fieldInstance.GetComponent<FieldBehaviour>().Initialize(newType, oldField.SplineKnotIndex, oldField.NormalizedSplinePosition);
+        fields[oldField.SplineKnotIndex] = asdf;
+
+        foreach (var field in fields.Values.Where(f => f.Next.Contains(oldField))) {
+            field.Next[field.Next.IndexOf(oldField)] = asdf;
+        }
+
+        asdf.Next.AddRange(oldField.Next);
+
+        NetworkServer.Destroy(oldField.gameObject);
     }
 }

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,9 +6,6 @@ using System.Linq;
 using UnityEngine;
 
 public class CatastropheFieldBehaviour : FieldBehaviour {
-    private const float SPHERE_EXPAND_DURATION = 5f;
-    private const float SPHERE_CLEANUP_DURATION = 1.5f;
-    private const float CAMERA_TOGGLE_DELAY = 1f;
     private const float PLAYER_DAMAGE_DELAY = 0.3f;
 
     private static int catastropheFieldCount = 0;
@@ -15,9 +13,6 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
 
     [SyncVar] private bool hasBeenInvoked = false;
     [SyncVar] private CatastropheType catastropheType;
-
-    [Header("References")]
-    [SerializeField] private GameObject catastropheRadiusPrefab;
 
     [Header("Settings")]
     [SerializeField] private float zoomCameraSwitchTargetBlendTime = 1f;
@@ -37,7 +32,6 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
     [Server]
     protected override void OnFieldInvoked(BoardPlayer player) {
         if (!hasBeenInvoked) {
-            Debug.Log($"Player landed on a catastrophe field of type {catastropheType}.");
             hasBeenInvoked = true;
             StartCoroutine(ProcessCatastropheSequence(player));
         }
@@ -45,78 +39,77 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
 
     [Server]
     private IEnumerator ProcessCatastropheSequence(BoardPlayer triggeringPlayer) {
-        yield return ToggleBoardOverviewAndWait();
-
-        var radiusSphere = SpawnRadiusSphere(triggeringPlayer.transform.position);
-        yield return AnimateSphereExpansion(radiusSphere);
-
-        yield return ToggleBoardOverviewAndWait();
-
         var affectedPlayers = GetAffectedPlayers(triggeringPlayer);
-        yield return ApplyDamageToPlayers(affectedPlayers);
+        // RpcShowCatastropheInfo();
+        // yield return new WaitForSeconds(5f);
 
+        yield return ApplyDamageToPlayers(affectedPlayers);
         yield return EnsureCameraOnTriggeringPlayer(triggeringPlayer);
 
-        yield return CleanupRadiusSphere(radiusSphere);
+        CameraHandler.Instance.RpcZoomOut();
+        yield return new WaitForSeconds(1f);
+
+        var localScale = transform.localScale;
+        var scaleSequence = DOTween.Sequence();
+        scaleSequence.Append(transform.DOScale(Vector3.zero, 0.5f))
+                     .AppendCallback(() => RpcChangeMaterial())
+                     .Append(transform.DOScale(localScale, 0.5f));
+        yield return scaleSequence.WaitForCompletion();
+        yield return new WaitForSeconds(1f);
 
         BoardContext.Instance.UpdateEnvironmentStat(environmentEffect);
         CompleteFieldInvocation();
+
+        FieldInstantiate.Instance.ReplaceField(this, FieldType.NORMAL);
+    }
+
+    [ClientRpc]
+    private void RpcShowCatastropheInfo() {
+        // CatastropheModal.Instance.Title = eventToShow.title;
+        // CatastropheModal.Instance.Description = eventToShow.description;
+        // ModalManager.Instance.Show(CatastropheModal.Instance);
+    }
+
+    [ClientRpc]
+    private void RpcChangeMaterial() {
+        GetComponent<Renderer>().material = FieldInstantiate.Instance.NormalFieldMaterial;
     }
 
     [Server]
-    private IEnumerator ToggleBoardOverviewAndWait() {
-        CameraHandler.Instance.RpcToggleBoardOverview();
-        yield return new WaitForSeconds(CAMERA_TOGGLE_DELAY);
+    private List<AffectedPlayerData> GetAffectedPlayers(BoardPlayer triggeringPlayer) {
+        var center = triggeringPlayer.transform.position;
+        return FindObjectsByType<BoardPlayer>(FindObjectsSortMode.None)
+                    .Select(player => {
+                        var distance = Vector3.Distance(player.transform.position, center);
+                        var damage = CalculateDamageByDistance(distance);
+                        return new AffectedPlayerData(player, distance, damage);
+                    })
+                    .Where(result => result.Distance <= effectRadius)
+                    .OrderByDescending(result => result.Distance)
+                    .ToList();
     }
 
     [Server]
-    private GameObject SpawnRadiusSphere(Vector3 position) {
-        var radiusSphere = Instantiate(catastropheRadiusPrefab, position, Quaternion.identity);
-        radiusSphere.transform.localScale = Vector3.zero;
-
-        var sphereCollider = radiusSphere.GetComponent<SphereCollider>();
-        if (sphereCollider != null) {
-            sphereCollider.radius = effectRadius;
-            sphereCollider.isTrigger = true;
-        }
-
-        NetworkServer.Spawn(radiusSphere);
-        return radiusSphere;
-    }
-
-    [Server]
-    private IEnumerator AnimateSphereExpansion(GameObject radiusSphere) {
-        float targetScale = effectRadius * 2f;
-        yield return AnimateSphereScale(radiusSphere, 0f, targetScale, SPHERE_EXPAND_DURATION);
-    }
-
-    [Server]
-    private List<BoardPlayer> GetAffectedPlayers(BoardPlayer triggeringPlayer) {
-        var affectedPlayers = new List<BoardPlayer> { triggeringPlayer };
-        var triggeringPosition = triggeringPlayer.transform.position;
-
-        foreach (var currentPlayer in FindObjectsByType<BoardPlayer>(FindObjectsSortMode.None).Where(p => p != triggeringPlayer)) {
-            var distance = Vector3.Distance(triggeringPosition, currentPlayer.transform.position);
-            if (distance <= effectRadius) {
-                Debug.LogWarning($"Player {currentPlayer.PlayerName} is affected! Distance: {distance}");
-                affectedPlayers.Add(currentPlayer);
-            }
-        }
-
-        return affectedPlayers;
-    }
-
-    [Server]
-    private IEnumerator ApplyDamageToPlayers(List<BoardPlayer> affectedPlayers) {
-        foreach (var affectedPlayer in affectedPlayers) {
+    private IEnumerator ApplyDamageToPlayers(List<AffectedPlayerData> affectedPlayers) {
+        foreach (var (affectedPlayer, distance, inflictedDamage) in affectedPlayers) {
             CameraHandler.Instance.RpcSwitchZoomTarget(affectedPlayer);
             yield return new WaitForSeconds(zoomCameraSwitchTargetBlendTime);
 
             affectedPlayer.IsAnimationFinished = false;
-            affectedPlayer.RemoveHealth(healthEffect);
+            affectedPlayer.RemoveHealth(inflictedDamage);
             yield return new WaitUntil(() => affectedPlayer.IsAnimationFinished);
             yield return new WaitForSeconds(PLAYER_DAMAGE_DELAY);
         }
+    }
+
+    private int CalculateDamageByDistance(float distance) {
+        var normalizedDistance = distance / effectRadius;
+        return normalizedDistance switch {
+            <= .25f => healthEffect,
+            <= .5f => Mathf.RoundToInt(healthEffect * .75f),
+            <= .75f => Mathf.RoundToInt(healthEffect * .5f),
+            _ => Mathf.RoundToInt(healthEffect * .25f),
+        };
     }
 
     [Server]
@@ -127,24 +120,24 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
         }
     }
 
-    [Server]
-    private IEnumerator CleanupRadiusSphere(GameObject radiusSphere) {
-        float startScale = effectRadius * 2f;
-        yield return AnimateSphereScale(radiusSphere, startScale, 0f, SPHERE_CLEANUP_DURATION);
-        NetworkServer.Destroy(radiusSphere);
-    }
+    internal class AffectedPlayerData {
+        private BoardPlayer player;
+        public BoardPlayer Player => player;
+        private float distance;
+        public float Distance => distance;
+        private int inflictedDamage;
+        public int InflictedDamage => inflictedDamage;
 
-    [Server]
-    private IEnumerator AnimateSphereScale(GameObject sphere, float startScale, float endScale, float duration) {
-        var elapsed = 0f;
-
-        while (elapsed < duration) {
-            elapsed += Time.deltaTime;
-            var scale = Mathf.Lerp(startScale, endScale, elapsed / duration);
-            sphere.transform.localScale = Vector3.one * scale;
-            yield return null;
+        internal AffectedPlayerData(BoardPlayer player, float distance, int inflictedDamage) {
+            this.player = player;
+            this.distance = distance;
+            this.inflictedDamage = inflictedDamage;
         }
 
-        sphere.transform.localScale = Vector3.one * endScale;
+        internal void Deconstruct(out BoardPlayer player, out float distance, out int inflictedDamage) {
+            player = Player;
+            distance = Distance;
+            inflictedDamage = InflictedDamage;
+        }
     }
 }

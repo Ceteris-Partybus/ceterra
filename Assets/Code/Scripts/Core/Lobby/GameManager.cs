@@ -58,7 +58,6 @@ public class GameManager : NetworkRoomManager {
         }
 
         gamePlayer.GetComponent<BoardPlayer>().ServerTransferCharacterSelection(lobbyPlayer);
-
         return base.OnRoomServerSceneLoadedForPlayer(conn, roomPlayer, gamePlayer);
     }
 

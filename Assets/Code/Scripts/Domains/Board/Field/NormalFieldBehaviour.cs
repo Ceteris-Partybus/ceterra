@@ -1,6 +1,4 @@
-using Mirror;
 using UnityEngine;
-using UnityEngine.Splines;
 
 public class NormalFieldBehaviour : FieldBehaviour {
     private const int HEALTHEFFECT = 5;
