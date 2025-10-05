@@ -51,7 +51,6 @@ public abstract class FieldBehaviour : NetworkBehaviour {
 
     public void Hide() {
         GetComponent<Renderer>().enabled = false;
-        GetComponent<Collider>().enabled = false;
     }
 
     public void Show() {

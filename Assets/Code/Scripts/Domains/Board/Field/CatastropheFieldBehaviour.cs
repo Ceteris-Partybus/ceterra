@@ -81,7 +81,7 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
 
     [ClientRpc]
     private void RpcChangeMaterial() {
-        GetComponent<Renderer>().material = FieldInstantiate.Instance.NormalFieldMaterial;
+        GetComponent<Renderer>().sharedMaterials = FieldInstantiate.Instance.NormalFieldMaterial;
     }
 
     [Server]

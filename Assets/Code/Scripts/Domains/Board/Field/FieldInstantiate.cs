@@ -10,7 +10,7 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
     protected override bool ShouldPersistAcrossScenes => true;
     [SerializeField] private SplineContainer splineContainer;
     [SerializeField] private GameObject normalFieldPrefab;
-    public Material NormalFieldMaterial => normalFieldPrefab.GetComponent<Renderer>().sharedMaterial;
+    public Material[] NormalFieldMaterial => normalFieldPrefab.GetComponent<Renderer>().sharedMaterials;
     [SerializeField] private GameObject questionFieldPrefab;
     [SerializeField] private GameObject eventFieldPrefab;
     [SerializeField] private GameObject catastropheFieldPrefab;
