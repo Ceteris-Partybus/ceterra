@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public class BranchArrowMouseEventHandler : MonoBehaviour {
-    private BoardPlayer boardPlayer;
+    private JunctionFieldBehaviour junctionField;
     private int pathIndex;
     private Vector3 originalScale;
 
@@ -9,15 +9,13 @@ public class BranchArrowMouseEventHandler : MonoBehaviour {
         originalScale = transform.localScale;
     }
 
-    public void Initialize(BoardPlayer player, int index) {
-        boardPlayer = player;
-        pathIndex = index;
+    public void Initialize(JunctionFieldBehaviour junctionField, int pathIndex) {
+        this.junctionField = junctionField;
+        this.pathIndex = pathIndex;
     }
 
     private void OnMouseDown() {
-        if (boardPlayer != null && boardPlayer.isLocalPlayer) {
-            boardPlayer.CmdChooseBranchPath(pathIndex);
-        }
+        junctionField.CmdChooseBranchPath(pathIndex);
     }
 
     private void OnMouseEnter() {

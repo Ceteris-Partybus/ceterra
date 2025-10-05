@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class QuestionFieldBehaviour : FieldBehaviour {
     [Server]
-    protected override void OnFieldInvoked(BoardPlayer player) {
+    protected override void OnPlayerLand(BoardPlayer player) {
         Debug.Log($"Player landed on a question field.");
         if (BoardquizController.Instance.gameObject != null && BoardquizController.Instance != null) {
             if (player != null) {

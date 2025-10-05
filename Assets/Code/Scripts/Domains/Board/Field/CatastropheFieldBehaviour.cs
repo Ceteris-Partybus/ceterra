@@ -30,7 +30,7 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
     }
 
     [Server]
-    protected override void OnFieldInvoked(BoardPlayer player) {
+    protected override void OnPlayerLand(BoardPlayer player) {
         if (!hasBeenInvoked) {
             hasBeenInvoked = true;
             StartCoroutine(ProcessCatastropheSequence(player));

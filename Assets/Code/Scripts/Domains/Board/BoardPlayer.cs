@@ -22,6 +22,10 @@ public class BoardPlayer : SceneConditionalPlayer {
     [Header("Movement")]
     [SyncVar]
     private bool isMoving = false;
+    public bool IsMoving {
+        get => isMoving;
+        set { isMoving = value; }
+    }
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float movementLerp;
@@ -30,11 +34,6 @@ public class BoardPlayer : SceneConditionalPlayer {
     [SyncVar(hook = nameof(OnNormalizedSplinePositionChanged))]
     private float normalizedSplinePosition;
     public float NormalizedSplinePosition => normalizedSplinePosition;
-
-    [SyncVar]
-    private bool isWaitingForBranchChoice = false;
-
-    private SplineKnotIndex nextKnot;
 
     [Header("Stats")]
     [SyncVar(hook = nameof(OnCoinsChanged))]
@@ -153,7 +152,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     [ClientRpc]
-    private void RpcTriggerAnimation(AnimationType animationType) {
+    public void RpcTriggerAnimation(AnimationType animationType) {
         visualHandler.TriggerAnimation(animationType);
     }
 
@@ -196,7 +195,8 @@ public class BoardPlayer : SceneConditionalPlayer {
         }
         else if (source is MgQuizduelPlayer quizDuelPlayer) {
             AddCoins(Math.Max(0, quizDuelPlayer.EarnedCoinReward));
-        } else if (source is MgOceanPlayer oceanPlayer){
+        }
+        else if (source is MgOceanPlayer oceanPlayer) {
             AddCoins(Math.Max(0, oceanPlayer.Score));
         }
     }
@@ -307,6 +307,16 @@ public class BoardPlayer : SceneConditionalPlayer {
         visualHandler.HideDiceResultLabel();
     }
 
+    [TargetRpc]
+    public void TargetShowBranchArrows(JunctionFieldBehaviour junctionField) {
+        junctionField.ShowBranchArrows(this);
+    }
+
+    [TargetRpc]
+    public void TargetHideBranchArrows(JunctionFieldBehaviour junctionField) {
+        junctionField.HideBranchArrows();
+    }
+
     [Server]
     public void MoveToField(int steps) {
         if (!IsActiveForCurrentScene || isMoving) { return; }
@@ -323,27 +333,16 @@ public class BoardPlayer : SceneConditionalPlayer {
         isMoving = true;
         while (remainingSteps > 0) {
             RpcUpdateDiceResultLabel(remainingSteps.ToString());
-            var nextFields = fieldBehaviourList.Find(splineKnotIndex).Next;
-
-            var targetField = nextFields.First();
-            nextKnot = targetField.SplineKnotIndex;
-            if (nextFields.Count > 1) {
-                isMoving = false;
-                RpcTriggerAnimation(AnimationType.JUNCTION_ENTRY);
-                isWaitingForBranchChoice = true;
-                TargetShowBranchArrows();
-                yield return new WaitUntil(() => !isWaitingForBranchChoice);
-
-                targetField = fieldBehaviourList.Find(nextKnot);
-                RpcTriggerAnimation(AnimationType.RUN);
-                isMoving = true;
-            }
+            var targetField = fieldBehaviourList.Find(splineKnotIndex).GetNextTargetField();
             yield return StartCoroutine(ServerSmoothMoveToKnot(targetField));
-            SplineKnotIndex = nextKnot;
-            if (!targetField.SkipStepCount) {
-                remainingSteps--;
+
+            SplineKnotIndex = targetField.SplineKnotIndex;
+            if (!targetField.SkipStepCount) { remainingSteps--; }
+            yield return new WaitForSeconds(0.2f);
+
+            if (remainingSteps > 0) {
+                yield return StartCoroutine(targetField.InvokeOnPlayerCross(this));
             }
-            yield return new WaitForSeconds(0.15f);
         }
 
         RpcTriggerAnimation(AnimationType.IDLE);
@@ -354,7 +353,7 @@ public class BoardPlayer : SceneConditionalPlayer {
         yield return new WaitForSeconds(zoomBlendTime);
 
         var finalField = fieldBehaviourList.Find(splineKnotIndex);
-        yield return StartCoroutine(finalField.InvokeFieldAsync(this));
+        yield return StartCoroutine(finalField.InvokeOnPlayerLand(this));
 
         CameraHandler.Instance.RpcZoomOut();
         yield return new WaitForSeconds(zoomBlendTime);
@@ -412,41 +411,6 @@ public class BoardPlayer : SceneConditionalPlayer {
                 visualHandler.SetMovementRotation(Quaternion.LookRotation(worldDirection, Vector3.up), rotationLerp);
             }
         }
-    }
-
-    [TargetRpc]
-    private void TargetShowBranchArrows() {
-        if (!isLocalPlayer) { return; }
-
-        var nextFields = BoardContext.Instance.FieldBehaviourList.Find(splineKnotIndex).Next;
-
-        visualHandler.ShowBranchArrows(nextFields, this);
-    }
-
-    [TargetRpc]
-    private void TargetHideBranchArrows() {
-        visualHandler.HideBranchArrows();
-    }
-
-    [Command]
-    public void CmdChooseBranchPath(int pathIndex) {
-        if (!IsActiveForCurrentScene || !isWaitingForBranchChoice) {
-            return;
-        }
-
-        var fieldBehaviourList = BoardContext.Instance.FieldBehaviourList;
-        var currentField = fieldBehaviourList.Find(splineKnotIndex);
-        var nextFields = currentField.Next;
-
-        if (pathIndex < 0 || pathIndex >= nextFields.Count) {
-            return;
-        }
-
-        var chosenField = nextFields[pathIndex];
-
-        nextKnot = chosenField.SplineKnotIndex;
-        isWaitingForBranchChoice = false;
-        TargetHideBranchArrows();
     }
 
     void Update() {

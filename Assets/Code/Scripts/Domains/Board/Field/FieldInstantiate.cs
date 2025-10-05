@@ -70,8 +70,7 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
         fieldInstance.transform.SetParent(splineContainer.transform, false);
 
         NetworkServer.Spawn(fieldInstance);
-        return fieldInstance.GetComponent<FieldBehaviour>()
-                .Initialize(type, splineKnotIndex, normalizedPosition);
+        return fieldInstance.GetComponent<FieldBehaviour>().Initialize(splineKnotIndex, normalizedPosition);
     }
 
     private GameObject GetPrefabByType(FieldType type) {
@@ -126,14 +125,14 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
 
         NetworkServer.Spawn(fieldInstance);
 
-        var asdf = fieldInstance.GetComponent<FieldBehaviour>().Initialize(newType, oldField.SplineKnotIndex, oldField.NormalizedSplinePosition);
-        fields[oldField.SplineKnotIndex] = asdf;
+        var newFieldInstance = fieldInstance.GetComponent<FieldBehaviour>().Initialize(oldField.SplineKnotIndex, oldField.NormalizedSplinePosition);
+        fields[oldField.SplineKnotIndex] = newFieldInstance;
 
         foreach (var field in fields.Values.Where(f => f.Next.Contains(oldField))) {
-            field.Next[field.Next.IndexOf(oldField)] = asdf;
+            field.Next[field.Next.IndexOf(oldField)] = newFieldInstance;
         }
 
-        asdf.Next.AddRange(oldField.Next);
+        newFieldInstance.Next.AddRange(oldField.Next);
 
         NetworkServer.Destroy(oldField.gameObject);
     }
