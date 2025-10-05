@@ -38,7 +38,7 @@ public abstract class FieldBehaviour : NetworkBehaviour {
         OnFieldInvocationComplete += completionHandler;
         OnFieldInvoked(player);
 
-        yield return new WaitUntil(() => completed && player.IsAnimationFinished);
+        yield return new WaitUntil(() => completed);
 
         OnFieldInvocationComplete -= completionHandler;
     }
