@@ -33,10 +33,7 @@ public class MgOceanContext : NetworkedSingleton<MgOceanContext> {
             } else {
                 Debug.LogError("[MgOceanContext] spawnAreaHolder has no Collider2D component!");
             }
-        } else {
-            Debug.LogError("[MgOceanContext] spawnAreaHolder is not assigned!");
         }
-        
         if (isServer) {
             StartCoroutine(SpawnTrashRoutine());
         }

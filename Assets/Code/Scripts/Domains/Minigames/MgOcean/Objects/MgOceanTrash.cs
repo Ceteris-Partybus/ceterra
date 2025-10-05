@@ -25,7 +25,7 @@ public class MgOceanTrash : NetworkBehaviour {
 
     public override void OnStartClient() {
         base.OnStartClient();
-        
+        // Set layer to enable physics interactions (Edit > Project Settings > Physics 2D > Layer Collision Matrix)
         int trashLayer = LayerMask.NameToLayer("Trash");
         if (trashLayer != -1) {
             gameObject.layer = trashLayer;
