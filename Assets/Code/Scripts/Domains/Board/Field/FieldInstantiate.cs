@@ -14,6 +14,7 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
     [SerializeField] private GameObject eventFieldPrefab;
     [SerializeField] private GameObject catastropheFieldPrefab;
     [SerializeField] private GameObject junctionFieldPrefab;
+    [SerializeField] private GameObject ledgeFieldPrefab;
 
     private readonly Dictionary<SplineKnotIndex, FieldType> fieldTypeMap = new();
     private readonly SyncDictionary<SplineKnotIndex, FieldBehaviour> fields = new();
@@ -80,6 +81,7 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
             FieldType.EVENT => eventFieldPrefab,
             FieldType.CATASTROPHE => catastropheFieldPrefab,
             FieldType.JUNCTION => junctionFieldPrefab,
+            FieldType.LEDGE => ledgeFieldPrefab,
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
         };
     }

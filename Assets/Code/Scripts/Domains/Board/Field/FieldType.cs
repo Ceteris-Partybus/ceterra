@@ -3,5 +3,6 @@ public enum FieldType {
     QUESTION,
     EVENT,
     CATASTROPHE,
-    JUNCTION
+    JUNCTION,
+    LEDGE
 }
