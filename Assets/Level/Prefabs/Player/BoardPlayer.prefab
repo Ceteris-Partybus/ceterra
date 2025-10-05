@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 769855207147994158}
   - component: {fileID: 1591609028840897619}
   - component: {fileID: -6749806492371377112}
+  - component: {fileID: 4558549600286242843}
   m_Layer: 0
   m_Name: BoardPlayer
   m_TagString: Untagged
@@ -168,3 +169,22 @@ MonoBehaviour:
   syncInterval: 0
   playerId: -1
   playerName: 
+--- !u!114 &4558549600286242843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3676788033899490170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d3eca9721cd0f48b8d920943b07a24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  playerId: -1
+  playerName: 
+  score: 0
+  playerModel: {fileID: 6958303945373204090, guid: 61003825a837930448d2390a1ace0304, type: 3}

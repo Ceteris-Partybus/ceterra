@@ -378,6 +378,10 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         if (currentState == State.PLAYER_MOVING && currentPlayerId == player.PlayerId) {
             totalMovementsCompleted++;
 
+            // TODO: REMOVE THIS IS JUST FOR TESTING
+            GameManager.Singleton.StartMinigame("MgOcean");
+            return;
+
             // Check if all players have had one movement
             int totalPlayers = GameManager.Singleton.PlayerIds.Length;
             if (totalMovementsCompleted >= totalPlayers) {
