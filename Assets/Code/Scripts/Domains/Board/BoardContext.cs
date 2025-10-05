@@ -1,6 +1,7 @@
 using Mirror;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -24,6 +25,9 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     #region Global Stats
     public const int MAX_STATS_VALUE = 100;
+
+    private readonly SyncList<CyberneticEffect> cyberneticEffects = new();
+    private bool isApplyingCyberneticEffects = false;
 
     [Header("Global Stats")]
     [SerializeField]
@@ -160,6 +164,66 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         Debug.Log($"Loaded {investments.Count} investments from resources");
         events.AddRange(Event.LoadEventsFromResources());
         Debug.Log($"Loaded {events.Count} events from resources");
+
+        List<CyberneticEffect> effects = new() {
+            // Economy -> Resources: Strong economy boosts resources (+5 to +15 per round when economy 50-100)
+            new CyberneticEffect {
+                source = CyberneticEffectType.ECONOMY,
+                target = CyberneticEffectType.RESOURCE,
+                effectCurve = AnimationCurve.Linear(0, 0, 1, 1),
+                effectMultiplier = 15f,
+                description = "Eine starke Wirtschaft steigert die Ressourcenproduktion.",
+                requirement = new CyberneticRequirement(50, 100)
+            },
+            // Economy -> Environment: Strong economy damages environment (-3 to -8 per round when economy 50-100)
+            new CyberneticEffect {
+                source = CyberneticEffectType.ECONOMY,
+                target = CyberneticEffectType.ENVIRONMENT,
+                effectCurve = AnimationCurve.Linear(0, 0, 1, 1),
+                effectMultiplier = -8f,
+                description = "Eine starke Wirtschaft kann die Umwelt belasten.",
+                requirement = new CyberneticRequirement(50, 100)
+            },
+            // Low Society -> Economy: Weak society hurts economy (-3 to -10 per round when society 0-49)
+            new CyberneticEffect {
+                source = CyberneticEffectType.SOCIETY,
+                target = CyberneticEffectType.ECONOMY,
+                effectCurve = AnimationCurve.Linear(0, 1, 1, 0),
+                effectMultiplier = -10f,
+                description = "Eine schwache Gesellschaft schadet der Wirtschaft.",
+                requirement = new CyberneticRequirement(0, 49)
+            },
+            // High Society -> Economy: Strong society boosts economy (+2 to +5 per round when society 50-100)
+            new CyberneticEffect {
+                source = CyberneticEffectType.SOCIETY,
+                target = CyberneticEffectType.ECONOMY,
+                effectCurve = AnimationCurve.Linear(0, 0, 1, 1),
+                effectMultiplier = 5f,
+                description = "Eine starke Gesellschaft fördert das Wirtschaftswachstum.",
+                requirement = new CyberneticRequirement(50, 100)
+            },
+            // Environment -> Society: Good environment improves society (+2 to +6 per round when environment 50-100)
+            new CyberneticEffect {
+                source = CyberneticEffectType.ENVIRONMENT,
+                target = CyberneticEffectType.SOCIETY,
+                effectCurve = AnimationCurve.Linear(0, 0, 1, 1),
+                effectMultiplier = 6f,
+                description = "Eine gesunde Umwelt verbessert das Wohlbefinden der Gesellschaft.",
+                requirement = new CyberneticRequirement(50, 100)
+            },
+            // Society -> Environment: Strong society promotes environmental protection (+2 to +5 per round when society 50-100)
+            new CyberneticEffect {
+                source = CyberneticEffectType.SOCIETY,
+                target = CyberneticEffectType.ENVIRONMENT,
+                effectCurve = AnimationCurve.Linear(0, 0, 1, 1),
+                effectMultiplier = 5f,
+                description = "Eine starke Gesellschaft fördert den Umweltschutz.",
+                requirement = new CyberneticRequirement(50, 100)
+            }
+        };
+
+        cyberneticEffects.AddRange(effects);
+
     }
 
     private void OnInvestmentItemInserted(int index) {
@@ -188,6 +252,84 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     [ClientRpc]
     public void RpcUpdateResourceHistory(ResourceHistoryEntry entry) {
         BoardOverlay.Instance.UpdateResourceHistory(entry);
+    }
+
+    [Server]
+    private void ApplyCyberneticEffects() {
+        if (isApplyingCyberneticEffects) {
+            return;
+        }
+
+        isApplyingCyberneticEffects = true;
+
+        int economyChange = 0;
+        int societyChange = 0;
+        int environmentChange = 0;
+        int resourceChange = 0;
+
+        foreach (var effect in cyberneticEffects) {
+            Debug.Log($"Applying cybernetic effect: {effect.description}");
+            float sourceValue = GetStatValue(effect.source);
+
+            if (sourceValue < effect.requirement.minValue || sourceValue > effect.requirement.maxValue) {
+                Debug.Log($"Skipping effect {effect.description} due to unmet requirement: {sourceValue} not in [{effect.requirement.minValue}, {effect.requirement.maxValue}]");
+                continue;
+            }
+
+            // Normalize the source value within the requirement range to 0-1
+            float normalizedValue = (sourceValue - effect.requirement.minValue) /
+                                   (effect.requirement.maxValue - effect.requirement.minValue);
+
+            // Evaluate the curve with the normalized value (0-1)
+            float effectStrength = effect.effectCurve.Evaluate(normalizedValue);
+            Debug.Log($"Effect strength based on {effect.source} value {sourceValue} (normalized: {normalizedValue}): {effectStrength}");
+
+            // Apply the multiplier to get the final change value
+            int change = Mathf.RoundToInt(effectStrength * effect.effectMultiplier);
+            Debug.Log($"Calculated change for {effect.target}: {change}");
+
+            switch (effect.target) {
+                case CyberneticEffectType.ECONOMY:
+                    economyChange += change;
+                    break;
+                case CyberneticEffectType.SOCIETY:
+                    societyChange += change;
+                    break;
+                case CyberneticEffectType.ENVIRONMENT:
+                    environmentChange += change;
+                    break;
+                case CyberneticEffectType.RESOURCE:
+                    resourceChange += change;
+                    break;
+            }
+        }
+
+        Debug.Log($"Total Cybernetic Effects - Economy: {economyChange}, Society: {societyChange}, Environment: {environmentChange}, Resource: {resourceChange}");
+
+        if (economyChange != 0) {
+            UpdateEconomyStat(economyChange);
+        }
+        if (societyChange != 0) {
+            UpdateSocietyStat(societyChange);
+        }
+        if (environmentChange != 0) {
+            UpdateEnvironmentStat(environmentChange);
+        }
+        if (resourceChange != 0) {
+            UpdateResourceStat(resourceChange);
+        }
+
+        isApplyingCyberneticEffects = false;
+    }
+
+    private float GetStatValue(CyberneticEffectType type) {
+        return type switch {
+            CyberneticEffectType.ECONOMY => economyStat,
+            CyberneticEffectType.SOCIETY => societyStat,
+            CyberneticEffectType.ENVIRONMENT => environmentStat,
+            CyberneticEffectType.RESOURCE => resourceStat,
+            _ => 0f,
+        };
     }
 
     protected override void Start() {
@@ -236,15 +378,14 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         if (currentState == State.PLAYER_MOVING && currentPlayerId == player.PlayerId) {
             totalMovementsCompleted++;
 
+            // TODO: REMOVE THIS IS JUST FOR TESTING
+            GameManager.Singleton.StartMinigame("MgOcean");
+            return;
+
             // Check if all players have had one movement
             int totalPlayers = GameManager.Singleton.PlayerIds.Length;
             if (totalMovementsCompleted >= totalPlayers) {
                 totalMovementsCompleted = 0;
-
-                UpdateResourceStat((int)resourcesNextRound);
-                ResourceHistoryEntry entry = new ResourceHistoryEntry(resourcesNextRound, HistoryEntryType.DEPOSIT, "Rundenende");
-                this.resourceHistory.Add(entry);
-                resourcesNextRound = CalculateResourcesNextRound();
 
                 int completedInvestments = 0;
                 foreach (var investment in investments) {
@@ -257,6 +398,13 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
                     }
                     TriggerInvestmentListUpdate(investments.IndexOf(investment), investment);
                 }
+
+                ApplyCyberneticEffects();
+
+                UpdateResourceStat(resourcesNextRound);
+                ResourceHistoryEntry entry = new ResourceHistoryEntry(resourcesNextRound, HistoryEntryType.DEPOSIT, "Rundenende");
+                this.resourceHistory.Add(entry);
+                resourcesNextRound = CalculateResourcesNextRound();
 
                 if (completedInvestments > 0) {
                     StartCoroutine(WaitBeforeMinigame(completedInvestments * 3f));
