@@ -4,5 +4,6 @@ public enum FieldType {
     EVENT,
     CATASTROPHE,
     JUNCTION,
-    LEDGE
+    LEDGE,
+    START
 }
