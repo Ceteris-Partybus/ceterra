@@ -9,7 +9,7 @@
                     <ui:Label name="score-label" text="Paare: 0" style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 50px; color: white;" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="gameArea" enabled="true" style="flex-grow: 1; width: 95%; background-color: rgb(111, 111, 115); align-self: center; flex-direction: column; display: flex; border-top-left-radius: 30px; border-top-right-radius: 30px; margin-bottom: 2%; padding: 2%;">
+            <ui:VisualElement name="gameArea" enabled="true" style="flex-grow: 1; background-color: rgb(111, 111, 115); flex-direction: column; display: flex;">
                 <ui:VisualElement name="memory-grid" style="flex-grow: 1; width: 100%; justify-content: center; align-items: center;">
                     <ui:VisualElement name="cards-container" style="width: 100%; height: 100%; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center; max-width: 800px; max-height: 600px;">
                         <ui:Button name="card-0" style="width: 120px; height: 120px; margin: 5px; border-radius: 15px; background-color: rgb(164, 154, 154); border-width: 0;" />
@@ -28,24 +28,6 @@
                         <ui:Button name="card-13" style="width: 120px; height: 120px; margin: 5px; border-radius: 15px; background-color: rgb(164, 154, 154); border-width: 0;" />
                         <ui:Button name="card-14" style="width: 120px; height: 120px; margin: 5px; border-radius: 15px; background-color: rgb(164, 154, 154); border-width: 0;" />
                         <ui:Button name="card-15" style="width: 120px; height: 120px; margin: 5px; border-radius: 15px; background-color: rgb(164, 154, 154); border-width: 0;" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-                <ui:VisualElement name="player-scores-bar" style="height: 80px; width: 100%; flex-direction: row; justify-content: space-around; align-items: center; background-color: rgba(0, 0, 0, 0.2); border-radius: 15px; margin-top: 10px;">
-                    <ui:VisualElement name="player-score-1" style="flex-direction: row; align-items: center;">
-                        <ui:Label name="player-name-1" text="Spieler 1" style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 30px; color: white; margin-right: 10px;" />
-                        <ui:Label name="player-pairs-1" text="0" style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 35px; color: rgb(77, 152, 157);" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="player-score-2" style="flex-direction: row; align-items: center;">
-                        <ui:Label name="player-name-2" text="Spieler 2" style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 30px; color: white; margin-right: 10px;" />
-                        <ui:Label name="player-pairs-2" text="0" style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 35px; color: rgb(77, 152, 157);" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="player-score-3" style="flex-direction: row; align-items: center; display: none;">
-                        <ui:Label name="player-name-3" text="Spieler 3" style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 30px; color: white; margin-right: 10px;" />
-                        <ui:Label name="player-pairs-3" text="0" style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 35px; color: rgb(77, 152, 157);" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="player-score-4" style="flex-direction: row; align-items: center; display: none;">
-                        <ui:Label name="player-name-4" text="Spieler 4" style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 30px; color: white; margin-right: 10px;" />
-                        <ui:Label name="player-pairs-4" text="0" style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 35px; color: rgb(77, 152, 157);" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
@@ -92,6 +74,20 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="fact-popup" style="position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); display: flex; justify-content: center; align-items: center;">
+            <ui:VisualElement name="fact-container" style="width: 85%; max-width: 800px; background-color: rgb(50, 120, 50); border-radius: 25px; padding: 30px; flex-direction: column; align-items: center; border-width: 3px; border-color: rgb(70, 150, 70);">
+                <ui:VisualElement name="fact-header" style="flex-direction: row; align-items: center; margin-bottom: 20px; width: 100%; justify-content: center;">
+                    <ui:Label text="💡" style="font-size: 60px; margin-right: 15px;" />
+                    <ui:Label text="Wusstest du schon?" style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 50px; color: white; -unity-text-align: middle-center;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="fact-content" style="width: 100%; background-color: rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 25px; margin-bottom: 25px;">
+                    <ui:Label name="fact-title" text="Plastik im Meer" style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 35px; color: rgb(255, 255, 120); -unity-text-align: upper-center; margin-bottom: 15px; -unity-font-style: bold;" />
+                    <ui:Label name="fact-text" text="Jedes Jahr gelangen etwa 8 Millionen Tonnen Plastik in unsere Ozeane. Das entspricht einem Müllwagen voller Plastik pro Minute!" style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 28px; color: white; -unity-text-align: middle-left; white-space: normal;" />
+                </ui:VisualElement>
+                <ui:Button name="fact-close-button" text="Weiter spielen" style="background-color: rgb(70, 150, 70); border-radius: 15px; padding: 15px 40px; border-width: 0; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 30px; color: white;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
