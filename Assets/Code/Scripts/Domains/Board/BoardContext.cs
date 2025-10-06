@@ -198,14 +198,13 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
                 }
 
                 // All players have moved at least once, start minigame
-                // GameManager.Singleton.StartMinigame("MgQuizduel");
-                // return;
+                GameManager.Singleton.StartMinigame("MgMemory");
+                return;
             }
 
             NextPlayerTurn();
         }
     }
-
 
     [Server]
     private uint CalculateResourcesNextRound() {

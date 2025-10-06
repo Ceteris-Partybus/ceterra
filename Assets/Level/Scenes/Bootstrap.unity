@@ -285,6 +285,7 @@ MonoBehaviour:
   minigameScenes:
   - MgGarbage
   - MgQuizduel
+  - MgMemory
 --- !u!114 &1926814289
 MonoBehaviour:
   m_ObjectHideFlags: 0
