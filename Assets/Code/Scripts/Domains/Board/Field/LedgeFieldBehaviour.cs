@@ -27,10 +27,6 @@ public class LedgeFieldBehaviour : FieldBehaviour {
         player.NormalizedSplinePosition = targetField.NormalizedSplinePosition;
         player.SplineKnotIndex = targetField.SplineKnotIndex;
 
-        player.RpcTriggerAnimation(AnimationType.RUN);
-        player.IsMoving = true;
-        player.IsJumping = false;
-
         CompleteFieldInvocation();
     }
 }

@@ -36,7 +36,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     [SerializeField] private float movementLerp;
     [SerializeField] private float rotationLerp;
 
-    [SyncVar(hook = nameof(OnNormalizedSplinePositionChanged))]
+    [SyncVar]
     private float normalizedSplinePosition;
     public float NormalizedSplinePosition {
         get => normalizedSplinePosition;
@@ -326,8 +326,6 @@ public class BoardPlayer : SceneConditionalPlayer {
         var fieldBehaviourList = BoardContext.Instance.FieldBehaviourList;
         var remainingSteps = steps;
 
-        RpcTriggerAnimation(AnimationType.RUN);
-        isMoving = true;
         while (remainingSteps > 0) {
             RpcUpdateDiceResultLabel(remainingSteps.ToString());
             var targetField = fieldBehaviourList.Find(splineKnotIndex).GetNextTargetField();
@@ -335,12 +333,15 @@ public class BoardPlayer : SceneConditionalPlayer {
 
             SplineKnotIndex = targetField.SplineKnotIndex;
             if (!targetField.SkipStepCount) { remainingSteps--; }
-            yield return new WaitForSeconds(0.2f);
 
             if (remainingSteps > 0) {
+                if (targetField.PausesMovement) {
+                    yield return StartCoroutine(EnsureTargetPosition(targetField.Position));
+                }
                 yield return StartCoroutine(targetField.InvokeOnPlayerCross(this));
             }
         }
+        yield return StartCoroutine(EnsureTargetPosition(fieldBehaviourList.Find(splineKnotIndex).Position));
 
         RpcTriggerAnimation(AnimationType.IDLE);
         isMoving = false;
@@ -359,11 +360,26 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     [Server]
+    private IEnumerator EnsureTargetPosition(Vector3 targetPosition) {
+        while (Vector3.Distance(transform.position, targetPosition) > .05f) {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * .5f * Time.deltaTime);
+            yield return null;
+        }
+        transform.position = targetPosition;
+    }
+
+    [Server]
     private IEnumerator ServerSmoothMoveToKnot(FieldBehaviour targetField) {
         var currentSpline = splineContainer.Splines[splineKnotIndex.Spline];
         var targetSpline = splineContainer.Splines[targetField.SplineKnotIndex.Spline];
         var spline = targetSpline;
         var normalizedTargetPosition = targetField.NormalizedSplinePosition;
+
+        if (!IsMoving) {
+            isJumping = false;
+            isMoving = true;
+            RpcTriggerAnimation(AnimationType.RUN);
+        }
 
         if (SplineKnotIndex.Spline != targetField.SplineKnotIndex.Spline) {
             if (targetField.SplineKnotIndex.Knot == 1) {
@@ -380,7 +396,7 @@ public class BoardPlayer : SceneConditionalPlayer {
             normalizedTargetPosition = 1f;
         }
 
-        while (Mathf.Abs(normalizedSplinePosition - normalizedTargetPosition) > 0.001f) {
+        while (normalizedSplinePosition != normalizedTargetPosition) {
             normalizedSplinePosition = Mathf.MoveTowards(normalizedSplinePosition, normalizedTargetPosition, moveSpeed / spline.GetLength() * Time.deltaTime);
             yield return null;
         }
@@ -388,17 +404,10 @@ public class BoardPlayer : SceneConditionalPlayer {
         normalizedSplinePosition = targetField.NormalizedSplinePosition;
     }
 
-    private void OnNormalizedSplinePositionChanged(float _, float newValue) {
-        if (!isServer && IsActiveForCurrentScene) {
-            normalizedSplinePosition = newValue;
-        }
-    }
-
     void MoveAndRotate() {
         var movementBlend = Mathf.Pow(0.5f, Time.deltaTime * movementLerp);
         var targetPosition = splineContainer.EvaluatePosition(splineKnotIndex.Spline, normalizedSplinePosition);
-
-        transform.position = Vector3.Lerp(transform.position, targetPosition, 1f - movementBlend);
+        transform.position = Vector3.Lerp(targetPosition, transform.position, movementBlend);
 
         if (isMoving) {
             splineContainer.Splines[splineKnotIndex.Spline].Evaluate(normalizedSplinePosition, out float3 _, out float3 direction, out float3 _);
@@ -414,6 +423,7 @@ public class BoardPlayer : SceneConditionalPlayer {
         if (isJumping) { return; }
         if (isMoving) { MoveAndRotate(); return; }
         if (isLocalPlayer) { HandleInput(); }
+
         visualHandler?.MakeCharacterFaceCamera();
     }
 

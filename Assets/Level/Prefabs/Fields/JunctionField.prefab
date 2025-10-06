@@ -110,12 +110,12 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  type: 4
   splineKnotIndex:
     Spline: 0
     Knot: 0
   normalizedSplinePosition: 0
   skipStepCount: 1
+  pausesMovement: 1
   branchArrowPrefab: {fileID: 7803521452796931048, guid: 729bde1ecc57b3c40a3f5637165575f2, type: 3}
   branchArrowRadius: 2
 --- !u!114 &8465912883790168854

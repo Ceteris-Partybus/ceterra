@@ -18,6 +18,8 @@ public abstract class FieldBehaviour : NetworkBehaviour {
     [SyncVar]
     [SerializeField] private bool skipStepCount;
     public bool SkipStepCount => skipStepCount;
+    [SerializeField] private bool pausesMovement;
+    public bool PausesMovement => pausesMovement;
     public Vector3 Position => transform.position;
     public event Action OnFieldInvocationComplete;
 

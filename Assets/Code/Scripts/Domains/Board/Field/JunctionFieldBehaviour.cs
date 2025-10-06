@@ -37,9 +37,6 @@ public class JunctionFieldBehaviour : FieldBehaviour {
         TargetShowBranchArrows();
         yield return new WaitUntil(() => !isWaitingForBranchChoice);
 
-        crossingPlayer.RpcTriggerAnimation(AnimationType.RUN);
-        crossingPlayer.IsMoving = true;
-
         netIdentity.RemoveClientAuthority();
         CompleteFieldInvocation();
     }

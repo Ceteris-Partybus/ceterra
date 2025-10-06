@@ -191,12 +191,12 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  type: 5
   splineKnotIndex:
     Spline: 0
     Knot: 0
   normalizedSplinePosition: 0
   skipStepCount: 1
+  pausesMovement: 1
 --- !u!114 &8465912883790168854
 MonoBehaviour:
   m_ObjectHideFlags: 0
