@@ -18,11 +18,11 @@ public class LedgeFieldBehaviour : FieldBehaviour {
         yield return new WaitForSeconds(.5f);
 
         player.RpcTriggerAnimation(AnimationType.JUMP);
-        yield return new WaitForSeconds(.25f);
+        yield return new WaitForSeconds(.35f);
 
         var targetField = GetNextTargetField();
-        yield return player.transform.DOJump(targetField.Position, 3f, 1, 1.5f).WaitForCompletion();
-        yield return new WaitForSeconds(1f);
+        yield return player.transform.DOJump(targetField.Position, 2f, 1, .9f).WaitForCompletion();
+        yield return new WaitForSeconds(.5f);
 
         player.NormalizedSplinePosition = targetField.NormalizedSplinePosition;
         player.SplineKnotIndex = targetField.SplineKnotIndex;
