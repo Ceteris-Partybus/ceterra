@@ -7,5 +7,6 @@ public enum AnimationType {
     IDLE,
     JUNCTION_ENTRY,
     DICE_SPIN,
-    DICE_HIT
+    DICE_HIT,
+    JUMP
 }

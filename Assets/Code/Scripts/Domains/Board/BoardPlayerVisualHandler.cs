@@ -1,21 +1,15 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.Splines;
 using System;
 
 public class BoardPlayerVisualHandler : MonoBehaviour {
-    [Header("Branch Arrows")]
-    [SerializeField] private Transform branchArrowPrefab;
-    [SerializeField] private float branchArrowRadius;
-    private List<GameObject> branchArrows = new List<GameObject>();
-
     [Header("Animation Trigger")]
     [SerializeField] private string coinGainTrigger;
     [SerializeField] private string coinLossTrigger;
     [SerializeField] private string healthGainTrigger;
     [SerializeField] private string healthLossTrigger;
     [SerializeField] private string runTrigger;
+    [SerializeField] private string jumpTrigger;
     [SerializeField] private string diceHitTrigger;
     [SerializeField] private string idleTrigger;
     [SerializeField] private string diceSpinTrigger;
@@ -53,43 +47,13 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
             AnimationType.DICE_SPIN => diceSpinTrigger,
             AnimationType.JUNCTION_ENTRY => junctionEntryTrigger,
             AnimationType.RUN => runTrigger,
+            AnimationType.JUMP => jumpTrigger,
             _ => throw new ArgumentException("Invalid animation type")
         });
     }
 
     public void HideDiceResultLabel() {
         dice.HideDiceResultLabel();
-    }
-
-    public void ShowBranchArrows(IReadOnlyList<FieldBehaviour> nextFields, BoardPlayer player) {
-        for (var i = 0; i < nextFields.Count; i++) {
-            var branchArrow = InstantiateBranchArrow(nextFields[i], player);
-            branchArrow.GetComponent<BranchArrowMouseEventHandler>()?.Initialize(player, i);
-            branchArrows.Add(branchArrow);
-        }
-    }
-
-    public void HideBranchArrows() {
-        foreach (var arrow in branchArrows) {
-            Destroy(arrow);
-        }
-        branchArrows.Clear();
-    }
-
-    private GameObject InstantiateBranchArrow(FieldBehaviour targetField, BoardPlayer player) {
-        var targetSpline = player.SplineContainer.Splines[targetField.SplineKnotIndex.Spline];
-        var normalizedPlayerPosition = player.NormalizedSplinePosition;
-
-        if (player.SplineKnotIndex.Spline != targetField.SplineKnotIndex.Spline && targetField.SplineKnotIndex.Knot == 1) {
-            normalizedPlayerPosition = 0f;
-        }
-
-        var offset = 0.01f;
-        var tangent = targetSpline.EvaluateTangent(normalizedPlayerPosition + offset);
-        var worldTangent = player.SplineContainer.transform.TransformDirection(tangent).normalized;
-
-        var branchArrowPosition = transform.position + worldTangent * branchArrowRadius;
-        return Instantiate(branchArrowPrefab.gameObject, branchArrowPosition, Quaternion.LookRotation(worldTangent, Vector3.up));
     }
 
     public void OnRollStart() {

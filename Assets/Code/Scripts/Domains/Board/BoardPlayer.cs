@@ -1,7 +1,6 @@
 using Mirror;
 using System;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Splines;
 using Unity.Mathematics;
@@ -22,19 +21,27 @@ public class BoardPlayer : SceneConditionalPlayer {
     [Header("Movement")]
     [SyncVar]
     private bool isMoving = false;
+    public bool IsMoving {
+        get => isMoving;
+        set { isMoving = value; }
+    }
+    [SyncVar]
+    private bool isJumping = false;
+    public bool IsJumping {
+        get => isJumping;
+        set { isJumping = value; }
+    }
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float movementLerp;
     [SerializeField] private float rotationLerp;
 
-    [SyncVar(hook = nameof(OnNormalizedSplinePositionChanged))]
-    private float normalizedSplinePosition;
-    public float NormalizedSplinePosition => normalizedSplinePosition;
-
     [SyncVar]
-    private bool isWaitingForBranchChoice = false;
-
-    private SplineKnotIndex nextKnot;
+    private float normalizedSplinePosition;
+    public float NormalizedSplinePosition {
+        get => normalizedSplinePosition;
+        set { normalizedSplinePosition = value; }
+    }
 
     [Header("Stats")]
     [SyncVar(hook = nameof(OnCoinsChanged))]
@@ -153,7 +160,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     [ClientRpc]
-    private void RpcTriggerAnimation(AnimationType animationType) {
+    public void RpcTriggerAnimation(AnimationType animationType) {
         visualHandler.TriggerAnimation(animationType);
     }
 
@@ -169,7 +176,6 @@ public class BoardPlayer : SceneConditionalPlayer {
             yield return new WaitUntil(() => BoardContext.Instance != null && BoardContext.Instance.FieldBehaviourList != null);
             isMoving = false;
             var spawnPosition = BoardContext.Instance.FieldBehaviourList.Find(splineKnotIndex).Position;
-            spawnPosition.y += 1f;
             gameObject.transform.position = spawnPosition;
         }
     }
@@ -196,7 +202,8 @@ public class BoardPlayer : SceneConditionalPlayer {
         }
         else if (source is MgQuizduelPlayer quizDuelPlayer) {
             AddCoins(Math.Max(0, quizDuelPlayer.EarnedCoinReward));
-        } else if (source is MgOceanPlayer oceanPlayer){
+        }
+        else if (source is MgOceanPlayer oceanPlayer) {
             AddCoins(Math.Max(0, oceanPlayer.Score));
         }
     }
@@ -319,30 +326,22 @@ public class BoardPlayer : SceneConditionalPlayer {
         var fieldBehaviourList = BoardContext.Instance.FieldBehaviourList;
         var remainingSteps = steps;
 
-        RpcTriggerAnimation(AnimationType.RUN);
-        isMoving = true;
         while (remainingSteps > 0) {
             RpcUpdateDiceResultLabel(remainingSteps.ToString());
-            var nextFields = fieldBehaviourList.Find(splineKnotIndex).Next;
-
-            var targetField = nextFields.First();
-            nextKnot = targetField.SplineKnotIndex;
-            if (nextFields.Count > 1) {
-                isMoving = false;
-                RpcTriggerAnimation(AnimationType.JUNCTION_ENTRY);
-                isWaitingForBranchChoice = true;
-                TargetShowBranchArrows();
-                yield return new WaitUntil(() => !isWaitingForBranchChoice);
-
-                targetField = fieldBehaviourList.Find(nextKnot);
-                RpcTriggerAnimation(AnimationType.RUN);
-                isMoving = true;
-            }
+            var targetField = fieldBehaviourList.Find(splineKnotIndex).GetNextTargetField();
             yield return StartCoroutine(ServerSmoothMoveToKnot(targetField));
-            SplineKnotIndex = nextKnot;
-            remainingSteps--;
-            yield return new WaitForSeconds(0.15f);
+
+            SplineKnotIndex = targetField.SplineKnotIndex;
+            if (!targetField.SkipStepCount) { remainingSteps--; }
+
+            if (remainingSteps > 0) {
+                if (targetField.PausesMovement) {
+                    yield return StartCoroutine(EnsureTargetPosition(targetField.Position));
+                }
+                yield return StartCoroutine(targetField.InvokeOnPlayerCross(this));
+            }
         }
+        yield return StartCoroutine(EnsureTargetPosition(fieldBehaviourList.Find(splineKnotIndex).Position));
 
         RpcTriggerAnimation(AnimationType.IDLE);
         isMoving = false;
@@ -352,7 +351,7 @@ public class BoardPlayer : SceneConditionalPlayer {
         yield return new WaitForSeconds(zoomBlendTime);
 
         var finalField = fieldBehaviourList.Find(splineKnotIndex);
-        yield return StartCoroutine(finalField.InvokeFieldAsync(this));
+        yield return StartCoroutine(finalField.InvokeOnPlayerLand(this));
 
         CameraHandler.Instance.RpcZoomOut();
         yield return new WaitForSeconds(zoomBlendTime);
@@ -361,11 +360,26 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     [Server]
+    private IEnumerator EnsureTargetPosition(Vector3 targetPosition) {
+        while (Vector3.Distance(transform.position, targetPosition) > .05f) {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * .5f * Time.deltaTime);
+            yield return null;
+        }
+        transform.position = targetPosition;
+    }
+
+    [Server]
     private IEnumerator ServerSmoothMoveToKnot(FieldBehaviour targetField) {
         var currentSpline = splineContainer.Splines[splineKnotIndex.Spline];
         var targetSpline = splineContainer.Splines[targetField.SplineKnotIndex.Spline];
         var spline = targetSpline;
         var normalizedTargetPosition = targetField.NormalizedSplinePosition;
+
+        if (!IsMoving) {
+            isJumping = false;
+            isMoving = true;
+            RpcTriggerAnimation(AnimationType.RUN);
+        }
 
         if (SplineKnotIndex.Spline != targetField.SplineKnotIndex.Spline) {
             if (targetField.SplineKnotIndex.Knot == 1) {
@@ -382,7 +396,7 @@ public class BoardPlayer : SceneConditionalPlayer {
             normalizedTargetPosition = 1f;
         }
 
-        while (Mathf.Abs(normalizedSplinePosition - normalizedTargetPosition) > 0.001f) {
+        while (normalizedSplinePosition != normalizedTargetPosition) {
             normalizedSplinePosition = Mathf.MoveTowards(normalizedSplinePosition, normalizedTargetPosition, moveSpeed / spline.GetLength() * Time.deltaTime);
             yield return null;
         }
@@ -390,17 +404,10 @@ public class BoardPlayer : SceneConditionalPlayer {
         normalizedSplinePosition = targetField.NormalizedSplinePosition;
     }
 
-    private void OnNormalizedSplinePositionChanged(float _, float newValue) {
-        if (!isServer && IsActiveForCurrentScene) {
-            normalizedSplinePosition = newValue;
-        }
-    }
-
     void MoveAndRotate() {
         var movementBlend = Mathf.Pow(0.5f, Time.deltaTime * movementLerp);
         var targetPosition = splineContainer.EvaluatePosition(splineKnotIndex.Spline, normalizedSplinePosition);
-
-        transform.position = Vector3.Lerp(transform.position, targetPosition, 1f - movementBlend);
+        transform.position = Vector3.Lerp(targetPosition, transform.position, movementBlend);
 
         if (isMoving) {
             splineContainer.Splines[splineKnotIndex.Spline].Evaluate(normalizedSplinePosition, out float3 _, out float3 direction, out float3 _);
@@ -412,44 +419,11 @@ public class BoardPlayer : SceneConditionalPlayer {
         }
     }
 
-    [TargetRpc]
-    private void TargetShowBranchArrows() {
-        if (!isLocalPlayer) { return; }
-
-        var nextFields = BoardContext.Instance.FieldBehaviourList.Find(splineKnotIndex).Next;
-
-        visualHandler.ShowBranchArrows(nextFields, this);
-    }
-
-    [TargetRpc]
-    private void TargetHideBranchArrows() {
-        visualHandler.HideBranchArrows();
-    }
-
-    [Command]
-    public void CmdChooseBranchPath(int pathIndex) {
-        if (!IsActiveForCurrentScene || !isWaitingForBranchChoice) {
-            return;
-        }
-
-        var fieldBehaviourList = BoardContext.Instance.FieldBehaviourList;
-        var currentField = fieldBehaviourList.Find(splineKnotIndex);
-        var nextFields = currentField.Next;
-
-        if (pathIndex < 0 || pathIndex >= nextFields.Count) {
-            return;
-        }
-
-        var chosenField = nextFields[pathIndex];
-
-        nextKnot = chosenField.SplineKnotIndex;
-        isWaitingForBranchChoice = false;
-        TargetHideBranchArrows();
-    }
-
     void Update() {
+        if (isJumping) { return; }
         if (isMoving) { MoveAndRotate(); return; }
         if (isLocalPlayer) { HandleInput(); }
+
         visualHandler?.MakeCharacterFaceCamera();
     }
 
