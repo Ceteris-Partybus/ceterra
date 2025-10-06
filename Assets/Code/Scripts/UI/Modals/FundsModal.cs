@@ -1,71 +1,49 @@
-using UnityEngine;
+using Mirror;
 using UnityEngine.UIElements;
 
 public class FundsModal : Modal {
 
-    private Button fundsHistoryButton;
-    private Button investButton;
-    private Button depositButton;
-    private Label fundsValueLabel;
-    private VisualTreeAsset fundsHistoryModalTemplate;
-    private VisualTreeAsset fundsDepositModalTemplate;
-    private VisualTreeAsset fundsInvestProposalModalTemplate;
-    private VisualTreeAsset fundsInvestProposalSubmitModalTemplate;
-    private VisualTreeAsset investProposalVoteModalTemplate;
+    public static FundsModal Instance => GetInstance<FundsModal>();
 
-    public FundsModal(VisualTreeAsset contentTemplate, VisualTreeAsset fundsHistoryModalTemplate, VisualTreeAsset fundsDepositModalTemplate, VisualTreeAsset fundsInvestProposalModalTemplate, VisualTreeAsset fundsInvestProposalSubmitModalTemplate, VisualTreeAsset investProposalVoteModalTemplate) : base(contentTemplate) {
-        this.fundsHistoryModalTemplate = fundsHistoryModalTemplate;
-        this.fundsDepositModalTemplate = fundsDepositModalTemplate;
-        this.fundsInvestProposalModalTemplate = fundsInvestProposalModalTemplate;
-        this.fundsInvestProposalSubmitModalTemplate = fundsInvestProposalSubmitModalTemplate;
-        this.investProposalVoteModalTemplate = investProposalVoteModalTemplate;
+    Button depositButton;
+    Button fundsHistoryButton;
+    Button investButton;
+
+    protected override void Start() {
+        this.visualTreeAsset = ModalMap.Instance.FundsModalTemplate;
+        base.Start();
     }
 
-    protected override void InitializeContent() {
-        this.fundsHistoryButton = modalContent.Q<Button>("funds-history-button");
-        this.investButton = modalContent.Q<Button>("funds-invest-button");
-        this.depositButton = modalContent.Q<Button>("funds-deposit-button");
-        this.fundsValueLabel = modalContent.Q<Label>("funds-current-value");
-
-        if (this.fundsHistoryButton != null) {
-            this.fundsHistoryButton.clicked += OnFundsHistoryButtonClicked;
-        }
-
-        if (this.investButton != null) {
-            this.investButton.clicked += OnInvestButtonClicked;
-        }
-
-        if (this.depositButton != null) {
-            this.depositButton.clicked += OnDepositButtonClicked;
-        }
-
-        if (fundsValueLabel != null) {
-            this.fundsValueLabel.text = BoardContext.Instance.FundsStat.ToString();
-        }
+    protected override void OnModalShown() {
+        // Setup your specific modal logic here
+        depositButton = modalElement.Q<Button>("funds-deposit-button");
+        depositButton.clicked += OnDepositClicked;
+        fundsHistoryButton = modalElement.Q<Button>("funds-history-button");
+        fundsHistoryButton.clicked += OnFundsHistoryClicked;
+        investButton = modalElement.Q<Button>("funds-invest-button");
+        investButton.clicked += OnInvestClicked;
     }
 
-    private void OnFundsHistoryButtonClicked() {
-        ModalManager.Instance.ShowModal(new FundsHistoryModal(this.fundsHistoryModalTemplate));
+    [ClientCallback]
+    private void OnDepositClicked() {
+        // BoardPlayer localPlayer = BoardContext.Instance.GetLocalPlayer();
+        // CmdRequestDeposit(10, localPlayer);
+        ModalManager.Instance.Show(FundsDepositModal.Instance, false);
     }
 
-    private void OnInvestButtonClicked() {
-        ModalManager.Instance.ShowModal(new FundsInvestProposalModal(this.fundsInvestProposalModalTemplate, this.fundsInvestProposalSubmitModalTemplate, this.investProposalVoteModalTemplate));
+    [ClientCallback]
+    private void OnFundsHistoryClicked() {
+        ModalManager.Instance.Show(FundsHistoryModal.Instance, false);
     }
 
-    private void OnDepositButtonClicked() {
-        ModalManager.Instance.ShowModal(new FundsDepositModal(this.fundsDepositModalTemplate));
+    [ClientCallback]
+    private void OnInvestClicked() {
+        ModalManager.Instance.Show(InvestModal.Instance, false);
     }
 
-    protected override void OnClose() {
-        // Unregister events when modal is closed
-        if (this.fundsHistoryButton != null) {
-            this.fundsHistoryButton.clicked -= OnFundsHistoryButtonClicked;
-        }
-        if (this.investButton != null) {
-            this.investButton.clicked -= OnInvestButtonClicked;
-        }
-        if (this.depositButton != null) {
-            this.depositButton.clicked -= OnDepositButtonClicked;
-        }
-    }
+    // [Command(requiresAuthority = false)]
+    // private void CmdRequestDeposit(int amount, BoardPlayer player) {
+    //     player.RemoveCoins(amount);
+    //     BoardContext.Instance.UpdateFundsStat(amount);
+    // }
 }

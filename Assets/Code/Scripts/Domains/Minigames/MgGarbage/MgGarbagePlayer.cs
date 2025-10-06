@@ -1,0 +1,71 @@
+using Mirror;
+using System;
+using UnityEngine;
+
+public class MgGarbagePlayer : SceneConditionalPlayer {
+    [SerializeField]
+    [SyncVar(hook = nameof(OnScoreChanged))]
+    private int score;
+
+    private void OnScoreChanged(int old, int new_) {
+        Debug.Log($"Score changed from {old} to {new_}");
+        if (isLocalPlayer) {
+            MgGarbageLocalPlayerHUD.Instance.UpdateScore(new_);
+        }
+        else {
+            // if (!RemotePlayerHUD.Instance.IsPlayerAdded(PlayerId)) {
+            //     RemotePlayerHUD.Instance.AddPlayer(this);
+            // }
+            MgGarbageRemotePlayerHUD.Instance.UpdatePlayerScore(PlayerId, new_);
+        }
+    }
+
+    protected override void OnClientActiveStateChanged(bool isActive) {
+        base.OnClientActiveStateChanged(isActive);
+
+        if (!isLocalPlayer && isActive && MgGarbageRemotePlayerHUD.Instance != null) {
+            if (!MgGarbageRemotePlayerHUD.Instance.IsPlayerAdded(PlayerId)) {
+                MgGarbageRemotePlayerHUD.Instance.AddPlayer(this);
+            }
+            MgGarbageRemotePlayerHUD.Instance.UpdatePlayerScore(PlayerId, score);
+        }
+
+        var boardPlayers = FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        if (isActive) {
+            foreach (var bp in boardPlayers) {
+                bp.Hide();
+            }
+        }
+        else {
+            foreach (var bp in boardPlayers) {
+                bp.Show();
+            }
+        }
+    }
+
+    [Server]
+    protected override void OnServerInitialize() {
+        score = 0;
+    }
+
+    public override void OnStopClient() {
+        base.OnStopClient();
+        MgGarbageRemotePlayerHUD.Instance.RemovePlayer(PlayerId);
+    }
+
+    public int Score => score;
+
+    [Command]
+    public void CmdAddScore(int amount) {
+        score += amount;
+    }
+
+    [Command]
+    public void CmdSubtractScore(int amount) {
+        score = Mathf.Max(score - amount, 0);
+    }
+
+    public override bool ShouldBeActiveInScene(string sceneName) {
+        return sceneName == "MgGarbage";
+    }
+}

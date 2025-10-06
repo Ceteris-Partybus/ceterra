@@ -1,99 +1,88 @@
+using Mirror;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine;
 
-public class Investment {
-    protected int id;
-    protected string displayName;
-    protected string description;
-    protected int moneyGoal;
-    protected int resourceGoal;
-    protected int moneyCurrentValue = 0;
-    protected bool fulfilled = false;
-    protected (InvestmentDisplay, InvestmentModifier, int) investmentType;
-    protected int cooldown;
+[Serializable]
+public class Investment : IEquatable<Investment> {
+    private static int nextId = 1;
 
-    public int Id {
-        get; set;
+    [SerializeField] public int id;
+    [SerializeField] public string displayName;
+    [SerializeField] public string description;
+    [SerializeField] public int requiredMoney;
+    [SerializeField] public int requiredResources;
+    [SerializeField] public int currentMoney = 0;
+    [SerializeField] public InvestmentType type;
+    [SerializeField] public List<InvestmentModifier> modifier;
+    [SerializeField] public int cooldown;
+    [SerializeField] public bool fullyFinanced;
+    [SerializeField] public bool inConstruction; // Investment is being constructed
+    [SerializeField] public bool completed; // Investment is completed and its effects are active
+
+    // Mirror requires a default constructor
+    public Investment() { }
+
+    [JsonConstructor]
+    private Investment(string displayName, string description, int requiredMoney, int requiredResources, InvestmentType type, List<InvestmentModifier> modifier, int cooldown) {
+        this.id = nextId++;
+        this.displayName = displayName;
+        this.description = description;
+        this.requiredMoney = requiredMoney;
+        this.requiredResources = requiredResources;
+        this.type = type;
+        this.modifier = modifier;
+        this.cooldown = cooldown;
+        this.inConstruction = false;
+        this.completed = false;
     }
 
-    public string DisplayName {
-        get; set;
-    }
-
-    public string Description {
-        get; set;
-    }
-
-    public int MoneyGoal {
-        get; set;
-    }
-
-    public int ResourceGoal {
-        get; set;
-    }
-
-    public bool Fulfilled {
-        get; set;
-    }
-
-    public int Cooldown {
-        get; set;
-    }
-
-    public int MoneyCurrentValue {
-        get {
-            return this.moneyCurrentValue;
-        }
-        set {
-            if (value < 0 || value > this.MoneyGoal) {
-                throw new Exception("Value must be between 0 and " + this.MoneyGoal);
-            }
-            else {
-                this.moneyCurrentValue = value;
+    public void Tick() {
+        if (inConstruction && !completed) {
+            if (--cooldown == 0) {
+                inConstruction = false;
             }
         }
     }
 
-    public (InvestmentDisplay, InvestmentModifier, int) InvestmentType {
-        get; set;
-    }
+    public int Invest(int amount) {
+        if (completed) {
+            return 0;
+        }
 
-    public Investment(int id, string displayName, string description, int moneyGoal, int resourceGoal, InvestmentDisplay investmentDisplay, InvestmentModifier investmentModifier, int investmentTypeInt, int cooldown) {
-        this.Id = id;
-        this.DisplayName = displayName;
-        this.Description = description;
-        this.MoneyGoal = moneyGoal;
-        this.ResourceGoal = resourceGoal;
-        this.InvestmentType = (investmentDisplay, investmentModifier, investmentTypeInt);
-        this.Cooldown = cooldown;
-    }
+        int surplus = (int)(this.currentMoney + amount - this.requiredMoney);
 
-    public void InvestMoney(int add) {
-        if (this.MoneyCurrentValue + add > this.MoneyGoal) {
-            throw new Exception("Goal must not be exceeded");
+        if (surplus >= 0) {
+            this.currentMoney = this.requiredMoney;
+            this.fullyFinanced = true;
         }
         else {
-            this.MoneyCurrentValue += add;
-            if (this.MoneyCurrentValue == this.MoneyGoal) {
-                this.Fulfilled = true;
-            }
+            this.currentMoney += amount;
         }
+        return surplus;
     }
 
-    public void FulfillInvestment(uint resources) {
-        if (this.MoneyGoal == this.MoneyCurrentValue && this.ResourceGoal <= resources) {
-            this.Fulfilled = true;
+    public bool Equals(Investment other) {
+        if (other == null) {
+            return false;
         }
-        else {
-            throw new Exception("Missing money or resources to fulfill investment");
-        }
+
+        return id == other.id;
+    }
+
+    public override bool Equals(object obj) {
+        return Equals(obj as Investment);
+    }
+
+    public override int GetHashCode() {
+        return id.GetHashCode();
     }
 
     public static List<Investment> LoadInvestmentsFromResources() {
-        string jsonText = File.ReadAllText("Assets/Resources/Domains/Investment/InvestmentList.json");
-        List<Investment> investmentList = JsonConvert.DeserializeObject<List<Investment>>(jsonText);
+        TextAsset jsonFile = Resources.Load<TextAsset>("Domains/Investment/InvestmentList");
+        List<Investment> investmentList = JsonConvert.DeserializeObject<List<Investment>>(jsonFile.text);
         return investmentList;
     }
 }

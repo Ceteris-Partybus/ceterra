@@ -1,0 +1,199 @@
+* {
+    -unity-font-definition: resource('UI/Other/Jersey15-Regular');
+}
+
+#lobby {
+    flex-direction: column-reverse;
+    padding: 20px;
+    flex-grow: 1;
+}
+
+#lobby-container {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 25px 15px;
+    background-color: rgba(0, 0, 0, 0.95);
+    border-radius: 20px;
+    height: 30%;
+}
+
+.lobby-player-slot {
+    height: 100%;
+    width: 440px;
+    padding: 15px;
+    border-radius: 12px;
+    border-width: 2px;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: rgba(200, 140, 100, 0.05);
+    border-color: rgba(200, 140, 100, 0.6);
+}
+
+.lobby-player-slot.empty-slot {
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(50, 50, 50, 0.3);
+    border-color: rgba(100, 100, 100, 0.3);
+}
+
+.lobby-player-slot.ready {
+    background-color: rgba(160, 199, 100, 0.05);
+    border-color: rgba(160, 199, 100, 0.6);
+}
+
+.player-slot-content {
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.lobby-player-slot.empty-slot .player-slot-content {
+    justify-content: center;
+    align-items: center;
+}
+
+.lobby-player-slot.empty-slot .selection-area,
+.lobby-player-slot.empty-slot .button-area,
+.lobby-player-slot.empty-slot .button-templates,
+.lobby-player-slot.empty-slot .player-ping {
+    display: none;
+}
+
+.lobby-player-slot.empty-slot .player-header {
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.lobby-player-slot.empty-slot .player-name-row {
+    margin-bottom: 0;
+    justify-content: center;
+}
+
+.lobby-player-slot.empty-slot .player-name {
+    font-size: 38px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.player-header {
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.player-name-row {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.player-name {
+    font-size: 42px;
+    color: white;
+    flex-shrink: 1;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 1);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.player-ping {
+    font-size: 32px;
+    color: rgba(160, 199, 100, 1);
+    flex-shrink: 0;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
+}
+
+.selection-area {
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.icon-selection-group {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-content {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border-width: 3px;
+    border-color: rgba(200, 140, 100, 0.6);
+    background-size: cover;
+    flex-shrink: 0;
+    -unity-background-scale-mode: scale-and-crop;
+}
+
+.icon-label {
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.9);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.button-area {
+    flex-direction: row;
+    flex-shrink: 0;
+}
+
+.character-selection-button,
+.ready-button {
+    height: 40px;
+    flex-grow: 1;
+    font-size: 25px;
+    border-radius: 8px;
+    border-width: 2px;
+    color: white;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
+    transition-duration: 0.2s;
+    transition-property: background-color, border-color;
+}
+
+.character-selection-button {
+    background-color: rgba(70, 130, 180, 0.9);
+    border-color: rgba(50, 100, 150, 1);
+}
+
+.character-selection-button:hover {
+    background-color: rgba(90, 150, 200, 1);
+    border-color: rgba(70, 130, 180, 1);
+}
+
+.character-selection-button:disabled {
+    background-color: rgba(70, 130, 180, 0.5);
+    border-color: rgba(50, 100, 150, 0.5);
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.ready-button {
+    background-color: rgba(100, 180, 100, 0.9);
+    border-color: rgba(80, 150, 80, 1);
+}
+
+.ready-button:hover {
+    background-color: rgba(120, 200, 120, 1);
+    border-color: rgba(100, 180, 100, 1);
+}
+
+.ready-button.ready {
+    background-color: rgba(180, 120, 80, 0.9);
+    border-color: rgba(150, 100, 60, 1);
+}
+
+.ready-button.ready:hover {
+    background-color: rgba(200, 140, 100, 1);
+    border-color: rgba(180, 120, 80, 1);
+}
+
+#button-templates {
+    display: none;
+}
