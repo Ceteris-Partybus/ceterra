@@ -1,0 +1,20 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="PlayerSlot" src="project://database/Assets/Level/UI/Lobby/PlayerSlot.uxml?fileID=9197481963319205126&amp;guid=082fd03bbcb21df4bb821128f85eb578&amp;type=3#PlayerSlot" />
+    <Style src="project://database/Assets/Level/UI/Lobby/Lobby.uss?fileID=7433441132597879392&amp;guid=176b8a3bdb788164392038781fef16c2&amp;type=3#Lobby" />
+    <ui:VisualElement name="lobby">
+        <ui:VisualElement name="lobby-container">
+            <ui:VisualElement name="lobby-player-slot-2" class="lobby-player-slot empty-slot">
+                <ui:Instance template="PlayerSlot" />
+            </ui:VisualElement>
+            <ui:VisualElement name="lobby-player-slot-0" class="lobby-player-slot empty-slot">
+                <ui:Instance template="PlayerSlot" />
+            </ui:VisualElement>
+            <ui:VisualElement name="lobby-player-slot-1" class="lobby-player-slot empty-slot">
+                <ui:Instance template="PlayerSlot" />
+            </ui:VisualElement>
+            <ui:VisualElement name="lobby-player-slot-3" class="lobby-player-slot empty-slot">
+                <ui:Instance template="PlayerSlot" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -2,24 +2,31 @@ using Mirror;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Splines;
 
-// FieldInstantiate creates field behaviours on the spline
 public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
     protected override bool ShouldPersistAcrossScenes => true;
     [SerializeField] private SplineContainer splineContainer;
     [SerializeField] private GameObject normalFieldPrefab;
+    public Material[] NormalFieldMaterial => normalFieldPrefab.GetComponent<Renderer>().sharedMaterials;
     [SerializeField] private GameObject questionFieldPrefab;
     [SerializeField] private GameObject eventFieldPrefab;
     [SerializeField] private GameObject catastropheFieldPrefab;
+    [SerializeField] private GameObject junctionFieldPrefab;
+    [SerializeField] private GameObject ledgeFieldPrefab;
 
-    private readonly SyncDictionary<SplineKnotIndex, FieldType> fieldTypeMap = new();
-    private Dictionary<SplineKnotIndex, FieldBehaviour> fields = new();
+    private readonly Dictionary<SplineKnotIndex, FieldType> fieldTypeMap = new();
+    private readonly SyncDictionary<SplineKnotIndex, FieldBehaviour> fields = new();
+    public Transform SplineContainerTransform => splineContainer.transform;
 
     protected override void Start() {
         base.Start();
+        if (isServer) { return; }
+        SetFieldBehaviourList();
+    }
+
+    public override void OnStartServer() {
         FillFieldTypeMap();
 
         var splines = splineContainer.Splines;
@@ -44,6 +51,11 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
             }
         }
         LinkBranches();
+
+        SetFieldBehaviourList();
+    }
+
+    private void SetFieldBehaviourList() {
         BoardContext.Instance.FieldBehaviourList = new FieldBehaviourList(fields);
     }
 
@@ -53,20 +65,25 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
             throw new Exception($"Field type for knot not found in fieldTypeMap.");
         }
 
-        var prefab = type switch {
+        var spline = splineContainer.Splines.ElementAt(splineId);
+        var normalizedPosition = spline.ConvertIndexUnit(knotId, PathIndexUnit.Knot, PathIndexUnit.Normalized);
+        var fieldInstance = Instantiate(GetPrefabByType(type), spline.Knots.ElementAt(knotId).Position, Quaternion.identity);
+        fieldInstance.transform.SetParent(splineContainer.transform, false);
+
+        NetworkServer.Spawn(fieldInstance);
+        return fieldInstance.GetComponent<FieldBehaviour>().Initialize(splineKnotIndex, normalizedPosition);
+    }
+
+    private GameObject GetPrefabByType(FieldType type) {
+        return type switch {
             FieldType.NORMAL => normalFieldPrefab,
             FieldType.QUESTION => questionFieldPrefab,
             FieldType.EVENT => eventFieldPrefab,
             FieldType.CATASTROPHE => catastropheFieldPrefab,
+            FieldType.JUNCTION => junctionFieldPrefab,
+            FieldType.LEDGE => ledgeFieldPrefab,
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
         };
-
-        var spline = splineContainer.Splines.ElementAt(splineId);
-        var absolutePosition = (float3)splineContainer.transform.position + spline.Knots.ElementAt(knotId).Position;
-        var normalizedPosition = spline.ConvertIndexUnit(knotId, PathIndexUnit.Knot, PathIndexUnit.Normalized);
-        return Instantiate(prefab, absolutePosition, Quaternion.identity, splineContainer.transform)
-                .GetComponent<FieldBehaviour>()
-                .Initialize(type, splineKnotIndex, normalizedPosition);
     }
 
     private void LinkBranches() {
@@ -87,18 +104,38 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
         }
     }
 
-    // TODO: Placeholder, replace with actual logic later
     private void FillFieldTypeMap() {
-        for (int i = 0; i < splineContainer.Splines.Count(); i++) {
-            var spline = splineContainer.Splines.ElementAt(i);
-            for (int k = 0; k < spline.Knots.Count(); k++) {
-                if (!fieldTypeMap.ContainsKey(new SplineKnotIndex(i, k))) {
-                    var fieldTypes = Enum.GetValues(typeof(FieldType)).Cast<FieldType>().ToArray();
-                    var randomFieldType = fieldTypes[UnityEngine.Random.Range(0, fieldTypes.Length)];
-                    // fieldTypeMap[new SplineKnotIndex(i, k)] = randomFieldType;
-                    fieldTypeMap[new SplineKnotIndex(i, k)] = FieldType.NORMAL;
+        for (var splineIndex = 0; splineIndex < splineContainer.Splines.Count(); splineIndex++) {
+            var spline = splineContainer.Splines.ElementAt(splineIndex);
+            if (spline.TryGetIntData("FieldTypes", out SplineData<int> dataPoints)) {
+                foreach (var dataPoint in dataPoints) {
+                    var knot = (int)dataPoint.Index;
+                    var fieldType = (FieldType)dataPoint.Value;
+                    fieldTypeMap[new SplineKnotIndex(splineIndex, knot)] = fieldType;
                 }
             }
+            for (var knot = 0; knot < spline.Knots.Count(); knot++) {
+                fieldTypeMap.TryAdd(new SplineKnotIndex(splineIndex, knot), FieldType.NORMAL);
+            }
         }
+    }
+
+    [Server]
+    public void ReplaceField(FieldBehaviour oldField, FieldType newType) {
+        var fieldInstance = Instantiate(GetPrefabByType(newType), oldField.transform.localPosition, Quaternion.identity);
+        fieldInstance.transform.SetParent(oldField.transform.parent, false);
+
+        NetworkServer.Spawn(fieldInstance);
+
+        var newFieldInstance = fieldInstance.GetComponent<FieldBehaviour>().Initialize(oldField.SplineKnotIndex, oldField.NormalizedSplinePosition);
+        fields[oldField.SplineKnotIndex] = newFieldInstance;
+
+        foreach (var field in fields.Values.Where(f => f.Next.Contains(oldField))) {
+            field.Next[field.Next.IndexOf(oldField)] = newFieldInstance;
+        }
+
+        newFieldInstance.Next.AddRange(oldField.Next);
+
+        NetworkServer.Destroy(oldField.gameObject);
     }
 }

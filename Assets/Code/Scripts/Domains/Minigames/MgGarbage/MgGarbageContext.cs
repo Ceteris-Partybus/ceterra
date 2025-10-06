@@ -37,19 +37,19 @@ public class MgGarbageContext : MgContext<MgGarbageContext, MgGarbagePlayer> {
     private IEnumerator UpdateCountdown() {
         countdownTimer = gameDuration; // Initialize countdown timer
         int lastSeconds = Mathf.CeilToInt(countdownTimer);
-        LocalPlayerHUD.Instance.UpdateCountdown(lastSeconds);
+        MgGarbageLocalPlayerHUD.Instance.UpdateCountdown(lastSeconds);
 
         while (countdownTimer > 0f) {
             countdownTimer -= Time.deltaTime;
             int seconds = Mathf.CeilToInt(Mathf.Max(0f, countdownTimer));
             if (seconds != lastSeconds) {
-                LocalPlayerHUD.Instance.UpdateCountdown(seconds);
+                MgGarbageLocalPlayerHUD.Instance.UpdateCountdown(seconds);
                 lastSeconds = seconds;
             }
             yield return null;
         }
 
-        LocalPlayerHUD.Instance.UpdateCountdown(0);
+        MgGarbageLocalPlayerHUD.Instance.UpdateCountdown(0);
     }
 
     private IEnumerator SpawnTrashRoutine() {

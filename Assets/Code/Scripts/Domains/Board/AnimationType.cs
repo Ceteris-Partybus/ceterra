@@ -5,7 +5,8 @@ public enum AnimationType {
     HEALTH_LOSS,
     RUN,
     IDLE,
-    THINK,
-    DANCE,
+    JUNCTION_ENTRY,
+    DICE_SPIN,
+    DICE_HIT,
     JUMP
 }

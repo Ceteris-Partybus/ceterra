@@ -17,4 +17,6 @@ public class ModalMap : NetworkedSingleton<ModalMap> {
     [Header("Misc")]
     [SerializeField] public VisualTreeAsset ErrorModalTemplate;
     [SerializeField] public VisualTreeAsset InfoModalTemplate;
+    [SerializeField] public VisualTreeAsset EventModalTemplate;
+    [SerializeField] public VisualTreeAsset CatastropheModalTemplate;
 }

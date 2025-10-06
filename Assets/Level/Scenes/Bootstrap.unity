@@ -248,11 +248,11 @@ MonoBehaviour:
   offlineSceneLoadDelay: 0
   transport: {fileID: 1926814284}
   networkAddress: localhost
-  maxConnections: 100
+  maxConnections: 4
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 1327792165429298674, guid: d2235388f7f89c743ae8613c0ad7ad57, type: 3}
+  playerPrefab: {fileID: 3676788033899490170, guid: 240504f8c69041646b454da700d6d6f0, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 1
   spawnPrefabs:
@@ -260,6 +260,16 @@ MonoBehaviour:
   - {fileID: 5985081133323474392, guid: 2e87e6d530c086842b055876920b2417, type: 3}
   - {fileID: 5985081133323474392, guid: 8e8dd23bee991c649851246d41c52b29, type: 3}
   - {fileID: 5985081133323474392, guid: ca3405e7e71e5da4c8ea74feccaf00c7, type: 3}
+  - {fileID: 1206808590286997871, guid: 7b4a2ca7e42b466438d0db644190eeda, type: 3}
+  - {fileID: 1206808590286997871, guid: 28d3537037fbaea46aafcbfc7c21e272, type: 3}
+  - {fileID: 1206808590286997871, guid: 3cd5caaedb450f14f908c9c2a63aee35, type: 3}
+  - {fileID: 1206808590286997871, guid: 97da63e1d12d840438acd4b1748acbc8, type: 3}
+  - {fileID: 1206808590286997871, guid: c7fabfe9d106e054da954d0a226ef266, type: 3}
+  - {fileID: 1206808590286997871, guid: 1151be19bad9cd94d898812ba04cc841, type: 3}
+  - {fileID: 6958303945373204090, guid: 61003825a837930448d2390a1ace0304, type: 3}
+  - {fileID: 3241251890801266441, guid: b6b3f13ed5c99a441be43962096ea79b, type: 3}
+  - {fileID: 3241251890801266441, guid: 40fc7c4b30a61584dad9c2bdc2522216, type: 3}
+  - {fileID: 3241251890801266441, guid: 5c0f9ca54cc99e746a7a9e574ac0e579, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -275,16 +285,26 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
-  showRoomGUI: 1
+  showRoomGUI: 0
   minPlayers: 1
-  roomPlayerPrefab: {fileID: 2166314457688432621, guid: 718e8970855b8c842bbc21318c50259c, type: 3}
+  roomPlayerPrefab: {fileID: 4830612802768388873, guid: 952d626fe1f0ee74eab496a30b390b33, type: 3}
   RoomScene: Assets/Level/Scenes/Lobby.unity
   GameplayScene: Assets/Level/Scenes/Board.unity
   _allPlayersReady: 0
   clientIndex: 0
+  selectableCharacters:
+  - {fileID: 8313941121211207586, guid: b9eb311b0649fae41ad5ad962bc2eae8, type: 3}
+  - {fileID: 8695115523406977269, guid: f39a71aa5ffb54f459a1fb88bbd8c3f7, type: 3}
+  - {fileID: 8695115523406977269, guid: d3efe0d13d76db54e8e60a2e8ad21f1d, type: 3}
+  - {fileID: 8695115523406977269, guid: 7c567bd50e6bc460da7f6f69475670fd, type: 3}
+  - {fileID: 8695115523406977269, guid: fa5a94657c14e454395970b1ba415c6e, type: 3}
+  selectableDices:
+  - {fileID: 5754625222157326443, guid: ce1d4306273adfb43ad9b0da4a68151e, type: 3}
+  - {fileID: 5754625222157326443, guid: 29be8da3abdb685439646832481bfb5b, type: 3}
   minigameScenes:
   - MgGarbage
   - MgQuizduel
+  - MgOcean
 --- !u!114 &1926814289
 MonoBehaviour:
   m_ObjectHideFlags: 0

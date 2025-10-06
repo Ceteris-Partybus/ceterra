@@ -1,7 +1,4 @@
 using Mirror;
-using System;
-using System.Linq;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 public class FundsDepositModal : Modal {
@@ -45,8 +42,14 @@ public class FundsDepositModal : Modal {
 
     [ClientCallback]
     private void OnDepositSubmitButtonClicked() {
-        uint depositValue = this.depositValueField.value;
+        int depositValue = (int)this.depositValueField.value;
         var localPlayer = BoardContext.Instance.GetLocalPlayer();
+
+        if (depositValue <= 0) {
+            ErrorModal.Instance.Message = "Der Einzahlungsbetrag muss größer als 0 sein.";
+            ModalManager.Instance.Show(ErrorModal.Instance);
+            return;
+        }
 
         if (localPlayer.Coins < depositValue) {
             ErrorModal.Instance.Message = "Du besitzt nicht genügend Münzen.";
@@ -59,10 +62,10 @@ public class FundsDepositModal : Modal {
     }
 
     [Command(requiresAuthority = false)]
-    private void CmdDepositFunds(uint depositValue, BoardPlayer localPlayer) {
+    private void CmdDepositFunds(int depositValue, BoardPlayer localPlayer) {
         FundsHistoryEntry entry = new FundsHistoryEntry(depositValue, HistoryEntryType.DEPOSIT, "Einzahlung von " + localPlayer.PlayerName);
         BoardContext.Instance.fundsHistory.Add(entry);
-        BoardContext.Instance.UpdateFundsStat((int)depositValue);
+        BoardContext.Instance.UpdateFundsStat(depositValue);
         localPlayer.RemoveCoins(depositValue);
     }
 
@@ -78,9 +81,9 @@ public class FundsDepositModal : Modal {
         this.OnDepositAddButtonClicked(1000);
     }
 
-    private void OnDepositAddButtonClicked(uint amount) {
+    private void OnDepositAddButtonClicked(int amount) {
         if (this.depositValueField != null) {
-            this.depositValueField.value += amount;
+            this.depositValueField.value += (uint)amount;
         }
     }
 

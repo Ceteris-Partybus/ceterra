@@ -1,3 +1,4 @@
+using Edgegap;
 using Mirror;
 using System.Collections.Generic;
 using System.Linq;
@@ -105,7 +106,7 @@ public abstract class SceneConditionalPlayer : NetworkBehaviour {
     }
 
     [Server]
-    public void SetPlayerData(int id, string name) {
+    public virtual void SetPlayerData(int id, string name) {
         if (PlayerId == -1) {
             PlayerId = id;
         }
@@ -115,13 +116,9 @@ public abstract class SceneConditionalPlayer : NetworkBehaviour {
     #endregion
 
     public void Hide() {
-        GetComponent<Renderer>().enabled = false;
-        GetComponent<Collider>().enabled = false;
     }
 
     public void Show() {
-        GetComponent<Renderer>().enabled = true;
-        GetComponent<Collider>().enabled = true;
     }
 
     #region Client Sync
