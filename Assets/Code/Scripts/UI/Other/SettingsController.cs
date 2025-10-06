@@ -42,7 +42,10 @@ public class SettingsController : MonoBehaviour {
         settingsTemplateContainer = root.Q<TemplateContainer>("SettingsTemplateContainer");
 
         closeButton = settingsTemplateContainer.Q<Button>("SettingsCloseButton");
-        closeButton.clicked += () => settingsTemplateContainer.RemoveFromClassList("visible");
+        closeButton.clicked += () => {
+            Audiomanager.Instance?.PlayClickSound();
+            settingsTemplateContainer.RemoveFromClassList("visible");
+        };
 
         volumeSlider = root.Q<Slider>("VolumeSlider");
         volumeValue = root.Q<Label>("VolumeValue");
@@ -57,7 +60,7 @@ public class SettingsController : MonoBehaviour {
     }
 
     private void SetupVolume()
-{
+    {
     // Slider-Event
     volumeSlider.RegisterValueChangedCallback(evt =>
     {
@@ -65,6 +68,11 @@ public class SettingsController : MonoBehaviour {
         PlayerPrefs.SetFloat("MasterVolume", evt.newValue); // speichern
         PlayerPrefs.Save();
     });
+
+    
+     volumeSlider.RegisterCallback<MouseUpEvent>(evt => Audiomanager.Instance?.PlayClickSound());
+     volumeSlider.RegisterCallback<ClickEvent>(evt => Audiomanager.Instance?.PlayClickSound());
+   
 
     // Initialwert aus PlayerPrefs laden (default 100%)
     float savedVolume = PlayerPrefs.GetFloat("MasterVolume", 100f);
@@ -78,6 +86,9 @@ private void SetupMusic() {
         PlayerPrefs.SetFloat("MusicVolume", evt.newValue);
         PlayerPrefs.Save();
     });
+
+    musicSlider.RegisterCallback<MouseUpEvent>(evt => Audiomanager.Instance?.PlayClickSound());
+    musicSlider.RegisterCallback<ClickEvent>(evt => Audiomanager.Instance?.PlayClickSound());
 
     float savedMusic = PlayerPrefs.GetFloat("MusicVolume", 100f);
     musicSlider.value = savedMusic;
@@ -99,6 +110,7 @@ private void UpdateAudioValue(float value, Label label, string mixerParam) {
         fullscreenToggle.RegisterValueChangedCallback(evt => {
             UpdateToggleGraphic(evt.newValue);
             SetFullscreen(evt.newValue);
+            Audiomanager.Instance?.PlayClickSound();
         });
 
         UpdateToggleGraphic(fullscreenToggle.value);
@@ -132,8 +144,12 @@ private void UpdateAudioValue(float value, Label label, string mixerParam) {
 
         resolutionDropdown.choices = resolutionOptions;
         resolutionDropdown.index = currentIndex;
+        resolutionDropdown.RegisterCallback<MouseDownEvent>(evt => Audiomanager.Instance?.PlayClickSound());
 
-        resolutionDropdown.RegisterValueChangedCallback(_ => SetResolution(resolutionDropdown.index));
+        resolutionDropdown.RegisterValueChangedCallback(_ => {
+            Audiomanager.Instance?.PlayClickSound();
+            SetResolution(resolutionDropdown.index);
+        });
     }
 
     private void SetResolution(int index) {
@@ -148,9 +164,13 @@ private void UpdateAudioValue(float value, Label label, string mixerParam) {
         int savedIndex = availableLanguages.IndexOf(savedLanguage);
 
         languageDropdown.index = savedIndex >= 0 ? savedIndex : 0;
+        languageDropdown.RegisterCallback<MouseDownEvent>(evt => Audiomanager.Instance?.PlayClickSound());
 
-        languageDropdown.RegisterValueChangedCallback(evt => SetLanguage(evt.newValue));
-        SetLanguage(languageDropdown.value); // Ensure correct locale on start
+        languageDropdown.RegisterValueChangedCallback(evt => {
+            Audiomanager.Instance?.PlayClickSound();
+            SetLanguage(evt.newValue);
+        });
+        SetLanguage(languageDropdown.value); 
     }
 
     private async void SetLanguage(string language) {

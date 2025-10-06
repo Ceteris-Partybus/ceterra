@@ -24,10 +24,17 @@ public class PlayMenuController : MonoBehaviour {
 
     private void InitializeUIElements(VisualElement root) {
         backButton = root.Q<Button>("BackButton");
-        backButton.clicked += () => LoadScene(MAIN_MENU_SCENE);
+        backButton.clicked += () => {
+            LoadScene(MAIN_MENU_SCENE);
+            Audiomanager.Instance?.PlayClickSound();
+        };
 
         joinLobbyButton = root.Q<Button>("JoinLobbyButton");
-        joinLobbyButton.clicked += OnJoinLobbyClicked;
+        joinLobbyButton.clicked += () =>
+        {
+            Audiomanager.Instance?.PlayClickSound();
+            OnJoinLobbyClicked();                   
+        };
 
         ipAddressField = root.Q<TextField>("IPAddressField");
         portField = root.Q<TextField>("PortField");
