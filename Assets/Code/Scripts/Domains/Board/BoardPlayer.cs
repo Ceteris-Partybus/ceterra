@@ -1,7 +1,6 @@
 using Mirror;
 using System;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Splines;
 using Unity.Mathematics;
@@ -26,6 +25,12 @@ public class BoardPlayer : SceneConditionalPlayer {
         get => isMoving;
         set { isMoving = value; }
     }
+    [SyncVar]
+    private bool isJumping = false;
+    public bool IsJumping {
+        get => isJumping;
+        set { isJumping = value; }
+    }
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float movementLerp;
@@ -33,7 +38,10 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [SyncVar(hook = nameof(OnNormalizedSplinePositionChanged))]
     private float normalizedSplinePosition;
-    public float NormalizedSplinePosition => normalizedSplinePosition;
+    public float NormalizedSplinePosition {
+        get => normalizedSplinePosition;
+        set { normalizedSplinePosition = value; }
+    }
 
     [Header("Stats")]
     [SyncVar(hook = nameof(OnCoinsChanged))]
@@ -168,7 +176,6 @@ public class BoardPlayer : SceneConditionalPlayer {
             yield return new WaitUntil(() => BoardContext.Instance != null && BoardContext.Instance.FieldBehaviourList != null);
             isMoving = false;
             var spawnPosition = BoardContext.Instance.FieldBehaviourList.Find(splineKnotIndex).Position;
-            spawnPosition.y += 1f;
             gameObject.transform.position = spawnPosition;
         }
     }
@@ -404,6 +411,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     void Update() {
+        if (isJumping) { return; }
         if (isMoving) { MoveAndRotate(); return; }
         if (isLocalPlayer) { HandleInput(); }
         visualHandler?.MakeCharacterFaceCamera();

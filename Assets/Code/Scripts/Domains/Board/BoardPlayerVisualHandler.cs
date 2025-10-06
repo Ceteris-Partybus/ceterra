@@ -9,6 +9,7 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
     [SerializeField] private string healthGainTrigger;
     [SerializeField] private string healthLossTrigger;
     [SerializeField] private string runTrigger;
+    [SerializeField] private string jumpTrigger;
     [SerializeField] private string diceHitTrigger;
     [SerializeField] private string idleTrigger;
     [SerializeField] private string diceSpinTrigger;
@@ -46,6 +47,7 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
             AnimationType.DICE_SPIN => diceSpinTrigger,
             AnimationType.JUNCTION_ENTRY => junctionEntryTrigger,
             AnimationType.RUN => runTrigger,
+            AnimationType.JUMP => jumpTrigger,
             _ => throw new ArgumentException("Invalid animation type")
         });
     }
