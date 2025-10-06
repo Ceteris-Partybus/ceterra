@@ -1,14 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
-public interface IPrepScreen {
-    string GetTitle();
-    string GetDescription();
-    string GetControls();
-    Sprite GetScreenshot();
-    List<SceneConditionalPlayer> GetPlayers();
-}
+using UnityEngine.UIElements;
 
 public abstract class MgContext<T, P> : NetworkedSingleton<T>, IPrepScreen
     where T : NetworkedSingleton<T>
@@ -25,7 +18,7 @@ public abstract class MgContext<T, P> : NetworkedSingleton<T>, IPrepScreen
 
     protected override void Start() {
         var prep = FindAnyObjectByType<PrepScreenUI>();
-        prep.Initialize(this as IPrepScreen);
+        prep.Initialize(this);
         base.Start();
     }
 

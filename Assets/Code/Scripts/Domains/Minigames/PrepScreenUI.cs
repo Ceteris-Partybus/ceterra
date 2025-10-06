@@ -7,6 +7,7 @@ public class PrepScreenUI : MonoBehaviour {
     Label titleLabel;
     Label descriptionLabel;
     Label controlsLabel;
+    VisualElement screenshotImage;
     Label player1NameLabel;
     Label player2NameLabel;
     Label player3NameLabel;
@@ -16,6 +17,7 @@ public class PrepScreenUI : MonoBehaviour {
         titleLabel = screenUIDoc.rootVisualElement.Q<Label>("Title");
         descriptionLabel = screenUIDoc.rootVisualElement.Q<Label>("Description");
         controlsLabel = screenUIDoc.rootVisualElement.Q<Label>("Controls");
+        screenshotImage = screenUIDoc.rootVisualElement.Q<VisualElement>("Screenshot");
         player1NameLabel = screenUIDoc.rootVisualElement.Q<Label>("Player1");
         player2NameLabel = screenUIDoc.rootVisualElement.Q<Label>("Player2");
         player3NameLabel = screenUIDoc.rootVisualElement.Q<Label>("Player3");
@@ -47,6 +49,6 @@ public class PrepScreenUI : MonoBehaviour {
                 player4NameLabel.text = players[3].PlayerName;
                 break;
         }
-        //screenshotImage.sprite = context.GetScreenshot();
+        screenshotImage.style.backgroundImage = new StyleBackground(context.GetScreenshot());
     }
 }

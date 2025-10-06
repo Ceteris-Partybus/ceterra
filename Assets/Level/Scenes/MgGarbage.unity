@@ -1702,7 +1702,7 @@ MonoBehaviour:
   title: "Gib dem M\xFCll eine Abfuhr"
   description: "Ziel ist es, den M\xFCll in den richtigen Beh\xE4lter zu packen"
   controls: Drag & Drop
-  screenshot: {fileID: 0}
+  screenshot: {fileID: 21300000, guid: 9e7771f048fdf40839b6ee9dbacad67c, type: 3}
   spawnPointsHolder: {fileID: 509397702}
   trashPrefabs:
   - {fileID: 5985081133323474392, guid: ca3405e7e71e5da4c8ea74feccaf00c7, type: 3}
