@@ -65,6 +65,24 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 51544635864637440
     m_Key: settingsMenu.soundvolume
+  - m_Id: 49116520167165952
+    m_Key: MgQuizduel.loadQuestion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 49117036817338368
+    m_Key: MgQuizduel.loadAnswer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50355143541706752
+    m_Key: MgQuizduel.waitingForOtherPlayers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50357163094888448
+    m_Key: MgQuizduel.finalScore
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50359450810896384
+    m_Key: MgQuizduel.rewardCoins
     m_Metadata:
       m_Items: []
   m_Metadata:

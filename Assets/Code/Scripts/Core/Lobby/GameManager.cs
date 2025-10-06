@@ -1,4 +1,5 @@
 using Mirror;
+using System;
 using System.Linq;
 using UnityEngine;
 
@@ -8,17 +9,24 @@ public class GameManager : NetworkRoomManager {
             return NetworkManager.singleton as GameManager;
         }
     }
+    [Header("Character Selection")]
+    [SerializeField] private GameObject[] selectableCharacters;
+    public int CharacterCount => selectableCharacters.Length;
+    public GameObject GetCharacter(int index) => selectableCharacters[index];
+    [SerializeField] private GameObject[] selectableDices;
+    public int DiceCount => selectableDices.Length;
+    public GameObject GetDice(int index) => selectableDices[index];
 
+    [Header("Minigames")]
     [SerializeField]
     private string[] minigameScenes;
     public string[] MinigameScenes => minigameScenes;
 
-    public int[] PlayerIds => roomSlots.Select(slot => (int)slot.netId).ToArray();
+    public int[] PlayerIds => roomSlots.Select(slot => slot.index).ToArray();
 
     public override void OnRoomServerSceneChanged(string sceneName) {
         Debug.Log($"[Server] Scene changed to {sceneName}");
 
-        // Handle all scene conditional players
         foreach (var player in FindObjectsByType<SceneConditionalPlayer>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
             player.HandleSceneChange(sceneName);
         }
@@ -30,12 +38,6 @@ public class GameManager : NetworkRoomManager {
 
     public override void OnClientSceneChanged() {
         base.OnClientSceneChanged();
-        if (networkSceneName != RoomScene) {
-            foreach (var player in FindObjectsByType<LobbyPlayer>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
-                player.Hide();
-            }
-        }
-
         if (networkSceneName == GameplayScene) {
             foreach (var field in FindObjectsByType<FieldBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
                 field.Show();
@@ -51,12 +53,12 @@ public class GameManager : NetworkRoomManager {
     public override bool OnRoomServerSceneLoadedForPlayer(NetworkConnectionToClient conn, GameObject roomPlayer, GameObject gamePlayer) {
         var lobbyPlayer = roomPlayer.GetComponent<LobbyPlayer>();
 
-        // Set player data on all scene conditional components
         foreach (var scenePlayer in gamePlayer.GetComponents<SceneConditionalPlayer>()) {
-            scenePlayer.SetPlayerData(lobbyPlayer.Id, lobbyPlayer.PlayerName);
+            scenePlayer.SetPlayerData(lobbyPlayer.index, lobbyPlayer.PlayerName);
         }
 
-        return true;
+        gamePlayer.GetComponent<BoardPlayer>().ServerTransferCharacterSelection(lobbyPlayer);
+        return base.OnRoomServerSceneLoadedForPlayer(conn, roomPlayer, gamePlayer);
     }
 
     /// <summary>

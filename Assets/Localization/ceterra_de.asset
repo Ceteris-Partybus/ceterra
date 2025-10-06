@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: de
   m_SharedData: {fileID: 11400000, guid: 0bcae4cae5373ec479ceeeee5b1d030f, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 3554543658327081541
   m_TableData:
   - m_Id: 614498603008
     m_Localized: Spielen
@@ -70,6 +71,33 @@ MonoBehaviour:
     m_Localized: "Soundlautst\xE4rke"
     m_Metadata:
       m_Items: []
+  - m_Id: 49116520167165952
+    m_Localized: Lade Frage ...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 49117036817338368
+    m_Localized: Lade Antwort ...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50355143541706752
+    m_Localized: Warten auf andere Spieler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50357163094888448
+    m_Localized: Endstand
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50359450810896384
+    m_Localized: "+{0} M\xFCnzen"
+    m_Metadata:
+      m_Items:
+      - rid: 3554543658327081541
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 3554543658327081541
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 50359450810896384

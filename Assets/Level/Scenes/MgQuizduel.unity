@@ -530,10 +530,10 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  GAME_DURATION: 15
-  SCOREBOARD_DURATION: 5
-  MAX_QUESTIONS: 6
-  QUESTION_FILE_NAME: Data/Productiondata/Economic_Questions/questions_example
+  GameDuration: 90
+  scoreboardDuration: 5
+  maxQuestions: 6
+  questionFileName: Data/Productiondata/Economic_Questions/questions_example
 --- !u!114 &1055850417
 MonoBehaviour:
   m_ObjectHideFlags: 0

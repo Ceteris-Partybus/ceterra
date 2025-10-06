@@ -5,29 +5,29 @@ using UnityEngine;
 public class MgGarbagePlayer : SceneConditionalPlayer {
     [SerializeField]
     [SyncVar(hook = nameof(OnScoreChanged))]
-    private uint score;
+    private int score;
 
-    private void OnScoreChanged(uint old, uint new_) {
+    private void OnScoreChanged(int old, int new_) {
         Debug.Log($"Score changed from {old} to {new_}");
         if (isLocalPlayer) {
-            LocalPlayerHUD.Instance.UpdateScore(new_);
+            MgGarbageLocalPlayerHUD.Instance.UpdateScore(new_);
         }
         else {
             // if (!RemotePlayerHUD.Instance.IsPlayerAdded(PlayerId)) {
             //     RemotePlayerHUD.Instance.AddPlayer(this);
             // }
-            RemotePlayerHUD.Instance.UpdatePlayerScore(PlayerId, new_);
+            MgGarbageRemotePlayerHUD.Instance.UpdatePlayerScore(PlayerId, new_);
         }
     }
 
     protected override void OnClientActiveStateChanged(bool isActive) {
         base.OnClientActiveStateChanged(isActive);
 
-        if (!isLocalPlayer && isActive && RemotePlayerHUD.Instance != null) {
-            if (!RemotePlayerHUD.Instance.IsPlayerAdded(PlayerId)) {
-                RemotePlayerHUD.Instance.AddPlayer(this);
+        if (!isLocalPlayer && isActive && MgGarbageRemotePlayerHUD.Instance != null) {
+            if (!MgGarbageRemotePlayerHUD.Instance.IsPlayerAdded(PlayerId)) {
+                MgGarbageRemotePlayerHUD.Instance.AddPlayer(this);
             }
-            RemotePlayerHUD.Instance.UpdatePlayerScore(PlayerId, score);
+            MgGarbageRemotePlayerHUD.Instance.UpdatePlayerScore(PlayerId, score);
         }
 
         var boardPlayers = FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
@@ -50,19 +50,19 @@ public class MgGarbagePlayer : SceneConditionalPlayer {
 
     public override void OnStopClient() {
         base.OnStopClient();
-        RemotePlayerHUD.Instance.RemovePlayer(PlayerId);
+        MgGarbageRemotePlayerHUD.Instance.RemovePlayer(PlayerId);
     }
 
-    public uint Score => score;
+    public int Score => score;
 
     [Command]
-    public void CmdAddScore(uint amount) {
+    public void CmdAddScore(int amount) {
         score += amount;
     }
 
     [Command]
-    public void CmdSubtractScore(uint amount) {
-        score = (uint)Mathf.Max(score - amount, 0);
+    public void CmdSubtractScore(int amount) {
+        score = Mathf.Max(score - amount, 0);
     }
 
     public override bool ShouldBeActiveInScene(string sceneName) {

@@ -1,33 +1,32 @@
-using UnityEngine;
+using Mirror;
 using UnityEngine.UIElements;
 
 public class ResourceModal : Modal {
 
-    private Button resourcesHistoryButton;
-    private VisualTreeAsset resourceHistoryModalTemplate;
+    public static ResourceModal Instance => GetInstance<ResourceModal>();
 
-    public ResourceModal(VisualTreeAsset contentTemplate, VisualTreeAsset resourceHistoryModalTemplate) : base(contentTemplate) {
-        this.resourceHistoryModalTemplate = resourceHistoryModalTemplate;
+    private Label resourceNextRoundLabel;
+
+    private Button resourcesHistoryButton;
+
+    protected override void Start() {
+        this.visualTreeAsset = ModalMap.Instance.ResourceModalTemplate;
+        base.Start();
     }
 
-    protected override void InitializeContent() {
-        this.resourcesHistoryButton = this.modalContent.Q<Button>("resources-history-button");
+    protected override void OnModalShown() {
+        this.resourcesHistoryButton = modalElement.Q<Button>("resources-history-button");
+        this.resourceNextRoundLabel = modalElement.Q<Label>("resources-next-round");
+        this.resourcesHistoryButton.clicked += this.OnResourcesHistoryButtonClicked;
+        Refresh();
+    }
 
-        if (this.resourcesHistoryButton != null) {
-            this.resourcesHistoryButton.clicked += this.OnResourcesHistoryButtonClicked;
-        }
+    [ClientCallback]
+    public void Refresh() {
+        resourceNextRoundLabel.text = BoardContext.Instance.ResourcesNextRound.ToString();
     }
 
     private void OnResourcesHistoryButtonClicked() {
-        Debug.Log("Action button in Modal 1 was clicked!");
-        ModalManager.Instance.ShowModal(new ResourceHistoryModal(this.resourceHistoryModalTemplate));
-    }
-
-    protected override void OnClose() {
-        // Unregister events when modal is closed
-        if (this.resourcesHistoryButton != null) {
-            this.resourcesHistoryButton.clicked -= this.OnResourcesHistoryButtonClicked;
-        }
+        ModalManager.Instance.Show(ResourceHistoryModal.Instance);
     }
 }
-

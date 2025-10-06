@@ -1,31 +1,31 @@
 using Mirror;
 using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Splines;
 
 public abstract class FieldBehaviour : NetworkBehaviour {
-
     [Header("Field Data")]
-    [SyncVar]
-    [SerializeField] private FieldType type;
-
-    [SerializeField] private List<FieldBehaviour> nextFields = new List<FieldBehaviour>();
-
+    [SerializeField] protected readonly SyncList<FieldBehaviour> nextFields = new();
+    public SyncList<FieldBehaviour> Next => nextFields;
     [SyncVar]
     [SerializeField] private SplineKnotIndex splineKnotIndex;
-
+    public SplineKnotIndex SplineKnotIndex => splineKnotIndex;
     [SyncVar]
     [SerializeField] private float normalizedSplinePosition;
-
+    public float NormalizedSplinePosition => normalizedSplinePosition;
+    [SyncVar]
+    [SerializeField] private bool skipStepCount;
+    public bool SkipStepCount => skipStepCount;
+    [SerializeField] private bool pausesMovement;
+    public bool PausesMovement => pausesMovement;
+    public Vector3 Position => transform.position;
     public event Action OnFieldInvocationComplete;
 
-    public FieldBehaviour Initialize(FieldType type, SplineKnotIndex splineKnotIndex, float normalizedSplinePosition) {
-        this.type = type;
+    public FieldBehaviour Initialize(SplineKnotIndex splineKnotIndex, float normalizedSplinePosition) {
         this.splineKnotIndex = splineKnotIndex;
         this.normalizedSplinePosition = normalizedSplinePosition;
-        SetColor();
         return this;
     }
 
@@ -33,27 +33,39 @@ public abstract class FieldBehaviour : NetworkBehaviour {
         nextFields.Add(field);
     }
 
-    private void SetColor() {
-        var renderer = GetComponent<Renderer>();
-        if (renderer != null) {
-            renderer.material.color = type.ToColor();
-        }
-    }
-
     [Server]
-    public IEnumerator InvokeFieldAsync(BoardPlayer player) {
+    public IEnumerator InvokeOnPlayerLand(BoardPlayer player) {
         bool completed = false;
         Action completionHandler = () => completed = true;
         OnFieldInvocationComplete += completionHandler;
-        player.IsAnimationFinished = false;
-        OnFieldInvoked(player);
+        OnPlayerLand(player);
 
-        yield return new WaitUntil(() => completed && player.IsAnimationFinished);
+        yield return new WaitUntil(() => completed);
 
         OnFieldInvocationComplete -= completionHandler;
     }
 
-    protected abstract void OnFieldInvoked(BoardPlayer player);
+    [Server]
+    public IEnumerator InvokeOnPlayerCross(BoardPlayer player) {
+        bool completed = false;
+        Action completionHandler = () => completed = true;
+        OnFieldInvocationComplete += completionHandler;
+        OnPlayerCross(player);
+
+        yield return new WaitUntil(() => completed);
+
+        OnFieldInvocationComplete -= completionHandler;
+    }
+
+    [Server]
+    protected virtual void OnPlayerLand(BoardPlayer player) {
+        CompleteFieldInvocation();
+    }
+
+    [Server]
+    protected virtual void OnPlayerCross(BoardPlayer player) {
+        CompleteFieldInvocation();
+    }
 
     protected void CompleteFieldInvocation() {
         OnFieldInvocationComplete?.Invoke();
@@ -61,18 +73,21 @@ public abstract class FieldBehaviour : NetworkBehaviour {
 
     public void Hide() {
         GetComponent<Renderer>().enabled = false;
-        GetComponent<Collider>().enabled = false;
     }
 
     public void Show() {
         GetComponent<Renderer>().enabled = true;
     }
-    public FieldType Type => type;
-    public IReadOnlyList<FieldBehaviour> Next => nextFields.AsReadOnly();
-    public SplineKnotIndex SplineKnotIndex => splineKnotIndex;
-    public Vector3 Position => transform.position;
 
-    public float NormalizedSplinePosition => normalizedSplinePosition;
+    public override void OnStartClient() {
+        base.OnStartClient();
+        StartCoroutine(DelayedOnStartClient());
+    }
+
+    private IEnumerator DelayedOnStartClient() {
+        yield return new WaitUntil(() => BoardContext.Instance != null && BoardContext.Instance.FieldBehaviourList != null);
+        transform.SetParent(FieldInstantiate.Instance.SplineContainerTransform, false);
+    }
 
     public override bool Equals(object obj) {
         if (obj is FieldBehaviour other) {
@@ -83,5 +98,9 @@ public abstract class FieldBehaviour : NetworkBehaviour {
 
     public override int GetHashCode() {
         return splineKnotIndex.GetHashCode();
+    }
+
+    public virtual FieldBehaviour GetNextTargetField() {
+        return nextFields.First();
     }
 }
