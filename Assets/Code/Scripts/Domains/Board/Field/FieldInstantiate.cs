@@ -131,7 +131,9 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
         fields[oldField.SplineKnotIndex] = newFieldInstance;
 
         foreach (var field in fields.Values.Where(f => f.Next.Contains(oldField))) {
-            field.Next[field.Next.IndexOf(oldField)] = newFieldInstance;
+            var oldFieldIndex = field.Next.IndexOf(oldField);
+            field.Next.RemoveAt(oldFieldIndex);
+            field.Next.Insert(oldFieldIndex, newFieldInstance);
         }
 
         newFieldInstance.Next.AddRange(oldField.Next);
