@@ -38,6 +38,11 @@ public class Event {
         }
     }
 
+    public void ResetOccurrences() {
+        occurrences = 0;
+        canOccur = true;
+    }
+
     public static List<Event> LoadEventsFromResources() {
         TextAsset jsonFile = Resources.Load<TextAsset>("Domains/Event/EventList");
         List<Event> eventList = JsonConvert.DeserializeObject<List<Event>>(jsonFile.text);

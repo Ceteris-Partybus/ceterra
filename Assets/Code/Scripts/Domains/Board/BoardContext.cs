@@ -590,9 +590,13 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     [Server]
     public void TriggerRandomEvent() {
         var possibleEvents = events.Where(e => e.canOccur).ToList();
+
         if (possibleEvents.Count == 0) {
-            Debug.LogWarning("No possible events to trigger.");
-            return;
+            Debug.Log("All events have occurred the maximum number of times. Resetting occurrences.");
+            foreach (var ev in events) {
+                ev.ResetOccurrences();
+            }
+            possibleEvents = events.ToList();
         }
 
         int totalWeight = possibleEvents.Sum(e => e.weight);
