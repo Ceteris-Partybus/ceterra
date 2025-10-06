@@ -175,8 +175,8 @@ public class BoardPlayer : SceneConditionalPlayer {
         IEnumerator WaitForFieldInitialization() {
             yield return new WaitUntil(() => BoardContext.Instance != null && BoardContext.Instance.FieldBehaviourList != null);
             isMoving = false;
-            var spawnPosition = BoardContext.Instance.FieldBehaviourList.Find(splineKnotIndex).Position;
-            gameObject.transform.position = spawnPosition;
+            var spawnPosition = GameManager.Singleton.GetStartPosition();
+            gameObject.transform.position = spawnPosition.position;
         }
     }
 

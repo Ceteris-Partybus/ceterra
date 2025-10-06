@@ -1,5 +1,6 @@
 using Mirror;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,6 +11,10 @@ public class GameManager : NetworkRoomManager {
             return NetworkManager.singleton as GameManager;
         }
     }
+
+    [Header("Scenes")]
+    [SerializeField][Scene] private string endScene;
+
     [Header("Character Selection")]
     [SerializeField] private GameObject[] selectableCharacters;
     public int CharacterCount => selectableCharacters.Length;
@@ -27,7 +32,38 @@ public class GameManager : NetworkRoomManager {
     private List<string> playedMinigames = new();
     public List<string> PlayedMinigames => playedMinigames;
 
+    [Header("Round management")]
+    [SerializeField]
+    private int maxRounds = 1;
+    public int MaxRounds => maxRounds;
+
+    [SerializeField]
+    private int currentRound = 1;
+    public int CurrentRound => currentRound;
+    [SerializeField]
+    private int playersPassedStart = 0;
+
     public int[] PlayerIds => roomSlots.Select(slot => slot.index).ToArray();
+
+    public void IncrementPlayersPassedStart() {
+        playersPassedStart++;
+        if (playersPassedStart >= roomSlots.Count) {
+            currentRound++;
+            playersPassedStart = 0;
+        }
+
+        if (currentRound > maxRounds) {
+            StartCoroutine(EndGameAfterPlayerMoveFinish());
+        }
+    }
+
+    private IEnumerator EndGameAfterPlayerMoveFinish() {
+        yield return new WaitUntil(() => BoardContext.Instance?.IsAnyPlayerMoving() == false
+        && BoardContext.Instance?.IsAnyPlayerInAnimation() == false
+        && BoardContext.Instance?.IsAnyPlayerChoosingJunction() == false
+        && BoardContext.Instance?.CurrentState == BoardContext.State.PLAYER_TURN);
+        ServerChangeScene(endScene);
+    }
 
     public override void OnRoomServerSceneChanged(string sceneName) {
         Debug.Log($"[Server] Scene changed to {sceneName}");

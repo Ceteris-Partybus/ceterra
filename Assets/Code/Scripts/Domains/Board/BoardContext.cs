@@ -409,7 +409,6 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
                 }
                 return;
             }
-
             NextPlayerTurn();
         }
     }
@@ -584,6 +583,18 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     }
 
     #endregion
+
+    public bool IsAnyPlayerMoving() {
+        return FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).Any(p => p.IsMoving);
+    }
+
+    public bool IsAnyPlayerInAnimation() {
+        return FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).Any(p => p.IsAnimationFinished == false);
+    }
+
+    public bool IsAnyPlayerChoosingJunction() {
+        return FindObjectsByType<JunctionFieldBehaviour>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).Any(j => j.IsWaitingForBranchChoice);
+    }
 
     #region Event Management
 

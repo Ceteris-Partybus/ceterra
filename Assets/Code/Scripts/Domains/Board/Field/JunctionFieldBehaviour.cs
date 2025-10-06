@@ -13,6 +13,7 @@ public class JunctionFieldBehaviour : FieldBehaviour {
 
     [SyncVar]
     private bool isWaitingForBranchChoice = false;
+    public bool IsWaitingForBranchChoice => isWaitingForBranchChoice;
     private FieldBehaviour targetField;
     private BoardPlayer crossingPlayer;
 
