@@ -1,5 +1,6 @@
 using Mirror;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -19,8 +20,12 @@ public class GameManager : NetworkRoomManager {
 
     [Header("Minigames")]
     [SerializeField]
-    private string[] minigameScenes;
-    public string[] MinigameScenes => minigameScenes;
+    private List<string> minigameScenes = new();
+    public List<string> MinigameScenes => minigameScenes;
+
+    [SerializeField]
+    private List<string> playedMinigames = new();
+    public List<string> PlayedMinigames => playedMinigames;
 
     public int[] PlayerIds => roomSlots.Select(slot => slot.index).ToArray();
 
@@ -66,14 +71,39 @@ public class GameManager : NetworkRoomManager {
     /// This method will change the scene to the specified minigame scene.
     /// </summary>
     /// <param name="sceneName">The name of the minigame scene to start.</param>
-    public void StartMinigame(string sceneName) {
+    private void StartMinigame(string sceneName) {
         if (!MinigameScenes.Contains(sceneName)) {
             Debug.LogError($"Scene {sceneName} is not a valid minigame scene.");
             return;
         }
+
+        if (playedMinigames.Count + 1 == MinigameScenes.Count) {
+            playedMinigames.Clear();
+        }
+        else {
+            if (playedMinigames.Contains(sceneName)) {
+                Debug.LogError($"Scene {sceneName} has already been played in the current rotation. It should not be played again until all other minigames have been played.");
+                return;
+            }
+        }
+
+        playedMinigames.Add(sceneName);
+
         if (NetworkServer.active) {
             ServerChangeScene(sceneName);
         }
+    }
+
+    public void StartMinigame() {
+        var availableMinigames = MinigameScenes.Except(playedMinigames).ToList();
+        if (availableMinigames.Count == 0) {
+            Debug.LogError("No available minigames to start.");
+            return;
+        }
+
+        var randomIndex = UnityEngine.Random.Range(0, availableMinigames.Count);
+        var selectedMinigame = availableMinigames[randomIndex];
+        StartMinigame(selectedMinigame);
     }
 
     /// <summary>
