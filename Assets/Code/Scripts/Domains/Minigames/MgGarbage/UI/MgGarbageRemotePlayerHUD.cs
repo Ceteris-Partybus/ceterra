@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -14,6 +16,11 @@ public class MgGarbageRemotePlayerHUD : NetworkedSingleton<MgGarbageRemotePlayer
 
     // Call in OnEnable to ensure the field is set before AddPlayer is called
     void OnEnable() {
+        StartCoroutine(WaitForAllPlayers());
+        IEnumerator WaitForAllPlayers() {
+            yield return new WaitUntil(() => netIdentity != null && netIdentity.observers.Count == GameManager.Singleton.PlayerIds.Count());
+        }
+
         var root = uiDocument.rootVisualElement;
         remotePlayerOverview = root.Q<VisualElement>("remote-player-overview");
     }

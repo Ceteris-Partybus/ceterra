@@ -1,4 +1,6 @@
 using Mirror;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class MgGarbageTrash : NetworkBehaviour {
@@ -37,6 +39,11 @@ public class MgGarbageTrash : NetworkBehaviour {
 
     public override void OnStartClient() {
         base.OnStartClient();
+
+        StartCoroutine(WaitForAllPlayers());
+        IEnumerator WaitForAllPlayers() {
+            yield return new WaitUntil(() => netIdentity != null && netIdentity.observers.Count == GameManager.Singleton.PlayerIds.Count());
+        }
 
         if (destructionLine == null) {
             destructionLine = MgGarbageContext.Instance.DestructionLine;
