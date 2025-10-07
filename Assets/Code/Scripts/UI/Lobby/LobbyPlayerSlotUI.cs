@@ -26,6 +26,9 @@ public class LobbyPlayerSlotUI {
         characterSelectionBtn.clicked += PlayerHud.Instance.ShowCharacterSelection;
         readyBtn = parent.Q<Button>("ready-button");
 
+        characterSelectionBtn.clicked += () => Audiomanager.Instance?.PlayClickSound();
+        readyBtn.clicked += () => Audiomanager.Instance?.PlayClickSound();
+
         waitingAnimation = new DottedAnimation(playerDisplayName, "Waiting for player");
         Clear();
     }

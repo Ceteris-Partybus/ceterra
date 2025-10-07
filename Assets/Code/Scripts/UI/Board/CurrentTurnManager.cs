@@ -37,6 +37,7 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
 
     private void OnBoardButtonClicked() {
         BoardContext.Instance.GetCurrentPlayer().CmdToggleBoardOverview();
+        Audiomanager.Instance?.PlayClickSound();
     }
 
     public void UpdateCurrentPlayerName(string playerName) {
