@@ -32,6 +32,10 @@ public class BoardPlayer : SceneConditionalPlayer {
         set { isJumping = value; }
     }
 
+    [SyncVar]
+    private bool isFirstLoad = true;
+    public bool IsFirstLoad => isFirstLoad;
+
     [SerializeField] private float moveSpeed;
     [SerializeField] private float movementLerp;
     [SerializeField] private float rotationLerp;
@@ -175,8 +179,17 @@ public class BoardPlayer : SceneConditionalPlayer {
         IEnumerator WaitForFieldInitialization() {
             yield return new WaitUntil(() => BoardContext.Instance != null && BoardContext.Instance.FieldBehaviourList != null);
             isMoving = false;
-            var spawnPosition = GameManager.Singleton.GetStartPosition();
-            gameObject.transform.position = spawnPosition.position;
+            Transform startPosition;
+
+            if (isFirstLoad) {
+                startPosition = GameManager.Singleton.GetStartPosition();
+                isFirstLoad = false;
+            }
+            else {
+                startPosition = BoardContext.Instance.FieldBehaviourList.Find(splineKnotIndex).gameObject.transform;
+            }
+
+            gameObject.transform.position = startPosition.position;
         }
     }
 
