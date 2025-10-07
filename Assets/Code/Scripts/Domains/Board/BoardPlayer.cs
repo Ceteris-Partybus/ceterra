@@ -240,7 +240,7 @@ public class BoardPlayer : SceneConditionalPlayer {
             return;
         }
 
-        var diceValue = Random.Range(1, 11);
+        var diceValue = Random.Range(1, 1);
         StartCoroutine(StartRollSequence(diceValue));
     }
 
