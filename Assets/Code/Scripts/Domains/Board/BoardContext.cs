@@ -523,6 +523,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         int surplus = investment.Invest(amount);
         int coinsToRemove = amount - Math.Max(surplus, 0);
         player.RemoveCoins(coinsToRemove);
+        player.AddScore(coinsToRemove / 10);
 
         TriggerInvestmentListUpdate(index, investment);
     }
@@ -667,4 +668,18 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     }
 
     #endregion
+
+    public int EvaluateGlobalScore() {
+        float weightedScore = (environmentStat * 0.5f) + (economyStat * 0.3f) + (societyStat * 0.2f);
+
+        if (economyStat >= 60 && societyStat >= 60 && environmentStat >= 60) {
+            weightedScore *= 1.15f;
+        }
+
+        if (environmentStat < 30) {
+            weightedScore *= 0.7f;
+        }
+
+        return Mathf.RoundToInt(Mathf.Clamp(weightedScore, 0, MAX_STATS_VALUE));
+    }
 }

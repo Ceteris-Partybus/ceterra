@@ -67,6 +67,7 @@ public class FundsDepositModal : Modal {
         BoardContext.Instance.fundsHistory.Add(entry);
         BoardContext.Instance.UpdateFundsStat(depositValue);
         localPlayer.RemoveCoins(depositValue);
+        localPlayer.AddScore(depositValue / 10);
     }
 
     private void OnDepositAdd10ButtonClicked() {
