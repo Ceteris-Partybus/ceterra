@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement class="player-row">
+        <ui:Label name="PlayerName" class="player-name" />
+        <ui:Button name="readyButton" text="Nicht bereit" class="ready-button.not-ready" />
+    </ui:VisualElement>
+</ui:UXML>

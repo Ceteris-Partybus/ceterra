@@ -55,8 +55,18 @@
     border-radius: 4px;
 }
 
+.ready-button:hover {
+    background-color: rgba(120, 200, 120, 1);
+    border-color: rgba(100, 180, 100, 1);
+}
+
 .ready-button.not-ready {
     background-color: #d17373;
+}
+
+.ready-button.not-ready:hover {
+    background-color: rgba(200, 140, 100, 1);
+    border-color: rgba(180, 120, 80, 1);
 }
 
 /* Thumbnail */

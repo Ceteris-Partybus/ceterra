@@ -1,25 +1,14 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="MgPrepPlayer" src="project://database/Assets/Level/UI/MgPrepScreen/MgPrepPlayer.uxml?fileID=9197481963319205126&amp;guid=b666ba5bbb897e24b8d1fa992c9a109f&amp;type=3#MgPrepPlayer" />
     <Style src="project://database/Assets/Level/UI/MgPrepScreen/MgPrepScreen.uss?fileID=7433441132597879392&amp;guid=d566996728042c14489f3a4d5eca4cc5&amp;type=3#MgPrepScreen" />
     <ui:VisualElement class="root">
         <ui:Label text="Lobby für..." name="Title" class="title" />
         <ui:VisualElement class="content-section">
             <ui:VisualElement class="players-section">
-                <ui:VisualElement class="player-row">
-                    <ui:Label name="Player1" class="player-name" />
-                    <ui:Button name="readyButton1" text="Ready" class="ready-button" />
-                </ui:VisualElement>
-                <ui:VisualElement class="player-row">
-                    <ui:Label name="Player2" class="player-name" />
-                    <ui:Button name="readyButton2" text="Not ready" class="ready-button not-ready" />
-                </ui:VisualElement>
-                <ui:VisualElement class="player-row">
-                    <ui:Label name="Player3" class="player-name" />
-                    <ui:Button name="readyButton3" text="Not ready" class="ready-button not-ready" />
-                </ui:VisualElement>
-                <ui:VisualElement class="player-row">
-                    <ui:Label name="Player4" class="player-name" />
-                    <ui:Button name="readyButton4" text="Ready" class="ready-button" />
-                </ui:VisualElement>
+                <ui:Instance template="MgPrepPlayer" style="display: none;" />
+                <ui:Instance template="MgPrepPlayer" style="display: none;" />
+                <ui:Instance template="MgPrepPlayer" style="display: none;" />
+                <ui:Instance template="MgPrepPlayer" style="display: none;" />
             </ui:VisualElement>
             <ui:VisualElement name="Screenshot" class="thumbnail" style="background-image: resource(&apos;ceteris partybus&apos;); -unity-background-scale-mode: scale-to-fit;" />
         </ui:VisualElement>

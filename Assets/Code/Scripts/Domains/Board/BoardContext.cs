@@ -405,7 +405,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
                     StartCoroutine(WaitBeforeMinigame(completedInvestments * 3f));
                 }
                 else {
-                    GameManager.Singleton.StartMinigame("MgQuizduel");
+                    GameManager.Singleton.StartMinigame("MgGarbage");
                     // GameManager.Singleton.StartMinigame("MgOcean");
                 }
                 return;
@@ -418,7 +418,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     [Server]
     private IEnumerator WaitBeforeMinigame(float seconds) {
         yield return new WaitForSeconds(seconds);
-        GameManager.Singleton.StartMinigame("MgQuizduel");
+        GameManager.Singleton.StartMinigame("MgGarbage");
     }
 
     [Server]

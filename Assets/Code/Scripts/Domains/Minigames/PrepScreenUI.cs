@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -8,20 +9,20 @@ public class PrepScreenUI : MonoBehaviour {
     Label descriptionLabel;
     Label controlsLabel;
     VisualElement screenshotImage;
-    Label player1NameLabel;
-    Label player2NameLabel;
-    Label player3NameLabel;
-    Label player4NameLabel;
+    List<Label> playerList;
+    List<Button> buttonList;
+    bool allPlayersReady = false;
 
     void Start() {
         titleLabel = screenUIDoc.rootVisualElement.Q<Label>("Title");
         descriptionLabel = screenUIDoc.rootVisualElement.Q<Label>("Description");
         controlsLabel = screenUIDoc.rootVisualElement.Q<Label>("Controls");
         screenshotImage = screenUIDoc.rootVisualElement.Q<VisualElement>("Screenshot");
-        player1NameLabel = screenUIDoc.rootVisualElement.Q<Label>("Player1");
-        player2NameLabel = screenUIDoc.rootVisualElement.Q<Label>("Player2");
-        player3NameLabel = screenUIDoc.rootVisualElement.Q<Label>("Player3");
-        player4NameLabel = screenUIDoc.rootVisualElement.Q<Label>("Player4");
+        playerList = screenUIDoc.rootVisualElement.Query<Label>("PlayerName").ToList();
+        buttonList = screenUIDoc.rootVisualElement.Query<Button>("readyButton").ToList();
+        foreach (var button in buttonList) {
+            button.clicked += () => ButtonClicked(button);
+        }
     }
 
     public void Initialize(IPrepScreen context) {
@@ -29,26 +30,38 @@ public class PrepScreenUI : MonoBehaviour {
         descriptionLabel.text = context.GetDescription();
         controlsLabel.text = context.GetControls();
         var players = context.GetPlayers();
-        switch (players.Count) { //Sehr Hässlich, sollte besser gemacht werden
-            case 1:
-                player1NameLabel.text = players[0].PlayerName;
-                break;
-            case 2:
-                player1NameLabel.text = players[0].PlayerName;
-                player2NameLabel.text = players[1].PlayerName;
-                break;
-            case 3:
-                player1NameLabel.text = players[0].PlayerName;
-                player2NameLabel.text = players[1].PlayerName;
-                player3NameLabel.text = players[2].PlayerName;
-                break;
-            case 4:
-                player1NameLabel.text = players[0].PlayerName;
-                player2NameLabel.text = players[1].PlayerName;
-                player3NameLabel.text = players[2].PlayerName;
-                player4NameLabel.text = players[3].PlayerName;
-                break;
+        for (int i = 0; i < players.Count; i++) {
+            playerList[i].style.display = DisplayStyle.Flex;
+            playerList[i].text = players[i].PlayerName;
         }
         screenshotImage.style.backgroundImage = new StyleBackground(context.GetScreenshot());
+    }
+
+    public void ButtonClicked(Button clickedButton) {
+        if (clickedButton.text == "Nicht bereit") {
+            clickedButton.text = "Bereit";
+            clickedButton.RemoveFromClassList("ready-button.not-ready");
+            clickedButton.AddToClassList(".ready-button");
+            foreach (var button in buttonList) {
+                if (button.text == "Nicht bereit") {
+                    allPlayersReady = false;
+                    break;
+                }
+                else {
+                    allPlayersReady = true;
+                }
+            }
+        }
+        else {
+            clickedButton.text = "Nicht bereit";
+            clickedButton.RemoveFromClassList("ready-button");
+            clickedButton.AddToClassList(".ready-button.not-ready");
+        }
+    }
+
+    public void WaitForPlayers() {
+        while (!allPlayersReady) {
+            yield return new WaitForSeconds(1);
+        }
     }
 }
