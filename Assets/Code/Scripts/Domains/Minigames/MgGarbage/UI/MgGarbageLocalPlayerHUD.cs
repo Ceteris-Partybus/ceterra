@@ -27,10 +27,18 @@ public class MgGarbageLocalPlayerHUD : NetworkedSingleton<MgGarbageLocalPlayerHU
     }
 
     public void UpdateScore(int score) {
+        if (scoreLabel == null) {
+            return;
+        }
+
         scoreLabel.text = $"{score}";
     }
 
     public void UpdateCountdown(float timeLeft) {
+        if (countdownLabel == null) {
+            return;
+        }
+
         var t = Mathf.Max(0f, timeLeft);
         int minutes = Mathf.FloorToInt(t / 60f);
         int seconds = Mathf.FloorToInt(t % 60f);

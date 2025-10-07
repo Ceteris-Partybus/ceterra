@@ -42,7 +42,7 @@ public class MgGarbageTrash : NetworkBehaviour {
 
         StartCoroutine(WaitForAllPlayers());
         IEnumerator WaitForAllPlayers() {
-            yield return new WaitUntil(() => netIdentity != null && netIdentity.observers.Count == GameManager.Singleton.PlayerIds.Count());
+            yield return new WaitUntil(() => netIdentity != null && netIdentity.observers.Count == GameManager.Singleton.PlayerIds.Count() && MgGarbageContext.Instance != null);
         }
 
         if (destructionLine == null) {
