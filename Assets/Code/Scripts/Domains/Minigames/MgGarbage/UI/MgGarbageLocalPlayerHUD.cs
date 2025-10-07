@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -11,6 +13,11 @@ public class MgGarbageLocalPlayerHUD : NetworkedSingleton<MgGarbageLocalPlayerHU
     private Label countdownLabel;
 
     protected override void Start() {
+        StartCoroutine(WaitForAllPlayers());
+        IEnumerator WaitForAllPlayers() {
+            yield return new WaitUntil(() => netIdentity != null && netIdentity.observers.Count == GameManager.Singleton.PlayerIds.Count());
+        }
+
         base.Start();
         var root = uiDocument.rootVisualElement;
         scoreLabel = root.Q<Label>("local-player-score");
@@ -20,10 +27,18 @@ public class MgGarbageLocalPlayerHUD : NetworkedSingleton<MgGarbageLocalPlayerHU
     }
 
     public void UpdateScore(int score) {
+        if (scoreLabel == null) {
+            return;
+        }
+
         scoreLabel.text = $"{score}";
     }
 
     public void UpdateCountdown(float timeLeft) {
+        if (countdownLabel == null) {
+            return;
+        }
+
         var t = Mathf.Max(0f, timeLeft);
         int minutes = Mathf.FloorToInt(t / 60f);
         int seconds = Mathf.FloorToInt(t % 60f);
