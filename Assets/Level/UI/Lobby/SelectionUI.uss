@@ -79,6 +79,8 @@
     color: rgba(160, 199, 100, 0.9);
     text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
     -unity-text-align: middle-center;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .input-container {
