@@ -407,6 +407,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
                 else {
                     GameManager.Singleton.StartMinigame();
                 }
+                GameManager.Singleton.IncrementRound();
                 return;
             }
             NextPlayerTurn();

@@ -33,31 +33,24 @@ public class GameManager : NetworkRoomManager {
     public List<string> PlayedMinigames => playedMinigames;
 
     [Header("Round management")]
-    [SerializeField]
-    private int maxRounds = 1;
+    private int maxRounds = 10; // Every player throws the dice `n` times => `n` rounds
     public int MaxRounds => maxRounds;
 
-    [SerializeField]
     private int currentRound = 1;
     public int CurrentRound => currentRound;
-    [SerializeField]
-    private int playersPassedStart = 0;
 
     public int[] PlayerIds => roomSlots.Select(slot => slot.index).ToArray();
 
-    public void IncrementPlayersPassedStart() {
-        playersPassedStart++;
-        if (playersPassedStart >= roomSlots.Count) {
-            currentRound++;
-            playersPassedStart = 0;
-        }
+    [Server]
+    public void IncrementRound() {
+        currentRound++;
 
         if (currentRound > maxRounds) {
-            StartCoroutine(EndGameAfterPlayerMoveFinish());
+            StartCoroutine(StopGameSwitchEndScene());
         }
     }
 
-    private IEnumerator EndGameAfterPlayerMoveFinish() {
+    private IEnumerator StopGameSwitchEndScene() {
         yield return new WaitUntil(() => BoardContext.Instance?.IsAnyPlayerMoving() == false
         && BoardContext.Instance?.IsAnyPlayerInAnimation() == false
         && BoardContext.Instance?.IsAnyPlayerChoosingJunction() == false
