@@ -3,7 +3,7 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 
-public class MgGarbageContext : NetworkedSingleton<MgGarbageContext> {
+public class MgGarbageContext : MgContext<MgGarbageContext, MgGarbagePlayer> {
     [SerializeField]
     private GameObject spawnPointsHolder;
     [SerializeField]
@@ -34,6 +34,9 @@ public class MgGarbageContext : NetworkedSingleton<MgGarbageContext> {
         }
 
         base.Start();
+    }
+
+    public override void OnStartGame() {
         if (isServer) {
             StartCoroutine(SpawnTrashRoutine());
         }

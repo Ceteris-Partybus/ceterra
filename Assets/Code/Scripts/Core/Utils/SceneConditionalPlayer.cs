@@ -30,6 +30,15 @@ public abstract class SceneConditionalPlayer : NetworkBehaviour {
     [SyncVar(hook = nameof(OnActiveStateChanged))]
     private bool isActiveForCurrentScene = false;
     public bool IsActiveForCurrentScene => isActiveForCurrentScene;
+
+    [SyncVar]
+    private bool isReady;
+    public bool IsReady => isReady;
+
+    [Command]
+    public void CmdChangeReadyState() {
+        isReady = !isReady;
+    }
     #endregion
 
     #region Server-Only State
