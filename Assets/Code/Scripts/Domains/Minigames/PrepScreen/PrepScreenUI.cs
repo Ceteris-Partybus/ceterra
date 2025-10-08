@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -11,7 +10,10 @@ public class PrepScreenUI : MonoBehaviour {
     VisualElement screenshotImage;
     List<Label> playerList;
     List<Button> buttonList;
-    bool allPlayersReady = false;
+    List<PrepPlayerUI> playerObjectList = new();
+    int playersCount;
+    IPrepScreen context;
+    bool gameStarted = false;
 
     void Start() {
         titleLabel = screenUIDoc.rootVisualElement.Q<Label>("Title");
@@ -20,9 +22,6 @@ public class PrepScreenUI : MonoBehaviour {
         screenshotImage = screenUIDoc.rootVisualElement.Q<VisualElement>("Screenshot");
         playerList = screenUIDoc.rootVisualElement.Query<Label>("PlayerName").ToList();
         buttonList = screenUIDoc.rootVisualElement.Query<Button>("readyButton").ToList();
-        foreach (var button in buttonList) {
-            button.clicked += () => ButtonClicked(button);
-        }
     }
 
     public void Initialize(IPrepScreen context) {
@@ -30,38 +29,38 @@ public class PrepScreenUI : MonoBehaviour {
         descriptionLabel.text = context.GetDescription();
         controlsLabel.text = context.GetControls();
         var players = context.GetPlayers();
+        playersCount = players.Count;
         for (int i = 0; i < players.Count; i++) {
-            playerList[i].style.display = DisplayStyle.Flex;
+            playerList[i].parent.parent.style.display = DisplayStyle.Flex;
             playerList[i].text = players[i].PlayerName;
+            playerObjectList.Add(new PrepPlayerUI(buttonList[i], players[i]));
         }
         screenshotImage.style.backgroundImage = new StyleBackground(context.GetScreenshot());
+        this.context = context;
     }
 
-    public void ButtonClicked(Button clickedButton) {
-        if (clickedButton.text == "Nicht bereit") {
-            clickedButton.text = "Bereit";
-            clickedButton.RemoveFromClassList("ready-button.not-ready");
-            clickedButton.AddToClassList(".ready-button");
-            foreach (var button in buttonList) {
-                if (button.text == "Nicht bereit") {
-                    allPlayersReady = false;
-                    break;
-                }
-                else {
-                    allPlayersReady = true;
-                }
+    private void OnGUI() {
+        if (context == null || gameStarted) {
+            return;
+        }
+        foreach (var player in playerObjectList) {
+            if (player.isPlayerReady) {
+                player.OnReady();
+                continue;
+            }
+            player.OnNotReady();
+        }
+        int readyCount = 0;
+        foreach (var button in buttonList) {
+            if (button.text == "Bereit") {
+                readyCount++;
             }
         }
-        else {
-            clickedButton.text = "Nicht bereit";
-            clickedButton.RemoveFromClassList("ready-button");
-            clickedButton.AddToClassList(".ready-button.not-ready");
-        }
-    }
-
-    public void WaitForPlayers() {
-        while (!allPlayersReady) {
-            yield return new WaitForSeconds(1);
+        if (readyCount == playersCount) {
+            gameStarted = true;
+            Debug.Log("All players ready");
+            context.StartGame();
+            Destroy(gameObject);
         }
     }
 }

@@ -8,4 +8,5 @@ public interface IPrepScreen {
     string GetControls();
     Sprite GetScreenshot();
     List<SceneConditionalPlayer> GetPlayers();
+    void StartGame();
 }

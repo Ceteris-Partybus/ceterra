@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public abstract class MgContext<T, P> : NetworkedSingleton<T>, IPrepScreen
     where T : NetworkedSingleton<T>
@@ -15,10 +14,17 @@ public abstract class MgContext<T, P> : NetworkedSingleton<T>, IPrepScreen
     public string GetDescription() => this.description;
     public string GetControls() => this.controls;
     public Sprite GetScreenshot() => this.screenshot;
+    public abstract void OnStartGame();
+    public virtual void StartGame() {
+
+        OnStartGame();
+    }
+
 
     protected override void Start() {
         var prep = FindAnyObjectByType<PrepScreenUI>();
         prep.Initialize(this);
+
         base.Start();
     }
 

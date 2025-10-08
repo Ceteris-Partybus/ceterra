@@ -28,6 +28,9 @@ public class MgGarbageContext : MgContext<MgGarbageContext, MgGarbagePlayer> {
 
     protected override void Start() {
         base.Start();
+    }
+
+    public override void OnStartGame() {
         if (isServer) {
             StartCoroutine(SpawnTrashRoutine());
         }
