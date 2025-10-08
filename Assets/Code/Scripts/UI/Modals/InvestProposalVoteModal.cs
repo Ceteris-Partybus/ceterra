@@ -100,6 +100,7 @@ public class InvestProposalVoteModal : Modal {
 
     [ClientCallback]
     private void OnVoteButtonClicked(bool agreed) {
+        Audiomanager.Instance?.PlayClickSound();
         if (hasVoted) {
             return;
         }

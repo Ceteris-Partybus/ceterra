@@ -30,14 +30,15 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
     }
 
     private void OnRollDiceButtonClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         if (BoardContext.Instance.CurrentState == BoardContext.State.PLAYER_TURN) {
             BoardContext.Instance.GetCurrentPlayer().CmdRollDice();
         }
     }
 
     private void OnBoardButtonClicked() {
-        BoardContext.Instance.GetCurrentPlayer().CmdToggleBoardOverview();
         Audiomanager.Instance?.PlayClickSound();
+        BoardContext.Instance.GetCurrentPlayer().CmdToggleBoardOverview();
     }
 
     public void UpdateCurrentPlayerName(string playerName) {

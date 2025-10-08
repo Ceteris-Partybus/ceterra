@@ -131,11 +131,13 @@ public class InvestModal : Modal {
 
         if (!investment.inConstruction && !investment.completed && !investment.fullyFinanced) {
             depositButton.clicked += () => {
+                Audiomanager.Instance?.PlayClickSound();
                 this.OnInvestCardDepositButtonClicked(investmentId);
             };
         }
         if (!investment.inConstruction && !investment.completed) {
             proposeInvestButton.clicked += () => {
+                Audiomanager.Instance?.PlayClickSound();
                 this.OnInvestCardProposeInvestButtonClicked(investmentId);
             };
         }

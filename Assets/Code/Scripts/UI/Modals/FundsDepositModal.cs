@@ -70,18 +70,22 @@ public class FundsDepositModal : Modal {
     }
 
     private void OnDepositAdd10ButtonClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         this.OnDepositAddButtonClicked(10);
     }
 
     private void OnDepositAdd100ButtonClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         this.OnDepositAddButtonClicked(100);
     }
 
     private void OnDepositAdd1000ButtonClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         this.OnDepositAddButtonClicked(1000);
     }
 
     private void OnDepositAddButtonClicked(int amount) {
+        Audiomanager.Instance?.PlayClickSound();
         if (this.depositValueField != null) {
             this.depositValueField.value += (uint)amount;
         }

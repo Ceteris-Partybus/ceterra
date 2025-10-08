@@ -71,14 +71,17 @@ public class InvestDepositModal : Modal {
 
 
     private void OnDepositAdd10ButtonClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         this.OnDepositAddButtonClicked(10);
     }
 
     private void OnDepositAdd100ButtonClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         this.OnDepositAddButtonClicked(100);
     }
 
     private void OnDepositAdd1000ButtonClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         this.OnDepositAddButtonClicked(1000);
     }
 
