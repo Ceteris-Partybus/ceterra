@@ -63,6 +63,14 @@ MonoBehaviour:
     m_Localized: Menu
     m_Metadata:
       m_Items: []
+  - m_Id: 51544089527181312
+    m_Localized: Music volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 51544635864637440
+    m_Localized: Sound volume
+    m_Metadata:
+      m_Items: []
   - m_Id: 49116520167165952
     m_Localized: Load question ...
     m_Metadata:

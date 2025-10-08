@@ -405,12 +405,11 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
                     StartCoroutine(WaitBeforeMinigame(completedInvestments * 3f));
                 }
                 else {
-                    GameManager.Singleton.StartMinigame("MgGarbage");
-                    // GameManager.Singleton.StartMinigame("MgOcean");
+                    GameManager.Singleton.StartMinigame();
                 }
+                GameManager.Singleton.IncrementRound();
                 return;
             }
-
             NextPlayerTurn();
         }
     }
@@ -418,7 +417,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     [Server]
     private IEnumerator WaitBeforeMinigame(float seconds) {
         yield return new WaitForSeconds(seconds);
-        GameManager.Singleton.StartMinigame("MgGarbage");
+        GameManager.Singleton.StartMinigame();
     }
 
     [Server]
@@ -525,6 +524,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         int surplus = investment.Invest(amount);
         int coinsToRemove = amount - Math.Max(surplus, 0);
         player.RemoveCoins(coinsToRemove);
+        player.AddScore(coinsToRemove / 10);
 
         TriggerInvestmentListUpdate(index, investment);
     }
@@ -586,14 +586,30 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     #endregion
 
+    public bool IsAnyPlayerMoving() {
+        return FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).Any(p => p.IsMoving);
+    }
+
+    public bool IsAnyPlayerInAnimation() {
+        return FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).Any(p => p.IsAnimationFinished == false);
+    }
+
+    public bool IsAnyPlayerChoosingJunction() {
+        return FindObjectsByType<JunctionFieldBehaviour>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).Any(j => j.IsWaitingForBranchChoice);
+    }
+
     #region Event Management
 
     [Server]
     public void TriggerRandomEvent() {
         var possibleEvents = events.Where(e => e.canOccur).ToList();
+
         if (possibleEvents.Count == 0) {
-            Debug.LogWarning("No possible events to trigger.");
-            return;
+            Debug.Log("All events have occurred the maximum number of times. Resetting occurrences.");
+            foreach (var ev in events) {
+                ev.ResetOccurrences();
+            }
+            possibleEvents = events.ToList();
         }
 
         int totalWeight = possibleEvents.Sum(e => e.weight);
@@ -653,4 +669,18 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     }
 
     #endregion
+
+    public int EvaluateGlobalScore() {
+        float weightedScore = (environmentStat * 0.5f) + (economyStat * 0.3f) + (societyStat * 0.2f);
+
+        if (economyStat >= 60 && societyStat >= 60 && environmentStat >= 60) {
+            weightedScore *= 1.15f;
+        }
+
+        if (environmentStat < 30) {
+            weightedScore *= 0.7f;
+        }
+
+        return Mathf.RoundToInt(Mathf.Clamp(weightedScore, 0, MAX_STATS_VALUE));
+    }
 }

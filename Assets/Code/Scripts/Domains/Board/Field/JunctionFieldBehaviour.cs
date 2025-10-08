@@ -1,6 +1,7 @@
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -12,6 +13,7 @@ public class JunctionFieldBehaviour : FieldBehaviour {
 
     [SyncVar]
     private bool isWaitingForBranchChoice = false;
+    public bool IsWaitingForBranchChoice => isWaitingForBranchChoice;
     private FieldBehaviour targetField;
     private BoardPlayer crossingPlayer;
 
@@ -43,25 +45,25 @@ public class JunctionFieldBehaviour : FieldBehaviour {
 
     [TargetRpc]
     public void TargetShowBranchArrows() {
-        for (var i = 0; i < nextFields.Count; i++) {
-            var branchArrow = InstantiateBranchArrow(nextFields[i], crossingPlayer);
+        for (var i = 0; i < Next.Count; i++) {
+            var branchArrow = InstantiateBranchArrow(Next[i]);
             branchArrow.GetComponent<BranchArrowMouseEventHandler>()?.Initialize(this, i);
             branchArrows.Add(branchArrow);
         }
     }
 
     [Client]
-    private GameObject InstantiateBranchArrow(FieldBehaviour targetField, BoardPlayer player) {
-        var targetSpline = player.SplineContainer.Splines[targetField.SplineKnotIndex.Spline];
-        var normalizedPlayerPosition = player.NormalizedSplinePosition;
+    private GameObject InstantiateBranchArrow(FieldBehaviour targetField) {
+        var targetSpline = crossingPlayer.SplineContainer.Splines[targetField.SplineKnotIndex.Spline];
+        var normalizedPlayerPosition = crossingPlayer.NormalizedSplinePosition;
 
-        if (player.SplineKnotIndex.Spline != targetField.SplineKnotIndex.Spline && targetField.SplineKnotIndex.Knot == 1) {
+        if (crossingPlayer.SplineKnotIndex.Spline != targetField.SplineKnotIndex.Spline && targetField.SplineKnotIndex.Knot == 1) {
             normalizedPlayerPosition = 0f;
         }
 
         var offset = 0.01f;
         var tangent = targetSpline.EvaluateTangent(normalizedPlayerPosition + offset);
-        var worldTangent = player.SplineContainer.transform.TransformDirection(tangent).normalized;
+        var worldTangent = crossingPlayer.SplineContainer.transform.TransformDirection(tangent).normalized;
 
         var branchArrowPosition = transform.position + worldTangent * branchArrowRadius;
         return Instantiate(branchArrowPrefab.gameObject, branchArrowPosition, Quaternion.LookRotation(worldTangent, Vector3.up));
@@ -69,8 +71,8 @@ public class JunctionFieldBehaviour : FieldBehaviour {
 
     [Command(requiresAuthority = false)]
     public void CmdChooseBranchPath(int pathIndex) {
-        if (!isWaitingForBranchChoice || pathIndex < 0 || pathIndex >= nextFields.Count) { return; }
-        targetField = nextFields[pathIndex];
+        if (!isWaitingForBranchChoice || pathIndex < 0 || pathIndex >= Next.Count) { return; }
+        targetField = Next[pathIndex];
         isWaitingForBranchChoice = false;
         TargetHideBranchArrows();
     }

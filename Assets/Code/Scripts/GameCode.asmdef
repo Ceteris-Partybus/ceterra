@@ -12,7 +12,9 @@
     "Unity.Mathematics",
     "Unity.TextMeshPro",
     "Newtonsoft.Json",
-    "DOTween.Modules"
+    "DOTween.Modules",
+    "Unity.RenderPipelines.Core.Runtime",
+    "Unity.RenderPipelines.HighDefinition.Runtime"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

@@ -27,6 +27,12 @@ public class MgGarbageContext : MgContext<MgGarbageContext, MgGarbagePlayer> {
     private float countdownTimer; // Separate timer for countdown display
 
     protected override void Start() {
+        StartCoroutine(WaitForAllPlayers());
+
+        IEnumerator WaitForAllPlayers() {
+            yield return new WaitUntil(() => netIdentity != null && netIdentity.observers.Count == GameManager.Singleton.PlayerIds.Count());
+        }
+
         base.Start();
     }
 

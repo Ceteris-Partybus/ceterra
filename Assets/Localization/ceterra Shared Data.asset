@@ -59,6 +59,12 @@ MonoBehaviour:
     m_Key: sideMenu.menu
     m_Metadata:
       m_Items: []
+  - m_Id: 51544089527181312
+    m_Key: settingsMenu.musicvolume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 51544635864637440
+    m_Key: settingsMenu.soundvolume
   - m_Id: 49116520167165952
     m_Key: MgQuizduel.loadQuestion
     m_Metadata:

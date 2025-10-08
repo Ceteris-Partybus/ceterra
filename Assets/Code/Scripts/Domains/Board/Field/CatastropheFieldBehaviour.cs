@@ -35,6 +35,7 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
             hasBeenInvoked = true;
             StartCoroutine(ProcessCatastropheSequence(player));
         }
+        player.RemoveScore(healthEffect / 5);
     }
 
     [Server]

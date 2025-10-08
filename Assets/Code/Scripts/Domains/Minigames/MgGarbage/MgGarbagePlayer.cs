@@ -1,5 +1,7 @@
 using Mirror;
 using System;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class MgGarbagePlayer : SceneConditionalPlayer {
@@ -21,6 +23,12 @@ public class MgGarbagePlayer : SceneConditionalPlayer {
     }
 
     protected override void OnClientActiveStateChanged(bool isActive) {
+        StartCoroutine(WaitForAllPlayers());
+
+        IEnumerator WaitForAllPlayers() {
+            yield return new WaitUntil(() => netIdentity != null && netIdentity.observers.Count == GameManager.Singleton.PlayerIds.Count());
+        }
+
         base.OnClientActiveStateChanged(isActive);
 
         if (!isLocalPlayer && isActive && MgGarbageRemotePlayerHUD.Instance != null) {

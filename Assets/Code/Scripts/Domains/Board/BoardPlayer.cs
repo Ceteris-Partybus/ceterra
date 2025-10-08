@@ -32,6 +32,14 @@ public class BoardPlayer : SceneConditionalPlayer {
         set { isJumping = value; }
     }
 
+    [SyncVar]
+    private int score = 0;
+    public int Score => score;
+
+    [SyncVar]
+    private bool isFirstLoad = true;
+    public bool IsFirstLoad => isFirstLoad;
+
     [SerializeField] private float moveSpeed;
     [SerializeField] private float movementLerp;
     [SerializeField] private float rotationLerp;
@@ -125,6 +133,16 @@ public class BoardPlayer : SceneConditionalPlayer {
         RpcTriggerBlockingAnimation(AnimationType.COIN_GAIN);
     }
 
+    [Server]
+    public void AddScore(int amount) {
+        score += amount;
+    }
+
+    [Server]
+    public void RemoveScore(int amount) {
+        score = Math.Max(0, score - amount);
+    }
+
     public void AddHealth(int amount) {
         health = Math.Min(health + amount, MAX_HEALTH);
         RpcTriggerBlockingAnimation(AnimationType.HEALTH_GAIN);
@@ -175,8 +193,17 @@ public class BoardPlayer : SceneConditionalPlayer {
         IEnumerator WaitForFieldInitialization() {
             yield return new WaitUntil(() => BoardContext.Instance != null && BoardContext.Instance.FieldBehaviourList != null);
             isMoving = false;
-            var spawnPosition = BoardContext.Instance.FieldBehaviourList.Find(splineKnotIndex).Position;
-            gameObject.transform.position = spawnPosition;
+            Transform startPosition;
+
+            if (isFirstLoad) {
+                startPosition = GameManager.Singleton.GetStartPosition();
+                isFirstLoad = false;
+            }
+            else {
+                startPosition = BoardContext.Instance.FieldBehaviourList.Find(splineKnotIndex).gameObject.transform;
+            }
+
+            gameObject.transform.position = startPosition.position;
         }
     }
 
@@ -193,18 +220,17 @@ public class BoardPlayer : SceneConditionalPlayer {
         // Receive data from minigame players or other sources
         Debug.Log($"[Server] BoardPlayer received data from {source.GetType().Name}");
 
-        if (source is MinigameOnePlayer minigamePlayer) {
-            AddCoins(Math.Max(0, minigamePlayer.Score));
-            RemoveHealth(minigamePlayer.Score);
-        }
-        else if (source is MgGarbagePlayer garbagePlayer) {
+        if (source is MgGarbagePlayer garbagePlayer) {
             AddCoins(Math.Max(0, garbagePlayer.Score));
+            AddScore(Math.Max(0, garbagePlayer.Score / 5));
         }
         else if (source is MgQuizduelPlayer quizDuelPlayer) {
             AddCoins(Math.Max(0, quizDuelPlayer.EarnedCoinReward));
+            AddScore(Math.Max(0, quizDuelPlayer.EarnedCoinReward / 15));
         }
         else if (source is MgOceanPlayer oceanPlayer) {
             AddCoins(Math.Max(0, oceanPlayer.Score));
+            AddScore(Math.Max(0, oceanPlayer.Score / 5));
         }
     }
 
