@@ -12,6 +12,8 @@ public class GameManager : NetworkRoomManager {
         }
     }
 
+    // e
+
     [Header("Scenes")]
     [SerializeField][Scene] private string endScene;
 
