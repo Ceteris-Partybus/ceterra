@@ -16,7 +16,10 @@ public class CameraHandler : NetworkedSingleton<CameraHandler> {
     private bool wasZoomedBeforeBoard = false;
     public Transform ZoomTarget => zoomCamera.Follow;
     [SyncVar] private bool hasReachedTarget = true;
-    public bool HasReachedTarget => hasReachedTarget;
+    public bool HasReachedTarget {
+        get => hasReachedTarget;
+        set => hasReachedTarget = value;
+    }
 
     private float playerToZoomBlendTime;
     public float PlayerToZoomBlendTime => playerToZoomBlendTime;
@@ -53,21 +56,8 @@ public class CameraHandler : NetworkedSingleton<CameraHandler> {
     [ClientRpc]
     public void RpcSwitchZoomTarget(BoardPlayer player) {
         if (!IsZoomedIn) { return; }
-        if (isLocalPlayer) { CmdHasReachedTarget(false); }
         zoomCamera.Follow = player.transform;
-        StartCoroutine(w());
-
-        IEnumerator w() {
-            yield return new WaitForEndOfFrame();
-
-            var previousPosition = Camera.main.transform.position;
-            yield return new WaitUntil(() => {
-                Debug.Log("Waiting... previousZoomCameraPosition: " + previousPosition + ", currentZoomCameraPosition: " + Camera.main.transform.position);
-                var hasReachedTarget = previousPosition == Camera.main.transform.position;
-                previousPosition = Camera.main.transform.position;
-                return hasReachedTarget;
-            });
-        }
+        StartCoroutine(WaitForCameraMovementAfterTargetSwitch());
     }
 
     [Command(requiresAuthority = false)]
@@ -121,5 +111,19 @@ public class CameraHandler : NetworkedSingleton<CameraHandler> {
     private void Follow(Transform trackingTarget) {
         defaultCamera.Follow = trackingTarget;
         zoomCamera.Follow = trackingTarget;
+    }
+
+    private IEnumerator WaitForCameraMovementAfterTargetSwitch() {
+        var startPosition = Camera.main.transform.position;
+        yield return new WaitUntil(() => startPosition != Camera.main.transform.position);
+
+        var lastPosition = Camera.main.transform.position;
+        while (true) {
+            yield return new WaitForSeconds(0.1f);
+            var hasStopped = lastPosition == Camera.main.transform.position;
+            if (hasStopped) { break; }
+            lastPosition = Camera.main.transform.position;
+        }
+        CmdHasReachedTarget(true);
     }
 }

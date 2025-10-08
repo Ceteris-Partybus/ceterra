@@ -98,10 +98,12 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
 
     [Server]
     private IEnumerator ApplyDamageToPlayers(List<AffectedPlayerData> affectedPlayers) {
-        foreach (var (affectedPlayer, distance, inflictedDamage) in affectedPlayers) {
-            CameraHandler.Instance.RpcSwitchZoomTarget(affectedPlayer);
-            yield return new WaitForEndOfFrame();
-            yield return new WaitUntil(() => CameraHandler.Instance.HasReachedTarget);
+        foreach (var (affectedPlayer, _, inflictedDamage) in affectedPlayers) {
+            if (affectedPlayers.Count > 1) {
+                CameraHandler.Instance.HasReachedTarget = false;
+                CameraHandler.Instance.RpcSwitchZoomTarget(affectedPlayer);
+                yield return new WaitUntil(() => CameraHandler.Instance.HasReachedTarget);
+            }
 
             affectedPlayer.IsAnimationFinished = false;
             affectedPlayer.RemoveHealth(inflictedDamage);
