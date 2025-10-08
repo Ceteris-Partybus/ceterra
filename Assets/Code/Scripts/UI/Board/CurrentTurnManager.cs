@@ -1,5 +1,3 @@
-using Mirror;
-using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 

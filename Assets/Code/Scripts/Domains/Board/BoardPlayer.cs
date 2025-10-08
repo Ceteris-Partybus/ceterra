@@ -321,7 +321,6 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [ClientRpc]
     private void RpcEndDiceCancel() {
-        CameraHandler.Instance.ZoomOut();
         visualHandler.OnRollCancel();
     }
 

@@ -1,6 +1,8 @@
 using Unity.Cinemachine;
 using UnityEngine;
 using Mirror;
+using System;
+using System.Collections;
 
 public class CameraHandler : NetworkedSingleton<CameraHandler> {
     [Header("References")]
@@ -9,14 +11,33 @@ public class CameraHandler : NetworkedSingleton<CameraHandler> {
     [SerializeField] private CinemachineCamera boardCamera;
 
     [Header("States")]
-    private bool isShowingBoard = false;
-    public bool IsShowingBoard => isShowingBoard;
+    public bool IsShowingBoard => boardCamera.Priority == 1;
+    public bool IsZoomedIn => zoomCamera.Priority == 1;
     private bool wasZoomedBeforeBoard = false;
     public Transform ZoomTarget => zoomCamera.Follow;
+    [SyncVar] private bool hasReachedTarget = true;
+    public bool HasReachedTarget => hasReachedTarget;
+
+    private float playerToZoomBlendTime;
+    public float PlayerToZoomBlendTime => playerToZoomBlendTime;
+    private float zoomToPlayerBlendTime;
+    public float ZoomToPlayerBlendTime => zoomToPlayerBlendTime;
+    private float playerToBoardOverviewBlendTime;
+    public float PlayerToBoardOverviewBlendTime => playerToBoardOverviewBlendTime;
+    private float boardOverviewToPlayerBlendTime;
+    public float BoardOverviewToPlayerBlendTime => boardOverviewToPlayerBlendTime;
 
     protected override void Start() {
         base.Start();
         SetupInitialPosition();
+        var brain = Camera.main.GetComponent<CinemachineBrain>();
+        var blendSettings = brain.CustomBlends;
+        var defaultBlend = brain.DefaultBlend;
+        var getBlendTimeFor = new Func<CinemachineCamera, CinemachineCamera, float>((CinemachineCamera from, CinemachineCamera to) => CinemachineBlenderSettings.LookupBlend(from, to, defaultBlend, blendSettings, null).BlendTime);
+        playerToZoomBlendTime = getBlendTimeFor(defaultCamera, zoomCamera);
+        zoomToPlayerBlendTime = getBlendTimeFor(zoomCamera, defaultCamera);
+        playerToBoardOverviewBlendTime = getBlendTimeFor(defaultCamera, boardCamera);
+        boardOverviewToPlayerBlendTime = getBlendTimeFor(boardCamera, defaultCamera);
     }
 
     [ClientRpc]
@@ -31,15 +52,32 @@ public class CameraHandler : NetworkedSingleton<CameraHandler> {
 
     [ClientRpc]
     public void RpcSwitchZoomTarget(BoardPlayer player) {
-        if (zoomCamera.Priority != 1) { return; }
+        if (!IsZoomedIn) { return; }
+        if (isLocalPlayer) { CmdHasReachedTarget(false); }
         zoomCamera.Follow = player.transform;
+        StartCoroutine(w());
+
+        IEnumerator w() {
+            yield return new WaitForEndOfFrame();
+
+            var previousPosition = Camera.main.transform.position;
+            yield return new WaitUntil(() => {
+                Debug.Log("Waiting... previousZoomCameraPosition: " + previousPosition + ", currentZoomCameraPosition: " + Camera.main.transform.position);
+                var hasReachedTarget = previousPosition == Camera.main.transform.position;
+                previousPosition = Camera.main.transform.position;
+                return hasReachedTarget;
+            });
+        }
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdHasReachedTarget(bool reached) {
+        hasReachedTarget = reached;
     }
 
     [ClientRpc]
     public void RpcToggleBoardOverview() {
-        isShowingBoard = !isShowingBoard;
-
-        if (isShowingBoard) {
+        if (!IsShowingBoard) {
             wasZoomedBeforeBoard = zoomCamera.Priority == 1;
 
             defaultCamera.Priority = -1;
@@ -53,14 +91,17 @@ public class CameraHandler : NetworkedSingleton<CameraHandler> {
         }
     }
 
+    [Client]
     public void ZoomIn() {
         ZoomCamera(true);
     }
 
+    [Client]
     public void ZoomOut() {
         ZoomCamera(false);
     }
-    public void ZoomCamera(bool zoom) {
+
+    private void ZoomCamera(bool zoom) {
         defaultCamera.Priority = zoom ? -1 : 1;
         zoomCamera.Priority = zoom ? 1 : -1;
         boardCamera.Priority = -1;
@@ -77,7 +118,7 @@ public class CameraHandler : NetworkedSingleton<CameraHandler> {
         }
     }
 
-    public void Follow(Transform trackingTarget) {
+    private void Follow(Transform trackingTarget) {
         defaultCamera.Follow = trackingTarget;
         zoomCamera.Follow = trackingTarget;
     }

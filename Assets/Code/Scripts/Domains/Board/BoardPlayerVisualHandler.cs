@@ -63,6 +63,7 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
     }
 
     public void OnRollCancel() {
+        CameraHandler.Instance.ZoomOut();
         dice.OnRollCancel();
         TriggerAnimation(AnimationType.IDLE);
     }

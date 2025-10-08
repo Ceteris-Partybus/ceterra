@@ -14,9 +14,6 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
     [SyncVar] private bool hasBeenInvoked = false;
     [SyncVar] private CatastropheType catastropheType;
 
-    [Header("Settings")]
-    [SerializeField] private float zoomCameraSwitchTargetBlendTime = .75f;
-
     private int environmentEffect;
     private int healthEffect;
     private int effectRadius;
@@ -103,7 +100,8 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
     private IEnumerator ApplyDamageToPlayers(List<AffectedPlayerData> affectedPlayers) {
         foreach (var (affectedPlayer, distance, inflictedDamage) in affectedPlayers) {
             CameraHandler.Instance.RpcSwitchZoomTarget(affectedPlayer);
-            yield return new WaitForSeconds(zoomCameraSwitchTargetBlendTime);
+            yield return new WaitForEndOfFrame();
+            yield return new WaitUntil(() => CameraHandler.Instance.HasReachedTarget);
 
             affectedPlayer.IsAnimationFinished = false;
             affectedPlayer.RemoveHealth(inflictedDamage);
@@ -126,7 +124,8 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
     private IEnumerator EnsureCameraOnTriggeringPlayer(BoardPlayer triggeringPlayer) {
         if (CameraHandler.Instance.ZoomTarget != triggeringPlayer.transform) {
             CameraHandler.Instance.RpcSwitchZoomTarget(triggeringPlayer);
-            yield return new WaitForSeconds(zoomCameraSwitchTargetBlendTime);
+            yield return new WaitForEndOfFrame();
+            yield return new WaitUntil(() => CameraHandler.Instance.HasReachedTarget);
         }
     }
 
