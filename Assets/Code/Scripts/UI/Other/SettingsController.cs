@@ -26,7 +26,7 @@ public class SettingsController : MonoBehaviour {
     [SerializeField]
     private UIDocument uIDocument;
     [SerializeField] private AudioMixer audioMixer;
-  
+
     private void OnEnable() {
         var root = uIDocument.rootVisualElement;
 
@@ -51,7 +51,7 @@ public class SettingsController : MonoBehaviour {
         volumeValue = root.Q<Label>("VolumeValue");
 
         musicSlider = root.Q<Slider>("MusicSlider");
-        musicValue  = root.Q<Label>("MusicValue");
+        musicValue = root.Q<Label>("MusicValue");
 
         fullscreenToggle = root.Q<Toggle>("FullscreenToggle");
 
@@ -59,52 +59,50 @@ public class SettingsController : MonoBehaviour {
         languageDropdown = root.Q<DropdownField>("LanguageDropdown");
     }
 
-    private void SetupVolume()
-    {
-    // Slider-Event
-    volumeSlider.RegisterValueChangedCallback(evt =>
-    {
-        UpdateAudioValue(evt.newValue, volumeValue, soundVolumeParam);
-        PlayerPrefs.SetFloat("MasterVolume", evt.newValue); // speichern
-        PlayerPrefs.Save();
-    });
+    private void SetupVolume() {
+        // Slider-Event
+        volumeSlider.RegisterValueChangedCallback(evt => {
+            UpdateAudioValue(evt.newValue, volumeValue, soundVolumeParam);
+            PlayerPrefs.SetFloat("MasterVolume", evt.newValue); // speichern
+            PlayerPrefs.Save();
+        });
 
-    
-     volumeSlider.RegisterCallback<MouseUpEvent>(evt => Audiomanager.Instance?.PlayClickSound());
-     volumeSlider.RegisterCallback<ClickEvent>(evt => Audiomanager.Instance?.PlayClickSound());
-   
 
-    // Initialwert aus PlayerPrefs laden (default 100%)
-    float savedVolume = PlayerPrefs.GetFloat("MasterVolume", 100f);
-    volumeSlider.value = savedVolume;
-    UpdateAudioValue(savedVolume, volumeValue, soundVolumeParam);
-}
+        volumeSlider.RegisterCallback<MouseUpEvent>(evt => Audiomanager.Instance?.PlayClickSound());
+        volumeSlider.RegisterCallback<ClickEvent>(evt => Audiomanager.Instance?.PlayClickSound());
 
-private void SetupMusic() {
-    musicSlider.RegisterValueChangedCallback(evt => {
-        UpdateAudioValue(evt.newValue, musicValue, musicVolumeParam);
-        PlayerPrefs.SetFloat("MusicVolume", evt.newValue);
-        PlayerPrefs.Save();
-    });
 
-    musicSlider.RegisterCallback<MouseUpEvent>(evt => Audiomanager.Instance?.PlayClickSound());
-    musicSlider.RegisterCallback<ClickEvent>(evt => Audiomanager.Instance?.PlayClickSound());
+        // Initialwert aus PlayerPrefs laden (default 100%)
+        float savedVolume = PlayerPrefs.GetFloat("MasterVolume", 100f);
+        volumeSlider.value = savedVolume;
+        UpdateAudioValue(savedVolume, volumeValue, soundVolumeParam);
+    }
 
-    float savedMusic = PlayerPrefs.GetFloat("MusicVolume", 100f);
-    musicSlider.value = savedMusic;
-    UpdateAudioValue(savedMusic, musicValue, musicVolumeParam);
-}
+    private void SetupMusic() {
+        musicSlider.RegisterValueChangedCallback(evt => {
+            UpdateAudioValue(evt.newValue, musicValue, musicVolumeParam);
+            PlayerPrefs.SetFloat("MusicVolume", evt.newValue);
+            PlayerPrefs.Save();
+        });
 
-private void UpdateAudioValue(float value, Label label, string mixerParam) {
-    if (audioMixer == null) return;
+        musicSlider.RegisterCallback<MouseUpEvent>(evt => Audiomanager.Instance?.PlayClickSound());
+        musicSlider.RegisterCallback<ClickEvent>(evt => Audiomanager.Instance?.PlayClickSound());
 
-    float normalized = Mathf.Clamp01(value / 100f);
-    float dB = (normalized <= 0.0001f) ? -80f : Mathf.Log10(normalized) * 20f;
-    audioMixer.SetFloat(mixerParam, dB);
+        float savedMusic = PlayerPrefs.GetFloat("MusicVolume", 100f);
+        musicSlider.value = savedMusic;
+        UpdateAudioValue(savedMusic, musicValue, musicVolumeParam);
+    }
 
-    if (label != null)
-        label.text = Mathf.RoundToInt(value) + "%";
-}
+    private void UpdateAudioValue(float value, Label label, string mixerParam) {
+        if (audioMixer == null) return;
+
+        float normalized = Mathf.Clamp01(value / 100f);
+        float dB = (normalized <= 0.0001f) ? -80f : Mathf.Log10(normalized) * 20f;
+        audioMixer.SetFloat(mixerParam, dB);
+
+        if (label != null)
+            label.text = Mathf.RoundToInt(value) + "%";
+    }
 
     private void SetupFullscreen() {
         fullscreenToggle.RegisterValueChangedCallback(evt => {
@@ -170,7 +168,7 @@ private void UpdateAudioValue(float value, Label label, string mixerParam) {
             Audiomanager.Instance?.PlayClickSound();
             SetLanguage(evt.newValue);
         });
-        SetLanguage(languageDropdown.value); 
+        SetLanguage(languageDropdown.value);
     }
 
     private async void SetLanguage(string language) {

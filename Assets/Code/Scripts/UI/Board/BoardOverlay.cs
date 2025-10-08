@@ -20,6 +20,8 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
     private Button fundsButton;
     private Button investButton;
 
+    private TemplateContainer settingsContainer;
+
     private ProgressBar playerHealthBar;
     private Label playerHealthValue;
     private Label playerCoinsValue;
@@ -58,6 +60,7 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         var economyBarContainer = rootElement.Q<TemplateContainer>("economy-bar");
         this.economyBar = economyBarContainer.Children().OfType<ProgressBar>().FirstOrDefault();
         this.economyValueLabel = rootElement.Q<Label>("economy-bar-value");
+        this.settingsContainer = rootElement.Q<TemplateContainer>("SettingsTemplateContainer");
 
         resourcesButton.clicked += () => {
             ModalManager.Instance.Show(ResourceModal.Instance);
@@ -81,6 +84,17 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         UpdateSocietyValue(BoardContext.Instance.SocietyStat);
         UpdateEnvironmentValue(BoardContext.Instance.EnvironmentStat);
         UpdateTrends();
+    }
+
+    void Update() {
+        if (ModalManager.Instance?.ModalStack.Count > 0) {
+            return;
+        }
+
+        if (Input.GetKey(KeyCode.Escape)) {
+            Debug.Log("Escape key pressed, opening settings");
+            settingsContainer.AddToClassList("visible");
+        }
     }
 
     public bool IsPlayerAdded(int playerId) {

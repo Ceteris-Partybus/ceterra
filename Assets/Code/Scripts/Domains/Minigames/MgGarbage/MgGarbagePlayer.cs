@@ -56,11 +56,6 @@ public class MgGarbagePlayer : SceneConditionalPlayer {
         score = 0;
     }
 
-    public override void OnStopClient() {
-        base.OnStopClient();
-        MgGarbageRemotePlayerHUD.Instance.RemovePlayer(PlayerId);
-    }
-
     public int Score => score;
 
     [Command]
