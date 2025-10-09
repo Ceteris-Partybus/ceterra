@@ -41,7 +41,7 @@ public class FundsModal : Modal {
 
     [ClientCallback]
     private void OnInvestClicked() {
-        Audiomanager.Instance?.PlayClickSound();
+        Audiomanager.Instance?.PlayInvestSound();
         ModalManager.Instance.Show(InvestModal.Instance, false);
     }
 

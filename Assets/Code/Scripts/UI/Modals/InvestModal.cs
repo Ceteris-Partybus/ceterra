@@ -37,6 +37,9 @@ public class InvestModal : Modal {
         investCards.Clear();
 
         PopulateInvestmentTabs();
+
+        var tabView = modalElement.Q<TabView>();
+        RegisterTabClickSound(tabView);
     }
 
     private void EnsureTabGridExists(Tab tab) {
@@ -225,5 +228,42 @@ public class InvestModal : Modal {
     private void OnInvestCardProposeInvestButtonClicked(int investmentId) {
         FundsInvestProposalSubmitModal.Instance.InvestmentId = investmentId;
         ModalManager.Instance.Show(FundsInvestProposalSubmitModal.Instance);
+    }
+
+    private void RegisterTabClickSound(TabView tabView) {
+        if (tabView == null) return;
+
+        void AttachToTabButtons() {
+            var buttons = tabView.Query<Button>().ToList();
+            foreach (var btn in buttons) {
+                if (btn.userData as string == "sound-registered") continue;
+                btn.clicked += () => Audiomanager.Instance?.PlayClickSound();
+                btn.userData = "sound-registered";
+            }
+
+            var headers = tabView.Query<VisualElement>("unity-tab__header").ToList();
+            foreach (var el in headers) {
+                if (el.userData as string == "sound-registered") continue;
+                el.RegisterCallback<ClickEvent>(evt => Audiomanager.Instance?.PlayClickSound());
+                el.userData = "sound-registered";
+            }
+
+            Debug.Log($"TabView Buttons: {buttons.Count}, Headers: {headers.Count}");
+        }
+
+        AttachToTabButtons();
+
+        bool foundAny = tabView.Query<Button>().ToList().Count > 0 ||
+                        tabView.Query<VisualElement>("unity-tab__header").ToList().Count > 0;
+
+        if (!foundAny) {
+            EventCallback<GeometryChangedEvent> geomCb = null;
+            geomCb = (GeometryChangedEvent evt) =>
+            {
+                AttachToTabButtons();
+                tabView.UnregisterCallback<GeometryChangedEvent>(geomCb);
+            };
+            tabView.RegisterCallback<GeometryChangedEvent>(geomCb);
+        }
     }
 }

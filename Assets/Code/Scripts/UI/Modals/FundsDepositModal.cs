@@ -46,17 +46,20 @@ public class FundsDepositModal : Modal {
         var localPlayer = BoardContext.Instance.GetLocalPlayer();
 
         if (depositValue <= 0) {
+            Audiomanager.Instance?.PlayClickSound();
             ErrorModal.Instance.Message = "Der Einzahlungsbetrag muss größer als 0 sein.";
             ModalManager.Instance.Show(ErrorModal.Instance);
             return;
         }
 
         if (localPlayer.Coins < depositValue) {
+            Audiomanager.Instance?.PlayClickSound();
             ErrorModal.Instance.Message = "Du besitzt nicht genügend Münzen.";
             ModalManager.Instance.Show(ErrorModal.Instance);
             return;
         }
 
+        Audiomanager.Instance?.PlayInvestSound();
         CmdDepositFunds(depositValue, localPlayer);
         ModalManager.Instance.Hide();
     }
@@ -85,7 +88,6 @@ public class FundsDepositModal : Modal {
     }
 
     private void OnDepositAddButtonClicked(int amount) {
-        Audiomanager.Instance?.PlayClickSound();
         if (this.depositValueField != null) {
             this.depositValueField.value += (uint)amount;
         }

@@ -61,14 +61,17 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
 
         resourcesButton.clicked += () => {
             ModalManager.Instance.Show(ResourceModal.Instance);
+            Audiomanager.Instance?.PlayRessourceSound();
         };
 
         fundsButton.clicked += () => {
             ModalManager.Instance.Show(FundsModal.Instance);
+            Audiomanager.Instance?.PlayFundsSound();
         };
 
         investButton.clicked += () => {
             ModalManager.Instance.Show(InvestModal.Instance);
+            Audiomanager.Instance?.PlayInvestSound();
         };
     }
 
