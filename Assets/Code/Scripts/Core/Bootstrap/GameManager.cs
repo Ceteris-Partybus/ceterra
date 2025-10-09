@@ -132,7 +132,7 @@ public class GameManager : NetworkRoomManager {
 
         var randomIndex = UnityEngine.Random.Range(0, availableMinigames.Count);
         var selectedMinigame = availableMinigames[randomIndex];
-        StartMinigame(selectedMinigame);
+        StartMinigame("MgOcean"); // TODO: Change back to selectedMinigame
     }
 
     /// <summary>
