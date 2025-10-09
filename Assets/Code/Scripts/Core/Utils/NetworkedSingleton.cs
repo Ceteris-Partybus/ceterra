@@ -17,12 +17,9 @@ public abstract class NetworkedSingleton<T> : NetworkBehaviour where T : Network
 
     protected virtual void Awake() {
         lock (lockObj) {
-            if (instance == null) {
-                instance = this as T;
-            }
-            else if (instance != this) {
+            instance ??= this as T;
+            if (instance != this) {
                 Destroy(gameObject);
-                return;
             }
         }
     }

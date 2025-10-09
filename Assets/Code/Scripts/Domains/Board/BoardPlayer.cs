@@ -64,7 +64,6 @@ public class BoardPlayer : SceneConditionalPlayer {
     public int Health => health;
     public const int MAX_HEALTH = 100;
     private BoardPlayerVisualHandler visualHandler;
-    private float zoomBlendTime = 0.5f;
 
     [SyncVar]
     private bool animationFinished = true;
@@ -373,13 +372,13 @@ public class BoardPlayer : SceneConditionalPlayer {
         RpcHideDiceResultLabel();
 
         CameraHandler.Instance.RpcZoomIn();
-        yield return new WaitForSeconds(zoomBlendTime);
+        yield return new WaitForSeconds(CameraHandler.Instance.PlayerToZoomBlendTime);
 
         var finalField = fieldBehaviourList.Find(splineKnotIndex);
         yield return StartCoroutine(finalField.InvokeOnPlayerLand(this));
 
         CameraHandler.Instance.RpcZoomOut();
-        yield return new WaitForSeconds(zoomBlendTime);
+        yield return new WaitForSeconds(CameraHandler.Instance.ZoomToPlayerBlendTime);
 
         BoardContext.Instance.OnPlayerMovementComplete(this);
     }
@@ -430,7 +429,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     void MoveAndRotate() {
-        var movementBlend = Mathf.Pow(0.5f, Time.deltaTime * movementLerp);
+        var movementBlend = Mathf.Pow(.5f, Time.deltaTime * movementLerp);
         var targetPosition = splineContainer.EvaluatePosition(splineKnotIndex.Spline, normalizedSplinePosition);
         transform.position = Vector3.Lerp(targetPosition, transform.position, movementBlend);
 
