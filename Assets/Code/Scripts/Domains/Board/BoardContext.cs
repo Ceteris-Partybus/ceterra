@@ -361,7 +361,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         }
 
         currentState = State.PLAYER_MOVING;
-        player.MoveToField(diceValue);
+        player.PlayerMovement.MoveToField(diceValue);
     }
 
     [Server]

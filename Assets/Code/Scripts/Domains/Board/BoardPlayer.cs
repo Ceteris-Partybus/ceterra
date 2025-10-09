@@ -20,31 +20,21 @@ public class BoardPlayer : SceneConditionalPlayer {
         set => splineKnotIndex = value;
     }
 
+    public bool IsMoving => playerMovement.IsMoving;
+    public bool IsJumping => playerMovement.IsJumping;
+
     private SplineContainer splineContainer;
     public SplineContainer SplineContainer => splineContainer;
 
     [Header("Movement")]
-    [SyncVar]
-    private bool isMoving = false;
-    public bool IsMoving {
-        get => isMoving;
-        set { isMoving = value; }
-    }
-
-    [SyncVar]
-    private bool isJumping = false;
-    public bool IsJumping {
-        get => isJumping;
-        set { isJumping = value; }
-    }
+    [SerializeField]
+    private PlayerMovement playerMovement;
+    public PlayerMovement PlayerMovement => playerMovement;
 
     [SyncVar]
     private bool isFirstLoad = true;
     public bool IsFirstLoad => isFirstLoad;
 
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float movementLerp;
-    [SerializeField] private float rotationLerp;
 
     [SyncVar]
     private float normalizedSplinePosition;
@@ -54,7 +44,9 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     private BoardPlayerVisualHandler visualHandler;
+    public BoardPlayerVisualHandler VisualHandler => visualHandler;
     private float zoomBlendTime = 0.5f;
+    public float ZoomBlendTime => zoomBlendTime;
 
     [SyncVar]
     private bool animationFinished = true;
@@ -147,7 +139,7 @@ public class BoardPlayer : SceneConditionalPlayer {
 
         IEnumerator WaitForFieldInitialization() {
             yield return new WaitUntil(() => BoardContext.Instance != null && BoardContext.Instance.FieldBehaviourList != null);
-            isMoving = false;
+            playerMovement.IsMoving = false;
             Transform startPosition;
 
             if (isFirstLoad) {
@@ -167,7 +159,7 @@ public class BoardPlayer : SceneConditionalPlayer {
         Debug.Log($"[Server] BoardPlayer {name} cleaned up");
         // Stop any ongoing movement
         StopAllCoroutines();
-        isMoving = false;
+        playerMovement.IsMoving = false;
     }
 
     [Server]
@@ -213,7 +205,7 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [Command]
     public void CmdRollDice() {
-        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving || dice.IsSpinning) {
+        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || playerMovement.IsMoving || dice.IsSpinning) {
             return;
         }
         RpcStartDiceRoll();
@@ -221,7 +213,7 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [Command]
     public void CmdToggleBoardOverview() {
-        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving || dice.IsSpinning) {
+        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || playerMovement.IsMoving || dice.IsSpinning) {
             return;
         }
         CameraHandler.Instance.RpcToggleBoardOverview();
@@ -229,7 +221,7 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [Command]
     public void CmdEndRollDice() {
-        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving) {
+        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || playerMovement.IsMoving) {
             return;
         }
 
@@ -240,7 +232,7 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [Command]
     public void CmdRollDiceCancel() {
-        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || isMoving) {
+        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || playerMovement.IsMoving) {
             return;
         }
         RpcEndDiceCancel();
@@ -268,123 +260,17 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     [ClientRpc]
-    private void RpcUpdateDiceResultLabel(string value) {
+    public void RpcUpdateDiceResultLabel(string value) {
         visualHandler.DiceResultLabel(value);
     }
 
     [ClientRpc]
-    private void RpcHideDiceResultLabel() {
+    public void RpcHideDiceResultLabel() {
         visualHandler.HideDiceResultLabel();
     }
 
-    [Server]
-    public void MoveToField(int steps) {
-        if (!IsActiveForCurrentScene || isMoving) { return; }
-
-        StartCoroutine(MoveAlongSplineCoroutine(steps));
-    }
-
-    [Server]
-    private IEnumerator MoveAlongSplineCoroutine(int steps) {
-        var fieldBehaviourList = BoardContext.Instance.FieldBehaviourList;
-        var remainingSteps = steps;
-
-        while (remainingSteps > 0) {
-            RpcUpdateDiceResultLabel(remainingSteps.ToString());
-            var targetField = fieldBehaviourList.Find(splineKnotIndex).GetNextTargetField();
-            yield return StartCoroutine(ServerSmoothMoveToKnot(targetField));
-
-            SplineKnotIndex = targetField.SplineKnotIndex;
-            if (!targetField.SkipStepCount) { remainingSteps--; }
-
-            if (remainingSteps > 0) {
-                if (targetField.PausesMovement) {
-                    yield return StartCoroutine(EnsureTargetPosition(targetField.Position));
-                }
-                yield return StartCoroutine(targetField.InvokeOnPlayerCross(this));
-            }
-        }
-        yield return StartCoroutine(EnsureTargetPosition(fieldBehaviourList.Find(splineKnotIndex).Position));
-
-        RpcTriggerAnimation(AnimationType.IDLE);
-        isMoving = false;
-        RpcHideDiceResultLabel();
-
-        CameraHandler.Instance.RpcZoomIn();
-        yield return new WaitForSeconds(zoomBlendTime);
-
-        var finalField = fieldBehaviourList.Find(splineKnotIndex);
-        yield return StartCoroutine(finalField.InvokeOnPlayerLand(this));
-
-        CameraHandler.Instance.RpcZoomOut();
-        yield return new WaitForSeconds(zoomBlendTime);
-
-        BoardContext.Instance.OnPlayerMovementComplete(this);
-    }
-
-    [Server]
-    private IEnumerator EnsureTargetPosition(Vector3 targetPosition) {
-        while (Vector3.Distance(transform.position, targetPosition) > .05f) {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * .5f * Time.deltaTime);
-            yield return null;
-        }
-        transform.position = targetPosition;
-    }
-
-    [Server]
-    private IEnumerator ServerSmoothMoveToKnot(FieldBehaviour targetField) {
-        var currentSpline = splineContainer.Splines[splineKnotIndex.Spline];
-        var targetSpline = splineContainer.Splines[targetField.SplineKnotIndex.Spline];
-        var spline = targetSpline;
-        var normalizedTargetPosition = targetField.NormalizedSplinePosition;
-
-        if (!IsMoving) {
-            isJumping = false;
-            isMoving = true;
-            RpcTriggerAnimation(AnimationType.RUN);
-        }
-
-        if (SplineKnotIndex.Spline != targetField.SplineKnotIndex.Spline) {
-            if (targetField.SplineKnotIndex.Knot == 1) {
-                SplineKnotIndex = targetField.SplineKnotIndex;
-                normalizedSplinePosition = 0f;
-            }
-            else {
-                normalizedTargetPosition = 1f;
-                spline = currentSpline;
-            }
-        }
-
-        if (targetField.SplineKnotIndex.Knot == 0 && targetSpline.Closed) {
-            normalizedTargetPosition = 1f;
-        }
-
-        while (normalizedSplinePosition != normalizedTargetPosition) {
-            normalizedSplinePosition = Mathf.MoveTowards(normalizedSplinePosition, normalizedTargetPosition, moveSpeed / spline.GetLength() * Time.deltaTime);
-            yield return null;
-        }
-
-        normalizedSplinePosition = targetField.NormalizedSplinePosition;
-    }
-
-    void MoveAndRotate() {
-        var movementBlend = Mathf.Pow(0.5f, Time.deltaTime * movementLerp);
-        var targetPosition = splineContainer.EvaluatePosition(splineKnotIndex.Spline, normalizedSplinePosition);
-        transform.position = Vector3.Lerp(targetPosition, transform.position, movementBlend);
-
-        if (isMoving) {
-            splineContainer.Splines[splineKnotIndex.Spline].Evaluate(normalizedSplinePosition, out float3 _, out float3 direction, out float3 _);
-            var worldDirection = splineContainer.transform.TransformDirection(direction);
-
-            if (worldDirection.sqrMagnitude > 0.0001f) {
-                visualHandler.SetMovementRotation(Quaternion.LookRotation(worldDirection, Vector3.up), rotationLerp);
-            }
-        }
-    }
-
     void Update() {
-        if (isJumping) { return; }
-        if (isMoving) { MoveAndRotate(); return; }
+        if (playerMovement.IsMoving) { return; }
         if (isLocalPlayer) { HandleInput(); }
 
         visualHandler?.MakeCharacterFaceCamera();
