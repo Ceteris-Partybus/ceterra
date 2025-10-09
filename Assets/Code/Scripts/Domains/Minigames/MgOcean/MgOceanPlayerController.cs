@@ -14,4 +14,20 @@ public class MgOceanPlayerController : NetworkBehaviour {
         Vector3 move = new Vector3(moveX, moveY, 0f) * Time.deltaTime * 5f;
         transform.position += move;
     }
+
+    void Start() {
+        ChangeAvatarColor(Color.blue);
+        
+    }
+    private void ChangeAvatarColor(Color color) {
+        if (!isOwned) {
+            return;
+        }
+
+        Renderer renderer = GetComponent<Renderer>();
+        if (renderer != null) {
+            renderer.material.color = color;
+        }
+        }
+
 }
