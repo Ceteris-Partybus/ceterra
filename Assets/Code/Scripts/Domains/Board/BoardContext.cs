@@ -455,8 +455,30 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     }
 
     public BoardPlayer GetLocalPlayer() {
+
+        IEnumerator WaitForAnyPlayer() {
+            yield return new WaitUntil(() => FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).Length > 0);
+        }
+
+        StartCoroutine(WaitForAnyPlayer());
+
         return FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
             .FirstOrDefault(p => p.isLocalPlayer);
+    }
+
+    public List<BoardPlayer> GetRemotePlayers() {
+        return GetAllPlayers().Where(p => !p.isLocalPlayer).ToList();
+    }
+
+    public List<BoardPlayer> GetAllPlayers() {
+
+        IEnumerator WaitForPlayers() {
+            yield return new WaitUntil(() => FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).Length == GameManager.Singleton.roomSlots.Count());
+        }
+
+        StartCoroutine(WaitForPlayers());
+
+        return FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).ToList();
     }
 
     public BoardPlayer GetPlayerById(int playerId) {
@@ -523,8 +545,8 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
         int surplus = investment.Invest(amount);
         int coinsToRemove = amount - Math.Max(surplus, 0);
-        player.RemoveCoins(coinsToRemove);
-        player.AddScore(coinsToRemove / 10);
+        player.PlayerStats.ModifyCoins(-coinsToRemove);
+        player.PlayerStats.ModifyScore(coinsToRemove / 10);
 
         TriggerInvestmentListUpdate(index, investment);
     }

@@ -206,7 +206,7 @@ public class BoardquizController : NetworkedSingleton<BoardquizController> {
 
     [Command(requiresAuthority = false)]
     private void CmdAddScore(int amount) {
-        currentPlayer?.AddScore(amount);
+        currentPlayer?.PlayerStats.ModifyScore(amount);
     }
 
     private IEnumerator AutoAdvanceAfterDelay() {

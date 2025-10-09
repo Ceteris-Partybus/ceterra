@@ -6,6 +6,11 @@ using UnityEngine.Splines;
 using Unity.Mathematics;
 
 public class BoardPlayer : SceneConditionalPlayer {
+    [Header("Stats")]
+    [SerializeField]
+    private PlayerStats playerStats;
+    public PlayerStats PlayerStats => playerStats;
+
     [Header("Position")]
     [SyncVar]
     private SplineKnotIndex splineKnotIndex;
@@ -25,16 +30,13 @@ public class BoardPlayer : SceneConditionalPlayer {
         get => isMoving;
         set { isMoving = value; }
     }
+
     [SyncVar]
     private bool isJumping = false;
     public bool IsJumping {
         get => isJumping;
         set { isJumping = value; }
     }
-
-    [SyncVar]
-    private int score = 0;
-    public int Score => score;
 
     [SyncVar]
     private bool isFirstLoad = true;
@@ -51,18 +53,6 @@ public class BoardPlayer : SceneConditionalPlayer {
         set { normalizedSplinePosition = value; }
     }
 
-    [Header("Stats")]
-    [SyncVar(hook = nameof(OnCoinsChanged))]
-    [SerializeField]
-    private int coins;
-    public int Coins => coins;
-    public const int MAX_COINS = 1000;
-
-    [SyncVar(hook = nameof(OnHealthChanged))]
-    [SerializeField]
-    private int health;
-    public int Health => health;
-    public const int MAX_HEALTH = 100;
     private BoardPlayerVisualHandler visualHandler;
     private float zoomBlendTime = 0.5f;
 
@@ -79,13 +69,6 @@ public class BoardPlayer : SceneConditionalPlayer {
     protected void Start() {
         DontDestroyOnLoad(gameObject);
         splineContainer = FindFirstObjectByType<SplineContainer>();
-    }
-
-    public override void OnStartServer() {
-        base.OnStartServer();
-
-        this.coins = 50;
-        this.health = MAX_HEALTH;
     }
 
     [Server]
@@ -117,50 +100,22 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [Command]
     public void CmdClaimQuizReward(int amount) {
-        AddCoins(amount);
+        PlayerStats.ModifyCoins(amount);
     }
 
     [Server]
-    public void AddCoins(int amount) {
-        if (coins + amount > MAX_COINS) {
-            coins = MAX_COINS;
-            int remaining = coins + amount - MAX_COINS;
-            BoardContext.Instance.UpdateFundsStat(remaining);
-        }
-        else {
-            coins += amount;
-        }
-        RpcTriggerBlockingAnimation(AnimationType.COIN_GAIN);
-    }
-
-    [Server]
-    public void AddScore(int amount) {
-        score += amount;
-    }
-
-    [Server]
-    public void RemoveScore(int amount) {
-        score = Math.Max(0, score - amount);
-    }
-
-    public void AddHealth(int amount) {
-        health = Math.Min(health + amount, MAX_HEALTH);
-        RpcTriggerBlockingAnimation(AnimationType.HEALTH_GAIN);
-    }
-
-    public void RemoveCoins(int amount) {
-        coins = Math.Max(0, coins - amount);
-        RpcTriggerBlockingAnimation(AnimationType.COIN_LOSS);
-    }
-
-    public void RemoveHealth(int amount) {
-        health = Math.Max(0, health - amount);
-        RpcTriggerBlockingAnimation(AnimationType.HEALTH_LOSS);
+    public WaitUntil TriggerBlockingAnimation(AnimationType animationType) {
+        IsAnimationFinished = false;
+        RpcTriggerBlockingAnimation(animationType);
+        return new WaitUntil(() => IsAnimationFinished);
     }
 
     [ClientRpc]
-    private void RpcTriggerBlockingAnimation(AnimationType animationType) {
-        IsAnimationFinished = false;
+    /// <summary>
+    /// Triggers a blocking animation on the client side and notifies the server when the animation is complete.
+    /// Set `isAnimationFinished` to false before calling this method to ensure proper synchronization.
+    /// </summary>
+    public void RpcTriggerBlockingAnimation(AnimationType animationType) {
         StartCoroutine(TriggerAnimationCoroutine());
 
         IEnumerator TriggerAnimationCoroutine() {
@@ -221,16 +176,16 @@ public class BoardPlayer : SceneConditionalPlayer {
         Debug.Log($"[Server] BoardPlayer received data from {source.GetType().Name}");
 
         if (source is MgGarbagePlayer garbagePlayer) {
-            AddCoins(Math.Max(0, garbagePlayer.Score));
-            AddScore(Math.Max(0, garbagePlayer.Score / 5));
+            PlayerStats.ModifyCoins(Math.Max(0, garbagePlayer.Score));
+            PlayerStats.ModifyScore(Math.Max(0, garbagePlayer.Score / 5));
         }
         else if (source is MgQuizduelPlayer quizDuelPlayer) {
-            AddCoins(Math.Max(0, quizDuelPlayer.EarnedCoinReward));
-            AddScore(Math.Max(0, quizDuelPlayer.EarnedCoinReward / 15));
+            PlayerStats.ModifyCoins(Math.Max(0, quizDuelPlayer.EarnedCoinReward));
+            PlayerStats.ModifyScore(Math.Max(0, quizDuelPlayer.EarnedCoinReward / 15));
         }
         else if (source is MgOceanPlayer oceanPlayer) {
-            AddCoins(Math.Max(0, oceanPlayer.Score));
-            AddScore(Math.Max(0, oceanPlayer.Score / 5));
+            PlayerStats.ModifyCoins(Math.Max(0, oceanPlayer.Score));
+            PlayerStats.ModifyScore(Math.Max(0, oceanPlayer.Score / 5));
         }
     }
 
@@ -241,31 +196,13 @@ public class BoardPlayer : SceneConditionalPlayer {
             if (!BoardOverlay.Instance.IsPlayerAdded(PlayerId)) {
                 BoardOverlay.Instance.AddPlayer(this);
             }
-            BoardOverlay.Instance.UpdateRemotePlayerHealth(health, PlayerId);
-            BoardOverlay.Instance.UpdateRemotePlayerCoins(coins, PlayerId);
+            BoardOverlay.Instance.UpdateRemotePlayerHealth(PlayerStats.GetHealth(), PlayerId);
+            BoardOverlay.Instance.UpdateRemotePlayerCoins(PlayerStats.GetCoins(), PlayerId);
         }
         else if (isLocalPlayer && isActive) {
             BoardOverlay.Instance.UpdateLocalPlayerName(PlayerName);
-            BoardOverlay.Instance.UpdateLocalPlayerHealth(health);
-            BoardOverlay.Instance.UpdateLocalPlayerCoins(coins);
-        }
-    }
-
-    private void OnCoinsChanged(int old, int new_) {
-        if (isLocalPlayer) {
-            BoardOverlay.Instance.UpdateLocalPlayerCoins(new_);
-        }
-        else {
-            BoardOverlay.Instance.UpdateRemotePlayerCoins(new_, PlayerId);
-        }
-    }
-
-    private void OnHealthChanged(int old, int new_) {
-        if (isLocalPlayer) {
-            BoardOverlay.Instance.UpdateLocalPlayerHealth(new_);
-        }
-        else {
-            BoardOverlay.Instance.UpdateRemotePlayerHealth(new_, PlayerId);
+            BoardOverlay.Instance.UpdateLocalPlayerHealth(PlayerStats.GetHealth());
+            BoardOverlay.Instance.UpdateLocalPlayerCoins(PlayerStats.GetCoins());
         }
     }
 

@@ -7,7 +7,7 @@ public class EndBehaviour : NetworkBehaviour {
 
     public override void OnStartClient() {
         int groupScore = BoardContext.Instance.EvaluateGlobalScore();
-        int playerScore = BoardContext.Instance.GetLocalPlayer().Score;
+        int playerScore = BoardContext.Instance.GetLocalPlayer().PlayerStats.GetScore();
         int totalScore = playerScore + groupScore;
 
         Label localPlayerScoreLabel = uiDocument.rootVisualElement.Q<Label>("local-player-score");

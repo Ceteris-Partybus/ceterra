@@ -13,13 +13,11 @@ public class NormalFieldBehaviour : FieldBehaviour {
 
     [Server]
     private IEnumerator AddCoinsAndHealth(BoardPlayer player) {
-        player.IsAnimationFinished = false;
-        player.AddCoins(MONEY_EFFECT);
-        yield return new WaitUntil(() => player.IsAnimationFinished);
+        yield return player.TriggerBlockingAnimation(AnimationType.COIN_GAIN);
+        player.PlayerStats.ModifyCoins(MONEY_EFFECT);
 
-        player.IsAnimationFinished = false;
-        player.AddHealth(HEALTH_EFFECT);
-        yield return new WaitUntil(() => player.IsAnimationFinished);
+        yield return player.TriggerBlockingAnimation(AnimationType.HEALTH_GAIN);
+        player.PlayerStats.ModifyHealth(HEALTH_EFFECT);
 
         CompleteFieldInvocation();
     }
