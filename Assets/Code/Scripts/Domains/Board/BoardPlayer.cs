@@ -163,22 +163,8 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     [Server]
-    protected override void OnServerReceiveData(SceneConditionalPlayer source) {
-        // Receive data from minigame players or other sources
-        Debug.Log($"[Server] BoardPlayer received data from {source.GetType().Name}");
-
-        if (source is MgGarbagePlayer garbagePlayer) {
-            PlayerStats.ModifyCoins(Math.Max(0, garbagePlayer.Score));
-            PlayerStats.ModifyScore(Math.Max(0, garbagePlayer.Score / 5));
-        }
-        else if (source is MgQuizduelPlayer quizDuelPlayer) {
-            PlayerStats.ModifyCoins(Math.Max(0, quizDuelPlayer.EarnedCoinReward));
-            PlayerStats.ModifyScore(Math.Max(0, quizDuelPlayer.EarnedCoinReward / 15));
-        }
-        else if (source is MgOceanPlayer oceanPlayer) {
-            PlayerStats.ModifyCoins(Math.Max(0, oceanPlayer.Score));
-            PlayerStats.ModifyScore(Math.Max(0, oceanPlayer.Score / 5));
-        }
+    protected override void HandleMinigameRewards(IMinigameRewardHandler handler) {
+        handler.HandleMinigameRewards(this);
     }
 
     protected override void OnClientActiveStateChanged(bool isActive) {

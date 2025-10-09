@@ -2,7 +2,7 @@ using Mirror;
 using System;
 using UnityEngine;
 
-public class MgQuizduelPlayer : SceneConditionalPlayer {
+public class MgQuizduelPlayer : SceneConditionalPlayer, IMinigameRewardHandler {
     private int score = 0;
     private bool hasFinishedQuiz = false;
     private int earnedCoinReward = 0;
@@ -35,5 +35,10 @@ public class MgQuizduelPlayer : SceneConditionalPlayer {
     [Server]
     public void SetEarnedCoinReward(int reward) {
         earnedCoinReward = reward;
+    }
+
+    public void HandleMinigameRewards(BoardPlayer player) {
+        player.PlayerStats.ModifyCoins(Math.Max(0, EarnedCoinReward));
+        player.PlayerStats.ModifyScore(Math.Max(0, EarnedCoinReward / 15));
     }
 }

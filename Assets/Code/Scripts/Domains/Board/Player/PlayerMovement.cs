@@ -144,5 +144,4 @@ public class PlayerMovement : NetworkBehaviour {
         if (isJumping) { return; }
         if (isMoving) { MoveAndRotate(); return; }
     }
-
 }

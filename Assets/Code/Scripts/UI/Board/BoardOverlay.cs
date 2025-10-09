@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
-
     [SerializeField] private UIDocument uiDocument;
 
     [Header("Player")]
@@ -79,7 +78,6 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
     protected override void Start() {
         base.Start();
 
-        // Call Update* methods to initialize UI
         UpdateFundsValue(BoardContext.Instance.FundsStat);
         UpdateResourceValue(BoardContext.Instance.ResourceStat);
         UpdateEconomyValue(BoardContext.Instance.EconomyStat);
@@ -94,6 +92,14 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         foreach (var player in BoardContext.Instance.GetRemotePlayers()) {
             player.PlayerStats.OnCoinsUpdated += (newCoins) => UpdateRemotePlayerCoins(newCoins, player.PlayerId);
             player.PlayerStats.OnHealthUpdated += (newHealth) => UpdateRemotePlayerHealth(newHealth, player.PlayerId);
+        }
+
+        // Call Update* methods to initialize UI
+        UpdateLocalPlayerCoins(localPlayerStats.GetCoins());
+        UpdateLocalPlayerHealth(localPlayerStats.GetHealth());
+        foreach (var player in BoardContext.Instance.GetRemotePlayers()) {
+            UpdateRemotePlayerCoins(player.PlayerStats.GetCoins(), player.PlayerId);
+            UpdateRemotePlayerHealth(player.PlayerStats.GetHealth(), player.PlayerId);
         }
     }
 
