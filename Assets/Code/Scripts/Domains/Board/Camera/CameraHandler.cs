@@ -9,6 +9,7 @@ public class CameraHandler : NetworkedSingleton<CameraHandler> {
     [SerializeField] private CinemachineCamera defaultCamera;
     [SerializeField] private CinemachineCamera zoomCamera;
     [SerializeField] private CinemachineCamera boardCamera;
+    private CinemachineBrain cameraBrain;
 
     [Header("States")]
     public bool IsShowingBoard => boardCamera.Priority == 1;
@@ -33,9 +34,9 @@ public class CameraHandler : NetworkedSingleton<CameraHandler> {
     protected override void Start() {
         base.Start();
         SetupInitialPosition();
-        var brain = Camera.main.GetComponent<CinemachineBrain>();
-        var blendSettings = brain.CustomBlends;
-        var defaultBlend = brain.DefaultBlend;
+        cameraBrain = Camera.main.GetComponent<CinemachineBrain>();
+        var blendSettings = cameraBrain.CustomBlends;
+        var defaultBlend = cameraBrain.DefaultBlend;
         var getBlendTimeFor = new Func<CinemachineCamera, CinemachineCamera, float>((CinemachineCamera from, CinemachineCamera to) => CinemachineBlenderSettings.LookupBlend(from, to, defaultBlend, blendSettings, null).BlendTime);
         playerToZoomBlendTime = getBlendTimeFor(defaultCamera, zoomCamera);
         zoomToPlayerBlendTime = getBlendTimeFor(zoomCamera, defaultCamera);
@@ -82,13 +83,15 @@ public class CameraHandler : NetworkedSingleton<CameraHandler> {
     }
 
     [Client]
-    public void ZoomIn() {
+    public WaitWhile ZoomIn() {
         ZoomCamera(true);
+        return new WaitWhile(() => cameraBrain.IsLiveInBlend(zoomCamera));
     }
 
     [Client]
-    public void ZoomOut() {
+    public WaitWhile ZoomOut() {
         ZoomCamera(false);
+        return new WaitWhile(() => cameraBrain.IsLiveInBlend(zoomCamera));
     }
 
     private void ZoomCamera(bool zoom) {

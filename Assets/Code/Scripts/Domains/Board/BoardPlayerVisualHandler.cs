@@ -56,14 +56,14 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
         dice.HideDiceResultLabel();
     }
 
-    public void OnRollStart() {
-        CameraHandler.Instance.ZoomIn();
+    public IEnumerator OnRollStart() {
+        yield return CameraHandler.Instance.ZoomIn();
         dice.OnRollStart();
         TriggerAnimation(AnimationType.DICE_SPIN);
     }
 
-    public void OnRollCancel() {
-        CameraHandler.Instance.ZoomOut();
+    public IEnumerator OnRollCancel() {
+        yield return CameraHandler.Instance.ZoomOut();
         dice.OnRollCancel();
         TriggerAnimation(AnimationType.IDLE);
     }

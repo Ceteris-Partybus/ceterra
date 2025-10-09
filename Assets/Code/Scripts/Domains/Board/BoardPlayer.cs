@@ -321,12 +321,12 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [ClientRpc]
     private void RpcEndDiceCancel() {
-        visualHandler.OnRollCancel();
+        StartCoroutine(visualHandler.OnRollCancel());
     }
 
     [ClientRpc]
     private void RpcStartDiceRoll() {
-        visualHandler.OnRollStart();
+        StartCoroutine(visualHandler.OnRollStart());
     }
 
     [ClientRpc]
