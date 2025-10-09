@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public abstract class Modal : NetworkBehaviour {
+    public const int DEFAULT_DISPLAY_DURATION = 10;
+
     [Header("Modal Settings")]
     [SerializeField] protected VisualTreeAsset visualTreeAsset;
     [SerializeField] protected string modalId;

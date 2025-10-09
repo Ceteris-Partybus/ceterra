@@ -39,7 +39,7 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
     private IEnumerator ProcessCatastropheSequence(BoardPlayer triggeringPlayer) {
         var affectedPlayers = GetAffectedPlayers(triggeringPlayer);
         RpcShowCatastropheInfo(affectedPlayers.Select(p => p.ToString()).Aggregate((a, b) => a + "\n" + b));
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(Modal.DEFAULT_DISPLAY_DURATION);
 
         RpcHideCatastropheInfo();
         yield return new WaitForSeconds(.5f);
