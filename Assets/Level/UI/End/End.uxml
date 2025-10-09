@@ -1,6 +1,18 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement style="flex-grow: 1; width: 100%; height: 100%; align-items: center; justify-content: center;">
-        <ui:Label text="Das Spiel ist zuende!" style="font-size: 167px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;);" />
-        <ui:Label text="Danke für&apos;s Spielen!" style="font-size: 98px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;);" />
+        <ui:VisualElement style="flex-grow: 1;">
+            <ui:Label text="Das Spiel ist zu Ende!" style="font-size: 167px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;);" />
+            <ui:Label text="Danke für&apos;s Spielen!" style="font-size: 98px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); -unity-text-align: upper-center;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1; justify-content: flex-start; align-items: flex-start; align-content: flex-start;">
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; font-size: 103px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); height: auto;">
+                <ui:Label text="Dein Score:" style="margin-right: 51px; height: 123px;" />
+                <ui:Label name="local-player-score" style="color: rgb(116, 250, 110);" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; font-size: 103px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;);">
+                <ui:Label text="Gruppe:" style="margin-right: 51px; height: 136px;" />
+                <ui:Label name="group-score" style="color: rgb(250, 222, 110);" />
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
