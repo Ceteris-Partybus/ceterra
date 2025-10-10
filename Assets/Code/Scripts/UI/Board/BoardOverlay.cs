@@ -62,17 +62,9 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         economyValueLabel = rootElement.Q<Label>("economy-bar-value");
         settingsContainer = rootElement.Q<TemplateContainer>("SettingsTemplateContainer");
 
-        resourcesButton.clicked += () => {
-            ModalManager.Instance.Show(ResourceModal.Instance);
-        };
-
-        fundsButton.clicked += () => {
-            ModalManager.Instance.Show(FundsModal.Instance);
-        };
-
-        investButton.clicked += () => {
-            ModalManager.Instance.Show(InvestModal.Instance);
-        };
+        resourcesButton.clicked += () => ModalManager.Instance.Show(ResourceModal.Instance);
+        fundsButton.clicked += () => ModalManager.Instance.Show(FundsModal.Instance);
+        investButton.clicked += () => ModalManager.Instance.Show(InvestModal.Instance);
     }
 
     [ClientCallback]
@@ -168,12 +160,10 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         if (health > 70) {
             return "health-bar--green";
         }
-        else if (health > 35) {
+        if (health > 35) {
             return "health-bar--yellow";
         }
-        else {
-            return "health-bar--red";
-        }
+        return "health-bar--red";
     }
 
     [ClientCallback]
@@ -257,7 +247,7 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
 
         var investModal = InvestModal.Instance;
 
-        if (investModal.IsVisible() == false) {
+        if (!investModal.IsVisible()) {
             yield break;
         }
 
@@ -319,11 +309,9 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         if (trend == Trend.RISING) {
             return "trend-rising";
         }
-        else if (trend == Trend.FALLING) {
+        if (trend == Trend.FALLING) {
             return "trend-falling";
         }
-        else {
-            return "trend-neutral";
-        }
+        return "trend-neutral";
     }
 }
