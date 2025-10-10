@@ -3,9 +3,11 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Audio;
+using System.Collections;
 
-public class SettingsController : MonoBehaviour {
-    private TemplateContainer settingsTemplateContainer;
+public class SettingsController : NetworkedSingleton<SettingsController> {
+    protected override bool ShouldPersistAcrossScenes => true;
+    private VisualElement settingsTemplateContainer;
     private Button closeButton;
     private Slider volumeSlider;
     private Label volumeValue;
@@ -24,11 +26,10 @@ public class SettingsController : MonoBehaviour {
     [SerializeField]
     private UIDocument uIDocument;
     [SerializeField] private AudioMixer audioMixer;
+    private bool isInputAllowed = true;
 
     private void OnEnable() {
         var root = uIDocument.rootVisualElement;
-        // Ensure that settings is on top of other UI elements
-        uIDocument.sortingOrder = 10;
 
         InitializeUIElements(root);
         SetupVolume();
@@ -39,7 +40,7 @@ public class SettingsController : MonoBehaviour {
     }
 
     private void InitializeUIElements(VisualElement root) {
-        settingsTemplateContainer = root.Q<TemplateContainer>("SettingsTemplateContainer");
+        settingsTemplateContainer = root.Q<VisualElement>("Overlay");
 
         closeButton = settingsTemplateContainer.Q<Button>("SettingsCloseButton");
         closeButton.clicked += () => {
@@ -60,17 +61,15 @@ public class SettingsController : MonoBehaviour {
     }
 
     private void SetupVolume() {
-        // Slider-Event
         volumeSlider.RegisterValueChangedCallback(evt => {
             UpdateAudioValue(evt.newValue, volumeValue, soundVolumeParam);
-            PlayerPrefs.SetFloat("MasterVolume", evt.newValue); // speichern
+            PlayerPrefs.SetFloat("MasterVolume", evt.newValue);
             PlayerPrefs.Save();
         });
 
         volumeSlider.RegisterCallback<MouseUpEvent>(evt => Audiomanager.Instance?.PlayClickSound());
         volumeSlider.RegisterCallback<ClickEvent>(evt => Audiomanager.Instance?.PlayClickSound());
 
-        // Initialwert aus PlayerPrefs laden (default 100%)
         var savedVolume = PlayerPrefs.GetFloat("MasterVolume", 100f);
         volumeSlider.value = savedVolume;
         UpdateAudioValue(savedVolume, volumeValue, soundVolumeParam);
@@ -95,7 +94,7 @@ public class SettingsController : MonoBehaviour {
         if (audioMixer == null) { return; }
 
         var normalized = Mathf.Clamp01(value / 100f);
-        var dB = (normalized <= 0.0001f) ? -80f : Mathf.Log10(normalized) * 20f;
+        var dB = (normalized <= .0001f) ? -80f : Mathf.Log10(normalized) * 20f;
         audioMixer.SetFloat(mixerParam, dB);
 
         if (label != null) {
@@ -192,6 +191,29 @@ public class SettingsController : MonoBehaviour {
         }
         else {
             Debug.LogWarning($"Kein Locale gefunden für Sprache: {language}");
+        }
+    }
+
+    void Update() {
+        if (ModalManager.Instance?.ModalStack.Count > 0) {
+            return;
+        }
+
+        if (Input.GetKey(KeyCode.Escape)) {
+            OpenSettingsPanel();
+        }
+    }
+
+    public void OpenSettingsPanel() {
+        if (isInputAllowed) {
+            isInputAllowed = false;
+            StartCoroutine(WaitForSettingsPanelToFinishTransition());
+
+            IEnumerator WaitForSettingsPanelToFinishTransition() {
+                settingsTemplateContainer.ToggleInClassList("visible");
+                yield return new WaitForSeconds(.5f);
+                isInputAllowed = true;
+            }
         }
     }
 }

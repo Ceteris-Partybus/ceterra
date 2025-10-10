@@ -22,7 +22,7 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
         boardButton.clicked += OnBoardButtonClicked;
 
         settingsButton = rootElement.Q<Button>("settings-button");
-        settingsButton.clicked += BoardOverlay.Instance.OpenSettingsPanel;
+        settingsButton.clicked += SettingsController.Instance.OpenSettingsPanel;
 
         boardPlayer = BoardContext.Instance.GetLocalPlayer();
         BoardContext.Instance.OnNextPlayerTurn += UpdateTurnUI;

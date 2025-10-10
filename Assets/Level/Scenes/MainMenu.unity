@@ -583,7 +583,6 @@ GameObject:
   - component: {fileID: 1984653605}
   - component: {fileID: 1984653604}
   - component: {fileID: 1984653606}
-  - component: {fileID: 1984653607}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -641,20 +640,6 @@ MonoBehaviour:
   audioMixer: {fileID: 24100000, guid: 97a3acd63a8c96047b5adac0a7b628ad, type: 2}
   uiAudioSource: {fileID: 996655004}
   buttonClickSound: {fileID: 8300000, guid: 9d81544cf55c967429598b1854d8f7bd, type: 3}
---- !u!114 &1984653607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1984653603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 033fd5516e4e38b4c8884f9d2aeb1b54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uIDocument: {fileID: 1984653604}
-  audioMixer: {fileID: 24100000, guid: 97a3acd63a8c96047b5adac0a7b628ad, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

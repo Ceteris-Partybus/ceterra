@@ -19,8 +19,6 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
     private Button fundsButton;
     private Button investButton;
 
-    private TemplateContainer settingsContainer;
-
     private ProgressBar playerHealthBar;
     private Label playerHealthValue;
     private Label playerCoinsValue;
@@ -34,7 +32,6 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
     private Label societyValueLabel;
     private ProgressBar economyBar;
     private Label economyValueLabel;
-    private bool isInputAllowed = true;
 
     private void OnEnable() {
         rootElement = uiDocument.rootVisualElement;
@@ -60,7 +57,6 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         var economyBarContainer = rootElement.Q<TemplateContainer>("economy-bar");
         economyBar = economyBarContainer.Children().OfType<ProgressBar>().FirstOrDefault();
         economyValueLabel = rootElement.Q<Label>("economy-bar-value");
-        settingsContainer = rootElement.Q<TemplateContainer>("SettingsTemplateContainer");
 
         resourcesButton.clicked += () => ModalManager.Instance.Show(ResourceModal.Instance);
         fundsButton.clicked += () => ModalManager.Instance.Show(FundsModal.Instance);
@@ -93,29 +89,6 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         foreach (var player in BoardContext.Instance.GetRemotePlayers()) {
             UpdateRemotePlayerCoins(player.PlayerStats.GetCoins(), player.PlayerId);
             UpdateRemotePlayerHealth(player.PlayerStats.GetHealth(), player.PlayerId);
-        }
-    }
-
-    void Update() {
-        if (ModalManager.Instance?.ModalStack.Count > 0) {
-            return;
-        }
-
-        if (Input.GetKey(KeyCode.Escape)) {
-            OpenSettingsPanel();
-        }
-    }
-
-    public void OpenSettingsPanel() {
-        if (isInputAllowed) {
-            isInputAllowed = false;
-            StartCoroutine(WaitForSettingsPanelToFinishTransition());
-
-            IEnumerator WaitForSettingsPanelToFinishTransition() {
-                settingsContainer.ToggleInClassList("visible");
-                yield return new WaitForSeconds(.5f);
-                isInputAllowed = true;
-            }
         }
     }
 
