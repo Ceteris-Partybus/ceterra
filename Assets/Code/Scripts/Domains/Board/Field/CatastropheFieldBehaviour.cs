@@ -32,7 +32,7 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
             hasBeenInvoked = true;
             StartCoroutine(ProcessCatastropheSequence(player));
         }
-        player.RemoveScore(healthEffect / 5);
+        player.PlayerStats.ModifyScore(-1 * healthEffect / 5);
     }
 
     [Server]
@@ -106,8 +106,8 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
             }
 
             affectedPlayer.IsAnimationFinished = false;
-            affectedPlayer.RemoveHealth(inflictedDamage);
-            yield return new WaitUntil(() => affectedPlayer.IsAnimationFinished);
+            affectedPlayer.PlayerStats.ModifyHealth(-inflictedDamage);
+            yield return affectedPlayer.TriggerBlockingAnimation(AnimationType.HEALTH_LOSS);
             yield return new WaitForSeconds(PLAYER_DAMAGE_DELAY);
         }
     }
