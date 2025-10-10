@@ -1,4 +1,138 @@
-#roll-dice-button:disabled {
-    background-color: rgb(97, 97, 97);
+* {
+    -unity-font-definition: resource('UI/Other/Jersey15-Regular');
+}
+
+#turn-info-panel {
+    position: absolute;
+    top: 180px;
+    left: -40px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 18px;
+    padding: 20px 25px;
+    width: 435px;
+    border-width: 3px;
+    border-color: rgba(160, 199, 100, 0.6);
+    flex-direction: column;
+}
+
+#round-panel {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 15px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 13px;
+    padding: 10px 15px;
+    border-width: 2px;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+#round-label {
+    left: 15px;
+    font-size: 28px;
+    color: rgba(160, 199, 100, 0.9);
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+    -unity-text-align: middle-center;
+    margin-right: 10px;
+    -unity-font-style: bold;
+}
+
+#current-round-text {
+    font-size: 28px;
+    left: 20px;
+    color: #ffffff;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#current-turn-panel {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 13px;
+    padding: 10px 15px;
+    border-width: 2px;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+#current-turn-label {
+    left: 15px;
+    font-size: 28px;
+    color: rgba(160, 199, 100, 0.9);
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+    -unity-text-align: middle-center;
+    margin-right: 10px;
+    -unity-font-style: bold;
+}
+
+#current-turn-text {
+    font-size: 28px;
+    left: 20px;
+    color: #ffffff;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+}
+
+#turn-buttons-container {
+    position: absolute;
+    top: 420px;
+    left: -10px;
+    flex-direction: column;
+    width: 220px;
+}
+
+#roll-dice-button,
+#board-button,
+#settings-button {
+    height: 50px;
+    width: 400px;
+    margin-bottom: 12px;
+    font-size: 32px;
+    border-radius: 0 25px 25px 0;
+    border-width: 0;
     color: white;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    transition-duration: 0.3s;
+    transition-property: background-color, scale, left, border-color, text-shadow;
+    transition-timing-function: ease-out;
+    scale: 1.0;
+    background-color: rgba(160, 199, 100, 0.9);
+    border-color: transparent;
+}
+
+#roll-dice-button:hover,
+#board-button:hover,
+#settings-button:hover {
+    background-color: rgba(180, 219, 120, 1);
+    border-width: 3px;
+    border-color: rgba(200, 255, 150, 0.8);
+    transition-duration: 0.1s;
+    scale: 1.1;
+}
+
+#roll-dice-button:active,
+#board-button:active,
+#settings-button:active {
+    background-color: rgba(140, 179, 80, 1);
+    border-color: rgba(120, 159, 60, 0.6);
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+    scale: 0.98;
+    left: 5px;
+}
+
+#roll-dice-button:disabled,
+#board-button:disabled {
+    background-color: rgba(160, 199, 100, 0.5);
+    color: rgba(255, 255, 255, 0.6);
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+    border-color: transparent;
+    scale: 1.0;
+    left: 0;
 }

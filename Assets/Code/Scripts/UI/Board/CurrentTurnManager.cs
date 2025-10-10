@@ -4,26 +4,35 @@ using UnityEngine.UIElements;
 public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
     [SerializeField] private UIDocument uiDocument;
     private VisualElement rootElement;
+    private Label currentRoundLabel;
     private Label currentPlayerNameLabel;
     private Button rollDiceButton;
     private Button boardButton;
+    private Button settingsButton;
 
     protected override void Start() {
         rootElement = uiDocument.rootVisualElement;
-        currentPlayerNameLabel = rootElement.Q<Label>("current-player-name");
+        currentRoundLabel = rootElement.Q<Label>("current-round-text");
+        currentPlayerNameLabel = rootElement.Q<Label>("current-turn-text");
         rollDiceButton = rootElement.Q<Button>("roll-dice-button");
         rollDiceButton.clicked += OnRollDiceButtonClicked;
 
         boardButton = rootElement.Q<Button>("board-button");
         boardButton.clicked += OnBoardButtonClicked;
-        BoardContext.Instance.OnNewRoundStarted += UpdateTurnUI;
+
+        settingsButton = rootElement.Q<Button>("settings-button");
+        BoardContext.Instance.OnNextPlayerTurn += UpdateTurnUI;
         base.Start();
     }
 
-    private void UpdateTurnUI(BoardPlayer currentPlayer) {
-        var nameDisplay = currentPlayer.isLocalPlayer ? "your" : $"{currentPlayer.PlayerName}'s";
-        currentPlayerNameLabel.text = $"It's {nameDisplay} turn!";
+    private void UpdateTurnUI(BoardPlayer currentPlayer, int currentRound, int maxRounds) {
+        currentPlayerNameLabel.text = currentPlayer.PlayerName;
         ShowTurnButtons(currentPlayer.isLocalPlayer);
+        UpdateRoundLabel(currentRound, maxRounds);
+    }
+
+    private void UpdateRoundLabel(int currentRound, int maxRounds) {
+        currentRoundLabel.text = $"{currentRound} / {maxRounds}";
     }
 
     private void OnRollDiceButtonClicked() {

@@ -443,14 +443,14 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         return resourcesToAdd;
     }
 
-    public Action<BoardPlayer> OnNewRoundStarted;
+    public Action<BoardPlayer, int, int> OnNextPlayerTurn;
     [ClientRpc]
     public void RpcNotifyPlayerTurn(int playerId) {
         StartCoroutine(InvokeAfterInitialization());
 
         IEnumerator InvokeAfterInitialization() {
             yield return new WaitUntil(() => CurrentTurnManager.Instance != null && CurrentTurnManager.Instance.IsInitialized);
-            OnNewRoundStarted?.Invoke(GetPlayerById(playerId));
+            OnNextPlayerTurn?.Invoke(GetPlayerById(playerId), GameManager.Singleton.CurrentRound, GameManager.Singleton.MaxRounds);
         }
     }
 
