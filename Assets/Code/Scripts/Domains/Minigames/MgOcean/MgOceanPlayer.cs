@@ -77,6 +77,11 @@ public class MgOceanPlayer : SceneConditionalPlayer {
         score += points;
     }
 
+    [Server]
+    public void ServerReduceScore(int points) {
+        score -= points;
+    }   
+
     public override bool ShouldBeActiveInScene(string sceneName) {
         return sceneName == "MgOcean";
     }

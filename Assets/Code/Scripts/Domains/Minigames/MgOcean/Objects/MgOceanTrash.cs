@@ -85,7 +85,13 @@ public class MgOceanTrash : NetworkBehaviour {
                 var oceanPlayer = playerController.connectionToClient.identity.GetComponent<MgOceanPlayer>();
                 if (oceanPlayer != null) {
                     Debug.Log($"[MgOceanTrash] Adding score to player {oceanPlayer.PlayerId}");
-                    oceanPlayer.ServerAddScore(1);
+                    if (trashType == MgOceanTrashType.STANDARD) {
+                        oceanPlayer.ServerAddScore(1);
+                    } else if (trashType == MgOceanTrashType.DANGEROUS) {
+                        oceanPlayer.ServerAddScore(2);
+                    } else if (trashType == MgOceanTrashType.ORGANIC) {
+                        oceanPlayer.ServerReduceScore(3);
+                    }
                     NetworkServer.Destroy(gameObject);
                 } 
             } 

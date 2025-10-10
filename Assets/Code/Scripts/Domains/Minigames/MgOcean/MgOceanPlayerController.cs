@@ -1,5 +1,6 @@
 using Mirror;
 using UnityEngine;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
 
 public class MgOceanPlayerController : NetworkBehaviour {
 
@@ -16,7 +17,7 @@ public class MgOceanPlayerController : NetworkBehaviour {
     }
 
     void Start() {
-        ChangeAvatarColor(Color.blue);
+        ChangeAvatarColor(Color.green);
         
     }
     private void ChangeAvatarColor(Color color) {
