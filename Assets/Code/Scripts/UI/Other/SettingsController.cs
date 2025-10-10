@@ -9,8 +9,8 @@ using UnityEngine.Audio;
 public class SettingsController : MonoBehaviour {
     private TemplateContainer settingsTemplateContainer;
     private Button closeButton;
-    private Slider volumeSlider;
-    private Label volumeValue;
+    private Slider soundSlider;
+    private Label soundValue;
     private Slider musicSlider;
     private Label musicValue;
 
@@ -31,7 +31,7 @@ public class SettingsController : MonoBehaviour {
         var root = uIDocument.rootVisualElement;
 
         InitializeUIElements(root);
-        SetupVolume();
+        SetupSound();
         SetupMusic();
         SetupFullscreen();
         InitializeResolutionDropdown();
@@ -47,8 +47,8 @@ public class SettingsController : MonoBehaviour {
             settingsTemplateContainer.RemoveFromClassList("visible");
         };
 
-        volumeSlider = root.Q<Slider>("VolumeSlider");
-        volumeValue = root.Q<Label>("VolumeValue");
+        soundSlider = root.Q<Slider>("SoundSlider");
+        soundValue = root.Q<Label>("SoundValue");
 
         musicSlider = root.Q<Slider>("MusicSlider");
         musicValue  = root.Q<Label>("MusicValue");
@@ -59,25 +59,23 @@ public class SettingsController : MonoBehaviour {
         languageDropdown = root.Q<DropdownField>("LanguageDropdown");
     }
 
-    private void SetupVolume()
+    private void SetupSound()
     {
-    // Slider-Event
-    volumeSlider.RegisterValueChangedCallback(evt =>
+    soundSlider.RegisterValueChangedCallback(evt =>
     {
-        UpdateAudioValue(evt.newValue, volumeValue, soundVolumeParam);
-        PlayerPrefs.SetFloat("MasterVolume", evt.newValue); // speichern
+        UpdateAudioValue(evt.newValue, soundValue, soundVolumeParam);
+        PlayerPrefs.SetFloat("SoundVolume", evt.newValue); 
         PlayerPrefs.Save();
     });
 
     
-     volumeSlider.RegisterCallback<MouseUpEvent>(evt => Audiomanager.Instance?.PlayClickSound());
-     volumeSlider.RegisterCallback<ClickEvent>(evt => Audiomanager.Instance?.PlayClickSound());
+     soundSlider.RegisterCallback<MouseUpEvent>(evt => Audiomanager.Instance?.PlayClickSound());
+     soundSlider.RegisterCallback<ClickEvent>(evt => Audiomanager.Instance?.PlayClickSound());
    
 
-    // Initialwert aus PlayerPrefs laden (default 100%)
-    float savedVolume = PlayerPrefs.GetFloat("MasterVolume", 100f);
-    volumeSlider.value = savedVolume;
-    UpdateAudioValue(savedVolume, volumeValue, soundVolumeParam);
+    float savedVolume = PlayerPrefs.GetFloat("SoundVolume", 100f);
+    soundSlider.value = savedVolume;
+    UpdateAudioValue(savedVolume, soundValue, soundVolumeParam);
 }
 
 private void SetupMusic() {

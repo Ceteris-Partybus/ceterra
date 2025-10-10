@@ -16,6 +16,9 @@ public class Audiomanager : MonoBehaviour {
     public AudioSource RessourceAudioSource;
     public AudioClip RessourceClickSound;
 
+    public AudioSource DiceAudioSource;
+    public AudioClip DiceStopSound;
+
     private void Awake() {
         
         if (Instance != null && Instance != this) {
@@ -41,6 +44,10 @@ public class Audiomanager : MonoBehaviour {
 
     public void PlayRessourceSound() {
         PlaySound(RessourceAudioSource, RessourceClickSound, "RessourceClickSound");
+    }
+
+    public void PlayDiceStopSound() {
+        PlaySound(DiceAudioSource, DiceStopSound, "DiceStopSound");
     }
 
    
