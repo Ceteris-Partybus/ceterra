@@ -13,8 +13,8 @@
     </ui:VisualElement>
     
     <ui:VisualElement name="turn-buttons-container">
-        <ui:Button text="Roll Dice" name="roll-dice-button" enabled="false" />
-        <ui:Button text="View Board" name="board-button" enabled="false" />
+        <ui:Button text="Roll Dice" name="roll-dice-button"/>
+        <ui:Button text="View Board" name="board-button"/>
         <ui:Button text="Settings" name="settings-button"/>
     </ui:VisualElement>
 </ui:UXML>

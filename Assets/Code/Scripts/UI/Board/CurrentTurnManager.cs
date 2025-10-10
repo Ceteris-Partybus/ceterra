@@ -39,19 +39,26 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
     private void OnRollDiceButtonClicked() {
         if (BoardContext.Instance.CurrentState == BoardContext.State.PLAYER_TURN) {
             boardPlayer.CmdToggleDiceRoll();
+            rollDiceButton.text = rollDiceButton.text == "Roll Dice" ? "Cancel Roll" : "Roll Dice";
+            boardButton.style.display = IsButtonVisible(boardButton) ? DisplayStyle.None : DisplayStyle.Flex;
         }
     }
 
     private void OnBoardButtonClicked() {
         if (BoardContext.Instance.CurrentState == BoardContext.State.PLAYER_TURN) {
             boardPlayer.CmdToggleBoardOverview();
+            boardButton.text = boardButton.text == "View Board" ? "Go back to Player" : "View Board";
+            rollDiceButton.style.display = IsButtonVisible(rollDiceButton) ? DisplayStyle.None : DisplayStyle.Flex;
         }
     }
+
     public void ShowTurnButtons(bool isLocalPlayer) {
         var displayStyle = isLocalPlayer ? DisplayStyle.Flex : DisplayStyle.None;
         rollDiceButton.style.display = displayStyle;
         boardButton.style.display = displayStyle;
-        rollDiceButton.SetEnabled(isLocalPlayer);
-        boardButton.SetEnabled(isLocalPlayer);
+    }
+
+    private bool IsButtonVisible(Button button) {
+        return button.style.display == DisplayStyle.Flex;
     }
 }
