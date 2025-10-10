@@ -353,7 +353,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
         IEnumerator DelayedRpcNotify() {
             yield return new WaitUntil(() => netIdentity != null && netIdentity.observers.Count == GameManager.Singleton.roomSlots.Count);
-            RpcNotifyPlayerTurn(currentPlayerId);
+            RpcNotifyPlayerTurn(currentPlayerId, GameManager.Singleton.CurrentRound, GameManager.Singleton.MaxRounds);
         }
     }
 
@@ -445,12 +445,12 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     public Action<BoardPlayer, int, int> OnNextPlayerTurn;
     [ClientRpc]
-    public void RpcNotifyPlayerTurn(int playerId) {
+    public void RpcNotifyPlayerTurn(int playerId, int currentRound, int maxRounds) {
         StartCoroutine(InvokeAfterInitialization());
 
         IEnumerator InvokeAfterInitialization() {
             yield return new WaitUntil(() => CurrentTurnManager.Instance != null && CurrentTurnManager.Instance.IsInitialized);
-            OnNextPlayerTurn?.Invoke(GetPlayerById(playerId), GameManager.Singleton.CurrentRound, GameManager.Singleton.MaxRounds);
+            OnNextPlayerTurn?.Invoke(GetPlayerById(playerId), currentRound, maxRounds);
         }
     }
 
