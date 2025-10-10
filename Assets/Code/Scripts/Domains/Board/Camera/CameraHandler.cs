@@ -14,7 +14,6 @@ public class CameraHandler : NetworkedSingleton<CameraHandler> {
     [Header("States")]
     public bool IsShowingBoard => boardCamera.Priority == 1;
     public bool IsZoomedIn => zoomCamera.Priority == 1;
-    public bool IsInDefault => defaultCamera.Priority == 1;
     private bool wasZoomedBeforeBoard = false;
     public Transform ZoomTarget => zoomCamera.Follow;
     [SyncVar] private bool hasReachedTarget = true;

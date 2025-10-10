@@ -58,29 +58,31 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
 
     public IEnumerator OnRollStart() {
         yield return CameraHandler.Instance.ZoomIn();
+
         dice.OnRollStart();
         TriggerAnimation(AnimationType.DICE_SPIN);
     }
 
     public IEnumerator OnRollCancel() {
         yield return CameraHandler.Instance.ZoomOut();
+
         dice.OnRollCancel();
         TriggerAnimation(AnimationType.IDLE);
     }
 
-    public IEnumerator StartRollSequence(int diceValue) {
+    public IEnumerator StartRollSequence(int diceValue, Action cmdRollSequenceFinished) {
         character.HitDice();
         TriggerAnimation(AnimationType.DICE_HIT);
-        yield return new WaitForSeconds(0.09f);
+        yield return new WaitForSeconds(.09f);
 
         dice.OnRollDisplay(diceValue);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(.5f);
 
         dice.OnRollEnd(diceValue);
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(.6f);
 
-        CameraHandler.Instance.ZoomOut();
-        yield return new WaitForSeconds(0.5f);
+        yield return CameraHandler.Instance.ZoomOut();
+        cmdRollSequenceFinished();
     }
 
     public void CleanRotation() {

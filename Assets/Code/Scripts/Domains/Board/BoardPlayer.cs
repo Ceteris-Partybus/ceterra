@@ -1,9 +1,7 @@
 using Mirror;
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Splines;
-using Unity.Mathematics;
 
 public class BoardPlayer : SceneConditionalPlayer {
     [Header("Stats")]
@@ -35,7 +33,6 @@ public class BoardPlayer : SceneConditionalPlayer {
     private bool isFirstLoad = true;
     public bool IsFirstLoad => isFirstLoad;
 
-
     [SyncVar]
     private float normalizedSplinePosition;
     public float NormalizedSplinePosition {
@@ -52,6 +49,9 @@ public class BoardPlayer : SceneConditionalPlayer {
         get => animationFinished;
         set { animationFinished = value; }
     }
+
+    [SyncVar]
+    private bool rollSequenceFinished = true;
 
     private Character character;
     private Dice dice;
@@ -101,11 +101,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     [ClientRpc]
-    /// <summary>
-    /// Triggers a blocking animation on the client side and notifies the server when the animation is complete.
-    /// Set `isAnimationFinished` to false before calling this method to ensure proper synchronization.
-    /// </summary>
-    public void RpcTriggerBlockingAnimation(AnimationType animationType) {
+    private void RpcTriggerBlockingAnimation(AnimationType animationType) {
         StartCoroutine(TriggerAnimationCoroutine());
 
         IEnumerator TriggerAnimationCoroutine() {
@@ -120,6 +116,11 @@ public class BoardPlayer : SceneConditionalPlayer {
     [Command]
     private void CmdAnimationComplete() {
         IsAnimationFinished = true;
+    }
+
+    [Command]
+    private void CmdRollSequenceFinished() {
+        rollSequenceFinished = true;
     }
 
     [ClientRpc]
@@ -211,25 +212,19 @@ public class BoardPlayer : SceneConditionalPlayer {
 
         var diceValue = dice.RandomValue;
         RpcStartRollSequence(diceValue);
-        StartCoroutine(StartRollSequence(diceValue));
-    }
+        rollSequenceFinished = false;
+        dice.IsSpinning = false;
+        StartCoroutine(WaitForRollSequence());
 
-    [Command]
-    public void CmdRollDiceCancel() {
-        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || playerMovement.IsMoving) {
-            return;
+        IEnumerator WaitForRollSequence() {
+            yield return new WaitUntil(() => rollSequenceFinished);
+            BoardContext.Instance.ProcessDiceRoll(this, diceValue);
         }
-        RpcEndDiceCancel();
-    }
-
-    private IEnumerator StartRollSequence(int diceValue) {
-        yield return visualHandler.StartRollSequence(diceValue);
-        if (isServer) { BoardContext.Instance.ProcessDiceRoll(this, diceValue); }
     }
 
     [ClientRpc]
     private void RpcStartRollSequence(int diceValue) {
-        StartCoroutine(StartRollSequence(diceValue));
+        StartCoroutine(visualHandler.StartRollSequence(diceValue, CmdRollSequenceFinished));
     }
 
     [ClientRpc]
