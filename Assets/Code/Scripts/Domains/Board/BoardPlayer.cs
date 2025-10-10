@@ -189,19 +189,25 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     [Command]
-    public void CmdRollDice() {
-        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || playerMovement.IsMoving || dice.IsSpinning) {
-            return;
-        }
-        RpcStartDiceRoll();
-    }
-
-    [Command]
     public void CmdToggleBoardOverview() {
         if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || playerMovement.IsMoving || dice.IsSpinning) {
             return;
         }
         CameraHandler.Instance.RpcToggleBoardOverview();
+    }
+
+    [Command]
+    public void CmdToggleDiceRoll() {
+        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || playerMovement.IsMoving) {
+            return;
+        }
+        if (dice.IsSpinning) {
+            dice.IsSpinning = false;
+            RpcEndDiceCancel();
+            return;
+        }
+        dice.IsSpinning = true;
+        RpcStartDiceRoll();
     }
 
     [Command]
@@ -256,12 +262,9 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     private void HandleInput() {
         var pressedSpaceToEndRoll = Input.GetKeyDown(KeyCode.Space) && dice.IsSpinning;
-        if (pressedSpaceToEndRoll) { CmdEndRollDice(); return; }
-
-        var pressedEscapeToCancelRoll = Input.GetKeyDown(KeyCode.Escape) && dice.IsSpinning;
-        if (pressedEscapeToCancelRoll) { CmdRollDiceCancel(); return; }
-
-        var pressedEscapeToCancelBoardOverview = Input.GetKeyDown(KeyCode.Escape) && CameraHandler.Instance.IsShowingBoard;
-        if (pressedEscapeToCancelBoardOverview) { CmdToggleBoardOverview(); return; }
+        if (pressedSpaceToEndRoll) {
+            CmdEndRollDice();
+            return;
+        }
     }
 }

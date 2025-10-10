@@ -9,6 +9,7 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
     private Button rollDiceButton;
     private Button boardButton;
     private Button settingsButton;
+    private BoardPlayer boardPlayer;
 
     protected override void Start() {
         rootElement = uiDocument.rootVisualElement;
@@ -21,29 +22,29 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
         boardButton.clicked += OnBoardButtonClicked;
 
         settingsButton = rootElement.Q<Button>("settings-button");
+        settingsButton.clicked += BoardOverlay.Instance.OpenSettingsPanel;
+
+        boardPlayer = BoardContext.Instance.GetLocalPlayer();
         BoardContext.Instance.OnNextPlayerTurn += UpdateTurnUI;
         base.Start();
     }
 
     private void UpdateTurnUI(BoardPlayer currentPlayer, int currentRound, int maxRounds) {
-        currentPlayerNameLabel.text = currentPlayer.PlayerName;
-        ShowTurnButtons(currentPlayer.isLocalPlayer);
-        UpdateRoundLabel(currentRound, maxRounds);
-    }
-
-    private void UpdateRoundLabel(int currentRound, int maxRounds) {
         currentRoundLabel.text = $"{currentRound} / {maxRounds}";
+        currentPlayerNameLabel.text = currentPlayer.PlayerName;
+
+        ShowTurnButtons(currentPlayer.isLocalPlayer);
     }
 
     private void OnRollDiceButtonClicked() {
         if (BoardContext.Instance.CurrentState == BoardContext.State.PLAYER_TURN) {
-            BoardContext.Instance.GetCurrentPlayer().CmdRollDice();
+            boardPlayer.CmdToggleDiceRoll();
         }
     }
 
     private void OnBoardButtonClicked() {
         if (BoardContext.Instance.CurrentState == BoardContext.State.PLAYER_TURN) {
-            BoardContext.Instance.GetCurrentPlayer().CmdToggleBoardOverview();
+            boardPlayer.CmdToggleBoardOverview();
         }
     }
     public void ShowTurnButtons(bool isLocalPlayer) {

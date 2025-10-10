@@ -34,6 +34,7 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
     private Label societyValueLabel;
     private ProgressBar economyBar;
     private Label economyValueLabel;
+    private bool isInputAllowed = true;
 
     private void OnEnable() {
         rootElement = uiDocument.rootVisualElement;
@@ -108,8 +109,21 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
             return;
         }
 
-        if (Input.GetKey(KeyCode.Escape) && CameraHandler.Instance.IsInDefault) {
-            settingsContainer.ToggleInClassList("visible");
+        if (Input.GetKey(KeyCode.Escape)) {
+            OpenSettingsPanel();
+        }
+    }
+
+    public void OpenSettingsPanel() {
+        if (isInputAllowed) {
+            isInputAllowed = false;
+            StartCoroutine(WaitForSettingsPanelToFinishTransition());
+
+            IEnumerator WaitForSettingsPanelToFinishTransition() {
+                settingsContainer.ToggleInClassList("visible");
+                yield return new WaitForSeconds(.5f);
+                isInputAllowed = true;
+            }
         }
     }
 
