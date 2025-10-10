@@ -4,8 +4,6 @@ using UnityEngine.UIElements;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Audio;
 
-
-
 public class SettingsController : MonoBehaviour {
     private TemplateContainer settingsTemplateContainer;
     private Button closeButton;
@@ -29,6 +27,8 @@ public class SettingsController : MonoBehaviour {
 
     private void OnEnable() {
         var root = uIDocument.rootVisualElement;
+        // Ensure that settings is on top of other UI elements
+        uIDocument.sortingOrder = 10;
 
         InitializeUIElements(root);
         SetupVolume();
@@ -67,13 +67,11 @@ public class SettingsController : MonoBehaviour {
             PlayerPrefs.Save();
         });
 
-
         volumeSlider.RegisterCallback<MouseUpEvent>(evt => Audiomanager.Instance?.PlayClickSound());
         volumeSlider.RegisterCallback<ClickEvent>(evt => Audiomanager.Instance?.PlayClickSound());
 
-
         // Initialwert aus PlayerPrefs laden (default 100%)
-        float savedVolume = PlayerPrefs.GetFloat("MasterVolume", 100f);
+        var savedVolume = PlayerPrefs.GetFloat("MasterVolume", 100f);
         volumeSlider.value = savedVolume;
         UpdateAudioValue(savedVolume, volumeValue, soundVolumeParam);
     }
@@ -88,20 +86,21 @@ public class SettingsController : MonoBehaviour {
         musicSlider.RegisterCallback<MouseUpEvent>(evt => Audiomanager.Instance?.PlayClickSound());
         musicSlider.RegisterCallback<ClickEvent>(evt => Audiomanager.Instance?.PlayClickSound());
 
-        float savedMusic = PlayerPrefs.GetFloat("MusicVolume", 100f);
+        var savedMusic = PlayerPrefs.GetFloat("MusicVolume", 100f);
         musicSlider.value = savedMusic;
         UpdateAudioValue(savedMusic, musicValue, musicVolumeParam);
     }
 
     private void UpdateAudioValue(float value, Label label, string mixerParam) {
-        if (audioMixer == null) return;
+        if (audioMixer == null) { return; }
 
-        float normalized = Mathf.Clamp01(value / 100f);
-        float dB = (normalized <= 0.0001f) ? -80f : Mathf.Log10(normalized) * 20f;
+        var normalized = Mathf.Clamp01(value / 100f);
+        var dB = (normalized <= 0.0001f) ? -80f : Mathf.Log10(normalized) * 20f;
         audioMixer.SetFloat(mixerParam, dB);
 
-        if (label != null)
+        if (label != null) {
             label.text = Mathf.RoundToInt(value) + "%";
+        }
     }
 
     private void SetupFullscreen() {
@@ -115,7 +114,7 @@ public class SettingsController : MonoBehaviour {
     }
 
     private void UpdateToggleGraphic(bool isChecked) {
-        string resourcePath = isChecked ? "UI/Other/Toggle_checked" : "UI/Other/Toggle";
+        var resourcePath = isChecked ? "UI/Other/Toggle_checked" : "UI/Other/Toggle";
         var toggleTexture = Resources.Load<Sprite>(resourcePath);
         fullscreenToggle.style.backgroundImage = new StyleBackground(toggleTexture);
     }
@@ -130,9 +129,9 @@ public class SettingsController : MonoBehaviour {
 
         var currentIndex = 0;
 
-        for (int i = 0; i < resolutions.Length; i++) {
+        for (var i = 0; i < resolutions.Length; i++) {
             var res = resolutions[i];
-            string option = $"{res.width} x {res.height}";
+            var option = $"{res.width} x {res.height}";
             resolutionOptions.Add(option);
 
             if (res.width == Screen.currentResolution.width && res.height == Screen.currentResolution.height) {
@@ -158,8 +157,8 @@ public class SettingsController : MonoBehaviour {
     private void InitializeLanguageDropdown() {
         languageDropdown.choices = availableLanguages;
 
-        string savedLanguage = PlayerPrefs.GetString("selectedLanguage", "English");
-        int savedIndex = availableLanguages.IndexOf(savedLanguage);
+        var savedLanguage = PlayerPrefs.GetString("selectedLanguage", "English");
+        var savedIndex = availableLanguages.IndexOf(savedLanguage);
 
         languageDropdown.index = savedIndex >= 0 ? savedIndex : 0;
         languageDropdown.RegisterCallback<MouseDownEvent>(evt => Audiomanager.Instance?.PlayClickSound());
@@ -172,7 +171,7 @@ public class SettingsController : MonoBehaviour {
     }
 
     private async void SetLanguage(string language) {
-        string localeCode = language switch {
+        var localeCode = language switch {
             "English" => "en",
             "Deutsch" => "de",
             _ => null
