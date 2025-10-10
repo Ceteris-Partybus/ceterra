@@ -8,7 +8,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="current-turn-panel">
             <ui:Label text="Current turn:" name="current-turn-label" />
-            <ui:Label text="Mattes" name="current-turn-text" />
+            <ui:Label name="current-turn-text" />
         </ui:VisualElement>
     </ui:VisualElement>
     

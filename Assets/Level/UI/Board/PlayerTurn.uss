@@ -18,32 +18,31 @@
 #round-panel {
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
     margin-bottom: 15px;
     background-color: rgba(255, 255, 255, 0.05);
     border-radius: 13px;
-    padding: 10px 15px;
+    padding: 10px 0px 10px 15px;
     border-width: 2px;
     border-color: rgba(255, 255, 255, 0.1);
 }
 
 #round-label {
-    left: 15px;
     font-size: 28px;
     color: rgba(160, 199, 100, 0.9);
-    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
-    -unity-text-align: middle-center;
-    margin-right: 10px;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+    -unity-text-align: middle-left;
     -unity-font-style: bold;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 #current-round-text {
     font-size: 28px;
-    left: 20px;
     color: #ffffff;
     text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
-    -unity-text-align: middle-center;
+    -unity-text-align: middle-right;
     -unity-font-style: bold;
+    flex-grow: 1;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -51,31 +50,33 @@
 #current-turn-panel {
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
     background-color: rgba(255, 255, 255, 0.05);
     border-radius: 13px;
-    padding: 10px 15px;
+    padding: 10px 0px 10px 15px;
     border-width: 2px;
     border-color: rgba(255, 255, 255, 0.1);
 }
 
 #current-turn-label {
-    left: 15px;
     font-size: 28px;
     color: rgba(160, 199, 100, 0.9);
-    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
-    -unity-text-align: middle-center;
-    margin-right: 10px;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+    -unity-text-align: middle-left;
     -unity-font-style: bold;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 #current-turn-text {
     font-size: 28px;
-    left: 20px;
     color: #ffffff;
     text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
-    -unity-text-align: middle-center;
+    -unity-text-align: middle-right;
     -unity-font-style: bold;
+    flex-grow: 1;
+    flex-shrink: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #turn-buttons-container {
