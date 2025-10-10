@@ -91,9 +91,8 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
             return;
         }
 
-        if (Input.GetKey(KeyCode.Escape)) {
-            Debug.Log("Escape key pressed, opening settings");
-            settingsContainer.AddToClassList("visible");
+        if (Input.GetKey(KeyCode.Escape) && CameraHandler.Instance.IsInDefault) {
+            settingsContainer.ToggleInClassList("visible");
         }
     }
 
