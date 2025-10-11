@@ -118,7 +118,7 @@ public class BoardPlayer : SceneConditionalPlayer {
         IsAnimationFinished = true;
     }
 
-    [Command]
+    [Command(requiresAuthority = false)]
     private void CmdRollSequenceFinished() {
         rollSequenceFinished = true;
     }
