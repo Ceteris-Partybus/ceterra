@@ -1,10 +1,8 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Level/UI/Board/PlayerTurn.uss?fileID=7433441132597879392&amp;guid=1e5aae09b54b817448c8bb687983844c&amp;type=3#PlayerTurn" />
-    
     <ui:VisualElement name="announcement-overlay">
         <ui:Label name="announcement-text" />
     </ui:VisualElement>
-    
     <ui:VisualElement name="turn-info-panel">
         <ui:VisualElement name="round-panel">
             <ui:Label text="Round:" name="round-label" />
@@ -15,10 +13,9 @@
             <ui:Label name="current-turn-text" />
         </ui:VisualElement>
     </ui:VisualElement>
-    
     <ui:VisualElement name="turn-buttons-container">
-        <ui:Button text="Roll Dice" name="roll-dice-button"/>
-        <ui:Button text="View Board" name="board-button"/>
-        <ui:Button text="Settings" name="settings-button"/>
+        <ui:Button text="Roll Dice" name="roll-dice-button" />
+        <ui:Button text="View Board" name="board-button" />
+        <ui:Button text="Settings" name="settings-button" />
     </ui:VisualElement>
 </ui:UXML>

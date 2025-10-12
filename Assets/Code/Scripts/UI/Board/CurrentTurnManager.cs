@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
