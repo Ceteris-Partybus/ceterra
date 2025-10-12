@@ -1,7 +1,7 @@
 [
     {
-        "title": "Klimawandel",
-        "description": "Der Klimawandel schreitet voran. Die Umweltverschmutzung nimmt zu, was zu extremen Wetterereignissen und dem Verlust von Biodiversität führt.",
+        "title": 54816396556324864,
+        "description": 54816396556324865,
         "maxOccurences": 3,
         "weight": 3,
         "modifier": [
@@ -18,8 +18,8 @@
         ]
     },
     {
-        "title": "Technologischer Durchbruch",
-        "description": "Ein bedeutender technologischer Fortschritt in den Bereichen erneuerbare Energien und nachhaltige Landwirtschaft bietet neue Möglichkeiten zur Bewältigung globaler Herausforderungen.",
+        "title": 54816396556324866,
+        "description": 54816396556324867,
         "maxOccurences": 5,
         "weight": 3,
         "modifier": [
@@ -41,8 +41,8 @@
         ]
     },
     {
-        "title": "Waldsterben",
-        "description": "Massive Entwaldung und Waldbrände zerstören kritische Ökosysteme weltweit. Der Verlust von Wäldern beschleunigt den Klimawandel und bedroht die Biodiversität.",
+        "title": 54816396556324868,
+        "description": 54816396556324869,
         "maxOccurences": 4,
         "weight": 3,
         "modifier": [
@@ -59,8 +59,8 @@
         ]
     },
     {
-        "title": "Plastikkatastrophe",
-        "description": "Die Verschmutzung der Ozeane durch Plastik erreicht kritische Ausmaße. Mikroplastik gefährdet die Nahrungskette und die menschliche Gesundheit.",
+        "title": 54816396556324870,
+        "description": 54816396556324871,
         "maxOccurences": 2,
         "weight": 3,
         "modifier": [
@@ -77,8 +77,8 @@
         ]
     },
     {
-        "title": "Wasserkrise",
-        "description": "Schwere Dürren und Wasserknappheit betreffen Milliarden von Menschen. Grundwasserspiegel sinken dramatisch und Konflikte um Wasserressourcen nehmen zu.",
+        "title": 54816396556324872,
+        "description": 54816396556324873,
         "maxOccurences": 3,
         "weight": 3,
         "modifier": [
@@ -100,8 +100,8 @@
         ]
     },
     {
-        "title": "Artensterben",
-        "description": "Das sechste Massenaussterben beschleunigt sich. Bestäuber verschwinden, Ökosysteme kollabieren und die genetische Vielfalt nimmt rapide ab.",
+        "title": 54816396556324874,
+        "description": 54816396556324875,
         "maxOccurences": 2,
         "weight": 3,
         "modifier": [
@@ -118,8 +118,8 @@
         ]
     },
     {
-        "title": "Luftverschmutzung",
-        "description": "Extreme Luftverschmutzung in Megastädten erreicht gesundheitsgefährdende Werte. Smog und Feinstaub verursachen Millionen von vorzeitigen Todesfällen.",
+        "title": 54816396556324876,
+        "description": 54816396556324877,
         "maxOccurences": 4,
         "weight": 3,
         "modifier": [
@@ -141,8 +141,8 @@
         ]
     },
     {
-        "title": "Grüne Energiewende",
-        "description": "Massive Investitionen in erneuerbare Energien führen zu einem drastischen Rückgang der CO2-Emissionen. Solarenergie und Windkraft werden dominant.",
+        "title": 54816396556324878,
+        "description": 54816396556324879,
         "maxOccurences": 1,
         "weight": 3,
         "modifier": [
@@ -164,8 +164,8 @@
         ]
     },
     {
-        "title": "Aufforstungsinitiative",
-        "description": "Globale Aufforstungsprogramme pflanzen Milliarden von Bäumen und stellen degradierte Ökosysteme wieder her. Kohlenstoffbindung steigt dramatisch an.",
+        "title": 54816396556324880,
+        "description": 54816396556324881,
         "maxOccurences": 3,
         "weight": 3,
         "modifier": [
@@ -182,8 +182,8 @@
         ]
     },
     {
-        "title": "Kreislaufwirtschaft",
-        "description": "Durchbruch in der Kreislaufwirtschaft: 90% aller Materialien werden recycelt oder wiederverwendet. Abfall wird zur wertvollen Ressource.",
+        "title": 54816396556324882,
+        "description": 54816396556324883,
         "maxOccurences": 1,
         "weight": 3,
         "modifier": [
@@ -205,8 +205,8 @@
         ]
     },
     {
-        "title": "Nachhaltige Landwirtschaft",
-        "description": "Revolution in der Landwirtschaft: Präzisionsfarming, vertikale Gärten und regenerative Praktiken steigern Erträge bei gleichzeitiger Bodenerholung.",
+        "title": 54816396556324884,
+        "description": 54816396556324885,
         "maxOccurences": 2,
         "weight": 3,
         "modifier": [
@@ -228,8 +228,8 @@
         ]
     },
     {
-        "title": "Meeresschutz",
-        "description": "Internationale Meeresschutzabkommen führen zur Errichtung riesiger Meeresschutzgebiete. Fischbestände erholen sich und Korallenriffe regenerieren.",
+        "title": 54816396556324886,
+        "description": 54816396556324887,
         "maxOccurences": 2,
         "weight": 3,
         "modifier": [
@@ -251,8 +251,8 @@
         ]
     },
     {
-        "title": "Grüne Städte",
-        "description": "Städte verwandeln sich in grüne Oasen mit vertikalen Gärten, erneuerbarer Energie und nachhaltiger Mobilität. Lebensqualität steigt drastisch.",
+        "title": 54816396556324888,
+        "description": 54816396556324889,
         "maxOccurences": 3,
         "weight": 3,
         "modifier": [
@@ -274,8 +274,8 @@
         ]
     },
     {
-        "title": "Elektromobilität",
-        "description": "Elektrofahrzeuge erreichen 80% Marktanteil. Batterietechnologie revolutioniert Transport und Energiespeicherung, Luftqualität verbessert sich dramatisch.",
+        "title": 54816396556324890,
+        "description": 54816396556324891,
         "maxOccurences": 1,
         "weight": 3,
         "modifier": [
@@ -297,8 +297,8 @@
         ]
     },
     {
-        "title": "Ressourcenknappheit",
-        "description": "Kritische Rohstoffe wie seltene Erden und Lithium werden knapp. Lieferketten brechen zusammen und hemmen den Übergang zu grüner Technologie.",
+        "title": 54816396556324892,
+        "description": 54816396556324893,
         "maxOccurences": 2,
         "weight": 3,
         "modifier": [

@@ -663,8 +663,8 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     [ClientRpc]
     private void RpcShowEventInfo(Event eventToShow) {
-        EventModal.Instance.Title = eventToShow.title;
-        EventModal.Instance.Description = eventToShow.description;
+        EventModal.Instance.Title = LocalizationManager.Instance.GetLocalizedText(eventToShow.title);
+        EventModal.Instance.Description = LocalizationManager.Instance.GetLocalizedText(eventToShow.description);
         ModalManager.Instance.Show(EventModal.Instance);
     }
 
