@@ -75,10 +75,10 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
         rollDiceButton.text = rollDiceButton.text == "Roll Dice" ? "Cancel Roll" : "Roll Dice";
 
         if (IsButtonVisible(boardButton)) {
-            SlideButtonOut(boardButton);
+            UIAnimationUtils.SlideOutToLeft(boardButton);
         }
         else {
-            SlideButtonIn(boardButton);
+            UIAnimationUtils.SlideInFromLeft(boardButton, UIAnimationUtils.BUTTON_FINAL_POSITION, .4f);
         }
     }
 
@@ -89,10 +89,10 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
         boardButton.text = boardButton.text == "View Board" ? "Go back to Player" : "View Board";
 
         if (IsButtonVisible(rollDiceButton)) {
-            SlideButtonOut(rollDiceButton);
+            UIAnimationUtils.SlideOutToLeft(rollDiceButton);
         }
         else {
-            SlideButtonIn(rollDiceButton);
+            UIAnimationUtils.SlideInFromLeft(rollDiceButton, UIAnimationUtils.BUTTON_FINAL_POSITION, .4f);
         }
     }
 
@@ -104,14 +104,6 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
     }
 
     private void ShowUIElementsAnimated(bool isLocalPlayer) {
-        turnInfoPanel.style.display = DisplayStyle.Flex;
-        settingsButton.style.display = DisplayStyle.Flex;
-
-        if (isLocalPlayer) {
-            rollDiceButton.style.display = DisplayStyle.Flex;
-            boardButton.style.display = DisplayStyle.Flex;
-        }
-
         var sequence = DOTween.Sequence()
             .Join(UIAnimationUtils.SlideInFromLeft(turnInfoPanel, UIAnimationUtils.INFO_PANEL_FINAL_POSITION))
             .Join(UIAnimationUtils.SlideInFromLeft(settingsButton, UIAnimationUtils.BUTTON_FINAL_POSITION));
@@ -139,15 +131,6 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
 
     private bool IsButtonVisible(Button button) {
         return button.style.display == DisplayStyle.Flex;
-    }
-
-    private void SlideButtonOut(Button button, Action onComplete = null) {
-        UIAnimationUtils.SlideOutToLeft(button, delayBeforeHide: .15f, onComplete: onComplete);
-    }
-
-    private void SlideButtonIn(Button button) {
-        button.style.display = DisplayStyle.Flex;
-        UIAnimationUtils.SlideInFromLeft(button, UIAnimationUtils.BUTTON_FINAL_POSITION, .4f);
     }
 
     private void OnDestroy() {

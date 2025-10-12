@@ -9,24 +9,26 @@ public static class UIAnimationUtils {
     public const float INFO_PANEL_FINAL_POSITION = -40f;
 
     public static Sequence SlideInFromLeft(VisualElement element, float targetLeft, float duration = .6f, Ease easing = Ease.OutBack, Action onComplete = null) {
+        element.style.display = DisplayStyle.Flex;
         element.style.left = SLIDE_OUT_POSITION;
         element.style.opacity = 0f;
 
         return DOTween.Sequence()
             .Join(DOTween.To(() => element.style.left.value.value, x => element.style.left = x, targetLeft, duration).SetEase(easing))
             .Join(DOTween.To(() => element.style.opacity.value, x => element.style.opacity = x, 1f, duration).SetEase(Ease.OutCubic))
+            .OnComplete(() => element.pickingMode = PickingMode.Position)
             .OnComplete(() => onComplete?.Invoke());
     }
 
-    public static Sequence SlideOutToLeft(VisualElement element, float duration = .3f, bool hideAfterAnimation = true, float delayBeforeHide = .1f, Action onComplete = null) {
+    public static Sequence SlideOutToLeft(VisualElement element, float duration = .3f, float delayBeforeHide = .15f, Action onComplete = null) {
+        element.pickingMode = PickingMode.Ignore;
+
         return DOTween.Sequence()
              .Join(DOTween.To(() => element.style.left.value.value, x => element.style.left = x, SLIDE_OUT_POSITION, duration).SetEase(Ease.InCubic))
              .Join(DOTween.To(() => element.style.opacity.value, x => element.style.opacity = x, 0f, duration).SetEase(Ease.InCubic))
-             .AppendInterval(hideAfterAnimation ? delayBeforeHide : 0f)
-             .OnComplete(() => {
-                 element.style.display = hideAfterAnimation ? DisplayStyle.None : DisplayStyle.Flex;
-                 onComplete?.Invoke();
-             });
+             .AppendInterval(delayBeforeHide)
+             .OnComplete(() => element.style.display = DisplayStyle.None)
+             .OnComplete(() => onComplete?.Invoke());
     }
 
     public static Sequence AnimateScale(VisualElement element, float fromScale, float toScale, float duration = .8f, Ease easing = Ease.OutBack, Action onComplete = null) {
