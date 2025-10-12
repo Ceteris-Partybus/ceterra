@@ -1,15 +1,24 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using DG.Tweening;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
     [SerializeField] private UIDocument uiDocument;
     private VisualElement rootElement;
+    private VisualElement turnInfoPanel;
     private Label currentRoundLabel;
     private Label currentPlayerNameLabel;
     private Button rollDiceButton;
     private Button boardButton;
     private Button settingsButton;
     private BoardPlayer boardPlayer;
+    private VisualElement announcementOverlay;
+    private Label announcementText;
+    private Sequence currentAnnouncementSequence;
+    private int lastAnnouncedRound = 0;
 
     protected override void Start() {
         rootElement = uiDocument.rootVisualElement;
@@ -24,6 +33,10 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
         settingsButton = rootElement.Q<Button>("settings-button");
         settingsButton.clicked += SettingsController.Instance.OpenSettingsPanel;
 
+        announcementOverlay = rootElement.Q<VisualElement>("announcement-overlay");
+        announcementText = rootElement.Q<Label>("announcement-text");
+        turnInfoPanel = rootElement.Q<VisualElement>("turn-info-panel");
+
         boardPlayer = BoardContext.Instance.GetLocalPlayer();
         BoardContext.Instance.OnNextPlayerTurn += UpdateTurnUI;
         base.Start();
@@ -33,32 +46,115 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
         currentRoundLabel.text = $"{currentRound} / {maxRounds}";
         currentPlayerNameLabel.text = currentPlayer.PlayerName;
 
-        ShowTurnButtons(currentPlayer.isLocalPlayer);
+        HideUIElements();
+        currentAnnouncementSequence?.Kill();
+        announcementOverlay.style.display = DisplayStyle.Flex;
+        if (currentRound > lastAnnouncedRound) {
+            lastAnnouncedRound = currentRound;
+            currentAnnouncementSequence = ShowSequentialAnnouncements(currentRound, currentPlayer.PlayerName);
+        }
+        else {
+            currentAnnouncementSequence = ShowAnnouncementText(() => FormatTurnMessage(currentPlayer.PlayerName));
+        }
+
+        currentAnnouncementSequence.OnComplete(() => {
+            announcementOverlay.style.display = DisplayStyle.None;
+            ShowUIElementsAnimated(currentPlayer.isLocalPlayer);
+        });
+    }
+
+    private string FormatTurnMessage(string playerName) {
+        var possessive = playerName.EndsWith("s") ? "'" : "'s";
+        return $"It's {playerName}{possessive} turn";
     }
 
     private void OnRollDiceButtonClicked() {
-        if (BoardContext.Instance.CurrentState == BoardContext.State.PLAYER_TURN) {
-            boardPlayer.CmdToggleDiceRoll();
-            rollDiceButton.text = rollDiceButton.text == "Roll Dice" ? "Cancel Roll" : "Roll Dice";
-            boardButton.style.display = IsButtonVisible(boardButton) ? DisplayStyle.None : DisplayStyle.Flex;
+        if (BoardContext.Instance.CurrentState != BoardContext.State.PLAYER_TURN) { return; }
+
+        boardPlayer.CmdToggleDiceRoll();
+        rollDiceButton.text = rollDiceButton.text == "Roll Dice" ? "Cancel Roll" : "Roll Dice";
+
+        if (IsButtonVisible(boardButton)) {
+            SlideButtonOut(boardButton);
+        }
+        else {
+            SlideButtonIn(boardButton);
         }
     }
 
     private void OnBoardButtonClicked() {
-        if (BoardContext.Instance.CurrentState == BoardContext.State.PLAYER_TURN) {
-            boardPlayer.CmdToggleBoardOverview();
-            boardButton.text = boardButton.text == "View Board" ? "Go back to Player" : "View Board";
-            rollDiceButton.style.display = IsButtonVisible(rollDiceButton) ? DisplayStyle.None : DisplayStyle.Flex;
+        if (BoardContext.Instance.CurrentState != BoardContext.State.PLAYER_TURN) { return; }
+
+        boardPlayer.CmdToggleBoardOverview();
+        boardButton.text = boardButton.text == "View Board" ? "Go back to Player" : "View Board";
+
+        if (IsButtonVisible(rollDiceButton)) {
+            SlideButtonOut(rollDiceButton);
+        }
+        else {
+            SlideButtonIn(rollDiceButton);
         }
     }
 
-    public void ShowTurnButtons(bool isLocalPlayer) {
-        var displayStyle = isLocalPlayer ? DisplayStyle.Flex : DisplayStyle.None;
-        rollDiceButton.style.display = displayStyle;
-        boardButton.style.display = displayStyle;
+    private void HideUIElements() {
+        foreach (var element in new[] { rollDiceButton, boardButton, settingsButton, turnInfoPanel }) {
+            element.style.display = DisplayStyle.None;
+            element.style.left = UIAnimationUtils.SLIDE_OUT_POSITION;
+        }
+    }
+
+    private void ShowUIElementsAnimated(bool isLocalPlayer) {
+        turnInfoPanel.style.display = DisplayStyle.Flex;
+        settingsButton.style.display = DisplayStyle.Flex;
+
+        if (isLocalPlayer) {
+            rollDiceButton.style.display = DisplayStyle.Flex;
+            boardButton.style.display = DisplayStyle.Flex;
+        }
+
+        var sequence = DOTween.Sequence()
+            .Join(UIAnimationUtils.SlideInFromLeft(turnInfoPanel, UIAnimationUtils.INFO_PANEL_FINAL_POSITION))
+            .Join(UIAnimationUtils.SlideInFromLeft(settingsButton, UIAnimationUtils.BUTTON_FINAL_POSITION));
+
+        if (isLocalPlayer) {
+            sequence
+                .Join(UIAnimationUtils.SlideInFromLeft(rollDiceButton, UIAnimationUtils.BUTTON_FINAL_POSITION))
+                .Join(UIAnimationUtils.SlideInFromLeft(boardButton, UIAnimationUtils.BUTTON_FINAL_POSITION));
+        }
+    }
+
+    private Sequence ShowSequentialAnnouncements(int roundNumber, string playerName) {
+        return ShowAnnouncementText(() => $"ROUND {roundNumber}")
+            .Append(ShowAnnouncementText(() => FormatTurnMessage(playerName)));
+    }
+
+    private Sequence ShowAnnouncementText(Func<string> getMessage) {
+        return DOTween.Sequence()
+            .AppendCallback(() => announcementText.text = getMessage())
+            .Append(UIAnimationUtils.ScaleAndFadeIn(announcementText, duration: .5f))
+            .AppendInterval(1f)
+            .Append(UIAnimationUtils.AnimateScale(announcementText, 1f, .8f, .3f, Ease.InCubic))
+            .Join(UIAnimationUtils.AnimateFade(announcementText, 1f, 0f, .3f, Ease.InCubic));
     }
 
     private bool IsButtonVisible(Button button) {
         return button.style.display == DisplayStyle.Flex;
+    }
+
+    private void SlideButtonOut(Button button, Action onComplete = null) {
+        UIAnimationUtils.SlideOutToLeft(button, delayBeforeHide: .15f, onComplete: onComplete);
+    }
+
+    private void SlideButtonIn(Button button) {
+        button.style.display = DisplayStyle.Flex;
+        UIAnimationUtils.SlideInFromLeft(button, UIAnimationUtils.BUTTON_FINAL_POSITION, .4f);
+    }
+
+    private void OnDestroy() {
+        currentAnnouncementSequence?.Kill();
+
+        if (BoardContext.Instance != null) {
+            BoardContext.Instance.OnNextPlayerTurn -= UpdateTurnUI;
+        }
     }
 }

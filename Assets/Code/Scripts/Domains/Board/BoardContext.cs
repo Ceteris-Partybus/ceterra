@@ -407,7 +407,6 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
             GameManager.Singleton.StopGameSwitchEndScene();
             yield break;
         }
-        NextPlayerTurn();
     }
 
     [Server]

@@ -13,6 +13,7 @@
     border-width: 3px;
     border-color: rgba(160, 199, 100, 0.6);
     flex-direction: column;
+    display: none;
 }
 
 #round-panel {
@@ -108,6 +109,7 @@
     scale: 1.0;
     background-color: rgba(160, 199, 100, 0.9);
     border-color: transparent;
+    display: none;
 }
 
 #roll-dice-button:hover,
@@ -127,4 +129,46 @@
     border-color: rgba(120, 159, 60, 0.6);
     text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
     scale: 1.0;
+}
+
+/* Animated Announcement Overlay */
+#announcement-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+}
+
+#announcement-text {
+    font-size: 120px;
+    color: #ffffff;
+    text-shadow: 4px 4px 0px rgba(0, 0, 0, 1);
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background-color: rgba(160, 199, 100, 0.9);
+    border-radius: 20px;
+    padding: 40px 60px;
+    border-width: 6px;
+    border-color: rgba(200, 255, 150, 0.8);
+    scale: 0.5;
+    opacity: 0;
+}
+
+/* Different styles for round vs turn announcements */
+.announcement-round {
+    background-color: rgba(255, 140, 40, 0.9) !important;
+    border-color: rgba(255, 180, 100, 0.8) !important;
+    font-size: 140px !important;
+}
+
+.announcement-turn {
+    background-color: rgba(40, 140, 255, 0.9) !important;
+    border-color: rgba(100, 180, 255, 0.8) !important;
 }
