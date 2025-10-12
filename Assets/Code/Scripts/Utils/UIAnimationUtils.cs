@@ -16,8 +16,10 @@ public static class UIAnimationUtils {
         return DOTween.Sequence()
             .Join(DOTween.To(() => element.style.left.value.value, x => element.style.left = x, targetLeft, duration).SetEase(easing))
             .Join(DOTween.To(() => element.style.opacity.value, x => element.style.opacity = x, 1f, duration).SetEase(Ease.OutCubic))
-            .OnComplete(() => element.pickingMode = PickingMode.Position)
-            .OnComplete(() => onComplete?.Invoke());
+            .OnComplete(() => {
+                element.pickingMode = PickingMode.Position;
+                onComplete?.Invoke();
+            });
     }
 
     public static Sequence SlideOutToLeft(VisualElement element, float duration = .3f, float delayBeforeHide = .15f, Action onComplete = null) {
@@ -27,8 +29,10 @@ public static class UIAnimationUtils {
              .Join(DOTween.To(() => element.style.left.value.value, x => element.style.left = x, SLIDE_OUT_POSITION, duration).SetEase(Ease.InCubic))
              .Join(DOTween.To(() => element.style.opacity.value, x => element.style.opacity = x, 0f, duration).SetEase(Ease.InCubic))
              .AppendInterval(delayBeforeHide)
-             .OnComplete(() => element.style.display = DisplayStyle.None)
-             .OnComplete(() => onComplete?.Invoke());
+             .OnComplete(() => {
+                 element.style.display = DisplayStyle.None;
+                 onComplete?.Invoke();
+             });
     }
 
     public static Sequence AnimateScale(VisualElement element, float fromScale, float toScale, float duration = .8f, Ease easing = Ease.OutBack, Action onComplete = null) {
