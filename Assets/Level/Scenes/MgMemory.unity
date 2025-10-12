@@ -131,9 +131,8 @@ GameObject:
   - component: {fileID: 583488098}
   - component: {fileID: 583488100}
   - component: {fileID: 583488101}
-  - component: {fileID: 583488102}
   m_Layer: 5
-  m_Name: Overlay
+  m_Name: HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -166,13 +165,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 583488097}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -4.1276, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 979155695}
-  m_Father: {fileID: 0}
+  m_Children: []
+  m_Father: {fileID: 951088507}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &583488100
 MonoBehaviour:
@@ -207,27 +205,39 @@ MonoBehaviour:
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
---- !u!114 &583488102
-MonoBehaviour:
+--- !u!1 &951088506
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 583488097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a34bcba218728fa42956466979cc52a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  cardPrefab: {fileID: 5477228445593550371, guid: 5446ae81baa641749add6f94c315d5b4, type: 3}
-  gridTransform: {fileID: 979155695}
-  sprites:
-  - {fileID: -1740615059, guid: b1ab8a633cd25a947b2b1a165d542ad8, type: 3}
-  - {fileID: 2020514555, guid: 31171e02b81e1674eb166f4596ed948b, type: 3}
-  - {fileID: 21300000, guid: 1c36a183c9548bd4cabf6de63c840eda, type: 3}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 951088507}
+  m_Layer: 0
+  m_Name: Overlay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &951088507
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951088506}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4.1276, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 583488099}
+  - {fileID: 979155695}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &961739749
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,6 +525,8 @@ GameObject:
   m_Component:
   - component: {fileID: 979155695}
   - component: {fileID: 979155696}
+  - component: {fileID: 979155698}
+  - component: {fileID: 979155697}
   m_Layer: 5
   m_Name: GridContainer
   m_TagString: Untagged
@@ -534,11 +546,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 583488099}
+  m_Father: {fileID: 951088507}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 4.1276}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 17.7733, y: 8.7982}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &979155696
@@ -565,6 +577,44 @@ MonoBehaviour:
   m_Spacing: {x: 1.7, y: 0.6}
   m_Constraint: 1
   m_ConstraintCount: 5
+--- !u!114 &979155697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979155694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3561196882
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
+--- !u!114 &979155698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979155694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a34bcba218728fa42956466979cc52a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  cardPrefab: {fileID: 5477228445593550371, guid: 5446ae81baa641749add6f94c315d5b4, type: 3}
+  gridTransform: {fileID: 979155695}
+  sprites:
+  - {fileID: -1740615059, guid: b1ab8a633cd25a947b2b1a165d542ad8, type: 3}
+  - {fileID: 2020514555, guid: 31171e02b81e1674eb166f4596ed948b, type: 3}
+  - {fileID: 21300000, guid: 1c36a183c9548bd4cabf6de63c840eda, type: 3}
 --- !u!1 &1055850414
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,5 +768,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 961739753}
   - {fileID: 1055850415}
-  - {fileID: 583488099}
+  - {fileID: 951088507}
   - {fileID: 1629093453}

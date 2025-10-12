@@ -8,6 +8,14 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
 
     private List<Sprite> spritePairs;
 
+    protected override void Start() {
+        base.Start();
+
+        spritePairs = new();
+        PrepareSprites();
+        InitializeCards();
+    }
+
     private void PrepareSprites() {
         for (var i = 0; i < sprites.Length; i++) {
             spritePairs.Add(sprites[i]);
@@ -31,12 +39,5 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
             var card = Instantiate(cardPrefab, gridTransform);
             card.SetIconSprite(spritePairs[i]);
         }
-    }
-
-    private void Start() {
-        base.Start();
-
-        PrepareSprites();
-        InitializeCards();
     }
 }

@@ -1,6 +1,7 @@
+using Mirror;
 using UnityEngine;
 
-public class Card : MonoBehaviour {
+public class Card : NetworkBehaviour {
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     public Sprite hiddenIconSprite;
@@ -10,6 +11,17 @@ public class Card : MonoBehaviour {
     private void Awake() {
         spriteRenderer ??= GetComponent<SpriteRenderer>();
         Hide();
+    }
+
+    public void OnCardClicked() {
+        Debug.Log($"Card clicked! IsSelected: {isSelected}, IconSprite: {iconSprite?.name}");
+
+        if (isSelected) {
+            Hide();
+        }
+        else {
+            Show();
+        }
     }
 
     public void SetIconSprite(Sprite sprite) {
