@@ -3,11 +3,19 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 
+[System.Serializable]
+public struct WeightedTrashPrefab {
+    public GameObject prefab;
+    [Tooltip("Higher weight means more frequent spawning.")]
+    [Range(0.1f, 10f)]
+    public float weight;
+}
+
 public class MgOceanContext : NetworkedSingleton<MgOceanContext> {
     [SerializeField]
     private GameObject spawnAreaHolder;
     [SerializeField]
-    private GameObject[] trashPrefabs;
+    private WeightedTrashPrefab[] weightedTrashPrefabs;
     
     [SerializeField]
     private float initialSpawnInterval = 3f;
@@ -111,8 +119,26 @@ public class MgOceanContext : NetworkedSingleton<MgOceanContext> {
         float startTime = Time.time;
         float interval = initialSpawnInterval;
 
+        float totalWeight = weightedTrashPrefabs.Sum(p => p.weight);
+
         while (Time.time - startTime < gameDuration) {
-            GameObject prefab = trashPrefabs[Random.Range(0, trashPrefabs.Length)];
+            GameObject prefab = null;
+            float randomWeight = Random.Range(0, totalWeight);
+            float currentWeight = 0;
+
+            foreach (var weightedPrefab in weightedTrashPrefabs) {
+                currentWeight += weightedPrefab.weight;
+                if (randomWeight <= currentWeight) {
+                    prefab = weightedPrefab.prefab;
+                    break;
+                }
+            }
+
+            if (prefab == null) {
+                Debug.LogWarning("[MgOceanContext] No prefab selected for spawning, check weights.");
+                yield return new WaitForSeconds(interval);
+                continue;
+            }
             
             bool spawnFromRight = Random.value > 0.5f;
             // Spawn outside the visible area so they swim in
@@ -131,6 +157,8 @@ public class MgOceanContext : NetworkedSingleton<MgOceanContext> {
             var trash = go.GetComponent<MgOceanTrash>();
             if (trash != null) {
                 trash.SetMovementDirection(spawnFromRight ? Vector2.left : Vector2.right);
+                // flip the sprite if spawning from the left
+                trash.isFlipped = !spawnFromRight;
             } else {
                 Debug.LogWarning($"[MgOceanContext] Spawned prefab {prefab.name} has no MgOceanTrash component!");
             }

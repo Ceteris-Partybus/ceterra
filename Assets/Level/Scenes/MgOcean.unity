@@ -755,13 +755,17 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   spawnAreaHolder: {fileID: 301842504}
-  trashPrefabs:
-  - {fileID: 3241251890801266441, guid: b6b3f13ed5c99a441be43962096ea79b, type: 3}
-  - {fileID: 3241251890801266441, guid: 40fc7c4b30a61584dad9c2bdc2522216, type: 3}
-  - {fileID: 3241251890801266441, guid: 5c0f9ca54cc99e746a7a9e574ac0e579, type: 3}
-  - {fileID: 3241251890801266441, guid: cd995bca43d89e64d8581b2d27e3f93b, type: 3}
+  weightedTrashPrefabs:
+  - prefab: {fileID: 3241251890801266441, guid: 5c0f9ca54cc99e746a7a9e574ac0e579, type: 3}
+    weight: 4
+  - prefab: {fileID: 3241251890801266441, guid: b6b3f13ed5c99a441be43962096ea79b, type: 3}
+    weight: 2
+  - prefab: {fileID: 3241251890801266441, guid: cd995bca43d89e64d8581b2d27e3f93b, type: 3}
+    weight: 10
+  - prefab: {fileID: 3241251890801266441, guid: 40fc7c4b30a61584dad9c2bdc2522216, type: 3}
+    weight: 5
   initialSpawnInterval: 3
-  minSpawnInterval: 0.75
+  minSpawnInterval: 0.65
   spawnAcceleration: 0.98
   gameDuration: 60
 --- !u!4 &915303052
@@ -1252,8 +1256,8 @@ Transform:
   m_GameObject: {fileID: 1459184553}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_LocalPosition: {x: 0, y: 0.67, z: 0}
+  m_LocalScale: {x: 1, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 453139297}
