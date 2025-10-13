@@ -14,10 +14,10 @@ public class NormalFieldBehaviour : FieldBehaviour {
     [Server]
     private IEnumerator AddCoinsAndHealth(BoardPlayer player) {
         TargetPlayMoneyHealthSound(player.connectionToClient);
-        yield return player.TriggerBlockingAnimation(AnimationType.COIN_GAIN);
+        yield return player.TriggerBlockingAnimation(AnimationType.COIN_GAIN, MONEY_EFFECT);
         player.PlayerStats.ModifyCoins(MONEY_EFFECT);
 
-        yield return player.TriggerBlockingAnimation(AnimationType.HEALTH_GAIN);
+        yield return player.TriggerBlockingAnimation(AnimationType.HEALTH_GAIN, HEALTH_EFFECT);
         player.PlayerStats.ModifyHealth(HEALTH_EFFECT);
 
         CompleteFieldInvocation();
@@ -29,7 +29,7 @@ public class NormalFieldBehaviour : FieldBehaviour {
     }
 
     private IEnumerator PlaySoundDelayed() {
-        yield return new WaitForSeconds(0.6f); 
+        yield return new WaitForSeconds(0.6f);
         Audiomanager.Instance?.PlayMoneyHealthSound();
     }
 }

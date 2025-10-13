@@ -94,18 +94,18 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     [Server]
-    public WaitUntil TriggerBlockingAnimation(AnimationType animationType) {
+    public WaitUntil TriggerBlockingAnimation(AnimationType animationType, int amount) {
         IsAnimationFinished = false;
-        RpcTriggerBlockingAnimation(animationType);
+        RpcTriggerBlockingAnimation(animationType, amount);
         return new WaitUntil(() => IsAnimationFinished);
     }
 
     [ClientRpc]
-    private void RpcTriggerBlockingAnimation(AnimationType animationType) {
+    private void RpcTriggerBlockingAnimation(AnimationType animationType, int amount) {
         StartCoroutine(TriggerAnimationCoroutine());
 
         IEnumerator TriggerAnimationCoroutine() {
-            var waitWhile = visualHandler.TriggerBlockingAnimation(animationType);
+            var waitWhile = visualHandler.TriggerBlockingAnimation(animationType, amount);
             yield return null;
             yield return waitWhile;
 
