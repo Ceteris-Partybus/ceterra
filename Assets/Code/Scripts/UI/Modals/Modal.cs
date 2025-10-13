@@ -120,7 +120,10 @@ public abstract class Modal : NetworkBehaviour {
                 header.Add(titleLabel);
             }
             if (showCloseButton) {
-                closeButton = new Button(() => OnCloseRequested());
+                closeButton = new Button(() => {
+                    Audiomanager.Instance?.PlayClickSound();
+                    OnCloseRequested();
+                });
                 closeButton.text = "×";
                 closeButton.name = "close-button";
                 closeButton.AddToClassList("modal-close-button");
