@@ -52,7 +52,7 @@ public class FundsDepositModal : Modal {
             return;
         }
 
-        if (localPlayer.Coins < depositValue) {
+        if (localPlayer.PlayerStats.GetCoins() < depositValue) {
             Audiomanager.Instance?.PlayClickSound();
             ErrorModal.Instance.Message = "Du besitzt nicht genügend Münzen.";
             ModalManager.Instance.Show(ErrorModal.Instance);
@@ -69,7 +69,8 @@ public class FundsDepositModal : Modal {
         FundsHistoryEntry entry = new FundsHistoryEntry(depositValue, HistoryEntryType.DEPOSIT, "Einzahlung von " + localPlayer.PlayerName);
         BoardContext.Instance.fundsHistory.Add(entry);
         BoardContext.Instance.UpdateFundsStat(depositValue);
-        localPlayer.RemoveCoins(depositValue);
+        localPlayer.PlayerStats.ModifyCoins(-depositValue);
+        localPlayer.PlayerStats.ModifyScore(depositValue / 10);
     }
 
     private void OnDepositAdd10ButtonClicked() {

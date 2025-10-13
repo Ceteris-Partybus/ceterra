@@ -201,7 +201,13 @@ public class BoardquizController : NetworkedSingleton<BoardquizController> {
             var totalReward = boardquizService.CalculateTotalReward(correctAnswers);
             Debug.Log($"Spieler {currentPlayer.PlayerName} erhält {totalReward} Coins für {correctAnswers} richtige Antworten.");
             currentPlayer.CmdClaimQuizReward(totalReward);
+            CmdAddScore(totalReward / 5);
         }
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdAddScore(int amount) {
+        currentPlayer?.PlayerStats.ModifyScore(amount);
     }
 
     private IEnumerator AutoAdvanceAfterDelay() {

@@ -26,7 +26,7 @@ public class SettingsController : MonoBehaviour {
     [SerializeField]
     private UIDocument uIDocument;
     [SerializeField] private AudioMixer audioMixer;
-  
+
     private void OnEnable() {
         var root = uIDocument.rootVisualElement;
 
@@ -51,7 +51,7 @@ public class SettingsController : MonoBehaviour {
         soundValue = root.Q<Label>("SoundValue");
 
         musicSlider = root.Q<Slider>("MusicSlider");
-        musicValue  = root.Q<Label>("MusicValue");
+        musicValue = root.Q<Label>("MusicValue");
 
         fullscreenToggle = root.Q<Toggle>("FullscreenToggle");
 
@@ -78,31 +78,31 @@ public class SettingsController : MonoBehaviour {
     UpdateAudioValue(savedVolume, soundValue, soundVolumeParam);
 }
 
-private void SetupMusic() {
-    musicSlider.RegisterValueChangedCallback(evt => {
-        UpdateAudioValue(evt.newValue, musicValue, musicVolumeParam);
-        PlayerPrefs.SetFloat("MusicVolume", evt.newValue);
-        PlayerPrefs.Save();
-    });
+    private void SetupMusic() {
+        musicSlider.RegisterValueChangedCallback(evt => {
+            UpdateAudioValue(evt.newValue, musicValue, musicVolumeParam);
+            PlayerPrefs.SetFloat("MusicVolume", evt.newValue);
+            PlayerPrefs.Save();
+        });
 
-    musicSlider.RegisterCallback<MouseUpEvent>(evt => Audiomanager.Instance?.PlayClickSound());
-    musicSlider.RegisterCallback<ClickEvent>(evt => Audiomanager.Instance?.PlayClickSound());
+        musicSlider.RegisterCallback<MouseUpEvent>(evt => Audiomanager.Instance?.PlayClickSound());
+        musicSlider.RegisterCallback<ClickEvent>(evt => Audiomanager.Instance?.PlayClickSound());
 
-    float savedMusic = PlayerPrefs.GetFloat("MusicVolume", 100f);
-    musicSlider.value = savedMusic;
-    UpdateAudioValue(savedMusic, musicValue, musicVolumeParam);
-}
+        float savedMusic = PlayerPrefs.GetFloat("MusicVolume", 100f);
+        musicSlider.value = savedMusic;
+        UpdateAudioValue(savedMusic, musicValue, musicVolumeParam);
+    }
 
-private void UpdateAudioValue(float value, Label label, string mixerParam) {
-    if (audioMixer == null) return;
+    private void UpdateAudioValue(float value, Label label, string mixerParam) {
+        if (audioMixer == null) return;
 
-    float normalized = Mathf.Clamp01(value / 100f);
-    float dB = (normalized <= 0.0001f) ? -80f : Mathf.Log10(normalized) * 20f;
-    audioMixer.SetFloat(mixerParam, dB);
+        float normalized = Mathf.Clamp01(value / 100f);
+        float dB = (normalized <= 0.0001f) ? -80f : Mathf.Log10(normalized) * 20f;
+        audioMixer.SetFloat(mixerParam, dB);
 
-    if (label != null)
-        label.text = Mathf.RoundToInt(value) + "%";
-}
+        if (label != null)
+            label.text = Mathf.RoundToInt(value) + "%";
+    }
 
     private void SetupFullscreen() {
         fullscreenToggle.RegisterValueChangedCallback(evt => {
@@ -168,7 +168,7 @@ private void UpdateAudioValue(float value, Label label, string mixerParam) {
             Audiomanager.Instance?.PlayClickSound();
             SetLanguage(evt.newValue);
         });
-        SetLanguage(languageDropdown.value); 
+        SetLanguage(languageDropdown.value);
     }
 
     private async void SetLanguage(string language) {

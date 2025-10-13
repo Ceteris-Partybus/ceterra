@@ -54,7 +54,7 @@ public class InvestDepositModal : Modal {
 
         BoardPlayer player = BoardContext.Instance.GetLocalPlayer();
 
-        if (player.Coins < depositValue) {
+        if (player.PlayerStats.GetCoins() < depositValue) {
             Audiomanager.Instance?.PlayClickSound();
             ErrorModal.Instance.Message = "Du besitzt nicht genügend Münzen.";
             ModalManager.Instance.Show(ErrorModal.Instance);

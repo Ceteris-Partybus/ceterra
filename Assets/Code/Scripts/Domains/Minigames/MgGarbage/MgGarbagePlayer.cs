@@ -1,8 +1,10 @@
 using Mirror;
 using System;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 
-public class MgGarbagePlayer : SceneConditionalPlayer {
+public class MgGarbagePlayer : SceneConditionalPlayer, IMinigameRewardHandler {
     [SerializeField]
     [SyncVar(hook = nameof(OnScoreChanged))]
     private int score;
@@ -21,6 +23,12 @@ public class MgGarbagePlayer : SceneConditionalPlayer {
     }
 
     protected override void OnClientActiveStateChanged(bool isActive) {
+        StartCoroutine(WaitForAllPlayers());
+
+        IEnumerator WaitForAllPlayers() {
+            yield return new WaitUntil(() => netIdentity != null && netIdentity.observers.Count == GameManager.Singleton.PlayerIds.Count());
+        }
+
         base.OnClientActiveStateChanged(isActive);
 
         if (!isLocalPlayer && isActive && MgGarbageRemotePlayerHUD.Instance != null) {
@@ -48,13 +56,6 @@ public class MgGarbagePlayer : SceneConditionalPlayer {
         score = 0;
     }
 
-    public override void OnStopClient() {
-        base.OnStopClient();
-        MgGarbageRemotePlayerHUD.Instance.RemovePlayer(PlayerId);
-    }
-
-    public int Score => score;
-
     [Command]
     public void CmdAddScore(int amount) {
         score += amount;
@@ -67,5 +68,11 @@ public class MgGarbagePlayer : SceneConditionalPlayer {
 
     public override bool ShouldBeActiveInScene(string sceneName) {
         return sceneName == "MgGarbage";
+    }
+
+    [Server]
+    public void HandleMinigameRewards(BoardPlayer player) {
+        player.PlayerStats.ModifyCoins(Math.Max(0, score));
+        player.PlayerStats.ModifyScore(Math.Max(0, score / 5));
     }
 }

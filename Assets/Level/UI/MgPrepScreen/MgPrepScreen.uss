@@ -1,0 +1,128 @@
+.root {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    background-color: #b0b0b3;
+    padding: 20px;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Titel */
+.title {
+    font-size: 32px;
+    unity-text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Spieler + Thumbnail */
+.content-section {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-grow: 1;
+    gap: 20px;
+}
+
+.players-section {
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-basis: 45%;
+    background-color: #aaaaad;
+    padding: 15px;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.player-row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.player-name {
+    font-size: 16px;
+}
+
+.ready-button {
+    width: 110px;
+    height: 30px;
+    background-color: #7cc576;
+    color: black;
+    border-radius: 4px;
+}
+
+.ready-button:hover {
+    background-color: rgba(120, 200, 120, 1);
+    border-color: rgba(100, 180, 100, 1);
+}
+
+.ready-button.not-ready {
+    background-color: #d17373;
+}
+
+.ready-button.not-ready:hover {
+    background-color: rgba(200, 140, 100, 1);
+    border-color: rgba(180, 120, 80, 1);
+}
+
+/* Thumbnail */
+.thumbnail {
+    flex-basis: 50%;
+    justify-content: center;
+    align-items: center;
+    background-color: #aaaaad;
+    border-radius: 6px;
+    display: flex;
+}
+
+.thumbnail-label {
+    font-size: 20px;
+}
+
+/* Unterer Bereich */
+.bottom-section {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+    box-sizing: border-box;
+}
+
+/* Beschreibung links */
+.description-section {
+    flex-basis: 65%;
+    background-color: #aaaaad;
+    padding: 15px;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.lorem-text {
+    font-size: 14px;
+    white-space: normal;
+}
+
+/* Steuerung rechts */
+.controls-section {
+    flex-basis: 30%;
+    background-color: #aaaaad;
+    padding: 15px;
+    border-radius: 6px;
+    box-sizing: border-box;
+    flex-direction: column;
+}
+
+.controls-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.controls-text {
+    font-size: 14px;
+    white-space: pre-line;
+}

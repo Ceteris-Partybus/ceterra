@@ -30,6 +30,15 @@ public abstract class SceneConditionalPlayer : NetworkBehaviour {
     [SyncVar(hook = nameof(OnActiveStateChanged))]
     private bool isActiveForCurrentScene = false;
     public bool IsActiveForCurrentScene => isActiveForCurrentScene;
+
+    [SyncVar]
+    private bool isReady;
+    public bool IsReady => isReady;
+
+    [Command]
+    public void CmdChangeReadyState() {
+        isReady = !isReady;
+    }
     #endregion
 
     #region Server-Only State
@@ -102,7 +111,9 @@ public abstract class SceneConditionalPlayer : NetworkBehaviour {
         PlayerName = source.PlayerName;
 
         // Transfer custom data
-        OnServerReceiveData(source);
+        if (source is IMinigameRewardHandler rewardHandler) {
+            HandleMinigameRewards(rewardHandler);
+        }
     }
 
     [Server]
@@ -148,10 +159,11 @@ public abstract class SceneConditionalPlayer : NetworkBehaviour {
     protected virtual void OnServerCleanup() { }
 
     /// <summary>
-    /// Called on server to receive data from previously active component
+    /// Called on server to receive data from previously active component (which is a minigame player)
     /// </summary>
     [Server]
-    protected virtual void OnServerReceiveData(SceneConditionalPlayer source) { }
+    protected virtual void HandleMinigameRewards(IMinigameRewardHandler handler) {
+    }
 
     /// <summary>
     /// Called on client when active state changes

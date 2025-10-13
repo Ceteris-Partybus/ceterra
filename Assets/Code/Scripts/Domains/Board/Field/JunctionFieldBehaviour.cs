@@ -13,6 +13,7 @@ public class JunctionFieldBehaviour : FieldBehaviour {
 
     [SyncVar]
     private bool isWaitingForBranchChoice = false;
+    public bool IsWaitingForBranchChoice => isWaitingForBranchChoice;
     private FieldBehaviour targetField;
     private BoardPlayer crossingPlayer;
 
@@ -32,7 +33,7 @@ public class JunctionFieldBehaviour : FieldBehaviour {
 
     [Server]
     private IEnumerator LetPlayerChoosePath() {
-        crossingPlayer.IsMoving = false;
+        crossingPlayer.PlayerMovement.IsMoving = false;
         crossingPlayer.RpcTriggerAnimation(AnimationType.JUNCTION_ENTRY);
         isWaitingForBranchChoice = true;
         TargetShowBranchArrows();
