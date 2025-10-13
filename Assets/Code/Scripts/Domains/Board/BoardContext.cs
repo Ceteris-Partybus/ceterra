@@ -641,7 +641,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         foreach (var eventOption in possibleEvents) {
             cumulativeWeight += eventOption.weight;
             if (randomValue < cumulativeWeight) {
-                Debug.Log($"Triggering event: {eventOption.title}");
+                Debug.Log($"Triggering event: {LocalizationManager.Instance.GetLocalizedText(eventOption.title)}");
                 TriggerEvent(eventOption.id);
                 eventOption.MarkOccurrence();
                 break;
@@ -685,8 +685,8 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     [ClientRpc]
     private void RpcShowEventInfo(Event eventToShow) {
-        EventModal.Instance.Title = eventToShow.title;
-        EventModal.Instance.Description = eventToShow.description;
+        EventModal.Instance.Title = LocalizationManager.Instance.GetLocalizedText(eventToShow.title);
+        EventModal.Instance.Description = LocalizationManager.Instance.GetLocalizedText(eventToShow.description);
         ModalManager.Instance.Show(EventModal.Instance);
     }
 

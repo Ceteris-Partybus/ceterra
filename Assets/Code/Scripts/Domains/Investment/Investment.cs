@@ -10,8 +10,8 @@ public class Investment : IEquatable<Investment> {
     private static int nextId = 1;
 
     [SerializeField] public int id;
-    [SerializeField] public string displayName;
-    [SerializeField] public string description;
+    [SerializeField] public long displayName;
+    [SerializeField] public long description;
     [SerializeField] public int requiredMoney;
     [SerializeField] public int requiredResources;
     [SerializeField] public int currentMoney = 0;
@@ -26,7 +26,7 @@ public class Investment : IEquatable<Investment> {
     public Investment() { }
 
     [JsonConstructor]
-    private Investment(string displayName, string description, int requiredMoney, int requiredResources, InvestmentType type, List<InvestmentModifier> modifier, int cooldown) {
+    private Investment(long displayName, long description, int requiredMoney, int requiredResources, InvestmentType type, List<InvestmentModifier> modifier, int cooldown) {
         this.id = nextId++;
         this.displayName = displayName;
         this.description = description;
