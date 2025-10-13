@@ -3,88 +3,74 @@
 }
 
 #turn-info-panel {
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
     position: absolute;
     top: 180px;
-    left: -40px;
-    background-color: rgba(0, 0, 0, 0.8);
-    border-radius: 10px;
-    padding: 20px 25px;
-    width: 435px;
-    border-width: 3px;
-    border-color: rgba(160, 199, 100, 0.6);
+    width: 420px;
     flex-direction: column;
     display: none;
+    overflow: hidden;
 }
 
-#round-panel {
+.panel-header {
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_title_with_stroke.png");
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 0;
+}
+
+.panel-title {
+    font-size: 38px;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    letter-spacing: 1px;
+}
+
+.panel-content {
+    padding: 20px;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.info-row {
     flex-direction: row;
     align-items: center;
-    margin-bottom: 15px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    padding: 10px 0px 10px 15px;
-    border-width: 2px;
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
-#round-label {
-    font-size: 28px;
-    color: rgba(160, 199, 100, 0.9);
-    text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
-    -unity-text-align: middle-left;
-    -unity-font-style: bold;
-    flex-shrink: 0;
-    white-space: nowrap;
-}
-
-#current-round-text {
-    font-size: 28px;
-    color: #ffffff;
-    text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
-    -unity-text-align: middle-right;
-    -unity-font-style: bold;
-    flex-grow: 1;
-    margin-right: 5px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    padding: 10px;
 }
 
 #current-turn-panel {
-    flex-direction: row;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    padding: 10px 0px 10px 15px;
-    border-width: 2px;
-    border-color: rgba(255, 255, 255, 0.1);
+    margin-bottom: 0;
 }
 
-#current-turn-label {
-    font-size: 28px;
-    color: rgba(160, 199, 100, 0.9);
-    text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+.info-label {
+    font-size: 32px;
+    color: #745136;
     -unity-text-align: middle-left;
-    -unity-font-style: bold;
     flex-shrink: 0;
     white-space: nowrap;
 }
 
-#current-turn-text {
-    font-size: 28px;
-    color: #ffffff;
-    text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+.info-value {
+    font-size: 32px;
+     color: #ffffff;
+    text-shadow: 2px 2px 2px #745136;
     -unity-text-align: middle-right;
-    -unity-font-style: bold;
     flex-grow: 1;
-    flex-shrink: 1;
-    margin-right: 5px;
+    margin-left: 10px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 #turn-buttons-container {
     position: absolute;
-    top: 420px;
+    top: 450px;
     flex-direction: column;
     width: 430px;
     left: -20px;
@@ -93,22 +79,22 @@
 #roll-dice-button,
 #board-button,
 #settings-button {
-    height: 62px;
-    width: 410px;
-    margin-bottom: 12px;
-    font-size: 32px;
-    border-radius: 10px;
+    height: 70px;
+    width: 455px;
+    margin-bottom: 15px;
+    font-size: 38px;
     border-width: 0;
-    color: white;
-    text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+    color: #FFFFFF;
+    text-shadow: 2px 2px 2px #745136;
     -unity-text-align: upper-center;
     transition-duration: 0.3s;
-    transition-property: background-color, scale, left, border-color, text-shadow;
+    transition-property: background-image, scale, translate, text-shadow;
     transition-timing-function: ease-out;
     background-color: rgba(0, 0, 0, 0);
-    background-image: url("project://database/Assets/Art/Sprites/Buttons/green_default.png");
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_default.png");
     border-color: transparent;
     display: none;
+    letter-spacing: 1px;
 }
 
 #roll-dice-button:hover,
@@ -116,13 +102,15 @@
 #settings-button:hover {
     transition-duration: 0.2s;
     translate: 20px 0;
+    scale: 1.02 1.02;
 }
 
 #roll-dice-button:active,
 #board-button:active,
 #settings-button:active { 
-    background-image: url("project://database/Assets/Art/Sprites/Buttons/green_pressed.png");
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_pressed.png");
     -unity-text-align: lower-center;
+    translate: 20px 0;
 }
 
 #announcement-overlay {
@@ -139,16 +127,12 @@
 
 #announcement-text {
     font-size: 120px;
-    color: #ffffff;
-    text-shadow: 4px 4px 0px rgba(0, 0, 0, 1);
+    color: #745136;
     -unity-text-align: middle-center;
     text-overflow: ellipsis;
     white-space: nowrap;
-    background-color: rgba(160, 199, 100, 0.9);
-    border-radius: 20px;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
     padding: 40px 60px;
-    border-width: 6px;
-    border-color: rgba(200, 255, 150, 0.8);
     scale: 0.5;
     opacity: 0;
 }

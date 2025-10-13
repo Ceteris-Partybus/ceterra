@@ -6,7 +6,7 @@ using System;
 public static class UIAnimationUtils {
     public const float SLIDE_OUT_POSITION = -300f;
     public const float BUTTON_FINAL_POSITION = -10f;
-    public const float INFO_PANEL_FINAL_POSITION = -40f;
+    public const float INFO_PANEL_FINAL_POSITION = 10f;
 
     public static Sequence SlideInFromLeft(VisualElement element, float targetLeft, float duration = .6f, Ease easing = Ease.OutBack, Action onComplete = null) {
         element.style.display = DisplayStyle.Flex;
