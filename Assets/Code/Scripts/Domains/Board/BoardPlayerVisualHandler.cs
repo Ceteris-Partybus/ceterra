@@ -42,10 +42,10 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
         var isGainEffect = animationType == AnimationType.COIN_GAIN || animationType == AnimationType.HEALTH_GAIN;
 
         if (isGainEffect) {
-            burst.cycleCount = Mathf.Abs(amount);
+            burst.cycleCount = amount;
         }
         else {
-            burst.count = Mathf.Abs(amount);
+            burst.count = amount;
         }
 
         emission.SetBurst(0, burst);

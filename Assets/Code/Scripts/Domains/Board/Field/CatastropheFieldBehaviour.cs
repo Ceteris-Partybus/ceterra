@@ -107,7 +107,7 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
 
             affectedPlayer.IsAnimationFinished = false;
             affectedPlayer.PlayerStats.ModifyHealth(-inflictedDamage);
-            yield return affectedPlayer.TriggerBlockingAnimation(AnimationType.HEALTH_LOSS, -inflictedDamage);
+            yield return affectedPlayer.TriggerBlockingAnimation(AnimationType.HEALTH_LOSS, inflictedDamage);
             yield return new WaitForSeconds(PLAYER_DAMAGE_DELAY);
         }
     }
