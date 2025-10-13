@@ -1,4 +1,5 @@
 using Mirror;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Splines;
@@ -260,9 +261,11 @@ public class BoardPlayer : SceneConditionalPlayer {
         visualHandler?.MakeCharacterFaceCamera();
     }
 
+    public Action OnRollDiceEnded;
     private void HandleInput() {
         var pressedSpaceToEndRoll = Input.GetKeyDown(KeyCode.Space) && dice.IsSpinning;
         if (pressedSpaceToEndRoll) {
+            OnRollDiceEnded?.Invoke();
             CmdEndRollDice();
             return;
         }

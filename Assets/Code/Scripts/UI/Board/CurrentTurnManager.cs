@@ -38,6 +38,11 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
 
         boardPlayer = BoardContext.Instance.GetLocalPlayer();
         BoardContext.Instance.OnNextPlayerTurn += UpdateTurnUI;
+        boardPlayer.OnRollDiceEnded += () => DOTween.Sequence()
+                    .AppendCallback(() => SetButtonsInteractable(false))
+                    .Join(UIAnimationUtils.SlideOutToLeft(rollDiceButton))
+                    .OnComplete(() => SetButtonsInteractable(true));
+
         base.Start();
     }
 
@@ -85,9 +90,7 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
             animationSequence.Join(UIAnimationUtils.SlideInFromLeft(boardButton, UIAnimationUtils.BUTTON_FINAL_POSITION, .4f));
         }
 
-        animationSequence.OnComplete(() => {
-            SetButtonsInteractable(true);
-        });
+        animationSequence.OnComplete(() => SetButtonsInteractable(true));
     }
 
     private void OnBoardButtonClicked() {
@@ -108,9 +111,7 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
             animationSequence.Join(UIAnimationUtils.SlideInFromLeft(rollDiceButton, UIAnimationUtils.BUTTON_FINAL_POSITION, .4f));
         }
 
-        animationSequence.OnComplete(() => {
-            SetButtonsInteractable(true);
-        });
+        animationSequence.OnComplete(() => SetButtonsInteractable(true));
     }
 
     private void HideUIElements() {
@@ -133,9 +134,7 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
                 .Join(UIAnimationUtils.SlideInFromLeft(boardButton, UIAnimationUtils.BUTTON_FINAL_POSITION));
         }
 
-        sequence.OnComplete(() => {
-            SetButtonsInteractable(true);
-        });
+        sequence.OnComplete(() => SetButtonsInteractable(true));
     }
 
     private Sequence ShowSequentialAnnouncements(int roundNumber, string playerName) {
