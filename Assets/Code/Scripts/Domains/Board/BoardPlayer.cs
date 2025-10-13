@@ -56,6 +56,7 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     private Character character;
     private Dice dice;
+    public Action OnDiceRollEnded;
 
     protected void Start() {
         DontDestroyOnLoad(gameObject);
@@ -261,11 +262,10 @@ public class BoardPlayer : SceneConditionalPlayer {
         visualHandler?.MakeCharacterFaceCamera();
     }
 
-    public Action OnRollDiceEnded;
     private void HandleInput() {
         var pressedSpaceToEndRoll = Input.GetKeyDown(KeyCode.Space) && dice.IsSpinning;
         if (pressedSpaceToEndRoll) {
-            OnRollDiceEnded?.Invoke();
+            OnDiceRollEnded?.Invoke();
             CmdEndRollDice();
             return;
         }

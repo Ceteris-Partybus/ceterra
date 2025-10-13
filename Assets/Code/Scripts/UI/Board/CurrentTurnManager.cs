@@ -36,13 +36,9 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
         announcementText = rootElement.Q<Label>("announcement-text");
         turnInfoPanel = rootElement.Q<VisualElement>("turn-info-panel");
 
-        boardPlayer = BoardContext.Instance.GetLocalPlayer();
         BoardContext.Instance.OnNextPlayerTurn += UpdateTurnUI;
-        boardPlayer.OnRollDiceEnded += () => DOTween.Sequence()
-                    .AppendCallback(() => SetButtonsInteractable(false))
-                    .Join(UIAnimationUtils.SlideOutToLeft(rollDiceButton))
-                    .OnComplete(() => SetButtonsInteractable(true));
-
+        boardPlayer = BoardContext.Instance.GetLocalPlayer();
+        boardPlayer.OnDiceRollEnded += HideRollDiceButton;
         base.Start();
     }
 
@@ -121,6 +117,13 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
         }
     }
 
+    private void HideRollDiceButton() {
+        DOTween.Sequence()
+            .AppendCallback(() => SetButtonsInteractable(false))
+            .Join(UIAnimationUtils.SlideOutToLeft(rollDiceButton))
+            .OnComplete(() => SetButtonsInteractable(true));
+    }
+
     private void ShowUIElementsAnimated(bool isLocalPlayer) {
         SetButtonsInteractable(false);
 
@@ -166,6 +169,10 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
 
         if (BoardContext.Instance != null) {
             BoardContext.Instance.OnNextPlayerTurn -= UpdateTurnUI;
+        }
+
+        if (boardPlayer != null) {
+            boardPlayer.OnDiceRollEnded -= HideRollDiceButton;
         }
     }
 }
