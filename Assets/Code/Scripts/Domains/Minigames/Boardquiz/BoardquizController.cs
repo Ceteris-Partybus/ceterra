@@ -167,6 +167,7 @@ public class BoardquizController : NetworkedSingleton<BoardquizController> {
     }
 
     private void OnAnswerSelected(int selectedAnswerIndex) {
+        Audiomanager.Instance?.PlayClickSound();
         SetAnswerButtonsState(false);
         StopAutoAdvanceTimer();
         var isCorrect = boardquizService.CheckAnswer(currentDisplayedQuestion, selectedAnswerIndex);
@@ -207,7 +208,7 @@ public class BoardquizController : NetworkedSingleton<BoardquizController> {
 
     [Command(requiresAuthority = false)]
     private void CmdAddScore(int amount) {
-        currentPlayer?.AddScore(amount);
+        currentPlayer?.PlayerStats.ModifyScore(amount);
     }
 
     private IEnumerator AutoAdvanceAfterDelay() {

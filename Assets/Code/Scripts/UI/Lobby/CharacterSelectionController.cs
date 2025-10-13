@@ -67,6 +67,13 @@ public class CharacterSelectionController : MonoBehaviour {
         characterSelectionUI.playerNameInput.RegisterValueChangedCallback(e => OnPlayerNameChanged(e.newValue));
         characterSelectionUI.playerNameInput.value = playerName;
 
+        //Button Sounds
+        characterSelectionUI.previousCharacterBtn.clicked += () => Audiomanager.Instance?.PlayClickSound();
+        characterSelectionUI.nextCharacterBtn.clicked += () => Audiomanager.Instance?.PlayClickSound();
+        characterSelectionUI.previousDiceBtn.clicked += () => Audiomanager.Instance?.PlayClickSound();
+        characterSelectionUI.nextDiceBtn.clicked += () => Audiomanager.Instance?.PlayClickSound();
+        characterSelectionUI.confirmSelectionBtn.clicked += () => Audiomanager.Instance?.PlayClickSound();
+
         OnCharacterChanged();
         OnDiceChanged();
     }
