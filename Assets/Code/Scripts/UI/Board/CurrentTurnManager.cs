@@ -70,29 +70,45 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
     private void OnRollDiceButtonClicked() {
         if (BoardContext.Instance.CurrentState != BoardContext.State.PLAYER_TURN) { return; }
 
+        SetButtonsInteractable(false);
+
         boardPlayer.CmdToggleDiceRoll();
         rollDiceButton.text = rollDiceButton.text == "Roll Dice" ? "Cancel Roll" : "Roll Dice";
 
+        var animationSequence = DOTween.Sequence();
+
         if (IsButtonVisible(boardButton)) {
-            UIAnimationUtils.SlideOutToLeft(boardButton);
+            animationSequence.Join(UIAnimationUtils.SlideOutToLeft(boardButton));
         }
         else {
-            UIAnimationUtils.SlideInFromLeft(boardButton, UIAnimationUtils.BUTTON_FINAL_POSITION, .4f);
+            animationSequence.Join(UIAnimationUtils.SlideInFromLeft(boardButton, UIAnimationUtils.BUTTON_FINAL_POSITION, .4f));
         }
+
+        animationSequence.OnComplete(() => {
+            SetButtonsInteractable(true);
+        });
     }
 
     private void OnBoardButtonClicked() {
         if (BoardContext.Instance.CurrentState != BoardContext.State.PLAYER_TURN) { return; }
 
+        SetButtonsInteractable(false);
+
         boardPlayer.CmdToggleBoardOverview();
         boardButton.text = boardButton.text == "View Board" ? "Go back to Player" : "View Board";
 
+        var animationSequence = DOTween.Sequence();
+
         if (IsButtonVisible(rollDiceButton)) {
-            UIAnimationUtils.SlideOutToLeft(rollDiceButton);
+            animationSequence.Join(UIAnimationUtils.SlideOutToLeft(rollDiceButton));
         }
         else {
-            UIAnimationUtils.SlideInFromLeft(rollDiceButton, UIAnimationUtils.BUTTON_FINAL_POSITION, .4f);
+            animationSequence.Join(UIAnimationUtils.SlideInFromLeft(rollDiceButton, UIAnimationUtils.BUTTON_FINAL_POSITION, .4f));
         }
+
+        animationSequence.OnComplete(() => {
+            SetButtonsInteractable(true);
+        });
     }
 
     private void HideUIElements() {
@@ -103,6 +119,8 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
     }
 
     private void ShowUIElementsAnimated(bool isLocalPlayer) {
+        SetButtonsInteractable(false);
+
         var sequence = DOTween.Sequence()
             .Join(UIAnimationUtils.SlideInFromLeft(turnInfoPanel, UIAnimationUtils.INFO_PANEL_FINAL_POSITION))
             .Join(UIAnimationUtils.SlideInFromLeft(settingsButton, UIAnimationUtils.BUTTON_FINAL_POSITION));
@@ -112,6 +130,10 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
                 .Join(UIAnimationUtils.SlideInFromLeft(rollDiceButton, UIAnimationUtils.BUTTON_FINAL_POSITION))
                 .Join(UIAnimationUtils.SlideInFromLeft(boardButton, UIAnimationUtils.BUTTON_FINAL_POSITION));
         }
+
+        sequence.OnComplete(() => {
+            SetButtonsInteractable(true);
+        });
     }
 
     private Sequence ShowSequentialAnnouncements(int roundNumber, string playerName) {
@@ -130,6 +152,12 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
 
     private bool IsButtonVisible(Button button) {
         return button.style.display == DisplayStyle.Flex;
+    }
+
+    private void SetButtonsInteractable(bool interactable) {
+        rollDiceButton.SetEnabled(interactable);
+        boardButton.SetEnabled(interactable);
+        settingsButton.SetEnabled(interactable);
     }
 
     private void OnDestroy() {
