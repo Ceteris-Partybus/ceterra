@@ -19,6 +19,16 @@ public class Audiomanager : MonoBehaviour {
     public AudioSource DiceAudioSource;
     public AudioClip DiceStopSound;
 
+    public AudioSource MoneyHealthSource;
+    public AudioClip MoneyHealthSound;
+
+    public AudioSource FailSource;
+    public AudioClip FailSound;
+
+    public AudioSource SuccessSource;
+    public AudioClip SuccessSound;
+
+
     private void Awake() {
         
         if (Instance != null && Instance != this) {
@@ -50,7 +60,19 @@ public class Audiomanager : MonoBehaviour {
         PlaySound(DiceAudioSource, DiceStopSound, "DiceStopSound");
     }
 
-   
+    public void PlayMoneyHealthSound() {
+        PlaySound(MoneyHealthSource, MoneyHealthSound, "MoneyHealthSound");
+    }
+
+    public void PlayFailSound() {
+        PlaySound(FailSource, FailSound, "FailSound");
+    }
+
+    public void PlaySuccessSound() {
+        PlaySound(SuccessSource, SuccessSound, "SuccessSound");
+    }
+
+
     private void PlaySound(AudioSource source, AudioClip clip, string name) {
         if (source != null && clip != null) {
             source.PlayOneShot(clip);

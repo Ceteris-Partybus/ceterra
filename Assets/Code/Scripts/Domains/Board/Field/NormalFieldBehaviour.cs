@@ -13,6 +13,8 @@ public class NormalFieldBehaviour : FieldBehaviour {
 
     [Server]
     private IEnumerator AddCoinsAndHealth(BoardPlayer player) {
+        TargetPlayMoneyHealthSound(player.connectionToClient);
+
         player.IsAnimationFinished = false;
         player.AddCoins(MONEY_EFFECT);
         yield return new WaitUntil(() => player.IsAnimationFinished);
@@ -22,5 +24,15 @@ public class NormalFieldBehaviour : FieldBehaviour {
         yield return new WaitUntil(() => player.IsAnimationFinished);
 
         CompleteFieldInvocation();
+    }
+
+    [TargetRpc]
+    private void TargetPlayMoneyHealthSound(NetworkConnectionToClient target) {
+        StartCoroutine(PlaySoundDelayed());
+    }
+
+    private IEnumerator PlaySoundDelayed() {
+        yield return new WaitForSeconds(0.6f); 
+        Audiomanager.Instance?.PlayMoneyHealthSound();
     }
 }
