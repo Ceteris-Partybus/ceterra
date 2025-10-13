@@ -36,9 +36,11 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
         announcementText = rootElement.Q<Label>("announcement-text");
         turnInfoPanel = rootElement.Q<VisualElement>("turn-info-panel");
 
-        BoardContext.Instance.OnNextPlayerTurn += UpdateTurnUI;
-        boardPlayer = BoardContext.Instance.GetLocalPlayer();
-        boardPlayer.OnDiceRollEnded += HideRollDiceButton;
+        if (!isServer) {
+            BoardContext.Instance.OnNextPlayerTurn += UpdateTurnUI;
+            boardPlayer = BoardContext.Instance.GetLocalPlayer();
+            boardPlayer.OnDiceRollEnded += HideRollDiceButton;
+        }
         base.Start();
     }
 
