@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Splines;
-using Unity.Mathematics;
 
 public class BoardPlayer : SceneConditionalPlayer {
     [Header("Stats")]
@@ -35,7 +34,6 @@ public class BoardPlayer : SceneConditionalPlayer {
     private bool isFirstLoad = true;
     public bool IsFirstLoad => isFirstLoad;
 
-
     [SyncVar]
     private float normalizedSplinePosition;
     public float NormalizedSplinePosition {
@@ -45,8 +43,6 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     private BoardPlayerVisualHandler visualHandler;
     public BoardPlayerVisualHandler VisualHandler => visualHandler;
-    private float zoomBlendTime = 0.5f;
-    public float ZoomBlendTime => zoomBlendTime;
 
     [SyncVar]
     private bool animationFinished = true;
@@ -55,8 +51,12 @@ public class BoardPlayer : SceneConditionalPlayer {
         set { animationFinished = value; }
     }
 
+    [SyncVar]
+    private bool rollSequenceFinished = true;
+
     private Character character;
     private Dice dice;
+    public Action OnDiceRollEnded;
 
     protected void Start() {
         DontDestroyOnLoad(gameObject);
@@ -96,22 +96,18 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     [Server]
-    public WaitUntil TriggerBlockingAnimation(AnimationType animationType) {
+    public WaitUntil TriggerBlockingAnimation(AnimationType animationType, int amount) {
         IsAnimationFinished = false;
-        RpcTriggerBlockingAnimation(animationType);
+        RpcTriggerBlockingAnimation(animationType, amount);
         return new WaitUntil(() => IsAnimationFinished);
     }
 
     [ClientRpc]
-    /// <summary>
-    /// Triggers a blocking animation on the client side and notifies the server when the animation is complete.
-    /// Set `isAnimationFinished` to false before calling this method to ensure proper synchronization.
-    /// </summary>
-    public void RpcTriggerBlockingAnimation(AnimationType animationType) {
+    private void RpcTriggerBlockingAnimation(AnimationType animationType, int amount) {
         StartCoroutine(TriggerAnimationCoroutine());
 
         IEnumerator TriggerAnimationCoroutine() {
-            var waitWhile = visualHandler.TriggerBlockingAnimation(animationType);
+            var waitWhile = visualHandler.TriggerBlockingAnimation(animationType, amount);
             yield return null;
             yield return waitWhile;
 
@@ -122,6 +118,11 @@ public class BoardPlayer : SceneConditionalPlayer {
     [Command]
     private void CmdAnimationComplete() {
         IsAnimationFinished = true;
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdRollSequenceFinished() {
+        rollSequenceFinished = true;
     }
 
     [ClientRpc]
@@ -190,19 +191,25 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     [Command]
-    public void CmdRollDice() {
-        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || playerMovement.IsMoving || dice.IsSpinning) {
-            return;
-        }
-        RpcStartDiceRoll();
-    }
-
-    [Command]
     public void CmdToggleBoardOverview() {
         if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || playerMovement.IsMoving || dice.IsSpinning) {
             return;
         }
         CameraHandler.Instance.RpcToggleBoardOverview();
+    }
+
+    [Command]
+    public void CmdToggleDiceRoll() {
+        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || playerMovement.IsMoving) {
+            return;
+        }
+        if (dice.IsSpinning) {
+            dice.IsSpinning = false;
+            RpcEndDiceCancel();
+            return;
+        }
+        dice.IsSpinning = true;
+        RpcStartDiceRoll();
     }
 
     [Command]
@@ -213,36 +220,29 @@ public class BoardPlayer : SceneConditionalPlayer {
 
         var diceValue = dice.RandomValue;
         RpcStartRollSequence(diceValue);
-        StartCoroutine(StartRollSequence(diceValue));
-    }
+        rollSequenceFinished = false;
+        dice.IsSpinning = false;
+        StartCoroutine(WaitForRollSequence());
 
-    [Command]
-    public void CmdRollDiceCancel() {
-        if (!IsActiveForCurrentScene || !BoardContext.Instance.IsPlayerTurn(this) || playerMovement.IsMoving) {
-            return;
+        IEnumerator WaitForRollSequence() {
+            yield return new WaitUntil(() => rollSequenceFinished);
+            BoardContext.Instance.ProcessDiceRoll(this, diceValue);
         }
-        RpcEndDiceCancel();
-    }
-
-    private IEnumerator StartRollSequence(int diceValue) {
-        yield return visualHandler.StartRollSequence(diceValue);
-        if (isServer) { BoardContext.Instance.ProcessDiceRoll(this, diceValue); }
     }
 
     [ClientRpc]
     private void RpcStartRollSequence(int diceValue) {
-        StartCoroutine(StartRollSequence(diceValue));
+        StartCoroutine(visualHandler.StartRollSequence(diceValue, CmdRollSequenceFinished));
     }
 
     [ClientRpc]
     private void RpcEndDiceCancel() {
-        CameraHandler.Instance.ZoomOut();
-        visualHandler.OnRollCancel();
+        StartCoroutine(visualHandler.OnRollCancel());
     }
 
     [ClientRpc]
     private void RpcStartDiceRoll() {
-        visualHandler.OnRollStart();
+        StartCoroutine(visualHandler.OnRollStart());
     }
 
     [ClientRpc]
@@ -264,12 +264,10 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     private void HandleInput() {
         var pressedSpaceToEndRoll = Input.GetKeyDown(KeyCode.Space) && dice.IsSpinning;
-        if (pressedSpaceToEndRoll) { CmdEndRollDice(); return; }
-
-        var pressedEscapeToCancelRoll = Input.GetKeyDown(KeyCode.Escape) && dice.IsSpinning;
-        if (pressedEscapeToCancelRoll) { CmdRollDiceCancel(); return; }
-
-        var pressedEscapeToCancelBoardOverview = Input.GetKeyDown(KeyCode.Escape) && CameraHandler.Instance.IsShowingBoard;
-        if (pressedEscapeToCancelBoardOverview) { CmdToggleBoardOverview(); return; }
+        if (pressedSpaceToEndRoll) {
+            OnDiceRollEnded?.Invoke();
+            CmdEndRollDice();
+            return;
+        }
     }
 }

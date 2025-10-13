@@ -19,8 +19,6 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
     private Button fundsButton;
     private Button investButton;
 
-    private TemplateContainer settingsContainer;
-
     private ProgressBar playerHealthBar;
     private Label playerHealthValue;
     private Label playerCoinsValue;
@@ -59,7 +57,6 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         var economyBarContainer = rootElement.Q<TemplateContainer>("economy-bar");
         economyBar = economyBarContainer.Children().OfType<ProgressBar>().FirstOrDefault();
         economyValueLabel = rootElement.Q<Label>("economy-bar-value");
-        settingsContainer = rootElement.Q<TemplateContainer>("SettingsTemplateContainer");
 
         resourcesButton.clicked += () => {
             ModalManager.Instance.Show(ResourceModal.Instance);
@@ -106,17 +103,6 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         }
     }
 
-    void Update() {
-        if (ModalManager.Instance?.ModalStack.Count > 0) {
-            return;
-        }
-
-        if (Input.GetKey(KeyCode.Escape)) {
-            Debug.Log("Escape key pressed, opening settings");
-            settingsContainer.AddToClassList("visible");
-        }
-    }
-
     public bool IsPlayerAdded(int playerId) {
         return playerElements.ContainsKey(playerId);
     }
@@ -158,12 +144,10 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         if (health > 70) {
             return "health-bar--green";
         }
-        else if (health > 35) {
+        if (health > 35) {
             return "health-bar--yellow";
         }
-        else {
-            return "health-bar--red";
-        }
+        return "health-bar--red";
     }
 
     [ClientCallback]
@@ -247,7 +231,7 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
 
         var investModal = InvestModal.Instance;
 
-        if (investModal.IsVisible() == false) {
+        if (!investModal.IsVisible()) {
             yield break;
         }
 
@@ -309,11 +293,9 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         if (trend == Trend.RISING) {
             return "trend-rising";
         }
-        else if (trend == Trend.FALLING) {
+        if (trend == Trend.FALLING) {
             return "trend-falling";
         }
-        else {
-            return "trend-neutral";
-        }
+        return "trend-neutral";
     }
 }

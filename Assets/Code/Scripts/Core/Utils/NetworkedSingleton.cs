@@ -4,6 +4,8 @@ public abstract class NetworkedSingleton<T> : NetworkBehaviour where T : Network
     private static T instance;
     private static readonly object lockObj = new();
     protected virtual bool ShouldPersistAcrossScenes => false;
+    private bool isInitialized;
+    public bool IsInitialized => isInitialized;
 
     public static T Instance {
         get {
@@ -15,13 +17,11 @@ public abstract class NetworkedSingleton<T> : NetworkBehaviour where T : Network
 
     protected virtual void Awake() {
         lock (lockObj) {
-            if (instance == null) {
-                instance = this as T;
-            }
-            else if (instance != this) {
-                Destroy(gameObject);
+            if (instance != null && instance != this) {
+                Destroy(this.gameObject);
                 return;
             }
+            instance = this as T;
         }
     }
 
@@ -31,5 +31,6 @@ public abstract class NetworkedSingleton<T> : NetworkBehaviour where T : Network
         if (instance == this && ShouldPersistAcrossScenes) {
             DontDestroyOnLoad(gameObject);
         }
+        isInitialized = true;
     }
 }

@@ -43,7 +43,10 @@ public class Dice : MonoBehaviour {
     private float tiltAmplitude;
     private float tiltFrequency;
     private bool isSpinning = true;
-    public bool IsSpinning => isSpinning;
+    public bool IsSpinning {
+        get => isSpinning;
+        set => isSpinning = value;
+    }
     private bool inPreview = true;
     public bool SetInPreview {
         set {

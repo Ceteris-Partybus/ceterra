@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Level/UI/Other/settings.uss?fileID=7433441132597879392&amp;guid=b49e5940a6019634582cec31c74af891&amp;type=3#settings" />
-    <ui:VisualElement name="Overlay" class="overlay">
+    <ui:VisualElement name="Overlay" class="overlay settings-template-container">
         <ui:VisualElement name="SettingsTitleBar" class="menu">
             <ui:VisualElement name="SettingsTitleBar" class="title-bar">
                 <ui:Label name="Label" class="menu-icon" />

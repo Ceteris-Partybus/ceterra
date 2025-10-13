@@ -69,13 +69,13 @@ public class PlayerMovement : NetworkBehaviour {
         player.RpcHideDiceResultLabel();
 
         CameraHandler.Instance.RpcZoomIn();
-        yield return new WaitForSeconds(player.ZoomBlendTime);
+        yield return new WaitForSeconds(CameraHandler.Instance.PlayerToZoomBlendTime);
 
         var finalField = fieldBehaviourList.Find(player.SplineKnotIndex);
         yield return StartCoroutine(finalField.InvokeOnPlayerLand(player));
 
         CameraHandler.Instance.RpcZoomOut();
-        yield return new WaitForSeconds(player.ZoomBlendTime);
+        yield return new WaitForSeconds(CameraHandler.Instance.ZoomToPlayerBlendTime);
 
         BoardContext.Instance.OnPlayerMovementComplete(player);
     }

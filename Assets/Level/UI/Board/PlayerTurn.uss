@@ -1,4 +1,138 @@
-#roll-dice-button:disabled {
-    background-color: rgb(97, 97, 97);
-    color: white;
+* {
+    -unity-font-definition: resource('UI/Other/Jersey15-Regular');
+}
+
+#turn-info-panel {
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
+    position: absolute;
+    top: 180px;
+    width: 420px;
+    flex-direction: column;
+    display: none;
+    overflow: hidden;
+}
+
+.panel-header {
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_title_with_stroke.png");
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 0;
+}
+
+.panel-title {
+    font-size: 38px;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    letter-spacing: 1px;
+}
+
+.panel-content {
+    padding: 20px;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.info-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    padding: 10px;
+}
+
+#current-turn-panel {
+    margin-bottom: 0;
+}
+
+.info-label {
+    font-size: 32px;
+    color: #745136;
+    -unity-text-align: middle-left;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.info-value {
+    font-size: 32px;
+     color: #ffffff;
+    text-shadow: 2px 2px 2px #745136;
+    -unity-text-align: middle-right;
+    flex-grow: 1;
+    margin-left: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#turn-buttons-container {
+    position: absolute;
+    top: 450px;
+    flex-direction: column;
+    width: 430px;
+    left: -20px;
+}
+
+#roll-dice-button,
+#board-button,
+#settings-button {
+    height: 70px;
+    width: 455px;
+    margin-bottom: 15px;
+    font-size: 38px;
+    border-width: 0;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 2px #745136;
+    -unity-text-align: upper-center;
+    transition-duration: 0.3s;
+    transition-property: background-image, scale, translate, text-shadow;
+    transition-timing-function: ease-out;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_default.png");
+    border-color: transparent;
+    display: none;
+    letter-spacing: 1px;
+}
+
+#roll-dice-button:hover,
+#board-button:hover,
+#settings-button:hover {
+    transition-duration: 0.2s;
+    translate: 20px 0;
+    scale: 1.02 1.02;
+}
+
+#roll-dice-button:active,
+#board-button:active,
+#settings-button:active { 
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_pressed.png");
+    -unity-text-align: lower-center;
+    translate: 20px 0;
+}
+
+#announcement-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+}
+
+#announcement-text {
+    font-size: 120px;
+    color: #745136;
+    -unity-text-align: middle-center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
+    padding: 40px 60px;
+    scale: 0.5;
+    opacity: 0;
 }
