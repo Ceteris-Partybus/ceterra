@@ -89,10 +89,11 @@ public class InvestModal : Modal {
     }
 
     private VisualElement CreateInvestmentCard(Investment investment) {
+
         VisualElement investCard = investmentCardTemplate.Instantiate();
         investCard.name = $"investment-card-{investment.id}";
-        investCard.Q<Label>("invest-card-title").text = investment.displayName;
-        investCard.Q<Label>("invest-card-description").text = investment.description;
+        investCard.Q<Label>("invest-card-title").text = LocalizationManager.Instance.GetLocalizedText(investment.displayName);
+        investCard.Q<Label>("invest-card-description").text = LocalizationManager.Instance.GetLocalizedText(investment.description);
         investCard.Q<Label>("invest-card-required-money").text = investment.requiredMoney.ToString();
         investCard.Q<Label>("invest-card-required-resources").text = investment.requiredResources.ToString();
         investCard.Q<Label>("invest-card-cooldown").text = investment.cooldown.ToString();
@@ -178,8 +179,8 @@ public class InvestModal : Modal {
             return;
         }
 
-        investCard.Q<Label>("invest-card-title").text = investment.displayName;
-        investCard.Q<Label>("invest-card-description").text = investment.description;
+        investCard.Q<Label>("invest-card-title").text = LocalizationManager.Instance.GetLocalizedText(investment.displayName);
+        investCard.Q<Label>("invest-card-description").text = LocalizationManager.Instance.GetLocalizedText(investment.description);
         investCard.Q<Label>("invest-card-required-money").text = investment.requiredMoney.ToString();
         investCard.Q<Label>("invest-card-required-resources").text = investment.requiredResources.ToString();
         investCard.Q<Label>("invest-card-cooldown").text = investment.cooldown.ToString();

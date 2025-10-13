@@ -1,7 +1,7 @@
 [
     {
-        "displayName": "Test",
-        "description": "Dies ist ein Test-Investment.",
+        "displayName": 54829781717045248,
+        "description": 54829781717045249,
         "requiredMoney": 50,
         "requiredResources": 50,
         "type": "ECONOMY",
@@ -15,8 +15,8 @@
         "cooldown": 2
     },
     {
-        "displayName": "Meeresreiniger",
-        "description": "Säubert die Meere von Plastikmüll.",
+        "displayName": 54829781717045250,
+        "description": 54829781717045251,
         "requiredMoney": 300,
         "requiredResources": 500,
         "type": "ENVIRONMENT",
@@ -35,8 +35,8 @@
         "cooldown": 2
     },
     {
-        "displayName": "Solarpark",
-        "description": "Erzeugt erneuerbare Energie durch Sonnenkraft.",
+        "displayName": 54829781717045252,
+        "description": 54829781717045253,
         "requiredMoney": 400,
         "requiredResources": 300,
         "type": "ENVIRONMENT",
@@ -55,8 +55,8 @@
         "cooldown": 3
     },
     {
-        "displayName": "Bildungsprogramm",
-        "description": "Verbessert den Zugang zu Bildung und Wissen über Nachhaltigkeit.",
+        "displayName": 54829781717045254,
+        "description": 54829781717045255,
         "requiredMoney": 250,
         "requiredResources": 200,
         "type": "SOCIETY",
@@ -75,8 +75,8 @@
         "cooldown": 2
     },
     {
-        "displayName": "Fair-Trade-Netzwerk",
-        "description": "Unterstützt lokale Produzenten mit fairen Preisen.",
+        "displayName": 54829781717045256,
+        "description": 54829781717045257,
         "requiredMoney": 350,
         "requiredResources": 150,
         "type": "ECONOMY",
@@ -95,8 +95,8 @@
         "cooldown": 3
     },
     {
-        "displayName": "Aufforstung",
-        "description": "Pflanzt Bäume zur Verbesserung von Luftqualität und Biodiversität.",
+        "displayName": 54829781717045258,
+        "description": 54829781717045259,
         "requiredMoney": 200,
         "requiredResources": 400,
         "type": "ENVIRONMENT",
@@ -115,8 +115,8 @@
         "cooldown": 2
     },
     {
-        "displayName": "Abfallreduktions-Kampagne",
-        "description": "Senkt die Menge an produziertem Abfall durch Aufklärung und Recycling.",
+        "displayName": 54829781717045260,
+        "description": 54829781717045261,
         "requiredMoney": 150,
         "requiredResources": 250,
         "type": "SOCIETY",
@@ -135,8 +135,8 @@
         "cooldown": 1
     },
     {
-        "displayName": "Grüner Verkehr",
-        "description": "Fördert Fahrräder, Elektrobusse und Bahnverkehr.",
+        "displayName": 54829781717045262,
+        "description": 54829781717045263,
         "requiredMoney": 500,
         "requiredResources": 300,
         "type": "ENVIRONMENT",
@@ -160,8 +160,8 @@
         "cooldown": 3
     },
     {
-        "displayName": "Regionale Lebensmittel-Initiative",
-        "description": "Reduziert Transportwege und unterstützt nachhaltige Landwirtschaft.",
+        "displayName": 54829781717045264,
+        "description": 54829781717045265,
         "requiredMoney": 280,
         "requiredResources": 180,
         "type": "ECONOMY",
@@ -180,8 +180,8 @@
         "cooldown": 2
     },
     {
-        "displayName": "Gesundheitsversorgung",
-        "description": "Verbessert die Gesundheitsversorgung in benachteiligten Regionen.",
+        "displayName": 54829781717045266,
+        "description": 54829781717045267,
         "requiredMoney": 450,
         "requiredResources": 200,
         "type": "SOCIETY",

@@ -16,19 +16,818 @@ MonoBehaviour:
     m_Code: de
   m_SharedData: {fileID: 11400000, guid: 0bcae4cae5373ec479ceeeee5b1d030f, type: 2}
   m_Metadata:
-    m_Items:
-    - rid: 3554543658327081541
+    m_Items: []
   m_TableData:
-  - m_Id: 614498603008
-    m_Localized: Spielen
+  - m_Id: 54051235973255168
+    m_Localized: "Auch Getr\xE4nkekartons tragen zum M\xFCllberg bei. Wie kannst
+      du ihn verringern?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386688
+    m_Localized: Indem Du nur noch Tee trinkst
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386689
+    m_Localized: "Indem Du die Getr\xE4nkekartons erst zerkleinerst und dann wegwirfst"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386690
+    m_Localized: "Indem Du Getr\xE4nke nur noch in Mehrwegflaschen kaufst"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386691
+    m_Localized: "Vitamin C, Vitamin B und viele andere Vitamine sollten ausreichend
+      in unserer Nahrung vorkommen. Was hei\xDFt das Wort \u201CVitamin\u201D \xFCbersetzt?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386692
+    m_Localized: Konservierungsstoff
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386693
+    m_Localized: Lebensstoff
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386694
+    m_Localized: Spurenelemente
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386695
+    m_Localized: Warum wird bei uns die Trinkwassergewinnung zunehmend schwieriger?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386696
+    m_Localized: Weil es zu wenig regnet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386697
+    m_Localized: Weil das Grundwasser zunehmend durch Nitrat belastet wird
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386698
+    m_Localized: Weil das Grundwasser aufkommen steigt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386699
+    m_Localized: "Zuviel Nitrat im Trinkwasser gef\xE4hrdet vor allem S\xE4uglinge
+      und deren M\xFCtter. Was sollten diese tun?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386700
+    m_Localized: Mineralwasser statt Wasser benutzen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386701
+    m_Localized: Das Wasser vor Gebrauch abkochen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386702
+    m_Localized: Auf Wasser ganz verzichten
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386703
+    m_Localized: "Was bedeutet es, wenn im Gew\xE4ssern \xFCberm\xE4\xDFig gro\xDFe
+      Fische auftreten?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386704
+    m_Localized: "Reichliches Planktonangebot f\xFCr Wassertiere"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19894984282112
+    m_Localized: "Lautst\xE4rke"
     m_Metadata:
       m_Items: []
   - m_Id: 19179993862144
     m_Localized: Einstellungen
     m_Metadata:
       m_Items: []
-  - m_Id: 19894984282112
-    m_Localized: "Lautst\xE4rke"
+  - m_Id: 54053500918386705
+    m_Localized: "Gro\xDFe Fische bedeuten immer sauberes Wasser"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 614498603008
+    m_Localized: Spielen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386706
+    m_Localized: "Schlechte Wasserqualit\xE4t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386707
+    m_Localized: "Der G\xFCterzustand eines Flie\xDFgew\xE4ssers wird im allgemeinen
+      durch 4 G\xFCteklassen charakterisiert. Was sagt G\xFCteklasse IV aus?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386708
+    m_Localized: "Es handelt sich um ein verunreinigtes Flie\xDFgew\xE4sser"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386709
+    m_Localized: "Es handelt sich um ein bereits umgekipptes Gew\xE4sser"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386710
+    m_Localized: "Es handelt sich um ein sehr stark verschmutztes Flie\xDFgew\xE4sser"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386711
+    m_Localized: "Mit Hilfe der Jahresringe informieren wir uns \xFCber das Alter
+      der B\xE4ume. Was erfahren wir noch \xFCber sie?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386712
+    m_Localized: Wie der Wachstumsprozess verlaufen ist
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386713
+    m_Localized: Die Umweltbedingungen der letzten Jahrzehnte
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386714
+    m_Localized: "Die Lichtverh\xE4ltnisse der letzten Jahre"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386715
+    m_Localized: "Woran kann man an einer gef\xE4llten Fichte erkennen, dass sie
+      dem Waldsterben erlag?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386716
+    m_Localized: "Ihre letzten Jahresringe sind deutlich schm\xE4ler und es liegt
+      erweiterter Nasskern im Stammbereich vor"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386717
+    m_Localized: Das Holz ist morsch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386718
+    m_Localized: Sie hat starken Flechtenbewuchs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386719
+    m_Localized: "In Naturkostl\xE4den werden Bioprodukte angeboten. Warum haben
+      diese die Bezeichnung \u201CBio\u201D?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386720
+    m_Localized: "Weil nach ihrem Verzehr die Z\xE4hne nicht geputzt werden m\xFCssen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386721
+    m_Localized: "Weil sie naturgem\xE4\xDF d.h. ohne Chemie angebaut werden"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386722
+    m_Localized: "Weil \u201CBio\u201D ein Modewort ist, das bessere Ums\xE4tze verspricht"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386723
+    m_Localized: "Was meinst Du: wieviel M\xFCll produziert ein Einwohner in Deutschland
+      in einem Jahr?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386724
+    m_Localized: 200 kg
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386725
+    m_Localized: 500 kg
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386726
+    m_Localized: 750 kg
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386727
+    m_Localized: Was ist der wichtigste Vorteil der Kreislaufwirtschaft?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386728
+    m_Localized: Ressourcen werden mehrfach genutzt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386729
+    m_Localized: "Arbeitspl\xE4tze werden reduziert"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386730
+    m_Localized: Produktionskosten steigen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386731
+    m_Localized: "Welcher Energietr\xE4ger ist am klimafreundlichsten?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386732
+    m_Localized: Kohle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386733
+    m_Localized: Erdgas
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386734
+    m_Localized: Windkraft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386735
+    m_Localized: Was bedeutet 'Carbon Footprint'?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386736
+    m_Localized: Die Anzahl der Schritte pro Tag
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386737
+    m_Localized: "Der CO2-Fu\xDFabdruck einer Person oder eines Produkts"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386738
+    m_Localized: "Die Gr\xF6\xDFe des Fu\xDFes"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386739
+    m_Localized: "Welche Transportart hat den geringsten CO2-Aussto\xDF pro Person?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386740
+    m_Localized: Flugzeug
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386741
+    m_Localized: Auto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386742
+    m_Localized: Zug
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386743
+    m_Localized: Was ist Fair Trade?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386744
+    m_Localized: Kostenloser Handel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386745
+    m_Localized: "Fairer Handel mit besseren Bedingungen f\xFCr Produzenten"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386746
+    m_Localized: Schneller Handel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386747
+    m_Localized: "Wie viel Wasser wird f\xFCr die Herstellung einer Jeans ben\xF6tigt?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386748
+    m_Localized: 200 Liter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386749
+    m_Localized: 2.000 Liter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386750
+    m_Localized: 8.000 Liter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386751
+    m_Localized: Was ist das Ziel der Sustainable Development Goals (SDGs)?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386752
+    m_Localized: Nachhaltige Entwicklung bis 2030
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386753
+    m_Localized: Wirtschaftswachstum um jeden Preis
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386754
+    m_Localized: "Bev\xF6lkerungsreduktion"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386755
+    m_Localized: Welcher Sektor verursacht die meisten Treibhausgasemissionen weltweit?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386756
+    m_Localized: Verkehr
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386757
+    m_Localized: Energieerzeugung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386758
+    m_Localized: Landwirtschaft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386759
+    m_Localized: Was ist 'Greenwashing'?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386760
+    m_Localized: Umweltfreundliches Waschen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386761
+    m_Localized: "Vorget\xE4uschte Umweltfreundlichkeit von Unternehmen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386762
+    m_Localized: "Gr\xFCne Farbe verwenden"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386763
+    m_Localized: Welches Material ist am besten recycelbar?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386764
+    m_Localized: Plastik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386765
+    m_Localized: Glas
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386766
+    m_Localized: Papier
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386767
+    m_Localized: "Was ist der Hauptgrund f\xFCr die Abholzung des Regenwaldes?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386768
+    m_Localized: Holzgewinnung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386769
+    m_Localized: Landwirtschaft und Viehzucht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386770
+    m_Localized: "St\xE4dtebau"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386771
+    m_Localized: "Wie viele Planeten w\xFCrden wir brauchen, wenn alle Menschen so
+      leben w\xFCrden wie in Deutschland?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386772
+    m_Localized: 2 Planeten
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386773
+    m_Localized: 3 Planeten
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386774
+    m_Localized: 5 Planeten
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386775
+    m_Localized: Was ist der Unterschied zwischen Wetter und Klima?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386776
+    m_Localized: Wetter ist kurzfristig, Klima langfristig
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386777
+    m_Localized: Wetter ist warm, Klima ist kalt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386778
+    m_Localized: Es gibt keinen Unterschied
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386779
+    m_Localized: Welche Energiequelle hat die geringsten Umweltauswirkungen?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386780
+    m_Localized: Atomkraft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386781
+    m_Localized: Solarenergie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386782
+    m_Localized: Wasserkraft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386783
+    m_Localized: Was bedeutet 'Peak Oil'?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386784
+    m_Localized: "Der h\xF6chste \xD6lpreis aller Zeiten"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386785
+    m_Localized: "Der Zeitpunkt maximaler \xD6lf\xF6rderung"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386786
+    m_Localized: "Die beste \xD6lqualit\xE4t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386787
+    m_Localized: "Welcher Anteil der Weltbev\xF6lkerung hat keinen Zugang zu sauberem
+      Trinkwasser?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386788
+    m_Localized: 10%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386789
+    m_Localized: 25%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386790
+    m_Localized: 40%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386791
+    m_Localized: "Was ist der gr\xF6\xDFte Vorteil von Elektroautos?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386792
+    m_Localized: Sie sind billiger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386793
+    m_Localized: Sie produzieren lokal keine Abgase
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386794
+    m_Localized: Sie fahren schneller
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386795
+    m_Localized: "Welches Land ist der gr\xF6\xDFte CO2-Emittent weltweit?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386796
+    m_Localized: USA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386797
+    m_Localized: China
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386798
+    m_Localized: Indien
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386799
+    m_Localized: Was ist 'Urban Farming'?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386800
+    m_Localized: Landwirtschaft in der Stadt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386801
+    m_Localized: Moderne Landmaschinen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386802
+    m_Localized: Gentechnik in der Landwirtschaft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386803
+    m_Localized: "Wie lange dauert es, bis eine Plastikflasche in der Natur vollst\xE4ndig
+      abgebaut ist?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386804
+    m_Localized: 50 Jahre
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386805
+    m_Localized: 200 Jahre
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386806
+    m_Localized: 450 Jahre
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386807
+    m_Localized: Was ist der Hauptbestandteil von Biogas?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386808
+    m_Localized: Wasserstoff
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386809
+    m_Localized: Methan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386810
+    m_Localized: Kohlendioxid
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386811
+    m_Localized: "Welche Aussage \xFCber erneuerbare Energien ist richtig?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386812
+    m_Localized: "Sie sind unersch\xF6pflich"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386813
+    m_Localized: Sie verursachen nie Umweltprobleme
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386814
+    m_Localized: Sie sind immer billiger als fossile Energien
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386815
+    m_Localized: Was versteht man unter 'Sharing Economy'?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386816
+    m_Localized: Gemeinsame Nutzung von Ressourcen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386817
+    m_Localized: "Kostenlose Verteilung von G\xFCtern"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386818
+    m_Localized: Staatliche Wirtschaftsplanung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386819
+    m_Localized: "Welcher Wirtschaftssektor w\xE4chst durch die Digitalisierung am
+      st\xE4rksten?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386820
+    m_Localized: Landwirtschaft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386821
+    m_Localized: Dienstleistungen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386822
+    m_Localized: Schwerindustrie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386823
+    m_Localized: Was ist das Hauptziel der Agenda 2030?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386824
+    m_Localized: Weltfrieden schaffen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386825
+    m_Localized: "Nachhaltige Entwicklung f\xF6rdern"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386826
+    m_Localized: "Weltwirtschaft st\xE4rken"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386827
+    m_Localized: "Welche Folge hat die \xDCberfischung der Meere?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386828
+    m_Localized: "Mehr Fische f\xFCr alle"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386829
+    m_Localized: "Zusammenbruch von \xD6kosystemen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386830
+    m_Localized: Sauberes Meerwasser
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386831
+    m_Localized: Was bedeutet 'Corporate Social Responsibility' (CSR)?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386832
+    m_Localized: Gewinnmaximierung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386833
+    m_Localized: Gesellschaftliche Verantwortung von Unternehmen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386834
+    m_Localized: Steueroptimierung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386835
+    m_Localized: Welche Auswirkung hat der Klimawandel auf die Landwirtschaft?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386836
+    m_Localized: Nur positive Effekte
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386837
+    m_Localized: "Ver\xE4nderte Wachstumsbedingungen und Ernteausf\xE4lle"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386838
+    m_Localized: Keine Auswirkungen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386839
+    m_Localized: "Was ist der wichtigste Faktor f\xFCr nachhaltigen Konsum?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386840
+    m_Localized: Nur teure Produkte kaufen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386841
+    m_Localized: Bewusste Kaufentscheidungen treffen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386842
+    m_Localized: Viel konsumieren
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386843
+    m_Localized: "Was ist der gr\xF6\xDFte Vorteil von Secondhand-Kleidung?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386844
+    m_Localized: Sie ist immer modisch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386845
+    m_Localized: Ressourcen werden gespart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386846
+    m_Localized: Sie ist immer billiger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386847
+    m_Localized: Welche Auswirkung hat Fast Fashion auf die Umwelt?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386848
+    m_Localized: Positive Auswirkungen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386849
+    m_Localized: Hoher Ressourcenverbrauch und Umweltverschmutzung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386850
+    m_Localized: Keine Auswirkungen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386851
+    m_Localized: Was bedeutet 'Upcycling'?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386852
+    m_Localized: "Gegenst\xE4nde wegwerfen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386853
+    m_Localized: "Aus Abfall neue Produkte mit h\xF6herem Wert schaffen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386854
+    m_Localized: Fahrrad fahren
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386855
+    m_Localized: "Welche Ern\xE4hrungsweise hat den geringsten CO2-Fu\xDFabdruck?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386856
+    m_Localized: Nur Fleisch essen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386857
+    m_Localized: "Vegane Ern\xE4hrung"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386858
+    m_Localized: Nur Milchprodukte
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386859
+    m_Localized: Was ist 'Mikroplastik'?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386860
+    m_Localized: Sehr kleine Plastikpartikel in der Umwelt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386861
+    m_Localized: Besonders starkes Plastik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386862
+    m_Localized: Biologisch abbaubares Plastik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386863
+    m_Localized: Welcher Anteil der globalen Treibhausgasemissionen stammt aus der
+      Tierhaltung?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386864
+    m_Localized: 5%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386865
+    m_Localized: 15%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386866
+    m_Localized: 30%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386867
+    m_Localized: "Was ist ein '\xD6kologischer Fu\xDFabdruck'?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386868
+    m_Localized: Abdruck eines Tieres
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386869
+    m_Localized: "Ma\xDF f\xFCr den Ressourcenverbrauch"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386870
+    m_Localized: "Gr\xF6\xDFe des Gartens"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386871
+    m_Localized: Welches ist KEIN Prinzip der nachhaltigen Entwicklung?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386872
+    m_Localized: "\xD6kologische Vertr\xE4glichkeit"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386873
+    m_Localized: Soziale Gerechtigkeit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386874
+    m_Localized: Maximaler Profit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386875
+    m_Localized: Was versteht man unter 'Green Jobs'?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386876
+    m_Localized: "Arbeitspl\xE4tze im Freien"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386877
+    m_Localized: "Arbeitspl\xE4tze im Umwelt- und Klimaschutz"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386878
+    m_Localized: "Arbeitspl\xE4tze in gr\xFCnen Geb\xE4uden"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386879
+    m_Localized: Wie viel Prozent des weltweiten Energieverbrauchs stammen aus erneuerbaren
+      Quellen?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386880
+    m_Localized: 12%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386881
+    m_Localized: 28%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386882
+    m_Localized: 45%
     m_Metadata:
       m_Items: []
   - m_Id: 20003004387328
@@ -90,14 +889,232 @@ MonoBehaviour:
   - m_Id: 50359450810896384
     m_Localized: "+{0} M\xFCnzen"
     m_Metadata:
-      m_Items:
-      - rid: 3554543658327081541
+      m_Items: []
+  - m_Id: 54816396556324877
+    m_Localized: "Extreme Luftverschmutzung in Megast\xE4dten erreicht gesundheitsgef\xE4hrdende
+      Werte. Smog und Feinstaub verursachen Millionen von vorzeitigen Todesf\xE4llen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324876
+    m_Localized: Luftverschmutzung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324875
+    m_Localized: "Das sechste Massenaussterben beschleunigt sich. Best\xE4uber verschwinden,
+      \xD6kosysteme kollabieren und die genetische Vielfalt nimmt rapide ab."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324874
+    m_Localized: Artensterben
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324873
+    m_Localized: "Schwere D\xFCrren und Wasserknappheit betreffen Milliarden von
+      Menschen. Grundwasserspiegel sinken dramatisch und Konflikte um Wasserressourcen
+      nehmen zu."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324872
+    m_Localized: Wasserkrise
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324871
+    m_Localized: "Die Verschmutzung der Ozeane durch Plastik erreicht kritische Ausma\xDFe.
+      Mikroplastik gef\xE4hrdet die Nahrungskette und die menschliche Gesundheit."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324870
+    m_Localized: Plastikkatastrophe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324869
+    m_Localized: "Massive Entwaldung und Waldbr\xE4nde zerst\xF6ren kritische \xD6kosysteme
+      weltweit. Der Verlust von W\xE4ldern beschleunigt den Klimawandel und bedroht
+      die Biodiversit\xE4t. "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324868
+    m_Localized: Waldsterben
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324867
+    m_Localized: "Ein bedeutender technologischer Fortschritt in den Bereichen erneuerbare
+      Energien und nachhaltige Landwirtschaft bietet neue M\xF6glichkeiten zur Bew\xE4ltigung
+      globaler Herausforderungen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324866
+    m_Localized: Technologischer Durchbruch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324865
+    m_Localized: "Der Klimawandel schreitet voran. Die Umweltverschmutzung nimmt
+      zu, was zu extremen Wetterereignissen und dem Verlust von Biodiversit\xE4t
+      f\xFChrt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324864
+    m_Localized: Klimawandel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324878
+    m_Localized: "Gr\xFCne Energiewende"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324879
+    m_Localized: "Massive Investitionen in erneuerbare Energien f\xFChren zu einem
+      drastischen R\xFCckgang der CO2-Emissionen. Solarenergie und Windkraft werden
+      dominant."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324880
+    m_Localized: Aufforstungsinitiative
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324881
+    m_Localized: "Globale Aufforstungsprogramme pflanzen Milliarden von B\xE4umen
+      und stellen degradierte \xD6kosysteme wieder her. Kohlenstoffbindung steigt
+      dramatisch an."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324882
+    m_Localized: Kreislaufwirtschaft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324883
+    m_Localized: 'Durchbruch in der Kreislaufwirtschaft: 90% aller Materialien werden
+      recycelt oder wiederverwendet. Abfall wird zur wertvollen Ressource.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324884
+    m_Localized: Nachhaltige Landwirtschaft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324885
+    m_Localized: "Revolution in der Landwirtschaft: Pr\xE4zisionsfarming, vertikale
+      G\xE4rten und regenerative Praktiken steigern Ertr\xE4ge bei gleichzeitiger
+      Bodenerholung."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324886
+    m_Localized: Meeresschutz
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324887
+    m_Localized: "Internationale Meeresschutzabkommen f\xFChren zur Errichtung riesiger
+      Meeresschutzgebiete. Fischbest\xE4nde erholen sich und Korallenriffe regenerieren."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324888
+    m_Localized: "Gr\xFCne St\xE4dte"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324889
+    m_Localized: "St\xE4dte verwandeln sich in gr\xFCne Oasen mit vertikalen G\xE4rten,
+      erneuerbarer Energie und nachhaltiger Mobilit\xE4t. Lebensqualit\xE4t steigt
+      drastisch."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324890
+    m_Localized: "Elektromobilit\xE4t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324891
+    m_Localized: "Elektrofahrzeuge erreichen 80% Marktanteil. Batterietechnologie
+      revolutioniert Transport und Energiespeicherung, Luftqualit\xE4t verbessert
+      sich dramatisch."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324892
+    m_Localized: Ressourcenknappheit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324893
+    m_Localized: "Kritische Rohstoffe wie seltene Erden und Lithium werden knapp.
+      Lieferketten brechen zusammen und hemmen den \xDCbergang zu gr\xFCner Technologie."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045248
+    m_Localized: Test
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045249
+    m_Localized: Dies ist ein Test-Investment.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045250
+    m_Localized: Meeresreiniger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045251
+    m_Localized: "S\xE4ubert die Meere von Plastikm\xFCll."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045252
+    m_Localized: Solarpark
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045253
+    m_Localized: Erzeugt erneuerbare Energie durch Sonnenkraft.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045254
+    m_Localized: Bildungsprogramm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045255
+    m_Localized: "Verbessert den Zugang zu Bildung und Wissen \xFCber Nachhaltigkeit."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045256
+    m_Localized: Fair-Trade-Netzwerk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045257
+    m_Localized: "Unterst\xFCtzt lokale Produzenten mit fairen Preisen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045258
+    m_Localized: Aufforstung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045259
+    m_Localized: "Pflanzt B\xE4ume zur Verbesserung von Luftqualit\xE4t und Biodiversit\xE4t."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045260
+    m_Localized: Abfallreduktions-Kampagne
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045261
+    m_Localized: "Senkt die Menge an produziertem Abfall durch Aufkl\xE4rung und
+      Recycling."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045262
+    m_Localized: "Gr\xFCner Verkehr"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045263
+    m_Localized: "F\xF6rdert Fahrr\xE4der, Elektrobusse und Bahnverkehr."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045264
+    m_Localized: Regionale Lebensmittel-Initiative
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045265
+    m_Localized: "Reduziert Transportwege und unterst\xFCtzt nachhaltige Landwirtschaft."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045266
+    m_Localized: Gesundheitsversorgung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045267
+    m_Localized: Verbessert die Gesundheitsversorgung in benachteiligten Regionen.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds:
-    - rid: 3554543658327081541
-      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_Entries: 
-        m_SharedEntries:
-        - id: 50359450810896384
+    RefIds: []

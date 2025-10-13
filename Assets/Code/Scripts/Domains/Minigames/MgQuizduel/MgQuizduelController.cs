@@ -198,10 +198,10 @@ public class MgQuizduelController : NetworkedSingleton<MgQuizduelController> {
     }
 
     private void SetQuizUI(QuestionData questionData) {
-        questionLabel.text = questionData.question;
-        answerButton0.text = questionData.answerOptions[0];
-        answerButton1.text = questionData.answerOptions[1];
-        answerButton2.text = questionData.answerOptions[2];
+        questionLabel.text = LocalizationManager.Instance.GetLocalizedText(questionData.question);
+        answerButton0.text = LocalizationManager.Instance.GetLocalizedText(questionData.answerOptions[0]);
+        answerButton1.text = LocalizationManager.Instance.GetLocalizedText(questionData.answerOptions[1]);
+        answerButton2.text = LocalizationManager.Instance.GetLocalizedText(questionData.answerOptions[2]);
     }
 
     private void SetElementDisplay(VisualElement element, bool visible) {

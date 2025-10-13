@@ -9,9 +9,9 @@ public class QuizServiceTests {
     private const string TEST_QUESTIONS_FILE_PATH = "Data/Testdata/Economic_Questions/questions_example";
 
     private List<QuestionData> expectedQuestions = new() {
-        new QuestionData("Question 1?", new List<string> { "A", "B", "C" }, 0, "easy"),
-        new QuestionData("Question 2?", new List<string> { "D", "E", "F" }, 1, "medium"),
-        new QuestionData("Question 3?", new List<string> { "G", "H", "I" }, 2, "hard")
+        new QuestionData(1, new List<long> { 1, 2, 3 }, 0, "easy"),
+        new QuestionData(2, new List<long> { 4, 5, 6 }, 1, "medium"),
+        new QuestionData(3, new List<long> { 7, 8, 9 }, 2, "hard")
     };
 
     [SetUp]
@@ -59,7 +59,7 @@ public class QuizServiceTests {
 
     [Test]
     public void CheckAnswer_WithCorrectOption_ReturnsTrue() {
-        QuestionData question = new QuestionData("Question?", new List<string> { "A", "B", "C" }, 0, "easy");
+        QuestionData question = new QuestionData(0, new List<long> { 1, 2, 3 }, 0, "easy");
         var selectedOptionIndex = 0;
 
         var result = quizService.CheckAnswer(question, selectedOptionIndex);
@@ -69,7 +69,7 @@ public class QuizServiceTests {
 
     [Test]
     public void CheckAnswer_WithIncorrectOption_ReturnsFalse() {
-        QuestionData question = new QuestionData("Question?", new List<string> { "A", "B", "C" }, 0, "easy");
+        QuestionData question = new QuestionData(0, new List<long> { 1, 2, 3 }, 0, "easy");
         int selectedOptionIndex = 1;
 
         bool result = quizService.CheckAnswer(question, selectedOptionIndex);
