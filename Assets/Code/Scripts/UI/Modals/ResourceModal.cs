@@ -27,6 +27,7 @@ public class ResourceModal : Modal {
     }
 
     private void OnResourcesHistoryButtonClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         ModalManager.Instance.Show(ResourceHistoryModal.Instance);
     }
 }

@@ -9,8 +9,8 @@ public class SettingsController : NetworkedSingleton<SettingsController> {
     protected override bool ShouldPersistAcrossScenes => true;
     private VisualElement settingsTemplateContainer;
     private Button closeButton;
-    private Slider volumeSlider;
-    private Label volumeValue;
+    private Slider soundSlider;
+    private Label soundValue;
     private Slider musicSlider;
     private Label musicValue;
 
@@ -32,7 +32,7 @@ public class SettingsController : NetworkedSingleton<SettingsController> {
         var root = uIDocument.rootVisualElement;
 
         InitializeUIElements(root);
-        SetupVolume();
+        SetupSound();
         SetupMusic();
         SetupFullscreen();
         InitializeResolutionDropdown();
@@ -48,8 +48,8 @@ public class SettingsController : NetworkedSingleton<SettingsController> {
             settingsTemplateContainer.RemoveFromClassList("visible");
         };
 
-        volumeSlider = root.Q<Slider>("VolumeSlider");
-        volumeValue = root.Q<Label>("VolumeValue");
+        soundSlider = root.Q<Slider>("SoundSlider");
+        soundValue = root.Q<Label>("SoundValue");
 
         musicSlider = root.Q<Slider>("MusicSlider");
         musicValue = root.Q<Label>("MusicValue");
@@ -60,19 +60,19 @@ public class SettingsController : NetworkedSingleton<SettingsController> {
         languageDropdown = root.Q<DropdownField>("LanguageDropdown");
     }
 
-    private void SetupVolume() {
-        volumeSlider.RegisterValueChangedCallback(evt => {
-            UpdateAudioValue(evt.newValue, volumeValue, soundVolumeParam);
-            PlayerPrefs.SetFloat("MasterVolume", evt.newValue);
+    private void SetupSound() {
+        soundSlider.RegisterValueChangedCallback(evt => {
+            UpdateAudioValue(evt.newValue, soundValue, soundVolumeParam);
+            PlayerPrefs.SetFloat("SoundVolume", evt.newValue);
             PlayerPrefs.Save();
         });
 
-        volumeSlider.RegisterCallback<MouseUpEvent>(evt => Audiomanager.Instance?.PlayClickSound());
-        volumeSlider.RegisterCallback<ClickEvent>(evt => Audiomanager.Instance?.PlayClickSound());
+        soundSlider.RegisterCallback<MouseUpEvent>(evt => Audiomanager.Instance?.PlayClickSound());
+        soundSlider.RegisterCallback<ClickEvent>(evt => Audiomanager.Instance?.PlayClickSound());
 
-        var savedVolume = PlayerPrefs.GetFloat("MasterVolume", 100f);
-        volumeSlider.value = savedVolume;
-        UpdateAudioValue(savedVolume, volumeValue, soundVolumeParam);
+        var savedVolume = PlayerPrefs.GetFloat("SoundVolume", 100f);
+        soundSlider.value = savedVolume;
+        UpdateAudioValue(savedVolume, soundValue, soundVolumeParam);
     }
 
     private void SetupMusic() {

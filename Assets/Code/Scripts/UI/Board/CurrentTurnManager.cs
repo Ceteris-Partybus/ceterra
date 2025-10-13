@@ -68,6 +68,7 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
     }
 
     private void OnRollDiceButtonClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         if (BoardContext.Instance.CurrentState != BoardContext.State.PLAYER_TURN) { return; }
 
         SetButtonsInteractable(false);
@@ -90,6 +91,7 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
     }
 
     private void OnBoardButtonClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         if (BoardContext.Instance.CurrentState != BoardContext.State.PLAYER_TURN) { return; }
 
         SetButtonsInteractable(false);

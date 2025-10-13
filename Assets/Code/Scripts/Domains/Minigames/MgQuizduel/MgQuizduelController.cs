@@ -78,9 +78,23 @@ public class MgQuizduelController : NetworkedSingleton<MgQuizduelController> {
     }
 
     private void SetupAnswerButtonEvents() {
-        answerButton0.clicked += () => OnAnswerButtonClicked(0);
-        answerButton1.clicked += () => OnAnswerButtonClicked(1);
-        answerButton2.clicked += () => OnAnswerButtonClicked(2);
+        answerButton0.clicked += () =>
+        {
+            Audiomanager.Instance?.PlayClickSound();
+            OnAnswerButtonClicked(0);
+        };
+
+        answerButton1.clicked += () =>
+        {
+            Audiomanager.Instance?.PlayClickSound();
+            OnAnswerButtonClicked(1);
+        };
+
+        answerButton2.clicked += () =>
+        {
+            Audiomanager.Instance?.PlayClickSound();
+            OnAnswerButtonClicked(2);
+        };
     }
 
     private void OnAnswerButtonClicked(int answerIndex) {

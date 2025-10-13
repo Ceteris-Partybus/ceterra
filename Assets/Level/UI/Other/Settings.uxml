@@ -18,8 +18,8 @@
                         </Bindings>
                     </ui:Label>
                     <ui:VisualElement style="flex-grow: 1; flex-direction: row; height: auto; flex-wrap: nowrap; align-self: auto; justify-content: flex-start; align-items: center;">
-                        <ui:Slider name="VolumeSlider" low-value="0" high-value="100" value="100" fill="false" class="settings-slider" style="height: 42px; width: 520px;" />
-                        <ui:Label name="VolumeValue" text="85" class="settings-value" style="height: 74px; width: 68px;" />
+                        <ui:Slider name="SoundSlider" low-value="0" high-value="100" value="100" fill="false" class="settings-slider" style="height: 42px; width: 520px;" />
+                        <ui:Label name="SoundValue" text="85" class="settings-value" style="height: 74px; width: 68px;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement class="settingsitem">

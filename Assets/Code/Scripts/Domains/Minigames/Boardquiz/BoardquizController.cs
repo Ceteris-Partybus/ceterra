@@ -166,6 +166,7 @@ public class BoardquizController : NetworkedSingleton<BoardquizController> {
     }
 
     private void OnAnswerSelected(int selectedAnswerIndex) {
+        Audiomanager.Instance?.PlayClickSound();
         SetAnswerButtonsState(false);
         StopAutoAdvanceTimer();
         var isCorrect = boardquizService.CheckAnswer(currentDisplayedQuestion, selectedAnswerIndex);
