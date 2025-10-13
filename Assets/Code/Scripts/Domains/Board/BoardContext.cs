@@ -368,18 +368,17 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     }
 
     [Server]
-    public void NextPlayerTurn() {
+    private void DetermineNextPlayer() {
         var playerIds = GameManager.Singleton.PlayerIds;
         var indexInLobby = Array.IndexOf(playerIds, currentPlayerId);
         currentPlayerId = playerIds[(indexInLobby + 1) % playerIds.Length];
-
-        StartPlayerTurn();
     }
 
     [Server]
     public void OnPlayerMovementComplete(BoardPlayer player) {
         if (currentState == State.PLAYER_MOVING && currentPlayerId == player.PlayerId) {
             totalMovementsCompleted++;
+            DetermineNextPlayer();
 
             var totalPlayers = GameManager.Singleton.PlayerIds.Length;
             if (totalMovementsCompleted >= totalPlayers) {
@@ -388,7 +387,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
                 StartCoroutine(OnRoundCompleted());
                 return;
             }
-            NextPlayerTurn();
+            StartPlayerTurn();
         }
     }
 
