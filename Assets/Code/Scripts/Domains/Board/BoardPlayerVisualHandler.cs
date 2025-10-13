@@ -39,7 +39,15 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
 
         var emission = particleEffectAndTrigger.Item1.emission;
         var burst = emission.GetBurst(0);
-        burst.count = Mathf.Abs(amount);
+        var isGainEffect = animationType == AnimationType.COIN_GAIN || animationType == AnimationType.HEALTH_GAIN;
+
+        if (isGainEffect) {
+            burst.cycleCount = Mathf.Abs(amount);
+        }
+        else {
+            burst.count = Mathf.Abs(amount);
+        }
+
         emission.SetBurst(0, burst);
 
         particleEffectAndTrigger.Item1.Play();

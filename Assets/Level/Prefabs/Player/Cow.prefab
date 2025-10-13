@@ -83,7 +83,6 @@ MonoBehaviour:
   coinLossParticle: {fileID: 8092807190592783435}
   healthGainParticle: {fileID: 2577994327614231701}
   healthLossParticle: {fileID: 7622282361890041746}
-  resultIcon: {fileID: 787893414191406551}
   resultLabel: {fileID: 532669226125839685}
   model: {fileID: 1148012459904633920}
   iconTexture2D: {fileID: 2800000, guid: 2b191caed6c3eb341af10f6b8050761d, type: 3}
@@ -285,17 +284,6 @@ PrefabInstance:
 --- !u!114 &532669226125839685 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7664716341250151960, guid: 789c96bd04fb7b0469c855c9b0a64fc5, type: 3}
-  m_PrefabInstance: {fileID: 7870850903351991133}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &787893414191406551 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7482108264824702602, guid: 789c96bd04fb7b0469c855c9b0a64fc5, type: 3}
   m_PrefabInstance: {fileID: 7870850903351991133}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
