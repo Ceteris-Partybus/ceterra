@@ -619,7 +619,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         foreach (var eventOption in possibleEvents) {
             cumulativeWeight += eventOption.weight;
             if (randomValue < cumulativeWeight) {
-                Debug.Log($"Triggering event: {eventOption.title}");
+                Debug.Log($"Triggering event: {LocalizationManager.Instance.GetLocalizedText(eventOption.title)}");
                 TriggerEvent(eventOption.id);
                 eventOption.MarkOccurrence();
                 break;
