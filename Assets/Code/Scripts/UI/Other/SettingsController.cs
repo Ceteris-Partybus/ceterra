@@ -5,14 +5,15 @@ using UnityEngine.Localization.Settings;
 using UnityEngine.Audio;
 using System.Collections;
 
-public class SettingsController : NetworkedSingleton<SettingsController> {
-    protected override bool ShouldPersistAcrossScenes => true;
+public class SettingsController : MonoBehaviour {
     private VisualElement settingsTemplateContainer;
     private Button closeButton;
     private Slider soundSlider;
     private Label soundValue;
     private Slider musicSlider;
     private Label musicValue;
+
+    public static SettingsController Instance;
 
     private Toggle fullscreenToggle;
     private DropdownField resolutionDropdown;
@@ -27,6 +28,16 @@ public class SettingsController : NetworkedSingleton<SettingsController> {
     private UIDocument uIDocument;
     [SerializeField] private AudioMixer audioMixer;
     private bool isInputAllowed = true;
+
+    private void Awake() {
+        if (Instance != null && Instance != this) {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     private void OnEnable() {
         var root = uIDocument.rootVisualElement;

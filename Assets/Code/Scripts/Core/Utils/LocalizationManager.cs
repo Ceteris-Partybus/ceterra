@@ -4,24 +4,21 @@ using Newtonsoft.Json;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Localization;
 
-public class LocalizationManager : NetworkedSingleton<LocalizationManager> {
-    protected override bool ShouldPersistAcrossScenes => true;
+public class LocalizationManager : MonoBehaviour {
     private const string LOCALIZATION_TABLE = "ceterra";
+    public static LocalizationManager Instance;
 
-    // public static List<T> LoadLocalizedText(TextAsset jsonFile, string key) {
-    //     var allText = JsonConvert.DeserializeObject<Dictionary<string, List<T>>>(jsonFile.text);
-    //     if (allText.ContainsKey(key)) {
-    //         return allText[key];
-    //     }
-    //     else if (allText.ContainsKey("de")) {
-    //         Debug.Log($"Wähle Default \"de\", da Key {key} nicht gefunden wurde.");
-    //         return allText["de"];
-    //     }
-    //     else {
-    //         Debug.Log("Kein entsprechender Key gefunden");
-    //         return null;
-    //     }
-    // }
+    private void Awake() {
+
+        if (Instance != null && Instance != this) {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
     public string GetLocalizedText(long id) {
         return LocalizationSettings.StringDatabase
         .GetLocalizedStringAsync(LOCALIZATION_TABLE, id)
