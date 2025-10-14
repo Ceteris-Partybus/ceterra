@@ -1,4 +1,5 @@
 public enum MgOceanTrashType {
     STANDARD,
-    DANGEROUS
+    DANGEROUS,
+    ORGANIC
 }
