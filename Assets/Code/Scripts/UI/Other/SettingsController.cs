@@ -5,15 +5,13 @@ using UnityEngine.Localization.Settings;
 using UnityEngine.Audio;
 using System.Collections;
 
-public class SettingsController : NetworkedSingleton<SettingsController> {
-    protected override bool ShouldPersistAcrossScenes => true;
+public class SettingsController : Singleton<SettingsController> {
     private VisualElement settingsTemplateContainer;
     private Button closeButton;
     private Slider soundSlider;
     private Label soundValue;
     private Slider musicSlider;
     private Label musicValue;
-
     private Toggle fullscreenToggle;
     private DropdownField resolutionDropdown;
     private DropdownField languageDropdown;
@@ -22,6 +20,8 @@ public class SettingsController : NetworkedSingleton<SettingsController> {
     private readonly List<string> availableLanguages = new() { "English", "Deutsch" };
     private const string soundVolumeParam = "SoundVol";
     private const string musicVolumeParam = "MusicVol";
+
+    protected override bool ShouldPersistAcrossScenes => true;
 
     [SerializeField]
     private UIDocument uIDocument;
