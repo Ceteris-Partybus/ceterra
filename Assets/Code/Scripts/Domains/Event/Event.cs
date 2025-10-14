@@ -9,8 +9,8 @@ public class Event {
     private static int nextId = 1;
 
     [SerializeField] public int id;
-    [SerializeField] public string title;
-    [SerializeField] public string description;
+    [SerializeField] public long title;
+    [SerializeField] public long description;
     [SerializeField] public List<EventModifier> modifier;
     [SerializeField] public int maxOccurrences;
     [SerializeField] public int weight;
@@ -20,7 +20,7 @@ public class Event {
     public Event() { }
 
     [JsonConstructor]
-    private Event(string title, string description, List<EventModifier> modifier, int maxOccurrences, int weight) {
+    private Event(long title, long description, List<EventModifier> modifier, int maxOccurrences, int weight) {
         this.id = nextId++;
         this.title = title;
         this.description = description;

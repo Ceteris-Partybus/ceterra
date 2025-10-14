@@ -1,9 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
-using System;
 using Mirror;
-using UnityEditor;
 
 public class PlayMenuController : MonoBehaviour {
     private Button backButton;
@@ -30,10 +28,9 @@ public class PlayMenuController : MonoBehaviour {
         };
 
         joinLobbyButton = root.Q<Button>("JoinLobbyButton");
-        joinLobbyButton.clicked += () =>
-        {
+        joinLobbyButton.clicked += () => {
             Audiomanager.Instance?.PlayClickSound();
-            OnJoinLobbyClicked();                   
+            OnJoinLobbyClicked();
         };
 
         ipAddressField = root.Q<TextField>("IPAddressField");

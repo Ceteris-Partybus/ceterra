@@ -43,7 +43,10 @@ public class Dice : MonoBehaviour {
     private float tiltAmplitude;
     private float tiltFrequency;
     private bool isSpinning = true;
-    public bool IsSpinning => isSpinning;
+    public bool IsSpinning {
+        get => isSpinning;
+        set => isSpinning = value;
+    }
     private bool inPreview = true;
     public bool SetInPreview {
         set {
@@ -115,6 +118,7 @@ public class Dice : MonoBehaviour {
 
     public void OnRollDisplay(int roll) {
         hitParticle.Play();
+        Audiomanager.Instance?.PlayDiceStopSound();
         if (hitParticle.GetComponent<CinemachineImpulseSource>() != null) {
             hitParticle.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
         }
@@ -129,7 +133,7 @@ public class Dice : MonoBehaviour {
 
     public void OnRollEnd(int roll) {
         Hide();
-        resultParticle.Play();
+        resultParticle.Play();;
 
         ShowDiceResultLabel();
         resultLabel.text = roll.ToString();

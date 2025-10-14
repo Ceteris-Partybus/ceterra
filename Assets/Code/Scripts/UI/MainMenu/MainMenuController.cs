@@ -9,12 +9,11 @@ public class MainMenuController : MonoBehaviour {
     private Button playButton;
     private Button settingsButton;
     private Button exitButton;
-    private TemplateContainer settingsContainer;
 
     [SerializeField]
     private UIDocument uIDocument;
     [SerializeField] private AudioMixer audioMixer;
-    [SerializeField] private AudioSource uiAudioSource;  
+    [SerializeField] private AudioSource uiAudioSource;
     [SerializeField] private AudioClip buttonClickSound;
 
     private void OnEnable() {
@@ -26,35 +25,25 @@ public class MainMenuController : MonoBehaviour {
 
     private void InitializeUIElements() {
         playButton = root.Q<Button>("PlayButton");
-        playButton.clicked += () => 
-        {
+        playButton.clicked += () => {
             Audiomanager.Instance?.PlayClickSound();
-            SceneManager.LoadScene("PlayMenu");   
+            SceneManager.LoadScene("PlayMenu");
         };
 
         settingsButton = root.Q<Button>("SettingsButton");
-        settingsButton.clicked += () => 
-        {
+        settingsButton.clicked += () => {
             Audiomanager.Instance?.PlayClickSound();
-            ShowSettings();
+            SettingsController.Instance?.OpenSettingsPanel();
         };
 
         exitButton = root.Q<Button>("ExitButton");
-        exitButton.clicked += () => 
-        {
+        exitButton.clicked += () => {
             Audiomanager.Instance?.PlayClickSound();
             Application.Quit();
         };
-
-        settingsContainer = root.Q<TemplateContainer>("SettingsTemplateContainer");
     }
-
-    private void ShowSettings() {
-        settingsContainer.AddToClassList("visible");
-    }
-    private IEnumerator ApplyInitialAudioValuesNextFrame()
-    {
-        yield return null; 
+    private IEnumerator ApplyInitialAudioValuesNextFrame() {
+        yield return null;
 
         float master = PlayerPrefs.GetFloat("MasterVolume", 100f);
         float music = PlayerPrefs.GetFloat("MusicVolume", 100f);
@@ -63,12 +52,11 @@ public class MainMenuController : MonoBehaviour {
         SetMixerVolume(music, "MusicVol");
     }
 
-    private void SetMixerVolume(float value, string param)
-    {
-        if (audioMixer == null) return;
+    private void SetMixerVolume(float value, string param) {
+        if (audioMixer == null) { return; }
 
         float normalized = Mathf.Clamp01(value / 100f);
-        float dB = (normalized <= 0.0001f) ? -80f : Mathf.Log10(normalized) * 20f;
+        float dB = (normalized <= .0001f) ? -80f : Mathf.Log10(normalized) * 20f;
         audioMixer.SetFloat(param, dB);
     }
 }

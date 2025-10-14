@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public abstract class Modal : NetworkBehaviour {
+    public const int DEFAULT_DISPLAY_DURATION = 10;
+
     [Header("Modal Settings")]
     [SerializeField] protected VisualTreeAsset visualTreeAsset;
     [SerializeField] protected string modalId;
@@ -120,7 +122,10 @@ public abstract class Modal : NetworkBehaviour {
                 header.Add(titleLabel);
             }
             if (showCloseButton) {
-                closeButton = new Button(() => OnCloseRequested());
+                closeButton = new Button(() => {
+                    Audiomanager.Instance?.PlayClickSound();
+                    OnCloseRequested();
+                });
                 closeButton.text = "×";
                 closeButton.name = "close-button";
                 closeButton.AddToClassList("modal-close-button");

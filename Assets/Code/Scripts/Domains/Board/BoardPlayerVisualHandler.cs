@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using DG.Tweening;
 
 public class BoardPlayerVisualHandler : MonoBehaviour {
     [Header("Animation Trigger")]
@@ -27,16 +28,31 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
         return this;
     }
 
-    public WaitWhile TriggerBlockingAnimation(AnimationType animationType) {
-        var particleEffectAndTrigger = animationType switch {
-            AnimationType.COIN_GAIN => (character.CoinGainParticle, coinGainTrigger),
-            AnimationType.COIN_LOSS => (character.CoinLossParticle, coinLossTrigger),
-            AnimationType.HEALTH_GAIN => (character.HealthGainParticle, healthGainTrigger),
-            AnimationType.HEALTH_LOSS => (character.HealthLossParticle, healthLossTrigger),
+    public WaitWhile TriggerBlockingAnimation(AnimationType animationType, int amount) {
+        (ParticleSystem, string, Action) particleEffectAndTrigger = animationType switch {
+            AnimationType.COIN_GAIN => (character.CoinGainParticle, coinGainTrigger, () => ShowCoinChange(amount)),
+            AnimationType.COIN_LOSS => (character.CoinLossParticle, coinLossTrigger, () => ShowCoinChange(-amount)),
+            AnimationType.HEALTH_GAIN => (character.HealthGainParticle, healthGainTrigger, () => ShowHealthChange(amount)),
+            AnimationType.HEALTH_LOSS => (character.HealthLossParticle, healthLossTrigger, () => ShowHealthChange(-amount)),
             _ => throw new ArgumentException("Invalid blocking animation type")
         };
+
+        var emission = particleEffectAndTrigger.Item1.emission;
+        var burst = emission.GetBurst(0);
+        var isGainEffect = animationType == AnimationType.COIN_GAIN || animationType == AnimationType.HEALTH_GAIN;
+
+        if (isGainEffect) {
+            burst.cycleCount = amount;
+        }
+        else {
+            burst.count = amount;
+        }
+
+        emission.SetBurst(0, burst);
+
         particleEffectAndTrigger.Item1.Play();
         character.Animator.SetTrigger(particleEffectAndTrigger.Item2);
+        particleEffectAndTrigger.Item3();
         return new WaitWhile(() => particleEffectAndTrigger.Item1.isPlaying || IsAnimationPlaying(particleEffectAndTrigger.Item2));
     }
 
@@ -56,30 +72,33 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
         dice.HideDiceResultLabel();
     }
 
-    public void OnRollStart() {
-        CameraHandler.Instance.ZoomIn();
+    public IEnumerator OnRollStart() {
+        yield return CameraHandler.Instance.ZoomIn();
+
         dice.OnRollStart();
         TriggerAnimation(AnimationType.DICE_SPIN);
     }
 
-    public void OnRollCancel() {
+    public IEnumerator OnRollCancel() {
+        yield return CameraHandler.Instance.ZoomOut();
+
         dice.OnRollCancel();
         TriggerAnimation(AnimationType.IDLE);
     }
 
-    public IEnumerator StartRollSequence(int diceValue) {
+    public IEnumerator StartRollSequence(int diceValue, Action cmdRollSequenceFinished) {
         character.HitDice();
         TriggerAnimation(AnimationType.DICE_HIT);
-        yield return new WaitForSeconds(0.09f);
+        yield return new WaitForSeconds(.09f);
 
         dice.OnRollDisplay(diceValue);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(.5f);
 
         dice.OnRollEnd(diceValue);
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(.8f);
 
-        CameraHandler.Instance.ZoomOut();
-        yield return new WaitForSeconds(0.5f);
+        yield return CameraHandler.Instance.ZoomOut();
+        cmdRollSequenceFinished();
     }
 
     public void CleanRotation() {
@@ -97,5 +116,29 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
 
     public void SetMovementRotation(Quaternion targetRotation, float lerpSpeed) {
         character.SetMovementRotation(targetRotation, lerpSpeed);
+    }
+
+    public void ShowCoinChange(int amount) {
+        ShowFloatingLabel(amount, "Coins");
+    }
+
+    public void ShowHealthChange(int amount) {
+        ShowFloatingLabel(amount, "Health");
+    }
+
+    private void ShowFloatingLabel(int amount, string type) {
+        var sign = amount > 0 ? "+" : "-";
+        character.ResultLabel.text = $"{sign}{Mathf.Abs(amount)} {type}";
+        ColorUtility.TryParseHtmlString("#30C650", out var greenColor);
+        ColorUtility.TryParseHtmlString("#C64030", out var redColor);
+        character.ResultLabel.color = amount > 0 ? greenColor : redColor;
+
+        var startPos = character.ResultLabel.transform.position;
+        character.ResultLabel.transform
+            .DOMoveY(startPos.y + 1f, 1.15f)
+            .OnComplete(() => {
+                character.ResultLabel.text = "";
+                character.ResultLabel.transform.position = startPos;
+            });
     }
 }

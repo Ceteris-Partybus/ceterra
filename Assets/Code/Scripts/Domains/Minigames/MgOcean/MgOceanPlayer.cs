@@ -2,10 +2,11 @@ using Mirror;
 using System;
 using UnityEngine;
 
-public class MgOceanPlayer : SceneConditionalPlayer {
+public class MgOceanPlayer : SceneConditionalPlayer, IMinigameRewardHandler {
     [SerializeField]
     [SyncVar(hook = nameof(OnScoreChanged))]
     private int score;
+    public int Score => score;
 
     [SerializeField]
     private GameObject playerModel;
@@ -14,7 +15,8 @@ public class MgOceanPlayer : SceneConditionalPlayer {
         Debug.Log($"[MgOceanPlayer {PlayerId}] OnScoreChanged from {old} to {new_}. IsLocalPlayer: {isLocalPlayer}");
         if (isLocalPlayer) {
             MgOceanLocalPlayerHUD.Instance?.UpdateScore(new_);
-        } else {
+        }
+        else {
             MgOceanRemotePlayerHUD.Instance?.UpdatePlayerScore(PlayerId, new_);
         }
     }
@@ -62,7 +64,7 @@ public class MgOceanPlayer : SceneConditionalPlayer {
         Debug.Log($"Spawning player model for player {PlayerId}");
         Vector3 spawnPosition = MgOceanContext.Instance.GetPlayerSpawnPosition();
         var model = Instantiate(playerModel, spawnPosition, Quaternion.identity);
-        
+
         NetworkServer.Spawn(model, conn);
         Debug.Log($"Player model spawned at {model.transform.position} with tag: {model.tag}");
     }
@@ -86,5 +88,8 @@ public class MgOceanPlayer : SceneConditionalPlayer {
         return sceneName == "MgOcean";
     }
 
-    public int Score => score;
+    public void HandleMinigameRewards(BoardPlayer player) {
+        player.PlayerStats.ModifyCoins(Math.Max(0, score));
+        player.PlayerStats.ModifyScore(Math.Max(0, score / 5));
+    }
 }
