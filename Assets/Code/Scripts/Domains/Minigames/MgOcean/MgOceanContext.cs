@@ -24,7 +24,11 @@ public class MgOceanContext : NetworkedSingleton<MgOceanContext> {
     [SerializeField]
     private float spawnAcceleration = 0.98f;
     [SerializeField]
-    private float gameDuration = 60f; 
+    private float gameDuration = 60f;
+    
+    [SerializeField]
+    [Tooltip("Z position for spawning players and trash objects.")]
+    private float spawnDepth = -6f; 
 
     private float countdownTimer; 
     private Bounds spawnArea; 
@@ -147,7 +151,7 @@ public class MgOceanContext : NetworkedSingleton<MgOceanContext> {
             Vector3 spawnPosition = new Vector3(
                 spawnX,
                 Random.Range(spawnArea.min.y, spawnArea.max.y),
-                0f
+                spawnDepth
             );
 
             Debug.Log($"[MgOceanContext] Spawning trash at {spawnPosition}, direction: {(spawnFromRight ? "left" : "right")}");
@@ -187,16 +191,16 @@ public class MgOceanContext : NetworkedSingleton<MgOceanContext> {
 
     public Vector3 GetPlayerSpawnPosition() {
         if (spawnArea.size != Vector3.zero) {
-            return new Vector3(0f, spawnArea.min.y + 1f, 0f);
+            return new Vector3(0f, spawnArea.min.y + 1f, spawnDepth);
         }
         
         Camera mainCamera = Camera.main;
         if (mainCamera != null) {
             float spawnY = -mainCamera.orthographicSize * 0.5f;
-            return new Vector3(0f, spawnY, 0f);
+            return new Vector3(0f, spawnY, spawnDepth);
         }
         
-        return Vector3.zero;
+        return new Vector3(0f, 0f, spawnDepth);
     }
     
     public Bounds GetPlayAreaBounds() {
