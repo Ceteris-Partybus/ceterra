@@ -5,16 +5,13 @@ using UnityEngine.Localization.Settings;
 using UnityEngine.Audio;
 using System.Collections;
 
-public class SettingsController : MonoBehaviour {
+public class SettingsController : Singleton<SettingsController> {
     private VisualElement settingsTemplateContainer;
     private Button closeButton;
     private Slider soundSlider;
     private Label soundValue;
     private Slider musicSlider;
     private Label musicValue;
-
-    public static SettingsController Instance;
-
     private Toggle fullscreenToggle;
     private DropdownField resolutionDropdown;
     private DropdownField languageDropdown;
@@ -24,20 +21,12 @@ public class SettingsController : MonoBehaviour {
     private const string soundVolumeParam = "SoundVol";
     private const string musicVolumeParam = "MusicVol";
 
+    protected override bool ShouldPersistAcrossScenes => true;
+
     [SerializeField]
     private UIDocument uIDocument;
     [SerializeField] private AudioMixer audioMixer;
     private bool isInputAllowed = true;
-
-    private void Awake() {
-        if (Instance != null && Instance != this) {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
 
     private void OnEnable() {
         var root = uIDocument.rootVisualElement;

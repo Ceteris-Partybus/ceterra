@@ -4,20 +4,9 @@ using Newtonsoft.Json;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Localization;
 
-public class LocalizationManager : MonoBehaviour {
+public class LocalizationManager : Singleton<LocalizationManager> {
     private const string LOCALIZATION_TABLE = "ceterra";
-    public static LocalizationManager Instance;
-
-    private void Awake() {
-
-        if (Instance != null && Instance != this) {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
+    protected override bool ShouldPersistAcrossScenes => true;
 
     public string GetLocalizedText(long id) {
         return LocalizationSettings.StringDatabase
