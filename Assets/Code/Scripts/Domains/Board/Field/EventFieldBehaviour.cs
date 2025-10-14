@@ -11,7 +11,7 @@ public class EventFieldBehaviour : FieldBehaviour {
     }
 
     private IEnumerator CompleteAfterDelay() {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(Modal.DEFAULT_DISPLAY_DURATION);
         CompleteFieldInvocation();
     }
 }

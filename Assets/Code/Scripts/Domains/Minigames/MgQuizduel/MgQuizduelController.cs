@@ -78,9 +78,23 @@ public class MgQuizduelController : NetworkedSingleton<MgQuizduelController> {
     }
 
     private void SetupAnswerButtonEvents() {
-        answerButton0.clicked += () => OnAnswerButtonClicked(0);
-        answerButton1.clicked += () => OnAnswerButtonClicked(1);
-        answerButton2.clicked += () => OnAnswerButtonClicked(2);
+        answerButton0.clicked += () =>
+        {
+            Audiomanager.Instance?.PlayClickSound();
+            OnAnswerButtonClicked(0);
+        };
+
+        answerButton1.clicked += () =>
+        {
+            Audiomanager.Instance?.PlayClickSound();
+            OnAnswerButtonClicked(1);
+        };
+
+        answerButton2.clicked += () =>
+        {
+            Audiomanager.Instance?.PlayClickSound();
+            OnAnswerButtonClicked(2);
+        };
     }
 
     private void OnAnswerButtonClicked(int answerIndex) {
@@ -184,10 +198,10 @@ public class MgQuizduelController : NetworkedSingleton<MgQuizduelController> {
     }
 
     private void SetQuizUI(QuestionData questionData) {
-        questionLabel.text = questionData.question;
-        answerButton0.text = questionData.answerOptions[0];
-        answerButton1.text = questionData.answerOptions[1];
-        answerButton2.text = questionData.answerOptions[2];
+        questionLabel.text = LocalizationManager.Instance.GetLocalizedText(questionData.question);
+        answerButton0.text = LocalizationManager.Instance.GetLocalizedText(questionData.answerOptions[0]);
+        answerButton1.text = LocalizationManager.Instance.GetLocalizedText(questionData.answerOptions[1]);
+        answerButton2.text = LocalizationManager.Instance.GetLocalizedText(questionData.answerOptions[2]);
     }
 
     private void SetElementDisplay(VisualElement element, bool visible) {

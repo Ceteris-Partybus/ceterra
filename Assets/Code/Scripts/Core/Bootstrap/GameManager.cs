@@ -1,6 +1,4 @@
 using Mirror;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -46,17 +44,9 @@ public class GameManager : NetworkRoomManager {
     [Server]
     public void IncrementRound() {
         currentRound++;
-
-        if (currentRound > maxRounds) {
-            StartCoroutine(StopGameSwitchEndScene());
-        }
     }
 
-    private IEnumerator StopGameSwitchEndScene() {
-        yield return new WaitUntil(() => BoardContext.Instance?.IsAnyPlayerMoving() == false
-        && BoardContext.Instance?.IsAnyPlayerInAnimation() == false
-        && BoardContext.Instance?.IsAnyPlayerChoosingJunction() == false
-        && BoardContext.Instance?.CurrentState == BoardContext.State.PLAYER_TURN);
+    public void StopGameSwitchEndScene() {
         ServerChangeScene(endScene);
     }
 
@@ -74,16 +64,12 @@ public class GameManager : NetworkRoomManager {
 
     public override void OnClientSceneChanged() {
         base.OnClientSceneChanged();
+        var boardFieldBehaviours = FindObjectsByType<FieldBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
         if (networkSceneName == GameplayScene) {
-            foreach (var field in FindObjectsByType<FieldBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
-                field.Show();
-            }
+            boardFieldBehaviours.ForEach(field => field.Show());
+            return;
         }
-        else {
-            foreach (var field in FindObjectsByType<FieldBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
-                field.Hide();
-            }
-        }
+        boardFieldBehaviours.ForEach(field => field.Hide());
     }
 
     public override bool OnRoomServerSceneLoadedForPlayer(NetworkConnectionToClient conn, GameObject roomPlayer, GameObject gamePlayer) {
@@ -142,6 +128,7 @@ public class GameManager : NetworkRoomManager {
     /// </summary>
     public void EndMinigame() {
         if (NetworkServer.active) {
+            BoardContext.Instance.CurrentState = BoardContext.State.MINIGAME_FINISHED;
             ServerChangeScene(GameplayScene);
         }
     }

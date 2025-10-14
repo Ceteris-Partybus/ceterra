@@ -48,7 +48,7 @@ public class InvestProposalVoteModal : Modal {
         votings = modalElement.Q<VisualElement>("votings");
         infoTextLabel = modalElement.Q<Label>("info-text");
 
-        infoTextLabel.text = infoTextTemplate.Replace("<PLAYER>", player.PlayerName).Replace("<INVESTMENT>", VoteInvestment.displayName).Replace("<AMOUNT>", ProposedCoins.ToString());
+        infoTextLabel.text = infoTextTemplate.Replace("<PLAYER>", player.PlayerName).Replace("<INVESTMENT>", LocalizationManager.Instance.GetLocalizedText(VoteInvestment.displayName)).Replace("<AMOUNT>", ProposedCoins.ToString());
 
         requiredFundsLabel.text = (VoteInvestment.requiredMoney - VoteInvestment.currentMoney).ToString();
         requiredResourcesLabel.text = VoteInvestment.requiredResources.ToString();
@@ -100,6 +100,7 @@ public class InvestProposalVoteModal : Modal {
 
     [ClientCallback]
     private void OnVoteButtonClicked(bool agreed) {
+        Audiomanager.Instance?.PlayClickSound();
         if (hasVoted) {
             return;
         }

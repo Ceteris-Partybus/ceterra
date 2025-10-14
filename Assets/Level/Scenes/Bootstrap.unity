@@ -173,8 +173,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1926814287}
   - component: {fileID: 1926814284}
-  - component: {fileID: 1926814288}
   - component: {fileID: 1926814289}
+  - component: {fileID: 1926814291}
+  - component: {fileID: 1926814288}
+  - component: {fileID: 1926814290}
+  - component: {fileID: 1926814293}
+  - component: {fileID: 1926814292}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -271,6 +275,7 @@ MonoBehaviour:
   - {fileID: 3241251890801266441, guid: 40fc7c4b30a61584dad9c2bdc2522216, type: 3}
   - {fileID: 3241251890801266441, guid: 5c0f9ca54cc99e746a7a9e574ac0e579, type: 3}
   - {fileID: 1206808590286997871, guid: 31d7c84be262a8f46b686bd28391ef2f, type: 3}
+  - {fileID: 3241251890801266441, guid: cd995bca43d89e64d8581b2d27e3f93b, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -310,9 +315,6 @@ MonoBehaviour:
   - MgQuizduel
   - MgOcean
   playedMinigames: []
-  maxRounds: 1
-  currentRound: 1
-  playersPassedStart: 0
 --- !u!114 &1926814289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,6 +329,74 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsetX: 0
   offsetY: 0
+--- !u!114 &1926814290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926814283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e01c3cd5b53e1694c9502765c3780bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+--- !u!114 &1926814291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926814283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 4230329698
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
+--- !u!114 &1926814292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926814283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 71c92cb88991cf74eae45c04ddf2cdab, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: df265b82c30ec4f44bf5a9737011162b, type: 3}
+  m_SortingOrder: 99
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+--- !u!114 &1926814293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926814283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 033fd5516e4e38b4c8884f9d2aeb1b54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  uIDocument: {fileID: 1926814292}
+  audioMixer: {fileID: 24100000, guid: 97a3acd63a8c96047b5adac0a7b628ad, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

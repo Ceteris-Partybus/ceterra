@@ -53,6 +53,7 @@ public class FundsInvestProposalSubmitModal : Modal {
 
     [ClientCallback]
     private void OnAddAllFundingButtonClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         Investment investment = BoardContext.Instance.investments.FirstOrDefault(inv => inv.id == InvestmentId);
         int requiredFunds = investment.requiredMoney - investment.currentMoney;
 
@@ -66,6 +67,7 @@ public class FundsInvestProposalSubmitModal : Modal {
 
     [ClientCallback]
     private void OnSubmitProposalButtonClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         Investment investment = BoardContext.Instance.investments.FirstOrDefault(inv => inv.id == InvestmentId);
         int requiredResources = investment.requiredResources;
         if (BoardContext.Instance.ResourceStat < requiredResources) {
