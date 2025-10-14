@@ -171,7 +171,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   fallSpeed: 2
-  waveAmplitude: 2
+  waveAmplitude: 1
   waveFrequency: 2
   trashType: 0
   isFlipped: 0
