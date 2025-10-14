@@ -3,6 +3,7 @@ using UnityEngine.UIElements;
 using DG.Tweening;
 using System;
 using System.Linq;
+using System.Collections;
 
 public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
     [SerializeField] private UIDocument uiDocument;
@@ -30,18 +31,23 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
         boardButton.clicked += OnBoardButtonClicked;
 
         settingsButton = rootElement.Q<Button>("settings-button");
-        settingsButton.clicked += SettingsController.Instance.OpenSettingsPanel;
 
         announcementOverlay = rootElement.Q<VisualElement>("announcement-overlay");
         announcementText = rootElement.Q<Label>("announcement-text");
         turnInfoPanel = rootElement.Q<VisualElement>("turn-info-panel");
 
         if (!isServer) {
+            StartCoroutine(WaitForAndSetSettings());
             BoardContext.Instance.OnNextPlayerTurn += UpdateTurnUI;
             boardPlayer = BoardContext.Instance.GetLocalPlayer();
             boardPlayer.OnDiceRollEnded += HideRollDiceButton;
         }
         base.Start();
+    }
+
+    private IEnumerator WaitForAndSetSettings() {
+        yield return new WaitUntil(() => SettingsController.Instance != null);
+        settingsButton.clicked += SettingsController.Instance.OpenSettingsPanel;
     }
 
     private void UpdateTurnUI(BoardPlayer currentPlayer, int currentRound, int maxRounds) {
