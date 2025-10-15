@@ -3,7 +3,7 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 
-public class MgGarbageContext : NetworkedSingleton<MgGarbageContext> {
+public class MgGarbageContext : MgContext<MgGarbageContext, MgGarbagePlayer> {
     [SerializeField]
     private GameObject spawnPointsHolder;
     [SerializeField]
@@ -27,7 +27,16 @@ public class MgGarbageContext : NetworkedSingleton<MgGarbageContext> {
     private float countdownTimer; // Separate timer for countdown display
 
     protected override void Start() {
+        StartCoroutine(WaitForAllPlayers());
+
+        IEnumerator WaitForAllPlayers() {
+            yield return new WaitUntil(() => netIdentity != null && netIdentity.observers.Count == GameManager.Singleton.PlayerIds.Count());
+        }
+
         base.Start();
+    }
+
+    public override void OnStartGame() {
         if (isServer) {
             StartCoroutine(SpawnTrashRoutine());
         }

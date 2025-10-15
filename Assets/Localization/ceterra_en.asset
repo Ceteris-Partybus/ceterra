@@ -16,19 +16,817 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: 0bcae4cae5373ec479ceeeee5b1d030f, type: 2}
   m_Metadata:
-    m_Items:
-    - rid: 3554543658327081539
+    m_Items: []
   m_TableData:
-  - m_Id: 614498603008
-    m_Localized: Play
+  - m_Id: 54051235973255168
+    m_Localized: Beverage cartons also add to the pile of waste. How can you reduce
+      it?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386688
+    m_Localized: By only drinking tea
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386689
+    m_Localized: By crushing beverage cartons before throwing them away
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386690
+    m_Localized: By buying drinks only in reusable bottles
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386691
+    m_Localized: Vitamin C, B, and many other vitamins should be present in our diet.
+      What does the word "vitamin" mean literally?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386692
+    m_Localized: Preservative
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386693
+    m_Localized: Vital substance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386694
+    m_Localized: Trace elements
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386695
+    m_Localized: Why is it becoming increasingly difficult to obtain drinking water
+      here?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386696
+    m_Localized: Because there is too little rain
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386697
+    m_Localized: Because groundwater is increasingly polluted with nitrate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386698
+    m_Localized: Because groundwater levels are rising
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386699
+    m_Localized: Too much nitrate in drinking water is especially dangerous for infants
+      and their mothers. What should they do?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386700
+    m_Localized: Use bottled mineral water instead
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386701
+    m_Localized: Boil the water before use
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386702
+    m_Localized: Avoid water altogether
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386703
+    m_Localized: What does it indicate when unusually large fish appear in a body
+      of water?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386704
+    m_Localized: Plenty of plankton available for aquatic animals
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19894984282112
+    m_Localized: Volume
     m_Metadata:
       m_Items: []
   - m_Id: 19179993862144
     m_Localized: Settings
     m_Metadata:
       m_Items: []
-  - m_Id: 19894984282112
-    m_Localized: Volume
+  - m_Id: 54053500918386705
+    m_Localized: Big fish always mean clean water
+    m_Metadata:
+      m_Items: []
+  - m_Id: 614498603008
+    m_Localized: Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386706
+    m_Localized: Poor water quality
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386707
+    m_Localized: The condition of a river is generally described by four quality
+      classes. What does Quality Class IV indicate?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386708
+    m_Localized: It is a polluted river
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386709
+    m_Localized: The water body has already tipped (collapsed ecologically)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386710
+    m_Localized: It is a very heavily polluted river
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386711
+    m_Localized: "Tree rings tell us a tree\u2019s age. What else can they reveal?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386712
+    m_Localized: How its growth progressed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386713
+    m_Localized: Environmental conditions over past decades
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386714
+    m_Localized: Light conditions in recent years
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386715
+    m_Localized: How can you tell from a felled spruce that it fell victim to forest
+      dieback?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386716
+    m_Localized: Its last annual rings are noticeably narrower and there is an extended
+      wet heartwood area in the trunk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386717
+    m_Localized: The wood is rotten
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386718
+    m_Localized: It has heavy lichen growth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386719
+    m_Localized: Organic products are sold in health food stores. Why are they labeled
+      "organic" (Bio)?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386720
+    m_Localized: "Because you don\u2019t need to brush your teeth after eating them"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386721
+    m_Localized: Because they are grown naturally, i.e., without synthetic chemicals
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386722
+    m_Localized: Because "Bio" is a buzzword that boosts sales
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386723
+    m_Localized: 'What do you think: how much waste does the average person in Germany
+      produce in a year?'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386724
+    m_Localized: 200 kg
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386725
+    m_Localized: 500 kg
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386726
+    m_Localized: 750 kg
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386727
+    m_Localized: What is the key advantage of a circular economy?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386728
+    m_Localized: Resources are used multiple times
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386729
+    m_Localized: Jobs are reduced
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386730
+    m_Localized: Production costs increase
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386731
+    m_Localized: Which energy source is most climate-friendly?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386732
+    m_Localized: Coal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386733
+    m_Localized: Natural gas
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386734
+    m_Localized: Wind power
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386735
+    m_Localized: What does 'carbon footprint' mean?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386736
+    m_Localized: The number of steps per day
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386737
+    m_Localized: The CO2 footprint of a person or product
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386738
+    m_Localized: Foot size
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386739
+    m_Localized: Which mode of transport has the lowest CO2 emissions per person?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386740
+    m_Localized: Airplane
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386741
+    m_Localized: Car
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386742
+    m_Localized: Train
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386743
+    m_Localized: What is Fair Trade?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386744
+    m_Localized: Free trade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386745
+    m_Localized: Fair trade with better conditions for producers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386746
+    m_Localized: Fast trade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386747
+    m_Localized: How much water is needed to produce a pair of jeans?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386748
+    m_Localized: 200 liters
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386749
+    m_Localized: 2,000 liters
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386750
+    m_Localized: 8,000 liters
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386751
+    m_Localized: What is the goal of the Sustainable Development Goals (SDGs)?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386752
+    m_Localized: Sustainable development by 2030
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386753
+    m_Localized: Economic growth at any cost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386754
+    m_Localized: Population reduction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386755
+    m_Localized: Which sector produces the most greenhouse gas emissions worldwide?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386756
+    m_Localized: Transport
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386757
+    m_Localized: Energy generation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386758
+    m_Localized: Agriculture
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386759
+    m_Localized: What is 'greenwashing'?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386760
+    m_Localized: Environmentally friendly washing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386761
+    m_Localized: Companies pretending to be environmentally friendly
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386762
+    m_Localized: Using green paint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386763
+    m_Localized: Which material is most recyclable?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386764
+    m_Localized: Plastic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386765
+    m_Localized: Glass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386766
+    m_Localized: Paper
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386767
+    m_Localized: What is the main cause of rainforest deforestation?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386768
+    m_Localized: Logging
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386769
+    m_Localized: Agriculture and livestock farming
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386770
+    m_Localized: Urban development
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386771
+    m_Localized: How many planets would we need if everyone lived like people in
+      Germany?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386772
+    m_Localized: 2 planets
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386773
+    m_Localized: 3 planets
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386774
+    m_Localized: 5 planets
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386775
+    m_Localized: "What\u2019s the difference between weather and climate?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386776
+    m_Localized: Weather is short-term; climate is long-term
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386777
+    m_Localized: Weather is warm, climate is cold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386778
+    m_Localized: "There\u2019s no difference"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386779
+    m_Localized: Which energy source has the lowest environmental impact?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386780
+    m_Localized: Nuclear power
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386781
+    m_Localized: Solar energy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386782
+    m_Localized: Hydropower
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386783
+    m_Localized: What does 'peak oil' mean?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386784
+    m_Localized: The highest oil price of all time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386785
+    m_Localized: The point of maximum oil production
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386786
+    m_Localized: The best oil quality
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386787
+    m_Localized: "What share of the world\u2019s population lacks access to clean
+      drinking water?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386788
+    m_Localized: 10%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386789
+    m_Localized: 25%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386790
+    m_Localized: 40%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386791
+    m_Localized: "What\u2019s the biggest advantage of electric cars?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386792
+    m_Localized: They are cheaper
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386793
+    m_Localized: They produce no local exhaust emissions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386794
+    m_Localized: They drive faster
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386795
+    m_Localized: Which country is the largest CO2 emitter worldwide?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386796
+    m_Localized: USA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386797
+    m_Localized: China
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386798
+    m_Localized: India
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386799
+    m_Localized: What is urban farming?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386800
+    m_Localized: Agriculture in the city
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386801
+    m_Localized: Modern agricultural machinery
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386802
+    m_Localized: Genetic engineering in agriculture
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386803
+    m_Localized: How long does it take for a plastic bottle to fully decompose in
+      nature?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386804
+    m_Localized: 50 years
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386805
+    m_Localized: 200 years
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386806
+    m_Localized: 450 years
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386807
+    m_Localized: What is the main component of biogas?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386808
+    m_Localized: Hydrogen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386809
+    m_Localized: Methane
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386810
+    m_Localized: Carbon dioxide
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386811
+    m_Localized: Which statement about renewable energy is correct?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386812
+    m_Localized: They are inexhaustible
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386813
+    m_Localized: They never cause environmental problems
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386814
+    m_Localized: They are always cheaper than fossil fuels
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386815
+    m_Localized: What is meant by the sharing economy?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386816
+    m_Localized: Shared use of resources
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386817
+    m_Localized: Free distribution of goods
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386818
+    m_Localized: State economic planning
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386819
+    m_Localized: Which economic sector is growing the fastest thanks to digitalization?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386820
+    m_Localized: Agriculture
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386821
+    m_Localized: Services
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386822
+    m_Localized: Heavy industry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386823
+    m_Localized: What is the main goal of the 2030 Agenda?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386824
+    m_Localized: Achieve world peace
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386825
+    m_Localized: Promote sustainable development
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386826
+    m_Localized: Strengthen the world economy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386827
+    m_Localized: What is a consequence of overfishing the oceans?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386828
+    m_Localized: More fish for everyone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386829
+    m_Localized: Collapse of ecosystems
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386830
+    m_Localized: Clean seawater
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386831
+    m_Localized: What does Corporate Social Responsibility (CSR) mean?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386832
+    m_Localized: Profit maximization
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386833
+    m_Localized: "A company\u2019s social responsibility"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386834
+    m_Localized: Tax optimization
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386835
+    m_Localized: What impact does climate change have on agriculture?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386836
+    m_Localized: Only positive effects
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386837
+    m_Localized: Changed growing conditions and crop failures
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386838
+    m_Localized: No impact
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386839
+    m_Localized: "What\u2019s the most important factor for sustainable consumption?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386840
+    m_Localized: Only buy expensive products
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386841
+    m_Localized: Make conscious purchasing decisions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386842
+    m_Localized: Consume a lot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386843
+    m_Localized: "What\u2019s the biggest advantage of secondhand clothing?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386844
+    m_Localized: "It\u2019s always fashionable"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386845
+    m_Localized: It saves resources
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386846
+    m_Localized: "It\u2019s always cheaper"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386847
+    m_Localized: What impact does fast fashion have on the environment?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386848
+    m_Localized: Positive impacts
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386849
+    m_Localized: High resource use and environmental pollution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386850
+    m_Localized: No impact
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386851
+    m_Localized: What does 'upcycling' mean?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386852
+    m_Localized: Throwing items away
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386853
+    m_Localized: Turning waste into new products with higher value
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386854
+    m_Localized: Riding a bicycle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386855
+    m_Localized: Which diet has the lowest CO2 footprint?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386856
+    m_Localized: Eat only meat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386857
+    m_Localized: Vegan diet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386858
+    m_Localized: Only dairy products
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386859
+    m_Localized: What is microplastic?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386860
+    m_Localized: Very small plastic particles in the environment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386861
+    m_Localized: Particularly strong plastic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386862
+    m_Localized: Biodegradable plastic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386863
+    m_Localized: What share of global greenhouse gas emissions comes from livestock
+      farming?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386864
+    m_Localized: 5%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386865
+    m_Localized: 15%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386866
+    m_Localized: 30%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386867
+    m_Localized: What is an ecological footprint?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386868
+    m_Localized: "An animal\u2019s footprint"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386869
+    m_Localized: A measure of resource consumption
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386870
+    m_Localized: Size of the garden
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386871
+    m_Localized: Which is NOT a principle of sustainable development?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386872
+    m_Localized: Ecological compatibility
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386873
+    m_Localized: Social justice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386874
+    m_Localized: Maximum profit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386875
+    m_Localized: What are 'green jobs'?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386876
+    m_Localized: Jobs outdoors
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386877
+    m_Localized: Jobs in environmental and climate protection
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386878
+    m_Localized: Jobs in green buildings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386879
+    m_Localized: What percentage of global energy consumption comes from renewable
+      sources?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386880
+    m_Localized: 12%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386881
+    m_Localized: 28%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386882
+    m_Localized: 45%
     m_Metadata:
       m_Items: []
   - m_Id: 20003004387328
@@ -63,6 +861,14 @@ MonoBehaviour:
     m_Localized: Menu
     m_Metadata:
       m_Items: []
+  - m_Id: 51544089527181312
+    m_Localized: Music volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 51544635864637440
+    m_Localized: Sound volume
+    m_Metadata:
+      m_Items: []
   - m_Id: 49116520167165952
     m_Localized: Load question ...
     m_Metadata:
@@ -82,14 +888,224 @@ MonoBehaviour:
   - m_Id: 50359450810896384
     m_Localized: +{0} Coins
     m_Metadata:
-      m_Items:
-      - rid: 3554543658327081539
+      m_Items: []
+  - m_Id: 54816396556324877
+    m_Localized: Extreme air pollution in megacities reaches levels that are hazardous
+      to health. Smog and particulate matter cause millions of premature deaths.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324876
+    m_Localized: Air pollution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324875
+    m_Localized: The sixth mass extinction is accelerating. Pollinators are disappearing,
+      ecosystems are collapsing, and genetic diversity is rapidly declining.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324874
+    m_Localized: Species Extinction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324873
+    m_Localized: Severe droughts and water shortages affect billions of people. Groundwater
+      levels are falling dramatically and conflicts over water resources are increasing.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324872
+    m_Localized: Water crisis
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324871
+    m_Localized: Plastic pollution in the oceans is reaching critical levels. Microplastics
+      pose a threat to the food chain and human health.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324870
+    m_Localized: Plastic catastrophe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324869
+    m_Localized: Massive deforestation and forest fires are destroying critical ecosystems
+      worldwide. The loss of forests accelerates climate change and threatens biodiversity.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324868
+    m_Localized: Forest dieback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324867
+    m_Localized: Significant technological advances in renewable energy and sustainable
+      agriculture offer new opportunities for tackling global challenges.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324866
+    m_Localized: Technological breakthrough
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324865
+    m_Localized: Climate change is advancing. Environmental pollution is increasing,
+      leading to extreme weather events and the loss of biodiversity.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324864
+    m_Localized: Climate change
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324878
+    m_Localized: Green energy transition
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324879
+    m_Localized: Massive investments in renewable energies lead to a drastic reduction
+      in CO2 emissions. Solar energy and wind power become dominant.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324880
+    m_Localized: Reforestation initiative
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324881
+    m_Localized: Global reforestation programs are planting billions of trees and
+      restoring degraded ecosystems. Carbon sequestration is increasing dramatically.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324882
+    m_Localized: Circular economy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324883
+    m_Localized: 'Breakthrough in the circular economy: 90% of all materials are
+      recycled or reused. Waste becomes a valuable resource.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324884
+    m_Localized: Sustainable agriculture
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324885
+    m_Localized: 'Revolution in agriculture: precision farming, vertical gardens,
+      and regenerative practices increase yields while restoring soil health.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324886
+    m_Localized: marine conservation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324887
+    m_Localized: International marine conservation agreements lead to the establishment
+      of huge marine protected areas. Fish stocks recover and coral reefs regenerate.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324888
+    m_Localized: Green cities
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324889
+    m_Localized: Cities are transforming into green oases with vertical gardens,
+      renewable energy, and sustainable mobility. Quality of life is increasing dramatically.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324890
+    m_Localized: Electric mobility
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324891
+    m_Localized: Electric vehicles achieve an 80% market share. Battery technology
+      revolutionizes transportation and energy storage, and air quality improves
+      dramatically.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324892
+    m_Localized: Resource scarcity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324893
+    m_Localized: Critical raw materials such as rare earths and lithium are becoming
+      scarce. Supply chains are collapsing and hindering the transition to green
+      technology.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045248
+    m_Localized: Test
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045249
+    m_Localized: This is a test investment.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045250
+    m_Localized: Ocean cleaner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045251
+    m_Localized: Cleans the oceans of plastic waste.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045252
+    m_Localized: Solar farm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045253
+    m_Localized: Generates renewable energy using solar power.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045254
+    m_Localized: educational program
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045255
+    m_Localized: Improves access to education and knowledge about sustainability.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045256
+    m_Localized: Fair Trade network
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045257
+    m_Localized: Supports local producers with fair prices.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045258
+    m_Localized: Afforestation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045259
+    m_Localized: Plants trees to improve air quality and biodiversity.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045260
+    m_Localized: Waste reduction campaign
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045261
+    m_Localized: Reduces the amount of waste produced through education and recycling.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045262
+    m_Localized: Green transportation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045263
+    m_Localized: Promotes bicycles, electric buses, and rail transport.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045264
+    m_Localized: Regional Food Initiative
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045265
+    m_Localized: Reduces transport distances and supports sustainable agriculture.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045266
+    m_Localized: Healthcare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045267
+    m_Localized: Improves healthcare in disadvantaged regions.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds:
-    - rid: 3554543658327081539
-      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_Entries: 
-        m_SharedEntries:
-        - id: 50359450810896384
+    RefIds: []

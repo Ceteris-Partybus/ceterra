@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using Mirror;
+using UnityEngine.SocialPlatforms;
 
 public class BoardquizController : NetworkedSingleton<BoardquizController> {
     [SerializeField] private UIDocument uiDocument;
@@ -166,6 +167,7 @@ public class BoardquizController : NetworkedSingleton<BoardquizController> {
     }
 
     private void OnAnswerSelected(int selectedAnswerIndex) {
+        Audiomanager.Instance?.PlayClickSound();
         SetAnswerButtonsState(false);
         StopAutoAdvanceTimer();
         var isCorrect = boardquizService.CheckAnswer(currentDisplayedQuestion, selectedAnswerIndex);
@@ -200,7 +202,13 @@ public class BoardquizController : NetworkedSingleton<BoardquizController> {
             var totalReward = boardquizService.CalculateTotalReward(correctAnswers);
             Debug.Log($"Spieler {currentPlayer.PlayerName} erhält {totalReward} Coins für {correctAnswers} richtige Antworten.");
             currentPlayer.CmdClaimQuizReward(totalReward);
+            CmdAddScore(totalReward / 5);
         }
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdAddScore(int amount) {
+        currentPlayer?.PlayerStats.ModifyScore(amount);
     }
 
     private IEnumerator AutoAdvanceAfterDelay() {
@@ -248,12 +256,12 @@ public class BoardquizController : NetworkedSingleton<BoardquizController> {
     }
 
     private void DisplayQuestion(QuestionData qData) {
-        questionLabel.text = qData.question;
+        questionLabel.text = LocalizationManager.Instance.GetLocalizedText(qData.question);
         ResetButtonAppearance();
         SetAnswerButtonsState(true);
         for (var i = 0; i < answerButtons.Count; i++) {
             if (i < qData.answerOptions.Count) {
-                answerButtons[i].text = qData.answerOptions[i];
+                answerButtons[i].text = LocalizationManager.Instance.GetLocalizedText(qData.answerOptions[i]);
                 SetElementDisplay(answerButtons[i], true);
             }
             else {

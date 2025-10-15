@@ -3,11 +3,19 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 
+[System.Serializable]
+public struct WeightedTrashPrefab {
+    public GameObject prefab;
+    [Tooltip("Higher weight means more frequent spawning.")]
+    [Range(0.1f, 10f)]
+    public float weight;
+}
+
 public class MgOceanContext : NetworkedSingleton<MgOceanContext> {
     [SerializeField]
     private GameObject spawnAreaHolder;
     [SerializeField]
-    private GameObject[] trashPrefabs;
+    private WeightedTrashPrefab[] weightedTrashPrefabs;
     
     [SerializeField]
     private float initialSpawnInterval = 3f;
@@ -16,7 +24,11 @@ public class MgOceanContext : NetworkedSingleton<MgOceanContext> {
     [SerializeField]
     private float spawnAcceleration = 0.98f;
     [SerializeField]
-    private float gameDuration = 60f; 
+    private float gameDuration = 60f;
+    
+    [SerializeField]
+    [Tooltip("Z position for spawning players and trash objects.")]
+    private float spawnDepth = -6f; 
 
     private float countdownTimer; 
     private Bounds spawnArea; 
@@ -111,8 +123,26 @@ public class MgOceanContext : NetworkedSingleton<MgOceanContext> {
         float startTime = Time.time;
         float interval = initialSpawnInterval;
 
+        float totalWeight = weightedTrashPrefabs.Sum(p => p.weight);
+
         while (Time.time - startTime < gameDuration) {
-            GameObject prefab = trashPrefabs[Random.Range(0, trashPrefabs.Length)];
+            GameObject prefab = null;
+            float randomWeight = Random.Range(0, totalWeight);
+            float currentWeight = 0;
+
+            foreach (var weightedPrefab in weightedTrashPrefabs) {
+                currentWeight += weightedPrefab.weight;
+                if (randomWeight <= currentWeight) {
+                    prefab = weightedPrefab.prefab;
+                    break;
+                }
+            }
+
+            if (prefab == null) {
+                Debug.LogWarning("[MgOceanContext] No prefab selected for spawning, check weights.");
+                yield return new WaitForSeconds(interval);
+                continue;
+            }
             
             bool spawnFromRight = Random.value > 0.5f;
             // Spawn outside the visible area so they swim in
@@ -121,7 +151,7 @@ public class MgOceanContext : NetworkedSingleton<MgOceanContext> {
             Vector3 spawnPosition = new Vector3(
                 spawnX,
                 Random.Range(spawnArea.min.y, spawnArea.max.y),
-                0f
+                spawnDepth
             );
 
             Debug.Log($"[MgOceanContext] Spawning trash at {spawnPosition}, direction: {(spawnFromRight ? "left" : "right")}");
@@ -131,6 +161,8 @@ public class MgOceanContext : NetworkedSingleton<MgOceanContext> {
             var trash = go.GetComponent<MgOceanTrash>();
             if (trash != null) {
                 trash.SetMovementDirection(spawnFromRight ? Vector2.left : Vector2.right);
+                // flip the sprite if spawning from the left
+                trash.isFlipped = !spawnFromRight;
             } else {
                 Debug.LogWarning($"[MgOceanContext] Spawned prefab {prefab.name} has no MgOceanTrash component!");
             }
@@ -159,16 +191,16 @@ public class MgOceanContext : NetworkedSingleton<MgOceanContext> {
 
     public Vector3 GetPlayerSpawnPosition() {
         if (spawnArea.size != Vector3.zero) {
-            return new Vector3(0f, spawnArea.min.y + 1f, 0f);
+            return new Vector3(0f, spawnArea.min.y + 1f, spawnDepth);
         }
         
         Camera mainCamera = Camera.main;
         if (mainCamera != null) {
             float spawnY = -mainCamera.orthographicSize * 0.5f;
-            return new Vector3(0f, spawnY, 0f);
+            return new Vector3(0f, spawnY, spawnDepth);
         }
         
-        return Vector3.zero;
+        return new Vector3(0f, 0f, spawnDepth);
     }
     
     public Bounds GetPlayAreaBounds() {

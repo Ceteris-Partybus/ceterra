@@ -46,17 +46,20 @@ public class FundsDepositModal : Modal {
         var localPlayer = BoardContext.Instance.GetLocalPlayer();
 
         if (depositValue <= 0) {
+            Audiomanager.Instance?.PlayClickSound();
             ErrorModal.Instance.Message = "Der Einzahlungsbetrag muss größer als 0 sein.";
             ModalManager.Instance.Show(ErrorModal.Instance);
             return;
         }
 
-        if (localPlayer.Coins < depositValue) {
+        if (localPlayer.PlayerStats.GetCoins() < depositValue) {
+            Audiomanager.Instance?.PlayClickSound();
             ErrorModal.Instance.Message = "Du besitzt nicht genügend Münzen.";
             ModalManager.Instance.Show(ErrorModal.Instance);
             return;
         }
 
+        Audiomanager.Instance?.PlayInvestSound();
         CmdDepositFunds(depositValue, localPlayer);
         ModalManager.Instance.Hide();
     }
@@ -66,18 +69,22 @@ public class FundsDepositModal : Modal {
         FundsHistoryEntry entry = new FundsHistoryEntry(depositValue, HistoryEntryType.DEPOSIT, "Einzahlung von " + localPlayer.PlayerName);
         BoardContext.Instance.fundsHistory.Add(entry);
         BoardContext.Instance.UpdateFundsStat(depositValue);
-        localPlayer.RemoveCoins(depositValue);
+        localPlayer.PlayerStats.ModifyCoins(-depositValue);
+        localPlayer.PlayerStats.ModifyScore(depositValue / 10);
     }
 
     private void OnDepositAdd10ButtonClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         this.OnDepositAddButtonClicked(10);
     }
 
     private void OnDepositAdd100ButtonClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         this.OnDepositAddButtonClicked(100);
     }
 
     private void OnDepositAdd1000ButtonClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         this.OnDepositAddButtonClicked(1000);
     }
 

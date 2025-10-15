@@ -14,9 +14,6 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
     [SyncVar] private bool hasBeenInvoked = false;
     [SyncVar] private CatastropheType catastropheType;
 
-    [Header("Settings")]
-    [SerializeField] private float zoomCameraSwitchTargetBlendTime = .75f;
-
     private int environmentEffect;
     private int healthEffect;
     private int effectRadius;
@@ -35,13 +32,14 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
             hasBeenInvoked = true;
             StartCoroutine(ProcessCatastropheSequence(player));
         }
+        player.PlayerStats.ModifyScore(-1 * healthEffect / 5);
     }
 
     [Server]
     private IEnumerator ProcessCatastropheSequence(BoardPlayer triggeringPlayer) {
         var affectedPlayers = GetAffectedPlayers(triggeringPlayer);
         RpcShowCatastropheInfo(affectedPlayers.Select(p => p.ToString()).Aggregate((a, b) => a + "\n" + b));
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(Modal.DEFAULT_DISPLAY_DURATION);
 
         RpcHideCatastropheInfo();
         yield return new WaitForSeconds(.5f);
@@ -54,9 +52,9 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
 
         var localScale = transform.localScale;
         var scaleSequence = DOTween.Sequence();
-        scaleSequence.Append(transform.DOScale(Vector3.zero, 0.5f))
+        scaleSequence.Append(transform.DOScale(Vector3.zero, .5f))
                      .AppendCallback(() => RpcChangeMaterial())
-                     .Append(transform.DOScale(localScale, 0.5f));
+                     .Append(transform.DOScale(localScale, .5f));
         yield return scaleSequence.WaitForCompletion();
         yield return new WaitForSeconds(1f);
 
@@ -100,13 +98,16 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
 
     [Server]
     private IEnumerator ApplyDamageToPlayers(List<AffectedPlayerData> affectedPlayers) {
-        foreach (var (affectedPlayer, distance, inflictedDamage) in affectedPlayers) {
-            CameraHandler.Instance.RpcSwitchZoomTarget(affectedPlayer);
-            yield return new WaitForSeconds(zoomCameraSwitchTargetBlendTime);
+        foreach (var (affectedPlayer, _, inflictedDamage) in affectedPlayers) {
+            if (affectedPlayers.Count > 1) {
+                CameraHandler.Instance.HasReachedTarget = false;
+                CameraHandler.Instance.RpcSwitchZoomTarget(affectedPlayer);
+                yield return new WaitUntil(() => CameraHandler.Instance.HasReachedTarget);
+            }
 
             affectedPlayer.IsAnimationFinished = false;
-            affectedPlayer.RemoveHealth(inflictedDamage);
-            yield return new WaitUntil(() => affectedPlayer.IsAnimationFinished);
+            affectedPlayer.PlayerStats.ModifyHealth(-inflictedDamage);
+            yield return affectedPlayer.TriggerBlockingAnimation(AnimationType.HEALTH_LOSS, inflictedDamage);
             yield return new WaitForSeconds(PLAYER_DAMAGE_DELAY);
         }
     }
@@ -125,7 +126,8 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
     private IEnumerator EnsureCameraOnTriggeringPlayer(BoardPlayer triggeringPlayer) {
         if (CameraHandler.Instance.ZoomTarget != triggeringPlayer.transform) {
             CameraHandler.Instance.RpcSwitchZoomTarget(triggeringPlayer);
-            yield return new WaitForSeconds(zoomCameraSwitchTargetBlendTime);
+            yield return new WaitForEndOfFrame();
+            yield return new WaitUntil(() => CameraHandler.Instance.HasReachedTarget);
         }
     }
 

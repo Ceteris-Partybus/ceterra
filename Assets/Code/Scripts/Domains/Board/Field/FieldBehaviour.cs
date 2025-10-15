@@ -7,8 +7,9 @@ using UnityEngine.Splines;
 
 public abstract class FieldBehaviour : NetworkBehaviour {
     [Header("Field Data")]
-    [SerializeField] protected readonly SyncList<FieldBehaviour> nextFields = new();
+    [SerializeField] private readonly SyncList<FieldBehaviour> nextFields = new();
     public SyncList<FieldBehaviour> Next => nextFields;
+
     [SyncVar]
     [SerializeField] private SplineKnotIndex splineKnotIndex;
     public SplineKnotIndex SplineKnotIndex => splineKnotIndex;
@@ -81,6 +82,11 @@ public abstract class FieldBehaviour : NetworkBehaviour {
 
     public override void OnStartClient() {
         base.OnStartClient();
+        StartCoroutine(DelayedOnStartClient());
+    }
+
+    private IEnumerator DelayedOnStartClient() {
+        yield return new WaitUntil(() => BoardContext.Instance != null && BoardContext.Instance.FieldBehaviourList != null);
         transform.SetParent(FieldInstantiate.Instance.SplineContainerTransform, false);
     }
 

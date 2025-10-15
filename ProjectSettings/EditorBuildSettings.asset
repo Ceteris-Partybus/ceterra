@@ -21,17 +21,17 @@ EditorBuildSettings:
     path: Assets/Level/Scenes/Board.unity
     guid: 2bbf85db5705a1144bbf4477127ae43d
   - enabled: 1
-    path: Assets/Level/Scenes/MinigameOne.unity
-    guid: 9442ff14563316b4ab7f13b911b298d6
-  - enabled: 1
-    path: Assets/Level/Scenes/MgGarbage.unity
-    guid: d66311854493a95439ca6c022d72f1f2
-  - enabled: 1
     path: Assets/Level/Scenes/MgQuizduel.unity
     guid: dce0c53f9d0ca2f478affa4fe20de87a
   - enabled: 1
     path: Assets/Level/Scenes/MgOcean.unity
     guid: 88a249b0522976a45b0e4ca0bb370166
+  - enabled: 1
+    path: Assets/Level/Scenes/MgGarbage.unity
+    guid: d66311854493a95439ca6c022d72f1f2
+  - enabled: 1
+    path: Assets/Level/Scenes/End.unity
+    guid: c1e503e28d4e67244941543f3283733d
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: f4d57a8966593c34cb53e606cd6a7e1a, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

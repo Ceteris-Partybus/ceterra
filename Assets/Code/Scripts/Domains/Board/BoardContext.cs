@@ -11,11 +11,16 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     public enum State {
         PLAYER_TURN,
         PLAYER_MOVING,
-        PAUSED
+        PAUSED,
+        MINIGAME,
+        MINIGAME_FINISHED
     }
 
     private State currentState = State.PLAYER_TURN;
-    public State CurrentState => currentState;
+    public State CurrentState {
+        get => currentState;
+        set { currentState = value; }
+    }
 
     private FieldBehaviourList fieldBehaviourList;
     public FieldBehaviourList FieldBehaviourList {
@@ -129,15 +134,13 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         else if (newValue < oldValue) {
             return Trend.FALLING;
         }
-        else {
-            return Trend.NEUTRAL;
-        }
+        return Trend.NEUTRAL;
     }
 
     #endregion
 
     [Header("Current Player")]
-    [SyncVar(hook = nameof(OnCurrentPlayerChanged))]
+    [SyncVar]
     [SerializeField]
     private int currentPlayerId = 0;
     public int CurrentPlayerId => currentPlayerId;
@@ -223,7 +226,6 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         };
 
         cyberneticEffects.AddRange(effects);
-
     }
 
     private void OnInvestmentItemInserted(int index) {
@@ -347,78 +349,90 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     [Server]
     public void StartPlayerTurn() {
         currentState = State.PLAYER_TURN;
-        RpcNotifyPlayerTurn(currentPlayerId);
+        StartCoroutine(DelayedRpcNotify());
+
+        IEnumerator DelayedRpcNotify() {
+            yield return new WaitUntil(() => netIdentity != null && netIdentity.observers.Count == GameManager.Singleton.roomSlots.Count);
+            RpcNotifyPlayerTurn(currentPlayerId, GameManager.Singleton.CurrentRound, GameManager.Singleton.MaxRounds);
+        }
     }
 
     [Server]
     public void ProcessDiceRoll(BoardPlayer player, int diceValue) {
-        if (currentState != State.PLAYER_TURN) {
-            return;
-        }
-
-        if (currentPlayerId != player.PlayerId) {
+        if (currentState != State.PLAYER_TURN || currentPlayerId != player.PlayerId) {
             return;
         }
 
         currentState = State.PLAYER_MOVING;
-        player.MoveToField(diceValue);
+        player.PlayerMovement.MoveToField(diceValue);
     }
 
     [Server]
-    public void NextPlayerTurn() {
-        int[] playerIds = GameManager.Singleton.PlayerIds;
-        int indexInLobby = System.Array.IndexOf(playerIds, currentPlayerId);
+    private void DetermineNextPlayer() {
+        var playerIds = GameManager.Singleton.PlayerIds;
+        var indexInLobby = Array.IndexOf(playerIds, currentPlayerId);
         currentPlayerId = playerIds[(indexInLobby + 1) % playerIds.Length];
-
-        StartPlayerTurn();
     }
 
     [Server]
     public void OnPlayerMovementComplete(BoardPlayer player) {
         if (currentState == State.PLAYER_MOVING && currentPlayerId == player.PlayerId) {
             totalMovementsCompleted++;
+            DetermineNextPlayer();
 
             var totalPlayers = GameManager.Singleton.PlayerIds.Length;
             if (totalMovementsCompleted >= totalPlayers) {
                 totalMovementsCompleted = 0;
 
-                var completedInvestments = 0;
-                foreach (var investment in investments) {
-                    investment.Tick();
-                    if (investment.cooldown == 0 && !investment.completed) {
-                        ApplyInvestment(investment);
-                        investment.completed = true;
-                        RpcShowInvestInfo($"Das Investment {investment.displayName} wurde fertiggestellt!");
-                        completedInvestments++;
-                    }
-                    TriggerInvestmentListUpdate(investments.IndexOf(investment), investment);
-                }
-
-                ApplyCyberneticEffects();
-
-                UpdateResourceStat(resourcesNextRound);
-                ResourceHistoryEntry entry = new ResourceHistoryEntry(resourcesNextRound, HistoryEntryType.DEPOSIT, "Rundenende");
-                this.resourceHistory.Add(entry);
-                resourcesNextRound = CalculateResourcesNextRound();
-
-                if (completedInvestments > 0) {
-                    StartCoroutine(WaitBeforeMinigame(completedInvestments * 3f));
-                }
-                else {
-                    GameManager.Singleton.StartMinigame("MgQuizduel");
-                    // GameManager.Singleton.StartMinigame("MgOcean");
-                }
+                StartCoroutine(OnRoundCompleted());
                 return;
             }
-
-            NextPlayerTurn();
+            StartPlayerTurn();
         }
     }
 
     [Server]
-    private IEnumerator WaitBeforeMinigame(float seconds) {
-        yield return new WaitForSeconds(seconds);
-        GameManager.Singleton.StartMinigame("MgQuizduel");
+    public IEnumerator OnRoundCompleted() {
+        yield return StartCoroutine(ProcessInvestments());
+        ApplyCyberneticEffects();
+
+        UpdateResourceStat(resourcesNextRound);
+        resourceHistory.Add(new ResourceHistoryEntry(resourcesNextRound, HistoryEntryType.DEPOSIT, "Rundenende"));
+        resourcesNextRound = CalculateResourcesNextRound();
+
+        yield return StartCoroutine(StartMinigame());
+        GameManager.Singleton.IncrementRound();
+        if (GameManager.Singleton.CurrentRound > GameManager.Singleton.MaxRounds) {
+            GameManager.Singleton.StopGameSwitchEndScene();
+            yield break;
+        }
+    }
+
+    [Server]
+    private IEnumerator ProcessInvestments() {
+        var completedInvestments = new List<Investment>();
+        foreach (var investment in investments.Where(inv => !inv.completed)) {
+            investment.Tick();
+            if (investment.cooldown == 0) {
+                ApplyInvestment(investment);
+                investment.completed = true;
+                completedInvestments.Add(investment);
+            }
+            TriggerInvestmentListUpdate(investments.IndexOf(investment), investment);
+        }
+
+        if (completedInvestments.Count == 0) { yield break; }
+
+        var investementInfo = completedInvestments.Select(investment => $"Das Investment {investment.displayName} wurde fertiggestellt!").Aggregate((a, b) => a + "\n" + b);
+        RpcShowInvestInfo(investementInfo);
+        yield return new WaitForSeconds(Modal.DEFAULT_DISPLAY_DURATION);
+    }
+
+    [Server]
+    private IEnumerator StartMinigame() {
+        currentState = State.MINIGAME;
+        GameManager.Singleton.StartMinigame();
+        yield return new WaitUntil(() => currentState == State.MINIGAME_FINISHED);
     }
 
     [Server]
@@ -427,28 +441,19 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         return resourcesToAdd;
     }
 
+    public Action<BoardPlayer, int, int> OnNextPlayerTurn;
     [ClientRpc]
-    public void RpcNotifyPlayerTurn(int playerId) {
-    }
+    public void RpcNotifyPlayerTurn(int playerId, int currentRound, int maxRounds) {
+        StartCoroutine(InvokeAfterInitialization());
 
-    public void OnCurrentPlayerChanged(int _, int newPlayerId) {
-        BoardPlayer newPlayer = GetPlayerById(newPlayerId);
-        if (newPlayer == null) {
-            Debug.LogWarning($"No player found with ID {newPlayerId}");
-            return;
-
+        IEnumerator InvokeAfterInitialization() {
+            yield return new WaitUntil(() => CurrentTurnManager.Instance != null && CurrentTurnManager.Instance.IsInitialized);
+            OnNextPlayerTurn?.Invoke(GetPlayerById(playerId), currentRound, maxRounds);
         }
-        CurrentTurnManager.Instance.UpdateCurrentPlayerName(newPlayer.PlayerName);
-        CurrentTurnManager.Instance.AllowRollDiceButtonFor(newPlayerId);
-    }
-
-    public void OnStateChanged(State oldState, State newState) {
     }
 
     public bool IsPlayerTurn(BoardPlayer player) {
-        if (currentState != State.PLAYER_TURN) { return false; }
-
-        return player.PlayerId == currentPlayerId;
+        return currentState == State.PLAYER_TURN && player.PlayerId == currentPlayerId;
     }
 
     public BoardPlayer GetCurrentPlayer() {
@@ -456,8 +461,30 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     }
 
     public BoardPlayer GetLocalPlayer() {
+
+        IEnumerator WaitForAnyPlayer() {
+            yield return new WaitUntil(() => FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).Length > 0);
+        }
+
+        StartCoroutine(WaitForAnyPlayer());
+
         return FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
             .FirstOrDefault(p => p.isLocalPlayer);
+    }
+
+    public List<BoardPlayer> GetRemotePlayers() {
+        return GetAllPlayers().Where(p => !p.isLocalPlayer).ToList();
+    }
+
+    public List<BoardPlayer> GetAllPlayers() {
+
+        IEnumerator WaitForPlayers() {
+            yield return new WaitUntil(() => FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).Length == GameManager.Singleton.roomSlots.Count());
+        }
+
+        StartCoroutine(WaitForPlayers());
+
+        return FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).ToList();
     }
 
     public BoardPlayer GetPlayerById(int playerId) {
@@ -524,7 +551,8 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
         int surplus = investment.Invest(amount);
         int coinsToRemove = amount - Math.Max(surplus, 0);
-        player.RemoveCoins(coinsToRemove);
+        player.PlayerStats.ModifyCoins(-coinsToRemove);
+        player.PlayerStats.ModifyScore(coinsToRemove / 10);
 
         TriggerInvestmentListUpdate(index, investment);
     }
@@ -586,14 +614,30 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     #endregion
 
+    public bool IsAnyPlayerMoving() {
+        return FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).Any(p => p.IsMoving);
+    }
+
+    public bool IsAnyPlayerInAnimation() {
+        return FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).Any(p => p.IsAnimationFinished == false);
+    }
+
+    public bool IsAnyPlayerChoosingJunction() {
+        return FindObjectsByType<JunctionFieldBehaviour>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).Any(j => j.IsWaitingForBranchChoice);
+    }
+
     #region Event Management
 
     [Server]
     public void TriggerRandomEvent() {
         var possibleEvents = events.Where(e => e.canOccur).ToList();
+
         if (possibleEvents.Count == 0) {
-            Debug.LogWarning("No possible events to trigger.");
-            return;
+            Debug.Log("All events have occurred the maximum number of times. Resetting occurrences.");
+            foreach (var ev in events) {
+                ev.ResetOccurrences();
+            }
+            possibleEvents = events.ToList();
         }
 
         int totalWeight = possibleEvents.Sum(e => e.weight);
@@ -603,7 +647,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         foreach (var eventOption in possibleEvents) {
             cumulativeWeight += eventOption.weight;
             if (randomValue < cumulativeWeight) {
-                Debug.Log($"Triggering event: {eventOption.title}");
+                Debug.Log($"Triggering event: {LocalizationManager.Instance.GetLocalizedText(eventOption.title)}");
                 TriggerEvent(eventOption.id);
                 eventOption.MarkOccurrence();
                 break;
@@ -647,10 +691,24 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     [ClientRpc]
     private void RpcShowEventInfo(Event eventToShow) {
-        EventModal.Instance.Title = eventToShow.title;
-        EventModal.Instance.Description = eventToShow.description;
+        EventModal.Instance.Title = LocalizationManager.Instance.GetLocalizedText(eventToShow.title);
+        EventModal.Instance.Description = LocalizationManager.Instance.GetLocalizedText(eventToShow.description);
         ModalManager.Instance.Show(EventModal.Instance);
     }
 
     #endregion
+
+    public int EvaluateGlobalScore() {
+        float weightedScore = (environmentStat * 0.5f) + (economyStat * 0.3f) + (societyStat * 0.2f);
+
+        if (economyStat >= 60 && societyStat >= 60 && environmentStat >= 60) {
+            weightedScore *= 1.15f;
+        }
+
+        if (environmentStat < 30) {
+            weightedScore *= 0.7f;
+        }
+
+        return Mathf.RoundToInt(Mathf.Clamp(weightedScore, 0, MAX_STATS_VALUE));
+    }
 }

@@ -18,6 +18,9 @@ public class MgOceanTrash : NetworkBehaviour {
     private MgOceanTrashType trashType;
     public MgOceanTrashType TrashType => trashType;
 
+    [SyncVar(hook = nameof(OnFlippedChanged))]
+    public bool isFlipped;
+
     private Rigidbody2D rb;
     private float startYPosition;
     private float elapsedTime;
@@ -30,6 +33,7 @@ public class MgOceanTrash : NetworkBehaviour {
         if (trashLayer != -1) {
             gameObject.layer = trashLayer;
         }
+        OnFlippedChanged(false, isFlipped);
     }
 
     public override void OnStartServer() {
@@ -49,6 +53,14 @@ public class MgOceanTrash : NetworkBehaviour {
 
         startYPosition = transform.position.y;
         elapsedTime = 0f;
+    }
+
+    private void OnFlippedChanged(bool oldFlipped, bool newFlipped) {
+        var srs = GetComponentsInChildren<SpriteRenderer>();
+        var target = srs.FirstOrDefault(sr => sr.sprite != null && sr.sprite.name == "tortoise");
+        if (target != null) {
+            target.flipX = newFlipped;
+        }
     }
 
     public void SetMovementDirection(Vector2 direction) {
@@ -85,7 +97,13 @@ public class MgOceanTrash : NetworkBehaviour {
                 var oceanPlayer = playerController.connectionToClient.identity.GetComponent<MgOceanPlayer>();
                 if (oceanPlayer != null) {
                     Debug.Log($"[MgOceanTrash] Adding score to player {oceanPlayer.PlayerId}");
-                    oceanPlayer.ServerAddScore(1);
+                    if (trashType == MgOceanTrashType.STANDARD) {
+                        oceanPlayer.ServerAddScore(1);
+                    } else if (trashType == MgOceanTrashType.DANGEROUS) {
+                        oceanPlayer.ServerAddScore(2);
+                    } else if (trashType == MgOceanTrashType.ORGANIC) {
+                        oceanPlayer.ServerReduceScore(3);
+                    }
                     NetworkServer.Destroy(gameObject);
                 } 
             } 

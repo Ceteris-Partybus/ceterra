@@ -12,8 +12,8 @@ public class LedgeFieldBehaviour : FieldBehaviour {
 
     [Server]
     private IEnumerator MakePlayerJumpToNextField(BoardPlayer player) {
-        player.IsJumping = true;
-        player.IsMoving = false;
+        player.PlayerMovement.IsJumping = true;
+        player.PlayerMovement.IsMoving = false;
         player.RpcTriggerAnimation(AnimationType.IDLE);
         yield return new WaitForSeconds(.5f);
 

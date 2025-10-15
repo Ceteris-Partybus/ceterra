@@ -37,6 +37,9 @@ public class InvestModal : Modal {
         investCards.Clear();
 
         PopulateInvestmentTabs();
+
+        var tabView = modalElement.Q<TabView>();
+        RegisterTabClickSound(tabView);
     }
 
     private void EnsureTabGridExists(Tab tab) {
@@ -86,10 +89,11 @@ public class InvestModal : Modal {
     }
 
     private VisualElement CreateInvestmentCard(Investment investment) {
+
         VisualElement investCard = investmentCardTemplate.Instantiate();
         investCard.name = $"investment-card-{investment.id}";
-        investCard.Q<Label>("invest-card-title").text = investment.displayName;
-        investCard.Q<Label>("invest-card-description").text = investment.description;
+        investCard.Q<Label>("invest-card-title").text = LocalizationManager.Instance.GetLocalizedText(investment.displayName);
+        investCard.Q<Label>("invest-card-description").text = LocalizationManager.Instance.GetLocalizedText(investment.description);
         investCard.Q<Label>("invest-card-required-money").text = investment.requiredMoney.ToString();
         investCard.Q<Label>("invest-card-required-resources").text = investment.requiredResources.ToString();
         investCard.Q<Label>("invest-card-cooldown").text = investment.cooldown.ToString();
@@ -131,11 +135,13 @@ public class InvestModal : Modal {
 
         if (!investment.inConstruction && !investment.completed && !investment.fullyFinanced) {
             depositButton.clicked += () => {
+                Audiomanager.Instance?.PlayClickSound();
                 this.OnInvestCardDepositButtonClicked(investmentId);
             };
         }
         if (!investment.inConstruction && !investment.completed) {
             proposeInvestButton.clicked += () => {
+                Audiomanager.Instance?.PlayClickSound();
                 this.OnInvestCardProposeInvestButtonClicked(investmentId);
             };
         }
@@ -173,8 +179,8 @@ public class InvestModal : Modal {
             return;
         }
 
-        investCard.Q<Label>("invest-card-title").text = investment.displayName;
-        investCard.Q<Label>("invest-card-description").text = investment.description;
+        investCard.Q<Label>("invest-card-title").text = LocalizationManager.Instance.GetLocalizedText(investment.displayName);
+        investCard.Q<Label>("invest-card-description").text = LocalizationManager.Instance.GetLocalizedText(investment.description);
         investCard.Q<Label>("invest-card-required-money").text = investment.requiredMoney.ToString();
         investCard.Q<Label>("invest-card-required-resources").text = investment.requiredResources.ToString();
         investCard.Q<Label>("invest-card-cooldown").text = investment.cooldown.ToString();
@@ -223,5 +229,42 @@ public class InvestModal : Modal {
     private void OnInvestCardProposeInvestButtonClicked(int investmentId) {
         FundsInvestProposalSubmitModal.Instance.InvestmentId = investmentId;
         ModalManager.Instance.Show(FundsInvestProposalSubmitModal.Instance);
+    }
+
+    private void RegisterTabClickSound(TabView tabView) {
+        if (tabView == null) return;
+
+        void AttachToTabButtons() {
+            var buttons = tabView.Query<Button>().ToList();
+            foreach (var btn in buttons) {
+                if (btn.userData as string == "sound-registered") continue;
+                btn.clicked += () => Audiomanager.Instance?.PlayClickSound();
+                btn.userData = "sound-registered";
+            }
+
+            var headers = tabView.Query<VisualElement>("unity-tab__header").ToList();
+            foreach (var el in headers) {
+                if (el.userData as string == "sound-registered") continue;
+                el.RegisterCallback<ClickEvent>(evt => Audiomanager.Instance?.PlayClickSound());
+                el.userData = "sound-registered";
+            }
+
+            Debug.Log($"TabView Buttons: {buttons.Count}, Headers: {headers.Count}");
+        }
+
+        AttachToTabButtons();
+
+        bool foundAny = tabView.Query<Button>().ToList().Count > 0 ||
+                        tabView.Query<VisualElement>("unity-tab__header").ToList().Count > 0;
+
+        if (!foundAny) {
+            EventCallback<GeometryChangedEvent> geomCb = null;
+            geomCb = (GeometryChangedEvent evt) =>
+            {
+                AttachToTabButtons();
+                tabView.UnregisterCallback<GeometryChangedEvent>(geomCb);
+            };
+            tabView.RegisterCallback<GeometryChangedEvent>(geomCb);
+        }
     }
 }
