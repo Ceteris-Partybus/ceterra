@@ -1071,6 +1071,166 @@ MonoBehaviour:
     m_Key: invsetment.description.10
     m_Metadata:
       m_Items: []
+  - m_Id: 56143503242027008
+    m_Key: end.game_ended
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144067971506176
+    m_Key: end.thanks_for_playing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144259705724928
+    m_Key: end.group_score
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144406623805440
+    m_Key: end.your_score
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144566892355584
+    m_Key: end.other_players
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56145165381787648
+    m_Key: modal.deposit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56145873707458560
+    m_Key: modal.affected_players
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56146686244806656
+    m_Key: globals.environment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56146825365676032
+    m_Key: globals.economy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56146969926557696
+    m_Key: globals.society
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147343727124480
+    m_Key: globals.error
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147427596427264
+    m_Key: modals.default_error
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147786268139520
+    m_Key: globals.funds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147874730205184
+    m_Key: modal.invest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56149215993126912
+    m_Key: modal.all
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56151189501239296
+    m_Key: modal.controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56151484889292800
+    m_Key: modal.not_ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56151999538782208
+    m_Key: modal.deposit_abbreviation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56152165855518720
+    m_Key: modal.invest_abbreviation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56152728932442112
+    m_Key: selection.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153017580249088
+    m_Key: selection.confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153329091207168
+    m_Key: selection.player_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153427497967616
+    m_Key: selection.dice_selection
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153847255523328
+    m_Key: globals.health
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56154430154727424
+    m_Key: playerturn.turn_info
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56154757243330560
+    m_Key: playerturn.round
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56154919462232064
+    m_Key: playerturn.current_turn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155033622798336
+    m_Key: playerturn.roll_dice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155119715082240
+    m_Key: playerturn.view_board
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155225038249984
+    m_Key: playerturn.settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155423755984896
+    m_Key: modal.funds_history
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155672947974144
+    m_Key: globals.resources
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155772201984000
+    m_Key: modal.resources_increase
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156036074037248
+    m_Key: modal.vote
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156196548108288
+    m_Key: modal.vote_yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156284435554304
+    m_Key: modal.vote_no
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156500152803328
+    m_Key: modal.resource_history
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156702553137152
+    m_Key: modal.propose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156896262873088
+    m_Key: modal.add_all
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56157094477291520
+    m_Key: modal.propose_investment
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

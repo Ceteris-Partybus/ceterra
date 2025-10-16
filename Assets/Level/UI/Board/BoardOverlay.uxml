@@ -34,7 +34,11 @@
                         <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
                             <ui:VisualElement name="environment-bar-wrapper" style="width: 186px;">
                                 <ui:VisualElement name="environment-bar-info">
-                                    <ui:Label text="Environment" />
+                                    <ui:Label>
+                                        <Bindings>
+                                            <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56146686244806656)" />
+                                        </Bindings>
+                                    </ui:Label>
                                     <ui:Label text="50/100" name="environment-bar-value" />
                                 </ui:VisualElement>
                                 <ui:Instance template="ProgressBar" name="environment-bar" class="progress-bar--environment" />
@@ -44,7 +48,11 @@
                         <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
                             <ui:VisualElement name="economy-bar-wrapper" style="width: 186px;">
                                 <ui:VisualElement name="economy-bar-info">
-                                    <ui:Label text="Economy" />
+                                    <ui:Label>
+                                        <Bindings>
+                                            <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56146825365676032)" />
+                                        </Bindings>
+                                    </ui:Label>
                                     <ui:Label text="50/100" name="economy-bar-value" />
                                 </ui:VisualElement>
                                 <ui:Instance template="ProgressBar" name="economy-bar" class="progress-bar--economy" />
@@ -54,7 +62,11 @@
                         <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
                             <ui:VisualElement name="society-bar-wrapper" style="width: 186px;">
                                 <ui:VisualElement name="society-bar-info">
-                                    <ui:Label text="Society" />
+                                    <ui:Label>
+                                        <Bindings>
+                                            <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56146969926557696)" />
+                                        </Bindings>
+                                    </ui:Label>
                                     <ui:Label text="50/100" name="society-bar-value" />
                                 </ui:VisualElement>
                                 <ui:Instance template="ProgressBar" name="society-bar" class="progress-bar--society" />

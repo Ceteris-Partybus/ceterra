@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="ProgressBar" src="project://database/Assets/Level/UI/Board/ProgressBar.uxml?fileID=9197481963319205126&amp;guid=b7a507bd332063d4fb87ffbd154e639a&amp;type=3#ProgressBar" />
-    <Style src="project://database/Assets/Level/UI/Board/InvestmentCard.uss?fileID=7433441132597879392&amp;guid=3ae57ae37117e294f8f4ba86df962bb7&amp;type=3#InvestmentCard" />
+    <Style src="project://database/Assets/Level/UI/Board/InvestmentCard.uss?fileID=7433441132597879392&amp;guid=75815511be359f349a3d61282330b31e&amp;type=3#InvestmentCard" />
     <Style src="project://database/Assets/Level/UI/Modals/ModalStyles.uss?fileID=7433441132597879392&amp;guid=7765ef12d5826884abfaffcb5834fca5&amp;type=3#ModalStyles" />
     <ui:VisualElement class="modal-button" style="flex-grow: 0; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; width: 500px; margin-right: 0; margin-top: 0; margin-bottom: 25px; margin-left: 0; height: 225px;">
         <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; justify-content: center;">
@@ -28,8 +28,16 @@
                 <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; align-items: center;">
                     <ui:Instance template="ProgressBar" name="invest-card-money-progress-bar" style="flex-grow: 1; margin-right: 25px;" />
                     <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
-                        <ui:Button text="Dep." name="invest-card-deposit-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
-                        <ui:Button text="Inv." name="invest-card-propose-invest-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;" />
+                        <ui:Button name="invest-card-deposit-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;">
+                            <Bindings>
+                                <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56151999538782208)" />
+                            </Bindings>
+                        </ui:Button>
+                        <ui:Button name="invest-card-propose-invest-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;">
+                            <Bindings>
+                                <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56152165855518720)" />
+                            </Bindings>
+                        </ui:Button>
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>

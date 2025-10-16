@@ -1115,6 +1115,166 @@ MonoBehaviour:
     m_Localized: Verbessert die Gesundheitsversorgung in benachteiligten Regionen.
     m_Metadata:
       m_Items: []
+  - m_Id: 56143503242027008
+    m_Localized: Das Spiel ist zu Ende!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144067971506176
+    m_Localized: "Danke f\xFCr's Spielen!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144259705724928
+    m_Localized: 'Gruppen Score:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144406623805440
+    m_Localized: 'Dein Score:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144566892355584
+    m_Localized: 'Andere Spieler:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56145165381787648
+    m_Localized: Einzahlen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56145873707458560
+    m_Localized: 'Betroffene Spieler:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56146686244806656
+    m_Localized: Umwelt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56146825365676032
+    m_Localized: Wirtschaft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56146969926557696
+    m_Localized: Gesellschaft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147343727124480
+    m_Localized: Fehler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147427596427264
+    m_Localized: Ein unerwarteter Fehler ist aufgetreten.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147786268139520
+    m_Localized: Fonds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147874730205184
+    m_Localized: Investieren
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56149215993126912
+    m_Localized: Alle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56151189501239296
+    m_Localized: Steuerung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56151484889292800
+    m_Localized: Nicht bereit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56151999538782208
+    m_Localized: Einz.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56152165855518720
+    m_Localized: Inv.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56152728932442112
+    m_Localized: Charakter-Auswahl
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153017580249088
+    m_Localized: "Auswahl best\xE4tigen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153329091207168
+    m_Localized: Spielername
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153427497967616
+    m_Localized: "Auswahl des W\xFCrfels"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153847255523328
+    m_Localized: Leben
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56154430154727424
+    m_Localized: ZUG-INFO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56154757243330560
+    m_Localized: 'Runde:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56154919462232064
+    m_Localized: 'Am Zug:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155033622798336
+    m_Localized: "W\xFCrfeln"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155119715082240
+    m_Localized: Brett anzeigen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155225038249984
+    m_Localized: Einstellungen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155423755984896
+    m_Localized: Fonds-Verlauf
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155672947974144
+    m_Localized: Ressourcen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155772201984000
+    m_Localized: Anstieg nach Runde
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156036074037248
+    m_Localized: Abstimmen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156196548108288
+    m_Localized: Ja
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156284435554304
+    m_Localized: Nein
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156500152803328
+    m_Localized: Ressourcen-Verlauf
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156702553137152
+    m_Localized: Vorschlagen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156896262873088
+    m_Localized: "100% Finanzierunug hinzuf\xFCgen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56157094477291520
+    m_Localized: Investition vorschlagen
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
