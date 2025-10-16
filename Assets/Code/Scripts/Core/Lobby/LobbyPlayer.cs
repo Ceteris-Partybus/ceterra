@@ -104,6 +104,7 @@ public class LobbyPlayer : NetworkRoomPlayer {
         pingUpdateCoroutine = StartCoroutine(UpdatePing());
 
         IEnumerator UpdatePing() {
+            yield return new WaitUntil(() => NetworkClient.ready);
             while (isLocalPlayer) {
                 CmdUpdatePing((int)(NetworkTime.rtt * 1000));
                 yield return new WaitForSeconds(PING_UPDATE_INTERVAL);
