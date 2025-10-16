@@ -57,7 +57,7 @@ echo ""
 if command -v git &> /dev/null; then
     CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "unknown")
     
-    if [ "$CURRENT_BRANCH" != "CETERRA-89-Chores" ]; then
+    if [ "$CURRENT_BRANCH" != "main" ]; then
         echo -e "${RED}ERROR: Not on main branch!${NC}"
         echo -e "${RED}Current branch: ${CURRENT_BRANCH}${NC}"
         echo -e "${RED}This script should only be run from the main branch.${NC}"
