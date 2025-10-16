@@ -1,7 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Level/UI/Modals/ModalStyles.uss?fileID=7433441132597879392&amp;guid=7765ef12d5826884abfaffcb5834fca5&amp;type=3#ModalStyles" />
     <ui:VisualElement style="flex-grow: 1; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; width: 400px; height: 420px;">
-        <ui:Label text="Funds" class="modal-title" style="width: 100%;" />
+        <ui:Label class="modal-title" style="width: 100%;">
+            <Bindings>
+                <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56147786268139520)" />
+            </Bindings>
+        </ui:Label>
         <ui:VisualElement style="flex-grow: 1; align-items: center;">
             <ui:VisualElement style="flex-grow: 0; width: 200px;">
                 <ui:VisualElement class="modal-button" style="flex-grow: 1; background-image: resource(&apos;Board/Safe&apos;); height: 200px;" />
@@ -13,8 +17,16 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement style="flex-grow: 0; margin-top: 25px; flex-direction: row; width: 100%; justify-content: center;">
-                <ui:Button text="Invest" name="funds-invest-button" class="modal-button" style="width: 100px;" />
-                <ui:Button text="Deposit" name="funds-deposit-button" class="modal-button" style="width: 100px;" />
+                <ui:Button name="funds-invest-button" class="modal-button" style="width: 100px;">
+                    <Bindings>
+                        <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56147874730205184)" />
+                    </Bindings>
+                </ui:Button>
+                <ui:Button name="funds-deposit-button" class="modal-button" style="width: 100px;">
+                    <Bindings>
+                        <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56145165381787648)" />
+                    </Bindings>
+                </ui:Button>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

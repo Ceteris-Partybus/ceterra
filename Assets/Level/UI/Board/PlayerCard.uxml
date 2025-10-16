@@ -9,7 +9,11 @@
         <ui:VisualElement name="player-card__content">
             <ui:VisualElement name="player-card__health">
                 <ui:VisualElement name="player-card__health-info">
-                    <ui:Label text="Health" />
+                    <ui:Label>
+                        <Bindings>
+                            <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56153847255523328)" />
+                        </Bindings>
+                    </ui:Label>
                     <ui:Label text="50/100" name="player-card__health-value" />
                 </ui:VisualElement>
                 <ui:Instance template="ProgressBar" name="player-card__health-bar" />

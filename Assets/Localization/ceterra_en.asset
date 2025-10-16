@@ -1106,6 +1106,166 @@ MonoBehaviour:
     m_Localized: Improves healthcare in disadvantaged regions.
     m_Metadata:
       m_Items: []
+  - m_Id: 56143503242027008
+    m_Localized: The game is over!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144067971506176
+    m_Localized: Thanks for playing!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144259705724928
+    m_Localized: 'Group score:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144406623805440
+    m_Localized: 'Your score:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144566892355584
+    m_Localized: 'Other players:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56145165381787648
+    m_Localized: Deposit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56145873707458560
+    m_Localized: 'Affected players:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56146686244806656
+    m_Localized: Environment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56146825365676032
+    m_Localized: Economy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56146969926557696
+    m_Localized: Society
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147343727124480
+    m_Localized: Error
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147427596427264
+    m_Localized: An unexpected error occured.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147786268139520
+    m_Localized: Funds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147874730205184
+    m_Localized: Invest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56149215993126912
+    m_Localized: All
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56151189501239296
+    m_Localized: Controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56151484889292800
+    m_Localized: Not ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56151999538782208
+    m_Localized: Dep.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56152165855518720
+    m_Localized: Inv.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56152728932442112
+    m_Localized: Character Selection
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153017580249088
+    m_Localized: Confirm choice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153329091207168
+    m_Localized: Player name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153427497967616
+    m_Localized: Dice Selection
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153847255523328
+    m_Localized: Health
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56154430154727424
+    m_Localized: TURN INFO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56154757243330560
+    m_Localized: 'Round:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56154919462232064
+    m_Localized: 'Current turn:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155033622798336
+    m_Localized: Roll Dice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155119715082240
+    m_Localized: View Board
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155225038249984
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155423755984896
+    m_Localized: Funds history
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155672947974144
+    m_Localized: Resources
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155772201984000
+    m_Localized: Increase after round
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156036074037248
+    m_Localized: Vote
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156196548108288
+    m_Localized: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156284435554304
+    m_Localized: No
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156500152803328
+    m_Localized: Resource history
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156702553137152
+    m_Localized: Propose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156896262873088
+    m_Localized: Add 100% required funding
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56157094477291520
+    m_Localized: Propose investment
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

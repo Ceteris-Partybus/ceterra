@@ -5,22 +5,46 @@
     </ui:VisualElement>
     <ui:VisualElement name="turn-info-panel">
         <ui:VisualElement name="turn-info-header" class="panel-header">
-            <ui:Label text="TURN INFO" name="turn-info-title" class="panel-title" />
+            <ui:Label text="TURN INFO" name="turn-info-title" class="panel-title">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56154430154727424)" />
+                </Bindings>
+            </ui:Label>
         </ui:VisualElement>
         <ui:VisualElement name="turn-info-content" class="panel-content">
             <ui:VisualElement name="round-panel" class="info-row">
-                <ui:Label text="Round:" name="round-label" class="info-label" />
+                <ui:Label name="round-label" class="info-label">
+                    <Bindings>
+                        <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56154757243330560)" />
+                    </Bindings>
+                </ui:Label>
                 <ui:Label name="current-round-text" class="info-value" />
             </ui:VisualElement>
             <ui:VisualElement name="current-turn-panel" class="info-row">
-                <ui:Label text="Current turn:" name="current-turn-label" class="info-label" />
+                <ui:Label name="current-turn-label" class="info-label">
+                    <Bindings>
+                        <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56154919462232064)" />
+                    </Bindings>
+                </ui:Label>
                 <ui:Label name="current-turn-text" class="info-value" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="turn-buttons-container">
-        <ui:Button text="Roll Dice" name="roll-dice-button" />
-        <ui:Button text="View Board" name="board-button" />
-        <ui:Button text="Settings" name="settings-button" />
+        <ui:Button name="roll-dice-button">
+            <Bindings>
+                <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56155033622798336)" />
+            </Bindings>
+        </ui:Button>
+        <ui:Button name="board-button">
+            <Bindings>
+                <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56155119715082240)" />
+            </Bindings>
+        </ui:Button>
+        <ui:Button name="settings-button">
+            <Bindings>
+                <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56155225038249984)" />
+            </Bindings>
+        </ui:Button>
     </ui:VisualElement>
 </ui:UXML>
