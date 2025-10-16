@@ -74,7 +74,7 @@ echo ""
 
 # Important reminder about build
 echo -e "${BLUE}IMPORTANT: Please ensure your latest build is already built${NC}"
-echo -e "${BLUE}into the correct folder (Builds/Docker) with the correct build profile (Docker Image Build) before proceeding!${NC}"
+echo -e "${BLUE}into the correct folder (Builds/Server) before proceeding!${NC}"
 echo ""
 
 # Reminder and link to PAT creation
