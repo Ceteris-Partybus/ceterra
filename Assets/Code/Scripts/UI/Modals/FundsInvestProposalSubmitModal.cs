@@ -70,7 +70,10 @@ public class FundsInvestProposalSubmitModal : Modal {
         Audiomanager.Instance?.PlayClickSound();
         Investment investment = BoardContext.Instance.investments.FirstOrDefault(inv => inv.id == InvestmentId);
         int requiredResources = investment.requiredResources;
-        if (BoardContext.Instance.ResourceStat < requiredResources) {
+
+        bool proposesFullAmount = amountField.value + investment.currentMoney >= investment.requiredMoney;
+
+        if (BoardContext.Instance.ResourceStat < requiredResources && proposesFullAmount) {
             InfoModal.Instance.Message = "Die Stadt hat nicht genug Ressourcen, um diesen Investitionsvorschlag zu unterstützen.";
             ModalManager.Instance.Show(InfoModal.Instance);
             return;
