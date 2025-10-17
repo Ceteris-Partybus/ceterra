@@ -8,6 +8,7 @@ using UnityEngine.Splines;
 public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
     protected override bool ShouldPersistAcrossScenes => true;
     [SerializeField] private SplineContainer splineContainer;
+    [SerializeField] private InspectorFieldTypeMap inspectorFieldTypeMap;
     [SerializeField] private GameObject normalFieldPrefab;
     public Material[] NormalFieldMaterial => normalFieldPrefab.GetComponent<Renderer>().sharedMaterials;
     [SerializeField] private GameObject questionFieldPrefab;
@@ -16,8 +17,6 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
     [SerializeField] private GameObject junctionFieldPrefab;
     [SerializeField] private GameObject ledgeFieldPrefab;
     [SerializeField] private GameObject startFieldPrefab;
-
-    private readonly Dictionary<SplineKnotIndex, FieldType> fieldTypeMap = new();
     private readonly SyncDictionary<SplineKnotIndex, FieldBehaviour> fields = new();
     public Transform SplineContainerTransform => splineContainer.transform;
 
@@ -28,8 +27,7 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
     }
 
     public override void OnStartServer() {
-        FillFieldTypeMap();
-
+        var fieldTypeMap = inspectorFieldTypeMap.ToDictionary();
         var splines = splineContainer.Splines;
         foreach (var (splineId, spline) in splines.Select((s, i) => (i, s))) {
             var isclosed = spline.Closed;
@@ -37,12 +35,13 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
             var knotStart = isclosed ? 0 : 1;
             var knotEnd = isclosed ? knots.Count() : knots.Count() - 1;
 
-            var first = CreateField(splineId, knotStart++);
+            var first = CreateField(splineId, knotStart++, fieldTypeMap);
             fields.Add(first.SplineKnotIndex, first);
 
             var previous = first;
             foreach (var knotId in Enumerable.Range(knotStart, knotEnd - knotStart)) {
-                var current = CreateField(splineId, knotId);
+                var current = CreateField(splineId, knotId, fieldTypeMap);
+                if (current == null) { continue; }
                 fields.Add(current.SplineKnotIndex, current);
                 previous.AddNext(current);
                 previous = current;
@@ -60,10 +59,10 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
         BoardContext.Instance.FieldBehaviourList = new FieldBehaviourList(fields);
     }
 
-    private FieldBehaviour CreateField(int splineId, int knotId) {
+    private FieldBehaviour CreateField(int splineId, int knotId, Dictionary<SplineKnotIndex, FieldType> fieldTypeMap) {
         var splineKnotIndex = new SplineKnotIndex(splineId, knotId);
         if (!fieldTypeMap.TryGetValue(splineKnotIndex, out var type)) {
-            throw new Exception($"Field type for knot not found in fieldTypeMap.");
+            return null;
         }
 
         var spline = splineContainer.Splines.ElementAt(splineId);
@@ -102,22 +101,6 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
                 }
                 fields.TryGetValue(new SplineKnotIndex(link.Spline, link.Knot - 1), out var previousField);
                 previousField.AddNext(currentField);
-            }
-        }
-    }
-
-    private void FillFieldTypeMap() {
-        for (var splineIndex = 0; splineIndex < splineContainer.Splines.Count(); splineIndex++) {
-            var spline = splineContainer.Splines.ElementAt(splineIndex);
-            if (spline.TryGetIntData("FieldTypes", out SplineData<int> dataPoints)) {
-                foreach (var dataPoint in dataPoints) {
-                    var knot = (int)dataPoint.Index;
-                    var fieldType = (FieldType)dataPoint.Value;
-                    fieldTypeMap[new SplineKnotIndex(splineIndex, knot)] = fieldType;
-                }
-            }
-            for (var knot = 0; knot < spline.Knots.Count(); knot++) {
-                fieldTypeMap.TryAdd(new SplineKnotIndex(splineIndex, knot), FieldType.NORMAL);
             }
         }
     }
