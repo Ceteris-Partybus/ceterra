@@ -45,10 +45,10 @@ public class MainMenuController : MonoBehaviour {
     private IEnumerator ApplyInitialAudioValuesNextFrame() {
         yield return null;
 
-        float master = PlayerPrefs.GetFloat("MasterVolume", 100f);
+        float sound = PlayerPrefs.GetFloat("SoundVolume", 100f);
         float music = PlayerPrefs.GetFloat("MusicVolume", 100f);
 
-        SetMixerVolume(master, "SoundVol");
+        SetMixerVolume(sound, "SoundVol");
         SetMixerVolume(music, "MusicVol");
     }
 
