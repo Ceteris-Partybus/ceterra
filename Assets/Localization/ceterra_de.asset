@@ -1414,6 +1414,15 @@ MonoBehaviour:
     m_Localized: "Das Investment wurde mit {0} M\xFCnzen finanziert, ben\xF6tigt
       aber noch weitere Gelder. Die Ressourcen wurden noch nicht abgezogen."
     m_Metadata:
+      m_Items:
+      - rid: 7894437812287832148
+  - m_Id: 56668768562413568
+    m_Localized: '{0} - {1}m entfernt, nimmt {2} Schaden'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56670997235204096
+    m_Localized: "M\xFCnzen"
+    m_Metadata:
       m_Items: []
   references:
     version: 2
@@ -1426,3 +1435,4 @@ MonoBehaviour:
         - id: 56641707357601792
         - id: 56652337988861952
         - id: 56659020039421952
+        - id: 56661867099422721

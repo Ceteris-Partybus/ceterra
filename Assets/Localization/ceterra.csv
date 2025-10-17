@@ -334,3 +334,6 @@ Key,Id,English(en),German(de)
 "globals.resources.expenses_investment",56659352559648768,"Resources for {0}","Ressourcen für {0}"
 "modal.investment.info.approved",56661867099422720,"The investment has been fully funded and is now under construction.","Das Investment wurde vollständig finanziert und befindet sich nun im Bau."
 "modal.investment.info.approved-partial",56661867099422721,"The investment was financed with {0} coins, but additional funds are still needed. The resources have not yet been deducted.","Das Investment wurde mit {0} Münzen finanziert, benötigt aber noch weitere Gelder. Die Ressourcen wurden noch nicht abgezogen."
+"modal.catastrophe.damage-taken",56668768562413568,"{0} - {1}m away, takes {2} damage","{0} - {1}m entfernt, nimmt {2} Schaden"
+"globals.coins",56670997235204096,"Coins","Münzen"
+"globals.health",56153847255523328,"Health","Leben"

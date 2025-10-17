@@ -1399,6 +1399,15 @@ MonoBehaviour:
     m_Localized: The investment was financed with {0} coins, but additional funds
       are still needed. The resources have not yet been deducted.
     m_Metadata:
+      m_Items:
+      - rid: 7894437812287832149
+  - m_Id: 56668768562413568
+    m_Localized: '{0} - {1}m away, takes {2} damage'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56670997235204096
+    m_Localized: Coins
+    m_Metadata:
       m_Items: []
   references:
     version: 2
@@ -1412,3 +1421,4 @@ MonoBehaviour:
         - id: 56646535894892544
         - id: 56652337988861952
         - id: 56659020039421952
+        - id: 56661867099422721

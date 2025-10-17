@@ -152,7 +152,7 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
         }
 
         public override string ToString() {
-            return $"• {Player.PlayerName} - {Distance:F2}m away, takes {InflictedDamage} damage";
+            return LocalizationManager.Instance.GetLocalizedText(56668768562413568, new object[] { Player.PlayerName, Distance.ToString("F2"), InflictedDamage });
         }
     }
 }

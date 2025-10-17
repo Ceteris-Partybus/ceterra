@@ -1355,6 +1355,18 @@ MonoBehaviour:
     m_Key: modal.investment.info.approved-partial
     m_Metadata:
       m_Items: []
+  - m_Id: 56668768562413568
+    m_Key: modal.catastrophe.damage-taken
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56670997235204096
+    m_Key: globals.coins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153847255523328
+    m_Key: globals.health
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
