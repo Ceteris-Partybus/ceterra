@@ -58,7 +58,7 @@ public class FundsInvestProposalSubmitModal : Modal {
         int requiredFunds = investment.requiredMoney - investment.currentMoney;
 
         if (requiredFunds > BoardContext.Instance.FundsStat) {
-            InfoModal.Instance.Message = "Der Fonds hat nicht genug Geld, um diesen Investitionsvorschlag vollumfänglich zu unterstützen.";
+            InfoModal.Instance.Message = LocalizationManager.Instance.GetLocalizedText(56640685331546112);
             ModalManager.Instance.Show(InfoModal.Instance);
             return;
         }
@@ -74,13 +74,13 @@ public class FundsInvestProposalSubmitModal : Modal {
         bool proposesFullAmount = amountField.value + investment.currentMoney >= investment.requiredMoney;
 
         if (BoardContext.Instance.ResourceStat < requiredResources && proposesFullAmount) {
-            InfoModal.Instance.Message = "Die Stadt hat nicht genug Ressourcen, um diesen Investitionsvorschlag zu unterstützen.";
+            InfoModal.Instance.Message = LocalizationManager.Instance.GetLocalizedText(56640685331546113);
             ModalManager.Instance.Show(InfoModal.Instance);
             return;
         }
 
         if (amountField.value == 0 && !investment.fullyFinanced) {
-            InfoModal.Instance.Message = "Du musst einen Betrag größer als 0 vorschlagen, wenn die Investition nicht bereits voll finanziert ist.";
+            InfoModal.Instance.Message = LocalizationManager.Instance.GetLocalizedText(56640685331546114);
             ModalManager.Instance.Show(InfoModal.Instance);
             return;
         }

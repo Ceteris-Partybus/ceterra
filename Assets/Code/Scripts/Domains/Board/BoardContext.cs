@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 public class BoardContext : NetworkedSingleton<BoardContext> {
     protected override bool ShouldPersistAcrossScenes => true;
@@ -397,7 +398,9 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         ApplyCyberneticEffects();
 
         UpdateResourceStat(resourcesNextRound);
-        resourceHistory.Add(new ResourceHistoryEntry(resourcesNextRound, HistoryEntryType.DEPOSIT, "Rundenende"));
+
+        string resourceHistoryEntryName = LocalizationManager.Instance.GetLocalizedText(56652191783813120);
+        resourceHistory.Add(new ResourceHistoryEntry(resourcesNextRound, HistoryEntryType.DEPOSIT, resourceHistoryEntryName));
         resourcesNextRound = CalculateResourcesNextRound();
 
         yield return StartCoroutine(StartMinigame());
@@ -423,7 +426,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
         if (completedInvestments.Count == 0) { yield break; }
 
-        var investementInfo = completedInvestments.Select(investment => $"Das Investment {investment.displayName} wurde fertiggestellt!").Aggregate((a, b) => a + "\n" + b);
+        var investementInfo = completedInvestments.Select(investment => LocalizationManager.Instance.GetLocalizedText(56652337988861952, new object[] { investment.displayName })).Aggregate((a, b) => a + "\n" + b);
         RpcShowInvestInfo(investementInfo);
         yield return new WaitForSeconds(Modal.DEFAULT_DISPLAY_DURATION);
     }
@@ -569,20 +572,22 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         int index = investments.IndexOf(investment);
 
         UpdateFundsStat(-coins);
-        FundsHistoryEntry fundsEntry = new FundsHistoryEntry(coins, HistoryEntryType.WITHDRAW, $"Resourcen für {investment.displayName}");
+        string fundsHistoryEntryName = LocalizationManager.Instance.GetLocalizedText(56659020039421952, new object[] { investment.displayName });
+        FundsHistoryEntry fundsEntry = new FundsHistoryEntry(coins, HistoryEntryType.WITHDRAW, fundsHistoryEntryName);
         this.fundsHistory.Add(fundsEntry);
 
         investment.Invest(coins);
 
         if (investment.fullyFinanced) {
             UpdateResourceStat(-investment.requiredResources);
-            ResourceHistoryEntry entry = new ResourceHistoryEntry(investment.requiredResources, HistoryEntryType.WITHDRAW, $"Finanzierung {investment.displayName}");
+            string resourceHistoryEntryName = LocalizationManager.Instance.GetLocalizedText(56659352559648768, new object[] { investment.displayName });
+            ResourceHistoryEntry entry = new ResourceHistoryEntry(investment.requiredResources, HistoryEntryType.WITHDRAW, resourceHistoryEntryName);
             this.resourceHistory.Add(entry);
             investment.inConstruction = true;
-            RpcShowInvestInfo("Das Investment wurde vollständig finanziert und befindet sich nun im Bau.");
+            RpcShowInvestInfo(LocalizationManager.Instance.GetLocalizedText(56661867099422720));
         }
         else {
-            RpcShowInvestInfo($"Das Investment wurde mit {coins} Münzen finanziert, benötigt aber noch weitere Gelder. Die Ressourcen wurden noch nicht abgezogen.");
+            RpcShowInvestInfo(LocalizationManager.Instance.GetLocalizedText(56661867099422721, new object[] { coins }));
         }
         TriggerInvestmentListUpdate(index, investment);
     }
