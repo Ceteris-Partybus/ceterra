@@ -119,11 +119,11 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
     }
 
     public void ShowCoinChange(int amount) {
-        ShowFloatingLabel(amount, "Coins");
+        ShowFloatingLabel(amount, LocalizationManager.Instance.GetLocalizedText(56670997235204096));
     }
 
     public void ShowHealthChange(int amount) {
-        ShowFloatingLabel(amount, "Health");
+        ShowFloatingLabel(amount, LocalizationManager.Instance.GetLocalizedText(56153847255523328));
     }
 
     private void ShowFloatingLabel(int amount, string type) {

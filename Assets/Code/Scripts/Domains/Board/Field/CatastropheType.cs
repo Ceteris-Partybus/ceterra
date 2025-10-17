@@ -22,28 +22,28 @@ public static class CatastropheTypeExtensions {
         };
     }
 
-    public static string GetDisplayName(this CatastropheType catastropheType) {
+    public static long GetDisplayName(this CatastropheType catastropheType) {
         return catastropheType switch {
-            CatastropheType.VOLCANO => "Volcanic Eruption!",
-            CatastropheType.NUCLEAR_EXPLOSION => "Nuclear Disaster!",
-            CatastropheType.LANDSLIDE => "Devastating Landslide!",
-            CatastropheType.WILDFIRE => "Raging Wildfire!",
-            CatastropheType.GLACIER_MELT => "Glacier Collapse!",
-            CatastropheType.DROUGHT => "Severe Drought!",
-            CatastropheType.TSUNAMI => "Tsunami Warning!",
+            CatastropheType.VOLCANO => 56648143445786624,
+            CatastropheType.NUCLEAR_EXPLOSION => 56648327022084096,
+            CatastropheType.LANDSLIDE => 56648670216814592,
+            CatastropheType.WILDFIRE => 56648926065164288,
+            CatastropheType.GLACIER_MELT => 56649363690455040,
+            CatastropheType.DROUGHT => 56649684747649024,
+            CatastropheType.TSUNAMI => 56649910111797248,
             _ => throw new System.ArgumentOutOfRangeException(nameof(catastropheType), catastropheType, null)
         };
     }
 
-    public static string GetDescription(this CatastropheType catastropheType) {
+    public static long GetDescription(this CatastropheType catastropheType) {
         return catastropheType switch {
-            CatastropheType.VOLCANO => "Molten lava and toxic ash devastate the surrounding area.",
-            CatastropheType.NUCLEAR_EXPLOSION => "Radioactive fallout spreads across the region causing severe damage.",
-            CatastropheType.LANDSLIDE => "Massive rocks and debris crash down, burying everything in their path.",
-            CatastropheType.WILDFIRE => "Uncontrolled flames consume everything, leaving only ash behind.",
-            CatastropheType.GLACIER_MELT => "Rising waters flood the landscape as ancient ice rapidly melts.",
-            CatastropheType.DROUGHT => "Extreme heat and lack of water turn fertile land into barren wasteland.",
-            CatastropheType.TSUNAMI => "Massive waves surge inland, destroying everything in their wake.",
+            CatastropheType.VOLCANO => 56648230402097152,
+            CatastropheType.NUCLEAR_EXPLOSION => 56648380902113280,
+            CatastropheType.LANDSLIDE => 56648729599770624,
+            CatastropheType.WILDFIRE => 56648972298977280,
+            CatastropheType.GLACIER_MELT => 56649388873056256,
+            CatastropheType.DROUGHT => 56649705719169024,
+            CatastropheType.TSUNAMI => 56649934925299712,
             _ => throw new System.ArgumentOutOfRangeException(nameof(catastropheType), catastropheType, null)
         };
     }

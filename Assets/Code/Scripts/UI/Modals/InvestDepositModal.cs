@@ -47,7 +47,7 @@ public class InvestDepositModal : Modal {
 
         if (depositValue <= 0) {
             Audiomanager.Instance?.PlayClickSound();
-            ErrorModal.Instance.Message = "Der Einzahlungsbetrag muss größer als 0 sein.";
+            ErrorModal.Instance.Message = LocalizationManager.Instance.GetLocalizedText(56638766894645248);
             ModalManager.Instance.Show(ErrorModal.Instance);
             return;
         }
@@ -56,7 +56,7 @@ public class InvestDepositModal : Modal {
 
         if (player.PlayerStats.GetCoins() < depositValue) {
             Audiomanager.Instance?.PlayClickSound();
-            ErrorModal.Instance.Message = "Du besitzt nicht genügend Münzen.";
+            ErrorModal.Instance.Message = LocalizationManager.Instance.GetLocalizedText(56639250527256576);
             ModalManager.Instance.Show(ErrorModal.Instance);
             return;
         }

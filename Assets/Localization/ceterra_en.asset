@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: 0bcae4cae5373ec479ceeeee5b1d030f, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 7894437812287832149
   m_TableData:
   - m_Id: 54051235973255168
     m_Localized: Beverage cartons also add to the pile of waste. How can you reduce
@@ -1266,6 +1267,158 @@ MonoBehaviour:
     m_Localized: Propose investment
     m_Metadata:
       m_Items: []
+  - m_Id: 56636904074215424
+    m_Localized: Catastrophe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56638766894645248
+    m_Localized: Deposit value must be greater than 0.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56639250527256576
+    m_Localized: You do not have enough coins.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56639770314768384
+    m_Localized: Deposit from
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56640685331546112
+    m_Localized: The fund is insufficient to fully support this investment proposal.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56640685331546113
+    m_Localized: The city does not have enough resources to support this investment
+      proposal.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56640685331546114
+    m_Localized: The minimum investment must be greater than 0 if the investment
+      is not already fully funded.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56641707357601792
+    m_Localized: In construction, {0} round(s) remaining.
+    m_Metadata:
+      m_Items:
+      - rid: 7894437812287832149
+  - m_Id: 56645878458712064
+    m_Localized: Completed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56646535894892544
+    m_Localized: '{0} has proposed investing {1} coins in {2} via the funds. Cast
+      your vote!'
+    m_Metadata:
+      m_Items:
+      - rid: 7894437812287832149
+  - m_Id: 56647493433524224
+    m_Localized: The investment proposal has been declined.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648143445786624
+    m_Localized: Volcanic Eruption
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648230402097152
+    m_Localized: Molten lava and toxic ash devastate the surrounding area.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648327022084096
+    m_Localized: Nuclear Disaster
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648380902113280
+    m_Localized: Radioactive fallout spreads across the region causing severe damage.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648670216814592
+    m_Localized: Devastating Landslide
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648729599770624
+    m_Localized: Massive rocks and debris crash down, burying everything in their
+      path.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648926065164288
+    m_Localized: Raging Wildfire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648972298977280
+    m_Localized: Uncontrolled flames consume everything, leaving only ash behind.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649363690455040
+    m_Localized: Glacier Melting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649388873056256
+    m_Localized: Rising waters flood the landscape as ancient ice rapidly melts.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649684747649024
+    m_Localized: Severe Drought
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649705719169024
+    m_Localized: Extreme heat and lack of water turn fertile land into barren wasteland.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649910111797248
+    m_Localized: Tsunami
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649934925299712
+    m_Localized: Massive waves surge inland, destroying everything in their wake.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56652191783813120
+    m_Localized: Rundenende
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56652337988861952
+    m_Localized: The investment {0} has been finished!
+    m_Metadata:
+      m_Items:
+      - rid: 7894437812287832149
+  - m_Id: 56659020039421952
+    m_Localized: Financing {0}
+    m_Metadata:
+      m_Items:
+      - rid: 7894437812287832149
+  - m_Id: 56659352559648768
+    m_Localized: Resources for {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56661867099422720
+    m_Localized: The investment has been fully funded and is now under construction.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56661867099422721
+    m_Localized: The investment was financed with {0} coins, but additional funds
+      are still needed. The resources have not yet been deducted.
+    m_Metadata:
+      m_Items:
+      - rid: 7894437812287832149
+  - m_Id: 56668768562413568
+    m_Localized: '{0} - {1}m away, takes {2} damage'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56670997235204096
+    m_Localized: Coins
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7894437812287832149
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 56641707357601792
+        - id: 56646535894892544
+        - id: 56652337988861952
+        - id: 56659020039421952
+        - id: 56661867099422721

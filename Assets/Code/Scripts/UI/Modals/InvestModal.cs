@@ -100,11 +100,12 @@ public class InvestModal : Modal {
 
         if (investment.inConstruction) {
             investCard.AddToClassList("in-construction");
-            investCard.Q<Label>("construction-status-info").text = $"Im Aufbau, {investment.cooldown} Runde(n) verbleibend";
+            string constructionStatusInfo = LocalizationManager.Instance.GetLocalizedText(56641707357601792, new object[] { investment.cooldown });
+            investCard.Q<Label>("construction-status-info").text = constructionStatusInfo;
         }
         else if (investment.completed) {
             investCard.AddToClassList("completion");
-            investCard.Q<Label>("completion-status-info").text = "Fertiggestellt";
+            investCard.Q<Label>("completion-status-info").text = LocalizationManager.Instance.GetLocalizedText(56645878458712064);
         }
         else {
             investCard.RemoveFromClassList("in-construction");
@@ -201,11 +202,12 @@ public class InvestModal : Modal {
 
         if (investment.inConstruction) {
             investCard.AddToClassList("in-construction");
-            investCard.Q<Label>("construction-status-info").text = $"Im Aufbau, {investment.cooldown} Runde(n) verbleibend";
+            string constructionStatusInfo = LocalizationManager.Instance.GetLocalizedText(56641707357601792, new object[] { investment.cooldown });
+            investCard.Q<Label>("construction-status-info").text = constructionStatusInfo;
         }
         else if (investment.completed) {
             investCard.AddToClassList("completion");
-            investCard.Q<Label>("completion-status-info").text = "Fertiggestellt";
+            investCard.Q<Label>("completion-status-info").text = LocalizationManager.Instance.GetLocalizedText(56645878458712064);
         }
         else {
             investCard.RemoveFromClassList("in-construction");
@@ -232,19 +234,27 @@ public class InvestModal : Modal {
     }
 
     private void RegisterTabClickSound(TabView tabView) {
-        if (tabView == null) return;
+        if (tabView == null) {
+            return;
+        }
 
         void AttachToTabButtons() {
             var buttons = tabView.Query<Button>().ToList();
             foreach (var btn in buttons) {
-                if (btn.userData as string == "sound-registered") continue;
+                if (btn.userData as string == "sound-registered") {
+                    continue;
+                }
+
                 btn.clicked += () => Audiomanager.Instance?.PlayClickSound();
                 btn.userData = "sound-registered";
             }
 
             var headers = tabView.Query<VisualElement>("unity-tab__header").ToList();
             foreach (var el in headers) {
-                if (el.userData as string == "sound-registered") continue;
+                if (el.userData as string == "sound-registered") {
+                    continue;
+                }
+
                 el.RegisterCallback<ClickEvent>(evt => Audiomanager.Instance?.PlayClickSound());
                 el.userData = "sound-registered";
             }
@@ -259,8 +269,7 @@ public class InvestModal : Modal {
 
         if (!foundAny) {
             EventCallback<GeometryChangedEvent> geomCb = null;
-            geomCb = (GeometryChangedEvent evt) =>
-            {
+            geomCb = (GeometryChangedEvent evt) => {
                 AttachToTabButtons();
                 tabView.UnregisterCallback<GeometryChangedEvent>(geomCb);
             };

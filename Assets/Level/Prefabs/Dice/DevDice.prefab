@@ -20724,7 +20724,7 @@ MonoBehaviour:
   model: {fileID: 1710043900875205986}
   iconTexture2D: {fileID: 2800000, guid: 11ec613e908643c4c831ec9fbeb444ee, type: 3}
   diceName: Dev Dice
-  values: 01000000
+  values: 05000000
   boardScale: 0.95
   previewScale: 0.75
   boardRotationSpeed: 500

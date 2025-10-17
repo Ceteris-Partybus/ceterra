@@ -23,7 +23,6 @@ public class InvestProposalVoteModal : Modal {
     private Button voteNoButton;
     private VisualElement votings;
     private Label infoTextLabel;
-    private const string infoTextTemplate = "<PLAYER> has proposed investing <AMOUNT> coins in <INVESTMENT> via the funds. Cast your vote!";
 
     public int InvestmentId;
     private Investment VoteInvestment => BoardContext.Instance.investments.Find(inv => inv.id == InvestmentId);
@@ -48,7 +47,7 @@ public class InvestProposalVoteModal : Modal {
         votings = modalElement.Q<VisualElement>("votings");
         infoTextLabel = modalElement.Q<Label>("info-text");
 
-        infoTextLabel.text = infoTextTemplate.Replace("<PLAYER>", player.PlayerName).Replace("<INVESTMENT>", LocalizationManager.Instance.GetLocalizedText(VoteInvestment.displayName)).Replace("<AMOUNT>", ProposedCoins.ToString());
+        infoTextLabel.text = LocalizationManager.Instance.GetLocalizedText(56646535894892544, new object[] { player.PlayerName, ProposedCoins, LocalizationManager.Instance.GetLocalizedText(VoteInvestment.displayName) });
 
         requiredFundsLabel.text = (VoteInvestment.requiredMoney - VoteInvestment.currentMoney).ToString();
         requiredResourcesLabel.text = VoteInvestment.requiredResources.ToString();
@@ -193,7 +192,7 @@ public class InvestProposalVoteModal : Modal {
 
     [ClientRpc]
     private void RpcDeclineInvestment() {
-        InfoModal.Instance.Message = "Die Investition wurde abgelehnt.";
+        InfoModal.Instance.Message = LocalizationManager.Instance.GetLocalizedText(56647493433524224);
         ModalManager.Instance.Show(InfoModal.Instance);
     }
 
