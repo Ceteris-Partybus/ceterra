@@ -28,7 +28,7 @@
             </ui:VisualElement>
             <ui:VisualElement class="input-row">
                 <ui:Label text="Digit Code:" class="input-label" />
-                <ui:TextField name="DigitCodeField" placeholder-text="0000" maxlength="4" class="input-field" />
+                <ui:TextField name="DigitCodeField" value="" maxlength="4" class="input-field" />
             </ui:VisualElement>
             <ui:Button text="VALIDATE CODE" name="ValidateCodeButton" class="action-button" style="width: 100%; height: 55px; font-size: 40px; margin-top: 15px;" />
             <ui:Button text="JOIN LOBBY" name="JoinLobbyButton" class="action-button join-lobby" style="height: 89px; width: 616px;">
