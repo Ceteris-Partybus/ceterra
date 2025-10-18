@@ -1,11 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
-using UnityEngine.Networking;
 using Mirror;
-using System;
-using System.Collections;
-using System.Text;
 
 public class PlayMenuController : MonoBehaviour {
     private Button backButton;
@@ -16,28 +12,12 @@ public class PlayMenuController : MonoBehaviour {
     private UIDocument uIDocument;
 
     private const string MAIN_MENU_SCENE = "MainMenu";
-    
-    // HTTP API endpoint for code validation
-    private const string API_URL = "https://api.okolyt.com/check-code";
 
     private TextField ipAddressField;
     private TextField portField;
     private TextField digitCodeField;
 
     private string originalValidateButtonText;
-
-    [Serializable]
-    private class CodeRequest {
-        public string code;
-    }
-
-    [Serializable]
-    private class CodeResponse {
-        public bool success;
-        public string message;
-        public string domain;
-        public int port;
-    }
 
     private void OnEnable() {
         var root = uIDocument.rootVisualElement;
@@ -73,7 +53,6 @@ public class PlayMenuController : MonoBehaviour {
             Debug.LogError("DigitCodeField not found in UI!");
         } else {
             digitCodeField.focusable = true;
-            Debug.Log("DigitCodeField initialized successfully");
         }
     }
 
@@ -90,62 +69,33 @@ public class PlayMenuController : MonoBehaviour {
             return;
         }
 
-        SetValidateButtonLoading(true);
-        StartCoroutine(CheckCodeCoroutine(code));
+        SetValidateButtonLoading(true, "VALIDATING...");
+        StartCoroutine(InviteCodeValidator.ValidateCode(code, OnValidateSuccess, OnValidateError));
     }
 
-    private IEnumerator CheckCodeCoroutine(string code) {
-        Debug.Log($"Validating code: {code}");
-
-        validateCodeButton.text = "VALIDATING...";
-
-        // JSON payload
-        CodeRequest request = new CodeRequest { code = code };
-        string jsonPayload = JsonUtility.ToJson(request);
-        byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonPayload);
-
-        // POST request
-        using (UnityWebRequest webRequest = UnityWebRequest.Post(API_URL, jsonPayload, "application/json")) {
-            webRequest.timeout = 10;
-
-            yield return webRequest.SendWebRequest();
-
-            if (webRequest.result == UnityWebRequest.Result.Success) {
-                string responseText = webRequest.downloadHandler.text;
-                Debug.Log($"Response: {responseText}");
-
-                try {
-                    // example response: {"success":true,"message":"Code is valid","domain":"example.de","port":7777}
-                    CodeResponse response = JsonUtility.FromJson<CodeResponse>(responseText);
-
-                    if (response != null && response.success) {
-                        Debug.Log($"Valid code! Connect to {response.domain}:{response.port}");
-                        
-                        validateCodeButton.text = "CONNECTING...";
-                        
-                        ipAddressField.value = response.domain;
-                        portField.value = response.port.ToString();
-                        
-                        JoinServer(response.domain, response.port);
-                    } else {
-                        Debug.LogWarning($"✗ {response?.message ?? "Code is not valid"}");
-                        SetValidateButtonLoading(false);
-                    }
-                } catch (Exception e) {
-                    Debug.LogError($"Failed to parse response: {e.Message}. Response was: {responseText}");
-                    SetValidateButtonLoading(false);
-                }
-            } else {
-                Debug.LogError($"Failed to validate code: {webRequest.error} (Status: {webRequest.responseCode})");
-                SetValidateButtonLoading(false);
-            }
-        }
+    private void OnValidateSuccess(InviteCodeValidator.CodeResponse response) {
+        Debug.Log($"✓ Valid code! Connect to {response.domain}:{response.port}");
+        
+        SetValidateButtonLoading(true, "CONNECTING...");
+        
+        ipAddressField.value = response.domain;
+        portField.value = response.port.ToString();
+        
+        JoinServer(response.domain, response.port);
     }
 
-    private void SetValidateButtonLoading(bool isLoading) {
+    private void OnValidateError(string error) {
+        Debug.LogWarning($"✗ Validation failed: {error}");
+        SetValidateButtonLoading(false);
+    }
+
+    private void SetValidateButtonLoading(bool isLoading, string customText = null) {
         if (isLoading) {
             validateCodeButton.AddToClassList("loading");
             validateCodeButton.SetEnabled(false);
+            if (!string.IsNullOrEmpty(customText)) {
+                validateCodeButton.text = customText;
+            }
         } else {
             validateCodeButton.RemoveFromClassList("loading");
             validateCodeButton.SetEnabled(true);
@@ -179,8 +129,6 @@ public class PlayMenuController : MonoBehaviour {
             portTransport.Port = (ushort)port;
         }
 
-        // Scene change is done indirectly by the NetworkManager when a client connects
-        // Scene will change to the Scene defined in NetworkManager's "Online Scene"
         NetworkManager.singleton.StartClient();
     }
 

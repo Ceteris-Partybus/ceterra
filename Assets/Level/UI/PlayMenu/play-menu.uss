@@ -187,3 +187,14 @@
     background-color: rgb(80, 80, 120);
     opacity: 0.7;
 }
+
+@keyframes pulse {
+    0% { opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { opacity: 0.7; }
+}
+
+.validate-code.loading {
+    background-color: rgb(80, 80, 120);
+    animation: pulse 1.5s ease-in-out infinite;
+}
