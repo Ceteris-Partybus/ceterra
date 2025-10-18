@@ -6,7 +6,7 @@ using System.Text;
 
 /// Helper for validating codes against HTTP API
 public class InviteCodeValidator : MonoBehaviour {
-    private const string API_URL = "http://api.example.com:3000/check-code";
+    private const string API_URL = "https://api.example.com/check-code";
     
     [Serializable]
     public class CodeRequest {
