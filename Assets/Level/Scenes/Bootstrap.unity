@@ -298,12 +298,7 @@ MonoBehaviour:
   _allPlayersReady: 0
   clientIndex: 0
   endScene: Assets/Level/Scenes/End.unity
-  selectableCharacters:
-  - {fileID: 8313941121211207586, guid: b9eb311b0649fae41ad5ad962bc2eae8, type: 3}
-  - {fileID: 8695115523406977269, guid: f39a71aa5ffb54f459a1fb88bbd8c3f7, type: 3}
-  - {fileID: 8695115523406977269, guid: d3efe0d13d76db54e8e60a2e8ad21f1d, type: 3}
-  - {fileID: 8695115523406977269, guid: 7c567bd50e6bc460da7f6f69475670fd, type: 3}
-  - {fileID: 8695115523406977269, guid: fa5a94657c14e454395970b1ba415c6e, type: 3}
+  selectableCharacters: []
   selectableDices:
   - {fileID: 5754625222157326443, guid: 7dc5a4f6f3794f341abde5c12b57d9f8, type: 3}
   - {fileID: 5754625222157326443, guid: ce1d4306273adfb43ad9b0da4a68151e, type: 3}
