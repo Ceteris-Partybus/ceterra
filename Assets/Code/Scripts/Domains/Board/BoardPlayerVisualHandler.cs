@@ -22,8 +22,6 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
     [SerializeField] private string jumpTrigger;
     [SerializeField] private string diceHitTrigger;
     [SerializeField] private string idleTrigger;
-    [SerializeField] private string diceSpinTrigger;
-    [SerializeField] private string junctionEntryTrigger;
 
     private Character character;
     private Dice dice;
@@ -69,8 +67,6 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
         character.Animator.SetTrigger(animationType switch {
             AnimationType.DICE_HIT => diceHitTrigger,
             AnimationType.IDLE => idleTrigger,
-            AnimationType.DICE_SPIN => diceSpinTrigger,
-            AnimationType.JUNCTION_ENTRY => junctionEntryTrigger,
             AnimationType.RUN => runTrigger,
             AnimationType.JUMP => jumpTrigger,
             _ => throw new ArgumentException("Invalid animation type")
@@ -85,7 +81,6 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
         yield return CameraHandler.Instance.ZoomIn();
 
         dice.OnRollStart();
-        TriggerAnimation(AnimationType.DICE_SPIN);
     }
 
     public IEnumerator OnRollCancel() {
