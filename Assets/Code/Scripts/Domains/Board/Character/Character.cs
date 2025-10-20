@@ -1,23 +1,8 @@
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UIElements;
-using TMPro;
 
 public class Character : MonoBehaviour {
-    [Header("Particles")]
-    [SerializeField] private Transform particles;
-    public Transform Particles => particles;
-    [SerializeField] private ParticleSystem coinGainParticle;
-    public ParticleSystem CoinGainParticle => coinGainParticle;
-    [SerializeField] private ParticleSystem coinLossParticle;
-    public ParticleSystem CoinLossParticle => coinLossParticle;
-    [SerializeField] private ParticleSystem healthGainParticle;
-    public ParticleSystem HealthGainParticle => healthGainParticle;
-    [SerializeField] private ParticleSystem healthLossParticle;
-    public ParticleSystem HealthLossParticle => healthLossParticle;
-    [SerializeField] private TextMeshPro resultLabel;
-    public TextMeshPro ResultLabel => resultLabel;
-
     [Header("Player Parameters")]
     [SerializeField] private Transform model;
     [SerializeField] private Texture2D iconTexture2D;
