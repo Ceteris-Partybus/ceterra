@@ -4,40 +4,43 @@ using UnityEngine.UIElements;
 
 public class Character : MonoBehaviour {
     [Header("Player Parameters")]
-    [SerializeField] private Transform model;
+    private Animator animator;
+    public Animator Animator => animator ??= GetComponent<Animator>();
     [SerializeField] private Texture2D iconTexture2D;
     private StyleBackground icon;
     public StyleBackground Icon => icon;
 
     [Header("General")]
-    [SerializeField] private Animator animator;
-    public Animator Animator => animator;
     [SerializeField] private string characterName;
-    public string CharacterName => characterName;
+    public string CharacterName {
+        get => characterName; set =>
+        characterName = value;
+    }
+
     [SerializeField] private string info;
     public string Info => info;
-    [SerializeField] private float jumpPower;
-    [SerializeField] private float jumpDuration;
+    [SerializeField] private float jumpPower = 1f;
+    [SerializeField] private float jumpDuration = .6f;
 
     void Start() {
         icon = new StyleBackground(iconTexture2D);
     }
 
     public void HitDice() {
-        model.DOComplete();
-        model.DOJump(transform.position, jumpPower, 1, jumpDuration);
+        transform.DOComplete();
+        transform.DOJump(transform.position, jumpPower, 1, jumpDuration);
     }
 
     public void FaceCamera() {
-        var directionToCamera = Camera.main.transform.position - model.transform.position;
+        var directionToCamera = Camera.main.transform.position - transform.position;
         directionToCamera.y = 0;
-        if (directionToCamera.sqrMagnitude > 0.0001f) {
+        if (directionToCamera.sqrMagnitude > .0001f) {
             var targetRotation = Quaternion.LookRotation(directionToCamera, Vector3.up);
-            model.rotation = Quaternion.Lerp(model.transform.rotation, targetRotation, 10 * Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 10 * Time.deltaTime);
         }
     }
 
     public void SetMovementRotation(Quaternion targetRotation, float lerpSpeed) {
-        model.rotation = Quaternion.Lerp(model.rotation, targetRotation, lerpSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, lerpSpeed * Time.deltaTime);
     }
 }

@@ -94,7 +94,6 @@ public class Dice : MonoBehaviour {
 
     public void OnRollStart() {
         isSpinning = true;
-
         StartCoroutine(RandomDiceNumberCoroutine());
 
         Show();
@@ -133,7 +132,7 @@ public class Dice : MonoBehaviour {
 
     public void OnRollEnd(int roll) {
         Hide();
-        resultParticle.Play();;
+        resultParticle.Play();
 
         ShowDiceResultLabel();
         resultLabel.text = roll.ToString();

@@ -1,6 +1,7 @@
 using Mirror;
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -82,6 +83,8 @@ public class BoardPlayer : SceneConditionalPlayer {
         this.character = lobbyPlayer.CurrentCharacterInstance.GetComponent<Character>();
         this.character.transform.SetParent(transform, false);
         this.dice = lobbyPlayer.CurrentDiceInstance.GetComponent<Dice>();
+        var dicePosition = transform.GetComponentsInChildren<Transform>().FirstOrDefault(t => t.CompareTag("DicePosition"));
+        this.dice.transform.SetParent(dicePosition, false);
         visualHandler = GetComponent<BoardPlayerVisualHandler>().Initialize(this.character, this.dice);
     }
 

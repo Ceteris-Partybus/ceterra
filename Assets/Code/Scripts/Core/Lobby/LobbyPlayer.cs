@@ -89,7 +89,7 @@ public class LobbyPlayer : NetworkRoomPlayer {
     }
 
     private void AttachDiceToCharacter() {
-        var dicePosition = currentCharacterInstance.GetComponentsInChildren<Transform>().FirstOrDefault(t => t.CompareTag("DicePosition"));
+        var dicePosition = transform.GetComponentsInChildren<Transform>().FirstOrDefault(t => t.CompareTag("DicePosition"));
         currentDiceInstance?.transform.SetParent(dicePosition, false);
     }
 
