@@ -1192,7 +1192,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 56152728932442112
-    m_Localized: Charakter-Auswahl
+    m_Localized: Charakter
     m_Metadata:
       m_Items: []
   - m_Id: 56153017580249088
@@ -1204,7 +1204,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 56153427497967616
-    m_Localized: "Auswahl des W\xFCrfels"
+    m_Localized: "W\xFCrfel"
     m_Metadata:
       m_Items: []
   - m_Id: 56153847255523328
@@ -1273,6 +1273,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 56157094477291520
     m_Localized: Investition vorschlagen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 58035861536194560
+    m_Localized: Triff deine Auswahl
     m_Metadata:
       m_Items: []
   references:

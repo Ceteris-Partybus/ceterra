@@ -59,7 +59,7 @@
 
 .info-value {
     font-size: 32px;
-     color: #ffffff;
+    color: #ffffff;
     text-shadow: 2px 2px 2px #745136;
     -unity-text-align: middle-right;
     flex-grow: 1;

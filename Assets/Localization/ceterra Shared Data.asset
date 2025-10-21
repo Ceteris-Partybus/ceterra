@@ -1231,6 +1231,10 @@ MonoBehaviour:
     m_Key: modal.propose_investment
     m_Metadata:
       m_Items: []
+  - m_Id: 58035861536194560
+    m_Key: selection.header
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

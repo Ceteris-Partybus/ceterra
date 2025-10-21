@@ -12,34 +12,35 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    padding: 25px 15px;
-    background-color: rgba(0, 0, 0, 0.95);
-    border-radius: 20px;
+    padding: 30px 20px;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
+    border-radius: 25px;
     height: 30%;
+    border-width: 0px;
 }
 
 .lobby-player-slot {
     height: 100%;
-    width: 440px;
-    padding: 15px;
-    border-radius: 12px;
+    width: 450px;
+    padding: 20px;
+    border-radius: 18px;
     border-width: 2px;
     flex-direction: column;
     justify-content: space-around;
-    background-color: rgba(200, 140, 100, 0.05);
+    background-color: rgba(255, 255, 255, 0.15);
     border-color: rgba(200, 140, 100, 0.6);
 }
 
 .lobby-player-slot.empty-slot {
     justify-content: center;
     align-items: center;
-    background-color: rgba(50, 50, 50, 0.3);
-    border-color: rgba(100, 100, 100, 0.3);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(200, 140, 100, 0.4);
 }
 
 .lobby-player-slot.ready {
-    background-color: rgba(160, 199, 100, 0.05);
-    border-color: rgba(160, 199, 100, 0.6);
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(160, 199, 100, 0.7);
 }
 
 .player-slot-content {
@@ -73,13 +74,15 @@
 }
 
 .lobby-player-slot.empty-slot .player-name {
-    font-size: 38px;
+    font-size: 40px;
     color: rgba(255, 255, 255, 0.5);
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.6);
 }
 
 .player-header {
     flex-direction: column;
     flex-shrink: 0;
+    margin-bottom: 10px;
 }
 
 .player-name-row {
@@ -90,10 +93,10 @@
 }
 
 .player-name {
-    font-size: 42px;
+    font-size: 40px;
     color: white;
     flex-shrink: 1;
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 1);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -108,6 +111,7 @@
 .selection-area {
     flex-direction: row;
     justify-content: space-around;
+    margin-bottom: 10px;
 }
 
 .icon-selection-group {
@@ -123,75 +127,91 @@
 }
 
 .icon {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
-    border-width: 3px;
-    border-color: rgba(200, 140, 100, 0.6);
+    border-width: 2px;
+    border-color: rgba(200, 140, 100, 0.7);
     background-size: cover;
     flex-shrink: 0;
     -unity-background-scale-mode: scale-and-crop;
 }
 
 .icon-label {
-    font-size: 24px;
+    font-size: 20px;
     color: rgba(255, 255, 255, 0.9);
     overflow: hidden;
     text-overflow: ellipsis;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.6);
+    margin-top: 5px;
 }
 
 .button-area {
     flex-direction: row;
     flex-shrink: 0;
+    padding: 0px 6px;
 }
 
 .character-selection-button,
 .ready-button {
-    height: 40px;
+    height: 60px;
     flex-grow: 1;
-    font-size: 25px;
-    border-radius: 8px;
-    border-width: 2px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-width: 0px;
+    border-radius: 0px;
     color: white;
+    font-size: 28px;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
     transition-duration: 0.2s;
-    transition-property: background-color, border-color;
+    transition-property: scale;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    margin-right: 12px;
 }
 
 .character-selection-button {
-    background-color: rgba(70, 130, 180, 0.9);
-    border-color: rgba(50, 100, 150, 1);
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/blue_default.png");
 }
 
 .character-selection-button:hover {
-    background-color: rgba(90, 150, 200, 1);
-    border-color: rgba(70, 130, 180, 1);
+    scale: 1.02 1.02;
+}
+
+.character-selection-button:active {
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/blue_pressed.png");
+    scale: 0.98 0.98;
 }
 
 .character-selection-button:disabled {
-    background-color: rgba(70, 130, 180, 0.5);
-    border-color: rgba(50, 100, 150, 0.5);
-    color: rgba(255, 255, 255, 0.6);
+    opacity: 0.5;
 }
 
 .ready-button {
-    background-color: rgba(100, 180, 100, 0.9);
-    border-color: rgba(80, 150, 80, 1);
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/green_default.png");
 }
 
 .ready-button:hover {
-    background-color: rgba(120, 200, 120, 1);
-    border-color: rgba(100, 180, 100, 1);
+    scale: 1.02 1.02;
+}
+
+.ready-button:active {
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/green_pressed.png");
+    scale: 0.98 0.98;
 }
 
 .ready-button.ready {
-    background-color: rgba(180, 120, 80, 0.9);
-    border-color: rgba(150, 100, 60, 1);
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_default.png");
 }
 
 .ready-button.ready:hover {
-    background-color: rgba(200, 140, 100, 1);
-    border-color: rgba(180, 120, 80, 1);
+    scale: 1.02 1.02;
+}
+
+.ready-button.ready:active {
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_pressed.png");
+    scale: 0.98 0.98;
 }
 
 #button-templates {
