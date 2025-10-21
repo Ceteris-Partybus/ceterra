@@ -19,8 +19,8 @@ public class Character : MonoBehaviour {
 
     [SerializeField] private string info;
     public string Info => info;
-    [SerializeField] private float jumpPower = 1f;
-    [SerializeField] private float jumpDuration = .6f;
+    private const float JUMP_POWER = 1.5f;
+    private const float JUMP_DURATION = .6f;
 
     void Start() {
         icon = new StyleBackground(iconTexture2D);
@@ -28,7 +28,7 @@ public class Character : MonoBehaviour {
 
     public void HitDice() {
         transform.DOComplete();
-        transform.DOJump(transform.position, jumpPower, 1, jumpDuration);
+        transform.DOJump(transform.position, JUMP_POWER, 1, JUMP_DURATION);
     }
 
     public void FaceCamera() {
