@@ -8,8 +8,8 @@ using UnityEngine;
 public class CharacterPrefabCreator : EditorWindow {
     public GameObject[] fbxAssets;
     public RuntimeAnimatorController baseController;
-    public string prefabSavePath = "Assets/Level/Prefabs/Player/Prefabs/";
-    public string animationSetSavePath = "Assets/Level/Prefabs/Player/AnimationSets/";
+    public string prefabSavePath = "Assets/Level/Prefabs/Player/SelectableCharacters/";
+    public float scale = .6f;
 
     [MenuItem("Tools/Character Prefab Creator")]
     static void OpenWindow() {
@@ -19,49 +19,58 @@ public class CharacterPrefabCreator : EditorWindow {
     void OnGUI() {
         GUILayout.Label("Create Character Prefab", EditorStyles.boldLabel);
 
-        SerializedObject so = new SerializedObject(this);
-        SerializedProperty fbxsProp = so.FindProperty("fbxAssets");
+        var so = new SerializedObject(this);
+        var fbxsProp = so.FindProperty("fbxAssets");
         EditorGUILayout.PropertyField(fbxsProp, new GUIContent("FBX Assets"), true);
         so.ApplyModifiedProperties();
 
         baseController = (RuntimeAnimatorController)EditorGUILayout.ObjectField("Base Controller", baseController, typeof(RuntimeAnimatorController), false);
         prefabSavePath = EditorGUILayout.TextField("Prefab Save Path", prefabSavePath);
-        animationSetSavePath = EditorGUILayout.TextField("Animation Set Save Path", animationSetSavePath);
+        scale = EditorGUILayout.FloatField("Scale", scale);
 
         if (GUILayout.Button("Create Prefab")) {
             if (fbxAssets == null || fbxAssets.Length == 0 || baseController == null) {
-                Debug.LogWarning("Please assign FBX and Base Controller.");
+                Debug.LogWarning("[Editor] Please assign FBX and Base Controller.");
                 return;
             }
             EnsureFolderExists(prefabSavePath);
-            EnsureFolderExists(animationSetSavePath);
 
             fbxAssets.Where(fbx => fbx != null).ToList().ForEach(fbx => CreateCharacterPrefab(fbx));
 
+            AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
     }
 
     void CreateCharacterPrefab(GameObject fbx) {
+        var fbxPath = AssetDatabase.GetAssetPath(fbx);
+        var assets = AssetDatabase.LoadAllAssetsAtPath(fbxPath);
+        var mesh = assets.OfType<Mesh>().FirstOrDefault();
+
         var instance = PrefabUtility.InstantiatePrefab(fbx) as GameObject;
-        instance.AddComponent<Animator>();
+        instance.transform.localScale = Vector3.one * scale;
 
-        var animationSet = CreateInstance<CharacterAnimationSet>();
-        animationSet.fbxAsset = fbx;
-        CharacterAnimationSetEditor.AutoFill(animationSet);
-
-        AssetDatabase.CreateAsset(animationSet, animationSetSavePath + fbx.name + ".asset");
-        AssetDatabase.SaveAssets();
+        var collider = instance.AddComponent<MeshCollider>();
+        collider.sharedMesh = mesh;
 
         var loader = instance.AddComponent<CharacterAnimatorLoader>();
         loader.baseController = baseController;
-        loader.animationSet = animationSet;
 
-        var savedPrefab = PrefabUtility.SaveAsPrefabAsset(instance, prefabSavePath + fbx.name + ".prefab");
+        AutoFillClips(loader, assets);
+
+        var character = instance.AddComponent<Character>();
+        character.CharacterName = fbx.name;
+
+        var prefabPath = prefabSavePath + fbx.name + ".prefab";
+        if (AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath) != null) {
+            AssetDatabase.DeleteAsset(prefabPath);
+        }
+
+        var savedPrefab = PrefabUtility.SaveAsPrefabAsset(instance, prefabPath);
         AddPrefabToGameManager(savedPrefab);
         DestroyImmediate(instance);
 
-        Debug.Log($"[Editor] Created and saved prefab and animation set for {fbx.name}");
+        Debug.Log($"[Editor] Created a prefab for {fbx.name}");
     }
 
     private static void EnsureFolderExists(string folderPath) {
@@ -75,12 +84,12 @@ public class CharacterPrefabCreator : EditorWindow {
         }
 
         AssetDatabase.CreateFolder(parent, newFolderName);
-        Debug.Log($"Created folder: {folderPath}");
+        Debug.Log($"[Editor] Created folder: {folderPath}");
     }
 
     private static void AddPrefabToGameManager(GameObject prefab) {
         if (EditorSceneManager.GetActiveScene().name != "Bootstrap") {
-            Debug.Log($"Cannot add prefab to GameManager.selectableCharacters unless Bootstrap scene is open.");
+            Debug.Log($"[Editor] Cannot add prefab to GameManager.selectableCharacters unless Bootstrap scene is open.");
             return;
         }
 
@@ -94,5 +103,38 @@ public class CharacterPrefabCreator : EditorWindow {
             EditorUtility.SetDirty(gameManager);
             Debug.Log($"[Editor] Added {prefab.name} to GameManager.selectableCharacters");
         }
+    }
+
+    private static void AutoFillClips(CharacterAnimatorLoader loader, Object[] assets) {
+        var clips = assets
+            .OfType<AnimationClip>()
+            .Where(clip => !clip.name.ToLower().Contains("preview"))
+            .ToArray();
+
+        if (clips == null || clips.Length == 0) {
+            Debug.LogWarning("[Editor] No clips found in FBX!");
+            return;
+        }
+
+        Undo.RecordObject(loader, "Auto-Fill Character Animation Clips");
+        loader.animationClips = clips.Select(clip => {
+            var cleanName = CleanClipName(clip.name);
+
+            if (cleanName == "run" || cleanName == "idle") {
+                var settings = AnimationUtility.GetAnimationClipSettings(clip);
+                settings.loopTime = true;
+                settings.loopBlend = true;
+                AnimationUtility.SetAnimationClipSettings(clip, settings);
+                EditorUtility.SetDirty(clip);
+            }
+
+            return new CharacterAnimatorLoader.ClipEntry(cleanName, clip);
+        }).ToList();
+
+        EditorUtility.SetDirty(loader);
+    }
+
+    private static string CleanClipName(string name) {
+        return name.Split('|').Last().ToLower().Trim();
     }
 }
