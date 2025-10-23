@@ -9,22 +9,22 @@
         </ui:VisualElement>
         <ui:VisualElement name="selection-area" class="selection-area">
             <ui:VisualElement name="character-selection" class="icon-selection-group">
-                <ui:VisualElement name="character-content" class="icon-content">
-                    <ui:VisualElement name="character-icon" class="icon" />
-                    <ui:Label name="character-name" class="icon-label" />
-                </ui:VisualElement>
+                <ui:VisualElement name="character-icon" class="icon" />
+                <ui:Label name="character-name" class="icon-label" />
             </ui:VisualElement>
             <ui:VisualElement name="dice-selection" class="icon-selection-group">
-                <ui:VisualElement name="dice-content" class="icon-content">
-                    <ui:VisualElement name="dice-icon" class="icon" />
-                    <ui:Label name="dice-name" class="icon-label" />
-                </ui:VisualElement>
+                <ui:VisualElement name="dice-icon" class="icon" />
+                <ui:Label name="dice-name" class="icon-label" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="button-area" class="button-area" />
-        <ui:VisualElement name="button-templates">
+        <ui:VisualElement name="button-area" class="button-area">
             <ui:Button text="Character Selection" name="character-selection-button" class="character-selection-button" />
             <ui:Button text="Not Ready" name="ready-button" class="ready-button" />
         </ui:VisualElement>
-    </ui:VisualElement>
+        <ui:VisualElement name="ready-status-display-container">
+            <ui:VisualElement name="ready-status-display">
+                <ui:Label name="ready-status-display-label" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+     </ui:VisualElement>
 </ui:UXML>

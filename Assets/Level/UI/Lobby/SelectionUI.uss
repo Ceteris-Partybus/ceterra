@@ -100,8 +100,12 @@
 .selector-title {
     font-size: 42px;
     color: #ffffff;
-    text-shadow: 2px 2px 2px #745136;
+    -unity-text-outline-color: #745136;
+    -unity-text-outline-width: 3px;
+    -unity-font-style: bold;
     -unity-text-align: middle-center;
+    overflow: hidden;
+    text-overflow: ellipsis;
     margin-bottom: 5px;
 }
 
@@ -124,7 +128,6 @@
     color: rgba(0, 0, 0, 0.9);
     font-size: 32px;
     padding: 15px 20px;
-    -unity-font-style: normal;
 }
 
 .select-button {
@@ -134,18 +137,10 @@
     color: #FFFFFF;
     text-shadow: 1px 1px 1px #000000;
     -unity-text-align: upper-center;
-    transition-duration: 0.3s;
-    transition-property: background-image, scale, translate, text-shadow;
-    transition-timing-function: ease-out;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: transparent;
     background-image: url("project://database/Assets/Art/Sprites/Buttons/green_default.png");
     border-color: transparent;
     letter-spacing: 1px;
-}
-
-.select-button:hover {
-    transition-duration: 0.2s;
-    scale: 1.02 1.02;
 }
 
 .select-button:active {
