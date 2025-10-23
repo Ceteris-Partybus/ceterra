@@ -165,8 +165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b83ada8ac830fd14ebe43bbc43a1c41f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iconTexture2D: {fileID: 0}
+  iconTexture2D: {fileID: 2800000, guid: 91113361b815328448f409c209dec7fe, type: 3}
   characterName: Casual_Female
   info: 
-  jumpPower: 1
-  jumpDuration: 0.6
