@@ -166,5 +166,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconTexture2D: {fileID: 2800000, guid: 86aa4f12d70bd6e4f91ec9a33c90e69a, type: 3}
-  characterName: Doctor
+  characterName: Doctor 4
   info: Keeps the community healthy and thriving

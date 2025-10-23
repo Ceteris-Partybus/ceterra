@@ -166,5 +166,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconTexture2D: {fileID: 2800000, guid: 0b84432eddd2950479355da8445f67a6, type: 3}
-  characterName: Trainer
+  characterName: Trainer 1
   info: Empowers the community with new skills
