@@ -102,11 +102,9 @@
 }
 
 .player-ping {
-    font-size: 32px;
+    font-size: 38px;
     color: #7ec300;
     flex-shrink: 0;
-    -unity-text-outline-color: #ffffff;
-    -unity-text-outline-width: 2px;
 }
 
 .selection-area {
