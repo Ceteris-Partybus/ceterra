@@ -44,6 +44,8 @@ public class CharacterPrefabCreator : EditorWindow {
 
     void CreateCharacterPrefab(GameObject fbx) {
         var fbxPath = AssetDatabase.GetAssetPath(fbx);
+        ConfigureAnimationSettings(fbxPath);
+
         var assets = AssetDatabase.LoadAllAssetsAtPath(fbxPath);
         var mesh = assets.OfType<Mesh>().FirstOrDefault();
 
@@ -71,6 +73,21 @@ public class CharacterPrefabCreator : EditorWindow {
         DestroyImmediate(instance);
 
         Debug.Log($"[Editor] Created a prefab for {fbx.name}");
+    }
+
+    private static void ConfigureAnimationSettings(string fbxPath) {
+        var modelImporter = AssetImporter.GetAtPath(fbxPath) as ModelImporter;
+        var animations = modelImporter.defaultClipAnimations;
+        foreach (var clip in animations) {
+            var cleanName = CleanClipName(clip.name);
+            if (cleanName == "run" || cleanName == "idle") {
+                clip.loopTime = true;
+                clip.loopPose = true;
+            }
+        }
+
+        modelImporter.clipAnimations = animations;
+        modelImporter.SaveAndReimport();
     }
 
     private static void EnsureFolderExists(string folderPath) {
@@ -119,15 +136,7 @@ public class CharacterPrefabCreator : EditorWindow {
         Undo.RecordObject(loader, "Auto-Fill Character Animation Clips");
         loader.animationClips = clips.Select(clip => {
             var cleanName = CleanClipName(clip.name);
-
-            if (cleanName == "run" || cleanName == "idle") {
-                var settings = AnimationUtility.GetAnimationClipSettings(clip);
-                settings.loopTime = true;
-                settings.loopBlend = true;
-                AnimationUtility.SetAnimationClipSettings(clip, settings);
-                EditorUtility.SetDirty(clip);
-            }
-
+            Debug.Log($"[Editor] Auto-filled clip: {cleanName}, name before cleaning: {clip.name}");
             return new CharacterAnimatorLoader.ClipEntry(cleanName, clip);
         }).ToList();
 

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &8443795123351586502
+--- !u!1001 &8489194505774735645
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -70,26 +70,26 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e7a521ba2c219ce4e8efaf54c71bbe18, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7011069765546804928}
+      addedObject: {fileID: 2908783605123833818}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e7a521ba2c219ce4e8efaf54c71bbe18, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7560815895206530009}
+      addedObject: {fileID: 1863025129677225396}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e7a521ba2c219ce4e8efaf54c71bbe18, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7976014066552845720}
+      addedObject: {fileID: 5662590545140681246}
   m_SourcePrefab: {fileID: 100100000, guid: e7a521ba2c219ce4e8efaf54c71bbe18, type: 3}
---- !u!1 &8786253752890899351 stripped
+--- !u!1 &8723125844390419532 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e7a521ba2c219ce4e8efaf54c71bbe18, type: 3}
-  m_PrefabInstance: {fileID: 8443795123351586502}
+  m_PrefabInstance: {fileID: 8489194505774735645}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &7011069765546804928
+--- !u!64 &2908783605123833818
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8786253752890899351}
+  m_GameObject: {fileID: 8723125844390419532}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -105,13 +105,13 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2959467708922500008, guid: e7a521ba2c219ce4e8efaf54c71bbe18, type: 3}
---- !u!114 &7560815895206530009
+--- !u!114 &1863025129677225396
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8786253752890899351}
+  m_GameObject: {fileID: 8723125844390419532}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3967d511f3569024db05668d1ad64290, type: 3}
@@ -153,13 +153,13 @@ MonoBehaviour:
     clip: {fileID: -5599002979973759676, guid: e7a521ba2c219ce4e8efaf54c71bbe18, type: 3}
   - name: walk_carry
     clip: {fileID: -2469224417514991532, guid: e7a521ba2c219ce4e8efaf54c71bbe18, type: 3}
---- !u!114 &7976014066552845720
+--- !u!114 &5662590545140681246
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8786253752890899351}
+  m_GameObject: {fileID: 8723125844390419532}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b83ada8ac830fd14ebe43bbc43a1c41f, type: 3}
