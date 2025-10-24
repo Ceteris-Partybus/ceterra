@@ -130,7 +130,7 @@ public class Dice : MonoBehaviour {
         model.transform.DOPunchScale(Vector3.one / 4, .3f, 10, 1);
     }
 
-    public void OnRollEnd(int roll) {
+    public WaitWhile OnRollEnd(int roll) {
         Hide();
         resultParticle.Play();
 
@@ -138,6 +138,8 @@ public class Dice : MonoBehaviour {
         resultLabel.text = roll.ToString();
         resultLabel.transform.DOComplete();
         resultLabel.transform.DOScale(0, .2f).From().SetEase(scaleEase);
+
+        return new WaitWhile(() => resultParticle.isPlaying);
     }
 
     public void ShowDiceResultLabel() {

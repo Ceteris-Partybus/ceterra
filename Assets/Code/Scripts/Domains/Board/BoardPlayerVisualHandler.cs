@@ -98,10 +98,12 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
         dice.OnRollDisplay(diceValue);
         yield return new WaitForSeconds(.5f);
 
-        dice.OnRollEnd(diceValue);
+        var waitForRollEnd = dice.OnRollEnd(diceValue);
         yield return new WaitForSeconds(1f);
 
         yield return CameraHandler.Instance.ZoomOut();
+        yield return waitForRollEnd;
+
         cmdRollSequenceFinished();
     }
 
