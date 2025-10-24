@@ -25,7 +25,7 @@
 
             <ui:Label class="section-title">
                 <Bindings>
-                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56152728932442112)" />
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(59257155711746048)" />
                 </Bindings>
             </ui:Label>
             <ui:VisualElement name="ColorSelector" class="selector-box">

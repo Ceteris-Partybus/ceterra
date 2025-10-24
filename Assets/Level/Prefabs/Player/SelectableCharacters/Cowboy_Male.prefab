@@ -166,5 +166,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconTexture2D: {fileID: 2800000, guid: 61da22ba75d2c444b8067d19c262374d, type: 3}
-  characterName: Rancher 3
-  info: Works in harmony with the land
+  characterName: Cowboy_male 3
+  info: Cowboy_info

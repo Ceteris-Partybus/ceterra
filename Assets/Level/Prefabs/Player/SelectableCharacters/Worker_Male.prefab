@@ -166,5 +166,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconTexture2D: {fileID: 2800000, guid: c447338c81cc2a047853462408a7f95d, type: 3}
-  characterName: Builder 2
-  info: Turns sustainable plans into reality
+  characterName: Worker_male 2
+  info: Worker_info

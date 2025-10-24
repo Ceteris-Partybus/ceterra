@@ -1270,6 +1270,334 @@ MonoBehaviour:
     m_Localized: Make your selection
     m_Metadata:
       m_Items: []
+  - m_Id: 59257155711746048
+    m_Localized: Colors
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532939935744
+    m_Localized: Shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490176
+    m_Localized: Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490177
+    m_Localized: Pants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490178
+    m_Localized: Belt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490179
+    m_Localized: Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490180
+    m_Localized: Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684508
+    m_Localized: Apron
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684509
+    m_Localized: Pants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684510
+    m_Localized: Neckerchief
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684511
+    m_Localized: Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684512
+    m_Localized: Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684513
+    m_Localized: Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684519
+    m_Localized: Moustache
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684520
+    m_Localized: Chef hat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684527
+    m_Localized: Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684528
+    m_Localized: Pants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684529
+    m_Localized: Scarf
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684530
+    m_Localized: Jacket
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684531
+    m_Localized: Hat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684532
+    m_Localized: Top
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684533
+    m_Localized: Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684534
+    m_Localized: Hatband
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684535
+    m_Localized: Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684553
+    m_Localized: Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684554
+    m_Localized: Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684555
+    m_Localized: Lab coat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684556
+    m_Localized: Pants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684557
+    m_Localized: Shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684558
+    m_Localized: Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878785
+    m_Localized: Kimono
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878786
+    m_Localized: Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878787
+    m_Localized: Obi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878788
+    m_Localized: Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878789
+    m_Localized: Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878794
+    m_Localized: Shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878795
+    m_Localized: Braces
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878796
+    m_Localized: Pants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878797
+    m_Localized: Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878798
+    m_Localized: Belt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878799
+    m_Localized: Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878800
+    m_Localized: Hat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878801
+    m_Localized: Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878810
+    m_Localized: Suit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878811
+    m_Localized: Shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878812
+    m_Localized: Belt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878813
+    m_Localized: Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878814
+    m_Localized: Tie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878815
+    m_Localized: Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878816
+    m_Localized: Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878824
+    m_Localized: Vest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878825
+    m_Localized: Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878826
+    m_Localized: Pants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878827
+    m_Localized: Shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878828
+    m_Localized: Helmet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878829
+    m_Localized: Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878830
+    m_Localized: Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59269036665028608
+    m_Localized: Choose a color for
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947101401088
+    m_Localized: Citizen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149824
+    m_Localized: Citizen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149825
+    m_Localized: Supports change from the ground up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149826
+    m_Localized: Chef
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149827
+    m_Localized: Chef
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149828
+    m_Localized: Nourishes the town with local resources
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149829
+    m_Localized: Rancher
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149830
+    m_Localized: Rancher
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149831
+    m_Localized: Works in harmony with the land
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149832
+    m_Localized: Doctor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149833
+    m_Localized: Doctor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149834
+    m_Localized: Keeps the community healthy and thriving
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149835
+    m_Localized: Trainer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149836
+    m_Localized: Trainer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149837
+    m_Localized: Empowers the community with new skills
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149838
+    m_Localized: Mayor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149839
+    m_Localized: Mayor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149840
+    m_Localized: Unites the community with a shared vision
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149841
+    m_Localized: Architect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149842
+    m_Localized: Architect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149843
+    m_Localized: Designs the blueprint for a better future
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149844
+    m_Localized: Builder
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149845
+    m_Localized: Builder
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149846
+    m_Localized: Turns sustainable plans into reality
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

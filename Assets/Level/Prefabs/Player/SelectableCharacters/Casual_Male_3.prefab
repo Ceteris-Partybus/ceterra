@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e8f85b53a2e51ea46993a8f7aaf29027, type: 3}
       propertyPath: m_Name
-      value: Casual3_Male
+      value: Casual_Male_3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -166,5 +166,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconTexture2D: {fileID: 2800000, guid: 91113361b815328448f409c209dec7fe, type: 3}
-  characterName: Citizen 4
-  info: Supports change from the ground up
+  characterName: Casual_male 4
+  info: Casual_info

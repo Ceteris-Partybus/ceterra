@@ -166,5 +166,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconTexture2D: {fileID: 2800000, guid: 91113361b815328448f409c209dec7fe, type: 3}
-  characterName: Citizen 6
-  info: Supports change from the ground up
+  characterName: Casual_female 6
+  info: Casual_info

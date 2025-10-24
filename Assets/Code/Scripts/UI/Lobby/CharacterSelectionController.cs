@@ -144,13 +144,17 @@ public class CharacterSelectionController : MonoBehaviour {
 
     private void OnCharacterChanged() {
         var character = CurrentCharacter;
-        characterSelectionUI.characterNameLabel.text = character.CharacterName;
-        characterSelectionUI.characterInfoLabel.text = character.Info;
+        var (name, info) = GetCharacterData(character);
+        characterSelectionUI.characterNameLabel.text = name;
+        characterSelectionUI.characterInfoLabel.text = info;
 
         BuildCharacterMaterialsUI();
     }
 
     private void BuildCharacterMaterialsUI() {
+        if (!ColorPicker.done) {
+            ColorPicker.Cancel();
+        }
         currentCharacterMaterials.Clear();
         if (characterSelectionUI.characterMaterialsContainer != null) {
             characterSelectionUI.characterMaterialsContainer.Clear();
@@ -162,13 +166,12 @@ public class CharacterSelectionController : MonoBehaviour {
             materialRow.AddToClassList("material-row");
 
             material.name = material.name.Replace(" (Instance)", "");
-            var label = new Label(material.name);
+            var label = new Label(GetMaterialTranslation(material.name));
             label.AddToClassList("material-label");
 
             var colorBox = new Button();
             colorBox.clicked += () => OnMaterialColorPickerClicked(material, colorBox);
             colorBox.style.backgroundColor = material.color;
-            colorBox.userData = material.name;
             colorBox.AddToClassList("material-color-box");
 
             materialRow.Add(label);
@@ -184,7 +187,7 @@ public class CharacterSelectionController : MonoBehaviour {
         }
         ColorPicker.Create(
             material.color,
-            $"Choose a color for: {material.name}!",
+            $"{LocalizationManager.Instance.GetLocalizedText(59269036665028608)}: {GetMaterialTranslation(material.name)}!",
             (color) => OnColorChanged(material, color, btn),
             (_) => { }
         );
@@ -193,5 +196,17 @@ public class CharacterSelectionController : MonoBehaviour {
     private void OnColorChanged(Material material, Color newColor, Button btn) {
         material.color = newColor;
         btn.style.backgroundColor = newColor;
+    }
+
+    private (string name, string info) GetCharacterData(Character character) {
+        var data = character.CharacterName.Split(" ");
+        var name = LocalizationManager.Instance.GetLocalizedText(data[0]) + " " + data[1];
+        var info = LocalizationManager.Instance.GetLocalizedText(character.Info);
+        return (name, info);
+    }
+
+    private string GetMaterialTranslation(string materialName) {
+        var translationKey = CurrentCharacter.CharacterName.Split("_")[0] + "." + materialName;
+        return LocalizationManager.Instance.GetLocalizedText(translationKey);
     }
 }
