@@ -90,6 +90,7 @@ public class CharacterSelectionController : MonoBehaviour {
 
     private void OnPlayerNameChanged(string newValue) {
         playerName = Regex.Replace(newValue ?? "", @"\s+", " ");
+        playerName = playerName.Length > 20 ? playerName.Substring(0, 20) : playerName;
         characterSelectionUI.playerNameInput.SetValueWithoutNotify(playerName);
         characterSelectionUI.confirmSelectionBtn.SetEnabled(!string.IsNullOrWhiteSpace(playerName));
     }

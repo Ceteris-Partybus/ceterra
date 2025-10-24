@@ -2,12 +2,16 @@
     -unity-font-definition: resource('UI/Other/Jersey15-Regular');
 }
 
+#SelectionUI-container {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
 #MainContainer {
     background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
     position: absolute;
-    right: 10%;
-    top: 44%;
-    translate: 0 -50%;
+    right: 5%;
     flex-direction: column;
     align-items: center;
     width: auto;
@@ -17,7 +21,7 @@
 .selection-header {
     background-image: url("project://database/Assets/Art/Sprites/Panels/panel_title_with_stroke.png");
     height: 120px;
-    width: 600px;
+    width: 700px;
     justify-content: center;
     align-items: center;
     padding: 10px 20px;
@@ -34,7 +38,7 @@
 .selection-panel {
     border-radius: 25px;
     padding: 5px 30px 25px 30px;
-    width: 600px;
+    width: 700px;
     border-width: 0px;
 }
 
