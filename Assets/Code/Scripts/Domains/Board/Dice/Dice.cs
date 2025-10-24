@@ -18,7 +18,7 @@ public class Dice : MonoBehaviour {
     private StyleBackground icon;
     public StyleBackground Icon => icon;
     [SerializeField] private string diceName;
-    public string DiceName => diceName;
+    public string DiceName => LocalizationManager.Instance.GetLocalizedText(diceName);
     [SerializeField] private int[] values;
     public int[] Values => values;
     public int RandomValue => values[Random.Range(0, values.Length)];

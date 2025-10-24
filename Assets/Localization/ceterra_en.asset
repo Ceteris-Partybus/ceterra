@@ -1598,6 +1598,22 @@ MonoBehaviour:
     m_Localized: Turns sustainable plans into reality
     m_Metadata:
       m_Items: []
+  - m_Id: 59285773968031744
+    m_Localized: Normal dice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285777675796480
+    m_Localized: Crazy dice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285779017973760
+    m_Localized: Legendary dice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285780553089024
+    m_Localized: Dev dice
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

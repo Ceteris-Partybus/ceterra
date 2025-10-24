@@ -1563,6 +1563,22 @@ MonoBehaviour:
     m_Key: selection.colorpicker_title
     m_Metadata:
       m_Items: []
+  - m_Id: 59285773968031744
+    m_Key: Normal_dice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285777675796480
+    m_Key: Crazy_dice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285779017973760
+    m_Key: Legendary_dice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285780553089024
+    m_Key: Dev_dice
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

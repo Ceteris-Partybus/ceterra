@@ -21109,7 +21109,7 @@ MonoBehaviour:
   resultParticle: {fileID: 2169795527306407849}
   model: {fileID: 2275209778625416768}
   iconTexture2D: {fileID: 2800000, guid: 8c29767e2a84c437cab00648d8d22395, type: 3}
-  diceName: Normal Dice
+  diceName: Normal_dice
   values: 010000000200000003000000040000000500000006000000
   boardScale: 0.75
   previewScale: 0.4

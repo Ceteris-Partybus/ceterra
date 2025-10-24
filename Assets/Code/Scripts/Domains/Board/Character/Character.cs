@@ -13,12 +13,13 @@ public class Character : MonoBehaviour {
     [Header("General")]
     [SerializeField] private string characterName;
     public string CharacterName {
-        get => characterName; set =>
-        characterName = value;
+        get => LocalizedCharacterName();
+        set => characterName = value;
     }
+    public string BaseCharacterName => characterName;
 
     [SerializeField] private string info;
-    public string Info => info;
+    public string Info => LocalizationManager.Instance.GetLocalizedText(info);
     private const float JUMP_POWER = 1.5f;
     private const float JUMP_DURATION = .6f;
 
@@ -42,5 +43,10 @@ public class Character : MonoBehaviour {
 
     public void SetMovementRotation(Quaternion targetRotation, float lerpSpeed) {
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, lerpSpeed * Time.deltaTime);
+    }
+
+    private string LocalizedCharacterName() {
+        var data = characterName.Split(" ");
+        return LocalizationManager.Instance.GetLocalizedText(data[0]) + " " + data[1];
     }
 }

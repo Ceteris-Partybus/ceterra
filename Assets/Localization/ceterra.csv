@@ -386,3 +386,7 @@ Key,Id,English(en),German(de)
 "Worker.Face",59267532981878829,"Face","Gesicht"
 "Worker.Hair",59267532981878830,"Hair","Haare"
 "selection.colorpicker_title",59269036665028608,"Choose a color for","Wähle eine Farbe für"
+"Normal_dice",59285773968031744,"Normal dice","Normaler Würfel"
+"Crazy_dice",59285777675796480,"Crazy dice","Verrückter Würfel"
+"Legendary_dice",59285779017973760,"Legendary dice","Legendärer Würfel"
+"Dev_dice",59285780553089024,"Dev dice","Entwickler Würfel"

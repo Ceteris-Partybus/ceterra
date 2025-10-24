@@ -145,9 +145,8 @@ public class CharacterSelectionController : MonoBehaviour {
 
     private void OnCharacterChanged() {
         var character = CurrentCharacter;
-        var (name, info) = GetCharacterData(character);
-        characterSelectionUI.characterNameLabel.text = name;
-        characterSelectionUI.characterInfoLabel.text = info;
+        characterSelectionUI.characterNameLabel.text = character.CharacterName;
+        characterSelectionUI.characterInfoLabel.text = character.Info;
 
         BuildCharacterMaterialsUI();
     }
@@ -199,15 +198,8 @@ public class CharacterSelectionController : MonoBehaviour {
         btn.style.backgroundColor = newColor;
     }
 
-    private (string name, string info) GetCharacterData(Character character) {
-        var data = character.CharacterName.Split(" ");
-        var name = LocalizationManager.Instance.GetLocalizedText(data[0]) + " " + data[1];
-        var info = LocalizationManager.Instance.GetLocalizedText(character.Info);
-        return (name, info);
-    }
-
     private string GetMaterialTranslation(string materialName) {
-        var translationKey = CurrentCharacter.CharacterName.Split("_")[0] + "." + materialName;
+        var translationKey = CurrentCharacter.BaseCharacterName.Split("_")[0] + "." + materialName;
         return LocalizationManager.Instance.GetLocalizedText(translationKey);
     }
 }

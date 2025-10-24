@@ -1607,6 +1607,22 @@ MonoBehaviour:
     m_Localized: Setzt nachhaltige Visionen in die Tat um
     m_Metadata:
       m_Items: []
+  - m_Id: 59285773968031744
+    m_Localized: "Normaler W\xFCrfel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285777675796480
+    m_Localized: "Verr\xFCckter W\xFCrfel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285779017973760
+    m_Localized: "Legend\xE4rer W\xFCrfel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285780553089024
+    m_Localized: "Entwickler W\xFCrfel"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
