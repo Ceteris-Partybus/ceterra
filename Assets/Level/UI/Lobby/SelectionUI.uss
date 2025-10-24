@@ -6,7 +6,7 @@
     background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
     position: absolute;
     right: 10%;
-    top: 50%;
+    top: 44%;
     translate: 0 -50%;
     flex-direction: column;
     align-items: center;
@@ -145,4 +145,33 @@
 .select-button:active {
     background-image: url("project://database/Assets/Art/Sprites/Buttons/green_pressed.png");
     -unity-text-align: lower-center;
+}
+
+.materials-container {
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.material-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.material-label {
+    min-width: 105px;
+    font-size: 24px;
+    color: #745136;
+}
+
+.material-color-box {
+    width: 40px;
+    height: 30px;
+    margin-right: 8px;
+    border-width: 2px;
+    border-color: #745136;
+    border-radius: 5px;
 }

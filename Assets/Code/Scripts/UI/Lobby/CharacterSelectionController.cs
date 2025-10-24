@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -20,6 +21,8 @@ public class CharacterSelectionController : MonoBehaviour {
     private int currentDiceIndex = 0;
     private GameObject currentDice;
     public Dice CurrentDice => currentDice.GetComponent<Dice>();
+
+    private Dictionary<string, Renderer> currentCharacterMaterials = new Dictionary<string, Renderer>();
 
     [Header("Positions")]
     [SerializeField] private Transform characterPosition;
@@ -47,6 +50,13 @@ public class CharacterSelectionController : MonoBehaviour {
         currentCharacter = characterInstances[0];
 
         setListeners();
+    }
+
+    public void ToggleCharacterSelection() {
+        selectionUI.gameObject.SetActive(!selectionUI.gameObject.activeSelf);
+        if (selectionUI.gameObject.activeSelf) {
+            setListeners();
+        }
     }
 
     private void setListeners() {
@@ -116,10 +126,13 @@ public class CharacterSelectionController : MonoBehaviour {
 
     private void OnSelectionConfirmed() {
         playerName = playerName.Trim();
+
+        var smr = currentCharacter.GetComponentInChildren<SkinnedMeshRenderer>();
+        var materialColorInfo = smr.materials.Select((mat, index) => new MaterialColorInfo { index = index, color = mat.color }).ToArray();
         GameManager.Singleton.roomSlots
              .OfType<LobbyPlayer>()
              .FirstOrDefault(player => player.isLocalPlayer)
-             .CmdSetCharacterSelection(currentCharacterIndex, currentDiceIndex, playerName);
+             .CmdSetCharacterSelection(currentCharacterIndex, currentDiceIndex, playerName, materialColorInfo);
         OnRequestBackToLobby?.Invoke();
     }
 
@@ -133,12 +146,52 @@ public class CharacterSelectionController : MonoBehaviour {
         var character = CurrentCharacter;
         characterSelectionUI.characterNameLabel.text = character.CharacterName;
         characterSelectionUI.characterInfoLabel.text = character.Info;
+
+        BuildCharacterMaterialsUI();
     }
 
-    public void ToggleCharacterSelection() {
-        selectionUI.gameObject.SetActive(!selectionUI.gameObject.activeSelf);
-        if (selectionUI.gameObject.activeSelf) {
-            setListeners();
+    private void BuildCharacterMaterialsUI() {
+        currentCharacterMaterials.Clear();
+        if (characterSelectionUI.characterMaterialsContainer != null) {
+            characterSelectionUI.characterMaterialsContainer.Clear();
         }
+
+        var smr = currentCharacter.GetComponentInChildren<SkinnedMeshRenderer>();
+        foreach (var material in smr.materials) {
+            var materialRow = new VisualElement();
+            materialRow.AddToClassList("material-row");
+
+            material.name = material.name.Replace(" (Instance)", "");
+            var label = new Label(material.name);
+            label.AddToClassList("material-label");
+
+            var colorBox = new Button();
+            colorBox.clicked += () => OnMaterialColorPickerClicked(material, colorBox);
+            colorBox.style.backgroundColor = material.color;
+            colorBox.userData = material.name;
+            colorBox.AddToClassList("material-color-box");
+
+            materialRow.Add(label);
+            materialRow.Add(colorBox);
+
+            characterSelectionUI.characterMaterialsContainer.Add(materialRow);
+        }
+    }
+
+    private void OnMaterialColorPickerClicked(Material material, Button btn) {
+        if (!ColorPicker.done) {
+            ColorPicker.Cancel();
+        }
+        ColorPicker.Create(
+            material.color,
+            $"Choose a color for: {material.name}!",
+            (color) => OnColorChanged(material, color, btn),
+            (_) => { }
+        );
+    }
+
+    private void OnColorChanged(Material material, Color newColor, Button btn) {
+        material.color = newColor;
+        btn.style.backgroundColor = newColor;
     }
 }

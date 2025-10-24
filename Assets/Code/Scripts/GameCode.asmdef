@@ -11,6 +11,7 @@
     "Unity.Splines",
     "Unity.Mathematics",
     "Unity.TextMeshPro",
+    "ColorGradientPicker",
     "Newtonsoft.Json",
     "DOTween.Modules",
     "Unity.RenderPipelines.Core.Runtime",
