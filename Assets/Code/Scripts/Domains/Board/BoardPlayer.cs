@@ -259,7 +259,7 @@ public class BoardPlayer : SceneConditionalPlayer {
     }
 
     void Update() {
-        if (playerMovement.IsMoving) { return; }
+        if (playerMovement.IsMoving || playerMovement.IsJumping) { return; }
         if (isLocalPlayer) { HandleInput(); }
 
         visualHandler?.MakeCharacterFaceCamera();
