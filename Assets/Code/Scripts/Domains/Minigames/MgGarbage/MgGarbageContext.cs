@@ -37,9 +37,6 @@ public class MgGarbageContext : MgContext<MgGarbageContext, MgGarbagePlayer> {
     }
 
     public override void OnStartGame() {
-        if (isServer) {
-            StartCoroutine(SpawnTrashRoutine());
-        }
         StartCoroutine(UpdateCountdown());
     }
 
