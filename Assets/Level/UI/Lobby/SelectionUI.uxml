@@ -1,6 +1,13 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Level/UI/Lobby/SelectionUI.uss?fileID=7433441132597879392&amp;guid=573f00564fa588c448f4da35f83007d9&amp;type=3#SelectionUI" />
     <ui:VisualElement name="MainContainer">
+        <ui:VisualElement name="SelectionHeader" class="selection-header">
+            <ui:Label name="HeaderTitle" class="selection-header-title">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(58035861536194560)" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
         <ui:VisualElement name="SelectionPanel" class="selection-panel">
             <ui:Label class="section-title">
                 <Bindings>
@@ -15,6 +22,16 @@
                 </ui:VisualElement>
                 <ui:Button text="&gt;" name="CharacterNextBtn" class="selector-button" />
             </ui:VisualElement>
+
+            <ui:Label class="section-title">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(59257155711746048)" />
+                </Bindings>
+            </ui:Label>
+            <ui:VisualElement name="ColorSelector" class="selector-box">
+                <ui:VisualElement name="CharacterMaterialsContainer" class="materials-container" />
+            </ui:VisualElement>
+
             <ui:Label class="section-title">
                 <Bindings>
                     <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56153427497967616)" />
@@ -28,12 +45,13 @@
                 </ui:VisualElement>
                 <ui:Button text="&gt;" name="DiceNextBtn" class="selector-button" />
             </ui:VisualElement>
+
+            <ui:Label class="section-title">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56153329091207168)" />
+                </Bindings>
+            </ui:Label>
             <ui:VisualElement class="input-container">
-                <ui:Label class="section-title">
-                    <Bindings>
-                        <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56153329091207168)" />
-                    </Bindings>
-                </ui:Label>
                 <ui:TextField name="PlayerNameInput" class="player-input" />
             </ui:VisualElement>
             <ui:Button name="SelectButton" class="select-button">
