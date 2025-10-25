@@ -10,15 +10,15 @@ public class LocalizationManager : Singleton<LocalizationManager> {
         .Result;
     }
 
-    public string GetLocalizedText(string key) {
+    public string GetLocalizedText(long id, params object[] parameters) {
         return LocalizationSettings.StringDatabase
-        .GetLocalizedStringAsync(LOCALIZATION_TABLE, key)
+        .GetLocalizedStringAsync(LOCALIZATION_TABLE, id, parameters)
         .Result;
     }
 
-    public string GetLocalizedParameterText(long id, int param) {
+    public string GetLocalizedText(string key) {
         return LocalizationSettings.StringDatabase
-        .GetLocalizedStringAsync(LOCALIZATION_TABLE, id, new object[] { param })
+        .GetLocalizedStringAsync(LOCALIZATION_TABLE, key)
         .Result;
     }
 }

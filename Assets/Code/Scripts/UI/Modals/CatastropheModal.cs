@@ -29,6 +29,6 @@ public class CatastropheModal : Modal {
     }
 
     protected override string GetHeaderTitle() {
-        return "Catastrophe!";
+        return LocalizationManager.Instance.GetLocalizedText(56636904074215424);
     }
 }
