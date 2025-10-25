@@ -21111,7 +21111,7 @@ MonoBehaviour:
   iconTexture2D: {fileID: 2800000, guid: 8c29767e2a84c437cab00648d8d22395, type: 3}
   diceName: Normal_dice
   values: 010000000200000003000000040000000500000006000000
-  boardScale: 0.75
+  boardScale: 0.6
   previewScale: 0.4
   boardRotationSpeed: 500
   previewRotationSpeed: 200
