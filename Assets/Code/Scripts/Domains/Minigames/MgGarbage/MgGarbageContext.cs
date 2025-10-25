@@ -43,6 +43,11 @@ public class MgGarbageContext : MgContext<MgGarbageContext, MgGarbagePlayer> {
         StartCoroutine(UpdateCountdown());
     }
 
+    public override void OnStartServer() {
+        base.OnStartServer();
+        StartCoroutine(SpawnTrashRoutine());
+    }
+
     private IEnumerator UpdateCountdown() {
         countdownTimer = gameDuration; // Initialize countdown timer
         int lastSeconds = Mathf.CeilToInt(countdownTimer);
