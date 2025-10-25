@@ -14,9 +14,9 @@ public class LocalizationManager : Singleton<LocalizationManager> {
         .Result;
     }
 
-    public string GetLocalizedParameterText(long id, int param) {
+    public string GetLocalizedText(long id, params object[] parameters) {
         return LocalizationSettings.StringDatabase
-        .GetLocalizedStringAsync(LOCALIZATION_TABLE, id, new object[] { param })
+        .GetLocalizedStringAsync(LOCALIZATION_TABLE, id, parameters)
         .Result;
     }
 

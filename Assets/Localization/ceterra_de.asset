@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: de
   m_SharedData: {fileID: 11400000, guid: 0bcae4cae5373ec479ceeeee5b1d030f, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 7894437812287832148
   m_TableData:
   - m_Id: 54051235973255168
     m_Localized: "Auch Getr\xE4nkekartons tragen zum M\xFCllberg bei. Wie kannst
@@ -1275,6 +1276,163 @@ MonoBehaviour:
     m_Localized: Investition vorschlagen
     m_Metadata:
       m_Items: []
+  - m_Id: 56636904074215424
+    m_Localized: Katastrophe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56638766894645248
+    m_Localized: "Der Einzahlungsbetrag muss gr\xF6\xDFer als 0 sein."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56639250527256576
+    m_Localized: "Du besitzt nicht gen\xFCgend M\xFCnzen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56639770314768384
+    m_Localized: Einzahlen von
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56640685331546112
+    m_Localized: "Der Fonds hat nicht genug Geld, um diesen Investitionsvorschlag
+      vollumf\xE4nglich zu unterst\xFCtzen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56640685331546113
+    m_Localized: "Die Stadt hat nicht genug Ressourcen, um diesen Investitionsvorschlag
+      zu unterst\xFCtzen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56640685331546114
+    m_Localized: "Du musst einen Betrag gr\xF6\xDFer als 0 vorschlagen, wenn die
+      Investition nicht bereits voll finanziert ist."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56641707357601792
+    m_Localized: Im Aufbau, {0} Runde(n) verbleibend.
+    m_Metadata:
+      m_Items:
+      - rid: 7894437812287832148
+  - m_Id: 56645878458712064
+    m_Localized: Fertiggestellt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56646535894892544
+    m_Localized: "{0} hat vorgeschlagen, {1} M\xFCnzen \xFCber den Fonds in {2} zu
+      investieren. Stimme ab!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56647493433524224
+    m_Localized: Der Investitionsvorschlag wurde abgelehnt.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648143445786624
+    m_Localized: Vulkanausbruch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648230402097152
+    m_Localized: "Geschmolzene Lava und giftige Asche verw\xFCsten die Umgebung."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648327022084096
+    m_Localized: Nuklearkatastrophe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648380902113280
+    m_Localized: "Radioaktiver Regen breitet sich \xFCber die Region aus und verursacht
+      schwere Sch\xE4den."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648670216814592
+    m_Localized: Verheerender Erdrutsch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648729599770624
+    m_Localized: "Massive Felsen und Tr\xFCmmer st\xFCrzen herab und begraben alles,
+      was sich ihnen in den Weg stellt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648926065164288
+    m_Localized: Waldbrand
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648972298977280
+    m_Localized: Unkontrollierte Flammen verschlingen alles und hinterlassen nur
+      Asche.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649363690455040
+    m_Localized: Gletscherschmelze
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649388873056256
+    m_Localized: "Steigende Wasserst\xE4nde \xFCberschwemmen die Landschaft, w\xE4hrend
+      das alte Eis schnell schmilzt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649684747649024
+    m_Localized: "D\xFCrre"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649705719169024
+    m_Localized: "Extreme Hitze und Wassermangel verwandeln fruchtbares Land in unfruchtbare
+      \xD6dnis."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649910111797248
+    m_Localized: Tsunami
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649934925299712
+    m_Localized: "Riesige Wellen schlagen ins Landesinnere und zerst\xF6ren alles,
+      was sich ihnen in den Weg stellt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56652191783813120
+    m_Localized: Round end
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56652337988861952
+    m_Localized: Das Investment {0} wurde fertiggestellt!
+    m_Metadata:
+      m_Items:
+      - rid: 7894437812287832148
+  - m_Id: 56659020039421952
+    m_Localized: "Finanzierung f\xFCr {0}"
+    m_Metadata:
+      m_Items:
+      - rid: 7894437812287832148
+  - m_Id: 56659352559648768
+    m_Localized: "Ressourcen f\xFCr {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56661867099422720
+    m_Localized: "Das Investment wurde vollst\xE4ndig finanziert und befindet sich
+      nun im Bau."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56661867099422721
+    m_Localized: "Das Investment wurde mit {0} M\xFCnzen finanziert, ben\xF6tigt
+      aber noch weitere Gelder. Die Ressourcen wurden noch nicht abgezogen."
+    m_Metadata:
+      m_Items:
+      - rid: 7894437812287832148
+  - m_Id: 56668768562413568
+    m_Localized: '{0} - {1}m entfernt, nimmt {2} Schaden'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56670997235204096
+    m_Localized: "M\xFCnzen"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7894437812287832148
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 56641707357601792
+        - id: 56652337988861952
+        - id: 56659020039421952
+        - id: 56661867099422721

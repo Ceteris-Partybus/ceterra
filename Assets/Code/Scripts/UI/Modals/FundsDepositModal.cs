@@ -47,14 +47,14 @@ public class FundsDepositModal : Modal {
 
         if (depositValue <= 0) {
             Audiomanager.Instance?.PlayClickSound();
-            ErrorModal.Instance.Message = "Der Einzahlungsbetrag muss größer als 0 sein.";
+            ErrorModal.Instance.Message = LocalizationManager.Instance.GetLocalizedText(56638766894645248);
             ModalManager.Instance.Show(ErrorModal.Instance);
             return;
         }
 
         if (localPlayer.PlayerStats.GetCoins() < depositValue) {
             Audiomanager.Instance?.PlayClickSound();
-            ErrorModal.Instance.Message = "Du besitzt nicht genügend Münzen.";
+            ErrorModal.Instance.Message = LocalizationManager.Instance.GetLocalizedText(56639250527256576);
             ModalManager.Instance.Show(ErrorModal.Instance);
             return;
         }
@@ -66,7 +66,7 @@ public class FundsDepositModal : Modal {
 
     [Command(requiresAuthority = false)]
     private void CmdDepositFunds(int depositValue, BoardPlayer localPlayer) {
-        FundsHistoryEntry entry = new FundsHistoryEntry(depositValue, HistoryEntryType.DEPOSIT, "Einzahlung von " + localPlayer.PlayerName);
+        FundsHistoryEntry entry = new FundsHistoryEntry(depositValue, HistoryEntryType.DEPOSIT, LocalizationManager.Instance.GetLocalizedText(56639770314768384) + " " + localPlayer.PlayerName);
         BoardContext.Instance.fundsHistory.Add(entry);
         BoardContext.Instance.UpdateFundsStat(depositValue);
         localPlayer.PlayerStats.ModifyCoins(-depositValue);
