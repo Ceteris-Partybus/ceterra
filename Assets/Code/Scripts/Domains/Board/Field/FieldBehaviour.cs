@@ -95,28 +95,21 @@ public abstract class FieldBehaviour : NetworkBehaviour {
 
         if (playerCount == 1) {
             positions.Add(fieldCenter);
-            return positions;
         }
         else if (playerCount == 2) {
-            // Top-left quarter and bottom-right quarter
             positions.Add(fieldCenter + new Vector3(-halfWidth / 2f, 0, halfHeight / 2f));
             positions.Add(fieldCenter + new Vector3(halfWidth / 2f, 0, -halfHeight / 2f));
         }
         else if (playerCount == 3) {
-            // Divide into 3 cones (each 60 degrees)
             float radius = Mathf.Max(fieldWidth, fieldHeight) / 2f;
-            // Cone 1: 0 degrees (top)
             float angle1 = 90f * Mathf.Deg2Rad;
             positions.Add(fieldCenter + new Vector3(Mathf.Cos(angle1) * radius * 0.6f, 0, Mathf.Sin(angle1) * radius * 0.6f));
-            // Cone 2: 240 degrees (bottom-left)
             float angle2 = (90f + 240f) * Mathf.Deg2Rad;
             positions.Add(fieldCenter + new Vector3(Mathf.Cos(angle2) * radius * 0.6f, 0, Mathf.Sin(angle2) * radius * 0.6f));
-            // Cone 3: 120 degrees (bottom-right)
             float angle3 = (90f + 120f) * Mathf.Deg2Rad;
             positions.Add(fieldCenter + new Vector3(Mathf.Cos(angle3) * radius * 0.6f, 0, Mathf.Sin(angle3) * radius * 0.6f));
         }
         else if (playerCount == 4) {
-            // Divide into fourths (2x2 grid)
             float quarterWidth = fieldWidth / 2f;
             float quarterHeight = fieldHeight / 2f;
             positions.Add(fieldCenter + new Vector3(-quarterWidth / 2f, 0, quarterHeight / 2f));  // Top-left
