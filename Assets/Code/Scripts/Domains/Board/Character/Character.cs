@@ -1,5 +1,4 @@
 using UnityEngine;
-using DG.Tweening;
 using UnityEngine.UIElements;
 
 public class Character : MonoBehaviour {
@@ -20,16 +19,9 @@ public class Character : MonoBehaviour {
 
     [SerializeField] private string info;
     public string Info => LocalizationManager.Instance.GetLocalizedText(info);
-    private const float JUMP_POWER = 1.5f;
-    private const float JUMP_DURATION = .6f;
 
     void Start() {
         icon = new StyleBackground(iconTexture2D);
-    }
-
-    public void HitDice() {
-        transform.DOComplete();
-        transform.DOJump(transform.position, JUMP_POWER, 1, JUMP_DURATION);
     }
 
     public void FaceCamera() {

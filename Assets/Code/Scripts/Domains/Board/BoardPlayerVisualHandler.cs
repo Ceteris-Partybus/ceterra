@@ -91,12 +91,7 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
     }
 
     public IEnumerator StartRollSequence(int diceValue, Action cmdRollSequenceFinished) {
-        character.HitDice();
-        TriggerAnimation(AnimationType.DICE_HIT);
-        yield return new WaitForSeconds(.09f);
-
-        dice.OnRollDisplay(diceValue);
-        yield return new WaitForSeconds(.5f);
+        yield return dice.OnRollDisplay(diceValue).WaitForCompletion();
 
         var waitForRollEnd = dice.OnRollEnd(diceValue);
         yield return new WaitForSeconds(1f);

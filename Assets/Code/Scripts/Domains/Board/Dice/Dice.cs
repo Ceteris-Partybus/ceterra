@@ -115,19 +115,15 @@ public class Dice : MonoBehaviour {
         model.transform.DOScale(0, .12f).OnComplete(() => HideModel());
     }
 
-    public void OnRollDisplay(int roll) {
-        hitParticle.Play();
-        Audiomanager.Instance?.PlayDiceStopSound();
-        if (hitParticle.GetComponent<CinemachineImpulseSource>() != null) {
-            hitParticle.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
-        }
+    public Sequence OnRollDisplay(int roll) {
         model.transform.DOComplete();
         StopSpinning();
         SetDiceNumber(roll);
         model.transform.eulerAngles = Vector3.zero;
-        var localPosition = model.transform.localPosition;
-        model.transform.DOLocalJump(localPosition, .8f, 1, .25f);
-        model.transform.DOPunchScale(Vector3.one / 4, .3f, 10, 1);
+
+        return DOTween.Sequence()
+            .Join(model.transform.DOShakePosition(.6f, .1f, 20))
+            .Append(model.transform.DOPunchScale(Vector3.one / 4, .3f, 10, 1));
     }
 
     public WaitWhile OnRollEnd(int roll) {
