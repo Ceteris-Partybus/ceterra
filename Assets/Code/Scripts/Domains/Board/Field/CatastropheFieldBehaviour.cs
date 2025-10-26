@@ -66,8 +66,8 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
 
     [ClientRpc]
     private void RpcShowCatastropheInfo(string affectedPlayerInfo) {
-        CatastropheModal.Instance.Title = catastropheType.GetDisplayName();
-        CatastropheModal.Instance.Description = catastropheType.GetDescription();
+        CatastropheModal.Instance.Title = LocalizationManager.Instance.GetLocalizedText(catastropheType.GetDisplayName());
+        CatastropheModal.Instance.Description = LocalizationManager.Instance.GetLocalizedText(catastropheType.GetDescription());
         CatastropheModal.Instance.AffectedPlayers = affectedPlayerInfo;
         ModalManager.Instance.Show(CatastropheModal.Instance);
     }
@@ -152,7 +152,7 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
         }
 
         public override string ToString() {
-            return $"• {Player.PlayerName} - {Distance:F2}m away, takes {InflictedDamage} damage";
+            return LocalizationManager.Instance.GetLocalizedText(56668768562413568, new object[] { Player.PlayerName, Distance.ToString("F2"), InflictedDamage });
         }
     }
 }

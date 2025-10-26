@@ -1,7 +1,16 @@
 using Mirror;
+using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+
+[Serializable]
+public class MaterialColorInfo {
+    public int index;
+    public Color color;
+
+    public MaterialColorInfo() { }
+}
 
 public class LobbyPlayer : NetworkRoomPlayer {
     private const int INVALID_INDEX = -1;
@@ -17,10 +26,19 @@ public class LobbyPlayer : NetworkRoomPlayer {
     private GameObject currentDiceInstance;
     public GameObject CurrentDiceInstance => currentDiceInstance;
 
+    [SyncVar(hook = nameof(OnMaterialColorsChanged))]
+    private MaterialColorInfo[] materialColorInfo;
+
     private GameObject CharacterModel => GameManager.Singleton.GetCharacter(selectedCharacterIndex);
     private GameObject DiceModel => GameManager.Singleton.GetDice(selectedDiceIndex);
 
     private Coroutine faceCameraCoroutine;
+
+    private void OnMaterialColorsChanged(MaterialColorInfo[] _old, MaterialColorInfo[] _new) {
+        if (currentCharacterInstance != null) {
+            ApplyMaterialColors();
+        }
+    }
 
     public override void OnClientEnterRoom() {
         gameObject.transform.position = LobbySpawnPointManager.Instance.GetSpawnPoint(index).position;
@@ -46,10 +64,11 @@ public class LobbyPlayer : NetworkRoomPlayer {
     }
 
     [Command]
-    public void CmdSetCharacterSelection(int characterIndex, int diceIndex, string playerName) {
+    public void CmdSetCharacterSelection(int characterIndex, int diceIndex, string playerName, MaterialColorInfo[] materialColorInfo) {
         this.selectedCharacterIndex = characterIndex;
         this.selectedDiceIndex = diceIndex;
         this.playerName = playerName;
+        this.materialColorInfo = materialColorInfo;
     }
 
     [Command]
@@ -78,7 +97,17 @@ public class LobbyPlayer : NetworkRoomPlayer {
             Destroy(currentCharacterInstance);
         }
         currentCharacterInstance = Instantiate(CharacterModel, transform);
+        ApplyMaterialColors();
         AttachDiceToCharacter();
+    }
+
+    private void ApplyMaterialColors() {
+        if (materialColorInfo == null) { return; }
+
+        var smr = currentCharacterInstance.GetComponentInChildren<SkinnedMeshRenderer>();
+        foreach (var colorInfo in materialColorInfo) {
+            smr.materials[colorInfo.index].color = colorInfo.color;
+        }
     }
 
     private void ChangeSelectedDice() {
@@ -89,7 +118,7 @@ public class LobbyPlayer : NetworkRoomPlayer {
     }
 
     private void AttachDiceToCharacter() {
-        var dicePosition = currentCharacterInstance.GetComponentsInChildren<Transform>().FirstOrDefault(t => t.CompareTag("DicePosition"));
+        var dicePosition = transform.GetComponentsInChildren<Transform>().FirstOrDefault(t => t.CompareTag("DicePosition"));
         currentDiceInstance?.transform.SetParent(dicePosition, false);
     }
 

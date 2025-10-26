@@ -15,6 +15,11 @@ public class GameManager : NetworkRoomManager {
 
     [Header("Character Selection")]
     [SerializeField] private GameObject[] selectableCharacters;
+    public GameObject[] SelectableCharacters {
+        get => selectableCharacters;
+        set => selectableCharacters = value;
+    }
+
     public int CharacterCount => selectableCharacters.Length;
     public GameObject GetCharacter(int index) => selectableCharacters[index];
     [SerializeField] private GameObject[] selectableDices;

@@ -4,7 +4,7 @@ public class ErrorModal : Modal {
 
     public static ErrorModal Instance => GetInstance<ErrorModal>();
 
-    public string Message = "An error has occurred.";
+    public string Message;
     Label errorMessageLabel;
 
     protected override void Start() {

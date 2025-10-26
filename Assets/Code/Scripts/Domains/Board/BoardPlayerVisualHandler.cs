@@ -2,8 +2,17 @@ using UnityEngine;
 using System.Collections;
 using System;
 using DG.Tweening;
+using TMPro;
 
 public class BoardPlayerVisualHandler : MonoBehaviour {
+    [Header("Particles")]
+    [SerializeField] private Transform characterParticles;
+    [SerializeField] private ParticleSystem coinGainParticle;
+    [SerializeField] private ParticleSystem coinLossParticle;
+    [SerializeField] private ParticleSystem healthGainParticle;
+    [SerializeField] private ParticleSystem healthLossParticle;
+    [SerializeField] private TextMeshPro resultLabel;
+
     [Header("Animation Trigger")]
     [SerializeField] private string coinGainTrigger;
     [SerializeField] private string coinLossTrigger;
@@ -13,8 +22,6 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
     [SerializeField] private string jumpTrigger;
     [SerializeField] private string diceHitTrigger;
     [SerializeField] private string idleTrigger;
-    [SerializeField] private string diceSpinTrigger;
-    [SerializeField] private string junctionEntryTrigger;
 
     private Character character;
     private Dice dice;
@@ -30,10 +37,10 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
 
     public WaitWhile TriggerBlockingAnimation(AnimationType animationType, int amount) {
         (ParticleSystem, string, Action) particleEffectAndTrigger = animationType switch {
-            AnimationType.COIN_GAIN => (character.CoinGainParticle, coinGainTrigger, () => ShowCoinChange(amount)),
-            AnimationType.COIN_LOSS => (character.CoinLossParticle, coinLossTrigger, () => ShowCoinChange(-amount)),
-            AnimationType.HEALTH_GAIN => (character.HealthGainParticle, healthGainTrigger, () => ShowHealthChange(amount)),
-            AnimationType.HEALTH_LOSS => (character.HealthLossParticle, healthLossTrigger, () => ShowHealthChange(-amount)),
+            AnimationType.COIN_GAIN => (coinGainParticle, coinGainTrigger, () => ShowCoinChange(amount)),
+            AnimationType.COIN_LOSS => (coinLossParticle, coinLossTrigger, () => ShowCoinChange(-amount)),
+            AnimationType.HEALTH_GAIN => (healthGainParticle, healthGainTrigger, () => ShowHealthChange(amount)),
+            AnimationType.HEALTH_LOSS => (healthLossParticle, healthLossTrigger, () => ShowHealthChange(-amount)),
             _ => throw new ArgumentException("Invalid blocking animation type")
         };
 
@@ -60,8 +67,6 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
         character.Animator.SetTrigger(animationType switch {
             AnimationType.DICE_HIT => diceHitTrigger,
             AnimationType.IDLE => idleTrigger,
-            AnimationType.DICE_SPIN => diceSpinTrigger,
-            AnimationType.JUNCTION_ENTRY => junctionEntryTrigger,
             AnimationType.RUN => runTrigger,
             AnimationType.JUMP => jumpTrigger,
             _ => throw new ArgumentException("Invalid animation type")
@@ -76,7 +81,6 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
         yield return CameraHandler.Instance.ZoomIn();
 
         dice.OnRollStart();
-        TriggerAnimation(AnimationType.DICE_SPIN);
     }
 
     public IEnumerator OnRollCancel() {
@@ -87,23 +91,20 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
     }
 
     public IEnumerator StartRollSequence(int diceValue, Action cmdRollSequenceFinished) {
-        character.HitDice();
-        TriggerAnimation(AnimationType.DICE_HIT);
-        yield return new WaitForSeconds(.09f);
+        yield return dice.OnRollDisplay(diceValue).WaitForCompletion();
 
-        dice.OnRollDisplay(diceValue);
-        yield return new WaitForSeconds(.5f);
-
-        dice.OnRollEnd(diceValue);
-        yield return new WaitForSeconds(.8f);
+        var waitForRollEnd = dice.OnRollEnd(diceValue);
+        yield return new WaitForSeconds(1f);
 
         yield return CameraHandler.Instance.ZoomOut();
+        yield return waitForRollEnd;
+
         cmdRollSequenceFinished();
     }
 
     public void CleanRotation() {
         dice.Particles.transform.rotation = Quaternion.identity;
-        character.Particles.transform.rotation = Quaternion.identity;
+        characterParticles.transform.rotation = Quaternion.identity;
     }
 
     private bool IsAnimationPlaying(string trigger) {
@@ -119,26 +120,26 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
     }
 
     public void ShowCoinChange(int amount) {
-        ShowFloatingLabel(amount, "Coins");
+        ShowFloatingLabel(amount, LocalizationManager.Instance.GetLocalizedText(56670997235204096));
     }
 
     public void ShowHealthChange(int amount) {
-        ShowFloatingLabel(amount, "Health");
+        ShowFloatingLabel(amount, LocalizationManager.Instance.GetLocalizedText(56153847255523328));
     }
 
     private void ShowFloatingLabel(int amount, string type) {
         var sign = amount > 0 ? "+" : "-";
-        character.ResultLabel.text = $"{sign}{Mathf.Abs(amount)} {type}";
+        resultLabel.text = $"{sign}{Mathf.Abs(amount)} {type}";
         ColorUtility.TryParseHtmlString("#30C650", out var greenColor);
         ColorUtility.TryParseHtmlString("#C64030", out var redColor);
-        character.ResultLabel.color = amount > 0 ? greenColor : redColor;
+        resultLabel.color = amount > 0 ? greenColor : redColor;
 
-        var startPos = character.ResultLabel.transform.position;
-        character.ResultLabel.transform
+        var startPos = resultLabel.transform.position;
+        resultLabel.transform
             .DOMoveY(startPos.y + 1f, 1.15f)
             .OnComplete(() => {
-                character.ResultLabel.text = "";
-                character.ResultLabel.transform.position = startPos;
+                resultLabel.text = "";
+                resultLabel.transform.position = startPos;
             });
     }
 }
