@@ -1266,6 +1266,42 @@ MonoBehaviour:
     m_Localized: Propose investment
     m_Metadata:
       m_Items: []
+  - m_Id: 56521928023429120
+    m_Localized: Quizduel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983552
+    m_Localized: Answer as many questions correctly as possible!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983553
+    m_Localized: Select an answer by clicking on it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983554
+    m_Localized: Dispose of the trash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177856
+    m_Localized: Sort the trash into the appropriate trash can.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177857
+    m_Localized: Drag and Drop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177858
+    m_Localized: Ocean Cleaner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177859
+    m_Localized: Collect the most garbage.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177860
+    m_Localized: Move the player with WASD.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

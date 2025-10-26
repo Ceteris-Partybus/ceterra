@@ -87,6 +87,42 @@ MonoBehaviour:
     m_Key: MgQuizduel.rewardCoins
     m_Metadata:
       m_Items: []
+  - m_Id: 56521928023429120
+    m_Key: MgQuizduel.PrepScreen.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983552
+    m_Key: MgQuizduel.PrepScreen.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983553
+    m_Key: MgQuizduel.PrepScreen.controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983554
+    m_Key: MgGarbage.PrepScreen.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177856
+    m_Key: MgGarbage.PrepScreen.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177857
+    m_Key: MgGarbage.PrepScreen.controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177858
+    m_Key: MgOcean.PrepScreen.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177859
+    m_Key: MgOcean.PrepScreen.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177860
+    m_Key: MgOcean.PrepScreen.controls
+    m_Metadata:
+      m_Items: []
   - m_Id: 54051235973255168
     m_Key: question.1
     m_Metadata:

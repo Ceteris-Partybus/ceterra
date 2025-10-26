@@ -6,20 +6,19 @@ public abstract class MgContext<T, P> : NetworkedSingleton<T>, IPrepScreen
     where T : NetworkedSingleton<T>
     where P : SceneConditionalPlayer {
 
-    [SerializeField] private string title;
-    [SerializeField] private string description;
-    [SerializeField] private string controls;
+    [SerializeField] private long title;
+    [SerializeField] private long description;
+    [SerializeField] private long controls;
     [SerializeField] private Sprite screenshot;
-    public string GetTitle() => this.title;
-    public string GetDescription() => this.description;
-    public string GetControls() => this.controls;
+    public string GetTitle() => LocalizationManager.Instance.GetLocalizedText(this.title);
+    public string GetDescription() => LocalizationManager.Instance.GetLocalizedText(this.description);
+    public string GetControls() => LocalizationManager.Instance.GetLocalizedText(this.controls);
     public Sprite GetScreenshot() => this.screenshot;
     public abstract void OnStartGame();
     public virtual void StartGame() {
 
-        OnStartGame();
+        this.OnStartGame();
     }
-
 
     protected override void Start() {
         var prep = FindAnyObjectByType<PrepScreenUI>();

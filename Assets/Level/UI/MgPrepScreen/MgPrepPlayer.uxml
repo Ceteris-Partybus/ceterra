@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI/MgPrepScreen/MgPrepScreen.uss?fileID=7433441132597879392&amp;guid=d566996728042c14489f3a4d5eca4cc5&amp;type=3#MgPrepScreen" />
     <ui:VisualElement class="player-row">
         <ui:Label name="PlayerName" class="player-name" />
         <ui:Button name="readyButton" enabled="false" class="ready-button.not-ready">

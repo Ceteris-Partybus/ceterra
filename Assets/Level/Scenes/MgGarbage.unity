@@ -1645,10 +1645,10 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  title: "Gib dem M\xFCll eine Abfuhr"
-  description: "Ziel ist es, den M\xFCll in den richtigen Beh\xE4lter zu packen"
-  controls: Drag & Drop
-  screenshot: {fileID: 21300000, guid: 9e7771f048fdf40839b6ee9dbacad67c, type: 3}
+  title: 56521928056983554
+  description: 56521928061177856
+  controls: 56521928061177857
+  screenshot: {fileID: 21300000, guid: f1d6035f86d90914e96f07dd42b63d58, type: 3}
   spawnPointsHolder: {fileID: 509397702}
   trashPrefabs:
   - {fileID: 5985081133323474392, guid: ca3405e7e71e5da4c8ea74feccaf00c7, type: 3}
