@@ -1,4 +1,5 @@
 using Mirror;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -135,4 +136,33 @@ public class GameManager : NetworkRoomManager {
             ServerChangeScene(GameplayScene);
         }
     }
+
+    #region Server Connection Logging
+
+    public override void OnRoomServerConnect(NetworkConnectionToClient conn) {
+        base.OnRoomServerConnect(conn);
+        
+        if (NetworkServer.active) {
+            string timestamp = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss UTC");
+            int activeConnections = NetworkServer.connections.Count;
+            Debug.Log($"[SERVER] [{timestamp}] Client connected: ID={conn.connectionId} | Address={conn.address} | Total Players={activeConnections}");
+        }
+    }
+
+    public override void OnRoomServerDisconnect(NetworkConnectionToClient conn) {
+        if (NetworkServer.active) {
+            string timestamp = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss UTC");
+            string playerName = conn.identity != null ? 
+                conn.identity.GetComponent<LobbyPlayer>()?.PlayerName ?? "Unknown" : 
+                "Unknown";
+            
+            int activeConnections = NetworkServer.connections.Count - 1;
+            Debug.Log($"[SERVER] [{timestamp}] Client disconnected: ID={conn.connectionId} | Address={conn.address} | Player={playerName} | Remaining Players={activeConnections}");
+        }
+        
+        base.OnRoomServerDisconnect(conn);
+    }
+
+    #endregion
+
 }
