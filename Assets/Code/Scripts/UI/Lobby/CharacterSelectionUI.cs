@@ -13,6 +13,8 @@ public class CharacterSelectionUI : MonoBehaviour {
     public Label characterInfoLabel;
     public TextField playerNameInput;
     public Button confirmSelectionBtn;
+    public Button characterColorPickerBtn;
+    public VisualElement characterMaterialsContainer;
 
     void OnEnable() {
         var root = selectionUI.rootVisualElement;
@@ -26,5 +28,7 @@ public class CharacterSelectionUI : MonoBehaviour {
         characterInfoLabel = root.Q<Label>("CharacterInfoLabel");
         playerNameInput = root.Q<TextField>("PlayerNameInput");
         confirmSelectionBtn = root.Q<Button>("SelectButton");
+        characterColorPickerBtn = root.Q<Button>("CharacterColorPickerBtn");
+        characterMaterialsContainer = root.Q<VisualElement>("CharacterMaterialsContainer");
     }
 }

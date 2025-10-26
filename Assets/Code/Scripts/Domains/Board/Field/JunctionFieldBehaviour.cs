@@ -34,7 +34,7 @@ public class JunctionFieldBehaviour : FieldBehaviour {
     [Server]
     private IEnumerator LetPlayerChoosePath() {
         crossingPlayer.PlayerMovement.IsMoving = false;
-        crossingPlayer.RpcTriggerAnimation(AnimationType.JUNCTION_ENTRY);
+        crossingPlayer.RpcTriggerAnimation(AnimationType.IDLE);
         isWaitingForBranchChoice = true;
         TargetShowBranchArrows();
         yield return new WaitUntil(() => !isWaitingForBranchChoice);

@@ -42,7 +42,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 403131692012957167}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 2
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -5408,7 +5408,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2136548236619480024}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 2
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -10945,7 +10945,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3968497533260100401}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 2
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -15890,7 +15890,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4594831396150698209}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 2
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -21109,9 +21109,9 @@ MonoBehaviour:
   resultParticle: {fileID: 2169795527306407849}
   model: {fileID: 2275209778625416768}
   iconTexture2D: {fileID: 2800000, guid: 8c29767e2a84c437cab00648d8d22395, type: 3}
-  diceName: Normal Dice
+  diceName: Normal_dice
   values: 010000000200000003000000040000000500000006000000
-  boardScale: 0.75
+  boardScale: 0.6
   previewScale: 0.4
   boardRotationSpeed: 500
   previewRotationSpeed: 200
@@ -21879,7 +21879,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7638322292274398433}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 2
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0

@@ -2,7 +2,6 @@ using Mirror;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using System;
 
 public class GameManager : NetworkRoomManager {
     public static GameManager Singleton {
@@ -16,6 +15,11 @@ public class GameManager : NetworkRoomManager {
 
     [Header("Character Selection")]
     [SerializeField] private GameObject[] selectableCharacters;
+    public GameObject[] SelectableCharacters {
+        get => selectableCharacters;
+        set => selectableCharacters = value;
+    }
+
     public int CharacterCount => selectableCharacters.Length;
     public GameObject GetCharacter(int index) => selectableCharacters[index];
     [SerializeField] private GameObject[] selectableDices;
@@ -49,39 +53,8 @@ public class GameManager : NetworkRoomManager {
         ServerChangeScene(endScene);
     }
 
-    #region Server Connection Logging
-
-    public override void OnRoomServerConnect(NetworkConnectionToClient conn) {
-        base.OnRoomServerConnect(conn);
-        
-        if (NetworkServer.active) {
-            string timestamp = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss UTC");
-            int activeConnections = NetworkServer.connections.Count;
-            Debug.Log($"[SERVER] [{timestamp}] Client connected: ID={conn.connectionId} | Address={conn.address} | Total Players={activeConnections}");
-        }
-    }
-
-    public override void OnRoomServerDisconnect(NetworkConnectionToClient conn) {
-        if (NetworkServer.active) {
-            string timestamp = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss UTC");
-            string playerName = conn.identity != null ? 
-                conn.identity.GetComponent<LobbyPlayer>()?.PlayerName ?? "Unknown" : 
-                "Unknown";
-            
-            int activeConnections = NetworkServer.connections.Count - 1;
-            Debug.Log($"[SERVER] [{timestamp}] Client disconnected: ID={conn.connectionId} | Address={conn.address} | Player={playerName} | Remaining Players={activeConnections}");
-        }
-        
-        base.OnRoomServerDisconnect(conn);
-    }
-
-    #endregion
-
     public override void OnRoomServerSceneChanged(string sceneName) {
-        if (NetworkServer.active) {
-            string timestamp = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss UTC");
-            Debug.Log($"[Server] Scene changed to {sceneName} - [{timestamp}] Game started: true");
-        }
+        Debug.Log($"[Server] Scene changed to {sceneName}");
 
         foreach (var player in FindObjectsByType<SceneConditionalPlayer>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
             player.HandleSceneChange(sceneName);

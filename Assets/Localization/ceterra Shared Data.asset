@@ -1231,6 +1231,354 @@ MonoBehaviour:
     m_Key: modal.propose_investment
     m_Metadata:
       m_Items: []
+  - m_Id: 58035861536194560
+    m_Key: selection.header
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59257155711746048
+    m_Key: selection.color
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947101401088
+    m_Key: Casual_male
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149824
+    m_Key: Casual_female
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149825
+    m_Key: Casual_info
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532939935744
+    m_Key: Casual.Shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490176
+    m_Key: Casual.Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490177
+    m_Key: Casual.Pants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490178
+    m_Key: Casual.Belt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490179
+    m_Key: Casual.Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490180
+    m_Key: Casual.Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149826
+    m_Key: Chef_male
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149827
+    m_Key: Chef_female
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149828
+    m_Key: Chef_info
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684508
+    m_Key: Chef.Clothes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684509
+    m_Key: Chef.DarkClothes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684510
+    m_Key: Chef.Band
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684511
+    m_Key: Chef.Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684512
+    m_Key: Chef.Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684513
+    m_Key: Chef.Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684519
+    m_Key: Chef.Moustache
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684520
+    m_Key: Chef.Hat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149829
+    m_Key: Cowboy_male
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149830
+    m_Key: Cowboy_female
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149831
+    m_Key: Cowboy_info
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684527
+    m_Key: Cowboy.Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684528
+    m_Key: Cowboy.Pants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684529
+    m_Key: Cowboy.Scarf
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684530
+    m_Key: Cowboy.Jacket
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684531
+    m_Key: Cowboy.HatBrown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684532
+    m_Key: Cowboy.Top
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684533
+    m_Key: Cowboy.Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684534
+    m_Key: Cowboy.HatLightBrown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684535
+    m_Key: Cowboy.Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149832
+    m_Key: Doctor_male
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149833
+    m_Key: Doctor_female
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149834
+    m_Key: Doctor_info
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684553
+    m_Key: Doctor.Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684554
+    m_Key: Doctor.Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684555
+    m_Key: Doctor.Main
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684556
+    m_Key: Doctor.Brown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684557
+    m_Key: Doctor.Black
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684558
+    m_Key: Doctor.Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149835
+    m_Key: Kimono_male
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149836
+    m_Key: Kimono_female
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149837
+    m_Key: Kimono_info
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878785
+    m_Key: Kimono.Clothes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878786
+    m_Key: Kimono.Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878787
+    m_Key: Kimono.Band
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878788
+    m_Key: Kimono.Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878789
+    m_Key: Kimono.Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149838
+    m_Key: OldClassy_male
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149839
+    m_Key: OldClassy_female
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149840
+    m_Key: OldClassy_info
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878794
+    m_Key: OldClassy.Shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878795
+    m_Key: OldClassy.Detail
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878796
+    m_Key: OldClassy.Pants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878797
+    m_Key: OldClassy.Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878798
+    m_Key: OldClassy.Belt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878799
+    m_Key: OldClassy.Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878800
+    m_Key: OldClassy.Hat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878801
+    m_Key: OldClassy.Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149841
+    m_Key: Suit_male
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149842
+    m_Key: Suit_female
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149843
+    m_Key: Suit_info
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878810
+    m_Key: Suit.Black
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878811
+    m_Key: Suit.Shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878812
+    m_Key: Suit.Belt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878813
+    m_Key: Suit.Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878814
+    m_Key: Suit.Details
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878815
+    m_Key: Suit.Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878816
+    m_Key: Suit.Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149844
+    m_Key: Worker_male
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149845
+    m_Key: Worker_female
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149846
+    m_Key: Worker_info
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878824
+    m_Key: Worker.Vest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878825
+    m_Key: Worker.Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878826
+    m_Key: Worker.Pants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878827
+    m_Key: Worker.Shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878828
+    m_Key: Worker.Hat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878829
+    m_Key: Worker.Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878830
+    m_Key: Worker.Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59269036665028608
+    m_Key: selection.colorpicker_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285773968031744
+    m_Key: Normal_dice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285777675796480
+    m_Key: Crazy_dice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285779017973760
+    m_Key: Legendary_dice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285780553089024
+    m_Key: Dev_dice
+    m_Metadata:
+      m_Items: []
   - m_Id: 56636904074215424
     m_Key: modal.catastrophe
     m_Metadata:
