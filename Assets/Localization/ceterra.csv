@@ -424,3 +424,7 @@ Key,Id,English(en),German(de)
 "modal.catastrophe.damage-taken",56668768562413568,"{0} - {1}m away, takes {2} damage","{0} - {1}m entfernt, nimmt {2} Schaden"
 "globals.coins",56670997235204096,"Coins","Münzen"
 "globals.health",56153847255523328,"Health","Leben"
+"playmenu.loading",60010223864074240,"VALIDATING","VALIDIERE"
+"playmenu.connecting",60011225140908032,"CONNECTING","VERBINDE"
+"playmenu.validate-code",60011435313287168,"VALIDATE CODE","VALIDIERE CODE"
+"playmenu.digit-code",60011804634337280,"Digit Code","Zahlencode"

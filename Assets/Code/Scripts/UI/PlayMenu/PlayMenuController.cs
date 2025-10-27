@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 using Mirror;
+using UnityEngine.Localization;
 
 public class PlayMenuController : MonoBehaviour {
     private Button backButton;
@@ -12,12 +13,13 @@ public class PlayMenuController : MonoBehaviour {
     private UIDocument uIDocument;
 
     private const string MAIN_MENU_SCENE = "MainMenu";
+    private const long ORIGINAL_BUTTON_TEXT_ID = 60011435313287168;
+    private const long CONNECTION_TEXT_ID = 60011225140908032;
+    private const long VALIDATION_TEXT_ID= 60010223864074240;
 
     private TextField ipAddressField;
     private TextField portField;
     private TextField digitCodeField;
-
-    private string originalValidateButtonText;
 
     private void OnEnable() {
         var root = uIDocument.rootVisualElement;
@@ -39,7 +41,6 @@ public class PlayMenuController : MonoBehaviour {
 
         validateCodeButton = root.Q<Button>("ValidateCodeButton");
         validateCodeButton.AddToClassList("validate-code");
-        originalValidateButtonText = validateCodeButton.text;
         validateCodeButton.clicked += () => {
             Audiomanager.Instance?.PlayClickSound();
             OnValidateCodeClicked();
@@ -69,14 +70,14 @@ public class PlayMenuController : MonoBehaviour {
             return;
         }
 
-        SetValidateButtonLoading(true, "VALIDATING...");
+        SetValidateButtonLoading(true, VALIDATION_TEXT_ID); 
         StartCoroutine(InviteCodeValidator.ValidateCode(code, OnValidateSuccess, OnValidateError));
     }
 
     private void OnValidateSuccess(InviteCodeValidator.CodeResponse response) {
         Debug.Log($"✓ Valid code! Connect to {response.domain}:{response.port}");
         
-        SetValidateButtonLoading(true, "CONNECTING...");
+        SetValidateButtonLoading(true, CONNECTION_TEXT_ID);
         
         ipAddressField.value = response.domain;
         portField.value = response.port.ToString();
@@ -89,18 +90,11 @@ public class PlayMenuController : MonoBehaviour {
         SetValidateButtonLoading(false);
     }
 
-    private void SetValidateButtonLoading(bool isLoading, string customText = null) {
-        if (isLoading) {
-            validateCodeButton.AddToClassList("loading");
-            validateCodeButton.SetEnabled(false);
-            if (!string.IsNullOrEmpty(customText)) {
-                validateCodeButton.text = customText;
-            }
-        } else {
-            validateCodeButton.RemoveFromClassList("loading");
-            validateCodeButton.SetEnabled(true);
-            validateCodeButton.text = originalValidateButtonText;
-        }
+    private void SetValidateButtonLoading(bool isLoading, long customTextId = ORIGINAL_BUTTON_TEXT_ID) {
+        validateCodeButton.EnableInClassList("loading", isLoading);
+        validateCodeButton.SetEnabled(!isLoading);
+        var localizedString = validateCodeButton.GetBinding("text") as LocalizedString;
+        localizedString.SetReference("ceterra", customTextId);
     }
 
     private void OnJoinLobbyClicked() {

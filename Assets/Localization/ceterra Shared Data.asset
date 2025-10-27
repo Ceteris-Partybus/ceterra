@@ -1715,6 +1715,22 @@ MonoBehaviour:
     m_Key: globals.health
     m_Metadata:
       m_Items: []
+  - m_Id: 60010223864074240
+    m_Key: playmenu.loading
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011225140908032
+    m_Key: playmenu.connecting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011435313287168
+    m_Key: playmenu.validate-code
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011804634337280
+    m_Key: playmenu.digit-code
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

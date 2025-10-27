@@ -27,10 +27,18 @@
                 <ui:TextField name="LobbyCodeField" class="input-field" />
             </ui:VisualElement>
             <ui:VisualElement class="input-row">
-                <ui:Label text="Digit Code:" class="input-label" />
+                <ui:Label  class="input-label">    
+                    <Bindings> 
+                        <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(60011804634337280)" />
+                    </Bindings>
+                </ui:Label>
                 <ui:TextField name="DigitCodeField" value="" maxlength="4" class="input-field" />
             </ui:VisualElement>
-            <ui:Button text="VALIDATE CODE" name="ValidateCodeButton" class="action-button" style="width: 100%; height: 55px; font-size: 40px; margin-top: 15px;" />
+            <ui:Button name="ValidateCodeButton" class="action-button" style="width: 100%; height: 55px; font-size: 40px; margin-top: 15px;">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(60011435313287168)" />
+                </Bindings>
+            </ui:Button>
             <ui:Button text="JOIN LOBBY" name="JoinLobbyButton" class="action-button join-lobby" style="height: 89px; width: 616px;">
                 <Bindings>
                     <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(24296382042112)" />
