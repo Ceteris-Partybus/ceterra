@@ -2,130 +2,180 @@
     -unity-font-definition: resource('UI/Other/Jersey15-Regular');
 }
 
+#SelectionUI-container {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
 #MainContainer {
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
     position: absolute;
-    right: 15%;
-    top: 50%;
-    translate: 0 -50%;
+    right: 5%;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
     width: auto;
     height: auto;
 }
 
+.selection-header {
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_title_with_stroke.png");
+    height: 120px;
+    width: 700px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 15px;
+}
+
+.selection-header-title {
+    font-size: 60px;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.8);
+    -unity-text-align: middle-center;
+}
+
 .selection-panel {
-    background-color: rgba(0, 0, 0, 0.8);
-    border-radius: 18px;
-    padding: 31px;
-    width: 440px;
-    border-width: 3px;
-    border-color: rgba(160, 199, 100, 0.6);
+    border-radius: 25px;
+    padding: 5px 30px 25px 30px;
+    width: 700px;
+    border-width: 0px;
 }
 
 .section-title {
-    font-size: 42px;
-    color: #ffffff;
-    margin-bottom: 13px;
+    font-size: 46px;
+    color: #745136;
     -unity-text-align: middle-center;
-    text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
-    -unity-font-style: bold;
+    letter-spacing: 1px;
 }
 
 .selector-box {
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 22px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 13px;
-    padding: 13px 18px;
-    border-width: 2px;
-    border-color: rgba(255, 255, 255, 0.1);
+    margin-bottom: 10px;
+    border-radius: 15px;
+    padding: 15px 20px;
 }
 
 .selector-button {
-    width: 46px;
-    height: 46px;
-    background-color: rgba(160, 199, 100, 0.8);
-    color: white;
-    font-size: 42px;
-    border-radius: 9px;
-    border-width: 0px;
-    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+    height: 70px;
+    width: 70px;
+    font-size: 38px;
+    border-width: 0;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 2px #000000;
+    -unity-text-align: upper-center;
+    transition-duration: 0.3s;
+    transition-property: background-image, scale, translate, text-shadow;
+    transition-timing-function: ease-out;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_default.png");
+    border-color: transparent;
+    letter-spacing: 1px;
 }
 
 .selector-button:hover {
-    background-color: rgba(160, 199, 100, 1);
+    transition-duration: 0.2s;
+    scale: 1.01 1.01;
+}
+
+.selector-button:active {
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_pressed.png");
+    -unity-text-align: lower-center;
+}
+
+.selector-button:hover {
+    scale: 1.05 1.05;
+}
+
+.selector-button:active {
+    scale: 0.95 0.95;
 }
 
 .selector-content {
     flex-grow: 1;
     align-items: center;
     justify-content: center;
-    margin: 0 18px;
+    margin: 0 20px;
 }
 
 .selector-title {
-    font-size: 32px;
-    color: white;
-    text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
-    -unity-text-align: middle-center;
+    font-size: 42px;
+    color: #ffffff;
+    -unity-text-outline-color: #745136;
+    -unity-text-outline-width: 3px;
     -unity-font-style: bold;
-    margin-bottom: 4px;
+    -unity-text-align: middle-center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 5px;
 }
 
 .selector-info {
     font-size: 24px;
-    color: rgba(160, 199, 100, 0.9);
-    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+    color: #745136;
     -unity-text-align: middle-center;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal;
 }
 
 .input-container {
-    margin-bottom: 22px;
+    margin-bottom: 25px;
     align-items: center;
 }
 
 .player-input {
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.05);
-    color: black;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    color: rgba(0, 0, 0, 0.9);
     font-size: 32px;
-    padding: 13px 18px;
-    border-radius: 13px;
-    border-width: 2px;
-    border-color: rgba(255, 255, 255, 0.1);
-    -unity-font-style: normal;
-}
-
-#unity-text-input {
-    opacity: 1;
-}
-
-.player-input:focus {
-    border-color: rgba(160, 199, 100, 0.8);
-    background-color: rgba(0, 0, 0, 0.5);
+    padding: 15px 20px;
 }
 
 .select-button {
-    width: 100%;
-    height: 59px;
-    background-color: rgba(160, 199, 100, 0.9);
-    color: white;
-    font-size: 42px;
-    border-radius: 13px;
-    border-width: 0px;
-    text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
-    -unity-font-style: bold;
-    margin-top: 13px;
-}
-
-.select-button:hover {
-    background-color: rgba(160, 199, 100, 1);
+    height: 70px;
+    font-size: 40px;
+    border-width: 0;
+    color: #FFFFFF;
+    text-shadow: 1px 1px 1px #000000;
+    -unity-text-align: upper-center;
+    background-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/green_default.png");
+    border-color: transparent;
+    letter-spacing: 1px;
 }
 
 .select-button:active {
-    background-color: rgba(11, 85, 71, 1);
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/green_pressed.png");
+    -unity-text-align: lower-center;
+}
+
+.materials-container {
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.material-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.material-label {
+    min-width: 105px;
+    font-size: 24px;
+    color: #745136;
+}
+
+.material-color-box {
+    width: 40px;
+    height: 30px;
+    margin-right: 8px;
+    border-width: 2px;
+    border-color: #745136;
+    border-radius: 5px;
 }

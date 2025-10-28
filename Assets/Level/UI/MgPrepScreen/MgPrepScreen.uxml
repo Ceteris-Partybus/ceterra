@@ -17,7 +17,11 @@
                 <ui:Label text="Hier könnte Ihre Beschreibung stehen" name="Description" class="lorem-text" />
             </ui:VisualElement>
             <ui:VisualElement class="controls-section">
-                <ui:Label text="Steuerung" class="controls-title" />
+                <ui:Label class="controls-title">
+                    <Bindings>
+                        <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56151189501239296)" />
+                    </Bindings>
+                </ui:Label>
                 <ui:Label text="Hier ist massig Platz für tolle Erklärungen" name="Controls" class="controls-text" />
             </ui:VisualElement>
         </ui:VisualElement>

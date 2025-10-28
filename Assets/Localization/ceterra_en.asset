@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: 0bcae4cae5373ec479ceeeee5b1d030f, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 7894437812287832149
   m_TableData:
   - m_Id: 54051235973255168
     m_Localized: Beverage cartons also add to the pile of waste. How can you reduce
@@ -1106,6 +1107,664 @@ MonoBehaviour:
     m_Localized: Improves healthcare in disadvantaged regions.
     m_Metadata:
       m_Items: []
+  - m_Id: 56143503242027008
+    m_Localized: The game is over!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144067971506176
+    m_Localized: Thanks for playing!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144259705724928
+    m_Localized: 'Group score:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144406623805440
+    m_Localized: 'Your score:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144566892355584
+    m_Localized: 'Other players:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56145165381787648
+    m_Localized: Deposit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56145873707458560
+    m_Localized: 'Affected players:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56146686244806656
+    m_Localized: Environment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56146825365676032
+    m_Localized: Economy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56146969926557696
+    m_Localized: Society
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147343727124480
+    m_Localized: Error
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147427596427264
+    m_Localized: An unexpected error occured.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147786268139520
+    m_Localized: Funds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147874730205184
+    m_Localized: Invest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56149215993126912
+    m_Localized: All
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56151189501239296
+    m_Localized: Controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56151484889292800
+    m_Localized: Not ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56151999538782208
+    m_Localized: Dep.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56152165855518720
+    m_Localized: Inv.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56152728932442112
+    m_Localized: Character
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153017580249088
+    m_Localized: Confirm choice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153329091207168
+    m_Localized: Player name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153427497967616
+    m_Localized: Dice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153847255523328
+    m_Localized: Health
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56154430154727424
+    m_Localized: TURN INFO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56154757243330560
+    m_Localized: 'Round:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56154919462232064
+    m_Localized: 'Current turn:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155033622798336
+    m_Localized: Roll Dice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155119715082240
+    m_Localized: View Board
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155225038249984
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155423755984896
+    m_Localized: Funds history
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155672947974144
+    m_Localized: Resources
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155772201984000
+    m_Localized: Increase after round
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156036074037248
+    m_Localized: Vote
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156196548108288
+    m_Localized: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156284435554304
+    m_Localized: No
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156500152803328
+    m_Localized: Resource history
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156702553137152
+    m_Localized: Propose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156896262873088
+    m_Localized: Add 100% required funding
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56157094477291520
+    m_Localized: Propose investment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 58035861536194560
+    m_Localized: Make your selection
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59257155711746048
+    m_Localized: Colors
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532939935744
+    m_Localized: Shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490176
+    m_Localized: Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490177
+    m_Localized: Pants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490178
+    m_Localized: Belt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490179
+    m_Localized: Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490180
+    m_Localized: Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684508
+    m_Localized: Apron
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684509
+    m_Localized: Pants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684510
+    m_Localized: Neckerchief
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684511
+    m_Localized: Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684512
+    m_Localized: Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684513
+    m_Localized: Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684519
+    m_Localized: Moustache
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684520
+    m_Localized: Chef hat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684527
+    m_Localized: Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684528
+    m_Localized: Pants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684529
+    m_Localized: Scarf
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684530
+    m_Localized: Jacket
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684531
+    m_Localized: Hat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684532
+    m_Localized: Top
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684533
+    m_Localized: Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684534
+    m_Localized: Hatband
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684535
+    m_Localized: Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684553
+    m_Localized: Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684554
+    m_Localized: Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684555
+    m_Localized: Lab coat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684556
+    m_Localized: Pants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684557
+    m_Localized: Shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684558
+    m_Localized: Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878785
+    m_Localized: Kimono
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878786
+    m_Localized: Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878787
+    m_Localized: Obi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878788
+    m_Localized: Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878789
+    m_Localized: Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878794
+    m_Localized: Shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878795
+    m_Localized: Braces
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878796
+    m_Localized: Pants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878797
+    m_Localized: Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878798
+    m_Localized: Belt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878799
+    m_Localized: Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878800
+    m_Localized: Hat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878801
+    m_Localized: Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878810
+    m_Localized: Suit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878811
+    m_Localized: Shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878812
+    m_Localized: Belt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878813
+    m_Localized: Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878814
+    m_Localized: Tie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878815
+    m_Localized: Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878816
+    m_Localized: Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878824
+    m_Localized: Vest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878825
+    m_Localized: Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878826
+    m_Localized: Pants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878827
+    m_Localized: Shirt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878828
+    m_Localized: Helmet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878829
+    m_Localized: Face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878830
+    m_Localized: Hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59269036665028608
+    m_Localized: Choose a color for
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947101401088
+    m_Localized: Citizen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149824
+    m_Localized: Citizen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149825
+    m_Localized: Supports change from the ground up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149826
+    m_Localized: Chef
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149827
+    m_Localized: Chef
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149828
+    m_Localized: Nourishes the town with local resources
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149829
+    m_Localized: Rancher
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149830
+    m_Localized: Rancher
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149831
+    m_Localized: Works in harmony with the land
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149832
+    m_Localized: Doctor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149833
+    m_Localized: Doctor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149834
+    m_Localized: Keeps the community healthy and thriving
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149835
+    m_Localized: Trainer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149836
+    m_Localized: Trainer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149837
+    m_Localized: Empowers the community with new skills
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149838
+    m_Localized: Mayor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149839
+    m_Localized: Mayor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149840
+    m_Localized: Unites the community with a shared vision
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149841
+    m_Localized: Architect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149842
+    m_Localized: Architect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149843
+    m_Localized: Designs the blueprint for a better future
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149844
+    m_Localized: Builder
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149845
+    m_Localized: Builder
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149846
+    m_Localized: Turns sustainable plans into reality
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285773968031744
+    m_Localized: Normal dice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285777675796480
+    m_Localized: Crazy dice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285779017973760
+    m_Localized: Legendary dice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285780553089024
+    m_Localized: Dev dice
+  - m_Id: 56636904074215424
+    m_Localized: Catastrophe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56638766894645248
+    m_Localized: Deposit value must be greater than 0.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56639250527256576
+    m_Localized: You do not have enough coins.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56639770314768384
+    m_Localized: Deposit from
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56640685331546112
+    m_Localized: The fund is insufficient to fully support this investment proposal.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56640685331546113
+    m_Localized: The city does not have enough resources to support this investment
+      proposal.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56640685331546114
+    m_Localized: The minimum investment must be greater than 0 if the investment
+      is not already fully funded.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56641707357601792
+    m_Localized: In construction, {0} round(s) remaining.
+    m_Metadata:
+      m_Items:
+      - rid: 7894437812287832149
+  - m_Id: 56645878458712064
+    m_Localized: Completed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56646535894892544
+    m_Localized: '{0} has proposed investing {1} coins in {2} via the funds. Cast
+      your vote!'
+    m_Metadata:
+      m_Items:
+      - rid: 7894437812287832149
+  - m_Id: 56647493433524224
+    m_Localized: The investment proposal has been declined.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648143445786624
+    m_Localized: Volcanic Eruption
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648230402097152
+    m_Localized: Molten lava and toxic ash devastate the surrounding area.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648327022084096
+    m_Localized: Nuclear Disaster
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648380902113280
+    m_Localized: Radioactive fallout spreads across the region causing severe damage.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648670216814592
+    m_Localized: Devastating Landslide
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648729599770624
+    m_Localized: Massive rocks and debris crash down, burying everything in their
+      path.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648926065164288
+    m_Localized: Raging Wildfire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648972298977280
+    m_Localized: Uncontrolled flames consume everything, leaving only ash behind.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649363690455040
+    m_Localized: Glacier Melting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649388873056256
+    m_Localized: Rising waters flood the landscape as ancient ice rapidly melts.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649684747649024
+    m_Localized: Severe Drought
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649705719169024
+    m_Localized: Extreme heat and lack of water turn fertile land into barren wasteland.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649910111797248
+    m_Localized: Tsunami
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649934925299712
+    m_Localized: Massive waves surge inland, destroying everything in their wake.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56652191783813120
+    m_Localized: Rundenende
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56652337988861952
+    m_Localized: The investment {0} has been finished!
+    m_Metadata:
+      m_Items:
+      - rid: 7894437812287832149
+  - m_Id: 56659020039421952
+    m_Localized: Financing {0}
+    m_Metadata:
+      m_Items:
+      - rid: 7894437812287832149
+  - m_Id: 56659352559648768
+    m_Localized: Resources for {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56661867099422720
+    m_Localized: The investment has been fully funded and is now under construction.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56661867099422721
+    m_Localized: The investment was financed with {0} coins, but additional funds
+      are still needed. The resources have not yet been deducted.
+    m_Metadata:
+      m_Items:
+      - rid: 7894437812287832149
+  - m_Id: 56668768562413568
+    m_Localized: '{0} - {1}m away, takes {2} damage'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56670997235204096
+    m_Localized: Coins
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7894437812287832149
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 56641707357601792
+        - id: 56646535894892544
+        - id: 56652337988861952
+        - id: 56659020039421952
+        - id: 56661867099422721

@@ -18,7 +18,7 @@ public class Dice : MonoBehaviour {
     private StyleBackground icon;
     public StyleBackground Icon => icon;
     [SerializeField] private string diceName;
-    public string DiceName => diceName;
+    public string DiceName => LocalizationManager.Instance.GetLocalizedText(diceName);
     [SerializeField] private int[] values;
     public int[] Values => values;
     public int RandomValue => values[Random.Range(0, values.Length)];
@@ -94,7 +94,6 @@ public class Dice : MonoBehaviour {
 
     public void OnRollStart() {
         isSpinning = true;
-
         StartCoroutine(RandomDiceNumberCoroutine());
 
         Show();
@@ -116,29 +115,27 @@ public class Dice : MonoBehaviour {
         model.transform.DOScale(0, .12f).OnComplete(() => HideModel());
     }
 
-    public void OnRollDisplay(int roll) {
-        hitParticle.Play();
-        Audiomanager.Instance?.PlayDiceStopSound();
-        if (hitParticle.GetComponent<CinemachineImpulseSource>() != null) {
-            hitParticle.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
-        }
+    public Sequence OnRollDisplay(int roll) {
         model.transform.DOComplete();
         StopSpinning();
         SetDiceNumber(roll);
         model.transform.eulerAngles = Vector3.zero;
-        var localPosition = model.transform.localPosition;
-        model.transform.DOLocalJump(localPosition, .8f, 1, .25f);
-        model.transform.DOPunchScale(Vector3.one / 4, .3f, 10, 1);
+
+        return DOTween.Sequence()
+            .Join(model.transform.DOShakePosition(.6f, .1f, 20))
+            .Append(model.transform.DOPunchScale(Vector3.one / 4, .3f, 10, 1));
     }
 
-    public void OnRollEnd(int roll) {
+    public WaitWhile OnRollEnd(int roll) {
         Hide();
-        resultParticle.Play();;
+        resultParticle.Play();
 
         ShowDiceResultLabel();
         resultLabel.text = roll.ToString();
         resultLabel.transform.DOComplete();
         resultLabel.transform.DOScale(0, .2f).From().SetEase(scaleEase);
+
+        return new WaitWhile(() => resultParticle.isPlaying);
     }
 
     public void ShowDiceResultLabel() {

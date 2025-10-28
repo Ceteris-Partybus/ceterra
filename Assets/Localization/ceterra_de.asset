@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: de
   m_SharedData: {fileID: 11400000, guid: 0bcae4cae5373ec479ceeeee5b1d030f, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 7894437812287832148
   m_TableData:
   - m_Id: 54051235973255168
     m_Localized: "Auch Getr\xE4nkekartons tragen zum M\xFCllberg bei. Wie kannst
@@ -1115,6 +1116,669 @@ MonoBehaviour:
     m_Localized: Verbessert die Gesundheitsversorgung in benachteiligten Regionen.
     m_Metadata:
       m_Items: []
+  - m_Id: 56143503242027008
+    m_Localized: Das Spiel ist zu Ende!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144067971506176
+    m_Localized: "Danke f\xFCr's Spielen!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144259705724928
+    m_Localized: 'Gruppen Score:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144406623805440
+    m_Localized: 'Dein Score:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144566892355584
+    m_Localized: 'Andere Spieler:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56145165381787648
+    m_Localized: Einzahlen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56145873707458560
+    m_Localized: 'Betroffene Spieler:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56146686244806656
+    m_Localized: Umwelt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56146825365676032
+    m_Localized: Wirtschaft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56146969926557696
+    m_Localized: Gesellschaft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147343727124480
+    m_Localized: Fehler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147427596427264
+    m_Localized: Ein unerwarteter Fehler ist aufgetreten.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147786268139520
+    m_Localized: Fonds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147874730205184
+    m_Localized: Investieren
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56149215993126912
+    m_Localized: Alle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56151189501239296
+    m_Localized: Steuerung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56151484889292800
+    m_Localized: Nicht bereit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56151999538782208
+    m_Localized: Einz.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56152165855518720
+    m_Localized: Inv.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56152728932442112
+    m_Localized: Charakter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153017580249088
+    m_Localized: "Auswahl best\xE4tigen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153329091207168
+    m_Localized: Spielername
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153427497967616
+    m_Localized: "W\xFCrfel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153847255523328
+    m_Localized: Leben
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56154430154727424
+    m_Localized: ZUG-INFO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56154757243330560
+    m_Localized: 'Runde:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56154919462232064
+    m_Localized: 'Am Zug:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155033622798336
+    m_Localized: "W\xFCrfeln"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155119715082240
+    m_Localized: Brett anzeigen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155225038249984
+    m_Localized: Einstellungen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155423755984896
+    m_Localized: Fonds-Verlauf
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155672947974144
+    m_Localized: Ressourcen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155772201984000
+    m_Localized: Anstieg nach Runde
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156036074037248
+    m_Localized: Abstimmen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156196548108288
+    m_Localized: Ja
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156284435554304
+    m_Localized: Nein
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156500152803328
+    m_Localized: Ressourcen-Verlauf
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156702553137152
+    m_Localized: Vorschlagen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156896262873088
+    m_Localized: "100% Finanzierunug hinzuf\xFCgen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56157094477291520
+    m_Localized: Investition vorschlagen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 58035861536194560
+    m_Localized: Triff deine Auswahl
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59257155711746048
+    m_Localized: Farben
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532939935744
+    m_Localized: Hemd
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490176
+    m_Localized: Haut
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490177
+    m_Localized: Hose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490178
+    m_Localized: "G\xFCrtel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490179
+    m_Localized: Gesicht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490180
+    m_Localized: Haare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684508
+    m_Localized: "Sch\xFCrze"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684509
+    m_Localized: Hose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684510
+    m_Localized: Halstuch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684511
+    m_Localized: Haut
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684512
+    m_Localized: Gesicht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684513
+    m_Localized: Haare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684519
+    m_Localized: Schnurrbart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684520
+    m_Localized: "Kochm\xFCtze"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684527
+    m_Localized: Haut
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684528
+    m_Localized: Hose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684529
+    m_Localized: Schal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684530
+    m_Localized: Jacke
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684531
+    m_Localized: Hut
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684532
+    m_Localized: Oberteil
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684533
+    m_Localized: Gesicht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684534
+    m_Localized: Hutband
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684535
+    m_Localized: Haare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684553
+    m_Localized: Gesicht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684554
+    m_Localized: Haut
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684555
+    m_Localized: Kittel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684556
+    m_Localized: Hose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684557
+    m_Localized: Hemd
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684558
+    m_Localized: Haare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878785
+    m_Localized: Kimono
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878786
+    m_Localized: Haut
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878787
+    m_Localized: Obi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878788
+    m_Localized: Gesicht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878789
+    m_Localized: Haare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878794
+    m_Localized: Hemd
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878795
+    m_Localized: "Hosentr\xE4ger"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878796
+    m_Localized: Hose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878797
+    m_Localized: Haut
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878798
+    m_Localized: "G\xFCrtel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878799
+    m_Localized: Gesicht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878800
+    m_Localized: Hut
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878801
+    m_Localized: Haare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878810
+    m_Localized: Anzug
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878811
+    m_Localized: Hemd
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878812
+    m_Localized: "G\xFCrtel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878813
+    m_Localized: Haut
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878814
+    m_Localized: Krawatte
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878815
+    m_Localized: Gesicht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878816
+    m_Localized: Haare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878824
+    m_Localized: Weste
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878825
+    m_Localized: Haut
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878826
+    m_Localized: Hose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878827
+    m_Localized: Hemd
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878828
+    m_Localized: Helm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878829
+    m_Localized: Gesicht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878830
+    m_Localized: Haare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59269036665028608
+    m_Localized: "W\xE4hle eine Farbe f\xFCr"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947101401088
+    m_Localized: "B\xFCrger"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149824
+    m_Localized: "B\xFCrgerin"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149825
+    m_Localized: "Unterst\xFCtzt Ver\xE4nderungen von Grund auf"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149826
+    m_Localized: Koch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149827
+    m_Localized: "K\xF6chin"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149828
+    m_Localized: "St\xE4rkt die Gemeinschaft mit regionalen Zutaten"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149829
+    m_Localized: Farmer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149830
+    m_Localized: Farmerin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149831
+    m_Localized: Arbeitet im Einklang mit der Natur
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149832
+    m_Localized: Arzt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149833
+    m_Localized: "\xC4rztin"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149834
+    m_Localized: "H\xE4lt die Gemeinschaft gesund und lebendig"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149835
+    m_Localized: Trainer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149836
+    m_Localized: Trainerin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149837
+    m_Localized: "St\xE4rkt die Gemeinschaft mit neuen F\xE4higkeiten"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149838
+    m_Localized: "B\xFCrgermeister"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149839
+    m_Localized: "B\xFCrgermeisterin"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149840
+    m_Localized: Vereint die Gemeinschaft mit einer gemeinsamen Vision
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149841
+    m_Localized: Architekt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149842
+    m_Localized: Architektin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149843
+    m_Localized: "Entwirft den Plan f\xFCr eine bessere Zukunft"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149844
+    m_Localized: Bauarbeiter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149845
+    m_Localized: Bauarbeiterin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149846
+    m_Localized: Setzt nachhaltige Visionen in die Tat um
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285773968031744
+    m_Localized: "Normaler W\xFCrfel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285777675796480
+    m_Localized: "Verr\xFCckter W\xFCrfel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285779017973760
+    m_Localized: "Legend\xE4rer W\xFCrfel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285780553089024
+    m_Localized: "Entwickler W\xFCrfel"
+  - m_Id: 56636904074215424
+    m_Localized: Katastrophe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56638766894645248
+    m_Localized: "Der Einzahlungsbetrag muss gr\xF6\xDFer als 0 sein."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56639250527256576
+    m_Localized: "Du besitzt nicht gen\xFCgend M\xFCnzen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56639770314768384
+    m_Localized: Einzahlen von
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56640685331546112
+    m_Localized: "Der Fonds hat nicht genug Geld, um diesen Investitionsvorschlag
+      vollumf\xE4nglich zu unterst\xFCtzen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56640685331546113
+    m_Localized: "Die Stadt hat nicht genug Ressourcen, um diesen Investitionsvorschlag
+      zu unterst\xFCtzen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56640685331546114
+    m_Localized: "Du musst einen Betrag gr\xF6\xDFer als 0 vorschlagen, wenn die
+      Investition nicht bereits voll finanziert ist."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56641707357601792
+    m_Localized: Im Aufbau, {0} Runde(n) verbleibend.
+    m_Metadata:
+      m_Items:
+      - rid: 7894437812287832148
+  - m_Id: 56645878458712064
+    m_Localized: Fertiggestellt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56646535894892544
+    m_Localized: "{0} hat vorgeschlagen, {1} M\xFCnzen \xFCber den Fonds in {2} zu
+      investieren. Stimme ab!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56647493433524224
+    m_Localized: Der Investitionsvorschlag wurde abgelehnt.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648143445786624
+    m_Localized: Vulkanausbruch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648230402097152
+    m_Localized: "Geschmolzene Lava und giftige Asche verw\xFCsten die Umgebung."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648327022084096
+    m_Localized: Nuklearkatastrophe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648380902113280
+    m_Localized: "Radioaktiver Regen breitet sich \xFCber die Region aus und verursacht
+      schwere Sch\xE4den."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648670216814592
+    m_Localized: Verheerender Erdrutsch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648729599770624
+    m_Localized: "Massive Felsen und Tr\xFCmmer st\xFCrzen herab und begraben alles,
+      was sich ihnen in den Weg stellt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648926065164288
+    m_Localized: Waldbrand
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648972298977280
+    m_Localized: Unkontrollierte Flammen verschlingen alles und hinterlassen nur
+      Asche.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649363690455040
+    m_Localized: Gletscherschmelze
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649388873056256
+    m_Localized: "Steigende Wasserst\xE4nde \xFCberschwemmen die Landschaft, w\xE4hrend
+      das alte Eis schnell schmilzt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649684747649024
+    m_Localized: "D\xFCrre"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649705719169024
+    m_Localized: "Extreme Hitze und Wassermangel verwandeln fruchtbares Land in unfruchtbare
+      \xD6dnis."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649910111797248
+    m_Localized: Tsunami
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649934925299712
+    m_Localized: "Riesige Wellen schlagen ins Landesinnere und zerst\xF6ren alles,
+      was sich ihnen in den Weg stellt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56652191783813120
+    m_Localized: Round end
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56652337988861952
+    m_Localized: Das Investment {0} wurde fertiggestellt!
+    m_Metadata:
+      m_Items:
+      - rid: 7894437812287832148
+  - m_Id: 56659020039421952
+    m_Localized: "Finanzierung f\xFCr {0}"
+    m_Metadata:
+      m_Items:
+      - rid: 7894437812287832148
+  - m_Id: 56659352559648768
+    m_Localized: "Ressourcen f\xFCr {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56661867099422720
+    m_Localized: "Das Investment wurde vollst\xE4ndig finanziert und befindet sich
+      nun im Bau."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56661867099422721
+    m_Localized: "Das Investment wurde mit {0} M\xFCnzen finanziert, ben\xF6tigt
+      aber noch weitere Gelder. Die Ressourcen wurden noch nicht abgezogen."
+    m_Metadata:
+      m_Items:
+      - rid: 7894437812287832148
+  - m_Id: 56668768562413568
+    m_Localized: '{0} - {1}m entfernt, nimmt {2} Schaden'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56670997235204096
+    m_Localized: "M\xFCnzen"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7894437812287832148
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 56641707357601792
+        - id: 56652337988861952
+        - id: 56659020039421952
+        - id: 56661867099422721

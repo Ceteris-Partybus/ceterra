@@ -57,7 +57,7 @@ echo ""
 if command -v git &> /dev/null; then
     CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "unknown")
     
-    if [ "$CURRENT_BRANCH" != "CETERRA-89-Chores" ]; then
+    if [ "$CURRENT_BRANCH" != "main" ]; then
         echo -e "${RED}ERROR: Not on main branch!${NC}"
         echo -e "${RED}Current branch: ${CURRENT_BRANCH}${NC}"
         echo -e "${RED}This script should only be run from the main branch.${NC}"
@@ -74,7 +74,7 @@ echo ""
 
 # Important reminder about build
 echo -e "${BLUE}IMPORTANT: Please ensure your latest build is already built${NC}"
-echo -e "${BLUE}into the correct folder (Builds/Docker) with the correct build profile (Docker Image Build) before proceeding!${NC}"
+echo -e "${BLUE}into the correct folder (Builds/Server) before proceeding!${NC}"
 echo ""
 
 # Reminder and link to PAT creation

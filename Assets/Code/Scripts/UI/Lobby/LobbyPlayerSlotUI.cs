@@ -1,14 +1,15 @@
 using UnityEngine.UIElements;
 
 public class LobbyPlayerSlotUI {
-    public VisualElement parent;
+    private VisualElement parent;
     private VisualElement buttonContainer;
-    public Label playerDisplayName;
-    public Label playerPing;
-    public IconWithLabel selectedCharacter;
-    public IconWithLabel selectedDice;
-    public Button characterSelectionBtn;
-    public Button readyBtn;
+    private Label playerDisplayName;
+    private Label playerPing;
+    private IconWithLabel selectedCharacter;
+    private IconWithLabel selectedDice;
+    private Button characterSelectionBtn;
+    private Button readyBtn;
+    private Label readyStatusDisplayLabel;
     private DottedAnimation waitingAnimation;
     private bool isInitialized = false;
 
@@ -19,13 +20,14 @@ public class LobbyPlayerSlotUI {
         playerDisplayName = parent.Q<Label>("player-name-label");
         playerPing = parent.Q<Label>("ping-label");
 
-        selectedCharacter = new IconWithLabel(parent.Q<VisualElement>("character-content"), "character-icon", "character-name");
-        selectedDice = new IconWithLabel(parent.Q<VisualElement>("dice-content"), "dice-icon", "dice-name");
+        selectedCharacter = new IconWithLabel(parent.Q<VisualElement>("character-selection"), "character-icon", "character-name");
+        selectedDice = new IconWithLabel(parent.Q<VisualElement>("dice-selection"), "dice-icon", "dice-name");
 
         characterSelectionBtn = parent.Q<Button>("character-selection-button");
-        characterSelectionBtn.clicked += PlayerHud.Instance.ShowCharacterSelection;
         readyBtn = parent.Q<Button>("ready-button");
+        readyStatusDisplayLabel = parent.Q<Label>("ready-status-display-label");
 
+        characterSelectionBtn.clicked += PlayerHud.Instance.ShowCharacterSelection;
         characterSelectionBtn.clicked += () => Audiomanager.Instance?.PlayClickSound();
         readyBtn.clicked += () => Audiomanager.Instance?.PlayClickSound();
 
@@ -52,6 +54,9 @@ public class LobbyPlayerSlotUI {
         }
 
         var isReady = lobbyPlayer.readyToBegin;
+        readyStatusDisplayLabel.text = isReady ? "Is ready" : "Is not ready";
+        readyStatusDisplayLabel.parent.EnableInClassList("ready", isReady);
+        readyStatusDisplayLabel.parent.style.display = !lobbyPlayer.isLocalPlayer ? DisplayStyle.Flex : DisplayStyle.None;
         parent.EnableInClassList("ready", isReady);
         readyBtn.EnableInClassList("ready", isReady);
         readyBtn.text = isReady ? "Click to unready" : "Click to ready";

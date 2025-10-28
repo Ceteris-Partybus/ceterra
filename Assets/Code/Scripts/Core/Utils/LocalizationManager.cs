@@ -1,8 +1,4 @@
-using UnityEngine;
-using System.Collections.Generic;
-using Newtonsoft.Json;
 using UnityEngine.Localization.Settings;
-using UnityEngine.Localization;
 
 public class LocalizationManager : Singleton<LocalizationManager> {
     private const string LOCALIZATION_TABLE = "ceterra";
@@ -14,14 +10,15 @@ public class LocalizationManager : Singleton<LocalizationManager> {
         .Result;
     }
 
-    public string GetLocalizedParameterText(long id, int param) {
+    public string GetLocalizedText(long id, params object[] parameters) {
         return LocalizationSettings.StringDatabase
-        .GetLocalizedStringAsync(LOCALIZATION_TABLE, id, new object[] { param })
+        .GetLocalizedStringAsync(LOCALIZATION_TABLE, id, parameters)
         .Result;
     }
 
-    public string GetLocalizedObjectsByKey(string key) {
-        var localizedString = new LocalizedString(LOCALIZATION_TABLE, key);
-        return localizedString.GetLocalizedString();
+    public string GetLocalizedText(string key) {
+        return LocalizationSettings.StringDatabase
+        .GetLocalizedStringAsync(LOCALIZATION_TABLE, key)
+        .Result;
     }
 }
