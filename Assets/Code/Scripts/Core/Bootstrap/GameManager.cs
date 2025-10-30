@@ -139,27 +139,53 @@ public class GameManager : NetworkRoomManager {
 
     #region Server Connection Logging
 
+    [Serializable]
+    private class LogData {
+        public string Event;
+        public string EventID;
+        public string Timestamp;
+        public int ConnectionId;
+        public string Address;
+        public int TotalPlayersAmount;
+        public string PlayerName;
+    }
+
+private static readonly TimeZoneInfo berlinTimeZone = 
+    TimeZoneInfo.FindSystemTimeZoneById("W. Europe Standard Time");
+
+    private void LogConnectionEvent(string eventType, NetworkConnectionToClient conn, string playerName = "Unknown") {
+        if (!NetworkServer.active) {
+            return;
+        }
+
+        DateTime berlinTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, berlinTimeZone);
+        string timestamp = berlinTime.ToString("yyyy-MM-dd HH:mm:ss Europe/Berlin");
+        var activeConnections = NetworkServer.connections.Count;
+        
+        var logData = new LogData {
+            Event = eventType,
+            EventID = Guid.NewGuid().ToString(),
+            Timestamp = timestamp,
+            ConnectionId = conn.connectionId,
+            Address = conn.address,
+            TotalPlayersAmount = activeConnections,
+            PlayerName = playerName,
+        };
+        
+        Debug.Log(JsonUtility.ToJson(logData));
+    }
+
     public override void OnRoomServerConnect(NetworkConnectionToClient conn) {
         base.OnRoomServerConnect(conn);
-        
-        if (NetworkServer.active) {
-            string timestamp = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss UTC");
-            int activeConnections = NetworkServer.connections.Count;
-            Debug.Log($"[SERVER] [{timestamp}] Client connected: ID={conn.connectionId} | Address={conn.address} | Total Players={activeConnections}");
-        }
+        LogConnectionEvent("ClientConnected", conn);
     }
 
     public override void OnRoomServerDisconnect(NetworkConnectionToClient conn) {
-        if (NetworkServer.active) {
-            string timestamp = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss UTC");
-            string playerName = conn.identity != null ? 
-                conn.identity.GetComponent<LobbyPlayer>()?.PlayerName ?? "Unknown" : 
-                "Unknown";
-            
-            int activeConnections = NetworkServer.connections.Count - 1;
-            Debug.Log($"[SERVER] [{timestamp}] Client disconnected: ID={conn.connectionId} | Address={conn.address} | Player={playerName} | Remaining Players={activeConnections}");
-        }
+        string playerName = conn.identity != null ? 
+            conn.identity.GetComponent<LobbyPlayer>()?.PlayerName ?? "Unknown" : 
+            "Unknown";
         
+        LogConnectionEvent("ClientDisconnected", conn, playerName);
         base.OnRoomServerDisconnect(conn);
     }
 
