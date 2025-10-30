@@ -1715,6 +1715,62 @@ MonoBehaviour:
     m_Key: globals.health
     m_Metadata:
       m_Items: []
+  - m_Id: 61449390745026560
+    m_Key: turnmanager.info
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61449390812135424
+    m_Key: turnmanager.rolldice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61449390812135425
+    m_Key: turnmanager.cancelroll
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61449390812135426
+    m_Key: turnmanager.viewboard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61449390812135427
+    m_Key: turnmanager.backtoplayer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61449390812135428
+    m_Key: turnmanager.round
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61452399050850304
+    m_Key: lobby.character_selection
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61452502310420480
+    m_Key: lobby.not_ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61452920784519168
+    m_Key: lobby.waiting_for_player
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453271277338624
+    m_Key: "lobby.new_player\t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453348007936000
+    m_Key: lobby.is_ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453405545398272
+    m_Key: lobby.is_not_ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453481038675968
+    m_Key: lobby.click_to_unready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453992487911424
+    m_Key: lobby.click_to_ready
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
