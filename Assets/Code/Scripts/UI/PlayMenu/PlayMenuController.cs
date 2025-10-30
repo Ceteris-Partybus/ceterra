@@ -3,11 +3,13 @@ using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 using Mirror;
 using UnityEngine.Localization;
+using System.Collections;
 
 public class PlayMenuController : MonoBehaviour {
     private Button backButton;
     private Button joinLobbyButton;
     private Button validateCodeButton;
+    private DottedAnimation animatedButton;
 
     [SerializeField]
     private UIDocument uIDocument;
@@ -91,10 +93,17 @@ public class PlayMenuController : MonoBehaviour {
     }
 
     private void SetValidateButtonLoading(bool isLoading, long customTextId = ORIGINAL_BUTTON_TEXT_ID) {
+        animatedButton?.Stop();
         validateCodeButton.EnableInClassList("loading", isLoading);
         validateCodeButton.SetEnabled(!isLoading);
         var localizedString = validateCodeButton.GetBinding("text") as LocalizedString;
         localizedString.SetReference("ceterra", customTextId);
+        localizedString.CurrentLoadingOperationHandle.Completed += _ => {
+            if (isLoading) {
+                animatedButton = new DottedAnimation(validateCodeButton, validateCodeButton.text);
+                animatedButton.Start();
+            }
+        };
     }
 
     private void OnJoinLobbyClicked() {
@@ -116,7 +125,9 @@ public class PlayMenuController : MonoBehaviour {
 
     private void JoinServer(string ipAddress, int port) {
         Debug.Log($"Connecting to server at {ipAddress}:{port}");
-
+        StartCoroutine(asfd());
+        IEnumerator asfd() {
+            yield return new WaitForSeconds(5f);
         NetworkManager.singleton.networkAddress = ipAddress;
 
         if (Transport.active is PortTransport portTransport) {
@@ -124,6 +135,9 @@ public class PlayMenuController : MonoBehaviour {
         }
 
         NetworkManager.singleton.StartClient();
+        }
+
+
     }
 
     private void Update() {
