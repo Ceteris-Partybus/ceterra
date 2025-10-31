@@ -366,6 +366,8 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
         currentState = State.PLAYER_MOVING;
         player.PlayerMovement.MoveToField(diceValue);
+        var startField = FieldBehaviourList.Find(player.SplineKnotIndex);
+        startField.AdjustPlayerPositions(); // Readjust player positions of field the player is leaving
     }
 
     [Server]

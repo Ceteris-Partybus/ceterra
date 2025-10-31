@@ -130,7 +130,7 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [ClientRpc]
     public void RpcTriggerAnimation(AnimationType animationType) {
-        visualHandler.TriggerAnimation(animationType);
+        visualHandler?.TriggerAnimation(animationType);
     }
 
     public override bool ShouldBeActiveInScene(string sceneName) {
@@ -144,17 +144,18 @@ public class BoardPlayer : SceneConditionalPlayer {
         IEnumerator WaitForFieldInitialization() {
             yield return new WaitUntil(() => BoardContext.Instance != null && BoardContext.Instance.FieldBehaviourList != null);
             playerMovement.IsMoving = false;
-            Transform startPosition;
+            FieldBehaviour startField;
 
             if (isFirstLoad) {
-                startPosition = GameManager.Singleton.GetStartPosition();
+                startField = BoardContext.Instance.FieldBehaviourList.Find(new SplineKnotIndex(0, 0));
                 isFirstLoad = false;
             }
             else {
-                startPosition = BoardContext.Instance.FieldBehaviourList.Find(splineKnotIndex).gameObject.transform;
+                startField = BoardContext.Instance.FieldBehaviourList.Find(splineKnotIndex);
             }
 
-            gameObject.transform.position = startPosition.position;
+            gameObject.transform.position = startField.gameObject.transform.position;
+            startField.AdjustPlayerPositions();
         }
     }
 
