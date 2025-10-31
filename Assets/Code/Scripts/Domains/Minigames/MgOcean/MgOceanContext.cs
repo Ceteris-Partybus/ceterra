@@ -54,6 +54,9 @@ public class MgOceanContext : MgContext<MgOceanContext, MgOceanPlayer> {
         }
 
         CreateBoundaries();
+        if (isClient) {
+            GetLocalPlayer().CmdSpawnPlayer();
+        }
         StartCoroutine(UpdateCountdown());
     }
 

@@ -23,8 +23,6 @@ public abstract class MgContext<T, P> : NetworkedSingleton<T>, IPrepScreen
     protected override void Start() {
         var prep = FindAnyObjectByType<PrepScreenUI>();
         prep.Initialize(this);
-
-        base.Start();
     }
 
     public List<SceneConditionalPlayer> GetPlayers() {

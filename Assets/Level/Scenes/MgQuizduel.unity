@@ -533,7 +533,7 @@ MonoBehaviour:
   title: 56521928023429120
   description: 56521928056983552
   controls: 56521928056983553
-  screenshot: {fileID: 0}
+  screenshot: {fileID: 21300000, guid: dc97ffef4ac3471498185788a0fd6e8d, type: 3}
   GameDuration: 90
   scoreboardDuration: 5
   maxQuestions: 6

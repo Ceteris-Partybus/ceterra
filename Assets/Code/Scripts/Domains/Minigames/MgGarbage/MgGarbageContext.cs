@@ -38,11 +38,9 @@ public class MgGarbageContext : MgContext<MgGarbageContext, MgGarbagePlayer> {
 
     public override void OnStartGame() {
         StartCoroutine(UpdateCountdown());
-    }
-
-    public override void OnStartServer() {
-        base.OnStartServer();
-        StartCoroutine(SpawnTrashRoutine());
+        if (isServer) {
+            StartCoroutine(SpawnTrashRoutine());
+        }
     }
 
     private IEnumerator UpdateCountdown() {
