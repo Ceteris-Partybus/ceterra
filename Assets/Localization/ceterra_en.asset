@@ -1615,6 +1615,8 @@ MonoBehaviour:
     m_Localized: Dev dice
     m_Metadata:
       m_Items: []
+    m_Metadata:
+      m_Items: []
   - m_Id: 56636904074215424
     m_Localized: Catastrophe
     m_Metadata:
@@ -1757,40 +1759,62 @@ MonoBehaviour:
     m_Localized: Coins
     m_Metadata:
       m_Items: []
-  - m_Id: 56521928023429120
-    m_Localized: Quizduel
+  - m_Id: 61449390745026560
+    m_Localized: 'It''s {0} turn '
+    m_Metadata:
+      m_Items:
+      - rid: 7894437812287832149
+  - m_Id: 61449390812135424
+    m_Localized: Roll dice
     m_Metadata:
       m_Items: []
-  - m_Id: 56521928056983552
-    m_Localized: Answer as many questions correctly as possible!
+  - m_Id: 61449390812135425
+    m_Localized: Cancel roll
     m_Metadata:
       m_Items: []
-  - m_Id: 56521928056983553
-    m_Localized: Select an answer by clicking on it.
+  - m_Id: 61449390812135426
+    m_Localized: View board
     m_Metadata:
       m_Items: []
-  - m_Id: 56521928056983554
-    m_Localized: Dispose of the trash
+  - m_Id: 61449390812135427
+    m_Localized: Go back to player
     m_Metadata:
       m_Items: []
-  - m_Id: 56521928061177856
-    m_Localized: Sort the trash into the appropriate trash can.
+  - m_Id: 61449390812135428
+    m_Localized: ROUND {0}
+    m_Metadata:
+      m_Items:
+      - rid: 7894437812287832149
+  - m_Id: 61452399050850304
+    m_Localized: Character Selection
     m_Metadata:
       m_Items: []
-  - m_Id: 56521928061177857
-    m_Localized: Drag and Drop
+  - m_Id: 61452502310420480
+    m_Localized: Not Ready
     m_Metadata:
       m_Items: []
-  - m_Id: 56521928061177858
-    m_Localized: Ocean Cleaner
+  - m_Id: 61452920784519168
+    m_Localized: Waiting for player
     m_Metadata:
       m_Items: []
-  - m_Id: 56521928061177859
-    m_Localized: Collect the most garbage.
+  - m_Id: 61453271277338624
+    m_Localized: New Player
     m_Metadata:
       m_Items: []
-  - m_Id: 56521928061177860
-    m_Localized: Move the player with WASD.
+  - m_Id: 61453348007936000
+    m_Localized: Is ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453405545398272
+    m_Localized: Is not ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453481038675968
+    m_Localized: Click to unready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453992487911424
+    m_Localized: Click to ready
     m_Metadata:
       m_Items: []
   references:
@@ -1806,3 +1830,5 @@ MonoBehaviour:
         - id: 56652337988861952
         - id: 56659020039421952
         - id: 56661867099422721
+        - id: 61449390745026560
+        - id: 61449390812135428

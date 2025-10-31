@@ -1624,6 +1624,8 @@ MonoBehaviour:
     m_Localized: "Entwickler W\xFCrfel"
     m_Metadata:
       m_Items: []
+    m_Metadata:
+      m_Items: []
   - m_Id: 56636904074215424
     m_Localized: Katastrophe
     m_Metadata:
@@ -1768,40 +1770,62 @@ MonoBehaviour:
     m_Localized: "M\xFCnzen"
     m_Metadata:
       m_Items: []
-  - m_Id: 56521928023429120
-    m_Localized: Quizduell
+  - m_Id: 61449390745026560
+    m_Localized: '{0} ist am Zug'
+    m_Metadata:
+      m_Items:
+      - rid: 7894437812287832148
+  - m_Id: 61449390812135424
+    m_Localized: "W\xFCrfeln"
     m_Metadata:
       m_Items: []
-  - m_Id: 56521928056983552
-    m_Localized: "Beantworte m\xF6glichst viele Fragen korrekt!"
+  - m_Id: 61449390812135425
+    m_Localized: Wurf abbrechen
     m_Metadata:
       m_Items: []
-  - m_Id: 56521928056983553
-    m_Localized: "W\xE4hle eine Antwort durch Klicken aus."
+  - m_Id: 61449390812135426
+    m_Localized: Brett anzeigen
     m_Metadata:
       m_Items: []
-  - m_Id: 56521928056983554
-    m_Localized: "Gib dem M\xFCll eine Abfuhr"
+  - m_Id: 61449390812135427
+    m_Localized: "Zur\xFCck zum Spieler"
     m_Metadata:
       m_Items: []
-  - m_Id: 56521928061177856
-    m_Localized: "Sortiere den M\xFCll ein den passenden M\xFClleimer."
+  - m_Id: 61449390812135428
+    m_Localized: RUNDE {0}
+    m_Metadata:
+      m_Items:
+      - rid: 7894437812287832148
+  - m_Id: 61452399050850304
+    m_Localized: Charakterauswahl
     m_Metadata:
       m_Items: []
-  - m_Id: 56521928061177857
-    m_Localized: "Ziehe den M\xFCll mit der Maus."
+  - m_Id: 61452502310420480
+    m_Localized: Nicht Bereit
     m_Metadata:
       m_Items: []
-  - m_Id: 56521928061177858
-    m_Localized: Meeresputz
+  - m_Id: 61452920784519168
+    m_Localized: Warte auf Spieler
     m_Metadata:
       m_Items: []
-  - m_Id: 56521928061177859
-    m_Localized: "Sammle den meisten M\xFCll ein."
+  - m_Id: 61453271277338624
+    m_Localized: Neuer Spieler
     m_Metadata:
       m_Items: []
-  - m_Id: 56521928061177860
-    m_Localized: Bewege deine Figur mit WASD.
+  - m_Id: 61453348007936000
+    m_Localized: Ist bereit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453405545398272
+    m_Localized: Ist nicht bereit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453481038675968
+    m_Localized: Nicht bereit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453992487911424
+    m_Localized: Klicke wenn bereit
     m_Metadata:
       m_Items: []
   references:
@@ -1816,3 +1840,5 @@ MonoBehaviour:
         - id: 56652337988861952
         - id: 56659020039421952
         - id: 56661867099422721
+        - id: 61449390745026560
+        - id: 61449390812135428
