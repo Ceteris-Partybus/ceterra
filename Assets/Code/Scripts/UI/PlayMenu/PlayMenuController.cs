@@ -17,7 +17,7 @@ public class PlayMenuController : MonoBehaviour {
     private const string MAIN_MENU_SCENE = "MainMenu";
     private const long ORIGINAL_BUTTON_TEXT_ID = 60011435313287168;
     private const long CONNECTION_TEXT_ID = 60011225140908032;
-    private const long VALIDATION_TEXT_ID= 60010223864074240;
+    private const long VALIDATION_TEXT_ID = 60010223864074240;
 
     private TextField ipAddressField;
     private TextField portField;
@@ -72,31 +72,33 @@ public class PlayMenuController : MonoBehaviour {
             return;
         }
 
-        SetValidateButtonLoading(true, VALIDATION_TEXT_ID); 
+        StartCoroutine(SetValidateButtonLoading(true, VALIDATION_TEXT_ID));
         StartCoroutine(InviteCodeValidator.ValidateCode(code, OnValidateSuccess, OnValidateError));
     }
 
     private void OnValidateSuccess(InviteCodeValidator.CodeResponse response) {
         Debug.Log($"✓ Valid code! Connect to {response.domain}:{response.port}");
-        
-        SetValidateButtonLoading(true, CONNECTION_TEXT_ID);
-        
+
+        StartCoroutine(SetValidateButtonLoading(true, CONNECTION_TEXT_ID));
+
         ipAddressField.value = response.domain;
         portField.value = response.port.ToString();
-        
+
         JoinServer(response.domain, response.port);
     }
 
     private void OnValidateError(string error) {
         Debug.LogWarning($"✗ Validation failed: {error}");
-        SetValidateButtonLoading(false);
+        StartCoroutine(SetValidateButtonLoading(false));
     }
 
-    private void SetValidateButtonLoading(bool isLoading, long customTextId = ORIGINAL_BUTTON_TEXT_ID) {
+    private IEnumerator SetValidateButtonLoading(bool isLoading, long customTextId = ORIGINAL_BUTTON_TEXT_ID) {
         animatedButton?.Stop();
         validateCodeButton.EnableInClassList("loading", isLoading);
         validateCodeButton.SetEnabled(!isLoading);
         var localizedString = validateCodeButton.GetBinding("text") as LocalizedString;
+        yield return localizedString.CurrentLoadingOperationHandle;
+
         localizedString.SetReference("ceterra", customTextId);
         localizedString.CurrentLoadingOperationHandle.Completed += _ => {
             if (isLoading) {
@@ -124,10 +126,8 @@ public class PlayMenuController : MonoBehaviour {
     }
 
     private void JoinServer(string ipAddress, int port) {
+        animatedButton?.Stop();
         Debug.Log($"Connecting to server at {ipAddress}:{port}");
-        StartCoroutine(asfd());
-        IEnumerator asfd() {
-            yield return new WaitForSeconds(5f);
         NetworkManager.singleton.networkAddress = ipAddress;
 
         if (Transport.active is PortTransport portTransport) {
@@ -135,9 +135,6 @@ public class PlayMenuController : MonoBehaviour {
         }
 
         NetworkManager.singleton.StartClient();
-        }
-
-
     }
 
     private void Update() {
