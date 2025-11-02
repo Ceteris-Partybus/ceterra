@@ -1284,6 +1284,18 @@ MonoBehaviour:
     m_Localized: Farben
     m_Metadata:
       m_Items: []
+  - m_Id: 59276947101401088
+    m_Localized: "B\xFCrger"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149824
+    m_Localized: "B\xFCrgerin"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149825
+    m_Localized: "Unterst\xFCtzt Ver\xE4nderungen von Grund auf"
+    m_Metadata:
+      m_Items: []
   - m_Id: 59267532939935744
     m_Localized: Hemd
     m_Metadata:
@@ -1306,6 +1318,18 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 59267532973490180
     m_Localized: Haare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149826
+    m_Localized: Koch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149827
+    m_Localized: "K\xF6chin"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149828
+    m_Localized: "St\xE4rkt die Gemeinschaft mit regionalen Zutaten"
     m_Metadata:
       m_Items: []
   - m_Id: 59267532977684508
@@ -1338,6 +1362,18 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 59267532977684520
     m_Localized: "Kochm\xFCtze"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149829
+    m_Localized: Farmer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149830
+    m_Localized: Farmerin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149831
+    m_Localized: Arbeitet im Einklang mit der Natur
     m_Metadata:
       m_Items: []
   - m_Id: 59267532977684527
@@ -1376,6 +1412,18 @@ MonoBehaviour:
     m_Localized: Haare
     m_Metadata:
       m_Items: []
+  - m_Id: 59276947139149832
+    m_Localized: Arzt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149833
+    m_Localized: "\xC4rztin"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149834
+    m_Localized: "H\xE4lt die Gemeinschaft gesund und lebendig"
+    m_Metadata:
+      m_Items: []
   - m_Id: 59267532977684553
     m_Localized: Gesicht
     m_Metadata:
@@ -1400,6 +1448,18 @@ MonoBehaviour:
     m_Localized: Haare
     m_Metadata:
       m_Items: []
+  - m_Id: 59276947139149835
+    m_Localized: Trainer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149836
+    m_Localized: Trainerin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149837
+    m_Localized: "St\xE4rkt die Gemeinschaft mit neuen F\xE4higkeiten"
+    m_Metadata:
+      m_Items: []
   - m_Id: 59267532981878785
     m_Localized: Kimono
     m_Metadata:
@@ -1418,6 +1478,18 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 59267532981878789
     m_Localized: Haare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149838
+    m_Localized: "B\xFCrgermeister"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149839
+    m_Localized: "B\xFCrgermeisterin"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149840
+    m_Localized: Vereint die Gemeinschaft mit einer gemeinsamen Vision
     m_Metadata:
       m_Items: []
   - m_Id: 59267532981878794
@@ -1452,6 +1524,18 @@ MonoBehaviour:
     m_Localized: Haare
     m_Metadata:
       m_Items: []
+  - m_Id: 59276947139149841
+    m_Localized: Architekt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149842
+    m_Localized: Architektin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149843
+    m_Localized: "Entwirft den Plan f\xFCr eine bessere Zukunft"
+    m_Metadata:
+      m_Items: []
   - m_Id: 59267532981878810
     m_Localized: Anzug
     m_Metadata:
@@ -1478,6 +1562,18 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 59267532981878816
     m_Localized: Haare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149844
+    m_Localized: Bauarbeiter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149845
+    m_Localized: Bauarbeiterin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149846
+    m_Localized: Setzt nachhaltige Visionen in die Tat um
     m_Metadata:
       m_Items: []
   - m_Id: 59267532981878824
@@ -1512,102 +1608,6 @@ MonoBehaviour:
     m_Localized: "W\xE4hle eine Farbe f\xFCr"
     m_Metadata:
       m_Items: []
-  - m_Id: 59276947101401088
-    m_Localized: "B\xFCrger"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149824
-    m_Localized: "B\xFCrgerin"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149825
-    m_Localized: "Unterst\xFCtzt Ver\xE4nderungen von Grund auf"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149826
-    m_Localized: Koch
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149827
-    m_Localized: "K\xF6chin"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149828
-    m_Localized: "St\xE4rkt die Gemeinschaft mit regionalen Zutaten"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149829
-    m_Localized: Farmer
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149830
-    m_Localized: Farmerin
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149831
-    m_Localized: Arbeitet im Einklang mit der Natur
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149832
-    m_Localized: Arzt
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149833
-    m_Localized: "\xC4rztin"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149834
-    m_Localized: "H\xE4lt die Gemeinschaft gesund und lebendig"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149835
-    m_Localized: Trainer
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149836
-    m_Localized: Trainerin
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149837
-    m_Localized: "St\xE4rkt die Gemeinschaft mit neuen F\xE4higkeiten"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149838
-    m_Localized: "B\xFCrgermeister"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149839
-    m_Localized: "B\xFCrgermeisterin"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149840
-    m_Localized: Vereint die Gemeinschaft mit einer gemeinsamen Vision
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149841
-    m_Localized: Architekt
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149842
-    m_Localized: Architektin
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149843
-    m_Localized: "Entwirft den Plan f\xFCr eine bessere Zukunft"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149844
-    m_Localized: Bauarbeiter
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149845
-    m_Localized: Bauarbeiterin
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149846
-    m_Localized: Setzt nachhaltige Visionen in die Tat um
-    m_Metadata:
-      m_Items: []
   - m_Id: 59285773968031744
     m_Localized: "Normaler W\xFCrfel"
     m_Metadata:
@@ -1622,6 +1622,8 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 59285780553089024
     m_Localized: "Entwickler W\xFCrfel"
+    m_Metadata:
+      m_Items: []
     m_Metadata:
       m_Items: []
   - m_Id: 56636904074215424
@@ -1658,8 +1660,7 @@ MonoBehaviour:
   - m_Id: 56641707357601792
     m_Localized: Im Aufbau, {0} Runde(n) verbleibend.
     m_Metadata:
-      m_Items:
-      - rid: 7894437812287832148
+      m_Items: []
   - m_Id: 56645878458712064
     m_Localized: Fertiggestellt
     m_Metadata:
@@ -1742,13 +1743,11 @@ MonoBehaviour:
   - m_Id: 56652337988861952
     m_Localized: Das Investment {0} wurde fertiggestellt!
     m_Metadata:
-      m_Items:
-      - rid: 7894437812287832148
+      m_Items: []
   - m_Id: 56659020039421952
     m_Localized: "Finanzierung f\xFCr {0}"
     m_Metadata:
-      m_Items:
-      - rid: 7894437812287832148
+      m_Items: []
   - m_Id: 56659352559648768
     m_Localized: "Ressourcen f\xFCr {0}"
     m_Metadata:
@@ -1762,30 +1761,13 @@ MonoBehaviour:
     m_Localized: "Das Investment wurde mit {0} M\xFCnzen finanziert, ben\xF6tigt
       aber noch weitere Gelder. Die Ressourcen wurden noch nicht abgezogen."
     m_Metadata:
-      m_Items:
-      - rid: 7894437812287832148
+      m_Items: []
   - m_Id: 56668768562413568
     m_Localized: '{0} - {1}m entfernt, nimmt {2} Schaden'
     m_Metadata:
       m_Items: []
   - m_Id: 56670997235204096
     m_Localized: "M\xFCnzen"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 60010223864074240
-    m_Localized: VALIDIERE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 60011225140908032
-    m_Localized: VERBINDE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 60011435313287168
-    m_Localized: VALIDIERE CODE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 60011804634337280
-    m_Localized: Zahlencode
     m_Metadata:
       m_Items: []
   references:
@@ -1800,3 +1782,5 @@ MonoBehaviour:
         - id: 56652337988861952
         - id: 56659020039421952
         - id: 56661867099422721
+        - id: 61449390745026560
+        - id: 61449390812135428

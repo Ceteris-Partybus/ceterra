@@ -87,6 +87,42 @@ MonoBehaviour:
     m_Key: MgQuizduel.rewardCoins
     m_Metadata:
       m_Items: []
+  - m_Id: 56521928023429120
+    m_Key: MgQuizduel.PrepScreen.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983552
+    m_Key: MgQuizduel.PrepScreen.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983553
+    m_Key: MgQuizduel.PrepScreen.controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983554
+    m_Key: MgGarbage.PrepScreen.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177856
+    m_Key: MgGarbage.PrepScreen.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177857
+    m_Key: MgGarbage.PrepScreen.controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177858
+    m_Key: MgOcean.PrepScreen.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177859
+    m_Key: MgOcean.PrepScreen.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177860
+    m_Key: MgOcean.PrepScreen.controls
+    m_Metadata:
+      m_Items: []
   - m_Id: 54051235973255168
     m_Key: question.1
     m_Metadata:
@@ -1715,20 +1751,60 @@ MonoBehaviour:
     m_Key: globals.health
     m_Metadata:
       m_Items: []
-  - m_Id: 60010223864074240
-    m_Key: playmenu.loading
+  - m_Id: 61449390745026560
+    m_Key: turnmanager.info
     m_Metadata:
       m_Items: []
-  - m_Id: 60011225140908032
-    m_Key: playmenu.connecting
+  - m_Id: 61449390812135424
+    m_Key: turnmanager.rolldice
     m_Metadata:
       m_Items: []
-  - m_Id: 60011435313287168
-    m_Key: playmenu.validate-code
+  - m_Id: 61449390812135425
+    m_Key: turnmanager.cancelroll
     m_Metadata:
       m_Items: []
-  - m_Id: 60011804634337280
-    m_Key: playmenu.digit-code
+  - m_Id: 61449390812135426
+    m_Key: turnmanager.viewboard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61449390812135427
+    m_Key: turnmanager.backtoplayer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61449390812135428
+    m_Key: turnmanager.round
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61452399050850304
+    m_Key: lobby.character_selection
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61452502310420480
+    m_Key: lobby.not_ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61452920784519168
+    m_Key: lobby.waiting_for_player
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453271277338624
+    m_Key: "lobby.new_player\t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453348007936000
+    m_Key: lobby.is_ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453405545398272
+    m_Key: lobby.is_not_ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453481038675968
+    m_Key: lobby.click_to_unready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453992487911424
+    m_Key: lobby.click_to_ready
     m_Metadata:
       m_Items: []
   m_Metadata:

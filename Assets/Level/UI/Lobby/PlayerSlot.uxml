@@ -18,13 +18,21 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="button-area" class="button-area">
-            <ui:Button text="Character Selection" name="character-selection-button" class="character-selection-button" />
-            <ui:Button text="Not Ready" name="ready-button" class="ready-button" />
+            <ui:Button name="character-selection-button" class="character-selection-button">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(61452399050850304)" />
+                </Bindings>
+            </ui:Button>
+            <ui:Button name="ready-button" class="ready-button">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(61452502310420480)" />
+                </Bindings>
+            </ui:Button>
         </ui:VisualElement>
         <ui:VisualElement name="ready-status-display-container">
             <ui:VisualElement name="ready-status-display">
                 <ui:Label name="ready-status-display-label" />
             </ui:VisualElement>
         </ui:VisualElement>
-     </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>

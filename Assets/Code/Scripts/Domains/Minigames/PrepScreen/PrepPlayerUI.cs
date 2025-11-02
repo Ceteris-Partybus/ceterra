@@ -25,8 +25,8 @@ public class PrepPlayerUI {
 
     public void OnReady() {
         readyButton.text = "Bereit";
-        if (readyButton.ClassListContains("ready-button.not-ready")) {
-            readyButton.RemoveFromClassList("ready-button.not-ready");
+        if (readyButton.ClassListContains("not-ready")) {
+            readyButton.RemoveFromClassList("not-ready");
         }
     }
 

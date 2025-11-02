@@ -1615,6 +1615,8 @@ MonoBehaviour:
     m_Localized: Dev dice
     m_Metadata:
       m_Items: []
+    m_Metadata:
+      m_Items: []
   - m_Id: 56636904074215424
     m_Localized: Catastrophe
     m_Metadata:
@@ -1757,22 +1759,6 @@ MonoBehaviour:
     m_Localized: Coins
     m_Metadata:
       m_Items: []
-  - m_Id: 60010223864074240
-    m_Localized: VALIDATING
-    m_Metadata:
-      m_Items: []
-  - m_Id: 60011225140908032
-    m_Localized: CONNECTING
-    m_Metadata:
-      m_Items: []
-  - m_Id: 60011435313287168
-    m_Localized: VALIDATE CODE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 60011804634337280
-    m_Localized: Digit Code
-    m_Metadata:
-      m_Items: []
   references:
     version: 2
     RefIds:
@@ -1786,3 +1772,5 @@ MonoBehaviour:
         - id: 56652337988861952
         - id: 56659020039421952
         - id: 56661867099422721
+        - id: 61449390745026560
+        - id: 61449390812135428

@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using Mirror;
 using UnityEngine;
 
-public class MgQuizduelContext : NetworkedSingleton<MgQuizduelContext> {
+public class MgQuizduelContext : MgContext<MgQuizduelContext, MgQuizduelPlayer> {
 
     [Header("Minigame Settings")]
     [SerializeField] private float GameDuration;
@@ -22,6 +22,9 @@ public class MgQuizduelContext : NetworkedSingleton<MgQuizduelContext> {
 
     protected override void Start() {
         base.Start();
+    }
+
+    public override void OnStartGame() {
         InitializeQuiz();
         if (isServer) {
             StartCoroutine(QuizduelRoutine());
