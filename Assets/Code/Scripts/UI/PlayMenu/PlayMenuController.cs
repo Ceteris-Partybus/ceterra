@@ -72,73 +72,38 @@ public class PlayMenuController : MonoBehaviour {
             return;
         }
 
-        StartCoroutine(ValidateAndConnect(code));
+        SetValidateButtonLoading(true, VALIDATION_TEXT_ID); 
+        StartCoroutine(InviteCodeValidator.ValidateCode(code, OnValidateSuccess, OnValidateError));
     }
 
-    private IEnumerator ValidateAndConnect(string code) {
-        SetValidateButtonLoading(true, VALIDATION_TEXT_ID);
-        
-        bool validationComplete = false;
-        bool validationSuccess = false;
-        InviteCodeValidator.CodeResponse validResponse = null;
-
-        StartCoroutine(InviteCodeValidator.ValidateCode(
-            code,
-            response => {
-                validationSuccess = true;
-                validResponse = response;
-                validationComplete = true;
-            },
-            error => {
-                Debug.LogWarning($"Validation failed: {error}");
-                validationComplete = true;
-            }
-        ));
-
-        yield return new WaitUntil(() => validationComplete);
-
-        if (!validationSuccess) {
-            SetValidateButtonLoading(false);
-            yield break;
-        }
-
-        Debug.Log($"Valid code! Connect to {validResponse.domain}:{validResponse.port}");
+    private void OnValidateSuccess(InviteCodeValidator.CodeResponse response) {
+        Debug.Log($"✓ Valid code! Connect to {response.domain}:{response.port}");
         
         SetValidateButtonLoading(true, CONNECTION_TEXT_ID);
         
-        ipAddressField.value = validResponse.domain;
-        portField.value = validResponse.port.ToString();
+        ipAddressField.value = response.domain;
+        portField.value = response.port.ToString();
         
-        yield return new WaitForSeconds(0.5f); // Small delay for UI update
-        
-        JoinServer(validResponse.domain, validResponse.port);
+        JoinServer(response.domain, response.port);
+    }
+
+    private void OnValidateError(string error) {
+        Debug.LogWarning($"✗ Validation failed: {error}");
+        SetValidateButtonLoading(false);
     }
 
     private void SetValidateButtonLoading(bool isLoading, long customTextId = ORIGINAL_BUTTON_TEXT_ID) {
         animatedButton?.Stop();
         validateCodeButton.EnableInClassList("loading", isLoading);
         validateCodeButton.SetEnabled(!isLoading);
-        
         var localizedString = validateCodeButton.GetBinding("text") as LocalizedString;
         localizedString.SetReference("ceterra", customTextId);
-        
-        if (isLoading) {
-            StartCoroutine(StartAnimationWhenReady(localizedString));
-        }
-    }
-
-    private IEnumerator StartAnimationWhenReady(LocalizedString localizedString) {
-        yield return localizedString.CurrentLoadingOperationHandle;
-        
-        if (localizedString.CurrentLoadingOperationHandle.Status == UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded) {
-            string localizedText = localizedString.CurrentLoadingOperationHandle.Result.Entry?.GetLocalizedString() 
-                                ?? localizedString.CurrentLoadingOperationHandle.Result.Entry?.Value;
-            
-            if (!string.IsNullOrEmpty(localizedText)) {
-                animatedButton = new DottedAnimation(validateCodeButton, localizedText);
+        localizedString.CurrentLoadingOperationHandle.Completed += _ => {
+            if (isLoading) {
+                animatedButton = new DottedAnimation(validateCodeButton, validateCodeButton.text);
                 animatedButton.Start();
             }
-        }
+        };
     }
 
     private void OnJoinLobbyClicked() {
@@ -160,7 +125,9 @@ public class PlayMenuController : MonoBehaviour {
 
     private void JoinServer(string ipAddress, int port) {
         Debug.Log($"Connecting to server at {ipAddress}:{port}");
-        
+        StartCoroutine(asfd());
+        IEnumerator asfd() {
+            yield return new WaitForSeconds(5f);
         NetworkManager.singleton.networkAddress = ipAddress;
 
         if (Transport.active is PortTransport portTransport) {
@@ -168,6 +135,9 @@ public class PlayMenuController : MonoBehaviour {
         }
 
         NetworkManager.singleton.StartClient();
+        }
+
+
     }
 
     private void Update() {
