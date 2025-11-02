@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b1ab8a633cd25a947b2b1a165d542ad8
+guid: 4f1b3a73b050c964d80723653d33acf5
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -10,7 +10,7 @@ TextureImporter:
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
-    borderMipMap: 1
+    borderMipMap: 0
     mipMapsPreserveCoverage: 0
     alphaTestReferenceValue: 0.5
     mipMapFadeDistanceStart: 1
@@ -35,7 +35,7 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 1
-    aniso: 0
+    aniso: 1
     mipBias: 0
     wrapU: 1
     wrapV: 1
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CardFront_0
+      name: og_6_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 500
-        height: 500
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 97029294949b694429ebc79e6a8d21a3
-      internalID: -1740615059
+      spriteID: 4dc41a72e2df48e4183a92657d8f760c
+      internalID: 512331088
       vertices: []
       indices: 
       edges: []
@@ -122,7 +122,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: a534d199634f8d143bec13d4cdfea5ee
+    spriteID: 1abe3c1c43ea81a42bf5eb8d77fb044b
     internalID: 0
     vertices: []
     indices: 
@@ -132,8 +132,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      CardFront_0: -1740615059
-      CardFront_1: -715080938
+      og_6_0: 512331088
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

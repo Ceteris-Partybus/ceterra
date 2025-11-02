@@ -11,7 +11,7 @@ public class MgMemoryContext : NetworkedSingleton<MgMemoryContext> {
     [Header("Minigame Settings")]
     [SerializeField] private float GameDuration;
     [SerializeField] private float scoreboardDuration;
-    [SerializeField] private string memoryFileName;
+    //[SerializeField] private MgMemoryGameController memoryGameController;
 
     private float countdownTimer;
     private Coroutine countdownCoroutine;
@@ -25,13 +25,34 @@ public class MgMemoryContext : NetworkedSingleton<MgMemoryContext> {
     }
 
     private IEnumerator MemoryRoutine() {
+        yield return new WaitForSeconds(0.5f);
+        StartMemory();
         yield return new WaitForSeconds(GameDuration);
 
+        RpcClearMemoryOnClients();
+        yield return new WaitForSeconds(0.1f);
         MgMemoryController.Instance.ShowScoreboard();
         yield return new WaitForSeconds(scoreboardDuration);
 
         StopMemory();
         GameManager.Singleton.EndMinigame();
+    }
+
+    [Server]
+    private void StartMemory() {
+        var randomSeed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
+
+        RpcInitializeCardsOnClients(randomSeed);
+    }
+
+    [ClientRpc]
+    private void RpcInitializeCardsOnClients(int randomSeed) {
+        MgMemoryGameController.Instance.InitializeCardsOnClients(randomSeed);
+    }
+
+    [ClientRpc]
+    private void RpcClearMemoryOnClients() {
+        MgMemoryGameController.Instance.ClearMemory();
     }
 
     [Server]
