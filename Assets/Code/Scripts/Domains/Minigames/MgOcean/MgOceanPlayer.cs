@@ -32,9 +32,9 @@ public class MgOceanPlayer : SceneConditionalPlayer, IMinigameRewardHandler {
             MgOceanRemotePlayerHUD.Instance.UpdatePlayerScore(PlayerId, score);
         }
 
-        if (isActive && isLocalPlayer) {
-            CmdSpawnPlayer(connectionToClient);
-        }
+        // if (isActive && isLocalPlayer) {
+        //     CmdSpawnPlayer(connectionToClient);
+        // }
 
         var boardPlayers = FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
         if (isActive) {
@@ -60,7 +60,7 @@ public class MgOceanPlayer : SceneConditionalPlayer, IMinigameRewardHandler {
     }
 
     [Command]
-    private void CmdSpawnPlayer(NetworkConnectionToClient conn = null) {
+    public void CmdSpawnPlayer(NetworkConnectionToClient conn = null) {
         Debug.Log($"Spawning player model for player {PlayerId}");
         Vector3 spawnPosition = MgOceanContext.Instance.GetPlayerSpawnPosition();
         var model = Instantiate(playerModel, spawnPosition, Quaternion.identity);
@@ -82,7 +82,7 @@ public class MgOceanPlayer : SceneConditionalPlayer, IMinigameRewardHandler {
     [Server]
     public void ServerReduceScore(int points) {
         score -= points;
-    }   
+    }
 
     public override bool ShouldBeActiveInScene(string sceneName) {
         return sceneName == "MgOcean";

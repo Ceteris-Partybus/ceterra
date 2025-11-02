@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -13,7 +14,7 @@ public class PrepScreenUI : MonoBehaviour {
     List<PrepPlayerUI> playerObjectList = new();
     int playersCount;
     IPrepScreen context;
-    bool gameStarted = false;
+    bool allPlayersReady = false;
 
     void Start() {
         titleLabel = screenUIDoc.rootVisualElement.Q<Label>("Title");
@@ -39,8 +40,8 @@ public class PrepScreenUI : MonoBehaviour {
         this.context = context;
     }
 
-    private void OnGUI() {
-        if (context == null || gameStarted) {
+    private void Update() {
+        if (context == null || allPlayersReady) {
             return;
         }
         foreach (var player in playerObjectList) {
@@ -57,7 +58,7 @@ public class PrepScreenUI : MonoBehaviour {
             }
         }
         if (readyCount == playersCount) {
-            gameStarted = true;
+            allPlayersReady = true;
             Debug.Log("All players ready");
             context.StartGame();
             Destroy(gameObject);

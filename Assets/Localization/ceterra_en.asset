@@ -1615,6 +1615,8 @@ MonoBehaviour:
     m_Localized: Dev dice
     m_Metadata:
       m_Items: []
+    m_Metadata:
+      m_Items: []
   - m_Id: 56636904074215424
     m_Localized: Catastrophe
     m_Metadata:
