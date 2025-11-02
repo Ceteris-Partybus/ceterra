@@ -1,6 +1,7 @@
 using Mirror;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using UnityEngine;
 
@@ -156,7 +157,7 @@ public class GameManager : NetworkRoomManager {
             return;
         }
         // timezone Europe/Berlin works on windows but not on linux / will be handled on server-side
-        string timestamp = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss Europe/Berlin");
+        string timestamp = DateTime.UtcNow.ToString("o"); // ISO 8601 format
         var activeConnections = NetworkServer.connections.Count;
         
         var logData = new LogData {
