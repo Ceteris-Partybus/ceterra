@@ -93,11 +93,11 @@ public class PlayMenuController : MonoBehaviour {
     }
 
     private IEnumerator SetValidateButtonLoading(bool isLoading, long customTextId = ORIGINAL_BUTTON_TEXT_ID) {
-        animatedButton?.Stop();
         validateCodeButton.EnableInClassList("loading", isLoading);
         validateCodeButton.SetEnabled(!isLoading);
         var localizedString = validateCodeButton.GetBinding("text") as LocalizedString;
         yield return localizedString.CurrentLoadingOperationHandle;
+        animatedButton?.Stop();
 
         localizedString.SetReference("ceterra", customTextId);
         localizedString.CurrentLoadingOperationHandle.Completed += _ => {
