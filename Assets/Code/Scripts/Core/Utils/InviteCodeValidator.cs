@@ -2,8 +2,6 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System;
 using System.Collections;
-using System.Text;
-
 /// Helper for validating codes against HTTP API
 public class InviteCodeValidator : MonoBehaviour {
     private const string API_URL = "https://api.okolyt.com/check-code";
@@ -32,7 +30,7 @@ public class InviteCodeValidator : MonoBehaviour {
 
         using (UnityWebRequest webRequest = UnityWebRequest.Post(API_URL, jsonPayload, "application/json")) {
             webRequest.timeout = 10;
-
+            
             yield return webRequest.SendWebRequest();
 
             if (webRequest.result == UnityWebRequest.Result.Success) {
