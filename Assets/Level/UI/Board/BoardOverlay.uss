@@ -35,21 +35,43 @@
 }
 
 #ui-buttons {
-    flex-grow: 0;
-    flex-shrink: 1;
-    align-self: flex-start;
-    justify-content: center;
     height: 100%;
     margin-right: 20px;
-    flex-direction: row;
+    flex-direction: row;    
+    justify-content: center;
+    align-self: flex-start;
     align-items: flex-start;
+}
+
+#ui-buttons Button {
+    border-width: 0;
+    height: 60px;
+    min-width: 60px;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
+    -unity-slice-scale: 0.35px;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+#ui-buttons .icon {
+    margin: 0;
+    padding: 0;
+}
+
+.container-background {
+    margin-left: 10px;
+    padding: 10px;
+    -unity-slice-scale: 0.35px;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
 }
 
 #resources-icon {
     background-image: url("project://database/Assets/Resources/Icons/package.svg?fileID=7388822144124034973&guid=bf348c969a55b0145a837ad3543f9bf4&type=3#package");
     height: 28px;
     width: 28px;
-    margin-right: 10px;
 }
 
 #resources-value-container {
@@ -64,26 +86,6 @@
     justify-content: center;
     align-self: auto;
     align-items: center;
-}
-
-#resources-value-background {
-    flex-grow: 1;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    padding: 2px 4px;
-    background-color: rgba(168, 162, 158, 0.39);
-    border-radius: 5px;
-}
-
-#funds-value-background {
-    flex-grow: 1;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    padding: 2px 4px;
-    background-color: rgba(168, 162, 158, 0.39);
-    border-radius: 5px;
 }
 
 #resources-value {
@@ -104,7 +106,6 @@
     background-image: url("project://database/Assets/Resources/Icons/landmark.svg?fileID=7388822144124034973&guid=b91cf6e0d5bbec34a92d865268dc6a73&type=3#landmark");
     height: 28px;
     width: 28px;
-    margin-right: 10px;
 }
 
 #invest-icon {
@@ -115,17 +116,24 @@
 
 #global-displays-card {
     flex-grow: 1;
-    min-height: 125px;
-    max-height: 125px;
+    min-height: 150px;
+    max-height: 150px;
     width: 250px;
     min-width: 250px;
     max-width: 250px;
     align-self: flex-end;
 }
 
-#globa-displays-card-bars {
+#global-displays-card-bars {
+    margin-top: -4px;
     flex-grow: 1;
     justify-content: space-evenly;
+}
+
+.bar-trend-wrapper {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
 }
 
 #environment-bar-wrapper {
@@ -134,13 +142,17 @@
 
 #society-bar-wrapper {
     width: auto;
+    margin-top: 10px;
 }
 
 #economy-bar-wrapper {
     width: auto;
+    margin-top: 10px;
 }
 
-#environment-bar-info {
+.bar-info {
+    font-size: 20px;
+    color: #674324;
     flex-direction: row;
     justify-content: space-between;
 }
@@ -225,52 +237,6 @@
     padding-right: 10px;
     min-width: 200px;
     max-width: 200px;
-}
-
-#ui-buttons > * {
-    max-height: 60px;
-    min-height: 60px;
-    min-width: 60px;
-    border-color: rgb(168, 162, 158);
-    border-width: 3px;
-    background-color: rgb(245, 245, 244);
-    border-radius: 4px;
-}
-
-#ui-buttons__invest {
-    border-radius: 4px;
-    padding: 5px 10px 5px 10px;
-    margin-right: 10px;
-    margin-top: 0;
-    margin-bottom: 0;
-    display: flex;
-    justify-content: center;
-}
-
-#ui-buttons__funds {
-    width: 150px;
-    max-width: 150px;
-}
-
-#ui-buttons__resources {
-    width: 150px;
-    max-width: 150px;
-}
-
-#ui-buttons__resources {
-    flex-grow: 1;
-    margin: 0 10px 0 0;
-    align-self: flex-start;
-    justify-content: center;
-    flex-direction: row;
-}
-
-#ui-buttons__funds {
-    flex-grow: 1;
-    margin: 0 10px 0 0;
-    align-self: flex-start;
-    justify-content: center;
-    flex-direction: row;
 }
 
 #trend-environment,
