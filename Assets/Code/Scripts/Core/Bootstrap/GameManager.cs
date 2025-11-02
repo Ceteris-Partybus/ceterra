@@ -150,16 +150,13 @@ public class GameManager : NetworkRoomManager {
         public string PlayerName;
     }
 
-private static readonly TimeZoneInfo berlinTimeZone = 
-    TimeZoneInfo.FindSystemTimeZoneById("W. Europe Standard Time");
 
     private void LogConnectionEvent(string eventType, NetworkConnectionToClient conn, string playerName = "Unknown") {
         if (!NetworkServer.active) {
             return;
         }
-
-        DateTime berlinTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, berlinTimeZone);
-        string timestamp = berlinTime.ToString("yyyy-MM-dd HH:mm:ss Europe/Berlin");
+        // timezone Europe/Berlin works on windows but not on linux / will be handled on server-side
+        string timestamp = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss Europe/Berlin");
         var activeConnections = NetworkServer.connections.Count;
         
         var logData = new LogData {
