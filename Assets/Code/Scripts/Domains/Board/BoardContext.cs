@@ -347,6 +347,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         this.environmentStat = 50;
     }
 
+    public Action OnNewRoundStarted;
     [Server]
     public void StartPlayerTurn() {
         currentState = State.PLAYER_TURN;
@@ -354,6 +355,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
         IEnumerator DelayedRpcNotify() {
             yield return new WaitUntil(() => netIdentity != null && netIdentity.observers.Count == GameManager.Singleton.roomSlots.Count);
+            OnNewRoundStarted?.Invoke();
             RpcNotifyPlayerTurn(currentPlayerId, GameManager.Singleton.CurrentRound, GameManager.Singleton.MaxRounds);
         }
     }

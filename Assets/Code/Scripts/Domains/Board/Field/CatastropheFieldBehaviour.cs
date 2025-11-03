@@ -37,6 +37,7 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
 
     [Server]
     private IEnumerator ProcessCatastropheSequence(BoardPlayer triggeringPlayer) {
+        CatastropheManager.Instance.RegisterCatastrophe(CatastropheType.WILDFIRE);
         var affectedPlayers = GetAffectedPlayers(triggeringPlayer);
         RpcShowCatastropheInfo(affectedPlayers.Select(p => p.ToString()).Aggregate((a, b) => a + "\n" + b));
         yield return new WaitForSeconds(Modal.DEFAULT_DISPLAY_DURATION);

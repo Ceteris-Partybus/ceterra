@@ -67,6 +67,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   sunLight: {fileID: 0}
+  rotationSpeed: 1
 --- !u!114 &1800590607416826290
 MonoBehaviour:
   m_ObjectHideFlags: 0
