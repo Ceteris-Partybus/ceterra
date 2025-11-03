@@ -23,6 +23,11 @@ public class MgMemoryPlayer : SceneConditionalPlayer {
     }
 
     [Server]
+    public void AddScore(int amount) {
+        score += amount;
+    }
+
+    [Server]
     public void SetEarnedCoinReward(int reward) {
         earnedCoinReward = reward;
     }

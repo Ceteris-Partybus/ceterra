@@ -42,6 +42,7 @@ public class MgMemoryContext : NetworkedSingleton<MgMemoryContext> {
     private void StartMemory() {
         var randomSeed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
 
+        MgMemoryGameController.Instance.InitializeCardsOnClients(randomSeed);
         RpcInitializeCardsOnClients(randomSeed);
     }
 

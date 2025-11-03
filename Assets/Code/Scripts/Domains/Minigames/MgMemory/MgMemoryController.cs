@@ -13,6 +13,7 @@ public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
     private const long LOCALIZATION_KEY_REWARD = 50359450810896384; // "+{0} Münzen" (DE) / "+{0} Coins" (EN)
 
     private Label countdownLabel;
+    private Label scoreLabel;
     private VisualElement memoryScreen;
 
     private VisualElement scoreboardScreen;
@@ -27,11 +28,11 @@ public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
         var root = uiDocument.rootVisualElement;
 
         countdownLabel = root.Q<Label>("countdown-label");
+        scoreLabel = root.Q<Label>("score-label");
         memoryScreen = root.Q<VisualElement>("memory-screen");
         scoreboardScreen = root.Q<VisualElement>("scoreboard-screen");
 
         for (var i = 1; i <= 4; i++) {
-            // Verwende die angepassten Namen aus dem UXML
             playerNameLabels.Add(root.Q<Label>($"player-name-{i}"));
             playerScoreLabels.Add(root.Q<Label>($"player-score-{i}"));
 
@@ -47,6 +48,10 @@ public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
         var minutes = Mathf.FloorToInt(timeLeft / 60f);
         var seconds = Mathf.FloorToInt(timeLeft % 60f);
         countdownLabel.text = $"{minutes:00}:{seconds:00}";
+    }
+
+    public void UpdatePlayerScore(int score) {
+        scoreLabel.text = score.ToString();
     }
 
     [Server]

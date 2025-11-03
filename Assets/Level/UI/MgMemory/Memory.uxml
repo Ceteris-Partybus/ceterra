@@ -5,8 +5,9 @@
                 <ui:VisualElement name="countdown-container" style="background-color: rgba(0, 0, 0, 0.4); border-radius: 20px; padding: 10px 30px;">
                     <ui:Label name="countdown-label" text="..:.." style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 60px; color: white;" />
                 </ui:VisualElement>
-                <ui:VisualElement name="score-container" style="background-color: rgba(0, 0, 0, 0.4); border-radius: 20px; padding: 10px 30px;">
-                    <ui:Label name="score-label" text="Paare: 0" style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 60px; color: white;" />
+                <ui:VisualElement name="score-container" style="background-color: rgba(0, 0, 0, 0.4); border-radius: 20px; padding: 10px 30px; flex-direction: row; align-items: center;">
+                    <ui:Label name="score-text" text="Paare: " style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 60px; color: white;" />
+                    <ui:Label name="score-label" text="0" style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 60px; color: white;" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="gameArea" enabled="true" style="flex-grow: 1; background-color: rgb(111, 111, 115); flex-direction: column; display: none; padding: 15px;">

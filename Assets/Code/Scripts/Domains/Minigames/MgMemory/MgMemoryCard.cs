@@ -1,6 +1,7 @@
 using DG.Tweening;
 using Mirror;
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,9 @@ public class Card : NetworkBehaviour {
 
     public MgMemoryGameController memoryController;
 
+    private int cardIndex = -1;
+    public int CardIndex => cardIndex;
+
     private bool isSelected;
     private bool isAnimating;
 
@@ -24,7 +28,11 @@ public class Card : NetworkBehaviour {
     }
 
     public void OnCardClicked() {
-        memoryController.SetSelectedCard(this);
+        memoryController.CmdSelectCard(cardIndex, GetLocalPlayer());
+    }
+
+    public void SetCardIndex(int index) {
+        cardIndex = index;
     }
 
     public void SetIconSprite(Sprite sprite) {
@@ -45,6 +53,11 @@ public class Card : NetworkBehaviour {
         }
 
         StartFlipAnimation(hiddenIconSprite, false);
+    }
+
+    public MgMemoryPlayer GetLocalPlayer() {
+        return FindObjectsByType<MgMemoryPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
+            .FirstOrDefault(p => p.isLocalPlayer);
     }
 
     private void StartFlipAnimation(Sprite targetSprite, bool willBeSelected) {
