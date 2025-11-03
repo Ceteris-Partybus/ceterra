@@ -8,6 +8,8 @@ public class SkyboxManager : NetworkedSingleton<SkyboxManager> {
     private Volume volume;
     [SerializeField] private Light sunLight;
     [SerializeField] private float rotationSpeed = 1f;
+    [SerializeField] private bool shouldPersistAcrossScenes = false;
+    protected override bool ShouldPersistAcrossScenes => shouldPersistAcrossScenes;
 
     private HDRISky hdriskybox;
     private Fog fog;

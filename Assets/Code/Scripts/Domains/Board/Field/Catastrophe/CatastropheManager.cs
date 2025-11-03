@@ -3,7 +3,7 @@ using Mirror;
 
 public class CatastropheManager : NetworkedSingleton<CatastropheManager> {
     protected override bool ShouldPersistAcrossScenes => true;
-    private SyncList<CatastropheEffect> onGoingCatastrophes = new();
+    private readonly SyncList<CatastropheEffect> ongoingCatastrophes = new();
 
     protected override void Start() {
         BoardContext.Instance.OnNewRoundStarted += Tick;
@@ -13,21 +13,22 @@ public class CatastropheManager : NetworkedSingleton<CatastropheManager> {
     [Server]
     public void RegisterCatastrophe(CatastropheType type) {
         var effect = type.CreateEffect();
-        onGoingCatastrophes.Add(effect);
+        ongoingCatastrophes.Add(effect);
         Tick(effect);
     }
 
     [Server]
     private void Tick() {
-        foreach (var catastrophe in onGoingCatastrophes) {
+        foreach (var catastrophe in ongoingCatastrophes) {
             Tick(catastrophe);
         }
     }
 
     private void Tick(CatastropheEffect catastrophe) {
-        catastrophe.Tick();
+        // check before tick() to ensure effect is ongoing for at least one round
         if (catastrophe.HasEnded()) {
-            onGoingCatastrophes.Remove(catastrophe);
+            ongoingCatastrophes.Remove(catastrophe);
         }
+        catastrophe.Tick();
     }
 }

@@ -1,5 +1,8 @@
 public class Wildfire : CatastropheEffect {
-    private static int ROUNDS = 3;
+    private const int ROUNDS = 3;
+    private static readonly int[] DAMAGE_ENVIRONMENT = { 25, 20, 10 };
+    private static readonly int[] DAMAGE_HEALTH = { 15, 10, 5 };
+
     private SkyboxManager skyboxManager;
 
     public Wildfire(SkyboxManager skyboxManager) : base(ROUNDS) {
@@ -8,9 +11,9 @@ public class Wildfire : CatastropheEffect {
 
     protected override void OnEffectTriggered() {
         if (base.remainingRounds == ROUNDS) {
-            skyboxManager.SpawnSmoke(20f);
+            skyboxManager.SpawnSmoke(10f);
             return;
         }
-        skyboxManager.AddSmokeAttenuation(20f);
+        skyboxManager.AddSmokeAttenuation(10f);
     }
 }

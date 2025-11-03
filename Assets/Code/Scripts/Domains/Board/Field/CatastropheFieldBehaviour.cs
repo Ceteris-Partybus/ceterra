@@ -59,7 +59,7 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
         yield return scaleSequence.WaitForCompletion();
         yield return new WaitForSeconds(1f);
 
-        BoardContext.Instance.UpdateEnvironmentStat(environmentEffect);
+        BoardContext.Instance.UpdateEnvironmentStat(-1 * environmentEffect);
         CompleteFieldInvocation();
 
         FieldInstantiate.Instance.ReplaceField(this, FieldType.NORMAL);
