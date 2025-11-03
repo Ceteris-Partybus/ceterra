@@ -1624,8 +1624,6 @@ MonoBehaviour:
     m_Localized: "Entwickler W\xFCrfel"
     m_Metadata:
       m_Items: []
-    m_Metadata:
-      m_Items: []
   - m_Id: 56636904074215424
     m_Localized: Katastrophe
     m_Metadata:
@@ -1770,11 +1768,62 @@ MonoBehaviour:
     m_Localized: "M\xFCnzen"
     m_Metadata:
       m_Items: []
+  - m_Id: 60010223864074240
+    m_Localized: VALIDIERE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011225140908032
+    m_Localized: VERBINDE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011435313287168
+    m_Localized: VALIDIERE CODE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011804634337280
+    m_Localized: Zahlencode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928023429120
+    m_Localized: Quizduell
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983552
+    m_Localized: "Beantworte m\xF6glichst viele Fragen korrekt!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983553
+    m_Localized: "W\xE4hle eine Antwort durch Klicken aus."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983554
+    m_Localized: "Gib dem M\xFCll eine Abfuhr"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177856
+    m_Localized: "Sortiere den M\xFCll ein den passenden M\xFClleimer."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177857
+    m_Localized: "Ziehe den M\xFCll mit der Maus."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177858
+    m_Localized: Meeresputz
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177859
+    m_Localized: "Sammle den meisten M\xFCll ein."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177860
+    m_Localized: Bewege deine Figur mit WASD.
+    m_Metadata:
+      m_Items: []
   - m_Id: 61449390745026560
     m_Localized: '{0} ist am Zug'
     m_Metadata:
-      m_Items:
-      - rid: 7894437812287832148
+      m_Items: []
   - m_Id: 61449390812135424
     m_Localized: "W\xFCrfeln"
     m_Metadata:
@@ -1794,8 +1843,7 @@ MonoBehaviour:
   - m_Id: 61449390812135428
     m_Localized: RUNDE {0}
     m_Metadata:
-      m_Items:
-      - rid: 7894437812287832148
+      m_Items: []
   - m_Id: 61452399050850304
     m_Localized: Charakterauswahl
     m_Metadata:

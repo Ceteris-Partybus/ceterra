@@ -106,7 +106,7 @@ public class DockerServerBuilder : EditorWindow {
 
         // Build options with improved settings
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions {
-            scenes = GetScenesFromBuildSettings(),
+            scenes = SetScenesFromBuildSettings(),
             locationPathName = Path.Combine(buildPath, "Server"),
             target = BuildTarget.StandaloneLinux64,
             subtarget = (int)StandaloneBuildSubtarget.Server,
@@ -184,7 +184,6 @@ public class DockerServerBuilder : EditorWindow {
 
             UnityEngine.Debug.Log($"DockerServerBuilder: Set GameManager headlessStartMode to {gameManager.headlessStartMode}");
 
-            // Save the scene
             EditorSceneManager.SaveScene(bootstrapScene);
         }
         catch (System.Exception e) {
@@ -225,18 +224,19 @@ public class DockerServerBuilder : EditorWindow {
         }
     }
 
-    string[] GetScenesFromBuildSettings() {
-        // For Mirror networking, we need multiple scenes
+    string[] SetScenesFromBuildSettings() {
         List<string> scenesToInclude = new List<string>();
 
-        // Essential scenes for Mirror networking
         string[] requiredScenes = {
-            "Assets/Level/Scenes/Bootstrap.unity",  // Main networking scene
-            "Assets/Level/Scenes/Board.unity",      // Game scene (if exists)
-            "Assets/Level/Scenes/Lobby.unity",      // Lobby scene (if exists)
-            "Assets/Level/Scenes/PlayMenu.unity",   // Menu scene that clients connect through
-            "Assets/Level/Scenes/MainMenu.unity",    // Settings scene (if exists)
-            "Assets/Level/Scenes/MinigameOne.unity"    // Settings scene (if exists)
+            "Assets/Level/Scenes/Bootstrap.unity",
+            "Assets/Level/Scenes/Board.unity",
+            "Assets/Level/Scenes/Lobby.unity",
+            "Assets/Level/Scenes/End.unity",
+            "Assets/Level/Scenes/PlayMenu.unity",
+            "Assets/Level/Scenes/MainMenu.unity",
+            "Assets/Level/Scenes/MgGarbage.unity",
+            "Assets/Level/Scenes/MgOcean.unity",
+            "Assets/Level/Scenes/MgQuizduel.unity"
         };
 
         foreach (string scenePath in requiredScenes) {
@@ -271,7 +271,6 @@ public class DockerServerBuilder : EditorWindow {
     }
 
     void StartDockerContainer() {
-        // Use docker compose to start the container in detached mode
         RunCompose("up -d");
     }
 
@@ -281,13 +280,11 @@ public class DockerServerBuilder : EditorWindow {
     }
 
     void RestartDockerContainer() {
-        // Restart the container
         RunCompose("restart");
         EditorUtility.DisplayDialog("Restarted", "Docker containers restarted successfully.", "OK");
     }
 
     void RunCompose(string arguments) {
-        // Prefer modern `docker compose`, fallback to legacy `docker-compose`
         try {
             RunCommand("docker", $"compose {arguments}");
         }
@@ -307,7 +304,7 @@ public class DockerServerBuilder : EditorWindow {
         };
 
         using (Process process = Process.Start(startInfo)) {
-            bool finished = process.WaitForExit(15000); // 15 second timeout
+            bool finished = process.WaitForExit(15000);
 
             if (!finished) {
                 process.Kill();
@@ -341,8 +338,7 @@ public class DockerServerBuilder : EditorWindow {
         };
 
         using (Process process = Process.Start(startInfo)) {
-            // Set timeout for Docker commands
-            bool finished = process.WaitForExit(300000); // 5 minute timeout
+            bool finished = process.WaitForExit(300000);
 
             if (!finished) {
                 process.Kill();
@@ -353,7 +349,6 @@ public class DockerServerBuilder : EditorWindow {
             string error = process.StandardError.ReadToEnd();
 
             if (process.ExitCode != 0 && !ignoreErrors) {
-                // Special handling for Docker connection errors
                 if (error.Contains("dockerDesktopLinuxEngine") || error.Contains("cannot connect") || error.Contains("pipe")) {
                     throw new System.Exception("Docker Desktop is not running! Please start Docker Desktop and try again.");
                 }

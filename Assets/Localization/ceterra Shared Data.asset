@@ -55,6 +55,22 @@ MonoBehaviour:
     m_Key: playMenu.playmenu
     m_Metadata:
       m_Items: []
+  - m_Id: 60010223864074240
+    m_Key: playmenu.loading
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011225140908032
+    m_Key: playmenu.connecting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011435313287168
+    m_Key: playmenu.validate-code
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011804634337280
+    m_Key: playmenu.digit-code
+    m_Metadata:
+      m_Items: []
   - m_Id: 1528244501925888
     m_Key: sideMenu.menu
     m_Metadata:

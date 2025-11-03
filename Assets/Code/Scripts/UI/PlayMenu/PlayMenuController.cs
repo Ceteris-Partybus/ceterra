@@ -2,18 +2,26 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 using Mirror;
+using UnityEngine.Localization;
+using System.Collections;
 
 public class PlayMenuController : MonoBehaviour {
     private Button backButton;
     private Button joinLobbyButton;
+    private Button validateCodeButton;
+    private DottedAnimation animatedButton;
 
     [SerializeField]
     private UIDocument uIDocument;
 
     private const string MAIN_MENU_SCENE = "MainMenu";
+    private const long ORIGINAL_BUTTON_TEXT_ID = 60011435313287168;
+    private const long CONNECTION_TEXT_ID = 60011225140908032;
+    private const long VALIDATION_TEXT_ID = 60010223864074240;
 
     private TextField ipAddressField;
     private TextField portField;
+    private TextField digitCodeField;
 
     private void OnEnable() {
         var root = uIDocument.rootVisualElement;
@@ -33,8 +41,71 @@ public class PlayMenuController : MonoBehaviour {
             OnJoinLobbyClicked();
         };
 
+        validateCodeButton = root.Q<Button>("ValidateCodeButton");
+        validateCodeButton.AddToClassList("validate-code");
+        validateCodeButton.clicked += () => {
+            Audiomanager.Instance?.PlayClickSound();
+            OnValidateCodeClicked();
+        };
+
         ipAddressField = root.Q<TextField>("IPAddressField");
         portField = root.Q<TextField>("PortField");
+        digitCodeField = root.Q<TextField>("DigitCodeField");
+
+        if (digitCodeField == null) {
+            Debug.LogError("DigitCodeField not found in UI!");
+        } else {
+            digitCodeField.focusable = true;
+        }
+    }
+
+    private void OnValidateCodeClicked() {
+        string code = digitCodeField.value;
+
+        if (string.IsNullOrEmpty(code)) {
+            Debug.LogError("Digit code is empty.");
+            return;
+        }
+
+        if (code.Length != 4 || !int.TryParse(code, out _)) {
+            Debug.LogError("Code must be exactly 4 digits.");
+            return;
+        }
+
+        StartCoroutine(SetValidateButtonLoading(true, VALIDATION_TEXT_ID));
+        StartCoroutine(InviteCodeValidator.ValidateCode(code, OnValidateSuccess, OnValidateError));
+    }
+
+    private void OnValidateSuccess(InviteCodeValidator.CodeResponse response) {
+        Debug.Log($"✓ Valid code! Connect to {response.domain}:{response.port}");
+
+        StartCoroutine(SetValidateButtonLoading(true, CONNECTION_TEXT_ID));
+
+        ipAddressField.value = response.domain;
+        portField.value = response.port.ToString();
+
+        JoinServer(response.domain, response.port);
+    }
+
+    private void OnValidateError(string error) {
+        Debug.LogWarning($"✗ Validation failed: {error}");
+        StartCoroutine(SetValidateButtonLoading(false));
+    }
+
+    private IEnumerator SetValidateButtonLoading(bool isLoading, long customTextId = ORIGINAL_BUTTON_TEXT_ID) {
+        validateCodeButton.EnableInClassList("loading", isLoading);
+        validateCodeButton.SetEnabled(!isLoading);
+        var localizedString = validateCodeButton.GetBinding("text") as LocalizedString;
+        yield return localizedString.CurrentLoadingOperationHandle;
+        animatedButton?.Stop();
+
+        localizedString.SetReference("ceterra", customTextId);
+        localizedString.CurrentLoadingOperationHandle.Completed += _ => {
+            if (isLoading) {
+                animatedButton = new DottedAnimation(validateCodeButton, validateCodeButton.text);
+                animatedButton.Start();
+            }
+        };
     }
 
     private void OnJoinLobbyClicked() {
@@ -46,22 +117,23 @@ public class PlayMenuController : MonoBehaviour {
             return;
         }
 
-        Debug.Log($"Connecting to server at {ipAddress}:{port}");
+        if (!ushort.TryParse(port, out ushort parsedPort)) {
+            Debug.LogError("Invalid port number");
+            return;
+        }
 
+        JoinServer(ipAddress, parsedPort);
+    }
+
+    private void JoinServer(string ipAddress, int port) {
+        animatedButton?.Stop();
+        Debug.Log($"Connecting to server at {ipAddress}:{port}");
         NetworkManager.singleton.networkAddress = ipAddress;
 
         if (Transport.active is PortTransport portTransport) {
-            if (ushort.TryParse(port, out ushort parsedPort)) {
-                portTransport.Port = parsedPort;
-            }
-            else {
-                Debug.LogError("Invalid port number");
-                return;
-            }
+            portTransport.Port = (ushort)port;
         }
 
-        // Scene change is done indirectly by the NetworkManager when a client connects
-        // Scene will change to the Scene defined in NetworkManager's "Online Scene"
         NetworkManager.singleton.StartClient();
     }
 
