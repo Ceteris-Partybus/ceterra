@@ -12,6 +12,7 @@ public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
 
     private Label countdownLabel;
     private Label scoreLabel;
+    private Label currentPlayerLabel;
     private VisualElement memoryScreen;
 
     private VisualElement scoreboardScreen;
@@ -27,6 +28,7 @@ public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
 
         countdownLabel = root.Q<Label>("countdown-label");
         scoreLabel = root.Q<Label>("score-label");
+        currentPlayerLabel = root.Q<Label>("current-player-label");
         memoryScreen = root.Q<VisualElement>("memory-screen");
         scoreboardScreen = root.Q<VisualElement>("scoreboard-screen");
 
@@ -50,6 +52,10 @@ public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
 
     public void UpdatePlayerScore(int score) {
         scoreLabel.text = score.ToString();
+    }
+
+    public void UpdateCurrentPlayer(string playerName) {
+        currentPlayerLabel.text = playerName;
     }
 
     [Server]

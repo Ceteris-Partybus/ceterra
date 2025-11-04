@@ -16,12 +16,82 @@ public class MgMemoryContext : NetworkedSingleton<MgMemoryContext> {
     private float countdownTimer;
     private Coroutine countdownCoroutine;
 
+    [SyncVar(hook = nameof(OnCurrentPlayerChanged))]
+    private int currentPlayerId = -1;
+
+    private List<MgMemoryPlayer> players = new List<MgMemoryPlayer>();
+
     protected override void Start() {
         base.Start();
         if (isServer) {
+            InitializePlayers();
             StartCoroutine(MemoryRoutine());
             countdownCoroutine = StartCoroutine(UpdateCountdown());
         }
+    }
+
+    [Server]
+    private void InitializePlayers() {
+        players.Clear();
+        var allPlayers = FindObjectsByType<MgMemoryPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+
+        foreach (var player in allPlayers) {
+            players.Add(player);
+        }
+        Debug.Log($"Initialized {players.Count} players for Memory minigame.");
+        Debug.Log("Players in Memory minigame:");
+        foreach (var p in players) {
+            Debug.Log($"- Name: {p.PlayerName}");
+        }
+
+        if (players.Count > 0) {
+            currentPlayerId = 0;
+        }
+    }
+
+    private void OnCurrentPlayerChanged(int _, int newPlayerId) {
+        // Update UI für alle Clients
+        var currentPlayer = GetPlayerById(newPlayerId);
+        if (currentPlayer != null) {
+            var playerName = $"Spieler {newPlayerId + 1}"; // Einfacher Spielername
+            MgMemoryController.Instance.UpdateCurrentPlayer(playerName);
+        }
+    }
+
+    public MgMemoryPlayer GetCurrentPlayer() {
+        return GetPlayerById(currentPlayerId);
+    }
+
+    public MgMemoryPlayer GetPlayerById(int playerId) {
+        // Fallback: wenn PlayerId nicht verfügbar ist, verwende Index
+        if (playerId >= 0 && playerId < players.Count) {
+            return players[playerId];
+        }
+        return players.Find(p => p.netId == playerId) ?? (players.Count > 0 ? players[0] : null);
+    }
+
+    [Server]
+    public void HandleMatch() {
+        // Bei einem Match bleibt der aktuelle Spieler dran
+        Debug.Log($"Player {currentPlayerId} made a match and continues");
+    }
+
+    [Server]
+    public void HandleMismatch() {
+        // Bei einem Fehler wechselt der Spieler
+        NextPlayer();
+    }
+
+    [Server]
+    private void NextPlayer() {
+        if (players.Count == 0) {
+            return;
+        }
+
+        var nextIndex = (currentPlayerId + 1) % players.Count;
+        currentPlayerId = nextIndex;
+
+        Debug.Log($"Turn changed to player {currentPlayerId + 1}");
     }
 
     private IEnumerator MemoryRoutine() {

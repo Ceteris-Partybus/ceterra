@@ -53,6 +53,12 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
     }
 
     public void SelectCard(int cardIndex, MgMemoryPlayer currentPlayer) {
+        Debug.Log($"Players Turn: {MgMemoryContext.Instance.GetCurrentPlayer()}, Selecting Player: {currentPlayer.PlayerName}");
+        if (MgMemoryContext.Instance.GetCurrentPlayer() != currentPlayer) {
+            Debug.Log("It's not this player's turn!");
+            return;
+        }
+
         CmdShowCardOnAllClients(cardIndex);
 
         if (!currentPlayer.HasFirstSelection) {
@@ -69,9 +75,15 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
                 MgMemoryController.Instance.UpdatePlayerScore(pointsForCorrectMatch);
                 currentPlayer.AddScore(pointsForCorrectMatch);
                 CmdMarkCardsAsMatched(currentPlayer.FirstSelectedCardIndex, currentPlayer.SecondSelectedCardIndex);
+
+                // Bei Match bleibt Spieler dran
+                CmdHandleMatch();
             }
             else {
                 CmdHideCardsOnAllClients(currentPlayer.FirstSelectedCardIndex, currentPlayer.SecondSelectedCardIndex);
+
+                // Bei Fehler wechselt der Spieler
+                CmdHandleMismatch();
             }
 
             currentPlayer.ClearCardSelections();
@@ -91,6 +103,16 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
     [Command(requiresAuthority = false)]
     private void CmdMarkCardsAsMatched(int firstCardIndex, int secondCardIndex) {
         RpcMarkCardsAsMatched(firstCardIndex, secondCardIndex);
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdHandleMatch() {
+        MgMemoryContext.Instance.HandleMatch();
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdHandleMismatch() {
+        MgMemoryContext.Instance.HandleMismatch();
     }
 
     [Server]

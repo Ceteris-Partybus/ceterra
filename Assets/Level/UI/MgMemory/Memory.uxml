@@ -5,6 +5,10 @@
                 <ui:VisualElement name="countdown-container" style="background-color: rgba(0, 0, 0, 0.4); border-radius: 20px; padding: 10px 30px;">
                     <ui:Label name="countdown-label" text="..:.." style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 60px; color: white;" />
                 </ui:VisualElement>
+                <ui:VisualElement name="current-player-container" style="background-color: rgba(0, 0, 0, 0.4); border-radius: 20px; padding: 10px 30px; flex-direction: row; align-items: center;">
+                    <ui:Label name="current-player-text" text="Am Zug: " style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 60px; color: white;" />
+                    <ui:Label name="current-player-label" text="Spieler 1" style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 60px; color: rgb(255, 215, 0);" />
+                </ui:VisualElement>
                 <ui:VisualElement name="score-container" style="background-color: rgba(0, 0, 0, 0.4); border-radius: 20px; padding: 10px 30px; flex-direction: row; align-items: center;">
                     <ui:Label name="score-text" text="Paare: " style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 60px; color: white;" />
                     <ui:Label name="score-label" text="0" style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 60px; color: white;" />
