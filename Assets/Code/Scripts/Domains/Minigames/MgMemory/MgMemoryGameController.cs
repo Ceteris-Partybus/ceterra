@@ -12,9 +12,6 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
 
     private List<Sprite> spritePairs;
 
-    private Card firstSelectedCard;
-    private Card secondSelectedCard;
-
     protected override void Start() {
         base.Start();
 
@@ -55,58 +52,73 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
         }
     }
 
-    [Command(requiresAuthority = false)]
-    public void CmdSelectCard(int cardIndex, MgMemoryPlayer currentPlayer) {
-        var selectedCard = FindCardByIndex(cardIndex);
-        if (selectedCard == null || selectedCard.IsSelected) {
-            return;
-        }
+    public void SelectCard(int cardIndex, MgMemoryPlayer currentPlayer) {
+        CmdShowCardOnAllClients(cardIndex);
 
-        HandleCardSelection(selectedCard, currentPlayer);
+        if (!currentPlayer.HasFirstSelection) {
+            currentPlayer.SetFirstSelectedCard(cardIndex);
+        }
+        else {
+            currentPlayer.SetSecondSelectedCard(cardIndex);
+
+            var match =
+                FindCardByIndex(currentPlayer.FirstSelectedCardIndex).GetIconSprite ==
+                FindCardByIndex(currentPlayer.SecondSelectedCardIndex).GetIconSprite;
+
+            if (match) {
+                MgMemoryController.Instance.UpdatePlayerScore(pointsForCorrectMatch);
+                currentPlayer.AddScore(pointsForCorrectMatch);
+                CmdMarkCardsAsMatched(currentPlayer.FirstSelectedCardIndex, currentPlayer.SecondSelectedCardIndex);
+            }
+            else {
+                CmdHideCardsOnAllClients(currentPlayer.FirstSelectedCardIndex, currentPlayer.SecondSelectedCardIndex);
+            }
+
+            currentPlayer.ClearCardSelections();
+        }
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdShowCardOnAllClients(int cardIndex) {
         RpcShowCard(cardIndex);
     }
 
+    [Command(requiresAuthority = false)]
+    private void CmdHideCardsOnAllClients(int firstCardIndex, int secondCardIndex) {
+        StartCoroutine(HideCardsOnAllClientsWithDelay(firstCardIndex, secondCardIndex));
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdMarkCardsAsMatched(int firstCardIndex, int secondCardIndex) {
+        RpcMarkCardsAsMatched(firstCardIndex, secondCardIndex);
+    }
+
     [Server]
-    private void HandleCardSelection(Card card, MgMemoryPlayer currentPlayer) {
-        if (firstSelectedCard == null) {
-            firstSelectedCard = card;
-            return;
-        }
+    private IEnumerator HideCardsOnAllClientsWithDelay(int firstCardIndex, int secondCardIndex) {
+        yield return new WaitForSeconds(checkDelay);
 
-        if (secondSelectedCard == null) {
-            secondSelectedCard = card;
-            StartCoroutine(CheckMatching(firstSelectedCard, secondSelectedCard, currentPlayer));
-
-            firstSelectedCard = null;
-            secondSelectedCard = null;
-        }
+        RpcHideCard(firstCardIndex);
+        RpcHideCard(secondCardIndex);
     }
 
     [ClientRpc]
     public void RpcShowCard(int cardIndex) {
-        var card = FindCardByIndex(cardIndex);
-        if (card != null) {
-            card.Show();
-        }
+        FindCardByIndex(cardIndex).Show();
     }
 
     [ClientRpc]
     public void RpcHideCard(int cardIndex) {
-        Card card = FindCardByIndex(cardIndex);
-        if (card != null) {
-            card.Hide();
-        }
+        FindCardByIndex(cardIndex).Hide();
+
     }
 
     [ClientRpc]
     public void RpcMarkCardsAsMatched(int firstCardIndex, int secondCardIndex) {
-        var firstCard = FindCardByIndex(firstCardIndex);
-        var secondCard = FindCardByIndex(secondCardIndex);
+        FindCardByIndex(firstCardIndex).SetButtonInteractable(false);
+        FindCardByIndex(secondCardIndex).SetButtonInteractable(false);
 
-        if (firstCard != null && secondCard != null) {
-            // Hier könnten Sie zusätzliche visuelle Effekte für gematchte Karten hinzufügen
-            // z.B. eine andere Farbe oder einen Rahmen
-        }
+        // Hier könnten Sie zusätzliche visuelle Effekte für gematchte Karten hinzufügen
+        // z.B. eine andere Farbe oder einen Rahmen
     }
 
     private Card FindCardByIndex(int cardIndex) {
@@ -117,20 +129,6 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
             }
         }
         return null;
-    }
-
-    [Server]
-    private IEnumerator CheckMatching(Card firstCard, Card secondCard, MgMemoryPlayer currentPlayer) {
-        yield return new WaitForSeconds(checkDelay);
-
-        if (firstCard.GetIconSprite == secondCard.GetIconSprite) {
-            Debug.Log("Match gefunden - Spieler bekommt Punkte");
-        }
-        else {
-            // Kein Match - verstecke die Karten wieder
-            RpcHideCard(firstCard.CardIndex);
-            RpcHideCard(secondCard.CardIndex);
-        }
     }
 
     public void ClearMemory() {

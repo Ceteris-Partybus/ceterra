@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Card : NetworkBehaviour {
     [SerializeField] private Image cardImage;
+    [SerializeField] private Button cardButton;
     [SerializeField] private Sprite hiddenIconSprite;
     [SerializeField] private float flipDuration = 0.3f;
     private Sprite iconSprite;
@@ -28,7 +29,12 @@ public class Card : NetworkBehaviour {
     }
 
     public void OnCardClicked() {
-        memoryController.CmdSelectCard(cardIndex, GetLocalPlayer());
+        // Verhindere Klicks auf bereits ausgewählte oder animierende Karten
+        if (isSelected || isAnimating) {
+            return;
+        }
+
+        memoryController.SelectCard(cardIndex, GetLocalPlayer());
     }
 
     public void SetCardIndex(int index) {
@@ -55,11 +61,6 @@ public class Card : NetworkBehaviour {
         StartFlipAnimation(hiddenIconSprite, false);
     }
 
-    public MgMemoryPlayer GetLocalPlayer() {
-        return FindObjectsByType<MgMemoryPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
-            .FirstOrDefault(p => p.isLocalPlayer);
-    }
-
     private void StartFlipAnimation(Sprite targetSprite, bool willBeSelected) {
         isAnimating = true;
 
@@ -68,6 +69,7 @@ public class Card : NetworkBehaviour {
             .OnComplete(() => {
                 cardImage.sprite = targetSprite;
                 isSelected = willBeSelected;
+                SetButtonInteractable(!willBeSelected);
 
                 cardImage.transform.DORotate(Vector3.zero, flipDuration / 2f)
                     .SetEase(Ease.OutQuad)
@@ -75,5 +77,14 @@ public class Card : NetworkBehaviour {
                         isAnimating = false;
                     });
             });
+    }
+
+    public void SetButtonInteractable(bool interactable) {
+        cardButton.interactable = interactable;
+    }
+
+    public MgMemoryPlayer GetLocalPlayer() {
+        return FindObjectsByType<MgMemoryPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
+            .FirstOrDefault(p => p.isLocalPlayer);
     }
 }

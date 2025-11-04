@@ -93,7 +93,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   cardImage: {fileID: 1227323911658806749}
+  cardButton: {fileID: 3142961005205303121}
   hiddenIconSprite: {fileID: -608877795, guid: 8ab063dd7b1b6494dafa847e18d1116c, type: 3}
+  flipDuration: 0.3
   memoryController: {fileID: 0}
 --- !u!114 &3142961005205303121
 MonoBehaviour:
