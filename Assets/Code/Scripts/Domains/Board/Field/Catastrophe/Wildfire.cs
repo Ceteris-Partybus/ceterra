@@ -9,11 +9,15 @@ public class Wildfire : CatastropheEffect {
         this.skyboxManager = skyboxManager;
     }
 
-    protected override void OnEffectTriggered() {
-        if (base.remainingRounds == ROUNDS) {
-            skyboxManager.SpawnSmoke(10f);
-            return;
-        }
+    public override void OnCatastropheRages() {
+        skyboxManager.SpawnSmoke(10f);
+    }
+
+    protected override void OnRaging() {
         skyboxManager.AddSmokeAttenuation(10f);
+    }
+
+    public override void OnCatastropheEnds() {
+        skyboxManager.ClearSmoke();
     }
 }

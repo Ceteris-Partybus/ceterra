@@ -1,5 +1,4 @@
 using Mirror;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +19,12 @@ public abstract class CatastropheEffect {
 
     public bool HasEnded() => remainingRounds == 0;
 
-    protected abstract void OnEffectTriggered();
+    public abstract void OnCatastropheRages();
+    protected abstract void OnRaging();
+    public abstract void OnCatastropheEnds();
 
     public void Tick() {
-        OnEffectTriggered();
+        OnRaging();
         remainingRounds--;
     }
 
@@ -58,6 +59,28 @@ public abstract class CatastropheEffect {
 
     protected virtual int CalculateDamageByDistance(float normalizedDistance) {
         return 0;
+    }
+
+    [ClientRpc]
+    protected void RpcShowCatastropheInfo(string affectedPlayerInfo, CatastropheType catastropheType) {
+        CatastropheModal.Instance.Title = LocalizationManager.Instance.GetLocalizedText(catastropheType.GetDisplayName());
+        CatastropheModal.Instance.Description = LocalizationManager.Instance.GetLocalizedText(catastropheType.GetDescription());
+        CatastropheModal.Instance.AffectedPlayers = affectedPlayerInfo;
+        ModalManager.Instance.Show(CatastropheModal.Instance);
+    }
+
+    [ClientRpc]
+    protected void RpcHideCatastropheInfo() {
+        ModalManager.Instance.Hide();
+    }
+
+    [Server]
+    private IEnumerator EnsureCameraOnTriggeringPlayer(BoardPlayer triggeringPlayer) {
+        if (CameraHandler.Instance.ZoomTarget != triggeringPlayer.transform) {
+            CameraHandler.Instance.RpcSwitchZoomTarget(triggeringPlayer);
+            yield return new WaitForEndOfFrame();
+            yield return new WaitUntil(() => CameraHandler.Instance.HasReachedTarget);
+        }
     }
 
     internal class AffectedPlayerData {

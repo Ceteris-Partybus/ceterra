@@ -25,9 +25,10 @@ public class CatastropheManager : NetworkedSingleton<CatastropheManager> {
     }
 
     private void Tick(CatastropheEffect catastrophe) {
-        // check before tick() to ensure effect is ongoing for at least one round
         if (catastrophe.HasEnded()) {
             ongoingCatastrophes.Remove(catastrophe);
+            catastrophe.OnCatastropheEnds();
+            return;
         }
         catastrophe.Tick();
     }

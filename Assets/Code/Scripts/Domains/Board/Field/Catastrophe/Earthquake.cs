@@ -6,9 +6,17 @@ public class Earthquake : CatastropheEffect {
 
     public Earthquake() : base(ROUNDS) { }
 
-    protected override void OnEffectTriggered() {
+    protected override void OnRaging() {
         if (base.remainingRounds == ROUNDS) {
             return;
         }
+    }
+
+    public override void OnCatastropheRages() {
+        throw new System.NotImplementedException();
+    }
+
+    public override void OnCatastropheEnds() {
+        throw new System.NotImplementedException();
     }
 }
