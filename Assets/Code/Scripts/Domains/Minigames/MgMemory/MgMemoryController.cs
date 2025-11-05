@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
@@ -6,9 +7,13 @@ using UnityEngine.Localization.Settings;
 
 public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
     [SerializeField] private UIDocument uiDocument;
+    [SerializeField] private float factPopupDuration = 10f; // Anzeigedauer des Fact-Popups in Sekunden
+    [SerializeField] private Camera canvasCamera; // Referenz zur Canvas-Kamera
 
     private const string LOCALIZATION_TABLE = "ceterra";
     private const long LOCALIZATION_KEY_REWARD = 50359450810896384; // "+{0} Münzen" (DE) / "+{0} Coins" (EN)
+
+    private float originalSortOrder; // Ursprüngliche Sort Order speichern
 
     private Label countdownLabel;
     private Label scoreLabel;
@@ -16,6 +21,7 @@ public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
     private VisualElement memoryScreen;
 
     private VisualElement scoreboardScreen;
+    private VisualElement factPopup;
     private readonly List<Label> playerNameLabels = new();
     private readonly List<Label> playerScoreLabels = new();
     private readonly List<Label> playerRewardLabels = new();
@@ -31,6 +37,12 @@ public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
         currentPlayerLabel = root.Q<Label>("current-player-label");
         memoryScreen = root.Q<VisualElement>("memory-screen");
         scoreboardScreen = root.Q<VisualElement>("scoreboard-screen");
+        factPopup = root.Q<VisualElement>("fact-popup");
+
+        // Ursprüngliche Sort Order der Canvas-Kamera speichern
+        if (canvasCamera != null) {
+            originalSortOrder = canvasCamera.depth;
+        }
 
         for (var i = 1; i <= 4; i++) {
             playerNameLabels.Add(root.Q<Label>($"player-name-{i}"));
@@ -56,6 +68,33 @@ public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
 
     public void UpdateCurrentPlayer(string playerName) {
         currentPlayerLabel.text = playerName;
+    }
+
+    [Server]
+    public void ShowFactPopup() {
+        RpcShowFactPopup();
+    }
+
+    [ClientRpc]
+    private void RpcShowFactPopup() {
+        // Canvas-Kamera Sort Order auf 0 setzen
+        if (canvasCamera != null) {
+            canvasCamera.depth = 0;
+        }
+
+        SetElementDisplay(factPopup, true);
+        StartCoroutine(HideFactPopupAfterDelay(factPopupDuration));
+    }
+
+    private System.Collections.IEnumerator HideFactPopupAfterDelay(float delay) {
+        yield return new WaitForSeconds(delay);
+
+        SetElementDisplay(factPopup, false);
+
+        // Canvas-Kamera Sort Order zurücksetzen
+        if (canvasCamera != null) {
+            canvasCamera.depth = originalSortOrder;
+        }
     }
 
     [Server]

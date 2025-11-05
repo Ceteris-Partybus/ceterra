@@ -53,7 +53,6 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
     }
 
     public void SelectCard(int cardIndex, MgMemoryPlayer currentPlayer) {
-        Debug.Log($"Players Turn: {MgMemoryContext.Instance.GetCurrentPlayer()}, Selecting Player: {currentPlayer.PlayerName}");
         if (MgMemoryContext.Instance.GetCurrentPlayer() != currentPlayer) {
             Debug.Log("It's not this player's turn!");
             return;
@@ -76,7 +75,6 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
                 currentPlayer.AddScore(pointsForCorrectMatch);
                 CmdMarkCardsAsMatched(currentPlayer.FirstSelectedCardIndex, currentPlayer.SecondSelectedCardIndex);
 
-                // Bei Match bleibt Spieler dran
                 CmdHandleMatch();
             }
             else {
@@ -107,7 +105,9 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
 
     [Command(requiresAuthority = false)]
     private void CmdHandleMatch() {
-        MgMemoryContext.Instance.HandleMatch();
+        //MgMemoryContext.Instance.HandleMatch();
+
+        MgMemoryController.Instance.ShowFactPopup();
     }
 
     [Command(requiresAuthority = false)]

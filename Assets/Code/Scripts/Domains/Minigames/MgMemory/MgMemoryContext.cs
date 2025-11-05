@@ -19,12 +19,11 @@ public class MgMemoryContext : NetworkedSingleton<MgMemoryContext> {
     [SyncVar(hook = nameof(OnCurrentPlayerChanged))]
     private int currentPlayerId = -1;
 
-    private List<MgMemoryPlayer> players = new List<MgMemoryPlayer>();
+    private List<MgMemoryPlayer> players;
 
     protected override void Start() {
         base.Start();
         if (isServer) {
-            InitializePlayers();
             StartCoroutine(MemoryRoutine());
             countdownCoroutine = StartCoroutine(UpdateCountdown());
         }
@@ -32,30 +31,23 @@ public class MgMemoryContext : NetworkedSingleton<MgMemoryContext> {
 
     [Server]
     private void InitializePlayers() {
-        players.Clear();
-        var allPlayers = FindObjectsByType<MgMemoryPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        players = FindObjectsByType<MgMemoryPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
+                .Where(p => p.IsActiveForCurrentScene)
+                .ToList();
 
-        foreach (var player in allPlayers) {
-            players.Add(player);
-        }
-        Debug.Log($"Initialized {players.Count} players for Memory minigame.");
-        Debug.Log("Players in Memory minigame:");
-        foreach (var p in players) {
-            Debug.Log($"- Name: {p.PlayerName}");
-        }
+        RpcInitializePlayersOnClients();
+        currentPlayerId = 1;
+    }
 
-        if (players.Count > 0) {
-            currentPlayerId = 0;
-        }
+    [ClientRpc]
+    private void RpcInitializePlayersOnClients() {
+        players = FindObjectsByType<MgMemoryPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
+                .Where(p => p.IsActiveForCurrentScene)
+                .ToList();
     }
 
     private void OnCurrentPlayerChanged(int _, int newPlayerId) {
-        // Update UI für alle Clients
-        var currentPlayer = GetPlayerById(newPlayerId);
-        if (currentPlayer != null) {
-            var playerName = $"Spieler {newPlayerId + 1}"; // Einfacher Spielername
-            MgMemoryController.Instance.UpdateCurrentPlayer(playerName);
-        }
+        MgMemoryController.Instance.UpdateCurrentPlayer(GetPlayerById(newPlayerId).PlayerName);
     }
 
     public MgMemoryPlayer GetCurrentPlayer() {
@@ -63,11 +55,7 @@ public class MgMemoryContext : NetworkedSingleton<MgMemoryContext> {
     }
 
     public MgMemoryPlayer GetPlayerById(int playerId) {
-        // Fallback: wenn PlayerId nicht verfügbar ist, verwende Index
-        if (playerId >= 0 && playerId < players.Count) {
-            return players[playerId];
-        }
-        return players.Find(p => p.netId == playerId) ?? (players.Count > 0 ? players[0] : null);
+        return players.Where(p => p.PlayerId == playerId).FirstOrDefault();
     }
 
     [Server]
@@ -78,24 +66,17 @@ public class MgMemoryContext : NetworkedSingleton<MgMemoryContext> {
 
     [Server]
     public void HandleMismatch() {
-        // Bei einem Fehler wechselt der Spieler
         NextPlayer();
     }
 
     [Server]
     private void NextPlayer() {
-        if (players.Count == 0) {
-            return;
-        }
-
-        var nextIndex = (currentPlayerId + 1) % players.Count;
-        currentPlayerId = nextIndex;
-
-        Debug.Log($"Turn changed to player {currentPlayerId + 1}");
+        currentPlayerId = (currentPlayerId % players.Count) + 1;
     }
 
     private IEnumerator MemoryRoutine() {
         yield return new WaitForSeconds(0.5f);
+        InitializePlayers();
         StartMemory();
         yield return new WaitForSeconds(GameDuration);
 
@@ -114,11 +95,23 @@ public class MgMemoryContext : NetworkedSingleton<MgMemoryContext> {
 
         MgMemoryGameController.Instance.InitializeCardsOnClients(randomSeed);
         RpcInitializeCardsOnClients(randomSeed);
+
+        StartCoroutine(DelayedTurnDisplayInit());
+    }
+
+    private IEnumerator DelayedTurnDisplayInit() {
+        yield return new WaitForSeconds(0.2f); // Kurze Verzögerung
+        RpcInitializeTurnDisplayOnClients();
     }
 
     [ClientRpc]
     private void RpcInitializeCardsOnClients(int randomSeed) {
         MgMemoryGameController.Instance.InitializeCardsOnClients(randomSeed);
+    }
+
+    [ClientRpc]
+    private void RpcInitializeTurnDisplayOnClients() {
+        MgMemoryController.Instance.UpdateCurrentPlayer(GetCurrentPlayer().PlayerName);
     }
 
     [ClientRpc]

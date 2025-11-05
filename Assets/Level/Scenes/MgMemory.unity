@@ -188,6 +188,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   uiDocument: {fileID: 583488098}
+  factPopupDuration: 10
+  canvasCamera: {fileID: 961739752}
 --- !u!114 &583488101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -665,9 +667,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  GameDuration: 20
+  GameDuration: 100
   scoreboardDuration: 5
-  memoryGameController: {fileID: 1072197780}
 --- !u!114 &1055850417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -794,6 +795,7 @@ MonoBehaviour:
   - {fileID: -1100433579, guid: 6963d66ff93349f4e87e530ee27de2f8, type: 3}
   - {fileID: 753646091, guid: 1ab0361e7d581a049a5cbcc000dbd1fd, type: 3}
   - {fileID: 598599663, guid: d22b783ee3c0c7e43a790e13747d0db6, type: 3}
+  pointsForCorrectMatch: 1
 --- !u!1 &1629093450
 GameObject:
   m_ObjectHideFlags: 0
