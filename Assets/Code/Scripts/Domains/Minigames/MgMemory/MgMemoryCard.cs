@@ -29,7 +29,6 @@ public class Card : NetworkBehaviour {
     }
 
     public void OnCardClicked() {
-        // Verhindere Klicks auf bereits ausgewählte oder animierende Karten
         if (isSelected || isAnimating) {
             return;
         }

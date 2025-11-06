@@ -30,7 +30,6 @@ public class MgMemoryPlayer : SceneConditionalPlayer {
         score += amount;
     }
 
-    [Server]
     public void AddScore(int amount) {
         score += amount;
     }

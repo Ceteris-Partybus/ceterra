@@ -189,7 +189,7 @@ MonoBehaviour:
   syncInterval: 0
   uiDocument: {fileID: 583488098}
   factPopupDuration: 10
-  canvasCamera: {fileID: 961739752}
+  canvas: {fileID: 910630611}
 --- !u!114 &583488101
 MonoBehaviour:
   m_ObjectHideFlags: 0

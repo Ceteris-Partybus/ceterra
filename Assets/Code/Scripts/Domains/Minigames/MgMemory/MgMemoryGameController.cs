@@ -71,7 +71,7 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
                 FindCardByIndex(currentPlayer.SecondSelectedCardIndex).GetIconSprite;
 
             if (match) {
-                MgMemoryController.Instance.UpdatePlayerScore(pointsForCorrectMatch);
+                MgMemoryController.Instance.UpdatePlayerScore(currentPlayer.Score + pointsForCorrectMatch);
                 currentPlayer.AddScore(pointsForCorrectMatch);
                 CmdMarkCardsAsMatched(currentPlayer.FirstSelectedCardIndex, currentPlayer.SecondSelectedCardIndex);
 
@@ -80,7 +80,6 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
             else {
                 CmdHideCardsOnAllClients(currentPlayer.FirstSelectedCardIndex, currentPlayer.SecondSelectedCardIndex);
 
-                // Bei Fehler wechselt der Spieler
                 CmdHandleMismatch();
             }
 
