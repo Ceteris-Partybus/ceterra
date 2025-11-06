@@ -35,19 +35,6 @@ public static class CatastropheTypeExtensions {
         };
     }
 
-    public static long GetDescription(this CatastropheType catastropheType) {
-        return catastropheType switch {
-            CatastropheType.VOLCANO => 56648230402097152,
-            CatastropheType.NUCLEAR_EXPLOSION => 56648380902113280,
-            CatastropheType.LANDSLIDE => 56648729599770624,
-            CatastropheType.WILDFIRE => 56648972298977280,
-            CatastropheType.GLACIER_MELT => 56649388873056256,
-            CatastropheType.DROUGHT => 56649705719169024,
-            CatastropheType.TSUNAMI => 56649934925299712,
-            _ => throw new System.ArgumentOutOfRangeException(nameof(catastropheType), catastropheType, null)
-        };
-    }
-
     public static CatastropheEffect CreateEffect(this CatastropheType catastropheType) {
         return catastropheType switch {
             CatastropheType.WILDFIRE => new Wildfire(SkyboxManager.Instance),

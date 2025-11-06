@@ -59,7 +59,7 @@ public class PlayerMovement : NetworkBehaviour {
                 if (targetField.PausesMovement) {
                     yield return StartCoroutine(EnsureTargetPosition(targetField.Position));
                 }
-                yield return StartCoroutine(targetField.InvokeOnPlayerCross(player));
+                yield return StartCoroutine(targetField.OnPlayerCross(player));
             }
         }
         yield return StartCoroutine(EnsureTargetPosition(fieldBehaviourList.Find(player.SplineKnotIndex).Position));

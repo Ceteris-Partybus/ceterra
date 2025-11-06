@@ -33,26 +33,31 @@ public class SkyboxManager : NetworkedSingleton<SkyboxManager> {
 
     [Server]
     public void SpawnSmoke(float smokeAttenuationStart) {
-        RpcSpawnSmoke(smokeAttenuationInitalValue, smokeAttenuationStart);
+        RpcSpawnSmoke(smokeAttenuationStart);
     }
 
     [Server]
     public void ClearSmoke() {
-        RpcSpawnSmoke(fog.meanFreePath.value, smokeAttenuationInitalValue);
+        RpcSpawnSmoke(smokeAttenuationInitalValue);
     }
 
     [Server]
     public void AddSmokeAttenuation(float attenuation) {
-        RpcSpawnSmoke(fog.meanFreePath.value, fog.meanFreePath.value + attenuation);
+        RpcAddSpawnSmoke(attenuation);
     }
 
     [ClientRpc]
-    private void RpcSpawnSmoke(float start, float end) {
-        StartCoroutine(AnimateAttenuation(start, end));
+    private void RpcAddSpawnSmoke(float end) {
+        StartCoroutine(AnimateAttenuation(fog.meanFreePath.value + end));
     }
 
-    private IEnumerator AnimateAttenuation(float start, float end) {
-        fog.meanFreePath.value = start;
+    [ClientRpc]
+    private void RpcSpawnSmoke(float end) {
+        StartCoroutine(AnimateAttenuation(end));
+    }
+
+    private IEnumerator AnimateAttenuation(float end) {
+        var start = fog.meanFreePath.value;
 
         var elapsed = 0f;
         while (elapsed < smokeAttenuationDuration) {

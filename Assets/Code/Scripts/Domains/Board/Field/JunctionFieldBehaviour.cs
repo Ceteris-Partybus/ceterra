@@ -1,7 +1,6 @@
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -22,13 +21,13 @@ public class JunctionFieldBehaviour : FieldBehaviour {
     }
 
     [Server]
-    protected override void OnPlayerCross(BoardPlayer crossingPlayer) {
+    public override IEnumerator OnPlayerCross(BoardPlayer crossingPlayer) {
         Debug.Log($"Player crossed a junction field.");
         this.crossingPlayer = crossingPlayer;
         netIdentity.AssignClientAuthority(crossingPlayer.connectionToClient);
-
         TargetSetCrossingPlayer(crossingPlayer);
-        StartCoroutine(LetPlayerChoosePath());
+        yield return LetPlayerChoosePath();
+        netIdentity.RemoveClientAuthority();
     }
 
     [Server]
@@ -38,9 +37,6 @@ public class JunctionFieldBehaviour : FieldBehaviour {
         isWaitingForBranchChoice = true;
         TargetShowBranchArrows();
         yield return new WaitUntil(() => !isWaitingForBranchChoice);
-
-        netIdentity.RemoveClientAuthority();
-        CompleteFieldInvocation();
     }
 
     [TargetRpc]

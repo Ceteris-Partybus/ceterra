@@ -1688,7 +1688,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 56648972298977280
-    m_Key: modal.catastrophe.wildfire.description
+    m_Key: modal.catastrophe.wildfire.start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63999993620021248
+    m_Key: modal.catastrophe.wildfire.ongoing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63999993661964288
+    m_Key: modal.catastrophe.wildfire.end
     m_Metadata:
       m_Items: []
   - m_Id: 56649363690455040

@@ -1,3 +1,5 @@
+using System.Collections;
+
 public class Earthquake : CatastropheEffect {
     private const int ROUNDS = 1;
     private const int DAMAGE_ENVIRONMENT = 25;
@@ -6,17 +8,17 @@ public class Earthquake : CatastropheEffect {
 
     public Earthquake() : base(ROUNDS) { }
 
-    protected override void OnRaging() {
+    protected override IEnumerator OnRaging() {
         if (base.remainingRounds == ROUNDS) {
-            return;
+            yield break;
         }
     }
 
-    public override void OnCatastropheRages() {
+    public override IEnumerator OnCatastropheRages() {
         throw new System.NotImplementedException();
     }
 
-    public override void OnCatastropheEnds() {
+    public override IEnumerator OnCatastropheEnds() {
         throw new System.NotImplementedException();
     }
 }
