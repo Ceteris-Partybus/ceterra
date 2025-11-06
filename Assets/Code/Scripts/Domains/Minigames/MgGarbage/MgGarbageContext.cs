@@ -24,7 +24,8 @@ public class MgGarbageContext : MgContext<MgGarbageContext, MgGarbagePlayer> {
     [SerializeField]
     private float gameDuration = 15f;
 
-    private float countdownTimer; // Separate timer for countdown display
+    [SerializeField]
+    private float countdownTimer;
 
     protected override void Start() {
         StartCoroutine(WaitForAllPlayers());
@@ -44,7 +45,7 @@ public class MgGarbageContext : MgContext<MgGarbageContext, MgGarbagePlayer> {
     }
 
     private IEnumerator UpdateCountdown() {
-        countdownTimer = gameDuration; // Initialize countdown timer
+        countdownTimer = gameDuration;
         int lastSeconds = Mathf.CeilToInt(countdownTimer);
         MgGarbageLocalPlayerHUD.Instance.UpdateCountdown(lastSeconds);
 
@@ -70,17 +71,26 @@ public class MgGarbageContext : MgContext<MgGarbageContext, MgGarbagePlayer> {
             spawnPoints[i] = spawnPointsHolder.transform.GetChild(i);
         }
 
-        while (Time.time - startTime < gameDuration) {
-            // Pick random prefab and spawn point
+        while (true) {
+            float elapsed = Time.time - startTime;
+            if (elapsed >= gameDuration) {
+                break;
+            }
+
             GameObject prefab = trashPrefabs[Random.Range(0, trashPrefabs.Length)];
             Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
             GameObject go = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
             NetworkServer.Spawn(go);
 
-            yield return new WaitForSeconds(interval);
+            float remaining = Mathf.Max(0f, gameDuration - (Time.time - startTime));
+            if (remaining <= 0f) {
+                break;
+            }
 
-            // Accelerate spawn rate
+            float waitTime = Mathf.Min(interval, remaining);
+            yield return new WaitForSeconds(waitTime);
+
             interval = Mathf.Max(minSpawnInterval, interval * spawnAcceleration);
         }
 
