@@ -1,0 +1,43 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; width: 100%; height: 100%; align-items: center; justify-content: center; padding: 50px;">
+        <ui:VisualElement style="flex-grow: 0; align-items: center; margin-bottom: 60px;">
+            <ui:Label style="font-size: 167px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); -unity-text-align: upper-center; margin-bottom: 20px;">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56143503242027008)" />
+                </Bindings>
+            </ui:Label>
+            <ui:Label style="font-size: 98px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); -unity-text-align: upper-center;">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56144067971506176)" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 0; align-items: center; margin-bottom: 80px;">
+            <ui:VisualElement style="flex-direction: row; font-size: 120px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); margin-bottom: 30px; align-items: center;">
+                <ui:Label style="margin-right: 50px;">
+                    <Bindings>
+                        <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56144259705724928)" />
+                    </Bindings>
+                </ui:Label>
+                <ui:Label name="group-score" text="0" style="color: rgb(250, 222, 110); font-size: 140px;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-direction: row; font-size: 100px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); align-items: center;">
+                <ui:Label style="margin-right: 50px;">
+                    <Bindings>
+                        <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56144406623805440)" />
+                    </Bindings>
+                </ui:Label>
+                <ui:Label name="local-player-score" text="0" style="color: rgb(116, 250, 110);" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement style="height: 3px; width: 80%; background-color: rgba(255, 255, 255, 0.3); margin-bottom: 40px;" />
+        <ui:VisualElement style="flex-grow: 0; align-items: center;">
+            <ui:Label style="font-size: 80px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); margin-bottom: 30px; -unity-text-align: upper-center;">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56144566892355584)" />
+                </Bindings>
+            </ui:Label>
+            <ui:VisualElement name="other-players-container" style="flex-grow: 0; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); align-items: flex-start; min-width: 600px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -10,11 +10,11 @@ public class Investment : IEquatable<Investment> {
     private static int nextId = 1;
 
     [SerializeField] public int id;
-    [SerializeField] public string displayName;
-    [SerializeField] public string description;
-    [SerializeField] public uint requiredMoney;
-    [SerializeField] public uint requiredResources;
-    [SerializeField] public uint currentMoney = 0;
+    [SerializeField] public long displayName;
+    [SerializeField] public long description;
+    [SerializeField] public int requiredMoney;
+    [SerializeField] public int requiredResources;
+    [SerializeField] public int currentMoney = 0;
     [SerializeField] public InvestmentType type;
     [SerializeField] public List<InvestmentModifier> modifier;
     [SerializeField] public int cooldown;
@@ -26,7 +26,7 @@ public class Investment : IEquatable<Investment> {
     public Investment() { }
 
     [JsonConstructor]
-    private Investment(string displayName, string description, uint requiredMoney, uint requiredResources, InvestmentType type, List<InvestmentModifier> modifier, int cooldown) {
+    private Investment(long displayName, long description, int requiredMoney, int requiredResources, InvestmentType type, List<InvestmentModifier> modifier, int cooldown) {
         this.id = nextId++;
         this.displayName = displayName;
         this.description = description;
@@ -47,7 +47,7 @@ public class Investment : IEquatable<Investment> {
         }
     }
 
-    public int Invest(uint amount) {
+    public int Invest(int amount) {
         if (completed) {
             return 0;
         }
@@ -81,8 +81,8 @@ public class Investment : IEquatable<Investment> {
     }
 
     public static List<Investment> LoadInvestmentsFromResources() {
-        string jsonText = File.ReadAllText("Assets/Resources/Domains/Investment/InvestmentList.json");
-        List<Investment> investmentList = JsonConvert.DeserializeObject<List<Investment>>(jsonText);
+        TextAsset jsonFile = Resources.Load<TextAsset>("Domains/Investment/InvestmentList");
+        List<Investment> investmentList = JsonConvert.DeserializeObject<List<Investment>>(jsonFile.text);
         return investmentList;
     }
 }

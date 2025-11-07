@@ -173,10 +173,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1926814287}
   - component: {fileID: 1926814284}
-  - component: {fileID: 1926814288}
   - component: {fileID: 1926814289}
+  - component: {fileID: 1926814288}
+  - component: {fileID: 1926814291}
+  - component: {fileID: 1926814290}
+  - component: {fileID: 1926814292}
   m_Layer: 0
-  m_Name: NetworkManager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -248,11 +251,11 @@ MonoBehaviour:
   offlineSceneLoadDelay: 0
   transport: {fileID: 1926814284}
   networkAddress: localhost
-  maxConnections: 100
+  maxConnections: 4
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 1327792165429298674, guid: d2235388f7f89c743ae8613c0ad7ad57, type: 3}
+  playerPrefab: {fileID: 3676788033899490170, guid: 240504f8c69041646b454da700d6d6f0, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 1
   spawnPrefabs:
@@ -260,7 +263,18 @@ MonoBehaviour:
   - {fileID: 5985081133323474392, guid: 2e87e6d530c086842b055876920b2417, type: 3}
   - {fileID: 5985081133323474392, guid: 8e8dd23bee991c649851246d41c52b29, type: 3}
   - {fileID: 5985081133323474392, guid: ca3405e7e71e5da4c8ea74feccaf00c7, type: 3}
-  - {fileID: 8981583918627089046, guid: 5446ae81baa641749add6f94c315d5b4, type: 3}
+  - {fileID: 1206808590286997871, guid: 7b4a2ca7e42b466438d0db644190eeda, type: 3}
+  - {fileID: 1206808590286997871, guid: 28d3537037fbaea46aafcbfc7c21e272, type: 3}
+  - {fileID: 1206808590286997871, guid: 3cd5caaedb450f14f908c9c2a63aee35, type: 3}
+  - {fileID: 1206808590286997871, guid: 97da63e1d12d840438acd4b1748acbc8, type: 3}
+  - {fileID: 1206808590286997871, guid: c7fabfe9d106e054da954d0a226ef266, type: 3}
+  - {fileID: 1206808590286997871, guid: 1151be19bad9cd94d898812ba04cc841, type: 3}
+  - {fileID: 6958303945373204090, guid: 61003825a837930448d2390a1ace0304, type: 3}
+  - {fileID: 3241251890801266441, guid: b6b3f13ed5c99a441be43962096ea79b, type: 3}
+  - {fileID: 3241251890801266441, guid: 40fc7c4b30a61584dad9c2bdc2522216, type: 3}
+  - {fileID: 3241251890801266441, guid: 5c0f9ca54cc99e746a7a9e574ac0e579, type: 3}
+  - {fileID: 1206808590286997871, guid: 31d7c84be262a8f46b686bd28391ef2f, type: 3}
+  - {fileID: 3241251890801266441, guid: cd995bca43d89e64d8581b2d27e3f93b, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -276,17 +290,50 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
-  showRoomGUI: 1
+  showRoomGUI: 0
   minPlayers: 1
-  roomPlayerPrefab: {fileID: 2166314457688432621, guid: 718e8970855b8c842bbc21318c50259c, type: 3}
+  roomPlayerPrefab: {fileID: 4830612802768388873, guid: 952d626fe1f0ee74eab496a30b390b33, type: 3}
   RoomScene: Assets/Level/Scenes/Lobby.unity
   GameplayScene: Assets/Level/Scenes/Board.unity
   _allPlayersReady: 0
   clientIndex: 0
+  endScene: Assets/Level/Scenes/End.unity
+  selectableCharacters:
+  - {fileID: 7120074392686802259, guid: ec18b07c70a0e524dbc0b659c9ab3e3c, type: 3}
+  - {fileID: 1812836682846117665, guid: eb7a1427527d56e46a9b1ddbb998c6b7, type: 3}
+  - {fileID: 484167494442169996, guid: 085261bfa6d38e548a545e0b75fcf49b, type: 3}
+  - {fileID: 8627905705458754130, guid: 1e4b86a3091e59a4abc6414f7c149cc4, type: 3}
+  - {fileID: 8723125844390419532, guid: 9472ce479d7144248b1f4f4ada4595ec, type: 3}
+  - {fileID: 6358274545685301895, guid: 6432fc89df4e9954cad4da9eb583c2c0, type: 3}
+  - {fileID: 5615064058903255076, guid: 9a0da6b0375c0774d841670f6b60a721, type: 3}
+  - {fileID: 9065010793864102306, guid: d322308adcb62f64d937f045e01ad380, type: 3}
+  - {fileID: 6947549296122526150, guid: 565498394474e8c4b9cabb1520aaf603, type: 3}
+  - {fileID: 6958095098062814956, guid: dd2d474f5e5e7e243b46a6f57b4662f6, type: 3}
+  - {fileID: 3009246020475949512, guid: ff93801720beb5c40a9547b18b2955f8, type: 3}
+  - {fileID: 1517162728484939265, guid: 7594a6349b5c12a4fb3a7ca804bb5e64, type: 3}
+  - {fileID: 60500164848393475, guid: 478e02438ae2ad54b80c7a0ebc8f29a1, type: 3}
+  - {fileID: 881961344149045574, guid: 377bebcaa460e2f41a25cb9998884b9a, type: 3}
+  - {fileID: 3443777833248755465, guid: ba28ec219d764384395001016b804d4d, type: 3}
+  - {fileID: 7308490689496749123, guid: 2c8d5c557591274409165ae17e7aaa72, type: 3}
+  - {fileID: 1467569446473539393, guid: 997a774a936738447b1b62e512780cad, type: 3}
+  - {fileID: 3943660544611535393, guid: 8693be5063b7f2e4093c80404a827456, type: 3}
+  - {fileID: 7850446612961291324, guid: 48edfe26d1715304f855b5385e7e9552, type: 3}
+  - {fileID: 6120496849541010129, guid: d8f4d23acc773b64e870522e19631e9e, type: 3}
+  - {fileID: 1810035698040689029, guid: 9a37255f8d6fd0a4596d87329c7a0ba1, type: 3}
+  - {fileID: 7305399730417138547, guid: 129b2c7ab5d5664459ce65b6db43bf70, type: 3}
+  - {fileID: 2344279380499696865, guid: 0f1226b6c337fcc4b97dd4250e83d22f, type: 3}
+  - {fileID: 6898479745603750494, guid: 61c25c01cfd527642933da0a0b9e5661, type: 3}
+  - {fileID: 4409142715930399886, guid: bb96dfbe8c8d3634a923f4fbe83a4ed9, type: 3}
+  selectableDices:
+  - {fileID: 5754625222157326443, guid: 7dc5a4f6f3794f341abde5c12b57d9f8, type: 3}
+  - {fileID: 5754625222157326443, guid: ce1d4306273adfb43ad9b0da4a68151e, type: 3}
+  - {fileID: 5754625222157326443, guid: 29be8da3abdb685439646832481bfb5b, type: 3}
+  - {fileID: 5754625222157326443, guid: 52a019e5466317c469ac5c90dce851a5, type: 3}
   minigameScenes:
   - MgGarbage
   - MgQuizduel
-  - MgMemory
+  - MgOcean
+  playedMinigames: []
 --- !u!114 &1926814289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,6 +348,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsetX: 0
   offsetY: 0
+--- !u!114 &1926814290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926814283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 71c92cb88991cf74eae45c04ddf2cdab, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: df265b82c30ec4f44bf5a9737011162b, type: 3}
+  m_SortingOrder: 99
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+--- !u!114 &1926814291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926814283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 033fd5516e4e38b4c8884f9d2aeb1b54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uIDocument: {fileID: 1926814290}
+  audioMixer: {fileID: 24100000, guid: 97a3acd63a8c96047b5adac0a7b628ad, type: 2}
+--- !u!114 &1926814292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926814283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e01c3cd5b53e1694c9502765c3780bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

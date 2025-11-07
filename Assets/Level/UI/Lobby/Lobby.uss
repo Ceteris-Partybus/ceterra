@@ -1,0 +1,222 @@
+* {
+    -unity-font-definition: resource('UI/Other/Jersey15-Regular');
+}
+
+#lobby {
+    flex-direction: column-reverse;
+    padding: 20px;
+    flex-grow: 1;
+}
+
+#lobby-container {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 15px;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
+    border-radius: 25px;
+    height: 35%;
+    border-width: 0px;
+}
+
+.lobby-player-slot {
+    height: 100%;
+    width: 450px;
+    padding: 20px 20px 15px 20px;
+    flex-direction: column;
+    justify-content: space-between;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
+    overflow: hidden;
+    border-radius: 20px;
+    border-width: 3px;
+    border-color: #745136;
+}
+
+.lobby-player-slot.empty-slot {
+    justify-content: center;
+    align-items: center;
+    border-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+}
+
+.lobby-player-slot.ready {
+    border-color: rgba(160, 199, 100, 0.8);
+}
+
+.player-slot-content {
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.lobby-player-slot.empty-slot .player-slot-content {
+    justify-content: center;
+    align-items: center;
+}
+
+.lobby-player-slot.empty-slot .selection-area,
+.lobby-player-slot.empty-slot .button-area,
+.lobby-player-slot.empty-slot .player-ping,
+#ready-status-display {
+    display: none;
+}
+
+.lobby-player-slot.empty-slot .player-header {
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.lobby-player-slot.empty-slot .player-name-row {
+    margin-bottom: 0;
+    justify-content: center;
+}
+
+.lobby-player-slot.empty-slot .player-name {
+    font-size: 40px;
+    color: rgba(116, 81, 54, 0.6);
+    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.4);
+}
+
+.player-header {
+    flex-direction: column;
+    flex-shrink: 0;
+    margin-bottom: 10px;
+}
+
+.player-name-row {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.player-name {
+    font-size: 42px;
+    color: #745136;
+    flex-shrink: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -unity-text-align: middle-left;
+}
+
+.player-ping {
+    font-size: 38px;
+    color: #7ec300;
+    flex-shrink: 0;
+}
+
+.selection-area {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 15px;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+}
+
+.icon-selection-group {
+    margin-top: 8px;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border-width: 3px;
+    border-color: rgba(200, 140, 100, 0.8);
+    background-size: cover;
+    flex-shrink: 0;
+    -unity-background-scale-mode: scale-and-crop;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.icon-label {
+    font-size: 22px;
+    color: #745136;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+    -unity-text-align: middle-center;
+}
+
+.button-area {
+    flex-direction: row;
+}
+
+.character-selection-button,
+.ready-button {
+    height: 60px;
+    flex-grow: 1;
+    border-color: transparent;
+    color: white;
+    font-size: 26px;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);
+    background-color: transparent;
+    -unity-text-align: upper-center;
+}
+
+.ready-button {
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/green_default.png");
+}
+
+.character-selection-button {
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/blue_default.png");
+}
+
+.ready-button:active {
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/green_pressed.png");
+}
+
+.character-selection-button:active {
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/blue_pressed.png");
+}
+
+.ready-button:active,
+.character-selection-button:active {
+    -unity-text-align: lower-center;
+}
+
+.ready-button.ready {
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_default.png");
+}
+
+.ready-button.ready:active {
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_pressed.png");
+}
+
+.character-selection-button:disabled {
+    opacity: 0.6;
+}
+
+#ready-status-display-label {
+    font-size: 32px;
+    color: #ffffff;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);
+    -unity-text-align: middle-center;
+    margin-top: 5px;
+}
+
+#ready-status-display {
+    background-color: #e79e16;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    width: 60%;
+}
+
+#ready-status-display.ready {
+    background-color: #7ec300;
+}
+
+#ready-status-display-container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}

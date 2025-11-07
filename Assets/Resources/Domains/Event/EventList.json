@@ -1,0 +1,322 @@
+[
+    {
+        "title": 54816396556324864,
+        "description": 54816396556324865,
+        "maxOccurences": 3,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "DECREASES",
+                "magnitude": 5
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "DECREASES",
+                "magnitude": 3
+            }
+        ]
+    },
+    {
+        "title": 54816396556324866,
+        "description": 54816396556324867,
+        "maxOccurences": 5,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "INCREASES",
+                "magnitude": 4
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "INCREASES",
+                "magnitude": 5
+            },
+            {
+                "type": "FUNDS",
+                "effect": "INCREASES",
+                "magnitude": 4
+            }
+        ]
+    },
+    {
+        "title": 54816396556324868,
+        "description": 54816396556324869,
+        "maxOccurences": 4,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "DECREASES",
+                "magnitude": 6
+            },
+            {
+                "type": "SOCIETY",
+                "effect": "DECREASES",
+                "magnitude": 2
+            }
+        ]
+    },
+    {
+        "title": 54816396556324870,
+        "description": 54816396556324871,
+        "maxOccurences": 2,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "DECREASES",
+                "magnitude": 5
+            },
+            {
+                "type": "SOCIETY",
+                "effect": "DECREASES",
+                "magnitude": 3
+            }
+        ]
+    },
+    {
+        "title": 54816396556324872,
+        "description": 54816396556324873,
+        "maxOccurences": 3,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "DECREASES",
+                "magnitude": 7
+            },
+            {
+                "type": "SOCIETY",
+                "effect": "DECREASES",
+                "magnitude": 5
+            },
+            {
+                "type": "RESOURCE",
+                "effect": "DECREASES",
+                "magnitude": 8
+            }
+        ]
+    },
+    {
+        "title": 54816396556324874,
+        "description": 54816396556324875,
+        "maxOccurences": 2,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "DECREASES",
+                "magnitude": 8
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "DECREASES",
+                "magnitude": 3
+            }
+        ]
+    },
+    {
+        "title": 54816396556324876,
+        "description": 54816396556324877,
+        "maxOccurences": 4,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "DECREASES",
+                "magnitude": 4
+            },
+            {
+                "type": "SOCIETY",
+                "effect": "DECREASES",
+                "magnitude": 6
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "DECREASES",
+                "magnitude": 2
+            }
+        ]
+    },
+    {
+        "title": 54816396556324878,
+        "description": 54816396556324879,
+        "maxOccurences": 1,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "INCREASES",
+                "magnitude": 6
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "INCREASES",
+                "magnitude": 4
+            },
+            {
+                "type": "FUNDS",
+                "effect": "DECREASES",
+                "magnitude": 5
+            }
+        ]
+    },
+    {
+        "title": 54816396556324880,
+        "description": 54816396556324881,
+        "maxOccurences": 3,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "INCREASES",
+                "magnitude": 5
+            },
+            {
+                "type": "SOCIETY",
+                "effect": "INCREASES",
+                "magnitude": 3
+            }
+        ]
+    },
+    {
+        "title": 54816396556324882,
+        "description": 54816396556324883,
+        "maxOccurences": 1,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "INCREASES",
+                "magnitude": 7
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "INCREASES",
+                "magnitude": 6
+            },
+            {
+                "type": "RESOURCE",
+                "effect": "INCREASES",
+                "magnitude": 8
+            }
+        ]
+    },
+    {
+        "title": 54816396556324884,
+        "description": 54816396556324885,
+        "maxOccurences": 2,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "INCREASES",
+                "magnitude": 5
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "INCREASES",
+                "magnitude": 4
+            },
+            {
+                "type": "RESOURCE",
+                "effect": "INCREASES",
+                "magnitude": 6
+            }
+        ]
+    },
+    {
+        "title": 54816396556324886,
+        "description": 54816396556324887,
+        "maxOccurences": 2,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "INCREASES",
+                "magnitude": 6
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "INCREASES",
+                "magnitude": 2
+            },
+            {
+                "type": "SOCIETY",
+                "effect": "INCREASES",
+                "magnitude": 3
+            }
+        ]
+    },
+    {
+        "title": 54816396556324888,
+        "description": 54816396556324889,
+        "maxOccurences": 3,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "INCREASES",
+                "magnitude": 4
+            },
+            {
+                "type": "SOCIETY",
+                "effect": "INCREASES",
+                "magnitude": 6
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "INCREASES",
+                "magnitude": 3
+            }
+        ]
+    },
+    {
+        "title": 54816396556324890,
+        "description": 54816396556324891,
+        "maxOccurences": 1,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ENVIRONMENT",
+                "effect": "INCREASES",
+                "magnitude": 5
+            },
+            {
+                "type": "ECONOMY",
+                "effect": "INCREASES",
+                "magnitude": 5
+            },
+            {
+                "type": "SOCIETY",
+                "effect": "INCREASES",
+                "magnitude": 3
+            }
+        ]
+    },
+    {
+        "title": 54816396556324892,
+        "description": 54816396556324893,
+        "maxOccurences": 2,
+        "weight": 3,
+        "modifier": [
+            {
+                "type": "ECONOMY",
+                "effect": "DECREASES",
+                "magnitude": 6
+            },
+            {
+                "type": "RESOURCE",
+                "effect": "DECREASES",
+                "magnitude": 8
+            },
+            {
+                "type": "SOCIETY",
+                "effect": "DECREASES",
+                "magnitude": 3
+            }
+        ]
+    }
+]

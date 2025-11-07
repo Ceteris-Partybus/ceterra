@@ -17,18 +17,818 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: 0bcae4cae5373ec479ceeeee5b1d030f, type: 2}
   m_Metadata:
     m_Items:
-    - rid: 3554543658327081541
+    - rid: 7894437812287832148
   m_TableData:
-  - m_Id: 614498603008
-    m_Localized: Spielen
+  - m_Id: 54051235973255168
+    m_Localized: "Auch Getr\xE4nkekartons tragen zum M\xFCllberg bei. Wie kannst
+      du ihn verringern?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386688
+    m_Localized: Indem Du nur noch Tee trinkst
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386689
+    m_Localized: "Indem Du die Getr\xE4nkekartons erst zerkleinerst und dann wegwirfst"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386690
+    m_Localized: "Indem Du Getr\xE4nke nur noch in Mehrwegflaschen kaufst"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386691
+    m_Localized: "Vitamin C, Vitamin B und viele andere Vitamine sollten ausreichend
+      in unserer Nahrung vorkommen. Was hei\xDFt das Wort \u201CVitamin\u201D \xFCbersetzt?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386692
+    m_Localized: Konservierungsstoff
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386693
+    m_Localized: Lebensstoff
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386694
+    m_Localized: Spurenelemente
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386695
+    m_Localized: Warum wird bei uns die Trinkwassergewinnung zunehmend schwieriger?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386696
+    m_Localized: Weil es zu wenig regnet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386697
+    m_Localized: Weil das Grundwasser zunehmend durch Nitrat belastet wird
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386698
+    m_Localized: Weil das Grundwasser aufkommen steigt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386699
+    m_Localized: "Zuviel Nitrat im Trinkwasser gef\xE4hrdet vor allem S\xE4uglinge
+      und deren M\xFCtter. Was sollten diese tun?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386700
+    m_Localized: Mineralwasser statt Wasser benutzen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386701
+    m_Localized: Das Wasser vor Gebrauch abkochen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386702
+    m_Localized: Auf Wasser ganz verzichten
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386703
+    m_Localized: "Was bedeutet es, wenn im Gew\xE4ssern \xFCberm\xE4\xDFig gro\xDFe
+      Fische auftreten?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386704
+    m_Localized: "Reichliches Planktonangebot f\xFCr Wassertiere"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19894984282112
+    m_Localized: "Lautst\xE4rke"
     m_Metadata:
       m_Items: []
   - m_Id: 19179993862144
     m_Localized: Einstellungen
     m_Metadata:
       m_Items: []
-  - m_Id: 19894984282112
-    m_Localized: "Lautst\xE4rke"
+  - m_Id: 54053500918386705
+    m_Localized: "Gro\xDFe Fische bedeuten immer sauberes Wasser"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 614498603008
+    m_Localized: Spielen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386706
+    m_Localized: "Schlechte Wasserqualit\xE4t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386707
+    m_Localized: "Der G\xFCterzustand eines Flie\xDFgew\xE4ssers wird im allgemeinen
+      durch 4 G\xFCteklassen charakterisiert. Was sagt G\xFCteklasse IV aus?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386708
+    m_Localized: "Es handelt sich um ein verunreinigtes Flie\xDFgew\xE4sser"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386709
+    m_Localized: "Es handelt sich um ein bereits umgekipptes Gew\xE4sser"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386710
+    m_Localized: "Es handelt sich um ein sehr stark verschmutztes Flie\xDFgew\xE4sser"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386711
+    m_Localized: "Mit Hilfe der Jahresringe informieren wir uns \xFCber das Alter
+      der B\xE4ume. Was erfahren wir noch \xFCber sie?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386712
+    m_Localized: Wie der Wachstumsprozess verlaufen ist
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386713
+    m_Localized: Die Umweltbedingungen der letzten Jahrzehnte
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386714
+    m_Localized: "Die Lichtverh\xE4ltnisse der letzten Jahre"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386715
+    m_Localized: "Woran kann man an einer gef\xE4llten Fichte erkennen, dass sie
+      dem Waldsterben erlag?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386716
+    m_Localized: "Ihre letzten Jahresringe sind deutlich schm\xE4ler und es liegt
+      erweiterter Nasskern im Stammbereich vor"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386717
+    m_Localized: Das Holz ist morsch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386718
+    m_Localized: Sie hat starken Flechtenbewuchs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386719
+    m_Localized: "In Naturkostl\xE4den werden Bioprodukte angeboten. Warum haben
+      diese die Bezeichnung \u201CBio\u201D?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386720
+    m_Localized: "Weil nach ihrem Verzehr die Z\xE4hne nicht geputzt werden m\xFCssen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386721
+    m_Localized: "Weil sie naturgem\xE4\xDF d.h. ohne Chemie angebaut werden"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386722
+    m_Localized: "Weil \u201CBio\u201D ein Modewort ist, das bessere Ums\xE4tze verspricht"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386723
+    m_Localized: "Was meinst Du: wieviel M\xFCll produziert ein Einwohner in Deutschland
+      in einem Jahr?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386724
+    m_Localized: 200 kg
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386725
+    m_Localized: 500 kg
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386726
+    m_Localized: 750 kg
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386727
+    m_Localized: Was ist der wichtigste Vorteil der Kreislaufwirtschaft?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386728
+    m_Localized: Ressourcen werden mehrfach genutzt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386729
+    m_Localized: "Arbeitspl\xE4tze werden reduziert"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386730
+    m_Localized: Produktionskosten steigen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386731
+    m_Localized: "Welcher Energietr\xE4ger ist am klimafreundlichsten?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386732
+    m_Localized: Kohle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386733
+    m_Localized: Erdgas
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386734
+    m_Localized: Windkraft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386735
+    m_Localized: Was bedeutet 'Carbon Footprint'?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386736
+    m_Localized: Die Anzahl der Schritte pro Tag
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386737
+    m_Localized: "Der CO2-Fu\xDFabdruck einer Person oder eines Produkts"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386738
+    m_Localized: "Die Gr\xF6\xDFe des Fu\xDFes"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386739
+    m_Localized: "Welche Transportart hat den geringsten CO2-Aussto\xDF pro Person?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386740
+    m_Localized: Flugzeug
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386741
+    m_Localized: Auto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386742
+    m_Localized: Zug
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386743
+    m_Localized: Was ist Fair Trade?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386744
+    m_Localized: Kostenloser Handel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386745
+    m_Localized: "Fairer Handel mit besseren Bedingungen f\xFCr Produzenten"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386746
+    m_Localized: Schneller Handel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386747
+    m_Localized: "Wie viel Wasser wird f\xFCr die Herstellung einer Jeans ben\xF6tigt?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386748
+    m_Localized: 200 Liter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386749
+    m_Localized: 2.000 Liter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386750
+    m_Localized: 8.000 Liter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386751
+    m_Localized: Was ist das Ziel der Sustainable Development Goals (SDGs)?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386752
+    m_Localized: Nachhaltige Entwicklung bis 2030
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386753
+    m_Localized: Wirtschaftswachstum um jeden Preis
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386754
+    m_Localized: "Bev\xF6lkerungsreduktion"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386755
+    m_Localized: Welcher Sektor verursacht die meisten Treibhausgasemissionen weltweit?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386756
+    m_Localized: Verkehr
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386757
+    m_Localized: Energieerzeugung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386758
+    m_Localized: Landwirtschaft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386759
+    m_Localized: Was ist 'Greenwashing'?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386760
+    m_Localized: Umweltfreundliches Waschen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386761
+    m_Localized: "Vorget\xE4uschte Umweltfreundlichkeit von Unternehmen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386762
+    m_Localized: "Gr\xFCne Farbe verwenden"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386763
+    m_Localized: Welches Material ist am besten recycelbar?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386764
+    m_Localized: Plastik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386765
+    m_Localized: Glas
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386766
+    m_Localized: Papier
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386767
+    m_Localized: "Was ist der Hauptgrund f\xFCr die Abholzung des Regenwaldes?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386768
+    m_Localized: Holzgewinnung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386769
+    m_Localized: Landwirtschaft und Viehzucht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386770
+    m_Localized: "St\xE4dtebau"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386771
+    m_Localized: "Wie viele Planeten w\xFCrden wir brauchen, wenn alle Menschen so
+      leben w\xFCrden wie in Deutschland?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386772
+    m_Localized: 2 Planeten
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386773
+    m_Localized: 3 Planeten
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386774
+    m_Localized: 5 Planeten
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386775
+    m_Localized: Was ist der Unterschied zwischen Wetter und Klima?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386776
+    m_Localized: Wetter ist kurzfristig, Klima langfristig
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386777
+    m_Localized: Wetter ist warm, Klima ist kalt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386778
+    m_Localized: Es gibt keinen Unterschied
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386779
+    m_Localized: Welche Energiequelle hat die geringsten Umweltauswirkungen?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386780
+    m_Localized: Atomkraft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386781
+    m_Localized: Solarenergie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386782
+    m_Localized: Wasserkraft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386783
+    m_Localized: Was bedeutet 'Peak Oil'?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386784
+    m_Localized: "Der h\xF6chste \xD6lpreis aller Zeiten"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386785
+    m_Localized: "Der Zeitpunkt maximaler \xD6lf\xF6rderung"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386786
+    m_Localized: "Die beste \xD6lqualit\xE4t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386787
+    m_Localized: "Welcher Anteil der Weltbev\xF6lkerung hat keinen Zugang zu sauberem
+      Trinkwasser?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386788
+    m_Localized: 10%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386789
+    m_Localized: 25%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386790
+    m_Localized: 40%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386791
+    m_Localized: "Was ist der gr\xF6\xDFte Vorteil von Elektroautos?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386792
+    m_Localized: Sie sind billiger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386793
+    m_Localized: Sie produzieren lokal keine Abgase
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386794
+    m_Localized: Sie fahren schneller
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386795
+    m_Localized: "Welches Land ist der gr\xF6\xDFte CO2-Emittent weltweit?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386796
+    m_Localized: USA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386797
+    m_Localized: China
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386798
+    m_Localized: Indien
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386799
+    m_Localized: Was ist 'Urban Farming'?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386800
+    m_Localized: Landwirtschaft in der Stadt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386801
+    m_Localized: Moderne Landmaschinen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386802
+    m_Localized: Gentechnik in der Landwirtschaft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386803
+    m_Localized: "Wie lange dauert es, bis eine Plastikflasche in der Natur vollst\xE4ndig
+      abgebaut ist?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386804
+    m_Localized: 50 Jahre
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386805
+    m_Localized: 200 Jahre
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386806
+    m_Localized: 450 Jahre
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386807
+    m_Localized: Was ist der Hauptbestandteil von Biogas?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386808
+    m_Localized: Wasserstoff
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386809
+    m_Localized: Methan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386810
+    m_Localized: Kohlendioxid
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386811
+    m_Localized: "Welche Aussage \xFCber erneuerbare Energien ist richtig?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386812
+    m_Localized: "Sie sind unersch\xF6pflich"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386813
+    m_Localized: Sie verursachen nie Umweltprobleme
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386814
+    m_Localized: Sie sind immer billiger als fossile Energien
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386815
+    m_Localized: Was versteht man unter 'Sharing Economy'?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386816
+    m_Localized: Gemeinsame Nutzung von Ressourcen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386817
+    m_Localized: "Kostenlose Verteilung von G\xFCtern"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386818
+    m_Localized: Staatliche Wirtschaftsplanung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386819
+    m_Localized: "Welcher Wirtschaftssektor w\xE4chst durch die Digitalisierung am
+      st\xE4rksten?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386820
+    m_Localized: Landwirtschaft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386821
+    m_Localized: Dienstleistungen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386822
+    m_Localized: Schwerindustrie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386823
+    m_Localized: Was ist das Hauptziel der Agenda 2030?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386824
+    m_Localized: Weltfrieden schaffen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386825
+    m_Localized: "Nachhaltige Entwicklung f\xF6rdern"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386826
+    m_Localized: "Weltwirtschaft st\xE4rken"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386827
+    m_Localized: "Welche Folge hat die \xDCberfischung der Meere?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386828
+    m_Localized: "Mehr Fische f\xFCr alle"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386829
+    m_Localized: "Zusammenbruch von \xD6kosystemen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386830
+    m_Localized: Sauberes Meerwasser
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386831
+    m_Localized: Was bedeutet 'Corporate Social Responsibility' (CSR)?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386832
+    m_Localized: Gewinnmaximierung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386833
+    m_Localized: Gesellschaftliche Verantwortung von Unternehmen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386834
+    m_Localized: Steueroptimierung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386835
+    m_Localized: Welche Auswirkung hat der Klimawandel auf die Landwirtschaft?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386836
+    m_Localized: Nur positive Effekte
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386837
+    m_Localized: "Ver\xE4nderte Wachstumsbedingungen und Ernteausf\xE4lle"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386838
+    m_Localized: Keine Auswirkungen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386839
+    m_Localized: "Was ist der wichtigste Faktor f\xFCr nachhaltigen Konsum?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386840
+    m_Localized: Nur teure Produkte kaufen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386841
+    m_Localized: Bewusste Kaufentscheidungen treffen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386842
+    m_Localized: Viel konsumieren
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386843
+    m_Localized: "Was ist der gr\xF6\xDFte Vorteil von Secondhand-Kleidung?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386844
+    m_Localized: Sie ist immer modisch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386845
+    m_Localized: Ressourcen werden gespart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386846
+    m_Localized: Sie ist immer billiger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386847
+    m_Localized: Welche Auswirkung hat Fast Fashion auf die Umwelt?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386848
+    m_Localized: Positive Auswirkungen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386849
+    m_Localized: Hoher Ressourcenverbrauch und Umweltverschmutzung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386850
+    m_Localized: Keine Auswirkungen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386851
+    m_Localized: Was bedeutet 'Upcycling'?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386852
+    m_Localized: "Gegenst\xE4nde wegwerfen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386853
+    m_Localized: "Aus Abfall neue Produkte mit h\xF6herem Wert schaffen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386854
+    m_Localized: Fahrrad fahren
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386855
+    m_Localized: "Welche Ern\xE4hrungsweise hat den geringsten CO2-Fu\xDFabdruck?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386856
+    m_Localized: Nur Fleisch essen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386857
+    m_Localized: "Vegane Ern\xE4hrung"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386858
+    m_Localized: Nur Milchprodukte
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386859
+    m_Localized: Was ist 'Mikroplastik'?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386860
+    m_Localized: Sehr kleine Plastikpartikel in der Umwelt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386861
+    m_Localized: Besonders starkes Plastik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386862
+    m_Localized: Biologisch abbaubares Plastik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386863
+    m_Localized: Welcher Anteil der globalen Treibhausgasemissionen stammt aus der
+      Tierhaltung?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386864
+    m_Localized: 5%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386865
+    m_Localized: 15%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386866
+    m_Localized: 30%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386867
+    m_Localized: "Was ist ein '\xD6kologischer Fu\xDFabdruck'?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386868
+    m_Localized: Abdruck eines Tieres
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386869
+    m_Localized: "Ma\xDF f\xFCr den Ressourcenverbrauch"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386870
+    m_Localized: "Gr\xF6\xDFe des Gartens"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386871
+    m_Localized: Welches ist KEIN Prinzip der nachhaltigen Entwicklung?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386872
+    m_Localized: "\xD6kologische Vertr\xE4glichkeit"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386873
+    m_Localized: Soziale Gerechtigkeit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386874
+    m_Localized: Maximaler Profit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386875
+    m_Localized: Was versteht man unter 'Green Jobs'?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386876
+    m_Localized: "Arbeitspl\xE4tze im Freien"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386877
+    m_Localized: "Arbeitspl\xE4tze im Umwelt- und Klimaschutz"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386878
+    m_Localized: "Arbeitspl\xE4tze in gr\xFCnen Geb\xE4uden"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386879
+    m_Localized: Wie viel Prozent des weltweiten Energieverbrauchs stammen aus erneuerbaren
+      Quellen?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386880
+    m_Localized: 12%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386881
+    m_Localized: 28%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54053500918386882
+    m_Localized: 45%
     m_Metadata:
       m_Items: []
   - m_Id: 20003004387328
@@ -63,6 +863,14 @@ MonoBehaviour:
     m_Localized: "Men\xFC"
     m_Metadata:
       m_Items: []
+  - m_Id: 51544089527181312
+    m_Localized: "Musiklautst\xE4rke"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 51544635864637440
+    m_Localized: "Soundlautst\xE4rke"
+    m_Metadata:
+      m_Items: []
   - m_Id: 49116520167165952
     m_Localized: Lade Frage ...
     m_Metadata:
@@ -82,14 +890,1003 @@ MonoBehaviour:
   - m_Id: 50359450810896384
     m_Localized: "+{0} M\xFCnzen"
     m_Metadata:
-      m_Items:
-      - rid: 3554543658327081541
+      m_Items: []
+  - m_Id: 54816396556324877
+    m_Localized: "Extreme Luftverschmutzung in Megast\xE4dten erreicht gesundheitsgef\xE4hrdende
+      Werte. Smog und Feinstaub verursachen Millionen von vorzeitigen Todesf\xE4llen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324876
+    m_Localized: Luftverschmutzung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324875
+    m_Localized: "Das sechste Massenaussterben beschleunigt sich. Best\xE4uber verschwinden,
+      \xD6kosysteme kollabieren und die genetische Vielfalt nimmt rapide ab."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324874
+    m_Localized: Artensterben
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324873
+    m_Localized: "Schwere D\xFCrren und Wasserknappheit betreffen Milliarden von
+      Menschen. Grundwasserspiegel sinken dramatisch und Konflikte um Wasserressourcen
+      nehmen zu."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324872
+    m_Localized: Wasserkrise
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324871
+    m_Localized: "Die Verschmutzung der Ozeane durch Plastik erreicht kritische Ausma\xDFe.
+      Mikroplastik gef\xE4hrdet die Nahrungskette und die menschliche Gesundheit."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324870
+    m_Localized: Plastikkatastrophe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324869
+    m_Localized: "Massive Entwaldung und Waldbr\xE4nde zerst\xF6ren kritische \xD6kosysteme
+      weltweit. Der Verlust von W\xE4ldern beschleunigt den Klimawandel und bedroht
+      die Biodiversit\xE4t. "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324868
+    m_Localized: Waldsterben
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324867
+    m_Localized: "Ein bedeutender technologischer Fortschritt in den Bereichen erneuerbare
+      Energien und nachhaltige Landwirtschaft bietet neue M\xF6glichkeiten zur Bew\xE4ltigung
+      globaler Herausforderungen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324866
+    m_Localized: Technologischer Durchbruch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324865
+    m_Localized: "Der Klimawandel schreitet voran. Die Umweltverschmutzung nimmt
+      zu, was zu extremen Wetterereignissen und dem Verlust von Biodiversit\xE4t
+      f\xFChrt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324864
+    m_Localized: Klimawandel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324878
+    m_Localized: "Gr\xFCne Energiewende"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324879
+    m_Localized: "Massive Investitionen in erneuerbare Energien f\xFChren zu einem
+      drastischen R\xFCckgang der CO2-Emissionen. Solarenergie und Windkraft werden
+      dominant."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324880
+    m_Localized: Aufforstungsinitiative
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324881
+    m_Localized: "Globale Aufforstungsprogramme pflanzen Milliarden von B\xE4umen
+      und stellen degradierte \xD6kosysteme wieder her. Kohlenstoffbindung steigt
+      dramatisch an."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324882
+    m_Localized: Kreislaufwirtschaft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324883
+    m_Localized: 'Durchbruch in der Kreislaufwirtschaft: 90% aller Materialien werden
+      recycelt oder wiederverwendet. Abfall wird zur wertvollen Ressource.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324884
+    m_Localized: Nachhaltige Landwirtschaft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324885
+    m_Localized: "Revolution in der Landwirtschaft: Pr\xE4zisionsfarming, vertikale
+      G\xE4rten und regenerative Praktiken steigern Ertr\xE4ge bei gleichzeitiger
+      Bodenerholung."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324886
+    m_Localized: Meeresschutz
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324887
+    m_Localized: "Internationale Meeresschutzabkommen f\xFChren zur Errichtung riesiger
+      Meeresschutzgebiete. Fischbest\xE4nde erholen sich und Korallenriffe regenerieren."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324888
+    m_Localized: "Gr\xFCne St\xE4dte"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324889
+    m_Localized: "St\xE4dte verwandeln sich in gr\xFCne Oasen mit vertikalen G\xE4rten,
+      erneuerbarer Energie und nachhaltiger Mobilit\xE4t. Lebensqualit\xE4t steigt
+      drastisch."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324890
+    m_Localized: "Elektromobilit\xE4t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324891
+    m_Localized: "Elektrofahrzeuge erreichen 80% Marktanteil. Batterietechnologie
+      revolutioniert Transport und Energiespeicherung, Luftqualit\xE4t verbessert
+      sich dramatisch."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324892
+    m_Localized: Ressourcenknappheit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324893
+    m_Localized: "Kritische Rohstoffe wie seltene Erden und Lithium werden knapp.
+      Lieferketten brechen zusammen und hemmen den \xDCbergang zu gr\xFCner Technologie."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045248
+    m_Localized: Test
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045249
+    m_Localized: Dies ist ein Test-Investment.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045250
+    m_Localized: Meeresreiniger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045251
+    m_Localized: "S\xE4ubert die Meere von Plastikm\xFCll."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045252
+    m_Localized: Solarpark
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045253
+    m_Localized: Erzeugt erneuerbare Energie durch Sonnenkraft.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045254
+    m_Localized: Bildungsprogramm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045255
+    m_Localized: "Verbessert den Zugang zu Bildung und Wissen \xFCber Nachhaltigkeit."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045256
+    m_Localized: Fair-Trade-Netzwerk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045257
+    m_Localized: "Unterst\xFCtzt lokale Produzenten mit fairen Preisen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045258
+    m_Localized: Aufforstung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045259
+    m_Localized: "Pflanzt B\xE4ume zur Verbesserung von Luftqualit\xE4t und Biodiversit\xE4t."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045260
+    m_Localized: Abfallreduktions-Kampagne
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045261
+    m_Localized: "Senkt die Menge an produziertem Abfall durch Aufkl\xE4rung und
+      Recycling."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045262
+    m_Localized: "Gr\xFCner Verkehr"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045263
+    m_Localized: "F\xF6rdert Fahrr\xE4der, Elektrobusse und Bahnverkehr."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045264
+    m_Localized: Regionale Lebensmittel-Initiative
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045265
+    m_Localized: "Reduziert Transportwege und unterst\xFCtzt nachhaltige Landwirtschaft."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045266
+    m_Localized: Gesundheitsversorgung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54829781717045267
+    m_Localized: Verbessert die Gesundheitsversorgung in benachteiligten Regionen.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56143503242027008
+    m_Localized: Das Spiel ist zu Ende!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144067971506176
+    m_Localized: "Danke f\xFCr's Spielen!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144259705724928
+    m_Localized: 'Gruppen Score:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144406623805440
+    m_Localized: 'Dein Score:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56144566892355584
+    m_Localized: 'Andere Spieler:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56145165381787648
+    m_Localized: Einzahlen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56145873707458560
+    m_Localized: 'Betroffene Spieler:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56146686244806656
+    m_Localized: Umwelt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56146825365676032
+    m_Localized: Wirtschaft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56146969926557696
+    m_Localized: Gesellschaft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147343727124480
+    m_Localized: Fehler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147427596427264
+    m_Localized: Ein unerwarteter Fehler ist aufgetreten.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147786268139520
+    m_Localized: Fonds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56147874730205184
+    m_Localized: Investieren
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56149215993126912
+    m_Localized: Alle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56151189501239296
+    m_Localized: Steuerung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56151484889292800
+    m_Localized: Nicht bereit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56151999538782208
+    m_Localized: Einz.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56152165855518720
+    m_Localized: Inv.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56152728932442112
+    m_Localized: Charakter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153017580249088
+    m_Localized: "Auswahl best\xE4tigen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153329091207168
+    m_Localized: Spielername
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153427497967616
+    m_Localized: "W\xFCrfel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56153847255523328
+    m_Localized: Leben
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56154430154727424
+    m_Localized: ZUG-INFO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56154757243330560
+    m_Localized: 'Runde:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56154919462232064
+    m_Localized: 'Am Zug:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155033622798336
+    m_Localized: "W\xFCrfeln"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155119715082240
+    m_Localized: Brett anzeigen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155225038249984
+    m_Localized: Einstellungen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155423755984896
+    m_Localized: Fonds-Verlauf
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155672947974144
+    m_Localized: Ressourcen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56155772201984000
+    m_Localized: Anstieg nach Runde
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156036074037248
+    m_Localized: Abstimmen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156196548108288
+    m_Localized: Ja
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156284435554304
+    m_Localized: Nein
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156500152803328
+    m_Localized: Ressourcen-Verlauf
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156702553137152
+    m_Localized: Vorschlagen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56156896262873088
+    m_Localized: "100% Finanzierunug hinzuf\xFCgen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56157094477291520
+    m_Localized: Investition vorschlagen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 58035861536194560
+    m_Localized: Triff deine Auswahl
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59257155711746048
+    m_Localized: Farben
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947101401088
+    m_Localized: "B\xFCrger"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149824
+    m_Localized: "B\xFCrgerin"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149825
+    m_Localized: "Unterst\xFCtzt Ver\xE4nderungen von Grund auf"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532939935744
+    m_Localized: Hemd
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490176
+    m_Localized: Haut
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490177
+    m_Localized: Hose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490178
+    m_Localized: "G\xFCrtel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490179
+    m_Localized: Gesicht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532973490180
+    m_Localized: Haare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149826
+    m_Localized: Koch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149827
+    m_Localized: "K\xF6chin"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149828
+    m_Localized: "St\xE4rkt die Gemeinschaft mit regionalen Zutaten"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684508
+    m_Localized: "Sch\xFCrze"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684509
+    m_Localized: Hose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684510
+    m_Localized: Halstuch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684511
+    m_Localized: Haut
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684512
+    m_Localized: Gesicht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684513
+    m_Localized: Haare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684519
+    m_Localized: Schnurrbart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684520
+    m_Localized: "Kochm\xFCtze"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149829
+    m_Localized: Farmer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149830
+    m_Localized: Farmerin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149831
+    m_Localized: Arbeitet im Einklang mit der Natur
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684527
+    m_Localized: Haut
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684528
+    m_Localized: Hose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684529
+    m_Localized: Schal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684530
+    m_Localized: Jacke
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684531
+    m_Localized: Hut
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684532
+    m_Localized: Oberteil
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684533
+    m_Localized: Gesicht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684534
+    m_Localized: Hutband
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684535
+    m_Localized: Haare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149832
+    m_Localized: Arzt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149833
+    m_Localized: "\xC4rztin"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149834
+    m_Localized: "H\xE4lt die Gemeinschaft gesund und lebendig"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684553
+    m_Localized: Gesicht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684554
+    m_Localized: Haut
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684555
+    m_Localized: Kittel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684556
+    m_Localized: Hose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684557
+    m_Localized: Hemd
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532977684558
+    m_Localized: Haare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149835
+    m_Localized: Trainer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149836
+    m_Localized: Trainerin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149837
+    m_Localized: "St\xE4rkt die Gemeinschaft mit neuen F\xE4higkeiten"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878785
+    m_Localized: Kimono
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878786
+    m_Localized: Haut
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878787
+    m_Localized: Obi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878788
+    m_Localized: Gesicht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878789
+    m_Localized: Haare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149838
+    m_Localized: "B\xFCrgermeister"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149839
+    m_Localized: "B\xFCrgermeisterin"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149840
+    m_Localized: Vereint die Gemeinschaft mit einer gemeinsamen Vision
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878794
+    m_Localized: Hemd
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878795
+    m_Localized: "Hosentr\xE4ger"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878796
+    m_Localized: Hose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878797
+    m_Localized: Haut
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878798
+    m_Localized: "G\xFCrtel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878799
+    m_Localized: Gesicht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878800
+    m_Localized: Hut
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878801
+    m_Localized: Haare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149841
+    m_Localized: Architekt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149842
+    m_Localized: Architektin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149843
+    m_Localized: "Entwirft den Plan f\xFCr eine bessere Zukunft"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878810
+    m_Localized: Anzug
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878811
+    m_Localized: Hemd
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878812
+    m_Localized: "G\xFCrtel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878813
+    m_Localized: Haut
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878814
+    m_Localized: Krawatte
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878815
+    m_Localized: Gesicht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878816
+    m_Localized: Haare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149844
+    m_Localized: Bauarbeiter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149845
+    m_Localized: Bauarbeiterin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149846
+    m_Localized: Setzt nachhaltige Visionen in die Tat um
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878824
+    m_Localized: Weste
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878825
+    m_Localized: Haut
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878826
+    m_Localized: Hose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878827
+    m_Localized: Hemd
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878828
+    m_Localized: Helm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878829
+    m_Localized: Gesicht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59267532981878830
+    m_Localized: Haare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59269036665028608
+    m_Localized: "W\xE4hle eine Farbe f\xFCr"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285773968031744
+    m_Localized: "Normaler W\xFCrfel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285777675796480
+    m_Localized: "Verr\xFCckter W\xFCrfel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285779017973760
+    m_Localized: "Legend\xE4rer W\xFCrfel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59285780553089024
+    m_Localized: "Entwickler W\xFCrfel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56636904074215424
+    m_Localized: Katastrophe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56638766894645248
+    m_Localized: "Der Einzahlungsbetrag muss gr\xF6\xDFer als 0 sein."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56639250527256576
+    m_Localized: "Du besitzt nicht gen\xFCgend M\xFCnzen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56639770314768384
+    m_Localized: Einzahlen von
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56640685331546112
+    m_Localized: "Der Fonds hat nicht genug Geld, um diesen Investitionsvorschlag
+      vollumf\xE4nglich zu unterst\xFCtzen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56640685331546113
+    m_Localized: "Die Stadt hat nicht genug Ressourcen, um diesen Investitionsvorschlag
+      zu unterst\xFCtzen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56640685331546114
+    m_Localized: "Du musst einen Betrag gr\xF6\xDFer als 0 vorschlagen, wenn die
+      Investition nicht bereits voll finanziert ist."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56641707357601792
+    m_Localized: Im Aufbau, {0} Runde(n) verbleibend.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56645878458712064
+    m_Localized: Fertiggestellt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56646535894892544
+    m_Localized: "{0} hat vorgeschlagen, {1} M\xFCnzen \xFCber den Fonds in {2} zu
+      investieren. Stimme ab!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56647493433524224
+    m_Localized: Der Investitionsvorschlag wurde abgelehnt.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648143445786624
+    m_Localized: Vulkanausbruch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648230402097152
+    m_Localized: "Geschmolzene Lava und giftige Asche verw\xFCsten die Umgebung."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648327022084096
+    m_Localized: Nuklearkatastrophe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648380902113280
+    m_Localized: "Radioaktiver Regen breitet sich \xFCber die Region aus und verursacht
+      schwere Sch\xE4den."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648670216814592
+    m_Localized: Verheerender Erdrutsch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648729599770624
+    m_Localized: "Massive Felsen und Tr\xFCmmer st\xFCrzen herab und begraben alles,
+      was sich ihnen in den Weg stellt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648926065164288
+    m_Localized: Waldbrand
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56648972298977280
+    m_Localized: Unkontrollierte Flammen verschlingen alles und hinterlassen nur
+      Asche.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649363690455040
+    m_Localized: Gletscherschmelze
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649388873056256
+    m_Localized: "Steigende Wasserst\xE4nde \xFCberschwemmen die Landschaft, w\xE4hrend
+      das alte Eis schnell schmilzt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649684747649024
+    m_Localized: "D\xFCrre"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649705719169024
+    m_Localized: "Extreme Hitze und Wassermangel verwandeln fruchtbares Land in unfruchtbare
+      \xD6dnis."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649910111797248
+    m_Localized: Tsunami
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649934925299712
+    m_Localized: "Riesige Wellen schlagen ins Landesinnere und zerst\xF6ren alles,
+      was sich ihnen in den Weg stellt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56652191783813120
+    m_Localized: Round end
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56652337988861952
+    m_Localized: Das Investment {0} wurde fertiggestellt!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56659020039421952
+    m_Localized: "Finanzierung f\xFCr {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56659352559648768
+    m_Localized: "Ressourcen f\xFCr {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56661867099422720
+    m_Localized: "Das Investment wurde vollst\xE4ndig finanziert und befindet sich
+      nun im Bau."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56661867099422721
+    m_Localized: "Das Investment wurde mit {0} M\xFCnzen finanziert, ben\xF6tigt
+      aber noch weitere Gelder. Die Ressourcen wurden noch nicht abgezogen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56668768562413568
+    m_Localized: '{0} - {1}m entfernt, nimmt {2} Schaden'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56670997235204096
+    m_Localized: "M\xFCnzen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60010223864074240
+    m_Localized: VALIDIERE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011225140908032
+    m_Localized: VERBINDE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011435313287168
+    m_Localized: VALIDIERE CODE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011804634337280
+    m_Localized: Zahlencode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928023429120
+    m_Localized: Quizduell
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983552
+    m_Localized: "Beantworte m\xF6glichst viele Fragen korrekt!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983553
+    m_Localized: "W\xE4hle eine Antwort durch Klicken aus."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983554
+    m_Localized: "Gib dem M\xFCll eine Abfuhr"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177856
+    m_Localized: "Sortiere den M\xFCll ein den passenden M\xFClleimer."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177857
+    m_Localized: "Ziehe den M\xFCll mit der Maus."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177858
+    m_Localized: Meeresputz
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177859
+    m_Localized: "Sammle den meisten M\xFCll ein."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177860
+    m_Localized: Bewege deine Figur mit WASD.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61449390745026560
+    m_Localized: '{0} ist am Zug'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61449390812135424
+    m_Localized: "W\xFCrfeln"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61449390812135425
+    m_Localized: Wurf abbrechen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61449390812135426
+    m_Localized: Brett anzeigen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61449390812135427
+    m_Localized: "Zur\xFCck zum Spieler"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61449390812135428
+    m_Localized: RUNDE {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61452399050850304
+    m_Localized: Charakterauswahl
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61452502310420480
+    m_Localized: Nicht Bereit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61452920784519168
+    m_Localized: Warte auf Spieler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453271277338624
+    m_Localized: Neuer Spieler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453348007936000
+    m_Localized: Ist bereit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453405545398272
+    m_Localized: Ist nicht bereit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453481038675968
+    m_Localized: Nicht bereit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453992487911424
+    m_Localized: Klicke wenn bereit
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
-    - rid: 3554543658327081541
+    - rid: 7894437812287832148
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
         m_Entries: 
         m_SharedEntries:
-        - id: 50359450810896384
+        - id: 56641707357601792
+        - id: 56652337988861952
+        - id: 56659020039421952
+        - id: 56661867099422721
+        - id: 61449390745026560
+        - id: 61449390812135428

@@ -1,0 +1,6 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+        <ui:Label text="Player[1]" name="player-name" style="font-size: 32px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;);" />
+        <ui:Label text="0" name="player-score" style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 32px; color: rgb(54, 255, 42);" />
+    </ui:VisualElement>
+</ui:UXML>

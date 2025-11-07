@@ -1,6 +1,4 @@
 using Mirror;
-using System.Linq;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 public class FundsModal : Modal {
@@ -28,6 +26,7 @@ public class FundsModal : Modal {
 
     [ClientCallback]
     private void OnDepositClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         // BoardPlayer localPlayer = BoardContext.Instance.GetLocalPlayer();
         // CmdRequestDeposit(10, localPlayer);
         ModalManager.Instance.Show(FundsDepositModal.Instance, false);
@@ -35,16 +34,19 @@ public class FundsModal : Modal {
 
     [ClientCallback]
     private void OnFundsHistoryClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         ModalManager.Instance.Show(FundsHistoryModal.Instance, false);
+
     }
 
     [ClientCallback]
     private void OnInvestClicked() {
+        Audiomanager.Instance?.PlayInvestSound();
         ModalManager.Instance.Show(InvestModal.Instance, false);
     }
 
     // [Command(requiresAuthority = false)]
-    // private void CmdRequestDeposit(uint amount, BoardPlayer player) {
+    // private void CmdRequestDeposit(int amount, BoardPlayer player) {
     //     player.RemoveCoins(amount);
     //     BoardContext.Instance.UpdateFundsStat(amount);
     // }

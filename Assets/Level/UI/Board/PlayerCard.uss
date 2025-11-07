@@ -1,6 +1,8 @@
 #player-card Label {
     margin: 0;
     padding: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 #player-card__head {

@@ -1,11 +1,11 @@
 using System;
 using UnityEngine.Splines;
-using System.Collections.Generic;
+using Mirror;
 
 public class FieldBehaviourList {
-    private readonly Dictionary<SplineKnotIndex, FieldBehaviour> fields = new();
+    private readonly SyncDictionary<SplineKnotIndex, FieldBehaviour> fields = new();
 
-    public FieldBehaviourList(Dictionary<SplineKnotIndex, FieldBehaviour> fields) {
+    public FieldBehaviourList(SyncDictionary<SplineKnotIndex, FieldBehaviour> fields) {
         this.fields = fields;
     }
 

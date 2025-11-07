@@ -1,37 +1,62 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using UnityEngine.Audio;
 
 public class MainMenuController : MonoBehaviour {
     private VisualElement root;
     private Button playButton;
     private Button settingsButton;
     private Button exitButton;
-    private TemplateContainer settingsContainer;
 
     [SerializeField]
     private UIDocument uIDocument;
+    [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private AudioSource uiAudioSource;
+    [SerializeField] private AudioClip buttonClickSound;
 
     private void OnEnable() {
         root = uIDocument.rootVisualElement;
 
         InitializeUIElements();
+        StartCoroutine(ApplyInitialAudioValuesNextFrame());
     }
 
     private void InitializeUIElements() {
         playButton = root.Q<Button>("PlayButton");
-        playButton.clicked += () => SceneManager.LoadScene("PlayMenu");
+        playButton.clicked += () => {
+            Audiomanager.Instance?.PlayClickSound();
+            SceneManager.LoadScene("PlayMenu");
+        };
 
         settingsButton = root.Q<Button>("SettingsButton");
-        settingsButton.clicked += ShowSettings;
+        settingsButton.clicked += () => {
+            Audiomanager.Instance?.PlayClickSound();
+            SettingsController.Instance?.OpenSettingsPanel();
+        };
 
         exitButton = root.Q<Button>("ExitButton");
-        exitButton.clicked += Application.Quit;
+        exitButton.clicked += () => {
+            Audiomanager.Instance?.PlayClickSound();
+            Application.Quit();
+        };
+    }
+    private IEnumerator ApplyInitialAudioValuesNextFrame() {
+        yield return null;
 
-        settingsContainer = root.Q<TemplateContainer>("SettingsTemplateContainer");
+        float sound = PlayerPrefs.GetFloat("SoundVolume", 100f);
+        float music = PlayerPrefs.GetFloat("MusicVolume", 100f);
+
+        SetMixerVolume(sound, "SoundVol");
+        SetMixerVolume(music, "MusicVol");
     }
 
-    private void ShowSettings() {
-        settingsContainer.AddToClassList("visible");
+    private void SetMixerVolume(float value, string param) {
+        if (audioMixer == null) { return; }
+
+        float normalized = Mathf.Clamp01(value / 100f);
+        float dB = (normalized <= .0001f) ? -80f : Mathf.Log10(normalized) * 20f;
+        audioMixer.SetFloat(param, dB);
     }
 }

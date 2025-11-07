@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 [Serializable]
 public class QuestionData {
-    public string question;
-    public List<string> answerOptions;
+    public long question;
+    public List<long> answerOptions;
     public int correctAnswerIndex;
     public string difficulty;
 
     public QuestionData() { }
 
-    public QuestionData(string question, List<string> answerOptions, int correctAnswerIndex, string difficulty) {
+    public QuestionData(long question, List<long> answerOptions, int correctAnswerIndex, string difficulty) {
         this.question = question;
         this.answerOptions = answerOptions;
         this.correctAnswerIndex = correctAnswerIndex;

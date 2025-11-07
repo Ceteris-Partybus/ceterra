@@ -1,5 +1,4 @@
 using Mirror;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 public class InvestDepositModal : Modal {
@@ -44,41 +43,53 @@ public class InvestDepositModal : Modal {
 
     [ClientCallback]
     private void OnDepositSubmitButtonClicked() {
-        uint depositValue = this.depositValueField.value;
-        Debug.Log($"Submitting deposit of {depositValue} for investment ID {this.InvestmentId}");
-        BoardPlayer player = BoardContext.Instance.GetLocalPlayer();
-        CmdSubmitDeposit(player, this.InvestmentId, depositValue);
-        Debug.Log("Deposit submitted");
-        ModalManager.Instance.Hide();
-    }
+        int depositValue = (int)this.depositValueField.value;
 
-    [Command(requiresAuthority = false)]
-    private void CmdSubmitDeposit(BoardPlayer player, int investmentId, uint amount) {
-
-        if (player.Coins < amount) {
-            ErrorModal.Instance.Message = "Du besitzt nicht genügend Münzen.";
+        if (depositValue <= 0) {
+            Audiomanager.Instance?.PlayClickSound();
+            ErrorModal.Instance.Message = LocalizationManager.Instance.GetLocalizedText(56638766894645248);
             ModalManager.Instance.Show(ErrorModal.Instance);
             return;
         }
 
+        BoardPlayer player = BoardContext.Instance.GetLocalPlayer();
+
+        if (player.PlayerStats.GetCoins() < depositValue) {
+            Audiomanager.Instance?.PlayClickSound();
+            ErrorModal.Instance.Message = LocalizationManager.Instance.GetLocalizedText(56639250527256576);
+            ModalManager.Instance.Show(ErrorModal.Instance);
+            return;
+        }
+        Audiomanager.Instance?.PlayInvestSound();
+        CmdSubmitDeposit(player, this.InvestmentId, depositValue);
+        ModalManager.Instance.Hide();
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdSubmitDeposit(BoardPlayer player, int investmentId, int amount) {
         BoardContext.Instance.InvestInInvestment(player, investmentId, amount);
     }
 
+
+
     private void OnDepositAdd10ButtonClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         this.OnDepositAddButtonClicked(10);
     }
 
     private void OnDepositAdd100ButtonClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         this.OnDepositAddButtonClicked(100);
     }
 
     private void OnDepositAdd1000ButtonClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         this.OnDepositAddButtonClicked(1000);
     }
 
-    private void OnDepositAddButtonClicked(uint amount) {
+    private void OnDepositAddButtonClicked(int amount) {
         if (this.depositValueField != null) {
-            this.depositValueField.value += amount;
+            this.depositValueField.value += (uint)amount;
         }
     }
 

@@ -1,7 +1,4 @@
 using Mirror;
-using System;
-using System.Linq;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 public class FundsDepositModal : Modal {
@@ -45,42 +42,55 @@ public class FundsDepositModal : Modal {
 
     [ClientCallback]
     private void OnDepositSubmitButtonClicked() {
-        uint depositValue = this.depositValueField.value;
+        int depositValue = (int)this.depositValueField.value;
         var localPlayer = BoardContext.Instance.GetLocalPlayer();
 
-        if (localPlayer.Coins < depositValue) {
-            ErrorModal.Instance.Message = "Du besitzt nicht genügend Münzen.";
+        if (depositValue <= 0) {
+            Audiomanager.Instance?.PlayClickSound();
+            ErrorModal.Instance.Message = LocalizationManager.Instance.GetLocalizedText(56638766894645248);
             ModalManager.Instance.Show(ErrorModal.Instance);
             return;
         }
 
+        if (localPlayer.PlayerStats.GetCoins() < depositValue) {
+            Audiomanager.Instance?.PlayClickSound();
+            ErrorModal.Instance.Message = LocalizationManager.Instance.GetLocalizedText(56639250527256576);
+            ModalManager.Instance.Show(ErrorModal.Instance);
+            return;
+        }
+
+        Audiomanager.Instance?.PlayInvestSound();
         CmdDepositFunds(depositValue, localPlayer);
         ModalManager.Instance.Hide();
     }
 
     [Command(requiresAuthority = false)]
-    private void CmdDepositFunds(uint depositValue, BoardPlayer localPlayer) {
-        FundsHistoryEntry entry = new FundsHistoryEntry(depositValue, HistoryEntryType.DEPOSIT, "Einzahlung von " + localPlayer.PlayerName);
+    private void CmdDepositFunds(int depositValue, BoardPlayer localPlayer) {
+        FundsHistoryEntry entry = new FundsHistoryEntry(depositValue, HistoryEntryType.DEPOSIT, LocalizationManager.Instance.GetLocalizedText(56639770314768384) + " " + localPlayer.PlayerName);
         BoardContext.Instance.fundsHistory.Add(entry);
-        BoardContext.Instance.UpdateFundsStat((int)depositValue);
-        localPlayer.RemoveCoins(depositValue);
+        BoardContext.Instance.UpdateFundsStat(depositValue);
+        localPlayer.PlayerStats.ModifyCoins(-depositValue);
+        localPlayer.PlayerStats.ModifyScore(depositValue / 10);
     }
 
     private void OnDepositAdd10ButtonClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         this.OnDepositAddButtonClicked(10);
     }
 
     private void OnDepositAdd100ButtonClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         this.OnDepositAddButtonClicked(100);
     }
 
     private void OnDepositAdd1000ButtonClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         this.OnDepositAddButtonClicked(1000);
     }
 
-    private void OnDepositAddButtonClicked(uint amount) {
+    private void OnDepositAddButtonClicked(int amount) {
         if (this.depositValueField != null) {
-            this.depositValueField.value += amount;
+            this.depositValueField.value += (uint)amount;
         }
     }
 

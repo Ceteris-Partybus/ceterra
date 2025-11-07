@@ -17,22 +17,11 @@ public class ModalManager : NetworkedSingleton<ModalManager> {
         if (uiDocument == null) {
             uiDocument = GetComponent<UIDocument>();
         }
-
-        if (uiDocument != null) {
-            Debug.Log("ModalManager initialized with UIDocument.");
-            rootElement = uiDocument.rootVisualElement.Q<VisualElement>("modal-container");
-            if (rootElement == null) {
-                Debug.LogError("ModalManager requires a 'modal-container' VisualElement in the UIDocument.");
-            }
-        }
     }
 
     protected override void Start() {
         base.Start();
-        // Ensure we have a UI Document for displaying modals
-        if (uiDocument == null) {
-            Debug.LogError("ModalManager requires a UIDocument component!");
-        }
+        rootElement = uiDocument.rootVisualElement.Q<VisualElement>("modal-container");
     }
 
     protected void Update() {

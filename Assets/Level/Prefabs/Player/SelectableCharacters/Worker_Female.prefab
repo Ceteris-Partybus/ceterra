@@ -1,0 +1,170 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6016029645109819151
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+      propertyPath: m_Name
+      value: Worker_Female
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8671922114088053657}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5784526420536340082}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 527443542939854347}
+  m_SourcePrefab: {fileID: 100100000, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+--- !u!1 &6898479745603750494 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+  m_PrefabInstance: {fileID: 6016029645109819151}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &8671922114088053657
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6898479745603750494}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2959467708922500008, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+--- !u!114 &5784526420536340082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6898479745603750494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3967d511f3569024db05668d1ad64290, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseController: {fileID: 9100000, guid: cb38d80d32536ee4ca9ebb18a484437e, type: 2}
+  animationClips:
+  - name: death
+    clip: {fileID: 4447012609936615250, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+  - name: defeat
+    clip: {fileID: 1132547922023742953, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+  - name: idle
+    clip: {fileID: 9061338213343248790, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+  - name: jump
+    clip: {fileID: 140615187318258251, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+  - name: pickup
+    clip: {fileID: 7022811679865794533, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+  - name: punch
+    clip: {fileID: -4592842328519117816, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+  - name: recievehit
+    clip: {fileID: -4856542728082765067, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+  - name: roll
+    clip: {fileID: -7580519143377161132, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+  - name: run
+    clip: {fileID: 1395189703230314720, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+  - name: run_carry
+    clip: {fileID: 7211038257411818064, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+  - name: shoot_onehanded
+    clip: {fileID: -5307234019925579384, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+  - name: sitdown
+    clip: {fileID: 228616033308382003, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+  - name: standup
+    clip: {fileID: -2488620027461464802, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+  - name: swordslash
+    clip: {fileID: 2321273963174291681, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+  - name: victory
+    clip: {fileID: 5008348457023331957, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+  - name: walk
+    clip: {fileID: -5599002979973759676, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+  - name: walk_carry
+    clip: {fileID: -2469224417514991532, guid: 4ac816b1335a49744ac319b73a949da3, type: 3}
+--- !u!114 &527443542939854347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6898479745603750494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b83ada8ac830fd14ebe43bbc43a1c41f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconTexture2D: {fileID: 2800000, guid: c447338c81cc2a047853462408a7f95d, type: 3}
+  characterName: Worker_female 1
+  info: Worker_info

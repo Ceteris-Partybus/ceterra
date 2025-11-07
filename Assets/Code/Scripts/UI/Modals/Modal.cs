@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public abstract class Modal : NetworkBehaviour {
+    public const int DEFAULT_DISPLAY_DURATION = 10;
+
     [Header("Modal Settings")]
     [SerializeField] protected VisualTreeAsset visualTreeAsset;
     [SerializeField] protected string modalId;
@@ -11,7 +13,7 @@ public abstract class Modal : NetworkBehaviour {
     [SerializeField] protected bool closeOnEscapeKey = true;
     public bool CloseOnEscapeKey => closeOnEscapeKey;
     protected bool showCloseButton = true;
-
+    protected bool showModalTypeInHeader = false;
     private static readonly Dictionary<System.Type, Modal> instances = new Dictionary<System.Type, Modal>();
     private static readonly object lockObj = new();
 
@@ -78,8 +80,13 @@ public abstract class Modal : NetworkBehaviour {
     /// Shows the modal on screen
     /// </summary>
     public virtual void Show(VisualElement parentElement) {
-        if (visualTreeAsset == null || parentElement == null) {
-            Debug.LogError($"Cannot show modal '{GetType().Name}' - missing VisualTreeAsset or parent element!");
+        if (visualTreeAsset == null) {
+            Debug.LogError($"Cannot show modal '{GetType().Name}' - missing VisualTreeAsset!");
+            return;
+        }
+
+        if (parentElement == null) {
+            Debug.LogError($"Cannot show modal '{GetType().Name}' - parentElement is null!");
             return;
         }
 
@@ -101,16 +108,32 @@ public abstract class Modal : NetworkBehaviour {
 
         // Create header with close button
 
-        if (showCloseButton) {
+        if (showCloseButton || showModalTypeInHeader) {
             var header = new VisualElement();
             header.name = "modal-header";
             header.AddToClassList("modal-header");
             modalBoxWrapper.Add(header);
-            closeButton = new Button(() => OnCloseRequested());
-            closeButton.text = "×";
-            closeButton.name = "close-button";
-            closeButton.AddToClassList("modal-close-button");
-            header.Add(closeButton);
+
+            if (showModalTypeInHeader) {
+                var titleLabel = new Label(modalId);
+                titleLabel.name = "modal-header-title";
+                titleLabel.text = GetHeaderTitle();
+                titleLabel.AddToClassList("modal-header-title");
+                header.Add(titleLabel);
+            }
+            if (showCloseButton) {
+                closeButton = new Button(() => {
+                    Audiomanager.Instance?.PlayClickSound();
+                    OnCloseRequested();
+                });
+                closeButton.text = "×";
+                closeButton.name = "close-button";
+                closeButton.AddToClassList("modal-close-button");
+                if (!showModalTypeInHeader) {
+                    header.AddToClassList("no-title");
+                }
+                header.Add(closeButton);
+            }
         }
 
         // Create content container
@@ -167,6 +190,10 @@ public abstract class Modal : NetworkBehaviour {
     /// </summary>
     public string GetModalId() {
         return modalId;
+    }
+
+    protected virtual string GetHeaderTitle() {
+        return "";
     }
 
     /// <summary>

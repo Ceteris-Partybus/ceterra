@@ -1,0 +1,181 @@
+* {
+    -unity-font-definition: resource('UI/Other/Jersey15-Regular');
+}
+
+#SelectionUI-container {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#MainContainer {
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
+    position: absolute;
+    right: 5%;
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+    height: auto;
+}
+
+.selection-header {
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_title_with_stroke.png");
+    height: 120px;
+    width: 700px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 15px;
+}
+
+.selection-header-title {
+    font-size: 60px;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.8);
+    -unity-text-align: middle-center;
+}
+
+.selection-panel {
+    border-radius: 25px;
+    padding: 5px 30px 25px 30px;
+    width: 700px;
+    border-width: 0px;
+}
+
+.section-title {
+    font-size: 46px;
+    color: #745136;
+    -unity-text-align: middle-center;
+    letter-spacing: 1px;
+}
+
+.selector-box {
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    padding: 15px 20px;
+}
+
+.selector-button {
+    height: 70px;
+    width: 70px;
+    font-size: 38px;
+    border-width: 0;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 2px #000000;
+    -unity-text-align: upper-center;
+    transition-duration: 0.3s;
+    transition-property: background-image, scale, translate, text-shadow;
+    transition-timing-function: ease-out;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_default.png");
+    border-color: transparent;
+    letter-spacing: 1px;
+}
+
+.selector-button:hover {
+    transition-duration: 0.2s;
+    scale: 1.01 1.01;
+}
+
+.selector-button:active {
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_pressed.png");
+    -unity-text-align: lower-center;
+}
+
+.selector-button:hover {
+    scale: 1.05 1.05;
+}
+
+.selector-button:active {
+    scale: 0.95 0.95;
+}
+
+.selector-content {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    margin: 0 20px;
+}
+
+.selector-title {
+    font-size: 42px;
+    color: #ffffff;
+    -unity-text-outline-color: #745136;
+    -unity-text-outline-width: 3px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 5px;
+}
+
+.selector-info {
+    font-size: 24px;
+    color: #745136;
+    -unity-text-align: middle-center;
+    white-space: normal;
+}
+
+.input-container {
+    margin-bottom: 25px;
+    align-items: center;
+}
+
+.player-input {
+    width: 100%;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    color: rgba(0, 0, 0, 0.9);
+    font-size: 32px;
+    padding: 15px 20px;
+}
+
+.select-button {
+    height: 70px;
+    font-size: 40px;
+    border-width: 0;
+    color: #FFFFFF;
+    text-shadow: 1px 1px 1px #000000;
+    -unity-text-align: upper-center;
+    background-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/green_default.png");
+    border-color: transparent;
+    letter-spacing: 1px;
+}
+
+.select-button:active {
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/green_pressed.png");
+    -unity-text-align: lower-center;
+}
+
+.materials-container {
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.material-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.material-label {
+    min-width: 105px;
+    font-size: 24px;
+    color: #745136;
+}
+
+.material-color-box {
+    width: 40px;
+    height: 30px;
+    margin-right: 8px;
+    border-width: 2px;
+    border-color: #745136;
+    border-radius: 5px;
+}

@@ -1,6 +1,4 @@
 using Mirror;
-using System.Linq;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 public class ResourceModal : Modal {
@@ -29,6 +27,7 @@ public class ResourceModal : Modal {
     }
 
     private void OnResourcesHistoryButtonClicked() {
+        Audiomanager.Instance?.PlayClickSound();
         ModalManager.Instance.Show(ResourceHistoryModal.Instance);
     }
 }
