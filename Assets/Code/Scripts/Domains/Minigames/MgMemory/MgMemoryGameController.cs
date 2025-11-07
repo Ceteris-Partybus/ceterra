@@ -155,9 +155,6 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
     public void RpcMarkCardsAsMatched(int firstCardIndex, int secondCardIndex) {
         FindCardByIndex(firstCardIndex).SetButtonInteractable(false);
         FindCardByIndex(secondCardIndex).SetButtonInteractable(false);
-
-        // Hier könnten Sie zusätzliche visuelle Effekte für gematchte Karten hinzufügen
-        // z.B. eine andere Farbe oder einen Rahmen
     }
 
     private Card FindCardByIndex(int cardIndex) {

@@ -37,7 +37,7 @@ public class MgMemoryContext : MgContext<MgMemoryContext, MgMemoryPlayer> {
                 .ToList();
 
         RpcInitializePlayersOnClients();
-        currentPlayerId = 1;
+        currentPlayerId = 0;
     }
 
     [ClientRpc]
@@ -66,11 +66,11 @@ public class MgMemoryContext : MgContext<MgMemoryContext, MgMemoryPlayer> {
 
     [Server]
     private void NextPlayer() {
-        currentPlayerId = (currentPlayerId % players.Count) + 1;
+        currentPlayerId = (currentPlayerId + 1) % players.Count;
     }
 
     private IEnumerator MemoryRoutine() {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(0.5f);
         InitializePlayers();
         StartMemory();
         yield return new WaitForSeconds(GameDuration);
