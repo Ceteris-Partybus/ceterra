@@ -25,12 +25,12 @@ public class MgMemoryPlayer : SceneConditionalPlayer {
         secondSelectedCardIndex = -1;
     }
 
-    [Command]
-    public void CmdAddScore(int amount) {
+    public void AddScore(int amount) {
         score += amount;
     }
 
-    public void AddScore(int amount) {
+    [Command]
+    public void CmdAddScore(int amount) {
         score += amount;
     }
 
@@ -46,7 +46,6 @@ public class MgMemoryPlayer : SceneConditionalPlayer {
         secondSelectedCardIndex = cardIndex;
     }
 
-    //[Server]
     public void ClearCardSelections() {
         firstSelectedCardIndex = -1;
         secondSelectedCardIndex = -1;

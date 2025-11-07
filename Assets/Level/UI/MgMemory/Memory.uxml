@@ -55,33 +55,33 @@
                 <ui:VisualElement name="ranking-container" style="width: 95%; flex-grow: 1; justify-content: space-around;">
                     <ui:VisualElement name="player-rank-1" style="flex-direction: row; align-items: center; background-color: rgba(212, 175, 55, 0.4); width: 100%; padding: 15px; border-radius: 20px;">
                         <ui:Label text="#1" style="font-size: 60px; width: 10%; -unity-text-align: center;" />
-                        <ui:Label name="winner-name-1" text="Spieler Alpha" style="font-size: 45px; width: 40%;" />
-                        <ui:Label name="winner-score-1" text="8 Paare" style="font-size: 45px; width: 20%; -unity-text-align: center;" />
-                        <ui:VisualElement name="winner-reward-1" style="width: 30%; flex-direction: row; justify-content: flex-end; align-items: center;">
+                        <ui:Label name="player-name-1" text="Spieler Alpha" style="font-size: 45px; width: 40%;" />
+                        <ui:Label name="player-score-1" text="8 Paare" style="font-size: 45px; width: 20%; -unity-text-align: center;" />
+                        <ui:VisualElement name="player-reward-1" style="width: 30%; flex-direction: row; justify-content: flex-end; align-items: center;">
                             <ui:Label text="+100 Coins" style="font-size: 40px; display: flex;" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="player-rank-2" style="flex-direction: row; align-items: center; background-color: rgba(192, 192, 192, 0.4); width: 100%; padding: 15px; border-radius: 20px;">
                         <ui:Label text="#2" style="font-size: 60px; width: 10%; -unity-text-align: center;" />
-                        <ui:Label name="winner-name-2" text="Spieler Beta" style="font-size: 45px; width: 40%;" />
-                        <ui:Label name="winner-score-2" text="6 Paare" style="font-size: 45px; width: 20%; -unity-text-align: center;" />
-                        <ui:VisualElement name="winner-reward-2" style="width: 30%; flex-direction: row; justify-content: flex-end; align-items: center;">
+                        <ui:Label name="player-name-2" text="Spieler Beta" style="font-size: 45px; width: 40%;" />
+                        <ui:Label name="player-score-2" text="6 Paare" style="font-size: 45px; width: 20%; -unity-text-align: center;" />
+                        <ui:VisualElement name="player-reward-2" style="width: 30%; flex-direction: row; justify-content: flex-end; align-items: center;">
                             <ui:Label text="+50 Coins" style="font-size: 40px;" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="player-rank-3" style="flex-direction: row; align-items: center; background-color: rgba(205, 127, 50, 0.4); width: 100%; padding: 15px; border-radius: 20px;">
                         <ui:Label text="#3" style="font-size: 60px; width: 10%; -unity-text-align: center;" />
-                        <ui:Label name="winner-name-3" text="Spieler Gamma" style="font-size: 45px; width: 40%;" />
-                        <ui:Label name="winner-score-3" text="4 Paare" style="font-size: 45px; width: 20%; -unity-text-align: center;" />
-                        <ui:VisualElement name="winner-reward-3" style="width: 30%; flex-direction: row; justify-content: flex-end; align-items: center;">
+                        <ui:Label name="player-name-3" text="Spieler Gamma" style="font-size: 45px; width: 40%;" />
+                        <ui:Label name="player-score-3" text="4 Paare" style="font-size: 45px; width: 20%; -unity-text-align: center;" />
+                        <ui:VisualElement name="player-reward-3" style="width: 30%; flex-direction: row; justify-content: flex-end; align-items: center;">
                             <ui:Label text="+25 Coins" style="font-size: 40px;" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="player-rank-4" style="flex-direction: row; align-items: center; background-color: rgba(100, 100, 100, 0.4); width: 100%; padding: 15px; border-radius: 20px; display: flex;">
                         <ui:Label text="#4" style="font-size: 60px; width: 10%; -unity-text-align: center;" />
-                        <ui:Label name="winner-name-4" text="Spieler Delta" style="font-size: 45px; width: 40%;" />
-                        <ui:Label name="winner-score-4" text="2 Paare" style="font-size: 45px; width: 20%; -unity-text-align: center;" />
-                        <ui:VisualElement name="winner-reward-4" style="width: 30%; flex-direction: row; justify-content: flex-end; align-items: center;">
+                        <ui:Label name="player-name-4" text="Spieler Delta" style="font-size: 45px; width: 40%;" />
+                        <ui:Label name="player-score-4" text="2 Paare" style="font-size: 45px; width: 20%; -unity-text-align: center;" />
+                        <ui:VisualElement name="player-reward-4" style="width: 30%; flex-direction: row; justify-content: flex-end; align-items: center;">
                             <ui:Label text="+10 XP" style="font-size: 40px;" />
                         </ui:VisualElement>
                     </ui:VisualElement>

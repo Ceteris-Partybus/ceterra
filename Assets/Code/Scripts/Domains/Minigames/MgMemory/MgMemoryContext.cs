@@ -11,10 +11,12 @@ public class MgMemoryContext : NetworkedSingleton<MgMemoryContext> {
     [Header("Minigame Settings")]
     [SerializeField] private float GameDuration;
     [SerializeField] private float scoreboardDuration;
+    [SerializeField] private string memoryFactsFileName = "Data/Productiondata/Minigames/Memory/memory_facts";
     //[SerializeField] private MgMemoryGameController memoryGameController;
 
     private float countdownTimer;
     private Coroutine countdownCoroutine;
+    private List<MemoryFactData> memoryFacts = new();
 
     [SyncVar(hook = nameof(OnCurrentPlayerChanged))]
     private int currentPlayerId = -1;
@@ -59,12 +61,6 @@ public class MgMemoryContext : NetworkedSingleton<MgMemoryContext> {
     }
 
     [Server]
-    public void HandleMatch() {
-        // Bei einem Match bleibt der aktuelle Spieler dran
-        Debug.Log($"Player {currentPlayerId} made a match and continues");
-    }
-
-    [Server]
     public void HandleMismatch() {
         NextPlayer();
     }
@@ -82,7 +78,24 @@ public class MgMemoryContext : NetworkedSingleton<MgMemoryContext> {
 
         RpcClearMemoryOnClients();
         yield return new WaitForSeconds(0.1f);
-        MgMemoryController.Instance.ShowScoreboard();
+
+        var allActivePlayers = FindObjectsByType<MgMemoryPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
+            .Where(p => p.IsActiveForCurrentScene)
+            .OrderByDescending(p => p.Score)
+            .ToList();
+
+        var rankings = new List<MgMemoryPlayerRankingData>();
+        for (var i = 0; i < allActivePlayers.Count; i++) {
+            var player = allActivePlayers[i];
+            var rank = i + 1;
+            var reward = CalculateCoinReward(rank);
+
+            player.SetEarnedCoinReward(reward);
+
+            rankings.Add(MgMemoryPlayerRankingData.FromPlayer(player, rank));
+        }
+
+        MgMemoryController.Instance.ShowScoreboard(rankings);
         yield return new WaitForSeconds(scoreboardDuration);
 
         StopMemory();
@@ -92,11 +105,23 @@ public class MgMemoryContext : NetworkedSingleton<MgMemoryContext> {
     [Server]
     private void StartMemory() {
         var randomSeed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
+        var memoryFacts = LoadMemoryCardFacts();
 
-        MgMemoryGameController.Instance.InitializeCardsOnClients(randomSeed);
-        RpcInitializeCardsOnClients(randomSeed);
+        MgMemoryGameController.Instance.InitializeCardsOnClients(randomSeed, memoryFacts);
+        RpcInitializeCardsOnClients(randomSeed, memoryFacts);
 
         StartCoroutine(DelayedTurnDisplayInit());
+    }
+
+    private List<MemoryFactData> LoadMemoryCardFacts() {
+        var jsonFile = Resources.Load<TextAsset>(memoryFactsFileName);
+        var memoryFactsData = JsonConvert.DeserializeObject<List<MemoryFactData>>(jsonFile.text);
+        memoryFacts = memoryFactsData
+            .OrderBy(x => UnityEngine.Random.Range(0f, 1f))
+            .Take(12)
+            .ToList();
+
+        return memoryFacts;
     }
 
     private IEnumerator DelayedTurnDisplayInit() {
@@ -105,8 +130,8 @@ public class MgMemoryContext : NetworkedSingleton<MgMemoryContext> {
     }
 
     [ClientRpc]
-    private void RpcInitializeCardsOnClients(int randomSeed) {
-        MgMemoryGameController.Instance.InitializeCardsOnClients(randomSeed);
+    private void RpcInitializeCardsOnClients(int randomSeed, List<MemoryFactData> memoryFacts) {
+        MgMemoryGameController.Instance.InitializeCardsOnClients(randomSeed, memoryFacts);
     }
 
     [ClientRpc]
@@ -150,5 +175,9 @@ public class MgMemoryContext : NetworkedSingleton<MgMemoryContext> {
             StopCoroutine(countdownCoroutine);
             countdownCoroutine = null;
         }
+    }
+
+    private int CalculateCoinReward(int rank) {
+        return 100 / (int)Mathf.Pow(2, rank - 1);
     }
 }

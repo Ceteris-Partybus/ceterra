@@ -1,0 +1,62 @@
+[
+    {
+        "title": "Fakt 1",
+        "description": "Das ist die Beschreibung für Fakt 1",
+        "imagePath": "Minigame/Memory/og_1"
+    },
+    {
+        "title": "Fakt 2",
+        "description": "Das ist die Beschreibung für Fakt 2",
+        "imagePath": "Minigame/Memory/og_2"
+    },
+    {
+        "title": "Fakt 3",
+        "description": "Das ist die Beschreibung für Fakt 3",
+        "imagePath": "Minigame/Memory/og_3"
+    },
+    {
+        "title": "Fakt 4",
+        "description": "Das ist die Beschreibung für Fakt 4",
+        "imagePath": "Minigame/Memory/og_4"
+    },
+    {
+        "title": "Fakt 5",
+        "description": "Das ist die Beschreibung für Fakt 5",
+        "imagePath": "Minigame/Memory/og_5"
+    },
+    {
+        "title": "Fakt 6",
+        "description": "Das ist die Beschreibung für Fakt 6",
+        "imagePath": "Minigame/Memory/og_6"
+    },
+    {
+        "title": "Fakt 7",
+        "description": "Das ist die Beschreibung für Fakt 7",
+        "imagePath": "Minigame/Memory/og_7"
+    },
+    {
+        "title": "Fakt 8",
+        "description": "Das ist die Beschreibung für Fakt 8",
+        "imagePath": "Minigame/Memory/og_8"
+    },
+    {
+        "title": "Fakt 9",
+        "description": "Das ist die Beschreibung für Fakt 9",
+        "imagePath": "Minigame/Memory/og_9"
+    },
+    {
+        "title": "Fakt 10",
+        "description": "Das ist die Beschreibung für Fakt 10",
+        "imagePath": "Minigame/Memory/og_10"
+    },
+    {
+        "title": "Fakt 11",
+        "description": "Das ist die Beschreibung für Fakt 11",
+        "imagePath": "Minigame/Memory/og_11"
+    },
+    {
+        "title": "Fakt 12",
+        "description": "Das ist die Beschreibung für Fakt 12",
+        "imagePath": "Minigame/Memory/og_12"
+    }
+]

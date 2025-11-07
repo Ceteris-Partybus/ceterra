@@ -667,8 +667,9 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  GameDuration: 100
-  scoreboardDuration: 5
+  GameDuration: 20
+  scoreboardDuration: 2
+  memoryFactsFileName: Data/Productiondata/Minigames/Memory/memory_facts
 --- !u!114 &1055850417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -782,19 +783,6 @@ MonoBehaviour:
   syncInterval: 0
   cardPrefab: {fileID: -4675493365278425805, guid: a4ad8e84ce710d04db8525f83cd9fb44, type: 3}
   gridTransform: {fileID: 1072197777}
-  sprites:
-  - {fileID: -499450, guid: 3e163132cad7eda47922b5439d37a782, type: 3}
-  - {fileID: -1552375596, guid: 4ea1d3f6c3de4b645a4da0a5c2ed1d5e, type: 3}
-  - {fileID: 2103514642, guid: 60dc2356f31d6c84ba0d471e7c274be4, type: 3}
-  - {fileID: -288150384, guid: fbbfcd3ec1234754a8cec4fd539adb26, type: 3}
-  - {fileID: 1658741168, guid: 25d459e3a938a5e4da6878b080a9077b, type: 3}
-  - {fileID: 512331088, guid: 4f1b3a73b050c964d80723653d33acf5, type: 3}
-  - {fileID: 2102879783, guid: fcf9a0c2ec8d8b34a8e0a5e8135ec559, type: 3}
-  - {fileID: -1741906600, guid: d6dc53839f7934e499120500cb263d82, type: 3}
-  - {fileID: 1303891291, guid: 05fb294b9c91f84479699a1037207e9c, type: 3}
-  - {fileID: -1100433579, guid: 6963d66ff93349f4e87e530ee27de2f8, type: 3}
-  - {fileID: 753646091, guid: 1ab0361e7d581a049a5cbcc000dbd1fd, type: 3}
-  - {fileID: 598599663, guid: d22b783ee3c0c7e43a790e13747d0db6, type: 3}
   pointsForCorrectMatch: 1
 --- !u!1 &1629093450
 GameObject:

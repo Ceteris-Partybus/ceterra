@@ -7,22 +7,24 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
     [SerializeField] private Card cardPrefab;
     [SerializeField] private Transform gridTransform;
     [SerializeField] private readonly float checkDelay = 0.5f;
-    [SerializeField] Sprite[] sprites;
     [SerializeField] private int pointsForCorrectMatch = 1;
 
     private List<Sprite> spritePairs;
+    private List<MemoryFactData> currentMemoryFacts;
 
     protected override void Start() {
         base.Start();
-
         spritePairs = new();
     }
 
     public void PrepareSprites() {
         spritePairs = new();
-        for (var i = 0; i < sprites.Length; i++) {
-            spritePairs.Add(sprites[i]);
-            spritePairs.Add(sprites[i]);
+
+        // Für jedes Fact ein Sprite-Paar erstellen
+        foreach (var fact in currentMemoryFacts) {
+            var sprite = Resources.Load<Sprite>(fact.imagePath);
+            spritePairs.Add(sprite);
+            spritePairs.Add(sprite);
         }
         ShuffleSprites();
     }
@@ -36,7 +38,9 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
         }
     }
 
-    public void InitializeCardsOnClients(int randomSeed) {
+    public void InitializeCardsOnClients(int randomSeed, List<MemoryFactData> memoryFacts) {
+        currentMemoryFacts = memoryFacts;
+
         Random.InitState(randomSeed);
         PrepareSprites();
 
@@ -49,7 +53,20 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
             card.SetIconSprite(spritePairs[i]);
             card.memoryController = this;
             card.SetCardIndex(i);
+
+            var factData = GetFactDataForSprite(spritePairs[i]);
+            card.SetFactData(factData.title, factData.description, factData.imagePath);
         }
+    }
+
+    private MemoryFactData GetFactDataForSprite(Sprite sprite) {
+        foreach (var fact in currentMemoryFacts) {
+            var factSprite = Resources.Load<Sprite>(fact.imagePath);
+            if (factSprite == sprite) {
+                return fact;
+            }
+        }
+        return null;
     }
 
     public void SelectCard(int cardIndex, MgMemoryPlayer currentPlayer) {
@@ -71,13 +88,13 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
                 FindCardByIndex(currentPlayer.SecondSelectedCardIndex).GetIconSprite;
 
             if (match) {
-                MgMemoryController.Instance.UpdatePlayerScore(currentPlayer.Score + pointsForCorrectMatch);
                 currentPlayer.AddScore(pointsForCorrectMatch);
+                currentPlayer.CmdAddScore(pointsForCorrectMatch); // Für Auswertung der Punkte -> Scoreboard
+
+                MgMemoryController.Instance.UpdatePlayerScore(currentPlayer.Score);
                 CmdMarkCardsAsMatched(currentPlayer.FirstSelectedCardIndex, currentPlayer.SecondSelectedCardIndex);
 
                 var matchedCard = FindCardByIndex(currentPlayer.FirstSelectedCardIndex);
-                matchedCard.SetFactData("Partybus", "This is a fact about the Partybus.", "Minigame/Memory/og_2");
-
                 CmdHandleMatch(matchedCard.FactData);
             }
             else {

@@ -62,6 +62,7 @@ public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
     public void UpdateCountdown(float timeLeft) {
         var minutes = Mathf.FloorToInt(timeLeft / 60f);
         var seconds = Mathf.FloorToInt(timeLeft % 60f);
+
         countdownLabel.text = $"{minutes:00}:{seconds:00}";
     }
 
@@ -115,32 +116,29 @@ public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
     }
 
     [Server]
-    public void ShowScoreboard(/*List<MgQuizduelPlayerRankingData> playerRankings*/) {
+    public void ShowScoreboard(List<MgMemoryPlayerRankingData> playerRankings) {
         Debug.Log("Showing scoreboard on clients");
-        RpcShowScoreboard(/*playerRankings*/);
+        RpcShowScoreboard(playerRankings);
     }
 
     [ClientRpc]
-    private void RpcShowScoreboard() {
-        Debug.Log("RpcShowScoreboard called on client");
-
+    private void RpcShowScoreboard(List<MgMemoryPlayerRankingData> playerRankings) {
         SetElementDisplay(memoryScreen, false);
         SetElementDisplay(scoreboardScreen, true);
 
-        /*
-                for (var i = 0; i < playerRankElements.Count; i++) {
-                    if (i < playerRankings.Count) {
+        for (var i = 0; i < playerRankElements.Count; i++) {
+            if (i < playerRankings.Count) {
 
-                        playerNameLabels[i].text = playerRankings[i].playerName;
-                        playerScoreLabels[i].text = $"{playerRankings[i].score}/{MgQuizduelContext.Instance.MaxQuestions}";
-                        playerRewardLabels[i].text = GetLocalizedRewardText(playerRankings[i].reward);
+                playerNameLabels[i].text = playerRankings[i].playerName;
+                playerScoreLabels[i].text = playerRankings[i].score.ToString();
+                playerRewardLabels[i].text = GetLocalizedRewardText(playerRankings[i].reward);
 
-                        SetElementDisplay(playerRankElements[i], true);
-                    }
-                    else {
-                        SetElementDisplay(playerRankElements[i], false);
-                    }
-                } */
+                SetElementDisplay(playerRankElements[i], true);
+            }
+            else {
+                SetElementDisplay(playerRankElements[i], false);
+            }
+        }
     }
 
     private string GetLocalizedRewardText(int reward) {
