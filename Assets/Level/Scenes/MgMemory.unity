@@ -667,8 +667,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  GameDuration: 20
-  scoreboardDuration: 2
+  GameDuration: 90
+  scoreboardDuration: 10
   memoryFactsFileName: Data/Productiondata/Minigames/Memory/memory_facts
 --- !u!114 &1055850417
 MonoBehaviour:
