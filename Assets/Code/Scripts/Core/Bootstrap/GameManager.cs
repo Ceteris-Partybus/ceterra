@@ -125,7 +125,7 @@ public class GameManager : NetworkRoomManager {
 
         var randomIndex = UnityEngine.Random.Range(0, availableMinigames.Count);
         var selectedMinigame = availableMinigames[randomIndex];
-        StartMinigame(selectedMinigame);
+        StartMinigame("MgMemory");
     }
 
     /// <summary>
@@ -159,7 +159,7 @@ public class GameManager : NetworkRoomManager {
         // timezone Europe/Berlin works on windows but not on linux / will be handled on server-side
         string timestamp = DateTime.UtcNow.ToString("o"); // ISO 8601 format
         var activeConnections = NetworkServer.connections.Count;
-        
+
         var logData = new LogData {
             Event = eventType,
             EventID = Guid.NewGuid().ToString(),
@@ -169,7 +169,7 @@ public class GameManager : NetworkRoomManager {
             TotalPlayersAmount = activeConnections,
             PlayerName = playerName,
         };
-        
+
         Debug.Log(JsonUtility.ToJson(logData));
     }
 
@@ -179,10 +179,10 @@ public class GameManager : NetworkRoomManager {
     }
 
     public override void OnRoomServerDisconnect(NetworkConnectionToClient conn) {
-        string playerName = conn.identity != null ? 
-            conn.identity.GetComponent<LobbyPlayer>()?.PlayerName ?? "Unknown" : 
+        string playerName = conn.identity != null ?
+            conn.identity.GetComponent<LobbyPlayer>()?.PlayerName ?? "Unknown" :
             "Unknown";
-        
+
         LogConnectionEvent("ClientDisconnected", conn, playerName);
         base.OnRoomServerDisconnect(conn);
     }

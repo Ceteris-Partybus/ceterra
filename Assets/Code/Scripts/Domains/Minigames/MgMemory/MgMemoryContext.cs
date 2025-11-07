@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using Mirror;
 using UnityEngine;
 
-public class MgMemoryContext : NetworkedSingleton<MgMemoryContext> {
+public class MgMemoryContext : MgContext<MgMemoryContext, MgMemoryPlayer> {
 
     [Header("Minigame Settings")]
     [SerializeField] private float GameDuration;
@@ -23,8 +23,7 @@ public class MgMemoryContext : NetworkedSingleton<MgMemoryContext> {
 
     private List<MgMemoryPlayer> players;
 
-    protected override void Start() {
-        base.Start();
+    public override void OnStartGame() {
         if (isServer) {
             StartCoroutine(MemoryRoutine());
             countdownCoroutine = StartCoroutine(UpdateCountdown());
@@ -71,7 +70,7 @@ public class MgMemoryContext : NetworkedSingleton<MgMemoryContext> {
     }
 
     private IEnumerator MemoryRoutine() {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(5f);
         InitializePlayers();
         StartMemory();
         yield return new WaitForSeconds(GameDuration);

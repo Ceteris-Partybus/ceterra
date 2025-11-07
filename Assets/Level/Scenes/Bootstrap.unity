@@ -333,6 +333,7 @@ MonoBehaviour:
   - MgGarbage
   - MgQuizduel
   - MgOcean
+  - MgMemory
   playedMinigames: []
 --- !u!114 &1926814289
 MonoBehaviour:
