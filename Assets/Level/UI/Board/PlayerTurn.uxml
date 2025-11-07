@@ -33,12 +33,12 @@
     <ui:VisualElement name="turn-buttons-container">
         <ui:Button name="roll-dice-button">
             <Bindings>
-                <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56155033622798336)" />
+                <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(61449390812135424)" />
             </Bindings>
         </ui:Button>
         <ui:Button name="board-button">
             <Bindings>
-                <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56155119715082240)" />
+                <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(61449390812135426)" />
             </Bindings>
         </ui:Button>
         <ui:Button name="settings-button">
