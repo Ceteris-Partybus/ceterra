@@ -100,7 +100,7 @@ public class MgMemoryContext : NetworkedSingleton<MgMemoryContext> {
     }
 
     private IEnumerator DelayedTurnDisplayInit() {
-        yield return new WaitForSeconds(0.2f); // Kurze Verzögerung
+        yield return new WaitForSeconds(0.2f);
         RpcInitializeTurnDisplayOnClients();
     }
 

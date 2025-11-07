@@ -4,6 +4,7 @@ using Mirror;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.Localization.Settings;
+using System;
 
 public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
     [SerializeField] private UIDocument uiDocument;
@@ -20,6 +21,9 @@ public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
 
     private VisualElement scoreboardScreen;
     private VisualElement factPopup;
+    private Label factTitle;
+    private Label factDescription;
+    private VisualElement factImage;
     private Label progressText;
     private readonly List<Label> playerNameLabels = new();
     private readonly List<Label> playerScoreLabels = new();
@@ -37,6 +41,10 @@ public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
         memoryScreen = root.Q<VisualElement>("memory-screen");
         scoreboardScreen = root.Q<VisualElement>("scoreboard-screen");
         factPopup = root.Q<VisualElement>("fact-popup");
+        factTitle = root.Q<Label>("fact-title");
+        factDescription = root.Q<Label>("fact-description");
+        factImage = root.Q<VisualElement>("fact-image");
+
         progressText = root.Q<Label>("progress-text");
 
         for (var i = 1; i <= 4; i++) {
@@ -66,13 +74,18 @@ public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
     }
 
     [Server]
-    public void ShowFactPopup() {
-        RpcShowFactPopup();
+    public void ShowFactPopup(MemoryFactData factData) {
+        RpcShowFactPopup(factData);
     }
 
     [ClientRpc]
-    private void RpcShowFactPopup() {
+    private void RpcShowFactPopup(MemoryFactData factData) {
         canvas.sortingOrder = 0;
+        factTitle.text = factData.title;
+        this.factDescription.text = factData.description;
+
+        var sprite = Resources.Load<Sprite>(factData.imagePath);
+        factImage.style.backgroundImage = new StyleBackground(sprite);
 
         SetElementDisplay(factPopup, true);
 

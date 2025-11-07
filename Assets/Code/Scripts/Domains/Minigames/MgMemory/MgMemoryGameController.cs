@@ -75,7 +75,10 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
                 currentPlayer.AddScore(pointsForCorrectMatch);
                 CmdMarkCardsAsMatched(currentPlayer.FirstSelectedCardIndex, currentPlayer.SecondSelectedCardIndex);
 
-                CmdHandleMatch();
+                var matchedCard = FindCardByIndex(currentPlayer.FirstSelectedCardIndex);
+                matchedCard.SetFactData("Partybus", "This is a fact about the Partybus.", "Minigame/Memory/og_2");
+
+                CmdHandleMatch(matchedCard.FactData);
             }
             else {
                 CmdHideCardsOnAllClients(currentPlayer.FirstSelectedCardIndex, currentPlayer.SecondSelectedCardIndex);
@@ -103,10 +106,8 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
     }
 
     [Command(requiresAuthority = false)]
-    private void CmdHandleMatch() {
-        //MgMemoryContext.Instance.HandleMatch();
-
-        MgMemoryController.Instance.ShowFactPopup();
+    private void CmdHandleMatch(MemoryFactData factData) {
+        MgMemoryController.Instance.ShowFactPopup(factData);
     }
 
     [Command(requiresAuthority = false)]
