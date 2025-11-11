@@ -1761,7 +1761,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 56668768562413568
-    m_Localized: '{0} - {1}m entfernt, nimmt {2} Schaden'
+    m_Localized: '{0}, {1}m entfernt, nimmt {2} Schaden'
     m_Metadata:
       m_Items: []
   - m_Id: 56670997235204096
@@ -1873,7 +1873,12 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 65711785694019584
-    m_Localized: '{0} - nimmt {1} Schaden'
+    m_Localized: '{0} nimmt {1} Schaden'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65747542009790464
+    m_Localized: Die Flammen sind erloschen, doch leichter Rauch liegt noch in der
+      Luft.
     m_Metadata:
       m_Items: []
   references:

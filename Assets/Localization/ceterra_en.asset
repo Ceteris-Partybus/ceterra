@@ -1750,7 +1750,7 @@ MonoBehaviour:
       m_Items:
       - rid: 7894437812287832149
   - m_Id: 56668768562413568
-    m_Localized: '{0} - {1}m away, takes {2} damage'
+    m_Localized: '{0}, {1}m away, takes {2} damage'
     m_Metadata:
       m_Items: []
   - m_Id: 56670997235204096
@@ -1860,7 +1860,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 65711785694019584
-    m_Localized: '{0} - takes {1} damage'
+    m_Localized: '{0} takes {1} damage'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65747542009790464
+    m_Localized: The flames have died out, but faint smoke still lingers in the air.
     m_Metadata:
       m_Items: []
   references:

@@ -6,7 +6,7 @@ public class Wildfire : CatastropheEffect {
     private const int ROUNDS = 3;
     private static readonly int[] DAMAGE_ENVIRONMENT = { 10, 20, 25 };
     private static readonly int[] DAMAGE_HEALTH = { 5, 10, 15 };
-    private static readonly long[] MODAL_INFO_TRANSLATION_IDS = { 63999993661964288, 63999993620021248, 56648972298977280 };
+    private static readonly long[] MODAL_INFO_TRANSLATION_IDS = { 65747542009790464, 63999993620021248, 56648972298977280 };
 
     private SkyboxManager skyboxManager;
 
@@ -26,7 +26,8 @@ public class Wildfire : CatastropheEffect {
 
     public override IEnumerator End() {
         skyboxManager.ClearSmoke();
-        yield return null;
+        RpcShowCatastropheInfo(null, 63999993661964288, CatastropheType.WILDFIRE);
+        yield return new WaitForSeconds(Modal.DEFAULT_DISPLAY_DURATION);
     }
 
     private IEnumerator ApplyDamage() {
