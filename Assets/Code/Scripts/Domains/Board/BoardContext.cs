@@ -401,7 +401,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     [Server]
     public IEnumerator OnRoundCompleted() {
-        yield return StartCoroutine(ProcessInvestments());
+        yield return ProcessInvestments();
         ApplyCyberneticEffects();
 
         UpdateResourceStat(resourcesNextRound);
@@ -410,7 +410,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         resourceHistory.Add(new ResourceHistoryEntry(resourcesNextRound, HistoryEntryType.DEPOSIT, resourceHistoryEntryName));
         resourcesNextRound = CalculateResourcesNextRound();
 
-        yield return StartCoroutine(StartMinigame());
+        yield return StartMinigame();
         GameManager.Singleton.IncrementRound();
         if (GameManager.Singleton.CurrentRound > GameManager.Singleton.MaxRounds) {
             GameManager.Singleton.StopGameSwitchEndScene();
