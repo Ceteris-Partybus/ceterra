@@ -8,17 +8,17 @@ public class Earthquake : CatastropheEffect {
 
     public Earthquake() : base(ROUNDS) { }
 
-    protected override IEnumerator OnRaging() {
+    protected override IEnumerator Rage() {
         if (base.remainingRounds == ROUNDS) {
             yield break;
         }
     }
 
-    public override IEnumerator OnCatastropheRages() {
+    protected override IEnumerator Start() {
         throw new System.NotImplementedException();
     }
 
-    public override IEnumerator OnCatastropheEnds() {
+    public override IEnumerator End() {
         throw new System.NotImplementedException();
     }
 }

@@ -16,12 +16,17 @@ public abstract class CatastropheEffect {
 
     public bool HasEnded() => remainingRounds == 0;
 
-    public abstract IEnumerator OnCatastropheRages();
-    protected abstract IEnumerator OnRaging();
-    public abstract IEnumerator OnCatastropheEnds();
+    protected abstract IEnumerator Start();
+    protected abstract IEnumerator Rage();
+    public abstract IEnumerator End();
 
-    public IEnumerator Tick() {
-        yield return OnRaging();
+    public IEnumerator OnStart() {
+        yield return Start();
+        remainingRounds--;
+    }
+
+    public IEnumerator OnRage() {
+        yield return Rage();
         remainingRounds--;
     }
 

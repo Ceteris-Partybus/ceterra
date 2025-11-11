@@ -12,9 +12,9 @@ public class CatastropheManager : NetworkedSingleton<CatastropheManager> {
 
     [Server]
     public IEnumerator RegisterCatastrophe(CatastropheType type) {
-        var effect = type.CreateEffect();
-        ongoingCatastrophes.Add(effect);
-        yield return effect.OnCatastropheRages();
+        var catastrophe = type.CreateEffect();
+        ongoingCatastrophes.Add(catastrophe);
+        yield return catastrophe.OnStart();
     }
 
     [Server]
@@ -22,17 +22,11 @@ public class CatastropheManager : NetworkedSingleton<CatastropheManager> {
         foreach (var catastrophe in ongoingCatastrophes) {
             if (catastrophe.HasEnded()) {
                 ongoingCatastrophes.Remove(catastrophe);
-                yield return catastrophe.OnCatastropheEnds();
+                yield return catastrophe.End();
                 continue;
             }
-            yield return catastrophe.Tick();
-            RpcDecreaseCatastropheRounds(catastrophe);
+            yield return catastrophe.OnRage();
         }
-    }
-
-    [ClientRpc]
-    private void RpcDecreaseCatastropheRounds(CatastropheEffect catastrophe) {
-        catastrophe.RemainingRounds--;
     }
 
     [Server]
