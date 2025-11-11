@@ -1751,6 +1751,10 @@ MonoBehaviour:
     m_Key: modal.catastrophe.damage-taken
     m_Metadata:
       m_Items: []
+  - m_Id: 65711785694019584
+    m_Key: modal.catastrophe.global-damage-taken
+    m_Metadata:
+      m_Items: []
   - m_Id: 56670997235204096
     m_Key: globals.coins
     m_Metadata:

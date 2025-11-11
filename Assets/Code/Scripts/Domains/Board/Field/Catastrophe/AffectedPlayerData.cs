@@ -1,4 +1,6 @@
 public class AffectedPlayerData {
+    private const long GLOBAL_DAMAGE_TAKEN_TRANSLATION_ID = 65711785694019584;
+    private const long DAMAGE_TAKEN_TRANSLATION_ID = 56668768562413568;
     private BoardPlayer player;
     public BoardPlayer Player => player;
     private float distance;
@@ -25,6 +27,9 @@ public class AffectedPlayerData {
     }
 
     public override string ToString() {
-        return LocalizationManager.Instance.GetLocalizedText(56668768562413568, new object[] { Player.PlayerName, Distance.ToString("F2"), InflictedDamage });
+        if (distance == -1) {
+            return LocalizationManager.Instance.GetLocalizedText(GLOBAL_DAMAGE_TAKEN_TRANSLATION_ID, new object[] { Player.PlayerName, InflictedDamage });
+        }
+        return LocalizationManager.Instance.GetLocalizedText(DAMAGE_TAKEN_TRANSLATION_ID, new object[] { Player.PlayerName, Distance.ToString("F2"), InflictedDamage });
     }
 }

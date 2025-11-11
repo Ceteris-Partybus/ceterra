@@ -1859,6 +1859,10 @@ MonoBehaviour:
     m_Localized: The smoke has cleared, leaving behind silence and scorched earth.
     m_Metadata:
       m_Items: []
+  - m_Id: 65711785694019584
+    m_Localized: '{0} - takes {1} damage'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
