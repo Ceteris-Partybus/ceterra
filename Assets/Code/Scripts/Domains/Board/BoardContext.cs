@@ -356,6 +356,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
             yield return new WaitUntil(() => netIdentity != null && netIdentity.observers.Count == GameManager.Singleton.roomSlots.Count);
 
             if (totalMovementsCompleted == 0) {
+                SkyboxManager.Instance.RpcOnBoardSceneEntered();
                 yield return CatastropheManager.Instance.Tick();
             }
 

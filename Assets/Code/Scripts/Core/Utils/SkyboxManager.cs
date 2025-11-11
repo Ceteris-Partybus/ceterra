@@ -18,11 +18,11 @@ public class SkyboxManager : NetworkedSingleton<SkyboxManager> {
     private float smokeAttenuationInitalValue;
 
     protected override void Start() {
-        base.Start();
         volume = GetComponent<Volume>();
         volume.profile.TryGet(out hdriskybox);
         volume.profile.TryGet(out fog);
         smokeAttenuationInitalValue = fog.meanFreePath.value;
+        base.Start();
     }
 
     void FixedUpdate() {
@@ -68,5 +68,23 @@ public class SkyboxManager : NetworkedSingleton<SkyboxManager> {
         }
 
         fog.meanFreePath.value = end;
+    }
+
+    [Client]
+    public void OnMinigameStarted() {
+        SetComponents(false);
+    }
+
+    [ClientRpc]
+    public void RpcOnBoardSceneEntered() {
+        SetComponents(true);
+    }
+
+    private void SetComponents(bool isActive) {
+        if (!IsInitialized) {
+            return;
+        }
+        fog.active = isActive;
+        sunLight.enabled = isActive;
     }
 }
