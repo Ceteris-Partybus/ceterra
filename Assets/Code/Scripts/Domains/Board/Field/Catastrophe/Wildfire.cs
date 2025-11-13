@@ -31,6 +31,7 @@ public class Wildfire : CatastropheEffect {
     }
 
     private IEnumerator ApplyDamage() {
+        yield return CameraHandler.Instance.ZoomIn();
         var affectedPlayers = GetAffectedPlayersGlobal(DAMAGE_HEALTH[remainingRounds]);
         RpcShowCatastropheInfo(affectedPlayers.Select(p => p.ToString()).Aggregate((a, b) => a + "\n" + b), MODAL_INFO_TRANSLATION_IDS[remainingRounds], CatastropheType.WILDFIRE);
         yield return new WaitForSeconds(Modal.DEFAULT_DISPLAY_DURATION);
