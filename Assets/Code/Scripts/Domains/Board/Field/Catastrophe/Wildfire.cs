@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Linq;
-using UnityEngine;
 
 public class Wildfire : CatastropheEffect {
     private const int ROUNDS = 3;
@@ -17,12 +15,11 @@ public class Wildfire : CatastropheEffect {
     public override long GetEndDescriptionId() => 63999993661964288;
     public override long GetDisplayNameId() => 56648926065164288;
     public override bool IsGlobal() => true;
-    protected override int GetCurrentRoundHealthDamage() => DAMAGE_HEALTH[remainingRounds];
-    protected override int GetCurrentRoundEnvironmentDamage() => DAMAGE_ENVIRONMENT[remainingRounds];
+    protected override int GetCurrentRoundHealthDamage() => DAMAGE_HEALTH[remainingRounds - 1];
+    protected override int GetCurrentRoundEnvironmentDamage() => DAMAGE_ENVIRONMENT[remainingRounds - 1];
     protected override int GetCurrentRoundDamageResources() => 0;
     protected override int GetCurrentRoundDamageEconomy() => 0;
-    protected override long GetCurrentRoundModalDescriptionId() => MODAL_INFO_TRANSLATION_IDS[remainingRounds];
-
+    protected override long GetCurrentRoundModalDescriptionId() => MODAL_INFO_TRANSLATION_IDS[remainingRounds - 1];
     protected override IEnumerator Start() {
         skyboxManager.SpawnSmoke(10f);
         yield break;

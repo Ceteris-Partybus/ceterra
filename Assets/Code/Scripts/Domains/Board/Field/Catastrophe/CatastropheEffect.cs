@@ -50,8 +50,7 @@ public abstract class CatastropheEffect {
     }
 
     public IEnumerator OnEnd() {
-        RpcShowCatastropheInfo(null);
-        yield return new WaitForSeconds(Modal.DEFAULT_DISPLAY_DURATION);
+        yield return RpcShowAndHideCatastropheInfo(null);
     }
 
     protected IEnumerator ApplyDamageToPlayers(List<AffectedPlayerData> affectedPlayers) {
@@ -71,36 +70,33 @@ public abstract class CatastropheEffect {
     }
 
     private IEnumerator ApplyDamage() {
-        yield return CameraHandler.Instance.ZoomIn();
+        if (!CameraHandler.Instance.IsZoomedIn) {
+            CameraHandler.Instance.RpcZoomIn();
+            yield return new WaitForSeconds(CameraHandler.Instance.PlayerToZoomBlendTime + .25f);
+        }
         var affectedPlayers = IsGlobal() ? GetAffectedPlayersGlobal(GetCurrentRoundHealthDamage()) : GetAffectedPlayersWithinRange(Vector3.zero, 0);
         //affectedPlayers.Select(p => p.ToString()).Aggregate((a, b) => a + "\n" + b), 
-        RpcShowCatastropheInfo("", GetCurrentRoundModalDescriptionId());
-        yield return new WaitForSeconds(Modal.DEFAULT_DISPLAY_DURATION);
-
-        RpcHideCatastropheInfo();
-        yield return new WaitForSeconds(.5f);
-
+        yield return RpcShowAndHideCatastropheInfo("", GetCurrentRoundModalDescriptionId());
         yield return ApplyDamageToPlayers(affectedPlayers);
         yield return EnsureCameraOnCurrentPlayer();
 
         CameraHandler.Instance.RpcZoomOut();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(CameraHandler.Instance.ZoomToPlayerBlendTime + .25f);
 
         BoardContext.Instance.UpdateEnvironmentStat(-GetCurrentRoundEnvironmentDamage());
         BoardContext.Instance.UpdateResourceStat(-GetCurrentRoundDamageResources());
         BoardContext.Instance.UpdateEconomyStat(-GetCurrentRoundDamageEconomy());
     }
 
-    protected void RpcShowCatastropheInfo(string affectedPlayerInfo, long descriptionId) {
+    protected IEnumerator RpcShowAndHideCatastropheInfo(string affectedPlayerInfo, long descriptionId = -1) {
+        if (descriptionId == -1) {
+            descriptionId = GetEndDescriptionId();
+        }
         CatastropheManager.Instance.RpcShowCatastropheInfo(affectedPlayerInfo, descriptionId, this);
-    }
+        yield return new WaitForSeconds(Modal.DEFAULT_DISPLAY_DURATION);
 
-    protected void RpcShowCatastropheInfo(string affectedPlayerInfo) {
-        CatastropheManager.Instance.RpcShowCatastropheInfo(affectedPlayerInfo, this.GetEndDescriptionId(), this);
-    }
-
-    protected void RpcHideCatastropheInfo() {
         CatastropheManager.Instance.RpcHideCatastropheInfo();
+        yield return new WaitForSeconds(.5f);
     }
 
     protected IEnumerator EnsureCameraOnCurrentPlayer() {
