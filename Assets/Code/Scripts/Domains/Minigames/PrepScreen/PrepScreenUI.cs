@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -34,6 +33,7 @@ public class PrepScreenUI : MonoBehaviour {
         for (int i = 0; i < players.Count; i++) {
             playerList[i].parent.parent.style.display = DisplayStyle.Flex;
             playerList[i].text = players[i].PlayerName;
+
             playerObjectList.Add(new PrepPlayerUI(buttonList[i], players[i]));
         }
         screenshotImage.style.backgroundImage = new StyleBackground(context.GetScreenshot());
