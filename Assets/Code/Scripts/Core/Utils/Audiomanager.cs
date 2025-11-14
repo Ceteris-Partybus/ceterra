@@ -6,10 +6,10 @@ public class Audiomanager : MonoBehaviour {
     [Header("UI Sounds")]
     public AudioSource ClickAudioSource;
     public AudioClip buttonClickSound;
-    
+
     public AudioSource InvestAudioSource;
     public AudioClip InvestClickSound;
-    
+
     public AudioSource FundsAudioSource;
     public AudioClip FundsClickSound;
 
@@ -28,57 +28,67 @@ public class Audiomanager : MonoBehaviour {
     public AudioSource SuccessSource;
     public AudioClip SuccessSound;
 
+    public AudioSource GarbageBinOpenSource;
+    public AudioClip GarbageBinOpenSound;
+
+    public AudioSource GarbageBinCloseSource;
+    public AudioClip GarbageBinCloseSound;
+
 
     private void Awake() {
-        
+
         if (Instance != null && Instance != this) {
             Destroy(gameObject);
             return;
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject); 
+        DontDestroyOnLoad(gameObject);
     }
 
     public void PlayClickSound() {
-        PlaySound(ClickAudioSource, buttonClickSound, "ButtonClickSound");
+        PlaySound(ClickAudioSource, buttonClickSound);
     }
 
     public void PlayInvestSound() {
-        PlaySound(InvestAudioSource, InvestClickSound, "InvestClickSound");
+        PlaySound(InvestAudioSource, InvestClickSound);
     }
 
     public void PlayFundsSound() {
-        PlaySound(FundsAudioSource, FundsClickSound, "FundsClickSound");
+        PlaySound(FundsAudioSource, FundsClickSound);
     }
 
     public void PlayRessourceSound() {
-        PlaySound(RessourceAudioSource, RessourceClickSound, "RessourceClickSound");
+        PlaySound(RessourceAudioSource, RessourceClickSound);
     }
 
     public void PlayDiceStopSound() {
-        PlaySound(DiceAudioSource, DiceStopSound, "DiceStopSound");
+        PlaySound(DiceAudioSource, DiceStopSound);
     }
 
     public void PlayMoneyHealthSound() {
-        PlaySound(MoneyHealthSource, MoneyHealthSound, "MoneyHealthSound");
+        PlaySound(MoneyHealthSource, MoneyHealthSound);
     }
 
     public void PlayFailSound() {
-        PlaySound(FailSource, FailSound, "FailSound");
+        PlaySound(FailSource, FailSound);
     }
 
     public void PlaySuccessSound() {
-        PlaySound(SuccessSource, SuccessSound, "SuccessSound");
+        PlaySound(SuccessSource, SuccessSound);
     }
 
+    public void PlayGarbageBinOpenSound() {
+        PlaySound(GarbageBinOpenSource, GarbageBinOpenSound);
+    }
 
-    private void PlaySound(AudioSource source, AudioClip clip, string name) {
-        if (source != null && clip != null) {
+    public void PlayGarbageBinCloseSound() {
+        PlaySound(GarbageBinCloseSource, GarbageBinCloseSound);
+    }
+
+    private void PlaySound(AudioSource source, AudioClip clip) {
+        if (source != null && clip != null && !source.isPlaying) {
             source.PlayOneShot(clip);
-        }
-        else {
-            Debug.LogWarning($"AudioSource oder Clip für '{name}' nicht gesetzt!");
         }
     }
 }
