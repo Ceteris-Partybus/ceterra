@@ -68,7 +68,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  sunLight: {fileID: 7320148479674342198}
+  sunlight: {fileID: 7320148479674342198}
   rotationSpeed: 1
   shouldPersistAcrossScenes: 0
 --- !u!114 &1800590607416826290
