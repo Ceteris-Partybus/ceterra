@@ -16,18 +16,42 @@ public abstract class CatastropheEffect {
 
     public bool HasEnded() => remainingRounds == 0;
 
-    protected abstract IEnumerator Start();
-    protected abstract IEnumerator Rage();
-    public abstract IEnumerator End();
+    public abstract long GetEndDescriptionId();
+    public abstract long GetDisplayNameId();
+    public abstract bool IsGlobal();
+    protected abstract int GetCurrentRoundHealthDamage();
+    protected abstract int GetCurrentRoundEnvironmentDamage();
+    protected abstract int GetCurrentRoundDamageResources();
+    protected abstract int GetCurrentRoundDamageEconomy();
+    protected abstract long GetCurrentRoundModalDescriptionId();
+
+    protected virtual IEnumerator Start() {
+        yield break;
+    }
+
+    protected virtual IEnumerator Rage() {
+        yield break;
+    }
+
+    protected virtual IEnumerator End() {
+        yield break;
+    }
 
     public IEnumerator OnStart() {
         yield return Start();
+        yield return ApplyDamage();
         remainingRounds--;
     }
 
     public IEnumerator OnRage() {
         yield return Rage();
+        yield return ApplyDamage();
         remainingRounds--;
+    }
+
+    public IEnumerator OnEnd() {
+        RpcShowCatastropheInfo(null);
+        yield return new WaitForSeconds(Modal.DEFAULT_DISPLAY_DURATION);
     }
 
     protected IEnumerator ApplyDamageToPlayers(List<AffectedPlayerData> affectedPlayers) {
@@ -46,8 +70,33 @@ public abstract class CatastropheEffect {
         return 0;
     }
 
-    protected void RpcShowCatastropheInfo(string affectedPlayerInfo, long descriptionId, CatastropheType catastropheType) {
-        CatastropheManager.Instance.RpcShowCatastropheInfo(affectedPlayerInfo, descriptionId, catastropheType);
+    private IEnumerator ApplyDamage() {
+        yield return CameraHandler.Instance.ZoomIn();
+        var affectedPlayers = IsGlobal() ? GetAffectedPlayersGlobal(GetCurrentRoundHealthDamage()) : GetAffectedPlayersWithinRange(Vector3.zero, 0);
+        //affectedPlayers.Select(p => p.ToString()).Aggregate((a, b) => a + "\n" + b), 
+        RpcShowCatastropheInfo("", GetCurrentRoundModalDescriptionId());
+        yield return new WaitForSeconds(Modal.DEFAULT_DISPLAY_DURATION);
+
+        RpcHideCatastropheInfo();
+        yield return new WaitForSeconds(.5f);
+
+        yield return ApplyDamageToPlayers(affectedPlayers);
+        yield return EnsureCameraOnCurrentPlayer();
+
+        CameraHandler.Instance.RpcZoomOut();
+        yield return new WaitForSeconds(1f);
+
+        BoardContext.Instance.UpdateEnvironmentStat(-GetCurrentRoundEnvironmentDamage());
+        BoardContext.Instance.UpdateResourceStat(-GetCurrentRoundDamageResources());
+        BoardContext.Instance.UpdateEconomyStat(-GetCurrentRoundDamageEconomy());
+    }
+
+    protected void RpcShowCatastropheInfo(string affectedPlayerInfo, long descriptionId) {
+        CatastropheManager.Instance.RpcShowCatastropheInfo(affectedPlayerInfo, descriptionId, this);
+    }
+
+    protected void RpcShowCatastropheInfo(string affectedPlayerInfo) {
+        CatastropheManager.Instance.RpcShowCatastropheInfo(affectedPlayerInfo, this.GetEndDescriptionId(), this);
     }
 
     protected void RpcHideCatastropheInfo() {

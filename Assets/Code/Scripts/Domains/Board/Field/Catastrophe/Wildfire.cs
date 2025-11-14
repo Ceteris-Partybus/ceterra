@@ -14,37 +14,27 @@ public class Wildfire : CatastropheEffect {
         this.skyboxManager = skyboxManager;
     }
 
+    public override long GetEndDescriptionId() => 63999993661964288;
+    public override long GetDisplayNameId() => 56648926065164288;
+    public override bool IsGlobal() => true;
+    protected override int GetCurrentRoundHealthDamage() => DAMAGE_HEALTH[remainingRounds];
+    protected override int GetCurrentRoundEnvironmentDamage() => DAMAGE_ENVIRONMENT[remainingRounds];
+    protected override int GetCurrentRoundDamageResources() => 0;
+    protected override int GetCurrentRoundDamageEconomy() => 0;
+    protected override long GetCurrentRoundModalDescriptionId() => MODAL_INFO_TRANSLATION_IDS[remainingRounds];
+
     protected override IEnumerator Start() {
         skyboxManager.SpawnSmoke(10f);
-        yield return ApplyDamage();
+        yield break;
     }
 
     protected override IEnumerator Rage() {
         skyboxManager.AddSmokeAttenuation(10f);
-        yield return ApplyDamage();
+        yield break;
     }
 
-    public override IEnumerator End() {
+    protected override IEnumerator End() {
         skyboxManager.ClearSmoke();
-        RpcShowCatastropheInfo(null, 63999993661964288, CatastropheType.WILDFIRE);
-        yield return new WaitForSeconds(Modal.DEFAULT_DISPLAY_DURATION);
-    }
-
-    private IEnumerator ApplyDamage() {
-        yield return CameraHandler.Instance.ZoomIn();
-        var affectedPlayers = GetAffectedPlayersGlobal(DAMAGE_HEALTH[remainingRounds]);
-        RpcShowCatastropheInfo(affectedPlayers.Select(p => p.ToString()).Aggregate((a, b) => a + "\n" + b), MODAL_INFO_TRANSLATION_IDS[remainingRounds], CatastropheType.WILDFIRE);
-        yield return new WaitForSeconds(Modal.DEFAULT_DISPLAY_DURATION);
-
-        RpcHideCatastropheInfo();
-        yield return new WaitForSeconds(.5f);
-
-        yield return ApplyDamageToPlayers(affectedPlayers);
-        yield return EnsureCameraOnCurrentPlayer();
-
-        CameraHandler.Instance.RpcZoomOut();
-        yield return new WaitForSeconds(1f);
-
-        BoardContext.Instance.UpdateEnvironmentStat(-1 * DAMAGE_ENVIRONMENT[remainingRounds]);
+        yield break;
     }
 }

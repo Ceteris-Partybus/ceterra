@@ -18,7 +18,35 @@ public class Earthquake : CatastropheEffect {
         throw new System.NotImplementedException();
     }
 
-    public override IEnumerator End() {
+    public override long GetEndDescriptionId() {
+        throw new System.NotImplementedException();
+    }
+
+    public override long GetDisplayNameId() {
+        throw new System.NotImplementedException();
+    }
+
+    public override bool IsGlobal() {
+        throw new System.NotImplementedException();
+    }
+
+    protected override int GetCurrentRoundHealthDamage() {
+        throw new System.NotImplementedException();
+    }
+
+    protected override int GetCurrentRoundEnvironmentDamage() {
+        throw new System.NotImplementedException();
+    }
+
+    protected override int GetCurrentRoundDamageResources() {
+        throw new System.NotImplementedException();
+    }
+
+    protected override long GetCurrentRoundModalDescriptionId() {
+        throw new System.NotImplementedException();
+    }
+
+    protected override int GetCurrentRoundDamageEconomy() {
         throw new System.NotImplementedException();
     }
 }

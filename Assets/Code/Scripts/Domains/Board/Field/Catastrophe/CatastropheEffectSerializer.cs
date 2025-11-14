@@ -2,6 +2,7 @@ using Mirror;
 
 public static class CatastropheEffectSerializer {
     private const byte WILDFIRE = 1;
+    private const byte DROUGHT = 2;
 
     public static void WriteCatastropheEffect(this NetworkWriter writer, CatastropheEffect effect) {
         if (effect is Wildfire wildfire) {

@@ -1712,11 +1712,31 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 56649684747649024
-    m_Key: modal.catastrophe.draught.title
+    m_Key: modal.catastrophe.drought.title
     m_Metadata:
       m_Items: []
-  - m_Id: 56649705719169024
-    m_Key: modal.catastrophe.draught.description
+  - m_Id: 66478602888757248
+    m_Key: modal.catastrophe.drought.start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602922311680
+    m_Key: modal.catastrophe.drought.ongoing-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602922311681
+    m_Key: modal.catastrophe.drought.ongoing-2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602922311682
+    m_Key: modal.catastrophe.drought.ongoing-3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602922311683
+    m_Key: modal.catastrophe.drought.ongoing-4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66479609035177984
+    m_Key: modal.catastrophe.drought.end
     m_Metadata:
       m_Items: []
   - m_Id: 56649910111797248

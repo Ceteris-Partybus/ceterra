@@ -22,7 +22,7 @@ public class CatastropheManager : NetworkedSingleton<CatastropheManager> {
         foreach (var catastrophe in ongoingCatastrophes) {
             if (catastrophe.HasEnded()) {
                 ongoingCatastrophes.Remove(catastrophe);
-                yield return catastrophe.End();
+                yield return catastrophe.OnEnd();
                 continue;
             }
             yield return catastrophe.OnRage();
@@ -49,7 +49,6 @@ public class CatastropheManager : NetworkedSingleton<CatastropheManager> {
     public List<AffectedPlayerData> GetAffectedPlayersGlobal(int damage) {
         return BoardContext.Instance.GetAllPlayers()
                     .Select(player => new AffectedPlayerData(player, damage))
-                    .OrderByDescending(result => result.Distance)
                     .ToList();
     }
 
@@ -67,13 +66,13 @@ public class CatastropheManager : NetworkedSingleton<CatastropheManager> {
     }
 
     [ClientRpc]
-    public void RpcShowCatastropheInfo(string affectedPlayerInfo, long descriptionId, CatastropheType catastropheType) {
+    public void RpcShowCatastropheInfo(string affectedPlayerInfo, long descriptionId, CatastropheEffect catastrophe) {
         StartCoroutine(WaitForInitialization());
 
         IEnumerator WaitForInitialization() {
             yield return new WaitUntil(() => CatastropheModal.Instance != null);
 
-            CatastropheModal.Instance.Title = LocalizationManager.Instance.GetLocalizedText(catastropheType.GetDisplayName());
+            CatastropheModal.Instance.Title = LocalizationManager.Instance.GetLocalizedText(catastrophe.GetDisplayNameId());
             CatastropheModal.Instance.Description = LocalizationManager.Instance.GetLocalizedText(descriptionId);
             CatastropheModal.Instance.AffectedPlayers = affectedPlayerInfo;
             ModalManager.Instance.Show(CatastropheModal.Instance);
