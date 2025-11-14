@@ -38,7 +38,7 @@ public static class CatastropheTypeExtensions {
     public static CatastropheEffect CreateEffect(this CatastropheType catastropheType) {
         return catastropheType switch {
             CatastropheType.WILDFIRE => new Wildfire(SkyboxManager.Instance),
-            CatastropheType.DROUGHT => new Drought(),
+            CatastropheType.DROUGHT => new Drought(SkyboxManager.Instance),
             _ => throw new System.ArgumentOutOfRangeException(nameof(catastropheType), catastropheType, null)
         };
     }
