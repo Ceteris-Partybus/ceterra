@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class CatastropheEffect {
@@ -74,9 +75,9 @@ public abstract class CatastropheEffect {
             CameraHandler.Instance.RpcZoomIn();
             yield return new WaitForSeconds(CameraHandler.Instance.PlayerToZoomBlendTime + .25f);
         }
-        var affectedPlayers = IsGlobal() ? GetAffectedPlayersGlobal(GetCurrentRoundHealthDamage()) : GetAffectedPlayersWithinRange(Vector3.zero, 0);
-        //affectedPlayers.Select(p => p.ToString()).Aggregate((a, b) => a + "\n" + b), 
-        yield return RpcShowAndHideCatastropheInfo("", GetCurrentRoundModalDescriptionId());
+        var affectedPlayers = GetAffectedPlayersWithinRange(Vector3.zero, 0);
+        var info = IsGlobal() ? FormatDamageInfo() : FormatAffectedPlayers(affectedPlayers);
+        yield return RpcShowAndHideCatastropheInfo(info, GetCurrentRoundModalDescriptionId());
         yield return ApplyDamageToPlayers(affectedPlayers);
         yield return EnsureCameraOnCurrentPlayer();
 
@@ -86,6 +87,33 @@ public abstract class CatastropheEffect {
         BoardContext.Instance.UpdateEnvironmentStat(-GetCurrentRoundEnvironmentDamage());
         BoardContext.Instance.UpdateResourceStat(-GetCurrentRoundDamageResources());
         BoardContext.Instance.UpdateEconomyStat(-GetCurrentRoundDamageEconomy());
+    }
+
+    private string FormatDamageInfo() {
+        var info = "";
+        var healthDamage = GetCurrentRoundHealthDamage();
+        var environmentDamage = GetCurrentRoundEnvironmentDamage();
+        var resourcesDamage = GetCurrentRoundDamageResources();
+        var economyDamage = GetCurrentRoundDamageEconomy();
+
+        if (healthDamage > 0) {
+            info += $"- {healthDamage} Player Health\n";
+        }
+        if (environmentDamage > 0) {
+            info += $"- {environmentDamage} Environment\n";
+        }
+        if (resourcesDamage > 0) {
+            info += $"- {resourcesDamage} Resources\n";
+        }
+        if (economyDamage > 0) {
+            info += $"- {economyDamage} Economy\n";
+        }
+
+        return info.TrimEnd();
+    }
+
+    private string FormatAffectedPlayers(List<AffectedPlayerData> affectedPlayers) {
+        return affectedPlayers.Select(p => p.ToString()).Aggregate("", (a, b) => a + (string.IsNullOrEmpty(a) ? b : "\n" + b));
     }
 
     protected IEnumerator RpcShowAndHideCatastropheInfo(string affectedPlayerInfo, long descriptionId = -1) {

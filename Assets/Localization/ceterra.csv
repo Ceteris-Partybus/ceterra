@@ -278,7 +278,7 @@ Key,Id,English(en),German(de)
 "end.your_score",56144406623805440,"Your score:","Dein Score:"
 "end.other_players",56144566892355584,"Other players:","Andere Spieler:"
 "modal.deposit",56145165381787648,"Deposit","Einzahlen"
-"modal.affected_players",56145873707458560,"Affected players:","Betroffene Spieler:"
+"modal.damage_report",56145873707458560,"Damage report:","Schadensbericht:"
 "globals.environment",56146686244806656,"Environment","Umwelt"
 "globals.economy",56146825365676032,"Economy","Wirtschaft"
 "globals.society",56146969926557696,"Society","Gesellschaft"

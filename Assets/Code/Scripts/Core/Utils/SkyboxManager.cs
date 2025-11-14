@@ -7,7 +7,8 @@ using UnityEngine.Rendering.HighDefinition;
 
 public class SkyboxManager : NetworkedSingleton<SkyboxManager> {
     private Volume volume;
-    [SerializeField] private Light sunLight;
+    [SerializeField] private Light sunlight;
+    public float CurrentSunlightIntensity => sunlight.intensity;
     [SerializeField] private float rotationSpeed = 1f;
     [SerializeField] private bool shouldPersistAcrossScenes = false;
     protected override bool ShouldPersistAcrossScenes => shouldPersistAcrossScenes;
@@ -17,22 +18,22 @@ public class SkyboxManager : NetworkedSingleton<SkyboxManager> {
 
     private float smokeAttenuationDuration = 3f;
     private float smokeAttenuationInitalValue;
-    private float sunLightIntensityDuration = 3f;
-    private float sunLightIntensityInitialValue;
+    private float sunlightIntensityDuration = 3f;
+    private float sunlightIntensityInitialValue;
 
     protected override void Start() {
         volume = GetComponent<Volume>();
         volume.profile.TryGet(out hdriskybox);
         volume.profile.TryGet(out fog);
         smokeAttenuationInitalValue = fog.meanFreePath.value;
-        sunLightIntensityInitialValue = sunLight.intensity;
+        sunlightIntensityInitialValue = sunlight.intensity;
         base.Start();
     }
 
     void FixedUpdate() {
         var newRotation = (hdriskybox.rotation.value + Time.fixedDeltaTime * rotationSpeed) % 360f;
         hdriskybox.rotation.value = newRotation;
-        sunLight.transform.rotation = Quaternion.Euler(sunLight.transform.rotation.eulerAngles.x, newRotation, sunLight.transform.rotation.eulerAngles.z);
+        sunlight.transform.rotation = Quaternion.Euler(sunlight.transform.rotation.eulerAngles.x, newRotation, sunlight.transform.rotation.eulerAngles.z);
     }
 
     [Server]
@@ -77,7 +78,7 @@ public class SkyboxManager : NetworkedSingleton<SkyboxManager> {
 
     [Server]
     public void ResetSunlight() {
-        RpcIncreaseSunlight(sunLightIntensityInitialValue);
+        RpcIncreaseSunlight(sunlightIntensityInitialValue);
     }
 
     [ClientRpc]
@@ -87,10 +88,10 @@ public class SkyboxManager : NetworkedSingleton<SkyboxManager> {
 
     private IEnumerator AnimateSunlight(float end) {
         yield return Animate(
-            value => sunLight.intensity = value,
-            sunLight.intensity,
+            value => sunlight.intensity = value,
+            sunlight.intensity,
             end,
-            sunLightIntensityDuration
+            sunlightIntensityDuration
         );
     }
 
@@ -121,6 +122,6 @@ public class SkyboxManager : NetworkedSingleton<SkyboxManager> {
             return;
         }
         fog.active = isActive;
-        sunLight.enabled = isActive;
+        sunlight.enabled = isActive;
     }
 }

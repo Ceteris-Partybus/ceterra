@@ -1132,7 +1132,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 56145873707458560
-    m_Key: modal.affected_players
+    m_Key: modal.damage_report
     m_Metadata:
       m_Items: []
   - m_Id: 56146686244806656
