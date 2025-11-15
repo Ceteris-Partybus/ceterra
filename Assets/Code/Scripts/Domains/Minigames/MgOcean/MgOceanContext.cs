@@ -131,7 +131,12 @@ public class MgOceanContext : MgContext<MgOceanContext, MgOceanPlayer> {
 
         float totalWeight = weightedTrashPrefabs.Sum(p => p.weight);
 
-        while (Time.time - startTime < gameDuration) {
+        while (true) {
+            float elapsed = Time.time - startTime;
+            if (elapsed >= gameDuration) {
+                break;
+            }
+
             GameObject prefab = null;
             float randomWeight = Random.Range(0, totalWeight);
             float currentWeight = 0;
@@ -176,12 +181,16 @@ public class MgOceanContext : MgContext<MgOceanContext, MgOceanPlayer> {
 
             NetworkServer.Spawn(go);
 
-            yield return new WaitForSeconds(interval);
+            float remaining = Mathf.Max(0f, gameDuration - (Time.time - startTime));
+            if (remaining <= 0f) {
+                break;
+            }
+
+            float waitTime = Mathf.Min(interval, remaining);
+            yield return new WaitForSeconds(waitTime);
 
             interval = Mathf.Max(minSpawnInterval, interval * spawnAcceleration);
         }
-
-        yield return new WaitForSeconds(3f);
         GameManager.Singleton.EndMinigame();
     }
 

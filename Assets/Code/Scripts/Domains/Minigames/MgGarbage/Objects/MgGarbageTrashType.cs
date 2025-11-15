@@ -1,6 +1,7 @@
 public enum MgGarbageTrashType {
-    STANDARD,
-    RECYCLE,
-    ORGANIC,
-    DANGEROUS
+    PAPER,
+    YELLOW,
+    RISIDUAL,
+    BIO,
+    NONE
 }

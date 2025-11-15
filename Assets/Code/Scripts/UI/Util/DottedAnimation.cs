@@ -1,7 +1,7 @@
 using UnityEngine.UIElements;
 
 public class DottedAnimation {
-    private Label label;
+    private TextElement element;
     private string initialText;
     private int duration;
 
@@ -10,15 +10,15 @@ public class DottedAnimation {
 
     public bool isRunning => animation != null;
 
-    public DottedAnimation(Label label, string initialText, int duration = 500) {
-        this.label = label;
+    public DottedAnimation(TextElement element, string initialText, int duration = 500) {
+        this.element = element;
         this.initialText = initialText;
         this.duration = duration;
     }
 
     public void Start() {
         dotCount = 0;
-        animation = label.schedule.Execute(Animate).Every(duration);
+        animation = element.schedule.Execute(Animate).Every(duration);
     }
 
     public void Stop() {
@@ -28,6 +28,6 @@ public class DottedAnimation {
 
     private void Animate() {
         dotCount = (dotCount + 1) % 4;
-        label.text = initialText + new string('.', dotCount);
+        element.text = initialText + new string('.', dotCount);
     }
 }
