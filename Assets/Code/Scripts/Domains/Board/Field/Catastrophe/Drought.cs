@@ -18,6 +18,7 @@ public class Drought : CatastropheEffect {
         this.baseSunlight = skyboxManager.CurrentSunlightIntensity;
     }
 
+    public override CatastropheType GetCatastropheType() => CatastropheType.DROUGHT;
     public override long GetEndDescriptionId() => 66479609035177984;
     public override long GetDisplayNameId() => 56649684747649024;
     public override bool IsGlobal() => true;

@@ -14,7 +14,7 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
         }
         hasBeenInvoked = true;
 
-        yield return CatastropheManager.Instance.RegisterCatastrophe(CatastropheType.WILDFIRE);
+        yield return CatastropheManager.Instance.RegisterCatastrophe(CatastropheType.EARTHQUAKE);
 
         var localScale = transform.localScale;
         var scaleSequence = DOTween.Sequence();

@@ -17,6 +17,7 @@ public abstract class CatastropheEffect {
 
     public bool HasEnded() => remainingRounds == 0;
 
+    public abstract CatastropheType GetCatastropheType();
     public abstract long GetEndDescriptionId();
     public abstract long GetDisplayNameId();
     public abstract bool IsGlobal();
@@ -71,10 +72,7 @@ public abstract class CatastropheEffect {
     }
 
     private IEnumerator ApplyDamage() {
-        if (!CameraHandler.Instance.IsZoomedIn) {
-            CameraHandler.Instance.RpcZoomIn();
-            yield return new WaitForSeconds(CameraHandler.Instance.PlayerToZoomBlendTime + .25f);
-        }
+        CameraHandler.Instance.RpcZoomIn();
         var affectedPlayers = IsGlobal() ? GetAffectedPlayersGlobal(GetCurrentRoundHealthDamage()) : GetAffectedPlayersWithinRange(Vector3.zero, 0);
         yield return RpcShowAndHideCatastropheInfo(GetCurrentRoundModalDescriptionId(), affectedPlayers);
         yield return ApplyDamageToPlayers(affectedPlayers);

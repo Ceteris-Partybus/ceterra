@@ -12,6 +12,7 @@ public class Wildfire : CatastropheEffect {
         this.skyboxManager = skyboxManager;
     }
 
+    public override CatastropheType GetCatastropheType() => CatastropheType.WILDFIRE;
     public override long GetEndDescriptionId() => 63999993661964288;
     public override long GetDisplayNameId() => 56648926065164288;
     public override bool IsGlobal() => true;

@@ -3,6 +3,7 @@ using UnityEngine;
 using Mirror;
 using System;
 using System.Collections;
+using DG.Tweening;
 
 public class CameraHandler : NetworkedSingleton<CameraHandler> {
     [Header("References")]
@@ -30,6 +31,11 @@ public class CameraHandler : NetworkedSingleton<CameraHandler> {
     public float PlayerToBoardOverviewBlendTime => playerToBoardOverviewBlendTime;
     private float boardOverviewToPlayerBlendTime;
     public float BoardOverviewToPlayerBlendTime => boardOverviewToPlayerBlendTime;
+
+    private float shakeTimer;
+    private float shakeTimerTotal;
+    private float shakeIntensity;
+    private CinemachineBasicMultiChannelPerlin cameraToShakeNoise;
 
     protected override void Start() {
         base.Start();
@@ -94,6 +100,15 @@ public class CameraHandler : NetworkedSingleton<CameraHandler> {
         return new WaitWhile(() => cameraBrain.IsLiveInBlend(zoomCamera));
     }
 
+    [ClientRpc]
+    public void RpcShakeCamera(float duration, float intensity) {
+        var cameraToShake = cameraBrain.ActiveVirtualCamera as CinemachineCamera;
+        cameraToShakeNoise = cameraToShake.GetComponentInChildren<CinemachineBasicMultiChannelPerlin>();
+        shakeTimer = duration;
+        shakeTimerTotal = duration;
+        shakeIntensity = intensity;
+    }
+
     private void ZoomCamera(bool zoom) {
         defaultCamera.Priority = zoom ? -1 : 1;
         zoomCamera.Priority = zoom ? 1 : -1;
@@ -108,6 +123,10 @@ public class CameraHandler : NetworkedSingleton<CameraHandler> {
         var currentPlayer = BoardContext.Instance.GetCurrentPlayer();
         if (currentPlayer != null && currentPlayer.transform != defaultCamera.Follow) {
             Follow(currentPlayer.transform);
+        }
+        if (shakeTimer > 0) {
+            shakeTimer -= Time.deltaTime;
+            cameraToShakeNoise.AmplitudeGain = Mathf.Lerp(shakeIntensity, 0f, 1 - shakeTimer / shakeTimerTotal);
         }
     }
 
