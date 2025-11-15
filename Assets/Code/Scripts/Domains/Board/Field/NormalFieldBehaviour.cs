@@ -13,8 +13,6 @@ public class NormalFieldBehaviour : FieldBehaviour {
 
     [Server]
     private IEnumerator AddCoinsAndHealth(BoardPlayer player) {
-        //Sollte Sound nicht eher vom Player getriggered werden?
-        TargetPlayMoneyHealthSound(player.connectionToClient);
         yield return player.TriggerBlockingAnimation(AnimationType.COIN_GAIN, MONEY_EFFECT);
         player.PlayerStats.ModifyCoins(MONEY_EFFECT);
 

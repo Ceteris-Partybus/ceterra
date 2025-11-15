@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1721663839925726867}
   - component: {fileID: 6307693627195864385}
   - component: {fileID: 86417513559900101}
+  - component: {fileID: 3233766003672885604}
   m_Layer: 0
   m_Name: CoinGainParticle
   m_TagString: Untagged
@@ -4892,6 +4893,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &3233766003672885604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2332501564538648973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d3ff2b2ffac43e4b9a68c7bbe87ef74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particleSystem: {fileID: 6307693627195864385}
 --- !u!1 &3281089635124510866
 GameObject:
   m_ObjectHideFlags: 0
@@ -4903,6 +4917,7 @@ GameObject:
   - component: {fileID: 4819343495699477673}
   - component: {fileID: 9172434529289212595}
   - component: {fileID: 2296549529061798348}
+  - component: {fileID: 5457777234806777774}
   m_Layer: 0
   m_Name: HealthLossParticle
   m_TagString: Untagged
@@ -9783,6 +9798,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &5457777234806777774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3281089635124510866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e1e225769ecae94fb523653ca4a7db5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particleSystem: {fileID: 9172434529289212595}
 --- !u!1 &3676788033899490170
 GameObject:
   m_ObjectHideFlags: 0
@@ -9893,6 +9921,7 @@ MonoBehaviour:
   syncInterval: 0
   playerId: -1
   playerName: 
+  isReady: 0
   playerStats: {fileID: -1680082384464801870}
   playerMovement: {fileID: 7842695351960262998}
 --- !u!114 &-1680082384464801870
@@ -9950,6 +9979,7 @@ MonoBehaviour:
   syncInterval: 0
   playerId: -1
   playerName: 
+  isReady: 0
   score: 0
 --- !u!114 &1591609028840897619
 MonoBehaviour:
@@ -9994,6 +10024,7 @@ MonoBehaviour:
   syncInterval: 0
   playerId: -1
   playerName: 
+  isReady: 0
 --- !u!114 &4558549600286242843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10011,6 +10042,7 @@ MonoBehaviour:
   syncInterval: 0
   playerId: -1
   playerName: 
+  isReady: 0
   score: 0
   playerModel: {fileID: 6958303945373204090, guid: 61003825a837930448d2390a1ace0304, type: 3}
 --- !u!1 &3794690170027941192
@@ -14951,6 +14983,7 @@ GameObject:
   - component: {fileID: 2767337590193377147}
   - component: {fileID: 3839918850855070132}
   - component: {fileID: 487693466146046184}
+  - component: {fileID: 1222161733861344338}
   m_Layer: 0
   m_Name: HealthGainParticle
   m_TagString: Untagged
@@ -19832,6 +19865,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &1222161733861344338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5523094259204258062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb26acdb99a1c994e8174c4e118fe9fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particleSystem: {fileID: 3839918850855070132}
 --- !u!1 &5846238877890666195
 GameObject:
   m_ObjectHideFlags: 0
@@ -24734,6 +24780,7 @@ GameObject:
   - component: {fileID: 994131422782628996}
   - component: {fileID: 7404952101872433514}
   - component: {fileID: 5392312904484758301}
+  - component: {fileID: 7727357676947580470}
   m_Layer: 0
   m_Name: CoinLossParticle
   m_TagString: Untagged
@@ -29614,6 +29661,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &7727357676947580470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7746381855022596333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dc042d80d806ac49b5cefca5be04e28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particleSystem: {fileID: 7404952101872433514}
 --- !u!1 &9142155262129869448
 GameObject:
   m_ObjectHideFlags: 0

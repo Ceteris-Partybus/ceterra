@@ -34,6 +34,11 @@ public class Audiomanager : MonoBehaviour {
     public AudioSource GarbageBinCloseSource;
     public AudioClip GarbageBinCloseSound;
 
+    public AudioSource CoinGainSource;
+    public AudioClip CoinGainSound;
+
+    public AudioSource HealthGainSource;
+    public AudioClip HealthGainSound;
 
     private void Awake() {
 
@@ -86,8 +91,26 @@ public class Audiomanager : MonoBehaviour {
         PlaySound(GarbageBinCloseSource, GarbageBinCloseSound);
     }
 
-    private void PlaySound(AudioSource source, AudioClip clip) {
-        if (source != null && clip != null && !source.isPlaying) {
+    public void PlayCoinGainSound() {
+        PlaySound(CoinGainSource, CoinGainSound, true);
+    }
+
+    public void PlayHealthGainSound() {
+        PlaySound(HealthGainSource, HealthGainSound, true);
+    }
+
+    public void PlayHealthLossSound() {
+        //TODO: find proper sound
+        PlaySound(HealthGainSource, HealthGainSound, true);
+    }
+
+    public void PlayCoinLossSound() {
+        //TODO: find proper sound
+        PlaySound(CoinGainSource, CoinGainSound, true);
+    }
+
+    public void PlaySound(AudioSource source, AudioClip clip, bool canOverlap = false) {
+        if (source != null && clip != null && (canOverlap || !source.isPlaying)) {
             source.PlayOneShot(clip);
         }
     }
