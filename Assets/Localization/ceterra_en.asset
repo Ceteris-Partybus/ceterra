@@ -1887,6 +1887,10 @@ MonoBehaviour:
     m_Localized: Rain finally returns, bringing relief to the scorched earth.
     m_Metadata:
       m_Items: []
+  - m_Id: 67188403738329088
+    m_Localized: No damage was detected.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

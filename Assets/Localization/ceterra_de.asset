@@ -1903,6 +1903,10 @@ MonoBehaviour:
       ausged\xF6rrte Land."
     m_Metadata:
       m_Items: []
+  - m_Id: 67188403738329088
+    m_Localized: "Es wurden keine Sch\xE4den festgestellt."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

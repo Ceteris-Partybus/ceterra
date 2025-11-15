@@ -8,6 +8,8 @@ public class AffectedPlayerData {
     private int inflictedDamage;
     public int InflictedDamage => inflictedDamage;
 
+    public AffectedPlayerData() { }
+
     public AffectedPlayerData(BoardPlayer player, int inflictedDamage) {
         this.player = player;
         this.distance = -1;

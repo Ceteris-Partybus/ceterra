@@ -51,7 +51,7 @@ public abstract class CatastropheEffect {
     }
 
     public IEnumerator OnEnd() {
-        yield return RpcShowAndHideCatastropheInfo(null);
+        yield return RpcShowAndHideCatastropheInfo(GetEndDescriptionId());
     }
 
     protected IEnumerator ApplyDamageToPlayers(List<AffectedPlayerData> affectedPlayers) {
@@ -75,9 +75,8 @@ public abstract class CatastropheEffect {
             CameraHandler.Instance.RpcZoomIn();
             yield return new WaitForSeconds(CameraHandler.Instance.PlayerToZoomBlendTime + .25f);
         }
-        var affectedPlayers = GetAffectedPlayersWithinRange(Vector3.zero, 0);
-        var info = IsGlobal() ? FormatDamageInfo() : FormatAffectedPlayers(affectedPlayers);
-        yield return RpcShowAndHideCatastropheInfo(info, GetCurrentRoundModalDescriptionId());
+        var affectedPlayers = IsGlobal() ? GetAffectedPlayersGlobal(GetCurrentRoundHealthDamage()) : GetAffectedPlayersWithinRange(Vector3.zero, 0);
+        yield return RpcShowAndHideCatastropheInfo(GetCurrentRoundModalDescriptionId(), affectedPlayers);
         yield return ApplyDamageToPlayers(affectedPlayers);
         yield return EnsureCameraOnCurrentPlayer();
 
@@ -89,7 +88,12 @@ public abstract class CatastropheEffect {
         BoardContext.Instance.UpdateEconomyStat(-GetCurrentRoundDamageEconomy());
     }
 
-    private string FormatDamageInfo() {
+    public string FormatDamageInfo(List<AffectedPlayerData> affectedPlayers) {
+        var noDamage = LocalizationManager.Instance.GetLocalizedText(67188403738329088);
+        if (HasEnded()) {
+            return noDamage;
+        }
+
         var info = "";
         var healthDamage = GetCurrentRoundHealthDamage();
         var environmentDamage = GetCurrentRoundEnvironmentDamage();
@@ -97,30 +101,27 @@ public abstract class CatastropheEffect {
         var economyDamage = GetCurrentRoundDamageEconomy();
 
         if (healthDamage > 0) {
-            info += $"- {healthDamage} Player Health\n";
+            info += IsGlobal() ? $"- {healthDamage} {LocalizationManager.Instance.GetLocalizedText(56153847255523328)}" : FormatAffectedPlayers(affectedPlayers);
         }
         if (environmentDamage > 0) {
-            info += $"- {environmentDamage} Environment\n";
+            info += $"\n- {environmentDamage} {LocalizationManager.Instance.GetLocalizedText(56146686244806656)}";
         }
         if (resourcesDamage > 0) {
-            info += $"- {resourcesDamage} Resources\n";
+            info += $"\n- {resourcesDamage} {LocalizationManager.Instance.GetLocalizedText(56155672947974144)}";
         }
         if (economyDamage > 0) {
-            info += $"- {economyDamage} Economy\n";
+            info += $"\n- {economyDamage} {LocalizationManager.Instance.GetLocalizedText(56146825365676032)}";
         }
 
-        return info.TrimEnd();
+        return string.IsNullOrEmpty(info) ? noDamage : info;
     }
 
     private string FormatAffectedPlayers(List<AffectedPlayerData> affectedPlayers) {
         return affectedPlayers.Select(p => p.ToString()).Aggregate("", (a, b) => a + (string.IsNullOrEmpty(a) ? b : "\n" + b));
     }
 
-    protected IEnumerator RpcShowAndHideCatastropheInfo(string affectedPlayerInfo, long descriptionId = -1) {
-        if (descriptionId == -1) {
-            descriptionId = GetEndDescriptionId();
-        }
-        CatastropheManager.Instance.RpcShowCatastropheInfo(affectedPlayerInfo, descriptionId, this);
+    protected IEnumerator RpcShowAndHideCatastropheInfo(long descriptionId, List<AffectedPlayerData> affectedPlayers = null) {
+        CatastropheManager.Instance.RpcShowCatastropheInfo(affectedPlayers, descriptionId, this);
         yield return new WaitForSeconds(Modal.DEFAULT_DISPLAY_DURATION);
 
         CatastropheManager.Instance.RpcHideCatastropheInfo();

@@ -66,7 +66,7 @@ public class CatastropheManager : NetworkedSingleton<CatastropheManager> {
     }
 
     [ClientRpc]
-    public void RpcShowCatastropheInfo(string affectedPlayerInfo, long descriptionId, CatastropheEffect catastrophe) {
+    public void RpcShowCatastropheInfo(List<AffectedPlayerData> affectedPlayers, long descriptionId, CatastropheEffect catastrophe) {
         StartCoroutine(WaitForInitialization());
 
         IEnumerator WaitForInitialization() {
@@ -74,7 +74,7 @@ public class CatastropheManager : NetworkedSingleton<CatastropheManager> {
 
             CatastropheModal.Instance.Title = LocalizationManager.Instance.GetLocalizedText(catastrophe.GetDisplayNameId());
             CatastropheModal.Instance.Description = LocalizationManager.Instance.GetLocalizedText(descriptionId);
-            CatastropheModal.Instance.AffectedPlayers = affectedPlayerInfo;
+            CatastropheModal.Instance.AffectedPlayers = catastrophe.FormatDamageInfo(affectedPlayers);
             ModalManager.Instance.Show(CatastropheModal.Instance);
         }
     }
