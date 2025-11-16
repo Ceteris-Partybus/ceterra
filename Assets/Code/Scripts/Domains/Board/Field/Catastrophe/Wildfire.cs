@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 
 public class Wildfire : CatastropheEffect {
@@ -13,6 +14,7 @@ public class Wildfire : CatastropheEffect {
     }
 
     public override CatastropheType GetCatastropheType() => CatastropheType.WILDFIRE;
+    protected override Action GetSoundEmitter() => Audiomanager.Instance.PlayWildfireSound;
     public override long GetEndDescriptionId() => 63999993661964288;
     public override long GetDisplayNameId() => 56648926065164288;
     public override bool IsGlobal() => true;

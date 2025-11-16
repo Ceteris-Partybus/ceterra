@@ -40,6 +40,12 @@ public class Audiomanager : MonoBehaviour {
     public AudioSource HealthGainSource;
     public AudioClip HealthGainSound;
 
+    public AudioSource earthquakeSource;
+    public AudioClip earthquakeSound;
+
+    public AudioSource wildfireSource;
+    public AudioClip wildfireSound;
+
     private void Awake() {
 
         if (Instance != null && Instance != this) {
@@ -107,6 +113,14 @@ public class Audiomanager : MonoBehaviour {
     public void PlayCoinLossSound() {
         //TODO: find proper sound
         PlaySound(CoinGainSource, CoinGainSound, true);
+    }
+
+    public void PlayEarthquakeSound() {
+        PlaySound(earthquakeSource, earthquakeSound);
+    }
+
+    public void PlayWildfireSound() {
+        PlaySound(wildfireSource, wildfireSound);
     }
 
     public void PlaySound(AudioSource source, AudioClip clip, bool canOverlap = false) {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,7 @@ public abstract class CatastropheEffect {
     }
 
     public IEnumerator OnStart() {
+        GetSoundEmitter()?.Invoke();
         yield return Start();
         yield return ApplyDamage();
         remainingRounds--;
@@ -69,6 +71,10 @@ public abstract class CatastropheEffect {
 
     protected virtual int CalculateDamageByDistance(float normalizedDistance) {
         return 0;
+    }
+
+    protected virtual Action GetSoundEmitter() {
+        return null;
     }
 
     private IEnumerator ApplyDamage() {
