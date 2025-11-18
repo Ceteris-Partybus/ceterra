@@ -120,7 +120,7 @@ public abstract class CatastropheEffect {
             info += $"\n- {economyDamage} {LocalizationManager.Instance.GetLocalizedText(56146825365676032)}";
         }
 
-        return string.IsNullOrEmpty(info) ? noDamage : info;
+        return string.IsNullOrEmpty(info) ? noDamage : info.Trim('\n');
     }
 
     private string FormatAffectedPlayers(List<AffectedPlayerData> affectedPlayers) {
