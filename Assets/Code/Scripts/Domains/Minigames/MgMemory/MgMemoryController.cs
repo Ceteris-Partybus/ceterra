@@ -117,7 +117,6 @@ public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
 
     [Server]
     public void ShowScoreboard(List<MgMemoryPlayerRankingData> playerRankings) {
-        Debug.Log("Showing scoreboard on clients");
         RpcShowScoreboard(playerRankings);
     }
 

@@ -39,10 +39,6 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
 
     public void InitializeCardsOnClients(int randomSeed, List<MemoryFactData> memoryFacts) {
         currentMemoryFacts = memoryFacts;
-        Debug.Log("Anzahl ASDF: " + currentMemoryFacts.Count);
-        /*foreach (var fact in currentMemoryFacts) {
-            Debug.Log($"Auf dem Client: Fact: Title={fact.title}, Description={fact.description}, ImagePath={fact.imagePath}");
-        }*/
         Random.InitState(randomSeed);
         PrepareSprites();
 

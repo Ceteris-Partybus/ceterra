@@ -129,7 +129,6 @@ public class MgMemoryContext : MgContext<MgMemoryContext, MgMemoryPlayer> {
 
     [ClientRpc]
     private void RpcInitializeCardsOnClients(int randomSeed, List<MemoryFactData> memoryFacts) {
-        Debug.Log("[Client] RpcInitializeCardsOnClients called on client");
         MgMemoryGameController.Instance.InitializeCardsOnClients(randomSeed, memoryFacts);
     }
 
