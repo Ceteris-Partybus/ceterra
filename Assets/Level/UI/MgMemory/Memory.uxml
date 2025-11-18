@@ -6,11 +6,19 @@
                     <ui:Label name="countdown-label" text="..:.." style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 60px; color: white;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="current-player-container" style="background-color: rgba(0, 0, 0, 0.4); border-radius: 20px; padding: 10px 30px; flex-direction: row; align-items: center;">
-                    <ui:Label name="current-player-text" text="Am Zug: " style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 60px; color: white;" />
-                    <ui:Label name="current-player-label" text="Spieler 1" style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 60px; color: rgb(255, 215, 0);" />
+                    <ui:Label name="current-player-text" text="Am Zug: " style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 60px; color: white;">
+                        <Bindings>
+                            <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56154919462232064)" />
+                        </Bindings>
+                    </ui:Label>
+                    <ui:Label name="current-player-label" text="..." style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 60px; color: rgb(255, 215, 0);" />
                 </ui:VisualElement>
                 <ui:VisualElement name="score-container" style="background-color: rgba(0, 0, 0, 0.4); border-radius: 20px; padding: 10px 30px; flex-direction: row; align-items: center;">
-                    <ui:Label name="score-text" text="Paare: " style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 60px; color: white;" />
+                    <ui:Label name="score-text" text="Paare: " style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 60px; color: white;">
+                        <Bindings>
+                            <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(66070708549767168)" />
+                        </Bindings>
+                    </ui:Label>
                     <ui:Label name="score-label" text="0" style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 60px; color: white;" />
                 </ui:VisualElement>
             </ui:VisualElement>
@@ -93,7 +101,7 @@
                 <ui:VisualElement name="fact-header" style="flex-direction: row; align-items: center; margin-bottom: 30px; width: 100%; justify-content: space-between;">
                     <ui:VisualElement style="width: 70px;" />
                     <ui:VisualElement style="flex-direction: row; align-items: center;">
-                        <ui:VisualElement style="width: 70px; height: 70px; background-image: resource('Minigame/Memory/bulb'); -unity-background-scale-mode: scale-to-fit; margin-right: 20px;" />
+                        <ui:VisualElement style="width: 70px; height: 70px; background-image: resource(&apos;Minigame/Memory/bulb&apos;); -unity-background-scale-mode: scale-to-fit; margin-right: 20px;" />
                         <ui:Label text="Wusstest du schon?" style="-unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); font-size: 55px; color: white; -unity-text-align: middle-center;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="progress-container" style="width: 80px; height: 80px; position: relative;">

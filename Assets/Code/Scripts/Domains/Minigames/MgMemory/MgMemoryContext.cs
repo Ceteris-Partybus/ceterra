@@ -12,7 +12,6 @@ public class MgMemoryContext : MgContext<MgMemoryContext, MgMemoryPlayer> {
     [SerializeField] private float GameDuration;
     [SerializeField] private float scoreboardDuration;
     [SerializeField] private string memoryFactsFileName = "Data/Productiondata/Minigames/Memory/memory_facts";
-    //[SerializeField] private MgMemoryGameController memoryGameController;
 
     private float countdownTimer;
     private Coroutine countdownCoroutine;
@@ -130,6 +129,7 @@ public class MgMemoryContext : MgContext<MgMemoryContext, MgMemoryPlayer> {
 
     [ClientRpc]
     private void RpcInitializeCardsOnClients(int randomSeed, List<MemoryFactData> memoryFacts) {
+        Debug.Log("[Client] RpcInitializeCardsOnClients called on client");
         MgMemoryGameController.Instance.InitializeCardsOnClients(randomSeed, memoryFacts);
     }
 

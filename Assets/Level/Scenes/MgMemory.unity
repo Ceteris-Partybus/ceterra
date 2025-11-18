@@ -670,9 +670,9 @@ MonoBehaviour:
   title: 56521928061177858
   description: 56521928061177859
   controls: 56521928061177860
-  screenshot: {fileID: 21300000, guid: 8741eecbc35111244ab4a71d242920b9, type: 3}
+  screenshot: {fileID: 21300000, guid: 2bd45325eeef04540a0288cca799e6e2, type: 3}
   GameDuration: 90
-  scoreboardDuration: 10
+  scoreboardDuration: 15
   memoryFactsFileName: Data/Productiondata/Minigames/Memory/memory_facts
 --- !u!114 &1055850417
 MonoBehaviour:
@@ -799,6 +799,10 @@ PrefabInstance:
     - target: {fileID: 3290678935445539216, guid: 5ff39ff984f84674e9c9ac96dce0366b, type: 3}
       propertyPath: m_Name
       value: MgPrepScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 3290678935445539216, guid: 5ff39ff984f84674e9c9ac96dce0366b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5836265012174150124, guid: 5ff39ff984f84674e9c9ac96dce0366b, type: 3}
       propertyPath: m_LocalPosition.x
