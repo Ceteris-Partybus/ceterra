@@ -24,6 +24,10 @@ public class MgGarbageContext : MgContext<MgGarbageContext, MgGarbagePlayer> {
     [SerializeField]
     private float gameDuration = 15f;
 
+    [SyncVar]
+    private bool hasStarted = false;
+    public bool HasStarted => hasStarted;
+
     [SerializeField]
     private float countdownTimer;
 
@@ -41,6 +45,7 @@ public class MgGarbageContext : MgContext<MgGarbageContext, MgGarbagePlayer> {
         StartCoroutine(UpdateCountdown());
         if (isServer) {
             StartCoroutine(SpawnTrashRoutine());
+            hasStarted = true;
         }
     }
 

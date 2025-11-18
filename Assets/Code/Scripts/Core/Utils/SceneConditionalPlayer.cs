@@ -32,6 +32,7 @@ public abstract class SceneConditionalPlayer : NetworkBehaviour {
     public bool IsActiveForCurrentScene => isActiveForCurrentScene;
 
     [SyncVar]
+    [SerializeField]
     private bool isReady;
     public bool IsReady => isReady;
 
@@ -79,6 +80,7 @@ public abstract class SceneConditionalPlayer : NetworkBehaviour {
 
     [Server]
     public void HandleSceneChange(string newSceneName) {
+        isReady = false;
         GetOrCreateManager().HandleSceneChange(newSceneName);
     }
 
