@@ -124,7 +124,7 @@ public abstract class CatastropheEffect {
     }
 
     private string FormatAffectedPlayers(List<AffectedPlayerData> affectedPlayers) {
-        return affectedPlayers.Select(p => p.ToString()).Aggregate("", (a, b) => a + (string.IsNullOrEmpty(a) ? b : "\n" + b));
+        return affectedPlayers.Select(p => p.ToString()).Aggregate((a, b) => a + "\n" + b);
     }
 
     protected IEnumerator RpcShowAndHideCatastropheInfo(long descriptionId, List<AffectedPlayerData> affectedPlayers = null) {
