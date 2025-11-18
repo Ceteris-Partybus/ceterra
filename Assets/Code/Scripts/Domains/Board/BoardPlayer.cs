@@ -130,6 +130,12 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [ClientRpc]
     public void RpcTriggerAnimation(AnimationType animationType) {
+        if (AnimationType.RUN == animationType) {
+            Audiomanager.Instance.PlayRunningPlayerSound();
+        }
+        else {
+            Audiomanager.Instance.StopRunningPlayerSound();
+        }
         visualHandler?.TriggerAnimation(animationType);
     }
 

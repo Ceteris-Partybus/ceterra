@@ -16,9 +16,6 @@ public class Audiomanager : MonoBehaviour {
     public AudioSource RessourceAudioSource;
     public AudioClip RessourceClickSound;
 
-    public AudioSource DiceAudioSource;
-    public AudioClip DiceStopSound;
-
     public AudioSource MoneyHealthSource;
     public AudioClip MoneyHealthSound;
 
@@ -46,6 +43,15 @@ public class Audiomanager : MonoBehaviour {
     public AudioSource wildfireSource;
     public AudioClip wildfireSound;
 
+    public AudioSource rollingDiceSource;
+    public AudioClip rollingDiceSound;
+
+    public AudioSource PoppingDiceSource;
+    public AudioClip PoppingDiceSound;
+
+    public AudioSource RunningPlayerSource;
+    public AudioClip RunningPlayerSound;
+
     private void Awake() {
 
         if (Instance != null && Instance != this) {
@@ -71,10 +77,6 @@ public class Audiomanager : MonoBehaviour {
 
     public void PlayRessourceSound() {
         PlaySound(RessourceAudioSource, RessourceClickSound);
-    }
-
-    public void PlayDiceStopSound() {
-        PlaySound(DiceAudioSource, DiceStopSound);
     }
 
     public void PlayMoneyHealthSound() {
@@ -123,9 +125,41 @@ public class Audiomanager : MonoBehaviour {
         PlaySound(wildfireSource, wildfireSound);
     }
 
+    public void PlayRollingDiceSound() {
+        Loop(rollingDiceSource, rollingDiceSound, true);
+    }
+
+    public void StopRollingDiceSound() {
+        if (rollingDiceSource.isPlaying) {
+            rollingDiceSource.Stop();
+        }
+    }
+
+    public void PlayPoppingDiceSound() {
+        PlaySound(PoppingDiceSource, PoppingDiceSound);
+    }
+
+    public void PlayRunningPlayerSound() {
+        Loop(RunningPlayerSource, RunningPlayerSound);
+    }
+
+    public void StopRunningPlayerSound() {
+        if (RunningPlayerSource.isPlaying) {
+            RunningPlayerSource.Stop();
+        }
+    }
+
     public void PlaySound(AudioSource source, AudioClip clip, bool canOverlap = false) {
         if (source != null && clip != null && (canOverlap || !source.isPlaying)) {
             source.PlayOneShot(clip);
+        }
+    }
+
+    public void Loop(AudioSource source, AudioClip clip, bool canOverlap = false) {
+        if (source != null && clip != null && (canOverlap || !source.isPlaying)) {
+            source.clip = clip;
+            source.loop = true;
+            source.Play();
         }
     }
 }

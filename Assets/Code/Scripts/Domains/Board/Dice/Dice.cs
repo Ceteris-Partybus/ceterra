@@ -75,6 +75,7 @@ public class Dice : MonoBehaviour {
         isSpinning = false;
         tiltTime = 0f;
         model.transform.rotation = Quaternion.Euler(0, model.transform.rotation.eulerAngles.y, 0);
+        Audiomanager.Instance.StopRollingDiceSound();
     }
 
     public void Show() {
@@ -97,7 +98,7 @@ public class Dice : MonoBehaviour {
         StartCoroutine(RandomDiceNumberCoroutine());
 
         Show();
-        model.transform.DOScale(0, .3f).From();
+        model.transform.DOScale(0, .3f).From().OnComplete(Audiomanager.Instance.PlayRollingDiceSound);
 
         IEnumerator RandomDiceNumberCoroutine() {
             if (!isSpinning) { yield break; }
@@ -112,7 +113,7 @@ public class Dice : MonoBehaviour {
     public void OnRollCancel() {
         StopSpinning();
         model.transform.DOComplete();
-        model.transform.DOScale(0, .12f).OnComplete(() => HideModel());
+        model.transform.DOScale(0, .12f).OnComplete(HideModel);
     }
 
     public Sequence OnRollDisplay(int roll) {
@@ -123,7 +124,8 @@ public class Dice : MonoBehaviour {
 
         return DOTween.Sequence()
             .Join(model.transform.DOShakePosition(.6f, .1f, 20))
-            .Append(model.transform.DOPunchScale(Vector3.one / 4, .3f, 10, 1));
+            .Append(model.transform.DOPunchScale(Vector3.one / 4, .3f, 10, 1))
+            .InsertCallback(.45f, Audiomanager.Instance.PlayPoppingDiceSound);
     }
 
     public WaitWhile OnRollEnd(int roll) {
