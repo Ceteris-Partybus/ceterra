@@ -79,10 +79,13 @@ public abstract class CatastropheEffect {
 
     private IEnumerator ApplyDamage() {
         CameraHandler.Instance.RpcZoomIn();
-        var affectedPlayers = IsGlobal() ? GetAffectedPlayersGlobal(GetCurrentRoundHealthDamage()) : GetAffectedPlayersWithinRange(Vector3.zero, 0);
+        var baseDamage = GetCurrentRoundHealthDamage();
+        var affectedPlayers = IsGlobal() ? GetAffectedPlayersGlobal(baseDamage) : GetAffectedPlayersWithinRange(Vector3.zero, 0);
         yield return RpcShowAndHideCatastropheInfo(GetCurrentRoundModalDescriptionId(), affectedPlayers);
-        yield return ApplyDamageToPlayers(affectedPlayers);
-        yield return EnsureCameraOnCurrentPlayer();
+        if (baseDamage > 0 && affectedPlayers.Count > 0) {
+            yield return ApplyDamageToPlayers(affectedPlayers);
+            yield return EnsureCameraOnCurrentPlayer();
+        }
 
         CameraHandler.Instance.RpcZoomOut();
         yield return new WaitForSeconds(CameraHandler.Instance.ZoomToPlayerBlendTime + .25f);
