@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine;
 
 public class CatastropheFieldBehaviour : FieldBehaviour {
-    private const float PLAYER_DAMAGE_DELAY = 0.3f;
+    private const float PLAYER_DAMAGE_DELAY = .3f;
 
     private static int catastropheFieldCount = 0;
     private static readonly CatastropheType[] catastropheTypes = (CatastropheType[])System.Enum.GetValues(typeof(CatastropheType));
@@ -17,6 +17,8 @@ public class CatastropheFieldBehaviour : FieldBehaviour {
     private int environmentEffect;
     private int healthEffect;
     private int effectRadius;
+
+    public override FieldType GetFieldType() => FieldType.CATASTROPHE;
 
     public void Start() {
         catastropheType = catastropheTypes[catastropheFieldCount++ % catastropheTypes.Length];

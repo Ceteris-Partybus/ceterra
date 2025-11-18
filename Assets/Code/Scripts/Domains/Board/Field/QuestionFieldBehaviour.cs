@@ -2,6 +2,8 @@ using Mirror;
 using UnityEngine;
 
 public class QuestionFieldBehaviour : FieldBehaviour {
+    public override FieldType GetFieldType() => FieldType.QUESTION;
+
     [Server]
     protected override void OnPlayerLand(BoardPlayer player) {
         Debug.Log($"Player landed on a question field.");
