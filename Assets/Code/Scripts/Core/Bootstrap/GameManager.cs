@@ -125,7 +125,7 @@ public class GameManager : NetworkRoomManager {
 
         var randomIndex = UnityEngine.Random.Range(0, availableMinigames.Count);
         var selectedMinigame = availableMinigames[randomIndex];
-        StartMinigame("MgMemory");
+        StartMinigame(selectedMinigame);
     }
 
     /// <summary>
