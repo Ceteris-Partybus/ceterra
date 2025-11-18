@@ -1,6 +1,7 @@
 using Mirror;
+using System;
 
-public class MgMemoryPlayer : SceneConditionalPlayer {
+public class MgMemoryPlayer : SceneConditionalPlayer, IMinigameRewardHandler {
     private int score = 0;
     private int earnedCoinReward = 0;
     private int firstSelectedCardIndex = -1;
@@ -49,5 +50,11 @@ public class MgMemoryPlayer : SceneConditionalPlayer {
     public void ClearCardSelections() {
         firstSelectedCardIndex = -1;
         secondSelectedCardIndex = -1;
+    }
+
+    [Server]
+    public void HandleMinigameRewards(BoardPlayer player) {
+        player.PlayerStats.ModifyCoins(Math.Max(0, earnedCoinReward));
+        player.PlayerStats.ModifyScore(Math.Max(0, score));
     }
 }
