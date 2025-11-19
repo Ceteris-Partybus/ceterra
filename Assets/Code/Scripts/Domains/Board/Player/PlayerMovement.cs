@@ -82,8 +82,10 @@ public class PlayerMovement : NetworkBehaviour {
 
     [Server]
     private IEnumerator EnsureTargetPosition(Vector3 targetPosition) {
-        while (Vector3.Distance(player.transform.position, targetPosition) > .05f) {
+        var distance = Vector3.Distance(player.transform.position, targetPosition);
+        while (distance > .05f) {
             player.transform.position = Vector3.MoveTowards(player.transform.position, targetPosition, moveSpeed * .5f * Time.deltaTime);
+            distance = Vector3.Distance(player.transform.position, targetPosition);
             yield return null;
         }
         player.transform.position = targetPosition;

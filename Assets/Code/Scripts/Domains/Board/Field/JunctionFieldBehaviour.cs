@@ -1,11 +1,12 @@
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Splines;
 
 public class JunctionFieldBehaviour : FieldBehaviour {
+    public override FieldType GetFieldType() => FieldType.JUNCTION;
+
     [Header("Branch Arrows")]
     [SerializeField] private Transform branchArrowPrefab;
     [SerializeField] private float branchArrowRadius;

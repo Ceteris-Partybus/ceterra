@@ -6,6 +6,8 @@ public class NormalFieldBehaviour : FieldBehaviour {
     private const int HEALTH_EFFECT = 5;
     private const int MONEY_EFFECT = 5;
 
+    public override FieldType GetFieldType() => FieldType.NORMAL;
+
     protected override void OnPlayerLand(BoardPlayer player) {
         Debug.Log($"Player landed on a normal field.");
         StartCoroutine(AddCoinsAndHealth(player));
