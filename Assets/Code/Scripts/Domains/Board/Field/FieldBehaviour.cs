@@ -165,10 +165,11 @@ public abstract class FieldBehaviour : NetworkBehaviour {
     }
 
     private IEnumerator DelayedOnStartClient() {
-        yield return new WaitUntil(() => BoardContext.Instance != null && BoardContext.Instance.FieldBehaviourList != null);
-        if (normalizedSplinePosition != -1) {
-            transform.SetParent(FieldInstantiate.Instance.SplineContainerTransform, false);
+        if (isEditorField) {
+            yield break;
         }
+        yield return new WaitUntil(() => BoardContext.Instance != null && BoardContext.Instance.FieldBehaviourList != null);
+        transform.SetParent(FieldInstantiate.Instance.SplineContainerTransform, false);
     }
 
     public override bool Equals(object obj) {

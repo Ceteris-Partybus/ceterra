@@ -20,10 +20,21 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
     public Transform SplineContainerTransform => splineContainer.transform;
 
     protected override void Start() {
-        if (!isServer) {
+        if (isClient) {
             SetFieldBehaviourList();
+            AlignKnotsWithFields();
         }
         base.Start();
+    }
+
+    private void AlignKnotsWithFields() {
+        foreach (var field in fields.Values) {
+            var spline = splineContainer.Splines[field.SplineKnotIndex.Spline];
+            var knotId = field.SplineKnotIndex.Knot;
+            var knot = spline.Knots.ElementAt(knotId);
+            knot.Position = field.transform.position;
+            spline.SetKnot(knotId, knot);
+        }
     }
 
     protected override void Awake() {
@@ -67,9 +78,6 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
             var current = CreateField(splineId, knotId, matchedField);
             fields.Add(current.SplineKnotIndex, current);
             Destroy(matchedField.gameObject);
-            // The adjustment of the knots' position happens ONLY on the server (as of now this should not lead to any problems on the clients)
-            knot.Position = splineContainer.transform.InverseTransformPoint(current.transform.position);
-            splineContainer.Splines[splineId].SetKnot(knotId, knot);
             return current;
         }
         return null;
@@ -101,10 +109,14 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
     private FieldBehaviour CreateField(int splineId, int knotId, FieldBehaviour field) {
         var splineKnotIndex = new SplineKnotIndex(splineId, knotId);
         var spline = splineContainer.Splines.ElementAt(splineId);
-        var normalizedPosition = spline.ConvertIndexUnit(knotId, PathIndexUnit.Knot, PathIndexUnit.Normalized);
         var fieldInstance = Instantiate(GetPrefabByType(field.GetFieldType()), field.Position, Quaternion.identity);
         fieldInstance.transform.SetParent(splineContainer.transform);
 
+        var knot = spline.Knots.ElementAt(knotId);
+        knot.Position = splineContainer.transform.InverseTransformPoint(fieldInstance.transform.position);
+        spline.SetKnot(knotId, spline.ElementAt(knotId));
+
+        var normalizedPosition = spline.ConvertIndexUnit(knotId, PathIndexUnit.Knot, PathIndexUnit.Normalized);
         NetworkServer.Spawn(fieldInstance);
         return fieldInstance.GetComponent<FieldBehaviour>().Initialize(splineKnotIndex, normalizedPosition);
     }
