@@ -5,15 +5,10 @@ using System.Linq;
 using UnityEngine;
 
 public class CatastropheFieldBehaviour : FieldBehaviour {
-    [SyncVar] private bool hasBeenInvoked = false;
+    public override FieldType GetFieldType() => FieldType.CATASTROPHE;
 
     [Server]
     protected override IEnumerator OnPlayerLand(BoardPlayer player) {
-        if (hasBeenInvoked) {
-            yield break;
-        }
-        hasBeenInvoked = true;
-
         yield return CatastropheManager.Instance.RegisterCatastrophe(CatastropheType.EARTHQUAKE);
 
         var localScale = transform.localScale;

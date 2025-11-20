@@ -1,0 +1,117 @@
+[
+    {
+        "title": "Trinkwasserknappheit",
+        "description": "2,2 Milliarden Menschen haben keinen Zugang zu sauberem Trinkwasser - das ist ein Viertel der Weltbevölkerung.",
+        "imagePath": "Minigame/Memory/water_droplet_on_dry_soil"
+    },
+    {
+        "title": "E-Müll und Recycling",
+        "description": "2022 wurden 62 Millionen Tonnen Elektroschrott produziert - aber nur 22,3% werden recycelt.",
+        "imagePath": "Minigame/Memory/battery_recyling"
+    },
+    {
+        "title": "Gefährliche Chemikalien",
+        "description": "In der Textilproduktion werden über 8.000 verschiedene Chemikalien verwendet - viele landen giftig in Gewässern.",
+        "imagePath": "Minigame/Memory/chemical_drums"
+    },
+    {
+        "title": "Abholzung der Regenwälder",
+        "description": "2024 wurden 67.000 km² tropische Regenwälder abgeholzt - das entspricht 18 Fußballfeldern pro Minute.",
+        "imagePath": "Minigame/Memory/forest_devastation"
+    },
+    {
+        "title": "Mikroplastik aus Kosmetik",
+        "description": "Über 700 Tonnen Mikroplastik aus Kosmetik gelangen jährlich in deutsches Abwasser.",
+        "imagePath": "Minigame/Memory/plastic_microscope"
+    },
+    {
+        "title": "Lithium-Abbau",
+        "description": "Der Lithium-Abbau in der Atacama-Wüste benötigt mehr Wasser als ganze Regionen haben - Böden versalzen.",
+        "imagePath": "Minigame/Memory/lithium_mining"
+    },
+    {
+        "title": "Erneuerbare Energien",
+        "description": "Im ersten Halbjahr 2025 wurde erstmals mehr Strom weltweit aus erneuerbaren Energien als aus Kohle erzeugt - 34,3%.",
+        "imagePath": "Minigame/Memory/solar_wind"
+    },
+    {
+        "title": "Bienensterben",
+        "description": "Neonikotinoide wirken auf Insekten 7.000 Mal giftiger als DDT - versteckt in 75% aller Honigproben weltweit.",
+        "imagePath": "Minigame/Memory/bee"
+    },
+    {
+        "title": "Dürren und Klimawandel",
+        "description": "Der Klimawandel verursacht häufiger extreme Trockenperioden und Dürren - mit fatalen Folgen für Landwirtschaft und Menschen.",
+        "imagePath": "Minigame/Memory/dry_earth"
+    },
+    {
+        "title": "E-Müll",
+        "description": "2022 wurden 62 Millionen Tonnen Elektroschrott produziert - aber nur 22,3% werden recycelt.",
+        "imagePath": "Minigame/Memory/e-waste_pile"
+    },
+    {
+        "title": "Wasserverbrauch Textilindustrie",
+        "description": "Für 1 kg Baumwolle werden 10.000-20.000 Liter Wasser benötigt - etwa 170 Badewannen voll.",
+        "imagePath": "Minigame/Memory/cotton_plant"
+    },
+    {
+        "title": "Palmöl zerstört Regenwald",
+        "description": "Für Palmölplantagen wurden 24 Millionen Hektar Regenwald zerstört - eine Fläche größer als Großbritannien.",
+        "imagePath": "Minigame/Memory/palmoil_plantation"
+    },
+    {
+        "title": "Süßwasser-Ökosysteme",
+        "description": "Süßwasser-Ökosysteme zeigen den stärksten Bestandsrückgang mit 85% in 50 Jahren.",
+        "imagePath": "Minigame/Memory/dry_lake"
+    },
+    {
+        "title": "Wildtierbestände",
+        "description": "Wildtierbestände sind in den letzten 50 Jahren um durchschnittlich 73% gesunken.",
+        "imagePath": "Minigame/Memory/animal_sekeleton"
+    },
+    {
+        "title": "Kreuzfahrten",
+        "description": "Ein Kreuzfahrtschiff stößt täglich so viel CO₂ aus wie 84.000 Autos - 150 Tonnen Schweröl pro Tag.",
+        "imagePath": "Minigame/Memory/cruiseship"
+    },
+    {
+        "title": "Luftverschmutzung",
+        "description": "Allein in Deutschland sterben jährlich rund 70.000 Menschen an Feinstaub aus Verkehr und Industrie.",
+        "imagePath": "Minigame/Memory/car_highway_pollution"
+    },
+    {
+        "title": "Schwerindustrie",
+        "description": "Die Stahlindustrie produziert 51 Millionen Tonnen CO₂ pro Jahr - mehr als jedes andere Industriesegment.",
+        "imagePath": "Minigame/Memory/industry"
+    },
+    {
+        "title": "Waldrodung",
+        "description": "Jede Minute werden weltweit 18 Fußballfelder tropischer Regenwald für Landwirtschaft zerstört.",
+        "imagePath": "Minigame/Memory/bulldozer_destroying_forest"
+    },
+    {
+        "title": "Fast Fashion",
+        "description": "Für ein einziges T-Shirt werden 2.700 Liter Wasser benötigt - mehr als eine Person in 2,7 Jahren trinkt.",
+        "imagePath": "Minigame/Memory/fastfashion"
+    },
+    {
+        "title": "Lebensmittelverschwendung",
+        "description": "1 Milliarde Tonnen Lebensmittel landen jährlich im Müll - das sind 132 kg pro Kopf.",
+        "imagePath": "Minigame/Memory/foodwaste"
+    },
+    {
+        "title": "Plastik in Weltmeeren",
+        "description": "88% der weltweiten Meeresoberflächen sind mit Mikroplastik verschmutzt.",
+        "imagePath": "Minigame/Memory/platic_sea"
+    },
+    {
+        "title": "Reduktion von Plastiktüten",
+        "description": "Durch eine Gebühr reduzierten die Iren den Plastiktüten-Verbrauch um 90%.",
+        "imagePath": "Minigame/Memory/floating_bags_sea"
+    },
+    {
+        "title": "Tödliche Wasserverschmutzung",
+        "description": "Verschmutztes Wasser verursacht weltweit jährlich mehr Todesfälle als alle Formen von Gewalt, auch Krieg.",
+        "imagePath": "Minigame/Memory/water_contamination"
+    }
+]

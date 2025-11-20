@@ -4,6 +4,8 @@ using System.Collections;
 using UnityEngine;
 
 public class LedgeFieldBehaviour : FieldBehaviour {
+    public override FieldType GetFieldType() => FieldType.LEDGE;
+
     [Server]
     public override IEnumerator OnPlayerCross(BoardPlayer player) {
         Debug.Log($"Player crossed a ledge field.");

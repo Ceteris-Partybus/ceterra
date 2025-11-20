@@ -6,9 +6,10 @@ using UnityEngine;
 public class QuestionFieldBehaviour : FieldBehaviour {
     private bool quizCompleted = true;
 
+    public override FieldType GetFieldType() => FieldType.QUESTION;
+
     [Server]
     protected override IEnumerator OnPlayerLand(BoardPlayer player) {
-        Debug.Log($"Player landed on a question field.");
         var onQuizCompleted = new Action(() => quizCompleted = true);
         if (BoardquizController.Instance.gameObject != null && BoardquizController.Instance != null) {
             if (player != null) {

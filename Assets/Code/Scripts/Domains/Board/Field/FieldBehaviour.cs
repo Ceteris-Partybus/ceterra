@@ -15,9 +15,10 @@ public abstract class FieldBehaviour : NetworkBehaviour {
     [SyncVar]
     [SerializeField] private SplineKnotIndex splineKnotIndex;
     public SplineKnotIndex SplineKnotIndex => splineKnotIndex;
-    [SyncVar]
-    [SerializeField] private float normalizedSplinePosition;
+    [SyncVar][SerializeField] private float normalizedSplinePosition;
     public float NormalizedSplinePosition => normalizedSplinePosition;
+    [SerializeField] public bool isEditorField;
+    public bool IsEditorField => isEditorField;
     [SyncVar]
     [SerializeField] private bool skipStepCount;
     public bool SkipStepCount => skipStepCount;
@@ -25,9 +26,12 @@ public abstract class FieldBehaviour : NetworkBehaviour {
     public bool PausesMovement => pausesMovement;
     public Vector3 Position => transform.position;
 
+    public abstract FieldType GetFieldType();
+
     public FieldBehaviour Initialize(SplineKnotIndex splineKnotIndex, float normalizedSplinePosition) {
         this.splineKnotIndex = splineKnotIndex;
         this.normalizedSplinePosition = normalizedSplinePosition;
+        this.isEditorField = false;
         return this;
     }
 
@@ -137,6 +141,9 @@ public abstract class FieldBehaviour : NetworkBehaviour {
     }
 
     private IEnumerator DelayedOnStartClient() {
+        if (isEditorField) {
+            yield break;
+        }
         yield return new WaitUntil(() => BoardContext.Instance != null && BoardContext.Instance.FieldBehaviourList != null);
         transform.SetParent(FieldInstantiate.Instance.SplineContainerTransform, false);
     }
