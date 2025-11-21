@@ -6,10 +6,12 @@ using UnityEngine;
 
 public class CatastropheFieldBehaviour : FieldBehaviour {
     public override FieldType GetFieldType() => FieldType.CATASTROPHE;
+    [SerializeField] private CatastropheType catastropheType;
+    public CatastropheType CatastropheType => catastropheType;
 
     [Server]
     protected override IEnumerator OnPlayerLand(BoardPlayer player) {
-        yield return CatastropheManager.Instance.RegisterCatastrophe(CatastropheType.EARTHQUAKE);
+        yield return CatastropheManager.Instance.RegisterCatastrophe(catastropheType);
 
         var localScale = transform.localScale;
         var scaleSequence = DOTween.Sequence();

@@ -142,8 +142,19 @@ public class PlayerMovement : NetworkBehaviour {
         }
     }
 
+    private bool AHHHHHHHH = false;
     void Update() {
         if (isJumping) { return; }
         if (isMoving) { MoveAndRotate(); return; }
+
+        if (!isLocalPlayer) { return; }
+        if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)) && !AHHHHHHHH) {
+            player.VisualHandler.TriggerAnimation(AnimationType.WALK);
+            AHHHHHHHH = true;
+        }
+        if ((Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) && AHHHHHHHH) {
+            player.VisualHandler.TriggerAnimation(AnimationType.IDLE);
+            AHHHHHHHH = false;
+        }
     }
 }
