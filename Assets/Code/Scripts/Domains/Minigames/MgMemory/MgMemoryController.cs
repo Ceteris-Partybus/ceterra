@@ -8,7 +8,6 @@ using System;
 
 public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
     [SerializeField] private UIDocument uiDocument;
-    [SerializeField] private float factPopupDuration = 10f; // Anzeigedauer des Fact-Popups in Sekunden
     [SerializeField] private Canvas canvas;
 
     private const string LOCALIZATION_TABLE = "ceterra";
@@ -66,12 +65,12 @@ public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
     }
 
     [Server]
-    public void ShowFactPopup(MemoryFactData factData) {
-        RpcShowFactPopup(factData);
+    public void ShowFactPopup(MemoryFactData factData, float duration) {
+        RpcShowFactPopup(factData, duration);
     }
 
     [ClientRpc]
-    private void RpcShowFactPopup(MemoryFactData factData) {
+    private void RpcShowFactPopup(MemoryFactData factData, float duration) {
         canvas.sortingOrder = 0;
         factTitle.text = factData.title;
         this.factDescription.text = factData.description;
@@ -81,8 +80,8 @@ public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
 
         SetElementDisplay(factPopup, true);
 
-        StartCoroutine(HideFactPopupAfterDelay(factPopupDuration));
-        StartCoroutine(UpdateFactPopupCountdown(factPopupDuration));
+        StartCoroutine(HideFactPopupAfterDelay(duration));
+        StartCoroutine(UpdateFactPopupCountdown(duration));
     }
 
     private IEnumerator UpdateFactPopupCountdown(float duration) {

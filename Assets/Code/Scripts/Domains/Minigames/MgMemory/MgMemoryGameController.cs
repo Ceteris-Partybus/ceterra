@@ -6,7 +6,7 @@ using UnityEngine;
 public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController> {
     [SerializeField] private Card cardPrefab;
     [SerializeField] private Transform gridTransform;
-    [SerializeField] private readonly float checkDelay = 0.5f;
+    [SerializeField] private readonly float checkDelay = 0.7f;
     [SerializeField] private int pointsForCorrectMatch = 1;
 
     private List<Sprite> spritePairs;
@@ -122,7 +122,7 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
 
     [Command(requiresAuthority = false)]
     private void CmdHandleMatch(MemoryFactData factData) {
-        MgMemoryController.Instance.ShowFactPopup(factData);
+        MgMemoryContext.Instance.ShowFactPopupWithDuration(factData);
     }
 
     [Command(requiresAuthority = false)]

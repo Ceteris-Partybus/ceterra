@@ -9,14 +9,12 @@ using UnityEngine;
 public class MgMemoryContext : MgContext<MgMemoryContext, MgMemoryPlayer> {
 
     [Header("Minigame Settings")]
-    [SerializeField] private float GameDuration;
     [SerializeField] private float scoreboardDuration;
+    [SerializeField] private float factPopupDuration = 10f;
     [SerializeField] private string memoryFactsFileName = "Data/Productiondata/Minigames/Memory/memory_facts";
+    [SerializeField] private int totalPairs = 12;
 
-    private float countdownTimer;
-    private Coroutine countdownCoroutine;
     private List<MemoryFactData> memoryFacts = new();
-
     [SyncVar(hook = nameof(OnCurrentPlayerChanged))]
     private int currentPlayerId = -1;
 
@@ -61,6 +59,16 @@ public class MgMemoryContext : MgContext<MgMemoryContext, MgMemoryPlayer> {
     public void HandleMismatch() {
         NextPlayer();
     }
+    [Server]
+    public void ShowFactPopupWithDuration(MemoryFactData factData) {
+        MgMemoryController.Instance.ShowFactPopup(factData, factPopupDuration);
+    }
+
+    [Server]
+    private bool IsGameFinished() {
+        var totalMatches = players.Sum(p => p.Score);
+        return totalMatches >= totalPairs;
+    }
 
     [Server]
     private void NextPlayer() {
@@ -71,6 +79,10 @@ public class MgMemoryContext : MgContext<MgMemoryContext, MgMemoryPlayer> {
         yield return new WaitForSeconds(0.5f);
         InitializePlayers();
         StartMemory();
+
+        yield return new WaitUntil(() => IsGameFinished());
+
+        yield return new WaitForSeconds(1f);
 
         RpcClearMemoryOnClients();
         yield return new WaitForSeconds(0.1f);
@@ -94,7 +106,6 @@ public class MgMemoryContext : MgContext<MgMemoryContext, MgMemoryPlayer> {
         MgMemoryController.Instance.ShowScoreboard(rankings);
         yield return new WaitForSeconds(scoreboardDuration);
 
-        StopMemory();
         GameManager.Singleton.EndMinigame();
     }
 
@@ -140,13 +151,7 @@ public class MgMemoryContext : MgContext<MgMemoryContext, MgMemoryPlayer> {
         MgMemoryGameController.Instance.ClearMemory();
     }
 
-    [Server]
-    public void StopMemory() {
-        if (countdownCoroutine != null) {
-            StopCoroutine(countdownCoroutine);
-            countdownCoroutine = null;
-        }
-    }
+
 
     private int CalculateCoinReward(int rank) {
         return 100 / (int)Mathf.Pow(2, rank - 1);

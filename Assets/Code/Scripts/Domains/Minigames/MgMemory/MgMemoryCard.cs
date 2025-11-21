@@ -9,7 +9,7 @@ public class Card : NetworkBehaviour {
     [SerializeField] private Image cardImage;
     [SerializeField] private Button cardButton;
     [SerializeField] private Sprite hiddenIconSprite;
-    [SerializeField] private float flipDuration = 0.3f;
+    [SerializeField] private float flipDuration = 0.5f;
     private MemoryFactData factData;
     public MemoryFactData FactData => factData;
     public void SetFactData(string title, string description, string imagePath) {
