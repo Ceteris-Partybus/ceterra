@@ -12,6 +12,11 @@ public class Dice : MonoBehaviour {
     [SerializeField] private ParticleSystem hitParticle;
     [SerializeField] private ParticleSystem resultParticle;
 
+    [Header("Audio")]
+    [SerializeField]
+    private AudioSource soundSource;
+    public AudioSource SoundSource => soundSource;
+
     [Header("General")]
     [SerializeField] private Transform model;
     [SerializeField] private Texture2D iconTexture2D;
@@ -75,7 +80,7 @@ public class Dice : MonoBehaviour {
         isSpinning = false;
         tiltTime = 0f;
         model.transform.rotation = Quaternion.Euler(0, model.transform.rotation.eulerAngles.y, 0);
-        Audiomanager.Instance.StopRollingDiceSound();
+        Audiomanager.Instance.StopRollingDiceSound(this);
     }
 
     public void Show() {
@@ -98,7 +103,7 @@ public class Dice : MonoBehaviour {
         StartCoroutine(RandomDiceNumberCoroutine());
 
         Show();
-        model.transform.DOScale(0, .3f).From().OnComplete(Audiomanager.Instance.PlayRollingDiceSound);
+        model.transform.DOScale(0, .3f).From().OnComplete(() => Audiomanager.Instance.PlayRollingDiceSound(this));
 
         IEnumerator RandomDiceNumberCoroutine() {
             if (!isSpinning) { yield break; }
@@ -125,7 +130,7 @@ public class Dice : MonoBehaviour {
         return DOTween.Sequence()
             .Join(model.transform.DOShakePosition(.6f, .1f, 20))
             .Append(model.transform.DOPunchScale(Vector3.one / 4, .3f, 10, 1))
-            .InsertCallback(.45f, Audiomanager.Instance.PlayPoppingDiceSound);
+            .InsertCallback(.45f, () => Audiomanager.Instance.PlayPoppingDiceSound(this));
     }
 
     public WaitWhile OnRollEnd(int roll) {

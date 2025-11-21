@@ -10,6 +10,9 @@ public static class CatastropheEffectSerializer {
         var type = (CatastropheType)reader.ReadByte();
         var remainingRounds = reader.ReadInt();
         return type switch {
+            CatastropheType.ATOMIC_EXPLOSION => new AtomicExplosion() {
+                RemainingRounds = remainingRounds
+            },
             CatastropheType.DROUGHT => new Drought(SkyboxManager.Instance) {
                 RemainingRounds = remainingRounds
             },

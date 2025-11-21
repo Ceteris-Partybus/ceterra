@@ -3,12 +3,14 @@ using UnityEngine;
 
 public abstract class ParticleDestructionSoundEmitter : MonoBehaviour {
     [SerializeField] private ParticleSystem _particleSystem;
-    protected abstract Action GetDestroySoundEmitter();
+    [SerializeField] private BoardPlayer boardPlayer;
+    protected abstract Action<BoardPlayer> GetDestroySoundEmitter();
     private int currentParticleCount = 0;
 
     void Update() {
         if (_particleSystem.particleCount < currentParticleCount) {
-            GetDestroySoundEmitter()?.Invoke();
+            Debug.Log("Playing particle destruction sound");
+            GetDestroySoundEmitter()?.Invoke(boardPlayer);
         }
         currentParticleCount = _particleSystem.particleCount;
     }

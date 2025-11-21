@@ -4,56 +4,25 @@ public class Audiomanager : MonoBehaviour {
     public static Audiomanager Instance;
 
     [Header("UI Sounds")]
-    public AudioSource ClickAudioSource;
-    public AudioClip buttonClickSound;
-
-    public AudioSource InvestAudioSource;
-    public AudioClip InvestClickSound;
-
-    public AudioSource FundsAudioSource;
-    public AudioClip FundsClickSound;
-
-    public AudioSource RessourceAudioSource;
-    public AudioClip RessourceClickSound;
-
-    public AudioSource MoneyHealthSource;
-    public AudioClip MoneyHealthSound;
-
-    public AudioSource FailSource;
-    public AudioClip FailSound;
-
-    public AudioSource SuccessSource;
-    public AudioClip SuccessSound;
-
-    public AudioSource GarbageBinOpenSource;
-    public AudioClip GarbageBinOpenSound;
-
-    public AudioSource GarbageBinCloseSource;
-    public AudioClip GarbageBinCloseSound;
-
-    public AudioSource CoinGainSource;
-    public AudioClip CoinGainSound;
-
-    public AudioSource HealthGainSource;
-    public AudioClip HealthGainSound;
-
-    public AudioSource earthquakeSource;
-    public AudioClip earthquakeSound;
-
-    public AudioSource wildfireSource;
-    public AudioClip wildfireSound;
-
-    public AudioSource rollingDiceSource;
-    public AudioClip rollingDiceSound;
-
-    public AudioSource PoppingDiceSource;
-    public AudioClip PoppingDiceSound;
-
-    public AudioSource RunningPlayerSource;
-    public AudioClip RunningPlayerSound;
+    [SerializeField] private AudioSource clickAudioSource;
+    [SerializeField] private AudioSource investAudioSource;
+    [SerializeField] private AudioSource fundsAudioSource;
+    [SerializeField] private AudioSource ressourceAudioSource;
+    [SerializeField] private AudioSource moneyHealthSource;
+    [SerializeField] private AudioSource failSource;
+    [SerializeField] private AudioSource successSource;
+    [SerializeField] private AudioSource garbageBinOpenSource;
+    [SerializeField] private AudioSource garbageBinCloseSource;
+    [SerializeField] private AudioSource earthquakeSource;
+    [SerializeField] private AudioSource wildfireSource;
+    [SerializeField] private AudioSource atomicExplosionSource;
+    [SerializeField] private AudioClip coinGainClip;
+    [SerializeField] private AudioClip healthGainClip;
+    [SerializeField] private AudioClip rollingDiceClip;
+    [SerializeField] private AudioClip poppingDiceClip;
+    [SerializeField] private AudioClip runningPlayerClip;
 
     private void Awake() {
-
         if (Instance != null && Instance != this) {
             Destroy(gameObject);
             return;
@@ -64,103 +33,114 @@ public class Audiomanager : MonoBehaviour {
     }
 
     public void PlayClickSound() {
-        PlaySound(ClickAudioSource, buttonClickSound);
+        PlaySound(clickAudioSource);
     }
 
     public void PlayInvestSound() {
-        PlaySound(InvestAudioSource, InvestClickSound);
+        PlaySound(investAudioSource);
     }
 
     public void PlayFundsSound() {
-        PlaySound(FundsAudioSource, FundsClickSound);
+        PlaySound(fundsAudioSource);
     }
 
     public void PlayRessourceSound() {
-        PlaySound(RessourceAudioSource, RessourceClickSound);
+        PlaySound(ressourceAudioSource);
     }
 
     public void PlayMoneyHealthSound() {
-        PlaySound(MoneyHealthSource, MoneyHealthSound);
+        PlaySound(moneyHealthSource);
     }
 
     public void PlayFailSound() {
-        PlaySound(FailSource, FailSound);
+        PlaySound(failSource);
     }
 
     public void PlaySuccessSound() {
-        PlaySound(SuccessSource, SuccessSound);
+        PlaySound(successSource);
     }
 
     public void PlayGarbageBinOpenSound() {
-        PlaySound(GarbageBinOpenSource, GarbageBinOpenSound);
+        PlaySound(garbageBinOpenSource);
     }
 
     public void PlayGarbageBinCloseSound() {
-        PlaySound(GarbageBinCloseSource, GarbageBinCloseSound);
+        PlaySound(garbageBinCloseSource);
     }
 
-    public void PlayCoinGainSound() {
-        PlaySound(CoinGainSource, CoinGainSound, true);
+    public void PlayCoinGainSound(BoardPlayer boardPlayer) {
+        PlaySound(boardPlayer.SoundSource, coinGainClip, .6f, 1.42f);
     }
 
-    public void PlayHealthGainSound() {
-        PlaySound(HealthGainSource, HealthGainSound, true);
+    public void PlayHealthGainSound(BoardPlayer boardPlayer) {
+        PlaySound(boardPlayer.SoundSource, healthGainClip, .32f, 1.62f);
     }
-
-    public void PlayHealthLossSound() {
+    public void PlayCoinLossSound(BoardPlayer boardPlayer) {
         //TODO: find proper sound
-        PlaySound(HealthGainSource, HealthGainSound, true);
+        PlaySound(boardPlayer.SoundSource, coinGainClip);
     }
 
-    public void PlayCoinLossSound() {
+    public void PlayHealthLossSound(BoardPlayer boardPlayer) {
         //TODO: find proper sound
-        PlaySound(CoinGainSource, CoinGainSound, true);
+        PlaySound(boardPlayer.SoundSource, healthGainClip);
     }
 
     public void PlayEarthquakeSound() {
-        PlaySound(earthquakeSource, earthquakeSound);
+        PlaySound(earthquakeSource);
     }
 
     public void PlayWildfireSound() {
-        PlaySound(wildfireSource, wildfireSound);
+        PlaySound(wildfireSource);
     }
 
-    public void PlayRollingDiceSound() {
-        Loop(rollingDiceSource, rollingDiceSound, true);
+    public void PlayRollingDiceSound(Dice dice) {
+        Loop(dice.SoundSource, rollingDiceClip, .2f, 1.2f);
     }
 
-    public void StopRollingDiceSound() {
-        if (rollingDiceSource.isPlaying) {
-            rollingDiceSource.Stop();
+    public void StopRollingDiceSound(Dice dice) {
+        if (dice.SoundSource.isPlaying) {
+            dice.SoundSource.Stop();
         }
     }
 
-    public void PlayPoppingDiceSound() {
-        PlaySound(PoppingDiceSource, PoppingDiceSound);
+    public void PlayPoppingDiceSound(Dice dice) {
+        PlaySound(dice.SoundSource, poppingDiceClip, .1f);
     }
 
-    public void PlayRunningPlayerSound() {
-        Loop(RunningPlayerSource, RunningPlayerSound);
+    public void PlayRunningPlayerSound(BoardPlayer boardPlayer) {
+        Loop(boardPlayer.SoundSource, runningPlayerClip, 1.32f);
     }
 
-    public void StopRunningPlayerSound() {
-        if (RunningPlayerSource.isPlaying) {
-            RunningPlayerSource.Stop();
+    public void StopPlayerSound(BoardPlayer boardPlayer) {
+        if (boardPlayer.SoundSource.isPlaying) {
+            boardPlayer.SoundSource.Stop();
         }
     }
 
-    public void PlaySound(AudioSource source, AudioClip clip, bool canOverlap = false) {
-        if (source != null && clip != null && (canOverlap || !source.isPlaying)) {
-            source.PlayOneShot(clip);
+    public void PlayAtomicExplosionSound(Vector3 position) {
+        PlayAtPosition(atomicExplosionSource, null);
+    }
+
+    public void PlaySound(AudioSource source) {
+        if (source != null && !source.isPlaying) {
+            source.loop = false;
+            source.PlayOneShot(source.clip);
         }
     }
 
-    public void Loop(AudioSource source, AudioClip clip, bool canOverlap = false) {
-        if (source != null && clip != null && (canOverlap || !source.isPlaying)) {
-            source.clip = clip;
-            source.loop = true;
-            source.Play();
-        }
+    public void PlaySound(AudioSource source, AudioClip clip, float volume = 1f, float pitch = 1f, bool loop = false) {
+        source.clip = clip;
+        source.loop = loop;
+        source.volume = volume;
+        source.pitch = pitch;
+        source.Play();
+    }
+
+    public void Loop(AudioSource source, AudioClip clip, float volume = 1f, float pitch = 1f) {
+        PlaySound(source, clip, volume, pitch, true);
+    }
+
+    public void PlayAtPosition(AudioSource source, BoardPlayer boardPlayer) {
+        AudioSource.PlayClipAtPoint(source.clip, boardPlayer.transform.position, source.volume);
     }
 }
-

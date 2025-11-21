@@ -1,6 +1,5 @@
 using DG.Tweening;
 using Mirror;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +16,7 @@ public abstract class FieldBehaviour : NetworkBehaviour {
     public SplineKnotIndex SplineKnotIndex => splineKnotIndex;
     [SyncVar][SerializeField] private float normalizedSplinePosition;
     public float NormalizedSplinePosition => normalizedSplinePosition;
-    [SerializeField] public bool isEditorField;
+    [SerializeField] public bool isEditorField = true;
     public bool IsEditorField => isEditorField;
     [SyncVar]
     [SerializeField] private bool skipStepCount;

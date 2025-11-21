@@ -26,6 +26,11 @@ public class BoardPlayer : SceneConditionalPlayer {
     private SplineContainer splineContainer;
     public SplineContainer SplineContainer => splineContainer;
 
+    [Header("Audio")]
+    [SerializeField]
+    private AudioSource soundSource;
+    public AudioSource SoundSource => soundSource;
+
     [Header("Movement")]
     [SerializeField]
     private PlayerMovement playerMovement;
@@ -131,10 +136,10 @@ public class BoardPlayer : SceneConditionalPlayer {
     [ClientRpc]
     public void RpcTriggerAnimation(AnimationType animationType) {
         if (AnimationType.RUN == animationType) {
-            Audiomanager.Instance.PlayRunningPlayerSound();
+            Audiomanager.Instance.PlayRunningPlayerSound(this);
         }
         else {
-            Audiomanager.Instance.StopRunningPlayerSound();
+            Audiomanager.Instance.StopPlayerSound(this);
         }
         visualHandler?.TriggerAnimation(animationType);
     }
