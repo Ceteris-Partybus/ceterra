@@ -142,19 +142,23 @@ public class PlayerMovement : NetworkBehaviour {
         }
     }
 
-    private bool AHHHHHHHH = false;
+    private bool isAPressed;
+    private bool isDPressed;
+    private bool isIdling;
     void Update() {
         if (isJumping) { return; }
         if (isMoving) { MoveAndRotate(); return; }
 
-        if (!isLocalPlayer) { return; }
-        if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)) && !AHHHHHHHH) {
-            player.VisualHandler.TriggerAnimation(AnimationType.WALK);
-            AHHHHHHHH = true;
+        if (!isLocalPlayer || BoardContext.Instance == null || !BoardContext.Instance.IsPlayerTurn(player)) { return; }
+        isAPressed = Input.GetKey(KeyCode.A);
+        isDPressed = Input.GetKey(KeyCode.D);
+        if (isIdling && (isAPressed || isDPressed)) {
+            player?.VisualHandler?.TriggerAnimation(AnimationType.WALK);
+            isIdling = false;
         }
-        if ((Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) && AHHHHHHHH) {
-            player.VisualHandler.TriggerAnimation(AnimationType.IDLE);
-            AHHHHHHHH = false;
+        else if (!isIdling && !isAPressed && !isDPressed) {
+            player?.VisualHandler?.TriggerAnimation(AnimationType.IDLE);
+            isIdling = true;
         }
     }
 }
