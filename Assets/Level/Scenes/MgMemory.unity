@@ -188,7 +188,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   uiDocument: {fileID: 583488098}
-  factPopupDuration: 10
   canvas: {fileID: 910630611}
 --- !u!114 &583488101
 MonoBehaviour:
@@ -671,9 +670,10 @@ MonoBehaviour:
   description: 56521928061177859
   controls: 56521928061177860
   screenshot: {fileID: 21300000, guid: 2bd45325eeef04540a0288cca799e6e2, type: 3}
-  GameDuration: 90
   scoreboardDuration: 15
+  factPopupDuration: 3
   memoryFactsFileName: Data/Productiondata/Minigames/Memory/memory_facts
+  totalPairs: 10
 --- !u!114 &1055850417
 MonoBehaviour:
   m_ObjectHideFlags: 0
