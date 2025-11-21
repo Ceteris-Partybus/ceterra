@@ -149,8 +149,7 @@ public class PlayerMovement : NetworkBehaviour {
         if (isJumping) { return; }
         if (isMoving) { MoveAndRotate(); return; }
 
-        if (!isLocalPlayer
-                || BoardContext.Instance == null
+        if (BoardContext.Instance == null
                 || CameraHandler.Instance == null
                 || !BoardContext.Instance.IsPlayerTurn(player)
                 || !CameraHandler.Instance.IsDefault
