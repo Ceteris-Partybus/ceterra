@@ -25,7 +25,6 @@ public class MgMemoryContext : MgContext<MgMemoryContext, MgMemoryPlayer> {
     public override void OnStartGame() {
         if (isServer) {
             StartCoroutine(MemoryRoutine());
-            countdownCoroutine = StartCoroutine(UpdateCountdown());
         }
     }
 
@@ -72,7 +71,6 @@ public class MgMemoryContext : MgContext<MgMemoryContext, MgMemoryPlayer> {
         yield return new WaitForSeconds(0.5f);
         InitializePlayers();
         StartMemory();
-        yield return new WaitForSeconds(GameDuration);
 
         RpcClearMemoryOnClients();
         yield return new WaitForSeconds(0.1f);
@@ -140,31 +138,6 @@ public class MgMemoryContext : MgContext<MgMemoryContext, MgMemoryPlayer> {
     [ClientRpc]
     private void RpcClearMemoryOnClients() {
         MgMemoryGameController.Instance.ClearMemory();
-    }
-
-    [Server]
-    private IEnumerator UpdateCountdown() {
-        countdownTimer = GameDuration;
-        var lastSeconds = Mathf.CeilToInt(countdownTimer);
-
-        RpcUpdateCountdown(lastSeconds);
-
-        while (countdownTimer > 0f) {
-            countdownTimer -= Time.deltaTime;
-            var seconds = Mathf.CeilToInt(Mathf.Max(0f, countdownTimer));
-            if (seconds != lastSeconds) {
-                RpcUpdateCountdown(seconds);
-                lastSeconds = seconds;
-            }
-            yield return null;
-        }
-        RpcUpdateCountdown(0);
-        countdownCoroutine = null;
-    }
-
-    [ClientRpc]
-    private void RpcUpdateCountdown(int seconds) {
-        MgMemoryController.Instance.UpdateCountdown(seconds);
     }
 
     [Server]
