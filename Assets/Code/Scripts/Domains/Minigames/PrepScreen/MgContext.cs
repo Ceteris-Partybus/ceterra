@@ -16,6 +16,9 @@ public abstract class MgContext<T, P> : NetworkedSingleton<T>, IPrepScreen
     public Sprite GetScreenshot() => this.screenshot;
     public abstract void OnStartGame();
     public virtual void StartGame() {
+        if (isClient) {
+            SkyboxManager.Instance.OnMinigameStarted();
+        }
         this.OnStartGame();
     }
 

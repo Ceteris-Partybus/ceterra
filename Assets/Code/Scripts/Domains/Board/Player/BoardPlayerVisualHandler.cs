@@ -69,6 +69,7 @@ public class BoardPlayerVisualHandler : MonoBehaviour {
             AnimationType.IDLE => idleTrigger,
             AnimationType.RUN => runTrigger,
             AnimationType.JUMP => jumpTrigger,
+            AnimationType.WALK => "Walk",
             _ => throw new ArgumentException("Invalid animation type")
         });
     }

@@ -1,6 +1,5 @@
 using DG.Tweening;
 using Mirror;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +16,7 @@ public abstract class FieldBehaviour : NetworkBehaviour {
     public SplineKnotIndex SplineKnotIndex => splineKnotIndex;
     [SyncVar][SerializeField] private float normalizedSplinePosition;
     public float NormalizedSplinePosition => normalizedSplinePosition;
-    [SerializeField] public bool isEditorField;
+    [SerializeField] public bool isEditorField = true;
     public bool IsEditorField => isEditorField;
     [SyncVar]
     [SerializeField] private bool skipStepCount;
@@ -25,7 +24,6 @@ public abstract class FieldBehaviour : NetworkBehaviour {
     [SerializeField] private bool pausesMovement;
     public bool PausesMovement => pausesMovement;
     public Vector3 Position => transform.position;
-    public event Action OnFieldInvocationComplete;
 
     public abstract FieldType GetFieldType();
 
@@ -42,16 +40,9 @@ public abstract class FieldBehaviour : NetworkBehaviour {
 
     [Server]
     public IEnumerator InvokeOnPlayerLand(BoardPlayer player) {
-        bool completed = false;
-        Action completionHandler = () => completed = true;
-        OnFieldInvocationComplete += completionHandler;
-        OnPlayerLand(player);
+        yield return OnPlayerLand(player);
 
         AdjustPlayerPositions();
-
-        yield return new WaitUntil(() => completed);
-
-        OnFieldInvocationComplete -= completionHandler;
     }
 
     [Server]
@@ -126,29 +117,13 @@ public abstract class FieldBehaviour : NetworkBehaviour {
     }
 
     [Server]
-    public IEnumerator InvokeOnPlayerCross(BoardPlayer player) {
-        bool completed = false;
-        Action completionHandler = () => completed = true;
-        OnFieldInvocationComplete += completionHandler;
-        OnPlayerCross(player);
-
-        yield return new WaitUntil(() => completed);
-
-        OnFieldInvocationComplete -= completionHandler;
+    protected virtual IEnumerator OnPlayerLand(BoardPlayer player) {
+        yield return null;
     }
 
     [Server]
-    protected virtual void OnPlayerLand(BoardPlayer player) {
-        CompleteFieldInvocation();
-    }
-
-    [Server]
-    protected virtual void OnPlayerCross(BoardPlayer player) {
-        CompleteFieldInvocation();
-    }
-
-    protected void CompleteFieldInvocation() {
-        OnFieldInvocationComplete?.Invoke();
+    public virtual IEnumerator OnPlayerCross(BoardPlayer player) {
+        yield return null;
     }
 
     public void Hide() {

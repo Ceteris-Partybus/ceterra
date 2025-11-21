@@ -9,20 +9,14 @@ public class LocalizationManager : Singleton<LocalizationManager> {
     }
 
     public string GetLocalizedText(long id) {
-        return LocalizationSettings.StringDatabase
-        .GetLocalizedStringAsync(LOCALIZATION_TABLE, id)
-        .Result;
+        return LocalizationSettings.StringDatabase.GetLocalizedString(LOCALIZATION_TABLE, id);
     }
 
     public string GetLocalizedText(long id, params object[] parameters) {
-        return LocalizationSettings.StringDatabase
-        .GetLocalizedStringAsync(LOCALIZATION_TABLE, id, parameters)
-        .Result;
+        return LocalizationSettings.StringDatabase.GetLocalizedString(LOCALIZATION_TABLE, id, parameters);
     }
 
     public string GetLocalizedText(string key) {
-        return LocalizationSettings.StringDatabase
-        .GetLocalizedStringAsync(LOCALIZATION_TABLE, key)
-        .Result;
+        return LocalizationSettings.StringDatabase.GetLocalizedString(LOCALIZATION_TABLE, key);
     }
 }

@@ -1132,7 +1132,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 56145873707458560
-    m_Localized: 'Affected players:'
+    m_Localized: 'Damage report:'
     m_Metadata:
       m_Items: []
   - m_Id: 56146686244806656
@@ -1706,7 +1706,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 56649684747649024
-    m_Localized: Severe Drought
+    m_Localized: Drought
     m_Metadata:
       m_Items: []
   - m_Id: 56649705719169024
@@ -1750,7 +1750,7 @@ MonoBehaviour:
       m_Items:
       - rid: 7894437812287832149
   - m_Id: 56668768562413568
-    m_Localized: '{0} - {1}m away, takes {2} damage'
+    m_Localized: '{0}, {1}m away, takes {2} damage'
     m_Metadata:
       m_Items: []
   - m_Id: 56670997235204096
@@ -1865,6 +1865,66 @@ MonoBehaviour:
     m_Localized: Click to ready
     m_Metadata:
       m_Items: []
+  - m_Id: 63999993620021248
+    m_Localized: The fire weakens, but embers still glow beneath the smoke.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65747542009790464
+    m_Localized: The flames have died out, but faint smoke still lingers in the air.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63999993661964288
+    m_Localized: The smoke has cleared, leaving behind silence and scorched earth.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602888757248
+    m_Localized: The sun burns relentlessly, and the soil begins to crack.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602922311680
+    m_Localized: Water grows scarce, and the fields start to wither.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602922311681
+    m_Localized: Crops fail, and supplies dwindle as the drought deepens.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602922311682
+    m_Localized: The rivers have dried, and hunger spreads across the land.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602922311683
+    m_Localized: The land lies barren, and thirst grips every home.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66479609035177984
+    m_Localized: Rain finally returns, bringing relief to the scorched earth.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67262900449394688
+    m_Localized: The ground shakes violently, buildings suffer damage and people
+      panic.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67262900487143424
+    m_Localized: Fortunately, there were no aftershocks, but repair work continues
+      throughout the city.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67262900487143425
+    m_Localized: The repairs are complete and the city is returning to normal.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65711785694019584
+    m_Localized: '{0} takes {1} damage'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67188403738329088
+    m_Localized: No damage was detected.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67264907419664384
+    m_Localized: Earthquake
   - m_Id: 66070708549767168
     m_Localized: 'Pairs:'
     m_Metadata:

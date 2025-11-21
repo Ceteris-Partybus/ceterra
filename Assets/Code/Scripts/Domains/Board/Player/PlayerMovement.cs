@@ -50,19 +50,19 @@ public class PlayerMovement : NetworkBehaviour {
         while (remainingSteps > 0) {
             player.RpcUpdateDiceResultLabel(remainingSteps.ToString());
             var targetField = fieldBehaviourList.Find(player.SplineKnotIndex).GetNextTargetField();
-            yield return StartCoroutine(ServerSmoothMoveToKnot(targetField));
+            yield return ServerSmoothMoveToKnot(targetField);
 
             player.SplineKnotIndex = targetField.SplineKnotIndex;
             if (!targetField.SkipStepCount) { remainingSteps--; }
 
             if (remainingSteps > 0) {
                 if (targetField.PausesMovement) {
-                    yield return StartCoroutine(EnsureTargetPosition(targetField.Position));
+                    yield return EnsureTargetPosition(targetField.Position);
                 }
-                yield return StartCoroutine(targetField.InvokeOnPlayerCross(player));
+                yield return targetField.OnPlayerCross(player);
             }
         }
-        yield return StartCoroutine(EnsureTargetPosition(fieldBehaviourList.Find(player.SplineKnotIndex).Position));
+        yield return EnsureTargetPosition(fieldBehaviourList.Find(player.SplineKnotIndex).Position);
 
         player.RpcTriggerAnimation(AnimationType.IDLE);
         isMoving = false;
@@ -72,7 +72,7 @@ public class PlayerMovement : NetworkBehaviour {
         yield return new WaitForSeconds(CameraHandler.Instance.PlayerToZoomBlendTime);
 
         var finalField = fieldBehaviourList.Find(player.SplineKnotIndex);
-        yield return StartCoroutine(finalField.InvokeOnPlayerLand(player));
+        yield return finalField.InvokeOnPlayerLand(player);
 
         CameraHandler.Instance.RpcZoomOut();
         yield return new WaitForSeconds(CameraHandler.Instance.ZoomToPlayerBlendTime);
@@ -142,8 +142,30 @@ public class PlayerMovement : NetworkBehaviour {
         }
     }
 
+    private bool isAPressed;
+    private bool isDPressed;
+    private bool isIdling;
     void Update() {
         if (isJumping) { return; }
         if (isMoving) { MoveAndRotate(); return; }
+
+        if (BoardContext.Instance == null
+                || CameraHandler.Instance == null
+                || !BoardContext.Instance.IsPlayerTurn(player)
+                || !CameraHandler.Instance.IsDefault
+                || !player.IsAnimationFinished) {
+            return;
+        }
+
+        isAPressed = Input.GetKey(KeyCode.A);
+        isDPressed = Input.GetKey(KeyCode.D);
+        if (isIdling && (isAPressed || isDPressed)) {
+            player?.VisualHandler?.TriggerAnimation(AnimationType.WALK);
+            isIdling = false;
+        }
+        else if (!isIdling && !isAPressed && !isDPressed) {
+            player?.VisualHandler?.TriggerAnimation(AnimationType.IDLE);
+            isIdling = true;
+        }
     }
 }

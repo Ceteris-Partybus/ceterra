@@ -23,7 +23,7 @@ public class PlayerHud : NetworkedSingleton<PlayerHud> {
 
         IEnumerator TransitionToCharacterSelection() {
             lobbyPlayerSlotController.Hide();
-            yield return StartCoroutine(lobbyCameraHandler.ToggleCharacterSelection());
+            yield return lobbyCameraHandler.ToggleCharacterSelection();
             characterSelectionController.ToggleCharacterSelection();
         }
     }
@@ -33,7 +33,7 @@ public class PlayerHud : NetworkedSingleton<PlayerHud> {
 
         IEnumerator TransitionToLobby() {
             characterSelectionController.ToggleCharacterSelection();
-            yield return StartCoroutine(lobbyCameraHandler.ToggleCharacterSelection());
+            yield return lobbyCameraHandler.ToggleCharacterSelection();
             lobbyPlayerSlotController.Show();
         }
     }

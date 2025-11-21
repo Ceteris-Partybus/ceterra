@@ -7,9 +7,9 @@ public class LedgeFieldBehaviour : FieldBehaviour {
     public override FieldType GetFieldType() => FieldType.LEDGE;
 
     [Server]
-    protected override void OnPlayerCross(BoardPlayer player) {
+    public override IEnumerator OnPlayerCross(BoardPlayer player) {
         Debug.Log($"Player crossed a ledge field.");
-        StartCoroutine(MakePlayerJumpToNextField(player));
+        yield return MakePlayerJumpToNextField(player);
     }
 
     [Server]
@@ -28,7 +28,5 @@ public class LedgeFieldBehaviour : FieldBehaviour {
 
         player.NormalizedSplinePosition = targetField.NormalizedSplinePosition;
         player.SplineKnotIndex = targetField.SplineKnotIndex;
-
-        CompleteFieldInvocation();
     }
 }
