@@ -149,7 +149,15 @@ public class PlayerMovement : NetworkBehaviour {
         if (isJumping) { return; }
         if (isMoving) { MoveAndRotate(); return; }
 
-        if (!isLocalPlayer || BoardContext.Instance == null || !BoardContext.Instance.IsPlayerTurn(player)) { return; }
+        if (!isLocalPlayer
+                || BoardContext.Instance == null
+                || CameraHandler.Instance == null
+                || !BoardContext.Instance.IsPlayerTurn(player)
+                || !CameraHandler.Instance.IsDefault
+                || !player.IsAnimationFinished) {
+            return;
+        }
+
         isAPressed = Input.GetKey(KeyCode.A);
         isDPressed = Input.GetKey(KeyCode.D);
         if (isIdling && (isAPressed || isDPressed)) {
