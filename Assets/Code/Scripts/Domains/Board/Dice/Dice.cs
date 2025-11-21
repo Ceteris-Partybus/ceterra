@@ -80,7 +80,7 @@ public class Dice : MonoBehaviour {
         isSpinning = false;
         tiltTime = 0f;
         model.transform.rotation = Quaternion.Euler(0, model.transform.rotation.eulerAngles.y, 0);
-        Audiomanager.Instance.StopRollingDiceSound(this);
+        Audiomanager.Instance?.StopRollingDiceSound(this);
     }
 
     public void Show() {
