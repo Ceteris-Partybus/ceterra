@@ -118,7 +118,13 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
 
         var normalizedPosition = spline.ConvertIndexUnit(knotId, PathIndexUnit.Knot, PathIndexUnit.Normalized);
         NetworkServer.Spawn(fieldInstance);
-        return fieldInstance.GetComponent<FieldBehaviour>().Initialize(splineKnotIndex, normalizedPosition);
+        var instance = fieldInstance.GetComponent<FieldBehaviour>().Initialize(splineKnotIndex, normalizedPosition);
+
+        if (instance is CatastropheFieldBehaviour catastropheField) {
+            catastropheField.CatastropheType = ((CatastropheFieldBehaviour)field).CatastropheType;
+        }
+
+        return instance;
     }
 
     private GameObject GetPrefabByType(FieldType type) {
