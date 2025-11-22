@@ -199,7 +199,7 @@ public class SettingsController : Singleton<SettingsController> {
             return;
         }
 
-        if (Input.GetKey(KeyCode.Escape)) {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
             OpenSettingsPanel();
         }
     }
