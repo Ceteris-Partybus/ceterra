@@ -86,6 +86,7 @@ public class FundsInvestProposalSubmitModal : Modal {
         }
 
         int playerId = BoardContext.Instance.GetLocalPlayer().PlayerId;
+        ModalManager.Instance.Hide(); // Hide topmost modal to prevent user from suggesting the same investment again
         CmdSetVoteProperties(InvestmentId, playerId, (int)amountField.value);
     }
 

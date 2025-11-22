@@ -1052,7 +1052,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 54829781717045254
-    m_Localized: educational program
+    m_Localized: Educational program
     m_Metadata:
       m_Items: []
   - m_Id: 54829781717045255
@@ -1925,6 +1925,8 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 67264907419664384
     m_Localized: Earthquake
+    m_Metadata:
+      m_Items: []
   - m_Id: 66070708549767168
     m_Localized: 'Pairs:'
     m_Metadata:
