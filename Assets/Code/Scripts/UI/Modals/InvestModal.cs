@@ -64,7 +64,7 @@ public class InvestModal : Modal {
         var societyGrid = societyTab?.contentContainer.Q<VisualElement>("investments-grid");
         var environmentGrid = environmentTab?.contentContainer.Q<VisualElement>("investments-grid");
 
-        var investments = BoardContext.Instance.investments.OrderBy(inv => inv.completed).ToList();
+        var investments = BoardContext.Instance.investments.OrderBy(inv => inv.completed).ThenByDescending(inv => CalculateFundingProgress(inv)).ToList();
 
         foreach (var investment in investments) {
             VisualElement investCard = CreateInvestmentCard(investment);
@@ -86,6 +86,17 @@ public class InvestModal : Modal {
                     break;
             }
         }
+    }
+
+    private float CalculateFundingProgress(Investment investment) {
+        if (investment == null) {
+            return 0f;
+        }
+
+        if (investment.requiredMoney <= 0) {
+            return investment.currentMoney > 0 ? 1f : 0f;
+        }
+        return Mathf.Clamp01(investment.currentMoney / (float)investment.requiredMoney);
     }
 
     private VisualElement CreateInvestmentCard(Investment investment) {
