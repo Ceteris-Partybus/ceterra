@@ -140,19 +140,18 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
 
     [ClientRpc]
     public void RpcShowCard(int cardIndex) {
-        FindCardByIndex(cardIndex).Show();
+        FindCardByIndex(cardIndex)?.Show();
     }
 
     [ClientRpc]
     public void RpcHideCard(int cardIndex) {
-        FindCardByIndex(cardIndex).Hide();
-
+        FindCardByIndex(cardIndex)?.Hide();
     }
 
     [ClientRpc]
     public void RpcMarkCardsAsMatched(int firstCardIndex, int secondCardIndex) {
-        FindCardByIndex(firstCardIndex).SetButtonInteractable(false);
-        FindCardByIndex(secondCardIndex).SetButtonInteractable(false);
+        FindCardByIndex(firstCardIndex)?.SetButtonInteractable(false);
+        FindCardByIndex(secondCardIndex)?.SetButtonInteractable(false);
     }
 
     private Card FindCardByIndex(int cardIndex) {
