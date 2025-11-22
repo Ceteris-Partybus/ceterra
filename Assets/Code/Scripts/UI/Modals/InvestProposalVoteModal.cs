@@ -80,6 +80,11 @@ public class InvestProposalVoteModal : Modal {
             voteYesButton.clicked += () => OnVoteButtonClicked(true);
             voteNoButton.clicked += () => OnVoteButtonClicked(false);
         }
+
+        if (BoardContext.Instance.GetAllPlayers().Count == 1) {
+            // Auto-approve if only one player is in the game
+            UpdateVotings(localPlayerId, true);
+        }
     }
 
     [ClientCallback]
