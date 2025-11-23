@@ -54,6 +54,7 @@ public abstract class CatastropheEffect {
     }
 
     public IEnumerator OnEnd() {
+        yield return End();
         yield return RpcShowAndHideCatastropheInfo(GetEndDescriptionId());
     }
 
