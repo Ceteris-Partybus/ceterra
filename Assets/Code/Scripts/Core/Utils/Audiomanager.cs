@@ -21,6 +21,8 @@ public class Audiomanager : MonoBehaviour {
     [SerializeField] private AudioClip rollingDiceClip;
     [SerializeField] private AudioClip poppingDiceClip;
     [SerializeField] private AudioClip runningPlayerClip;
+    [SerializeField] private AudioSource soundtrack;
+
 
     private void Awake() {
         if (Instance != null && Instance != this) {
@@ -143,4 +145,12 @@ public class Audiomanager : MonoBehaviour {
     public void PlayAtPosition(AudioSource source, BoardPlayer boardPlayer) {
         AudioSource.PlayClipAtPoint(source.clip, boardPlayer.transform.position, source.volume);
     }
+
+    public void PlayMusic(AudioClip clip) {
+        soundtrack.clip = clip;
+        soundtrack.loop = true;
+        soundtrack.Play();
+    }
+
+
 }
