@@ -77,7 +77,7 @@ public class MgQuizduelContext : MgContext<MgQuizduelContext, MgQuizduelPlayer> 
             .OrderByDescending(p => p.Score)
             .ToList();
 
-        var rankings = new List<MgQuizduelPlayerRankingData>();
+        var rankings = new List<MgPlayerRankingData>();
         for (var i = 0; i < allActivePlayers.Count; i++) {
             var player = allActivePlayers[i];
             var rank = i + 1;
@@ -85,11 +85,16 @@ public class MgQuizduelContext : MgContext<MgQuizduelContext, MgQuizduelPlayer> 
 
             player.SetEarnedCoinReward(reward);
 
-            rankings.Add(MgQuizduelPlayerRankingData.FromPlayer(player, rank));
+            rankings.Add(new MgPlayerRankingData {
+                playerName = player.PlayerName,
+                score = player.Score,
+                reward = reward,
+                rank = rank
+            });
         }
         isQuizActive = false;
 
-        MgQuizduelController.Instance.ShowScoreboard(rankings);
+        MgScoreboardController.Instance.ShowScoreboard(rankings);
         yield return new WaitForSeconds(scoreboardDuration);
 
         StopQuiz();
