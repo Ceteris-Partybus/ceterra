@@ -92,7 +92,7 @@ public class MgMemoryContext : MgContext<MgMemoryContext, MgMemoryPlayer> {
             .OrderByDescending(p => p.Score)
             .ToList();
 
-        var rankings = new List<MgMemoryPlayerRankingData>();
+        var rankings = new List<MgPlayerRankingData>();
         for (var i = 0; i < allActivePlayers.Count; i++) {
             var player = allActivePlayers[i];
             var rank = i + 1;
@@ -100,10 +100,15 @@ public class MgMemoryContext : MgContext<MgMemoryContext, MgMemoryPlayer> {
 
             player.SetEarnedCoinReward(reward);
 
-            rankings.Add(MgMemoryPlayerRankingData.FromPlayer(player, rank));
+            rankings.Add(new MgPlayerRankingData {
+                playerName = player.PlayerName,
+                score = player.Score,
+                reward = reward,
+                rank = rank
+            });
         }
 
-        MgMemoryController.Instance.ShowScoreboard(rankings);
+        MgScoreboardController.Instance.ShowScoreboard(rankings);
         yield return new WaitForSeconds(scoreboardDuration);
 
         GameManager.Singleton.EndMinigame();
@@ -150,8 +155,6 @@ public class MgMemoryContext : MgContext<MgMemoryContext, MgMemoryPlayer> {
     private void RpcClearMemoryOnClients() {
         MgMemoryGameController.Instance.ClearMemory();
     }
-
-
 
     private int CalculateCoinReward(int rank) {
         return 100 / (int)Mathf.Pow(2, rank - 1);
