@@ -16,12 +16,14 @@ public class Audiomanager : MonoBehaviour {
     [SerializeField] private AudioSource earthquakeSource;
     [SerializeField] private AudioSource wildfireSource;
     [SerializeField] private AudioSource atomicExplosionSource;
+    public AudioSource soundtrack;
     [SerializeField] private AudioClip coinGainClip;
     [SerializeField] private AudioClip healthGainClip;
     [SerializeField] private AudioClip rollingDiceClip;
     [SerializeField] private AudioClip poppingDiceClip;
     [SerializeField] private AudioClip runningPlayerClip;
-    [SerializeField] private AudioSource soundtrack;
+    [SerializeField] private AudioClip soundtrackClip;
+
 
 
     private void Awake() {
@@ -123,6 +125,10 @@ public class Audiomanager : MonoBehaviour {
         PlayAtPosition(atomicExplosionSource, null);
     }
 
+    public void PlayMusic(AudioClip clip) {
+        PlaySound(soundtrack, clip, 1f, 1f, true);
+    }
+
     public void PlaySound(AudioSource source) {
         if (source != null && !source.isPlaying) {
             source.loop = false;
@@ -145,12 +151,4 @@ public class Audiomanager : MonoBehaviour {
     public void PlayAtPosition(AudioSource source, BoardPlayer boardPlayer) {
         AudioSource.PlayClipAtPoint(source.clip, boardPlayer.transform.position, source.volume);
     }
-
-    public void PlayMusic(AudioClip clip) {
-        soundtrack.clip = clip;
-        soundtrack.loop = true;
-        soundtrack.Play();
-    }
-
-
 }

@@ -23,7 +23,10 @@ public class MainMenuController : MonoBehaviour {
 
         InitializeUIElements();
         StartCoroutine(ApplyInitialAudioValuesNextFrame());
-        Audiomanager.Instance.PlayMusic(Soundtrack);
+        if (Audiomanager.Instance.soundtrack.clip != Soundtrack ||
+        !Audiomanager.Instance.soundtrack.isPlaying) {
+            Audiomanager.Instance.PlayMusic(Soundtrack);
+        }
     }
 
     private void InitializeUIElements() {

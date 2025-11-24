@@ -1776,12 +1776,13 @@ MonoBehaviour:
   earthquakeSource: {fileID: 117993299}
   wildfireSource: {fileID: 1479662998}
   atomicExplosionSource: {fileID: 329561304}
+  soundtrack: {fileID: 1739012647}
   coinGainClip: {fileID: 8300000, guid: b2f77c2777809a4438cfefd17ff84000, type: 3}
   healthGainClip: {fileID: 8300000, guid: 6594ff005f5d62146a8acf6a30293930, type: 3}
   rollingDiceClip: {fileID: 8300000, guid: a44cd5ec4f37569418e433a63a9ab0fb, type: 3}
   poppingDiceClip: {fileID: 8300000, guid: 8d18f0faa9533604a9c345dc96b46cd3, type: 3}
   runningPlayerClip: {fileID: 8300000, guid: e930ea663aeccf54386ba9f4e39c0249, type: 3}
-  soundtrack: {fileID: 1739012647}
+  soundtrackClip: {fileID: 8300000, guid: 6050225d483e4184483ebeca2b7bd758, type: 3}
 --- !u!4 &1738645966
 Transform:
   m_ObjectHideFlags: 0
