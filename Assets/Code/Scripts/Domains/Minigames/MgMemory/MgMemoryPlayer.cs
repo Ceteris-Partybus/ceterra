@@ -8,6 +8,7 @@ public class MgMemoryPlayer : SceneConditionalPlayer, IMinigameRewardHandler {
     private int secondSelectedCardIndex = -1;
 
     public int Score => score;
+    public int playerScore => score;
     public int EarnedCoinReward => earnedCoinReward;
     public int FirstSelectedCardIndex => firstSelectedCardIndex;
     public int SecondSelectedCardIndex => secondSelectedCardIndex;
@@ -56,5 +57,10 @@ public class MgMemoryPlayer : SceneConditionalPlayer, IMinigameRewardHandler {
     public void HandleMinigameRewards(BoardPlayer player) {
         player.PlayerStats.ModifyCoins(Math.Max(0, earnedCoinReward));
         player.PlayerStats.ModifyScore(Math.Max(0, score));
+    }
+
+    [Server]
+    public void SetMinigameReward(int reward) {
+        earnedCoinReward = reward;
     }
 }

@@ -72,29 +72,9 @@ public class MgQuizduelContext : MgContext<MgQuizduelContext, MgQuizduelPlayer> 
             timeElapsed += 1f;
         }
 
-        var allActivePlayers = FindObjectsByType<MgQuizduelPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
-            .Where(p => p.IsActiveForCurrentScene)
-            .OrderByDescending(p => p.Score)
-            .ToList();
-
-        var rankings = new List<MgPlayerRankingData>();
-        for (var i = 0; i < allActivePlayers.Count; i++) {
-            var player = allActivePlayers[i];
-            var rank = i + 1;
-            var reward = CalculateCoinReward(rank);
-
-            player.SetEarnedCoinReward(reward);
-
-            rankings.Add(new MgPlayerRankingData {
-                playerName = player.PlayerName,
-                score = player.Score,
-                reward = reward,
-                rank = rank
-            });
-        }
         isQuizActive = false;
 
-        MgScoreboardController.Instance.ShowScoreboard(rankings);
+        MgRewardService.Instance.DistributeRewards();
         yield return new WaitForSeconds(scoreboardDuration);
 
         StopQuiz();
