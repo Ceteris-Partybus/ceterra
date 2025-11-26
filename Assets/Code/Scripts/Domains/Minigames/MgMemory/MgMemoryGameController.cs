@@ -147,8 +147,7 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
 
     [ClientRpc]
     public void RpcHideCard(int cardIndex) {
-        FindCardByIndex(cardIndex).Hide();
-
+        FindCardByIndex(cardIndex).ShakeAndFlip();
     }
 
     [ClientRpc]

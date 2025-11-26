@@ -30,7 +30,7 @@ public class Card : NetworkBehaviour {
 
     private void Awake() {
         cardImage ??= GetComponent<Image>();
-        Hide();
+        StartFlipAnimation(hiddenIconSprite, false);
     }
 
     public void OnCardClicked() {
@@ -58,12 +58,13 @@ public class Card : NetworkBehaviour {
         StartFlipAnimation(iconSprite, true);
     }
 
-    public void Hide() {
+    public void ShakeAndFlip() {
         if (isAnimating) {
             return;
         }
 
-        StartFlipAnimation(hiddenIconSprite, false);
+        cardImage.transform.DOShakePosition(.3f, strength: 50f, vibrato: 50)
+                .onComplete += () => StartFlipAnimation(hiddenIconSprite, false);
     }
 
     private void StartFlipAnimation(Sprite targetSprite, bool willBeSelected) {
