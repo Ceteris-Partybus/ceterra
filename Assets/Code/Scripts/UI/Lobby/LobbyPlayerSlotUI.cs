@@ -54,15 +54,15 @@ public class LobbyPlayerSlotUI {
         }
 
         var isReady = lobbyPlayer.readyToBegin;
-        string isReadyText = LocalizationManager.Instance.GetLocalizedText(61453348007936000);
-        string isNotReadyText = LocalizationManager.Instance.GetLocalizedText(61453405545398272);
+        var isReadyText = LocalizationManager.Instance.GetLocalizedText(61453348007936000);
+        var isNotReadyText = LocalizationManager.Instance.GetLocalizedText(61453405545398272);
         readyStatusDisplayLabel.text = isReady ? isReadyText : isNotReadyText;
         readyStatusDisplayLabel.parent.EnableInClassList("ready", isReady);
         readyStatusDisplayLabel.parent.style.display = !lobbyPlayer.isLocalPlayer ? DisplayStyle.Flex : DisplayStyle.None;
         parent.EnableInClassList("ready", isReady);
         readyBtn.EnableInClassList("ready", isReady);
-        string clickToReadyText = LocalizationManager.Instance.GetLocalizedText(61453992487911424);
-        string clickToUnreadyText = LocalizationManager.Instance.GetLocalizedText(61453481038675968);
+        var clickToReadyText = LocalizationManager.Instance.GetLocalizedText(61453992487911424);
+        var clickToUnreadyText = LocalizationManager.Instance.GetLocalizedText(61453481038675968);
         readyBtn.text = isReady ? clickToUnreadyText : clickToReadyText;
         characterSelectionBtn.SetEnabled(!isReady);
 
@@ -79,6 +79,10 @@ public class LobbyPlayerSlotUI {
 
         isInitialized = false;
         playerPing.text = "";
+        playerDisplayName.text = "";
+        selectedCharacter.Reset();
+        selectedDice.Reset();
+        readyStatusDisplayLabel.parent.style.display = DisplayStyle.None;
         parent.AddToClassList("empty-slot");
 
         if (buttonContainer.Contains(characterSelectionBtn)) {

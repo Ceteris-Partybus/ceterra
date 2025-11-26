@@ -14,8 +14,18 @@ public class IconWithLabel : VisualElement {
     }
 
     public void SetIconAndLabel(StyleBackground background, string text) {
-        if (selectingAnimation.isRunning) { selectingAnimation.Stop(); }
+        if (selectingAnimation.isRunning) {
+            selectingAnimation.Stop();
+        }
         icon.style.backgroundImage = background;
         label.text = text;
+    }
+
+    public void Reset() {
+        icon.style.backgroundImage = null;
+        label.text = "";
+        if (!selectingAnimation.isRunning) {
+            selectingAnimation.Start();
+        }
     }
 }
