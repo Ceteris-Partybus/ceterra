@@ -12,19 +12,18 @@
   -unity-slice-scale: 0.16px;
 }
 
-.health-bar--green .unity-progress-bar__progress {
-    background-color: #4CAF50;
-}
-
-.health-bar--yellow .unity-progress-bar__progress {
-    background-color: #FF9800;
-}
-
 .health-bar--red .unity-progress-bar__progress {
-    background-color: #F44336;
+  background-color: transparent !important;
+  background-image: url("project://database/Assets/Art/Sprites/Slider/slider_fill_red.png");
+  -unity-slice-left: 42;
+  -unity-slice-top: 0;
+  -unity-slice-right: 42;
+  -unity-slice-bottom: 0;
+  -unity-slice-scale: 0.16px;
 }
 
-.progress-bar--environment .unity-progress-bar__progress {
+.progress-bar--environment .unity-progress-bar__progress,
+.health-bar--green .unity-progress-bar__progress {
   background-color: transparent !important;
   background-image: url("project://database/Assets/Art/Sprites/Slider/slider_fill_green.png");
   -unity-slice-left: 42;
@@ -44,7 +43,8 @@
   -unity-slice-scale: 0.16px;
 }
 
-.progress-bar--society .unity-progress-bar__progress {
+.progress-bar--society .unity-progress-bar__progress,
+.health-bar--yellow .unity-progress-bar__progress {
   background-color: transparent !important;
   background-image: url("project://database/Assets/Art/Sprites/Slider/slider_fill_yellow.png");
   -unity-slice-left: 42;
