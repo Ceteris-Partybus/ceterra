@@ -1,8 +1,11 @@
+* {
+    -unity-font-definition: resource('UI/Other/Jersey15-Regular');
+}
+
 .root {
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
-    background-color: #b0b0b3;
     padding: 20px;
     height: 100%;
     width: 100%;
@@ -10,7 +13,9 @@
 
 /* Titel */
 .title {
-    font-size: 32px;
+    font-size: 60px;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.8);
     -unity-text-align: middle-center;
     -unity-font-style: bold;
     margin-bottom: 20px;
@@ -28,32 +33,45 @@
     flex-direction: column;
     justify-content: space-evenly;
     flex-basis: 45%;
-    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
-    padding: 15px;
-    border-radius: 6px;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
+    padding: 20px 15px;
+    border-radius: 25px;
+    border-width: 0px;
 }
 
 .player-row {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    padding: 15px 20px;
+    border-radius: 15px;
 }
 
 .player-name {
-    font-size: 16px;
+    font-size: 32px;
+    color: #745136;
+    flex-shrink: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .ready-button {
-    width: 110px;
-    height: 30px;
+    width: 120px;
+    height: 50px;
     background-image: url("project://database/Assets/Art/Sprites/Buttons/green_default.png");
-    color: black;
-    border-radius: 4px;
+    color: #FFFFFF;
+    font-size: 20px;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);
+    border-width: 0;
+    border-radius: 10px;
+    -unity-text-align: upper-center;
 }
 
 .ready-button:active {
     background-image: url("project://database/Assets/Art/Sprites/Buttons/green_pressed.png");
+    -unity-text-align: lower-center;
 }
 
 /* Thumbnail */
@@ -61,13 +79,16 @@
     flex-basis: 50%;
     justify-content: center;
     align-items: center;
-    background-color: #aaaaad;
-    border-radius: 6px;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
+    border-radius: 25px;
     display: flex;
+    border-width: 0px;
+    margin-left: 20px;
 }
 
 .thumbnail-label {
-    font-size: 20px;
+    font-size: 32px;
+    color: #745136;
 }
 
 /* Unterer Bereich */
@@ -80,32 +101,71 @@
 /* Beschreibung links */
 .description-section {
     flex-basis: 65%;
-    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
-    padding: 15px;
-    border-radius: 6px;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
+    padding: 20px 15px;
+    border-radius: 25px;
+    border-width: 0px;
+    margin-right: 10px;
 }
 
 .lorem-text {
-    font-size: 14px;
+    font-size: 24px;
+    color: #745136;
     white-space: normal;
 }
 
 /* Steuerung rechts */
 .controls-section {
     flex-basis: 30%;
-    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
-    padding: 15px;
-    border-radius: 6px;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
+    padding: 20px 15px;
+    border-radius: 25px;
+    border-width: 0px;
     flex-direction: column;
 }
 
 .controls-title {
-    font-size: 18px;
+    font-size: 28px;
+    color: #745136;
     -unity-font-style: bold;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .controls-text {
-    font-size: 14px;
-    white-space: pre;
+    font-size: 22px;
+    color: #745136;
+    white-space: normal;
+}
+
+/* Screenshot thumbnail styling */
+#Screenshot {
+    background-image: resource('ceteris partybus');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+#ready-status-display-label {
+    font-size: 32px;
+    color: #ffffff;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);
+    -unity-text-align: middle-center;
+    margin-top: 5px;
+}
+
+#ready-status-display {
+    background-color: #e79e16;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    width: 60%;
+}
+
+#ready-status-display.ready {
+    background-color: #7ec300;
+}
+
+#ready-status-display-container {
+    flex-direction: row;
+    align-items: end;
+    justify-content: center;
+    width: 100%;
 }

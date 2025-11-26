@@ -1,11 +1,16 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Level/UI/MgPrepScreen/MgPrepScreen.uss?fileID=7433441132597879392&amp;guid=d566996728042c14489f3a4d5eca4cc5&amp;type=3#MgPrepScreen" />
-    <ui:VisualElement class="player-row">
+    <ui:VisualElement name="player-prep-slot" class="player-row">
         <ui:Label name="PlayerName" class="player-name" />
-        <ui:Button name="readyButton" enabled="false" class="ready-button">
+        <ui:Button name="readyButton" class="ready-button">
             <Bindings>
                 <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56151484889292800)" />
             </Bindings>
         </ui:Button>
+        <ui:VisualElement name="ready-status-display-container">
+            <ui:VisualElement name="ready-status-display">
+                <ui:Label name="ready-status-display-label" />
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -9,8 +8,7 @@ public class PrepScreenUI : MonoBehaviour {
     Label descriptionLabel;
     Label controlsLabel;
     VisualElement screenshotImage;
-    List<Label> playerList;
-    List<Button> buttonList;
+    List<VisualElement> playerList;
     List<PrepPlayerUI> playerObjectList = new();
     int playersCount;
     IPrepScreen context;
@@ -21,8 +19,7 @@ public class PrepScreenUI : MonoBehaviour {
         descriptionLabel = screenUIDoc.rootVisualElement.Q<Label>("Description");
         controlsLabel = screenUIDoc.rootVisualElement.Q<Label>("Controls");
         screenshotImage = screenUIDoc.rootVisualElement.Q<VisualElement>("Screenshot");
-        playerList = screenUIDoc.rootVisualElement.Query<Label>("PlayerName").ToList();
-        buttonList = screenUIDoc.rootVisualElement.Query<Button>("readyButton").ToList();
+        playerList = screenUIDoc.rootVisualElement.Query<VisualElement>("player-prep-slot").ToList();
     }
 
     public void Initialize(IPrepScreen context) {
@@ -31,10 +28,13 @@ public class PrepScreenUI : MonoBehaviour {
         controlsLabel.text = context.GetControls();
         var players = context.GetPlayers();
         playersCount = players.Count;
-        for (int i = 0; i < players.Count; i++) {
-            playerList[i].parent.parent.style.display = DisplayStyle.Flex;
-            playerList[i].text = players[i].PlayerName;
-            playerObjectList.Add(new PrepPlayerUI(buttonList[i], players[i]));
+        var toClear = new List<int> { 0, 1, 2, 3 };
+        for (var i = 0; i < players.Count; i++) {
+            playerObjectList.Add(new PrepPlayerUI(playerList[i], players[i]));
+            toClear.Remove(i);
+        }
+        foreach (var indexToClear in toClear) {
+            playerList[indexToClear].style.display = DisplayStyle.None;
         }
         screenshotImage.style.backgroundImage = new StyleBackground(context.GetScreenshot());
         this.context = context;
@@ -44,22 +44,14 @@ public class PrepScreenUI : MonoBehaviour {
         if (context == null || allPlayersReady) {
             return;
         }
+        var readyCount = 0;
         foreach (var player in playerObjectList) {
-            if (player.isPlayerReady) {
-                player.OnReady();
-                continue;
-            }
-            player.OnNotReady();
+            player.UpdateMe();
+            readyCount += player.isPlayerReady ? 1 : 0;
         }
-        int readyCount = 0;
-        foreach (var button in buttonList) {
-            if (button.text == "Bereit") {
-                readyCount++;
-            }
-        }
+
         if (readyCount == playersCount) {
             allPlayersReady = true;
-            Debug.Log("All players ready");
             context.StartGame();
             Destroy(gameObject);
         }
