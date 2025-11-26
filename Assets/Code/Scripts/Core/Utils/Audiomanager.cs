@@ -13,6 +13,7 @@ public class Audiomanager : MonoBehaviour {
     [SerializeField] private AudioSource successSource;
     [SerializeField] private AudioSource garbageBinOpenSource;
     [SerializeField] private AudioSource garbageBinCloseSource;
+    [SerializeField] private AudioSource cardFlipSource;
     [SerializeField] private AudioSource earthquakeSource;
     [SerializeField] private AudioSource wildfireSource;
     [SerializeField] private AudioSource atomicExplosionSource;
@@ -68,6 +69,10 @@ public class Audiomanager : MonoBehaviour {
         PlaySound(garbageBinCloseSource);
     }
 
+    public void PlayCardFlipSound() {
+        PlayAtPosition(cardFlipSource, Camera.main.transform.position);
+    }
+
     public void PlayCoinGainSound(BoardPlayer boardPlayer) {
         PlaySound(boardPlayer.SoundSource, coinGainClip, .6f, 1.42f);
     }
@@ -118,7 +123,7 @@ public class Audiomanager : MonoBehaviour {
     }
 
     public void PlayAtomicExplosionSound(Vector3 position) {
-        PlayAtPosition(atomicExplosionSource, null);
+        PlayAtPosition(atomicExplosionSource, position);
     }
 
     public void PlaySound(AudioSource source) {
@@ -140,7 +145,7 @@ public class Audiomanager : MonoBehaviour {
         PlaySound(source, clip, volume, pitch, true);
     }
 
-    public void PlayAtPosition(AudioSource source, BoardPlayer boardPlayer) {
-        AudioSource.PlayClipAtPoint(source.clip, boardPlayer.transform.position, source.volume);
+    public void PlayAtPosition(AudioSource source, Vector3 position) {
+        AudioSource.PlayClipAtPoint(source.clip, position, source.volume);
     }
 }

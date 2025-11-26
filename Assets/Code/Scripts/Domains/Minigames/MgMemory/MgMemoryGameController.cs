@@ -86,6 +86,8 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
                 FindCardByIndex(currentPlayer.SecondSelectedCardIndex).GetIconSprite;
 
             if (match) {
+                Audiomanager.Instance?.PlaySuccessSound();
+
                 currentPlayer.AddScore(pointsForCorrectMatch);
                 currentPlayer.CmdAddScore(pointsForCorrectMatch); // Für Auswertung der Punkte -> Scoreboard
 

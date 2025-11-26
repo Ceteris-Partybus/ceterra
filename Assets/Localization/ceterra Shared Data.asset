@@ -1881,12 +1881,22 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 67188403738329088
     m_Key: modal.catastrophe.no-damage
-  - m_Id: 66067196617084928
-    m_Key: New Entry
     m_Metadata:
       m_Items: []
   - m_Id: 66070708549767168
     m_Key: MgMemory.Pairs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71158853507141632
+    m_Key: MgMemory.PrepScreen.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71159084911087616
+    m_Key: MgMemory.PrepScreen.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71159319133605888
+    m_Key: MgMemory.PrepScreen.controls
     m_Metadata:
       m_Items: []
   m_Metadata:

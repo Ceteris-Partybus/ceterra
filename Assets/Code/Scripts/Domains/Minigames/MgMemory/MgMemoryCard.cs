@@ -34,6 +34,7 @@ public class Card : NetworkBehaviour {
     }
 
     public void OnCardClicked() {
+        Audiomanager.Instance?.PlayCardFlipSound();
         if (isSelected || isAnimating) {
             return;
         }
