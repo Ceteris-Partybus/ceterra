@@ -2,51 +2,36 @@
     <Style src="project://database/Assets/Level/UI/PlayMenu/play-menu.uss?fileID=7433441132597879392&amp;guid=72147caebc60b5244aae6ef8944e189d&amp;type=3#play-menu" />
     <ui:VisualElement name="PlayMenuContainer" class="play-menu-container">
         <ui:VisualElement name="HeaderSection" class="header-section">
-            <ui:Label text="PLAY MENU" class="title">
+            <ui:Label text="PLAY MENU" class="title" style="-unity-font-style: normal;">
                 <Bindings>
                     <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(782933199196160)" />
                 </Bindings>
             </ui:Label>
         </ui:VisualElement>
         <ui:VisualElement name="ConnectionSection" class="connection-section" style="height: 550px; width: 666px; -unity-font-definition: resource(&apos;UI/Other/Jersey15-Regular&apos;); align-items: stretch; align-content: flex-start;">
-            <ui:Label text="SERVER CONNECTION" class="section-title" style="height: 64px; width: 608px;">
+            <ui:Label text="SERVER CONNECTION" class="section-title" style="height: 64px; width: 608px; -unity-font-style: normal;">
                 <Bindings>
                     <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(23214629097472)" />
                 </Bindings>
             </ui:Label>
-            <ui:VisualElement class="input-row">
-                <ui:Label text="Server IP:" class="input-label" />
-                <ui:TextField name="IPAddressField" value="127.0.0.1" class="input-field" />
+            <ui:VisualElement name="OTPContainer" class="otp-container">
+                <ui:TextField name="Digit1" maxlength="1" class="otp-digit" />
+                <ui:TextField name="Digit2" maxlength="1" class="otp-digit" />
+                <ui:TextField name="Digit3" maxlength="1" class="otp-digit" />
+                <ui:TextField name="Digit4" maxlength="1" class="otp-digit" />
             </ui:VisualElement>
-            <ui:VisualElement class="input-row">
-                <ui:Label text="Port:" class="input-label" />
-                <ui:TextField name="PortField" value="7777" class="input-field" />
-            </ui:VisualElement>
-            <ui:VisualElement class="input-row" style="display: flex; visibility: hidden;">
-                <ui:Label text="Lobby Code:" class="input-label" />
-                <ui:TextField name="LobbyCodeField" class="input-field" />
-            </ui:VisualElement>
-            <ui:VisualElement class="input-row">
-                <ui:Label  class="input-label">    
-                    <Bindings> 
-                        <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(60011804634337280)" />
-                    </Bindings>
-                </ui:Label>
-                <ui:TextField name="DigitCodeField" value="" maxlength="4" class="input-field" />
-            </ui:VisualElement>
-            <ui:Button name="ValidateCodeButton" class="action-button" style="width: 100%; height: 55px; font-size: 40px; margin-top: 15px;">
-                <Bindings>
-                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(60011435313287168)" />
-                </Bindings>
-            </ui:Button>
-            <ui:Button text="JOIN LOBBY" name="JoinLobbyButton" class="action-button join-lobby" style="height: 89px; width: 616px;">
+            <ui:Button text="JOIN LOBBY" name="JoinLobbyButton" class="action-button join-lobby" style="height: 89px; width: 616px; -unity-font-style: normal;">
                 <Bindings>
                     <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(24296382042112)" />
                 </Bindings>
             </ui:Button>
+            <ui:VisualElement class="server-selection-container">
+                <ui:DropdownField name="ServerDropdown" label="Server" class="server-dropdown" />
+                <ui:Button name="RefreshButton" class="refresh-button" style="background-image: resource(&apos;Icons/refresh-ccw&apos;); width: 45px; background-size: 50% 50%; height: 45px;" />
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="FooterSection" class="footer-section">
-            <ui:Button text="BACK" name="BackButton" class="back-button" style="height: 86px; width: 181px;">
+            <ui:Button text="BACK" name="BackButton" class="back-button" style="height: 86px; width: 181px; -unity-font-style: normal;">
                 <Bindings>
                     <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(24827854884864)" />
                 </Bindings>

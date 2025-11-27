@@ -50,8 +50,9 @@ public class GameManager : NetworkRoomManager {
     public override void Awake() {
         base.Awake();
 
-        if (Debug.isDebugBuild) {
+        if (Debug.isDebugBuild || Application.isEditor) {
             selectableDices = selectableDices.Concat(developmentOnlyDices).ToArray();
+            GetComponent<NetworkManagerHUD>().enabled = true;
         }
     }
 
