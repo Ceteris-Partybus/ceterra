@@ -188,6 +188,12 @@ public class InvestProposalVoteModal : Modal {
     [Command(requiresAuthority = false)]
     private void CmdApproveInvestment(int investmentId, int proposedCoins) {
         BoardContext.Instance.ApproveInvestment(investmentId, proposedCoins);
+        RpcUpdateInvestment();
+    }
+
+    [ClientRpc]
+    private void RpcUpdateInvestment() {
+        BoardOverlay.Instance?.RecalculateInvestment(this.InvestmentId);
     }
 
     [Command(requiresAuthority = false)]

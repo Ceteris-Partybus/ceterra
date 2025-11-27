@@ -68,9 +68,13 @@ public class InvestDepositModal : Modal {
     [Command(requiresAuthority = false)]
     private void CmdSubmitDeposit(BoardPlayer player, int investmentId, int amount) {
         BoardContext.Instance.InvestInInvestment(player, investmentId, amount);
+        RpcUpdateInvestment();
     }
 
-
+    [ClientRpc]
+    private void RpcUpdateInvestment() {
+        BoardOverlay.Instance?.RecalculateInvestment(this.InvestmentId);
+    }
 
     private void OnDepositAdd10ButtonClicked() {
         Audiomanager.Instance?.PlayClickSound();

@@ -105,7 +105,7 @@ public class InvestModal : Modal {
         investCard.name = $"investment-card-{investment.id}";
         investCard.Q<Label>("invest-card-title").text = LocalizationManager.Instance.GetLocalizedText(investment.displayName);
         investCard.Q<Label>("invest-card-description").text = LocalizationManager.Instance.GetLocalizedText(investment.description);
-        investCard.Q<Label>("invest-card-required-money").text = investment.requiredMoney.ToString();
+        investCard.Q<Label>("invest-card-required-money").text = (investment.requiredMoney - investment.currentMoney).ToString();
         investCard.Q<Label>("invest-card-required-resources").text = investment.requiredResources.ToString();
         investCard.Q<Label>("invest-card-cooldown").text = investment.cooldown.ToString();
 
@@ -195,7 +195,7 @@ public class InvestModal : Modal {
 
         investCard.Q<Label>("invest-card-title").text = LocalizationManager.Instance.GetLocalizedText(investment.displayName);
         investCard.Q<Label>("invest-card-description").text = LocalizationManager.Instance.GetLocalizedText(investment.description);
-        investCard.Q<Label>("invest-card-required-money").text = investment.requiredMoney.ToString();
+        investCard.Q<Label>("invest-card-required-money").text = (investment.requiredMoney - investment.currentMoney).ToString();
         investCard.Q<Label>("invest-card-required-resources").text = investment.requiredResources.ToString();
         investCard.Q<Label>("invest-card-cooldown").text = investment.cooldown.ToString();
 
