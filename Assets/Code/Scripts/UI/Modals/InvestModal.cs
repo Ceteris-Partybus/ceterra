@@ -128,6 +128,8 @@ public class InvestModal : Modal {
         TemplateContainer moneyProgressBarContainer = investCard.Q<TemplateContainer>("invest-card-money-progress-bar");
         ProgressBar moneyProgressBar = moneyProgressBarContainer?.Children().OfType<ProgressBar>().FirstOrDefault();
 
+        moneyProgressBar.AddToClassList("health-bar--green");
+
         if (moneyProgressBar != null) {
             moneyProgressBar.value = investment.currentMoney / (float)investment.requiredMoney * 100;
         }
