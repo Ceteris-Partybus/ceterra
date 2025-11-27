@@ -98,8 +98,9 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
                 CmdHandleMatch(matchedCard.FactData);
             }
             else {
-                CmdHideCardsOnAllClients(currentPlayer.FirstSelectedCardIndex, currentPlayer.SecondSelectedCardIndex);
+                Audiomanager.Instance?.PlayFailSound();
 
+                CmdHideCardsOnAllClients(currentPlayer.FirstSelectedCardIndex, currentPlayer.SecondSelectedCardIndex);
                 CmdHandleMismatch();
             }
 
