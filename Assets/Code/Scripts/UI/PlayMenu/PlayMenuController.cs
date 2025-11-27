@@ -14,6 +14,7 @@ public class PlayMenuController : MonoBehaviour {
     [SerializeField]
     private UIDocument uIDocument;
 
+    private const int CONNECTION_TIMEOUT = 5;
     private const string MAIN_MENU_SCENE = "MainMenu";
     private const long ORIGINAL_BUTTON_TEXT_ID = 60011435313287168;
     private const long CONNECTION_TEXT_ID = 60011225140908032;
@@ -54,7 +55,8 @@ public class PlayMenuController : MonoBehaviour {
 
         if (digitCodeField == null) {
             Debug.LogError("DigitCodeField not found in UI!");
-        } else {
+        }
+        else {
             digitCodeField.focusable = true;
         }
     }
@@ -127,7 +129,6 @@ public class PlayMenuController : MonoBehaviour {
 
     private void JoinServer(string ipAddress, int port) {
         animatedButton?.Stop();
-        Debug.Log($"Connecting to server at {ipAddress}:{port}");
         NetworkManager.singleton.networkAddress = ipAddress;
 
         if (Transport.active is PortTransport portTransport) {
@@ -135,6 +136,26 @@ public class PlayMenuController : MonoBehaviour {
         }
 
         NetworkManager.singleton.StartClient();
+
+        joinLobbyButton.SetEnabled(false);
+
+        StartCoroutine(HandleConnectionTimeout());
+    }
+
+    private IEnumerator HandleConnectionTimeout() {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < CONNECTION_TIMEOUT) {
+            if (NetworkClient.isConnected) {
+                yield break;
+            }
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        NetworkManager.singleton.StopClient();
+        joinLobbyButton.SetEnabled(true);
     }
 
     private void Update() {
