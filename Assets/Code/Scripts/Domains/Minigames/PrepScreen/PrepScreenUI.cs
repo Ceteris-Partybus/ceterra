@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -19,22 +20,18 @@ public class PrepScreenUI : MonoBehaviour {
         descriptionLabel = screenUIDoc.rootVisualElement.Q<Label>("Description");
         controlsLabel = screenUIDoc.rootVisualElement.Q<Label>("Controls");
         screenshotImage = screenUIDoc.rootVisualElement.Q<VisualElement>("Screenshot");
-        playerList = screenUIDoc.rootVisualElement.Query<VisualElement>("player-prep-slot").ToList();
+        playerList = screenUIDoc.rootVisualElement.Query<VisualElement>(className: "player-row").ToList();
     }
 
     public void Initialize(IPrepScreen context) {
         titleLabel.text = context.GetTitle();
         descriptionLabel.text = context.GetDescription();
         controlsLabel.text = context.GetControls();
-        var players = context.GetPlayers();
+        var players = context.GetPlayers().OrderBy(p => p.netId).ToList();
         playersCount = players.Count;
-        var toClear = new List<int> { 0, 1, 2, 3 };
         for (var i = 0; i < players.Count; i++) {
+            playerList[i].style.display = DisplayStyle.Flex;
             playerObjectList.Add(new PrepPlayerUI(playerList[i], players[i]));
-            toClear.Remove(i);
-        }
-        foreach (var indexToClear in toClear) {
-            playerList[indexToClear].style.display = DisplayStyle.None;
         }
         screenshotImage.style.backgroundImage = new StyleBackground(context.GetScreenshot());
         this.context = context;

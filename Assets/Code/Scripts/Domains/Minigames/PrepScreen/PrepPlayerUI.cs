@@ -22,7 +22,7 @@ public class PrepPlayerUI {
     }
 
     public void UpdateMe() {
-        readyButton.EnableInClassList("not-ready", !isPlayerReady);
+        readyButton.EnableInClassList("ready", isPlayerReady);
         var isReadyText = LocalizationManager.Instance.GetLocalizedText(61453348007936000);
         var isNotReadyText = LocalizationManager.Instance.GetLocalizedText(61453405545398272);
         readyStatusDisplayLabel.text = isPlayerReady ? isReadyText : isNotReadyText;
