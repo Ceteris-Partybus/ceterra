@@ -222,14 +222,11 @@
 }
 
 #player-overview {
-    position: absolute;
-    bottom: 0;
     width: auto;
     height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgb(214, 211, 209);
 }
 
 #player-overview > * {

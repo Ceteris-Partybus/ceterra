@@ -78,7 +78,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="bottom-container">
-                <ui:VisualElement name="player-overview" class="card" />
+                <ui:VisualElement name="player-overview" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
