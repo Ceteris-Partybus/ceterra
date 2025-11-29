@@ -4,30 +4,55 @@ using UnityEngine;
 
 public class MgRewardService : NetworkedSingleton<MgRewardService> {
     public void DistributeRewards() {
-        // Finde alle aktiven Spieler, die IMinigameRewardHandler implementieren
-        var allActivePlayers = FindObjectsByType<SceneConditionalPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
+        var allActivePlayers = FindAllActivePlayer();
+
+        var rankings = new List<MgPlayerRankingData>();
+        var processedIndices = new HashSet<int>();
+
+        for (var i = 0; i < allActivePlayers.Count; i++) {
+            if (processedIndices.Contains(i)) {
+                continue;
+            }
+
+            var currentScore = allActivePlayers[i].playerScore;
+
+            var tiedIndices = new List<int> { i };
+            for (var j = i + 1; j < allActivePlayers.Count; j++) {
+                if (allActivePlayers[j].playerScore == currentScore) {
+                    tiedIndices.Add(j);
+                }
+            }
+
+            var totalReward = 0;
+            for (var rankOffset = 0; rankOffset < tiedIndices.Count; rankOffset++) {
+                totalReward += CalculateCoinReward(i + 1 + rankOffset);
+            }
+            var sharedReward = totalReward / tiedIndices.Count;
+
+            foreach (var idx in tiedIndices) {
+                processedIndices.Add(idx);
+                var handler = allActivePlayers[idx];
+                var player = handler as SceneConditionalPlayer;
+
+                rankings.Add(new MgPlayerRankingData {
+                    playerName = player.PlayerName,
+                    score = handler.playerScore,
+                    reward = sharedReward,
+                    rank = i + 1
+                });
+
+                handler.SetMinigameReward(sharedReward);
+            }
+        }
+        MgScoreboardController.Instance.ShowScoreboard(rankings);
+    }
+
+    private static List<IMinigameRewardHandler> FindAllActivePlayer() {
+        return FindObjectsByType<SceneConditionalPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
             .Where(p => p.IsActiveForCurrentScene && p is IMinigameRewardHandler)
             .Cast<IMinigameRewardHandler>()
             .OrderByDescending(p => p.playerScore)
             .ToList();
-
-        var rankings = new List<MgPlayerRankingData>();
-        for (var i = 0; i < allActivePlayers.Count; i++) {
-            var handler = allActivePlayers[i];
-            var player = handler as SceneConditionalPlayer;
-            var rank = i + 1;
-            var reward = CalculateCoinReward(rank);
-
-            rankings.Add(new MgPlayerRankingData {
-                playerName = player.PlayerName,
-                score = handler.playerScore,
-                reward = reward,
-                rank = rank
-            });
-
-            handler.SetMinigameReward(reward);
-        }
-        MgScoreboardController.Instance.ShowScoreboard(rankings);
     }
 
     private int CalculateCoinReward(int rank) {

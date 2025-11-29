@@ -98,8 +98,9 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
                 CmdHandleMatch(matchedCard.FactData);
             }
             else {
-                CmdHideCardsOnAllClients(currentPlayer.FirstSelectedCardIndex, currentPlayer.SecondSelectedCardIndex);
+                Audiomanager.Instance?.PlayFailSound();
 
+                CmdHideCardsOnAllClients(currentPlayer.FirstSelectedCardIndex, currentPlayer.SecondSelectedCardIndex);
                 CmdHandleMismatch();
             }
 
@@ -147,8 +148,7 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
 
     [ClientRpc]
     public void RpcHideCard(int cardIndex) {
-        FindCardByIndex(cardIndex).Hide();
-
+        FindCardByIndex(cardIndex).ShakeAndFlip();
     }
 
     [ClientRpc]
