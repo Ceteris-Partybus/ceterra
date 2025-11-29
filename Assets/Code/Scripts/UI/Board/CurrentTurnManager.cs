@@ -47,7 +47,11 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
 
     private IEnumerator WaitForAndSetSettings() {
         yield return new WaitUntil(() => SettingsController.Instance != null);
-        settingsButton.clicked += SettingsController.Instance.OpenSettingsPanel;
+
+        settingsButton.clicked += () => {
+            Audiomanager.Instance?.PlayClickSound();
+            SettingsController.Instance.OpenSettingsPanel();
+        };
     }
 
     private void UpdateTurnUI(BoardPlayer currentPlayer, int currentRound, int maxRounds) {

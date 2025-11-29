@@ -7,7 +7,10 @@ using UnityEngine;
 public class CatastropheFieldBehaviour : FieldBehaviour {
     public override FieldType GetFieldType() => FieldType.CATASTROPHE;
     [SerializeField] private CatastropheType catastropheType;
-    public CatastropheType CatastropheType => catastropheType;
+    public CatastropheType CatastropheType {
+        get => catastropheType;
+        set { catastropheType = value; }
+    }
 
     [Server]
     protected override IEnumerator OnPlayerLand(BoardPlayer player) {

@@ -25,6 +25,7 @@ public class GameManager : NetworkRoomManager {
     public int CharacterCount => selectableCharacters.Length;
     public GameObject GetCharacter(int index) => selectableCharacters[index];
     [SerializeField] private GameObject[] selectableDices;
+    [SerializeField] private GameObject[] developmentOnlyDices;
     public int DiceCount => selectableDices.Length;
     public GameObject GetDice(int index) => selectableDices[index];
 
@@ -45,6 +46,15 @@ public class GameManager : NetworkRoomManager {
     public int CurrentRound => currentRound;
 
     public int[] PlayerIds => roomSlots.Select(slot => slot.index).ToArray();
+
+    public override void Awake() {
+        base.Awake();
+
+        if (Debug.isDebugBuild || Application.isEditor) {
+            selectableDices = selectableDices.Concat(developmentOnlyDices).ToArray();
+            GetComponent<NetworkManagerHUD>().enabled = true;
+        }
+    }
 
     [Server]
     public void IncrementRound() {

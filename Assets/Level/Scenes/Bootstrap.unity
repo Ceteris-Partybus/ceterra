@@ -178,6 +178,8 @@ GameObject:
   - component: {fileID: 1926814291}
   - component: {fileID: 1926814290}
   - component: {fileID: 1926814292}
+  - component: {fileID: 1926814293}
+  - component: {fileID: 1926814294}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -336,6 +338,7 @@ MonoBehaviour:
   - {fileID: 5754625222157326443, guid: ce1d4306273adfb43ad9b0da4a68151e, type: 3}
   - {fileID: 5754625222157326443, guid: 29be8da3abdb685439646832481bfb5b, type: 3}
   - {fileID: 5754625222157326443, guid: 52a019e5466317c469ac5c90dce851a5, type: 3}
+  developmentOnlyDices: []
   minigameScenes:
   - MgGarbage
   - MgQuizduel
@@ -349,7 +352,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1926814283}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
   m_Name: 
@@ -401,6 +404,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e01c3cd5b53e1694c9502765c3780bbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1926814293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926814283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29cb6ef1d7c773f4f8893dc5a51fed5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetFramerate: 60
+--- !u!114 &1926814294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926814283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c73d65b76ad45e4481e2f3b2abf0bfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AvailableServers: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

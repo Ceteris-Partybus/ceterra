@@ -186,18 +186,24 @@ public class BoardPlayer : SceneConditionalPlayer {
     protected override void OnClientActiveStateChanged(bool isActive) {
         base.OnClientActiveStateChanged(isActive);
 
-        if (!isLocalPlayer && isActive) {
-            if (!BoardOverlay.Instance.IsPlayerAdded(PlayerId)) {
-                BoardOverlay.Instance.AddPlayer(this);
+        IEnumerator UpdateOverlayCoroutine() {
+            yield return new WaitUntil(() => BoardOverlay.Instance != null);
+
+            if (!isLocalPlayer && isActive) {
+                if (!BoardOverlay.Instance.IsPlayerAdded(PlayerId)) {
+                    BoardOverlay.Instance.AddPlayer(this);
+                }
+                BoardOverlay.Instance.UpdateRemotePlayerHealth(PlayerStats.GetHealth(), PlayerId);
+                BoardOverlay.Instance.UpdateRemotePlayerCoins(PlayerStats.GetCoins(), PlayerId);
             }
-            BoardOverlay.Instance.UpdateRemotePlayerHealth(PlayerStats.GetHealth(), PlayerId);
-            BoardOverlay.Instance.UpdateRemotePlayerCoins(PlayerStats.GetCoins(), PlayerId);
+            else if (isLocalPlayer && isActive) {
+                BoardOverlay.Instance.UpdateLocalPlayerName(PlayerName);
+                BoardOverlay.Instance.UpdateLocalPlayerHealth(PlayerStats.GetHealth());
+                BoardOverlay.Instance.UpdateLocalPlayerCoins(PlayerStats.GetCoins());
+            }
         }
-        else if (isLocalPlayer && isActive) {
-            BoardOverlay.Instance.UpdateLocalPlayerName(PlayerName);
-            BoardOverlay.Instance.UpdateLocalPlayerHealth(PlayerStats.GetHealth());
-            BoardOverlay.Instance.UpdateLocalPlayerCoins(PlayerStats.GetCoins());
-        }
+
+        StartCoroutine(UpdateOverlayCoroutine());
     }
 
     public override void OnStopClient() {

@@ -19,13 +19,17 @@ public class CatastropheManager : NetworkedSingleton<CatastropheManager> {
 
     [Server]
     public IEnumerator Tick() {
+        var catastrophesToRemove = new List<CatastropheEffect>();
         foreach (var catastrophe in ongoingCatastrophes) {
             if (catastrophe.HasEnded()) {
-                ongoingCatastrophes.Remove(catastrophe);
+                catastrophesToRemove.Add(catastrophe);
                 yield return catastrophe.OnEnd();
                 continue;
             }
             yield return catastrophe.OnRage();
+        }
+        foreach (var catastrophe in catastrophesToRemove) {
+            ongoingCatastrophes.Remove(catastrophe);
         }
     }
 
