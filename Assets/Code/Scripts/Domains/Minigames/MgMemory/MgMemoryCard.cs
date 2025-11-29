@@ -9,7 +9,7 @@ public class Card : NetworkBehaviour {
     [SerializeField] private Image cardImage;
     [SerializeField] private Button cardButton;
     [SerializeField] private Sprite hiddenIconSprite;
-    [SerializeField] private float flipDuration = 0.3f;
+    [SerializeField] private float flipDuration = 0.5f;
     private MemoryFactData factData;
     public MemoryFactData FactData => factData;
     public void SetFactData(string title, string description, string imagePath) {
@@ -30,10 +30,11 @@ public class Card : NetworkBehaviour {
 
     private void Awake() {
         cardImage ??= GetComponent<Image>();
-        Hide();
+        StartFlipAnimation(hiddenIconSprite, false);
     }
 
     public void OnCardClicked() {
+        Audiomanager.Instance?.PlayCardFlipSound();
         if (isSelected || isAnimating) {
             return;
         }
@@ -57,12 +58,13 @@ public class Card : NetworkBehaviour {
         StartFlipAnimation(iconSprite, true);
     }
 
-    public void Hide() {
+    public void ShakeAndFlip() {
         if (isAnimating) {
             return;
         }
 
-        StartFlipAnimation(hiddenIconSprite, false);
+        cardImage.transform.DOShakePosition(.3f, strength: 50f, vibrato: 50)
+                .onComplete += () => StartFlipAnimation(hiddenIconSprite, false);
     }
 
     private void StartFlipAnimation(Sprite targetSprite, bool willBeSelected) {

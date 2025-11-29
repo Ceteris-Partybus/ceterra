@@ -6,7 +6,14 @@ public class MgOceanPlayer : SceneConditionalPlayer, IMinigameRewardHandler {
     [SerializeField]
     [SyncVar(hook = nameof(OnScoreChanged))]
     private int score;
-    public int Score => score;
+    private int earnedCoinReward = 0;
+
+    public int playerScore => score;
+
+    [Server]
+    public void SetMinigameReward(int reward) {
+        earnedCoinReward = reward;
+    }
 
     [SerializeField]
     private GameObject playerModel;
@@ -89,7 +96,7 @@ public class MgOceanPlayer : SceneConditionalPlayer, IMinigameRewardHandler {
     }
 
     public void HandleMinigameRewards(BoardPlayer player) {
-        player.PlayerStats.ModifyCoins(Math.Max(0, score));
+        player.PlayerStats.ModifyCoins(earnedCoinReward);
         player.PlayerStats.ModifyScore(Math.Max(0, score / 5));
     }
 }

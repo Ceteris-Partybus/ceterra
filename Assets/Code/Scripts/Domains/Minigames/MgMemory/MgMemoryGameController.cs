@@ -6,7 +6,7 @@ using UnityEngine;
 public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController> {
     [SerializeField] private Card cardPrefab;
     [SerializeField] private Transform gridTransform;
-    [SerializeField] private readonly float checkDelay = 0.5f;
+    [SerializeField] private readonly float checkDelay = 0.7f;
     [SerializeField] private int pointsForCorrectMatch = 1;
 
     private List<Sprite> spritePairs;
@@ -86,6 +86,8 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
                 FindCardByIndex(currentPlayer.SecondSelectedCardIndex).GetIconSprite;
 
             if (match) {
+                Audiomanager.Instance?.PlaySuccessSound();
+
                 currentPlayer.AddScore(pointsForCorrectMatch);
                 currentPlayer.CmdAddScore(pointsForCorrectMatch); // Für Auswertung der Punkte -> Scoreboard
 
@@ -96,8 +98,9 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
                 CmdHandleMatch(matchedCard.FactData);
             }
             else {
-                CmdHideCardsOnAllClients(currentPlayer.FirstSelectedCardIndex, currentPlayer.SecondSelectedCardIndex);
+                Audiomanager.Instance?.PlayFailSound();
 
+                CmdHideCardsOnAllClients(currentPlayer.FirstSelectedCardIndex, currentPlayer.SecondSelectedCardIndex);
                 CmdHandleMismatch();
             }
 
@@ -122,7 +125,7 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
 
     [Command(requiresAuthority = false)]
     private void CmdHandleMatch(MemoryFactData factData) {
-        MgMemoryController.Instance.ShowFactPopup(factData);
+        MgMemoryContext.Instance.ShowFactPopupWithDuration(factData);
     }
 
     [Command(requiresAuthority = false)]
@@ -145,7 +148,7 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
 
     [ClientRpc]
     public void RpcHideCard(int cardIndex) {
-        FindCardByIndex(cardIndex)?.Hide();
+        FindCardByIndex(cardIndex).ShakeAndFlip();
     }
 
     [ClientRpc]

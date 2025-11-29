@@ -23,6 +23,7 @@ public class MgGarbageContext : MgContext<MgGarbageContext, MgGarbagePlayer> {
     private float spawnAcceleration = 0.97f; // each step is 97% of the last delay
     [SerializeField]
     private float gameDuration = 15f;
+    [SerializeField] private float scoreboardDuration = 10f;
 
     [SyncVar]
     private bool hasStarted = false;
@@ -98,6 +99,10 @@ public class MgGarbageContext : MgContext<MgGarbageContext, MgGarbagePlayer> {
 
             interval = Mathf.Max(minSpawnInterval, interval * spawnAcceleration);
         }
+
+        yield return new WaitForSeconds(2f); // Um die runterfallenden Objekte abzuwarten ggf Zeit anpassen
+        MgRewardService.Instance.DistributeRewards();
+        yield return new WaitForSeconds(scoreboardDuration);
 
         GameManager.Singleton.EndMinigame();
     }

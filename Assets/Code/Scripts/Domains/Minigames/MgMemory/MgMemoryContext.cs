@@ -9,14 +9,12 @@ using UnityEngine;
 public class MgMemoryContext : MgContext<MgMemoryContext, MgMemoryPlayer> {
 
     [Header("Minigame Settings")]
-    [SerializeField] private float GameDuration;
     [SerializeField] private float scoreboardDuration;
+    [SerializeField] private float factPopupDuration = 10f;
     [SerializeField] private string memoryFactsFileName = "Data/Productiondata/Minigames/Memory/memory_facts";
+    [SerializeField] private int totalPairs = 12;
 
-    private float countdownTimer;
-    private Coroutine countdownCoroutine;
     private List<MemoryFactData> memoryFacts = new();
-
     [SyncVar(hook = nameof(OnCurrentPlayerChanged))]
     private int currentPlayerId = -1;
 
@@ -25,7 +23,6 @@ public class MgMemoryContext : MgContext<MgMemoryContext, MgMemoryPlayer> {
     public override void OnStartGame() {
         if (isServer) {
             StartCoroutine(MemoryRoutine());
-            countdownCoroutine = StartCoroutine(UpdateCountdown());
         }
     }
 
@@ -62,6 +59,16 @@ public class MgMemoryContext : MgContext<MgMemoryContext, MgMemoryPlayer> {
     public void HandleMismatch() {
         NextPlayer();
     }
+    [Server]
+    public void ShowFactPopupWithDuration(MemoryFactData factData) {
+        MgMemoryController.Instance.ShowFactPopup(factData, factPopupDuration);
+    }
+
+    [Server]
+    private bool IsGameFinished() {
+        var totalMatches = players.Sum(p => p.Score);
+        return totalMatches >= totalPairs;
+    }
 
     [Server]
     private void NextPlayer() {
@@ -72,31 +79,17 @@ public class MgMemoryContext : MgContext<MgMemoryContext, MgMemoryPlayer> {
         yield return new WaitForSeconds(0.5f);
         InitializePlayers();
         StartMemory();
-        yield return new WaitForSeconds(GameDuration);
+
+        yield return new WaitUntil(() => IsGameFinished());
+
+        yield return new WaitForSeconds(1f);
 
         RpcClearMemoryOnClients();
         yield return new WaitForSeconds(0.1f);
 
-        var allActivePlayers = FindObjectsByType<MgMemoryPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
-            .Where(p => p.IsActiveForCurrentScene)
-            .OrderByDescending(p => p.Score)
-            .ToList();
-
-        var rankings = new List<MgMemoryPlayerRankingData>();
-        for (var i = 0; i < allActivePlayers.Count; i++) {
-            var player = allActivePlayers[i];
-            var rank = i + 1;
-            var reward = CalculateCoinReward(rank);
-
-            player.SetEarnedCoinReward(reward);
-
-            rankings.Add(MgMemoryPlayerRankingData.FromPlayer(player, rank));
-        }
-
-        MgMemoryController.Instance.ShowScoreboard(rankings);
+        MgRewardService.Instance.DistributeRewards();
         yield return new WaitForSeconds(scoreboardDuration);
 
-        StopMemory();
         GameManager.Singleton.EndMinigame();
     }
 
@@ -140,42 +133,5 @@ public class MgMemoryContext : MgContext<MgMemoryContext, MgMemoryPlayer> {
     [ClientRpc]
     private void RpcClearMemoryOnClients() {
         MgMemoryGameController.Instance.ClearMemory();
-    }
-
-    [Server]
-    private IEnumerator UpdateCountdown() {
-        countdownTimer = GameDuration;
-        var lastSeconds = Mathf.CeilToInt(countdownTimer);
-
-        RpcUpdateCountdown(lastSeconds);
-
-        while (countdownTimer > 0f) {
-            countdownTimer -= Time.deltaTime;
-            var seconds = Mathf.CeilToInt(Mathf.Max(0f, countdownTimer));
-            if (seconds != lastSeconds) {
-                RpcUpdateCountdown(seconds);
-                lastSeconds = seconds;
-            }
-            yield return null;
-        }
-        RpcUpdateCountdown(0);
-        countdownCoroutine = null;
-    }
-
-    [ClientRpc]
-    private void RpcUpdateCountdown(int seconds) {
-        MgMemoryController.Instance.UpdateCountdown(seconds);
-    }
-
-    [Server]
-    public void StopMemory() {
-        if (countdownCoroutine != null) {
-            StopCoroutine(countdownCoroutine);
-            countdownCoroutine = null;
-        }
-    }
-
-    private int CalculateCoinReward(int rank) {
-        return 100 / (int)Mathf.Pow(2, rank - 1);
     }
 }

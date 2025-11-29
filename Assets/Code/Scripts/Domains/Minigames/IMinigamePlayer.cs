@@ -6,4 +6,8 @@ public interface IMinigameRewardHandler {
     /// </summary>
     [Server]
     void HandleMinigameRewards(BoardPlayer player);
+    int playerScore { get; }
+
+    [Server]
+    void SetMinigameReward(int reward);
 }

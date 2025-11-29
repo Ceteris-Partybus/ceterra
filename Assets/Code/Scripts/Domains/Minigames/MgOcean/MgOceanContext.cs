@@ -25,6 +25,7 @@ public class MgOceanContext : MgContext<MgOceanContext, MgOceanPlayer> {
     private float spawnAcceleration = 0.98f;
     [SerializeField]
     private float gameDuration = 60f;
+    [SerializeField] private float scoreboardDuration = 10f;
 
     [SerializeField]
     [Tooltip("Z position for spawning players and trash objects.")]
@@ -191,18 +192,16 @@ public class MgOceanContext : MgContext<MgOceanContext, MgOceanPlayer> {
 
             interval = Mathf.Max(minSpawnInterval, interval * spawnAcceleration);
         }
+
+        MgRewardService.Instance.DistributeRewards();
+        yield return new WaitForSeconds(scoreboardDuration);
+
         GameManager.Singleton.EndMinigame();
     }
 
     public MgOceanPlayer GetLocalPlayer() {
         return FindObjectsByType<MgOceanPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
             .FirstOrDefault(p => p.isLocalPlayer);
-    }
-
-    public MgOceanPlayer[] GetPlayersByScore() {
-        return FindObjectsByType<MgOceanPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
-            .OrderByDescending(p => p.Score)
-            .ToArray();
     }
 
     public Vector3 GetPlayerSpawnPosition() {
