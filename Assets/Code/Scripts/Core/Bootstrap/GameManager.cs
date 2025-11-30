@@ -127,6 +127,10 @@ public class GameManager : NetworkRoomManager {
     }
 
     public void StartMinigame() {
+        // TEMP
+        StartMinigame("MgOcean3D");
+        return;
+
         var availableMinigames = MinigameScenes.Except(playedMinigames).ToList();
         if (availableMinigames.Count == 0) {
             Debug.LogError("No available minigames to start.");

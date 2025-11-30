@@ -284,6 +284,7 @@ MonoBehaviour:
   - {fileID: 4723995398127203178, guid: 6f6e7ea21e8f6de45adbd3483e0a68c6, type: 3}
   - {fileID: 4723995398127203178, guid: 6a4f02cc3e2d85d41948c87318ebdbc0, type: 3}
   - {fileID: 4723995398127203178, guid: dffc4a3d2cd86ac45ad3596445c6c7ad, type: 3}
+  - {fileID: 8764403747236833621, guid: 309bad3ad1aa9334fa577958b80ab024, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -344,6 +345,7 @@ MonoBehaviour:
   - MgQuizduel
   - MgOcean
   - MgMemory
+  - MgOcean3D
   playedMinigames: []
 --- !u!114 &1926814289
 MonoBehaviour:
