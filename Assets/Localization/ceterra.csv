@@ -66,13 +66,10 @@ Key,Id,English(en),German(de)
 "MgOcean.PrepScreen.title",56521928061177858,"Ocean Rescue: Trash Collection Mission","Ozean-Rettung: Müll-Sammelfahrt"
 "MgOcean.PrepScreen.description",56521928061177859,"The ocean needs your help! Sail your boat across the sea and collect the trash that washes in from all directions. Whoever collects the most trash wins! The faster and more skillfully you play, the more points you earn. But be careful: Sea turtles and other marine animals must not be harmed – touching them will cost you points. Who will be the best ocean rescuer?","Der Ozean braucht eure Hilfe! Fahrt mit eurem Boot übers Meer und sammelt den Müll ein, der von allen Seiten angeschwemmt wird. Wer am meisten Müll aufsammelt, gewinnt! Je schneller und geschickter du bist, desto mehr Punkte holst du dir. Aber passt auf: Schildkröten und andere Meerestiere dürfen nicht verletzt werden – wer sie berührt, verliert Punkte. Wer wird der beste Ozean-Retter?"
 "MgOcean.PrepScreen.controls",56521928061177860,"1. Steer the boat – Use WASD keys to move your boat:
-
-    -W = Forward
-
-    -A = Left
+    -W = Forward
+    -A = Left
     -S = Backward
-
-    -D = Right
+    -D = Right
 
 2. Collect trash – Drive over the trash that washes in from the left and right
 
@@ -81,14 +78,10 @@ Key,Id,English(en),German(de)
 4. Protect wildlife – Don't touch sea turtles or marine animals! That costs you points!
 
 5. Win the competition – Collect more trash than your opponents and claim first place!","1. Boot steuern – Nutze WASD-Tasten um dein Boot zu bewegen:
-
-    -W = Vorwärts
-
-    -A = Links
-
-    -S = Rückwärts
-
-    -D = Rechts
+    -W = Vorwärts
+    -A = Links
+    -S = Rückwärts
+    -D = Rechts
 
 2. Müll einsammeln – Fahre über den Müll, der von links und rechts ins Meer gespült wird
 
@@ -495,7 +488,7 @@ Key,Id,English(en),German(de)
 "modal.catastrophe.draught.description",56649705719169024,"Extreme heat and lack of water turn fertile land into barren wasteland.","Extreme Hitze und Wassermangel verwandeln fruchtbares Land in unfruchtbare Ödnis."
 "modal.catastrophe.tsunami.title",56649910111797248,"Tsunami","Tsunami"
 "modal.catastrophe.tsunami.description",56649934925299712,"Massive waves surge inland, destroying everything in their wake.","Riesige Wellen schlagen ins Landesinnere und zerstören alles, was sich ihnen in den Weg stellt."
-"globals.round_end",56652191783813120,"Rundenende","Round end"
+"globals.round_end",56652191783813120,"Round end","Rundenende"
 "globals.investment_completed",56652337988861952,"The investment {0} has been finished!","Das Investment {0} wurde fertiggestellt!"
 "globals.funds.expenses_investment",56659020039421952,"Financing {0}","Finanzierung für {0}"
 "globals.resources.expenses_investment",56659352559648768,"Resources for {0}","Ressourcen für {0}"
