@@ -1615,7 +1615,7 @@ MonoBehaviour:
   moveSpeed: 25
   turnSpeed: 65
   waterDepth: 0
-  cameraOffset: {x: 0, y: 30, z: -55}
+  cameraOffset: {x: 0, y: 22, z: -33}
   cameraSmoothSpeed: 5
 --- !u!64 &3796736608096958451
 MeshCollider:

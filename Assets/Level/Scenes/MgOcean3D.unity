@@ -844,6 +844,8 @@ MonoBehaviour:
   spawnAreaCollider: {fileID: 301842506}
   trashPrefabs:
   - {fileID: 3241251890801266441, guid: 656c7806a9a133946a3368ad2028a0ea, type: 3}
+  - {fileID: 2420595831316329519, guid: 6b4e61f966060824ba2ac55584654ff9, type: 3}
+  - {fileID: 5417231204415523250, guid: 7ef1b7e04cd21454a8e2f708a6d8a005, type: 3}
   initialTrashCount: 30
   trashSpawnHeight: 0
   respawnInterval: 5
