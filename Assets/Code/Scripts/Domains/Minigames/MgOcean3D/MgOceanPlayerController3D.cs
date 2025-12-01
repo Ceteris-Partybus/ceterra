@@ -1,5 +1,6 @@
 using Mirror;
 using UnityEngine;
+using UnityEngine.Rendering.HighDefinition;
 
 [RequireComponent(typeof(Rigidbody))]
 public class MgOceanPlayerController3D : NetworkBehaviour {
@@ -9,7 +10,7 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
     [SerializeField] private float waterDepth = 0f;
 
     [Header("Camera Settings")]
-    [SerializeField] private Vector3 cameraOffset = new Vector3(0f, 5f, -8f);
+    [SerializeField] private Vector3 cameraOffset = new Vector3(0f, 30f, -55f);
     [SerializeField] private float cameraSmoothSpeed = 5f;
 
     private float minX;
@@ -21,6 +22,7 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
     private Rigidbody rb;
     private Camera playerCamera;
     private AudioListener audioListener;
+    private Camera disabledMainCamera;
     
     private float inputForward;
     private float inputTurn;
@@ -34,12 +36,17 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
                          RigidbodyConstraints.FreezeRotationZ;
         rb.useGravity = false;
         rb.interpolation = RigidbodyInterpolation.Interpolate; // Smooth physics between fixed updates
+
     }
 
     public override void OnStartAuthority() {
         base.OnStartAuthority();
         SetupCamera();
         FetchBoundsFromContext();
+    }
+
+    public override void OnStartClient() {
+        base.OnStartClient();
     }
 
     private void FetchBoundsFromContext() {
@@ -56,16 +63,23 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
     }
 
     private void SetupCamera() {
-        var cameraObj = new GameObject("PlayerCamera");
+        var cameraObj = new GameObject("TempPlayerCamera_LocalPlayer");
         playerCamera = cameraObj.AddComponent<Camera>();
+        
+        //required for HDRP to render
+        cameraObj.AddComponent<HDAdditionalCameraData>();
+        
         audioListener = cameraObj.AddComponent<AudioListener>();
+        playerCamera.tag = "MainCamera";
+        playerCamera.nearClipPlane = 0.1f;
+        playerCamera.farClipPlane = 1000f;
 
-        cameraObj.transform.position = transform.position + transform.TransformDirection(cameraOffset);
+        // Position camera behind the player using world offset initially
+        Vector3 targetPosition = transform.position + cameraOffset;
+        cameraObj.transform.position = targetPosition;
         cameraObj.transform.LookAt(transform.position);
-
-        if (Camera.main != null && Camera.main != playerCamera) {
-            Camera.main.gameObject.SetActive(false);
-        }
+        
+        Debug.Log($"[MgOceanPlayerController3D] Camera created at {targetPosition}, looking at {transform.position}, offset: {cameraOffset}");
     }
 
     void LateUpdate() {
@@ -73,7 +87,10 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
             return;
         }
 
-        Vector3 targetPosition = transform.position + transform.TransformDirection(cameraOffset);
+        // Calculate camera position: behind the boat based on its rotation
+        Vector3 desiredOffset = transform.rotation * cameraOffset;
+        Vector3 targetPosition = transform.position + desiredOffset;
+        
         playerCamera.transform.position = Vector3.Lerp(
             playerCamera.transform.position, 
             targetPosition, 
@@ -124,11 +141,6 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
     void OnDestroy() {
         if (isOwned && playerCamera != null) {
             Destroy(playerCamera.gameObject);
-            
-            var mainCam = GameObject.FindGameObjectWithTag("MainCamera");
-            if (mainCam != null) {
-                mainCam.SetActive(true);
-            }
         }
     }
 }
