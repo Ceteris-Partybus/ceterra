@@ -842,6 +842,12 @@ MonoBehaviour:
   controls: 0
   screenshot: {fileID: 0}
   spawnAreaCollider: {fileID: 301842506}
+  trashPrefabs:
+  - {fileID: 3241251890801266441, guid: 656c7806a9a133946a3368ad2028a0ea, type: 3}
+  initialTrashCount: 30
+  trashSpawnHeight: 0
+  respawnInterval: 5
+  maxTrashCount: 50
   gameDuration: 60
   scoreboardDuration: 10
 --- !u!1 &961739749

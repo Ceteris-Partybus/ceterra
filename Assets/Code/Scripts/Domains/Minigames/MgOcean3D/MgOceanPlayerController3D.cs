@@ -30,13 +30,12 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
     void Awake() {
         rb = GetComponent<Rigidbody>();
         
-        // Freeze Y position (stay on water surface) and X/Z rotation (no tipping)
-        rb.constraints = RigidbodyConstraints.FreezePositionY |
-                         RigidbodyConstraints.FreezeRotationX |
+        // Only freeze rotation to prevent tipping - allow position for physics collisions
+        rb.constraints = RigidbodyConstraints.FreezeRotationX |
                          RigidbodyConstraints.FreezeRotationZ;
         rb.useGravity = false;
-        rb.interpolation = RigidbodyInterpolation.Interpolate; // Smooth physics between fixed updates
-
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+        rb.collisionDetectionMode = CollisionDetectionMode.Continuous; // Better collision detection for fast objects
     }
 
     public override void OnStartAuthority() {
@@ -121,6 +120,11 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
             return;
         }
 
+        // Keep boat at water level
+        Vector3 pos = rb.position;
+        pos.y = waterDepth;
+        rb.position = pos;
+
         if (Mathf.Abs(inputTurn) > 0.01f) {
             float rotationAmount = inputTurn * turnSpeed * Time.fixedDeltaTime;
             rb.MoveRotation(rb.rotation * Quaternion.Euler(0f, rotationAmount, 0f));
@@ -136,6 +140,17 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
 
             rb.MovePosition(newPosition);
         }
+    }
+
+    private void OnCollisionEnter(Collision collision) {
+        // Optional: Log boat collisions for debugging
+        if (collision.gameObject.CompareTag("Player")) {
+            Debug.Log($"[MgOceanPlayerController3D] Boat collision with another boat!");
+        }
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        Debug.Log($"[MgOceanPlayerController3D] BOAT triggered by: {other.gameObject.name}");
     }
 
     void OnDestroy() {
