@@ -12,11 +12,11 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
     [SerializeField] private Vector3 cameraOffset = new Vector3(0f, 5f, -8f);
     [SerializeField] private float cameraSmoothSpeed = 5f;
 
-    [Header("Play Area Bounds")]
-    [SerializeField] private float minX = -250f;
-    [SerializeField] private float maxX = 250f;
-    [SerializeField] private float minZ = -100f;
-    [SerializeField] private float maxZ = 100f;
+    private float minX;
+    private float maxX;
+    private float minZ;
+    private float maxZ;
+    private bool boundsInitialized = false;
 
     private Rigidbody rb;
     private Camera playerCamera;
@@ -36,9 +36,23 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
         rb.interpolation = RigidbodyInterpolation.Interpolate; // Smooth physics between fixed updates
     }
 
-    public override void OnStartLocalPlayer() {
-        base.OnStartLocalPlayer();
+    public override void OnStartAuthority() {
+        base.OnStartAuthority();
         SetupCamera();
+        FetchBoundsFromContext();
+    }
+
+    private void FetchBoundsFromContext() {
+        if (MgOceanContext3D.Instance != null) {
+            Bounds bounds = MgOceanContext3D.Instance.GetPlayAreaBounds();
+            minX = bounds.min.x;
+            maxX = bounds.max.x;
+            minZ = bounds.min.z;
+            maxZ = bounds.max.z;
+            boundsInitialized = true;
+        } else {
+            Debug.LogError("[MgOceanPlayerController3D] MgOceanContext3D.Instance is null!");
+        }
     }
 
     private void SetupCamera() {
@@ -86,6 +100,10 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
     }
 
     private void ApplyMovement() {
+        if (!boundsInitialized) {
+            return;
+        }
+
         if (Mathf.Abs(inputTurn) > 0.01f) {
             float rotationAmount = inputTurn * turnSpeed * Time.fixedDeltaTime;
             rb.MoveRotation(rb.rotation * Quaternion.Euler(0f, rotationAmount, 0f));
@@ -104,7 +122,9 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
     }
 
     void OnDestroy() {
-        if (isLocalPlayer) {
+        if (isOwned && playerCamera != null) {
+            Destroy(playerCamera.gameObject);
+            
             var mainCam = GameObject.FindGameObjectWithTag("MainCamera");
             if (mainCam != null) {
                 mainCam.SetActive(true);
