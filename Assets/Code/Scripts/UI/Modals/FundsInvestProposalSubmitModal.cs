@@ -73,6 +73,12 @@ public class FundsInvestProposalSubmitModal : Modal {
 
         bool proposesFullAmount = amountField.value + investment.currentMoney >= investment.requiredMoney;
 
+        if (BoardContext.Instance.FundsStat < amountField.value) {
+            ErrorModal.Instance.Message = LocalizationManager.Instance.GetLocalizedText(56640685331546112);
+            ModalManager.Instance.Show(ErrorModal.Instance);
+            return;
+        }
+
         if (BoardContext.Instance.ResourceStat < requiredResources && proposesFullAmount) {
             InfoModal.Instance.Message = LocalizationManager.Instance.GetLocalizedText(56640685331546113);
             ModalManager.Instance.Show(InfoModal.Instance);
@@ -86,6 +92,7 @@ public class FundsInvestProposalSubmitModal : Modal {
         }
 
         int playerId = BoardContext.Instance.GetLocalPlayer().PlayerId;
+        ModalManager.Instance.Hide(); // Hide topmost modal to prevent user from suggesting the same investment again
         CmdSetVoteProperties(InvestmentId, playerId, (int)amountField.value);
     }
 

@@ -9,6 +9,10 @@ Key,Id,English(en),German(de)
 "playMenu.join_lobby",24296382042112,"JOIN LOBBY","LOBBY BEITRETEN"
 "playMenu.back",24827854884864,"Back","Zurück"
 "playMenu.playmenu",782933199196160,"Play Menu","Spielmenü"
+"playmenu.loading",60010223864074240,"VALIDATING","VALIDIERE"
+"playmenu.connecting",60011225140908032,"CONNECTING","VERBINDE"
+"playmenu.validate-code",60011435313287168,"VALIDATE CODE","VALIDIERE CODE"
+"playmenu.digit-code",60011804634337280,"Digit Code","Zahlencode"
 "sideMenu.menu",1528244501925888,"Menu","Menü"
 "settingsMenu.musicvolume",51544089527181312,"Music volume","Musiklautstärke"
 "settingsMenu.soundvolume",51544635864637440,"Sound volume","Soundlautstärke"
@@ -17,15 +21,75 @@ Key,Id,English(en),German(de)
 "MgQuizduel.waitingForOtherPlayers",50355143541706752,"Waiting for other Players","Warten auf andere Spieler"
 "MgQuizduel.finalScore",50357163094888448,"Final Score","Endstand"
 "MgQuizduel.rewardCoins",50359450810896384,"+{0} Coins","+{0} Münzen"
-"MgQuizduel.PrepScreen.title",56521928023429120,"Quizduel","Quizduell"
-"MgQuizduel.PrepScreen.description",56521928056983552,"Answer as many questions correctly as possible!","Beantworte möglichst viele Fragen korrekt!"
-"MgQuizduel.PrepScreen.controls",56521928056983553,"Select an answer by clicking on it.","Wähle eine Antwort durch Klicken aus."
-"MgGarbage.PrepScreen.title",56521928056983554,"Dispose of the trash","Gib dem Müll eine Abfuhr"
-"MgGarbage.PrepScreen.description",56521928061177856,"Sort the trash into the appropriate trash can.","Sortiere den Müll ein den passenden Mülleimer."
-"MgGarbage.PrepScreen.controls",56521928061177857,"Drag and Drop","Ziehe den Müll mit der Maus."
-"MgOcean.PrepScreen.title",56521928061177858,"Ocean Cleaner","Meeresputz"
-"MgOcean.PrepScreen.description",56521928061177859,"Collect the most garbage.","Sammle den meisten Müll ein."
-"MgOcean.PrepScreen.controls",56521928061177860,"Move the player with WASD.","Bewege deine Figur mit WASD."
+"MgQuizduel.PrepScreen.title",56521928023429120,"Sustainability Quiz Duel","Nachhaltigkeits-Quiz Duell"
+"MgQuizduel.PrepScreen.description",56521928056983552,"Who knows the most about sustainability? Face off against each other and answer six challenging questions about environmental protection, resources, and sustainable living. Only those who find the right answers quickly rack up the points! At the end, the ranking will be revealed – who's the sustainability champion?","Wer kennt sich am besten mit Nachhaltigkeit aus? Ihr tretet gegeneinander an und beantwortet sechs knifflige Fragen rund um Umweltschutz, Ressourcen und nachhaltiges Leben. Nur wer die richtigen Antworten schnell findet, holt sich die Punkte! Am Ende wird der Ranking angezeigt – wer ist der Nachhaltigkeits-Champion?"
+"MgQuizduel.PrepScreen.controls",56521928056983553,"1. Read the question – A question is displayed
+
+2. Choose your answer – Click on one of the three answer options
+
+3. Get feedback – You'll instantly see a green checkmark (✓) or red X (✗) showing if you were right
+
+4. Next question – After a short delay, the next question appears
+
+5. Compare results – After all 6 questions, you'll see the ranking with all players","1. Frage lesen – Eine Frage wird angezeigt
+
+2. Antwort wählen – Klicke auf eine der drei Antwortmöglichkeiten
+
+3. Feedback erhalten – Sofort siehst du mit einem grünen Haken (✓) oder roten X (✗), ob du richtig lagst
+
+4. Nächste Frage – Nach kurzer Verzögerung geht's zur nächsten Frage
+
+5. Ergebnisse vergleichen – Nach allen 6 Fragen seht ihr das Ranking mit allen Spielern"
+"MgGarbage.PrepScreen.title",56521928056983554,"Waste Master: Quick Sorting","Müll-Meister: Schnelle Trennung"
+"MgGarbage.PrepScreen.description",56521928061177856,"Waste falls from the sky – and you need to react fast! Sort the falling trash into the correct bin as quickly as possible and rack up points. But watch out: If you're too slow or put trash in the wrong bin, you'll lose points! How much can you save before the waste crosses the red line?","Müll fällt vom Himmel – und du musst schnell reagieren! Sortiere die fallenden Abfälle blitzschnell in die richtige Mülltonne ein und sammle Punkte. Aber Vorsicht: Wer zu langsam ist oder den Müll in die falsche Tonne wirft, verliert Punkte! Wie viel schaffst du zu retten, bevor der Müll die rote Linie überschreitet?"
+"MgGarbage.PrepScreen.controls",56521928061177857,"1. Watch the waste – Different types of trash fall from the top of the screen
+
+2. Grab the waste – Click on a piece of trash and hold it (Drag)
+
+3. Throw into the correct bin – Drag the waste to the matching bin and release it (Drop)
+
+4. Earn points – Correct sorting = +Points
+
+5. Watch out for penalties – Wrong sorting or being too slow = -Points
+
+6. Mind the red line – If waste reaches the red line, it's too late!","1. Müll beobachten – Verschiedene Müllarten fallen vom Bildschirmrand herab
+
+2. Müll greifen – Klicke auf ein Müllstück und halte es fest (Drag)
+
+3. In die richtige Tonne werfen – Ziehe den Müll zur passenden Mülltonne und lasse ihn los (Drop)
+
+4. Punkte verdienen – Richtige Sortierung = +Punkte
+
+5. Achtung vor Strafen – Falsches Sortieren oder zu langsam sein = -Punkte
+
+6. Rote Linie beachten – Wenn Müll die rote Linie erreicht, ist es zu spät!"
+"MgOcean.PrepScreen.title",56521928061177858,"Ocean Rescue: Trash Collection Mission","Ozean-Rettung: Müll-Sammelfahrt"
+"MgOcean.PrepScreen.description",56521928061177859,"The ocean needs your help! Sail your boat across the sea and collect the trash that washes in from all directions. Whoever collects the most trash wins! The faster and more skillfully you play, the more points you earn. But be careful: Sea turtles and other marine animals must not be harmed – touching them will cost you points. Who will be the best ocean rescuer?","Der Ozean braucht eure Hilfe! Fahrt mit eurem Boot übers Meer und sammelt den Müll ein, der von allen Seiten angeschwemmt wird. Wer am meisten Müll aufsammelt, gewinnt! Je schneller und geschickter du bist, desto mehr Punkte holst du dir. Aber passt auf: Schildkröten und andere Meerestiere dürfen nicht verletzt werden – wer sie berührt, verliert Punkte. Wer wird der beste Ozean-Retter?"
+"MgOcean.PrepScreen.controls",56521928061177860,"1. Steer the boat – Use WASD keys to move your boat:
+    -W = Forward
+    -A = Left
+    -S = Backward
+    -D = Right
+
+2. Collect trash – Drive over the trash that washes in from the left and right
+
+3. Earn points – Each collected piece of trash = +Points for you
+
+4. Protect wildlife – Don't touch sea turtles or marine animals! That costs you points!
+
+5. Win the competition – Collect more trash than your opponents and claim first place!","1. Boot steuern – Nutze WASD-Tasten um dein Boot zu bewegen:
+    -W = Vorwärts
+    -A = Links
+    -S = Rückwärts
+    -D = Rechts
+
+2. Müll einsammeln – Fahre über den Müll, der von links und rechts ins Meer gespült wird
+
+3. Punkte verdienen – Jedes eingesammelte Müllstück = +Punkte für dich
+
+4. Tiere schützen – Berühre keine Schildkröten oder Meerestiere! Das kostet dich Punkte!
+
+5. Wettbewerb gewinnen – Sammle mehr Müll als deine Gegner und sichere dir den ersten Platz!"
 "question.1",54051235973255168,"Beverage cartons also add to the pile of waste. How can you reduce it?","Auch Getränkekartons tragen zum Müllberg bei. Wie kannst du ihn verringern?"
 "answerOption.2",54053500918386688,"By only drinking tea","Indem Du nur noch Tee trinkst"
 "answerOption.3",54053500918386689,"By crushing beverage cartons before throwing them away","Indem Du die Getränkekartons erst zerkleinerst und dann wegwirfst"
@@ -258,7 +322,7 @@ Key,Id,English(en),German(de)
 "invsetment.description.2",54829781717045251,"Cleans the oceans of plastic waste.","Säubert die Meere von Plastikmüll."
 "investment.displayname.3",54829781717045252,"Solar farm","Solarpark"
 "invsetment.description.3",54829781717045253,"Generates renewable energy using solar power.","Erzeugt erneuerbare Energie durch Sonnenkraft."
-"investment.displayname.4",54829781717045254,"educational program","Bildungsprogramm"
+"investment.displayname.4",54829781717045254,"Educational program","Bildungsprogramm"
 "invsetment.description.4",54829781717045255,"Improves access to education and knowledge about sustainability.","Verbessert den Zugang zu Bildung und Wissen über Nachhaltigkeit."
 "investment.displayname.5",54829781717045256,"Fair Trade network","Fair-Trade-Netzwerk"
 "invsetment.description.5",54829781717045257,"Supports local producers with fair prices.","Unterstützt lokale Produzenten mit fairen Preisen."
@@ -278,7 +342,7 @@ Key,Id,English(en),German(de)
 "end.your_score",56144406623805440,"Your score:","Dein Score:"
 "end.other_players",56144566892355584,"Other players:","Andere Spieler:"
 "modal.deposit",56145165381787648,"Deposit","Einzahlen"
-"modal.affected_players",56145873707458560,"Affected players:","Betroffene Spieler:"
+"modal.affected_players",56145873707458560,"Damage report:","Schadensbericht:"
 "globals.environment",56146686244806656,"Environment","Umwelt"
 "globals.economy",56146825365676032,"Economy","Wirtschaft"
 "globals.society",56146969926557696,"Society","Gesellschaft"
@@ -417,20 +481,20 @@ Key,Id,English(en),German(de)
 "modal.catastrophe.landslide.title",56648670216814592,"Devastating Landslide","Verheerender Erdrutsch"
 "modal.catastrophe.landslide.description",56648729599770624,"Massive rocks and debris crash down, burying everything in their path.","Massive Felsen und Trümmer stürzen herab und begraben alles, was sich ihnen in den Weg stellt."
 "modal.catastrophe.wildfire.title",56648926065164288,"Raging Wildfire","Waldbrand"
-"modal.catastrophe.wildfire.description",56648972298977280,"Uncontrolled flames consume everything, leaving only ash behind.","Unkontrollierte Flammen verschlingen alles und hinterlassen nur Asche."
+"modal.catastrophe.wildfire.start",56648972298977280,"Uncontrolled flames consume everything, leaving only ash behind.","Unkontrollierte Flammen verschlingen alles und hinterlassen nur Asche."
 "modal.catastrophe.glacier.title",56649363690455040,"Glacier Melting","Gletscherschmelze"
 "modal.catastrophe.glacier.description",56649388873056256,"Rising waters flood the landscape as ancient ice rapidly melts.","Steigende Wasserstände überschwemmen die Landschaft, während das alte Eis schnell schmilzt."
-"modal.catastrophe.draught.title",56649684747649024,"Severe Drought","Dürre"
+"modal.catastrophe.drought.title",56649684747649024,"Drought","Dürre"
 "modal.catastrophe.draught.description",56649705719169024,"Extreme heat and lack of water turn fertile land into barren wasteland.","Extreme Hitze und Wassermangel verwandeln fruchtbares Land in unfruchtbare Ödnis."
 "modal.catastrophe.tsunami.title",56649910111797248,"Tsunami","Tsunami"
 "modal.catastrophe.tsunami.description",56649934925299712,"Massive waves surge inland, destroying everything in their wake.","Riesige Wellen schlagen ins Landesinnere und zerstören alles, was sich ihnen in den Weg stellt."
-"globals.round_end",56652191783813120,"Rundenende","Round end"
+"globals.round_end",56652191783813120,"Round end","Rundenende"
 "globals.investment_completed",56652337988861952,"The investment {0} has been finished!","Das Investment {0} wurde fertiggestellt!"
 "globals.funds.expenses_investment",56659020039421952,"Financing {0}","Finanzierung für {0}"
 "globals.resources.expenses_investment",56659352559648768,"Resources for {0}","Ressourcen für {0}"
 "modal.investment.info.approved",56661867099422720,"The investment has been fully funded and is now under construction.","Das Investment wurde vollständig finanziert und befindet sich nun im Bau."
 "modal.investment.info.approved-partial",56661867099422721,"The investment was financed with {0} coins, but additional funds are still needed. The resources have not yet been deducted.","Das Investment wurde mit {0} Münzen finanziert, benötigt aber noch weitere Gelder. Die Ressourcen wurden noch nicht abgezogen."
-"modal.catastrophe.damage-taken",56668768562413568,"{0} - {1}m away, takes {2} damage","{0} - {1}m entfernt, nimmt {2} Schaden"
+"modal.catastrophe.damage-taken",56668768562413568,"{0}, {1}m away, takes {2} damage","{0}, {1}m entfernt, nimmt {2} Schaden"
 "globals.coins",56670997235204096,"Coins","Münzen"
 "globals.health",56153847255523328,"Health","Leben"
 "turnmanager.info",61449390745026560,"It's {0} turn ","{0} ist am Zug"
@@ -447,3 +511,46 @@ Key,Id,English(en),German(de)
 "lobby.is_not_ready",61453405545398272,"Is not ready","Ist nicht bereit"
 "lobby.click_to_unready",61453481038675968,"Click to unready","Nicht bereit"
 "lobby.click_to_ready",61453992487911424,"Click to ready","Klicke wenn bereit"
+"modal.catastrophe.wildfire.ongoing-1",63999993620021248,"The fire weakens, but embers still glow beneath the smoke.","Das Feuer schwächt sich ab, doch unter dem Rauch glimmen noch die letzten Funken."
+"modal.catastrophe.wildfire.ongoing-2",65747542009790464,"The flames have died out, but faint smoke still lingers in the air.","Die Flammen sind erloschen, doch leichter Rauch liegt noch in der Luft."
+"modal.catastrophe.wildfire.end",63999993661964288,"The smoke has cleared, leaving behind silence and scorched earth.","Der Rauch hat sich verzogen und hinterlässt Stille und verbrannte Erde."
+"modal.catastrophe.drought.start",66478602888757248,"The sun burns relentlessly, and the soil begins to crack.","Die Sonne brennt unerbittlich, und der Boden beginnt zu reißen."
+"modal.catastrophe.drought.ongoing-1",66478602922311680,"Water grows scarce, and the fields start to wither.","Das Wasser wird knapp und die Felder beginnen zu verdorren."
+"modal.catastrophe.drought.ongoing-2",66478602922311681,"Crops fail, and supplies dwindle as the drought deepens.","Die Ernten fallen aus und die Vorräte schwinden, während die Dürre anhält."
+"modal.catastrophe.drought.ongoing-3",66478602922311682,"The rivers have dried, and hunger spreads across the land.","Die Flüsse sind versiegt und der Hunger breitet sich im Land aus."
+"modal.catastrophe.drought.ongoing-4",66478602922311683,"The land lies barren, and thirst grips every home.","Das Land liegt brach und der Durst hält in jedem Haus Einzug."
+"modal.catastrophe.drought.end",66479609035177984,"Rain finally returns, bringing relief to the scorched earth.","Endlich kehrt Regen zurück und bringt Erleichterung für das ausgedörrte Land."
+"modal.catastrophe.earthquake.title",67264907419664384,"Earthquake","Erdbeben"
+"modal.catastrophe.earthquake.start",67262900449394688,"The ground shakes violently, buildings suffer damage and people panic.","Der Boden bebt heftig, Gebäude werden beschädigt und die Menschen geraten in Panik."
+"modal.catastrophe.earthquake.ongoing-1",67262900487143424,"Fortunately, there were no aftershocks, but repair work continues throughout the city.","Glücklicherweise gab es keine Nachbeben, aber die Reparaturarbeiten in der ganzen Stadt dauern an."
+"modal.catastrophe.earthquake.end",67262900487143425,"The repairs are complete and the city is returning to normal.","Die Reparaturen sind abgeschlossen und die Stadt kehrt zur Normalität zurück."
+"modal.catastrophe.global-damage-taken",65711785694019584,"{0} takes {1} damage","{0} nimmt {1} Schaden"
+"modal.catastrophe.no-damage",67188403738329088,"No damage was detected.","Es wurden keine Schäden festgestellt."
+"MgMemory.Pairs",66070708549767168,"Pairs:","Paare:"
+"MgMemory.PrepScreen.title",71158853507141632,"Sustainability Memory: Collect Facts","Nachhaltigkeits-Memory: Fakten sammeln"
+"MgMemory.PrepScreen.description",71159084911087616,"Find matching pairs and learn exciting facts about sustainability along the way! Players take turns flipping cards – whoever finds two matching motifs earns points and gets to play again. Plus, you'll discover an interesting fact about the topic with every match. Whoever collects the most pairs by the end becomes the Memory Champion!","Findet die passenden Paare und lernt dabei Spannendes über Nachhaltigkeit! Reihum decken die Spieler Karten auf – wer zwei gleiche Motive findet, bekommt Punkte und darf direkt weitermachen. Zusätzlich lernt ihr bei jedem Match einen interessanten Fakt zum Thema. Wer am Ende die meisten Paare gesammelt hat, ist der Memory-Champion!"
+"MgMemory.PrepScreen.controls",71159319133605888,"1. Player turns – Player 1 starts, then Players 2, 3, and 4 take turns
+
+2. Flip cards – Click on two cards to turn them over
+
+3. Find a match – If the motifs are the same, you've found a match!
+
+4. Earn points – Each pair found = +Points for you
+
+5. Learn a fact – After every match, you'll see an interesting fact about the motif
+
+6. Play again or pass – With a match, you get to play immediately again. No match? The next player's turn!
+
+7. Win – Whoever has collected the most pairs at the end wins the game!","1. Spieler wechseln – Spieler 1 beginnt, dann Spieler 2, 3 und 4 der Reihe nach
+
+2. Karten aufdecken – Klicke auf zwei Karten, um sie umzudrehen
+
+3. Nach einem Match suchen – Falls die Motive gleich sind, hast du ein Match gefunden!
+
+4. Punkte verdienen – Jedes gefundene Paar = +Punkte für dich
+
+5. Fakt lernen – Nach jedem Match siehst du einen interessanten Fakt zum Motiv
+
+6. Weitermachen oder Weitergabe – Bei einem Match darfst du direkt nochmal spielen. Kein Match? Der nächste Spieler ist dran!
+
+7. Gewinnen – Wer am Ende die meisten Paare hat, gewinnt das Spiel!"

@@ -26,6 +26,11 @@ public class BoardPlayer : SceneConditionalPlayer {
     private SplineContainer splineContainer;
     public SplineContainer SplineContainer => splineContainer;
 
+    [Header("Audio")]
+    [SerializeField]
+    private AudioSource soundSource;
+    public AudioSource SoundSource => soundSource;
+
     [Header("Movement")]
     [SerializeField]
     private PlayerMovement playerMovement;
@@ -130,6 +135,12 @@ public class BoardPlayer : SceneConditionalPlayer {
 
     [ClientRpc]
     public void RpcTriggerAnimation(AnimationType animationType) {
+        if (AnimationType.RUN == animationType) {
+            Audiomanager.Instance.PlayRunningPlayerSound(this);
+        }
+        else {
+            Audiomanager.Instance.StopPlayerSound(this);
+        }
         visualHandler?.TriggerAnimation(animationType);
     }
 
@@ -175,18 +186,24 @@ public class BoardPlayer : SceneConditionalPlayer {
     protected override void OnClientActiveStateChanged(bool isActive) {
         base.OnClientActiveStateChanged(isActive);
 
-        if (!isLocalPlayer && isActive) {
-            if (!BoardOverlay.Instance.IsPlayerAdded(PlayerId)) {
-                BoardOverlay.Instance.AddPlayer(this);
+        IEnumerator UpdateOverlayCoroutine() {
+            yield return new WaitUntil(() => BoardOverlay.Instance != null);
+
+            if (!isLocalPlayer && isActive) {
+                if (!BoardOverlay.Instance.IsPlayerAdded(PlayerId)) {
+                    BoardOverlay.Instance.AddPlayer(this);
+                }
+                BoardOverlay.Instance.UpdateRemotePlayerHealth(PlayerStats.GetHealth(), PlayerId);
+                BoardOverlay.Instance.UpdateRemotePlayerCoins(PlayerStats.GetCoins(), PlayerId);
             }
-            BoardOverlay.Instance.UpdateRemotePlayerHealth(PlayerStats.GetHealth(), PlayerId);
-            BoardOverlay.Instance.UpdateRemotePlayerCoins(PlayerStats.GetCoins(), PlayerId);
+            else if (isLocalPlayer && isActive) {
+                BoardOverlay.Instance.UpdateLocalPlayerName(PlayerName);
+                BoardOverlay.Instance.UpdateLocalPlayerHealth(PlayerStats.GetHealth());
+                BoardOverlay.Instance.UpdateLocalPlayerCoins(PlayerStats.GetCoins());
+            }
         }
-        else if (isLocalPlayer && isActive) {
-            BoardOverlay.Instance.UpdateLocalPlayerName(PlayerName);
-            BoardOverlay.Instance.UpdateLocalPlayerHealth(PlayerStats.GetHealth());
-            BoardOverlay.Instance.UpdateLocalPlayerCoins(PlayerStats.GetCoins());
-        }
+
+        StartCoroutine(UpdateOverlayCoroutine());
     }
 
     public override void OnStopClient() {

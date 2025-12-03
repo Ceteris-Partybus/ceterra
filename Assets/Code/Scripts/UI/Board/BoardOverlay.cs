@@ -204,6 +204,10 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
     }
 
     public void FillModalsWithCurrentValues() {
+        if (ModalManager.Instance == null) {
+            return;
+        }
+
         foreach (var modal in ModalManager.Instance.ModalStack) {
 
             if (modal == null || modal.ModalElement == null) {

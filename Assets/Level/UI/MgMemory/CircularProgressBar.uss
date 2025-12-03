@@ -1,0 +1,41 @@
+/* Circular Progress Bar Styles */
+#progress-container {
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+#progress-circle-bg {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border-width: 4px;
+    border-color: rgba(255, 255, 255, 0.3);
+    border-style: solid;
+}
+
+#progress-circle {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border-width: 4px;
+    border-color: transparent;
+    border-top-color: white;
+    border-right-color: white;
+    border-style: solid;
+    transition: transform 0.1s ease-out;
+    transform-origin: center;
+}
+
+#progress-text {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    -unity-text-align: middle-center;
+    font-size: 24px;
+    color: white;
+    -unity-font-style: bold;
+    z-index: 10;
+}

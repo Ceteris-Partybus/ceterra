@@ -1,20 +1,5 @@
 [
     {
-        "displayName": 54829781717045248,
-        "description": 54829781717045249,
-        "requiredMoney": 50,
-        "requiredResources": 50,
-        "type": "ECONOMY",
-        "modifier": [
-            {
-                "type": "ECONOMY",
-                "effect": "INCREASES",
-                "magnitude": 5
-            }
-        ],
-        "cooldown": 2
-    },
-    {
         "displayName": 54829781717045250,
         "description": 54829781717045251,
         "requiredMoney": 300,

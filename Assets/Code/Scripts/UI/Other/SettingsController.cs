@@ -85,7 +85,7 @@ public class SettingsController : Singleton<SettingsController> {
         musicSlider.RegisterCallback<MouseUpEvent>(evt => Audiomanager.Instance?.PlayClickSound());
         musicSlider.RegisterCallback<ClickEvent>(evt => Audiomanager.Instance?.PlayClickSound());
 
-        var savedMusic = PlayerPrefs.GetFloat("MusicVolume", 100f);
+        var savedMusic = PlayerPrefs.GetFloat("MusicVolume", 50f);
         musicSlider.value = savedMusic;
         UpdateAudioValue(savedMusic, musicValue, musicVolumeParam);
     }
@@ -199,7 +199,7 @@ public class SettingsController : Singleton<SettingsController> {
             return;
         }
 
-        if (Input.GetKey(KeyCode.Escape)) {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
             OpenSettingsPanel();
         }
     }

@@ -9,13 +9,16 @@
                 <ui:Label text="Sea Cleaner" name="invest-card-title" style="font-size: 32px; -unity-font-style: normal; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: resource(&apos;Fonts/Jersey_15/Jersey15-Regular&apos;); white-space: normal;" />
                 <ui:Label text="Sea Cleaner" name="invest-card-description" style="font-size: 20px; -unity-font-style: normal; margin-top: 0; margin-right: 0; margin-bottom: 11px; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; white-space: normal;" />
                 <ui:VisualElement name="investment-stats" style="flex-grow: 0; flex-direction: row;">
-                    <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                    <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none; flex-direction: row;">
+                        <ui:Label enable-rich-text="false" style="background-image: resource(&apos;Icons/coin&apos;); width: 10px; height: 10px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-background-scale-mode: stretch-to-fill; translate: -3px 2px;" />
                         <ui:Label text="200&#10;" name="invest-card-required-money" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
                     </ui:VisualElement>
-                    <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                    <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none; flex-direction: row;">
+                        <ui:Label enable-rich-text="false" style="background-image: resource(&apos;Icons/package&apos;); width: 10px; height: 10px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-background-scale-mode: stretch-to-fill; translate: -3px 2px;" />
                         <ui:Label text="200&#10;" name="invest-card-required-resources" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
                     </ui:VisualElement>
-                    <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none;">
+                    <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none; flex-direction: row;">
+                        <ui:Label enable-rich-text="false" style="background-image: resource(&apos;Icons/history&apos;); width: 10px; height: 10px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-background-scale-mode: stretch-to-fill; translate: -3px 2px;" />
                         <ui:Label text="200&#10;" name="invest-card-cooldown" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
                     </ui:VisualElement>
                 </ui:VisualElement>

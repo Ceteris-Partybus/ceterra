@@ -7,9 +7,14 @@ public class MgQuizduelPlayer : SceneConditionalPlayer, IMinigameRewardHandler {
     private bool hasFinishedQuiz = false;
     private int earnedCoinReward = 0;
 
-    public int Score => score;
+    public int playerScore => score;
     public bool HasFinishedQuiz => hasFinishedQuiz;
     public int EarnedCoinReward => earnedCoinReward;
+
+    [Server]
+    public void SetMinigameReward(int reward) {
+        earnedCoinReward = reward;
+    }
 
     public override bool ShouldBeActiveInScene(string sceneName) {
         return sceneName == "MgQuizduel";

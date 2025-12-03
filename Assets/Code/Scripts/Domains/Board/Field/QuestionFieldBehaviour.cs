@@ -1,33 +1,25 @@
 using Mirror;
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class QuestionFieldBehaviour : FieldBehaviour {
+    private bool quizCompleted = true;
+
+    public override FieldType GetFieldType() => FieldType.QUESTION;
+
     [Server]
-    protected override void OnPlayerLand(BoardPlayer player) {
-        Debug.Log($"Player landed on a question field.");
+    protected override IEnumerator OnPlayerLand(BoardPlayer player) {
+        var onQuizCompleted = new Action(() => quizCompleted = true);
         if (BoardquizController.Instance.gameObject != null && BoardquizController.Instance != null) {
             if (player != null) {
                 // Note, that OnQuizClosed must be invoked on server side!
-                BoardquizController.Instance.OnQuizClosed += OnQuizCompleted;
+                quizCompleted = false;
+                BoardquizController.Instance.OnQuizClosed += onQuizCompleted;
                 BoardContext.Instance.ShowQuizForPlayer(player.PlayerId);
             }
-            else {
-                Debug.LogError("Konnte das Quiz nicht starten, da kein aktueller Spieler gefunden wurde!");
-                CompleteFieldInvocation();
-            }
         }
-        else {
-            Debug.LogError("BoardquizController not found!");
-            CompleteFieldInvocation();
-        }
-    }
-
-    private void OnQuizCompleted() {
-        if (BoardquizController.Instance != null) {
-            BoardquizController.Instance.OnQuizClosed -= OnQuizCompleted;
-        }
-
-        Debug.Log("Completing quiz....");
-        CompleteFieldInvocation();
+        yield return new WaitUntil(() => quizCompleted);
+        BoardquizController.Instance.OnQuizClosed -= onQuizCompleted;
     }
 }

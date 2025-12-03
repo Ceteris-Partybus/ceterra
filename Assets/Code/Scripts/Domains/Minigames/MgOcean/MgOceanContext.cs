@@ -25,6 +25,7 @@ public class MgOceanContext : MgContext<MgOceanContext, MgOceanPlayer> {
     private float spawnAcceleration = 0.98f;
     [SerializeField]
     private float gameDuration = 60f;
+    [SerializeField] private float scoreboardDuration = 10f;
 
     [SerializeField]
     [Tooltip("Z position for spawning players and trash objects.")]
@@ -131,7 +132,12 @@ public class MgOceanContext : MgContext<MgOceanContext, MgOceanPlayer> {
 
         float totalWeight = weightedTrashPrefabs.Sum(p => p.weight);
 
-        while (Time.time - startTime < gameDuration) {
+        while (true) {
+            float elapsed = Time.time - startTime;
+            if (elapsed >= gameDuration) {
+                break;
+            }
+
             GameObject prefab = null;
             float randomWeight = Random.Range(0, totalWeight);
             float currentWeight = 0;
@@ -176,24 +182,26 @@ public class MgOceanContext : MgContext<MgOceanContext, MgOceanPlayer> {
 
             NetworkServer.Spawn(go);
 
-            yield return new WaitForSeconds(interval);
+            float remaining = Mathf.Max(0f, gameDuration - (Time.time - startTime));
+            if (remaining <= 0f) {
+                break;
+            }
+
+            float waitTime = Mathf.Min(interval, remaining);
+            yield return new WaitForSeconds(waitTime);
 
             interval = Mathf.Max(minSpawnInterval, interval * spawnAcceleration);
         }
 
-        yield return new WaitForSeconds(3f);
+        MgRewardService.Instance.DistributeRewards();
+        yield return new WaitForSeconds(scoreboardDuration);
+
         GameManager.Singleton.EndMinigame();
     }
 
     public MgOceanPlayer GetLocalPlayer() {
         return FindObjectsByType<MgOceanPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
             .FirstOrDefault(p => p.isLocalPlayer);
-    }
-
-    public MgOceanPlayer[] GetPlayersByScore() {
-        return FindObjectsByType<MgOceanPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
-            .OrderByDescending(p => p.Score)
-            .ToArray();
     }
 
     public Vector3 GetPlayerSpawnPosition() {

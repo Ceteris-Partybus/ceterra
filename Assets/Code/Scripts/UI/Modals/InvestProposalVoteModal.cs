@@ -80,6 +80,11 @@ public class InvestProposalVoteModal : Modal {
             voteYesButton.clicked += () => OnVoteButtonClicked(true);
             voteNoButton.clicked += () => OnVoteButtonClicked(false);
         }
+
+        if (BoardContext.Instance.GetAllPlayers().Count == 1) {
+            // Auto-approve if only one player is in the game
+            UpdateVotings(localPlayerId, true);
+        }
     }
 
     [ClientCallback]
@@ -183,6 +188,12 @@ public class InvestProposalVoteModal : Modal {
     [Command(requiresAuthority = false)]
     private void CmdApproveInvestment(int investmentId, int proposedCoins) {
         BoardContext.Instance.ApproveInvestment(investmentId, proposedCoins);
+        RpcUpdateInvestment();
+    }
+
+    [ClientRpc]
+    private void RpcUpdateInvestment() {
+        BoardOverlay.Instance?.RecalculateInvestment(this.InvestmentId);
     }
 
     [Command(requiresAuthority = false)]

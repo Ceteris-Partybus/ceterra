@@ -1052,7 +1052,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 54829781717045254
-    m_Localized: educational program
+    m_Localized: Educational program
     m_Metadata:
       m_Items: []
   - m_Id: 54829781717045255
@@ -1132,7 +1132,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 56145873707458560
-    m_Localized: 'Affected players:'
+    m_Localized: 'Damage report:'
     m_Metadata:
       m_Items: []
   - m_Id: 56146686244806656
@@ -1615,8 +1615,6 @@ MonoBehaviour:
     m_Localized: Dev dice
     m_Metadata:
       m_Items: []
-    m_Metadata:
-      m_Items: []
   - m_Id: 56636904074215424
     m_Localized: Catastrophe
     m_Metadata:
@@ -1708,7 +1706,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 56649684747649024
-    m_Localized: Severe Drought
+    m_Localized: Drought
     m_Metadata:
       m_Items: []
   - m_Id: 56649705719169024
@@ -1724,7 +1722,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 56652191783813120
-    m_Localized: Rundenende
+    m_Localized: Round end
     m_Metadata:
       m_Items: []
   - m_Id: 56652337988861952
@@ -1752,18 +1750,97 @@ MonoBehaviour:
       m_Items:
       - rid: 7894437812287832149
   - m_Id: 56668768562413568
-    m_Localized: '{0} - {1}m away, takes {2} damage'
+    m_Localized: '{0}, {1}m away, takes {2} damage'
     m_Metadata:
       m_Items: []
   - m_Id: 56670997235204096
     m_Localized: Coins
     m_Metadata:
       m_Items: []
+  - m_Id: 60010223864074240
+    m_Localized: VALIDATING
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011225140908032
+    m_Localized: CONNECTING
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011435313287168
+    m_Localized: VALIDATE CODE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011804634337280
+    m_Localized: Digit Code
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928023429120
+    m_Localized: Sustainability Quiz Duel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983552
+    m_Localized: "Who knows the most about sustainability? Face off against each
+      other and answer six challenging questions about environmental protection,
+      resources, and sustainable living. Only those who find the right answers quickly
+      rack up the points! At the end, the ranking will be revealed \u2013 who's the
+      sustainability champion?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983553
+    m_Localized: "1. Read the question \u2013 A question is displayed\r\n\r\n2. Choose
+      your answer \u2013 Click on one of the three answer options\r\n\r\n3. Get feedback
+      \u2013 You'll instantly see a green checkmark (\u2713) or red X (\u2717) showing
+      if you were right\r\n\r\n4. Next question \u2013 After a short delay, the next
+      question appears\r\n\r\n5. Compare results \u2013 After all 6 questions, you'll
+      see the ranking with all players"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983554
+    m_Localized: 'Waste Master: Quick Sorting'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177856
+    m_Localized: "Waste falls from the sky \u2013 and you need to react fast! Sort
+      the falling trash into the correct bin as quickly as possible and rack up points.
+      But watch out: If you're too slow or put trash in the wrong bin, you'll lose
+      points! How much can you save before the waste crosses the red line?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177857
+    m_Localized: "1. Watch the waste \u2013 Different types of trash fall from the
+      top of the screen\r\n\r\n2. Grab the waste \u2013 Click on a piece of trash
+      and hold it (Drag)\r\n\r\n3. Throw into the correct bin \u2013 Drag the waste
+      to the matching bin and release it (Drop)\r\n\r\n4. Earn points \u2013 Correct
+      sorting = +Points\r\n\r\n5. Watch out for penalties \u2013 Wrong sorting or
+      being too slow = -Points\r\n\r\n6. Mind the red line \u2013 If waste reaches
+      the red line, it's too late!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177858
+    m_Localized: 'Ocean Rescue: Trash Collection Mission'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177859
+    m_Localized: "The ocean needs your help! Sail your boat across the sea and collect
+      the trash that washes in from all directions. Whoever collects the most trash
+      wins! The faster and more skillfully you play, the more points you earn. But
+      be careful: Sea turtles and other marine animals must not be harmed \u2013
+      touching them will cost you points. Who will be the best ocean rescuer?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177860
+    m_Localized: "1. Steer the boat \u2013 Use WASD keys to move your boat:\r\n\r   
+      -W = Forward\r\n\r    -A = Left\r\n    -S = Backward\r\n\r    -D = Right\r\n\r\n2.
+      Collect trash \u2013 Drive over the trash that washes in from the left and
+      right\r\n\r\n3. Earn points \u2013 Each collected piece of trash = +Points
+      for you\r\n\r\n4. Protect wildlife \u2013 Don't touch sea turtles or marine
+      animals! That costs you points!\r\n\r\n5. Win the competition \u2013 Collect
+      more trash than your opponents and claim first place!"
+    m_Metadata:
+      m_Items: []
   - m_Id: 61449390745026560
     m_Localized: 'It''s {0} turn '
     m_Metadata:
-      m_Items:
-      - rid: 7894437812287832149
+      m_Items: []
   - m_Id: 61449390812135424
     m_Localized: Roll dice
     m_Metadata:
@@ -1783,8 +1860,7 @@ MonoBehaviour:
   - m_Id: 61449390812135428
     m_Localized: ROUND {0}
     m_Metadata:
-      m_Items:
-      - rid: 7894437812287832149
+      m_Items: []
   - m_Id: 61452399050850304
     m_Localized: Character Selection
     m_Metadata:
@@ -1815,6 +1891,95 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 61453992487911424
     m_Localized: Click to ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63999993620021248
+    m_Localized: The fire weakens, but embers still glow beneath the smoke.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65747542009790464
+    m_Localized: The flames have died out, but faint smoke still lingers in the air.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63999993661964288
+    m_Localized: The smoke has cleared, leaving behind silence and scorched earth.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602888757248
+    m_Localized: The sun burns relentlessly, and the soil begins to crack.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602922311680
+    m_Localized: Water grows scarce, and the fields start to wither.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602922311681
+    m_Localized: Crops fail, and supplies dwindle as the drought deepens.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602922311682
+    m_Localized: The rivers have dried, and hunger spreads across the land.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602922311683
+    m_Localized: The land lies barren, and thirst grips every home.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66479609035177984
+    m_Localized: Rain finally returns, bringing relief to the scorched earth.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67262900449394688
+    m_Localized: The ground shakes violently, buildings suffer damage and people
+      panic.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67262900487143424
+    m_Localized: Fortunately, there were no aftershocks, but repair work continues
+      throughout the city.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67262900487143425
+    m_Localized: The repairs are complete and the city is returning to normal.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65711785694019584
+    m_Localized: '{0} takes {1} damage'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67188403738329088
+    m_Localized: No damage was detected.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67264907419664384
+    m_Localized: Earthquake
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66070708549767168
+    m_Localized: 'Pairs:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71158853507141632
+    m_Localized: 'Sustainability Memory: Collect Facts'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71159084911087616
+    m_Localized: "Find matching pairs and learn exciting facts about sustainability
+      along the way! Players take turns flipping cards \u2013 whoever finds two matching
+      motifs earns points and gets to play again. Plus, you'll discover an interesting
+      fact about the topic with every match. Whoever collects the most pairs by the
+      end becomes the Memory Champion!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71159319133605888
+    m_Localized: "1. Player turns \u2013 Player 1 starts, then Players 2, 3, and
+      4 take turns\r\n\r\n2. Flip cards \u2013 Click on two cards to turn them over\r\n\r\n3.
+      Find a match \u2013 If the motifs are the same, you've found a match!\r\n\r\n4.
+      Earn points \u2013 Each pair found = +Points for you\r\n\r\n5. Learn a fact
+      \u2013 After every match, you'll see an interesting fact about the motif\r\n\r\n6.
+      Play again or pass \u2013 With a match, you get to play immediately again.
+      No match? The next player's turn!\r\n\r\n7. Win \u2013 Whoever has collected
+      the most pairs at the end wins the game!"
     m_Metadata:
       m_Items: []
   references:

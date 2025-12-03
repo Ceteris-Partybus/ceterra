@@ -1,7 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Level/UI/MainMenu/main-menu.uss?fileID=7433441132597879392&amp;guid=12beb740677607c4083b46270436952b&amp;type=3#main-menu" />
     <Style src="project://database/Assets/Level/UI/Other/settings.uss?fileID=7433441132597879392&amp;guid=b49e5940a6019634582cec31c74af891&amp;type=3#settings" />
-    <ui:VisualElement name="Panel" class="panel">
+    <ui:VisualElement style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Level/UI/MainMenu/background.renderTexture?fileID=8400000&amp;guid=ba15e779749fdb54fbf12701b0ff251f&amp;type=2#background&quot;);" />
+    <ui:VisualElement style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-image: none; background-color: rgba(0, 0, 0, 0.6);" />
+    <ui:VisualElement name="Panel" class="panel" style="background-image: none; display: flex; -unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgba(255, 255, 255, 0);">
         <ui:VisualElement name="Logo" class="logo" />
         <ui:VisualElement name="ButtonContainer" class="menu-button-container">
             <ui:Button name="PlayButton" class="button play-button">

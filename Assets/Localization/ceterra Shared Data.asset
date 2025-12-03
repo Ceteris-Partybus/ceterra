@@ -55,6 +55,22 @@ MonoBehaviour:
     m_Key: playMenu.playmenu
     m_Metadata:
       m_Items: []
+  - m_Id: 60010223864074240
+    m_Key: playmenu.loading
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011225140908032
+    m_Key: playmenu.connecting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011435313287168
+    m_Key: playmenu.validate-code
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011804634337280
+    m_Key: playmenu.digit-code
+    m_Metadata:
+      m_Items: []
   - m_Id: 1528244501925888
     m_Key: sideMenu.menu
     m_Metadata:
@@ -1688,7 +1704,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 56648972298977280
-    m_Key: modal.catastrophe.wildfire.description
+    m_Key: modal.catastrophe.wildfire.start
     m_Metadata:
       m_Items: []
   - m_Id: 56649363690455040
@@ -1700,7 +1716,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 56649684747649024
-    m_Key: modal.catastrophe.draught.title
+    m_Key: modal.catastrophe.drought.title
     m_Metadata:
       m_Items: []
   - m_Id: 56649705719169024
@@ -1805,6 +1821,82 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 61453992487911424
     m_Key: lobby.click_to_ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63999993620021248
+    m_Key: modal.catastrophe.wildfire.ongoing-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65747542009790464
+    m_Key: modal.catastrophe.wildfire.ongoing-2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63999993661964288
+    m_Key: modal.catastrophe.wildfire.end
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602888757248
+    m_Key: modal.catastrophe.drought.start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602922311680
+    m_Key: modal.catastrophe.drought.ongoing-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602922311681
+    m_Key: modal.catastrophe.drought.ongoing-2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602922311682
+    m_Key: modal.catastrophe.drought.ongoing-3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602922311683
+    m_Key: modal.catastrophe.drought.ongoing-4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66479609035177984
+    m_Key: modal.catastrophe.drought.end
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67264907419664384
+    m_Key: modal.catastrophe.earthquake.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67262900449394688
+    m_Key: modal.catastrophe.earthquake.start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67262900487143424
+    m_Key: modal.catastrophe.earthquake.ongoing-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67262900487143425
+    m_Key: modal.catastrophe.earthquake.end
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65711785694019584
+    m_Key: modal.catastrophe.global-damage-taken
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67188403738329088
+    m_Key: modal.catastrophe.no-damage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66070708549767168
+    m_Key: MgMemory.Pairs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71158853507141632
+    m_Key: MgMemory.PrepScreen.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71159084911087616
+    m_Key: MgMemory.PrepScreen.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71159319133605888
+    m_Key: MgMemory.PrepScreen.controls
     m_Metadata:
       m_Items: []
   m_Metadata:

@@ -1,0 +1,77 @@
+using System.Collections.Generic;
+using Mirror;
+using UnityEngine;
+using UnityEngine.UIElements;
+using UnityEngine.Localization.Settings;
+
+public class MgScoreboardController : NetworkedSingleton<MgScoreboardController> {
+    [SerializeField] private UIDocument uiDocument;
+
+    private const string LOCALIZATION_TABLE = "ceterra";
+    private const long LOCALIZATION_KEY_REWARD = 50359450810896384; // "+{0} Münzen" (DE) / "+{0} Coins" (EN)
+
+    private VisualElement scoreboardScreen;
+    private readonly List<Label> playerNameLabels = new();
+    private readonly List<Label> playerScoreLabels = new();
+    private readonly List<Label> playerRewardLabels = new();
+    private readonly List<VisualElement> playerRankElements = new();
+
+    protected override void Start() {
+        base.Start();
+        InitializeUI();
+    }
+
+    private void InitializeUI() {
+        var root = uiDocument.rootVisualElement;
+
+        scoreboardScreen = root.Q<VisualElement>("scoreboard-screen");
+
+        for (var i = 1; i <= 4; i++) {
+            playerNameLabels.Add(root.Q<Label>($"player-name-{i}"));
+            playerScoreLabels.Add(root.Q<Label>($"player-score-{i}"));
+
+            var rewardContainer = root.Q<VisualElement>($"player-reward-{i}");
+            var rewardLabel = rewardContainer?.Query<Label>().First();
+            playerRewardLabels.Add(rewardLabel);
+
+            playerRankElements.Add(root.Q<VisualElement>($"player-rank-{i}"));
+        }
+    }
+
+    [Server]
+    public void ShowScoreboard(List<MgPlayerRankingData> playerRankings) {
+        RpcShowScoreboard(playerRankings);
+    }
+
+    [ClientRpc]
+    private void RpcShowScoreboard(List<MgPlayerRankingData> playerRankings) {
+        SetElementDisplay(scoreboardScreen, true);
+
+        for (var i = 0; i < playerRankElements.Count; i++) {
+            if (i < playerRankings.Count) {
+                playerNameLabels[i].text = playerRankings[i].playerName;
+
+                playerScoreLabels[i].text = playerRankings[i].score.ToString();
+
+                playerRewardLabels[i].text = GetLocalizedRewardText(playerRankings[i].reward);
+
+                SetElementDisplay(playerRankElements[i], true);
+            }
+            else {
+                SetElementDisplay(playerRankElements[i], false);
+            }
+        }
+    }
+
+    private string GetLocalizedRewardText(int reward) {
+        return LocalizationSettings.StringDatabase
+            .GetLocalizedStringAsync(LOCALIZATION_TABLE, LOCALIZATION_KEY_REWARD, new object[] { reward })
+            .Result;
+    }
+
+    private void SetElementDisplay(VisualElement element, bool visible) {
+        if (element != null) {
+            element.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+    }
+}

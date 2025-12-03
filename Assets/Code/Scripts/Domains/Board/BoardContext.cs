@@ -354,6 +354,12 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
         IEnumerator DelayedRpcNotify() {
             yield return new WaitUntil(() => netIdentity != null && netIdentity.observers.Count == GameManager.Singleton.roomSlots.Count);
+
+            if (totalMovementsCompleted == 0) {
+                SkyboxManager.Instance.RpcOnBoardSceneEntered();
+                yield return CatastropheManager.Instance.Tick();
+            }
+
             RpcNotifyPlayerTurn(currentPlayerId, GameManager.Singleton.CurrentRound, GameManager.Singleton.MaxRounds);
         }
     }
@@ -396,7 +402,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
     [Server]
     public IEnumerator OnRoundCompleted() {
-        yield return StartCoroutine(ProcessInvestments());
+        yield return ProcessInvestments();
         ApplyCyberneticEffects();
 
         UpdateResourceStat(resourcesNextRound);
@@ -405,7 +411,7 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         resourceHistory.Add(new ResourceHistoryEntry(resourcesNextRound, HistoryEntryType.DEPOSIT, resourceHistoryEntryName));
         resourcesNextRound = CalculateResourcesNextRound();
 
-        yield return StartCoroutine(StartMinigame());
+        yield return StartMinigame();
         GameManager.Singleton.IncrementRound();
         if (GameManager.Singleton.CurrentRound > GameManager.Singleton.MaxRounds) {
             GameManager.Singleton.StopGameSwitchEndScene();
@@ -574,7 +580,8 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         int index = investments.IndexOf(investment);
 
         UpdateFundsStat(-coins);
-        string fundsHistoryEntryName = LocalizationManager.Instance.GetLocalizedText(56659020039421952, new object[] { investment.displayName });
+        string investmentName = LocalizationManager.Instance.GetLocalizedText(investment.displayName);
+        string fundsHistoryEntryName = LocalizationManager.Instance.GetLocalizedText(56659020039421952, new object[] { investmentName });
         FundsHistoryEntry fundsEntry = new FundsHistoryEntry(coins, HistoryEntryType.WITHDRAW, fundsHistoryEntryName);
         this.fundsHistory.Add(fundsEntry);
 
@@ -582,7 +589,8 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
         if (investment.fullyFinanced) {
             UpdateResourceStat(-investment.requiredResources);
-            string resourceHistoryEntryName = LocalizationManager.Instance.GetLocalizedText(56659352559648768, new object[] { investment.displayName });
+            string resourceName = LocalizationManager.Instance.GetLocalizedText(investment.displayName);
+            string resourceHistoryEntryName = LocalizationManager.Instance.GetLocalizedText(56659352559648768, new object[] { resourceName });
             ResourceHistoryEntry entry = new ResourceHistoryEntry(investment.requiredResources, HistoryEntryType.WITHDRAW, resourceHistoryEntryName);
             this.resourceHistory.Add(entry);
             investment.inConstruction = true;

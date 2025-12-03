@@ -6,5 +6,6 @@ public enum AnimationType {
     RUN,
     IDLE,
     DICE_HIT,
-    JUMP
+    JUMP,
+    WALK
 }

@@ -15,12 +15,18 @@ public class MainMenuController : MonoBehaviour {
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private AudioSource uiAudioSource;
     [SerializeField] private AudioClip buttonClickSound;
+    [SerializeField] private AudioClip Soundtrack;
+
 
     private void OnEnable() {
         root = uIDocument.rootVisualElement;
 
         InitializeUIElements();
         StartCoroutine(ApplyInitialAudioValuesNextFrame());
+        if (Audiomanager.Instance.soundtrack.clip != Soundtrack ||
+        !Audiomanager.Instance.soundtrack.isPlaying) {
+            Audiomanager.Instance.PlayMusic(Soundtrack);
+        }
     }
 
     private void InitializeUIElements() {
