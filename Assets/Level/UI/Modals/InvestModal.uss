@@ -118,3 +118,7 @@
   padding-left: 15px;
   padding-right: 15px;
 }
+
+#unity-tab__header-underline {
+    background-color: #674324;
+}

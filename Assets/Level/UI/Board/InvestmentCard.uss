@@ -1,3 +1,202 @@
+/* Card container */
+.investment-card-element {
+  background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+  -unity-slice-scale: 0.35px;
+  flex-grow: 0;
+  padding-top: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  padding-left: 16px;
+  width: 500px;
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 25px;
+  margin-left: 0px;
+  height: 225px;
+}
+
+/* Card content row */
+.investment-card-content {
+  flex-grow: 1;
+  flex-direction: row;
+  align-self: auto;
+  justify-content: center;
+}
+
+/* Card image/icon container */
+.investment-card-icon {
+  flex-grow: 0;
+  width: 100px;
+  height: 100px;
+  align-self: center;
+}
+
+/* Card info container */
+.investment-card-info {
+  flex-grow: 1;
+  margin-left: 10px;
+}
+
+/* Card title */
+#invest-card-title {
+  font-size: 32px;
+  color: #5e3e1c;
+  letter-spacing: 1px;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  -unity-font-definition: resource('Fonts/Jersey_15/Jersey15-Regular');
+  -unity-font-style: normal;
+  white-space: normal;
+}
+
+/* Card description */
+#invest-card-description {
+  font-size: 20px;
+  color: #745136;
+  letter-spacing: 1px;
+  -unity-font-style: normal;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 11px;
+  margin-left: 0;
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  white-space: normal;
+}
+
+/* Investment stats container */
+#investment-stats {
+  flex-grow: 0;
+  flex-direction: row;
+}
+
+/* Stat item container */
+.investment-stat-item {
+  font-size: 20px;
+  border-color: transparent;
+  padding: 8px 16px;
+  margin: 4px;
+  background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
+  -unity-slice-scale: 0.35px;
+  flex-grow: 0;
+  width: auto;
+  max-width: none;
+  flex-direction: row;
+}
+
+/* Small icon in stats */
+.investment-stat-icon {
+  width: 15px;
+  height: 15px;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  -unity-background-scale-mode: stretch-to-fill;
+  translate: -3px 2px;
+}
+
+.investment-stat-icon-coin {
+  background-image: resource('Icons/coin');
+}
+
+.investment-stat-icon-package {
+  background-image: resource('Icons/package');
+}
+
+.investment-stat-icon-history {
+  background-image: resource('Icons/history');
+}
+
+/* Stat value label */
+.investment-stat-value {
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+}
+
+/* Construction status container */
+#construction-status {
+  flex-grow: 0;
+  flex-direction: row;
+  display: flex;
+  font-size: 24px;
+  color: rgb(65, 131, 226);
+}
+
+/* Completion status container */
+#completion-status {
+  flex-grow: 0;
+  flex-direction: row;
+  display: flex;
+  font-size: 24px;
+  color: rgb(65, 131, 226);
+}
+
+/* Completion status info label */
+#completion-status-info {
+  color: rgb(105, 226, 65);
+}
+
+/* Progress bar row */
+.investment-progress-row {
+  flex-grow: 1;
+  flex-direction: row;
+  align-self: auto;
+  align-items: center;
+}
+
+/* Progress bar instance */
+#invest-card-money-progress-bar {
+  flex-grow: 1;
+  margin-right: 8px;
+  margin-left: 6px;
+}
+
+/* Buttons container */
+.investment-buttons-container {
+  flex-grow: 0;
+  flex-direction: row;
+}
+
+/* Action buttons */
+.investment-action-button {
+  height: 32px;
+  width: 60px;
+  font-size: 20px;
+  border-width: 0;
+  border-color: transparent;
+  color: #FFFFFF;
+  text-shadow: 1px 1px 1px #000000;
+  background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_default.png");
+  background-color: transparent;
+  -unity-slice-scale: 0.35px;
+  -unity-text-align: lower-center;
+}
+
+.investment-action-button:active {
+  background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_pressed.png");
+  -unity-text-align: middle-center;
+}
+
+/* State-based visibility */
 .in-construction #investment-stats {
   display: none;
 }

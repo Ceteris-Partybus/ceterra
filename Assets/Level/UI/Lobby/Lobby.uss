@@ -14,6 +14,7 @@
     align-items: center;
     padding: 20px 15px;
     background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
+    -unity-slice-scale: 0.35px;
     border-radius: 25px;
     height: 35%;
     border-width: 0px;
@@ -26,8 +27,9 @@
     flex-direction: column;
     justify-content: space-between;
     background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
+    -unity-slice-scale: 0.35px;
     overflow: hidden;
-    border-radius: 20px;
+    border-radius: 8px;
     border-width: 3px;
     border-color: #745136;
 }
@@ -37,6 +39,7 @@
     align-items: center;
     border-color: transparent;
     background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    -unity-slice-scale: 0.35px;
 }
 
 .lobby-player-slot.ready {
@@ -114,6 +117,7 @@
     margin-bottom: 15px;
     padding: 15px;
     background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    -unity-slice-scale: 0.35px;
 }
 
 .icon-selection-group {
@@ -151,14 +155,15 @@
 
 .character-selection-button,
 .ready-button {
-    height: 60px;
+    height: 55px;
     flex-grow: 1;
     border-color: transparent;
     color: white;
-    font-size: 26px;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);
+    font-size: 27px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
     background-color: transparent;
     -unity-text-align: upper-center;
+    -unity-slice-scale: 0.35px;
 }
 
 .ready-button {
@@ -179,7 +184,7 @@
 
 .ready-button:active,
 .character-selection-button:active {
-    -unity-text-align: lower-center;
+    -unity-text-align: middle-center;
 }
 
 .ready-button.ready {

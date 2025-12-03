@@ -31,6 +31,7 @@
     min-height: 200px;
     background-color: transparent;
     background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
+    -unity-slice-scale: 0.35px;
     position: relative;
 }
 
@@ -43,6 +44,7 @@
     background-color: transparent;
     border-color: transparent;
     background-image: url("project://database/Assets/Art/Sprites/Panels/panel_title_with_stroke.png");
+    -unity-slice-scale: 0.35px;
 }
 
 .modal-header.no-title {
@@ -64,6 +66,7 @@
     height: 60px;
     font-size: 32px;
     background-image: url("project://database/Assets/Art/Sprites/Buttons/red_default.png");
+    -unity-slice-scale: 0.35px;
     -unity-text-align: upper-center;
     border-color: transparent;
     background-color: transparent;
@@ -89,12 +92,12 @@
 }
 
 .modal-info-element {
-    -unity-slice-scale: 0.35px;
     margin: 4px;
     height: 60px;
     width: 200px;
     background-color: transparent;
     background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    -unity-slice-scale: 0.35px;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;

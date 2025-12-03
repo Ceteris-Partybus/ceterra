@@ -2,48 +2,51 @@
     <ui:Template name="ProgressBar" src="project://database/Assets/Level/UI/Board/ProgressBar.uxml?fileID=9197481963319205126&amp;guid=b7a507bd332063d4fb87ffbd154e639a&amp;type=3#ProgressBar" />
     <Style src="project://database/Assets/Level/UI/Board/InvestmentCard.uss?fileID=7433441132597879392&amp;guid=75815511be359f349a3d61282330b31e&amp;type=3#InvestmentCard" />
     <Style src="project://database/Assets/Level/UI/Modals/ModalStyles.uss?fileID=7433441132597879392&amp;guid=7765ef12d5826884abfaffcb5834fca5&amp;type=3#ModalStyles" />
-    <ui:VisualElement class="modal-button" style="flex-grow: 0; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; width: 500px; margin-right: 0; margin-top: 0; margin-bottom: 25px; margin-left: 0; height: 225px;">
-        <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; justify-content: center;">
-            <ui:VisualElement class="modal-button" style="flex-grow: 0; width: 100px; height: 100px; align-self: center;" />
-            <ui:VisualElement style="flex-grow: 1; margin-left: 10px;">
-                <ui:Label text="Sea Cleaner" name="invest-card-title" style="font-size: 32px; -unity-font-style: normal; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: resource(&apos;Fonts/Jersey_15/Jersey15-Regular&apos;); white-space: normal;" />
-                <ui:Label text="Sea Cleaner" name="invest-card-description" style="font-size: 20px; -unity-font-style: normal; margin-top: 0; margin-right: 0; margin-bottom: 11px; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; white-space: normal;" />
-                <ui:VisualElement name="investment-stats" style="flex-grow: 0; flex-direction: row;">
-                    <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none; flex-direction: row;">
-                        <ui:Label enable-rich-text="false" style="background-image: resource(&apos;Icons/coin&apos;); width: 10px; height: 10px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-background-scale-mode: stretch-to-fill; translate: -3px 2px;" />
-                        <ui:Label text="200&#10;" name="invest-card-required-money" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+    <ui:VisualElement class="investment-card-element">
+        <ui:VisualElement class="investment-card-">
+            <ui:Label text="Sea Cleaner" name="invest-card-title" />
+            <ui:Label text="Sea Cleaner" name="invest-card-description" />
+        </ui:VisualElement>
+        <ui:VisualElement class="investment-card-content">
+            <ui:VisualElement class="modal-button investment-card-icon" />
+            <ui:VisualElement class="investment-card-info">
+
+                <ui:VisualElement name="investment-stats">
+                    <ui:VisualElement class="investment-stat-item">
+                        <ui:Label enable-rich-text="false" class="investment-stat-icon investment-stat-icon-coin" />
+                        <ui:Label text="200&#10;" name="invest-card-required-money" class="investment-stat-value" />
                     </ui:VisualElement>
-                    <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none; flex-direction: row;">
-                        <ui:Label enable-rich-text="false" style="background-image: resource(&apos;Icons/package&apos;); width: 10px; height: 10px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-background-scale-mode: stretch-to-fill; translate: -3px 2px;" />
-                        <ui:Label text="200&#10;" name="invest-card-required-resources" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                    <ui:VisualElement class="investment-stat-item">
+                        <ui:Label enable-rich-text="false" class="investment-stat-icon investment-stat-icon-package" />
+                        <ui:Label text="200&#10;" name="invest-card-required-resources" class="investment-stat-value" />
                     </ui:VisualElement>
-                    <ui:VisualElement class="modal-button" style="flex-grow: 0; width: auto; max-width: none; flex-direction: row;">
-                        <ui:Label enable-rich-text="false" style="background-image: resource(&apos;Icons/history&apos;); width: 10px; height: 10px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-background-scale-mode: stretch-to-fill; translate: -3px 2px;" />
-                        <ui:Label text="200&#10;" name="invest-card-cooldown" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                    <ui:VisualElement class="investment-stat-item">
+                        <ui:Label enable-rich-text="false" class="investment-stat-icon investment-stat-icon-history" />
+                        <ui:Label text="200&#10;" name="invest-card-cooldown" class="investment-stat-value" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="construction-status" style="flex-grow: 0; flex-direction: row; display: flex; font-size: 24px; color: rgb(65, 131, 226);">
+                <ui:VisualElement name="construction-status">
                     <ui:Label name="construction-status-info" />
                 </ui:VisualElement>
-                <ui:VisualElement name="completion-status" style="flex-grow: 0; flex-direction: row; display: flex; font-size: 24px; color: rgb(65, 131, 226);">
-                    <ui:Label name="completion-status-info" style="color: rgb(105, 226, 65);" />
+                <ui:VisualElement name="completion-status">
+                    <ui:Label name="completion-status-info" />
                 </ui:VisualElement>
-                <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-self: auto; align-items: center;">
-                    <ui:Instance template="ProgressBar" name="invest-card-money-progress-bar" style="flex-grow: 1; margin-right: 25px;" />
-                    <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
-                        <ui:Button name="invest-card-deposit-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;">
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement class="investment-progress-row">
+                    <ui:Instance template="ProgressBar" name="invest-card-money-progress-bar" class="health-bar--green" />
+                    <ui:VisualElement class="investment-buttons-container">
+                        <ui:Button name="invest-card-deposit-button" class="investment-action-button">
                             <Bindings>
                                 <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56151999538782208)" />
                             </Bindings>
                         </ui:Button>
-                        <ui:Button name="invest-card-propose-invest-button" class="modal-button" style="width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;">
+                        <ui:Button name="invest-card-propose-invest-button" class="investment-action-button">
                             <Bindings>
                                 <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56152165855518720)" />
                             </Bindings>
                         </ui:Button>
                     </ui:VisualElement>
-                </ui:VisualElement>
-            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

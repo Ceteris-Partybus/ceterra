@@ -63,9 +63,9 @@
 .container-background {
     margin-left: 10px;
     padding: 10px;
-    -unity-slice-scale: 0.35px;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: transparent;
     background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    -unity-slice-scale: 0.35px;
 }
 
 #resources-icon {
