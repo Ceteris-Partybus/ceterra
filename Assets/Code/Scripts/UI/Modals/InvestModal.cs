@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class InvestModal : Modal {
-
     public static InvestModal Instance => GetInstance<InvestModal>();
+    protected override string GetHeaderTitle() {
+        return "Investemnet und so ";
+    }
 
     private List<VisualElement> investCards = new();
 
@@ -19,6 +21,7 @@ public class InvestModal : Modal {
 
     protected override void Start() {
         this.visualTreeAsset = ModalMap.Instance.InvestModalTemplate;
+        showModalTypeInHeader = true;
         base.Start();
     }
 

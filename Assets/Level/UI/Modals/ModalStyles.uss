@@ -29,21 +29,20 @@
     max-width: 75%;
     width: auto;
     min-height: 200px;
-    background-color: rgb(245, 245, 244);
-    border-radius: 4px;
-    border-width: 3px;
-    border-color: rgb(168, 162, 158);
-    border-bottom-right-radius: 0;
+    background-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
     position: relative;
 }
 
 .modal-header {
+    height: 100px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 8px;
-    border-bottom-width: 1px;
-    border-bottom-color: rgb(168, 162, 158);
+    background-color: transparent;
+    border-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_title_with_stroke.png");
 }
 
 .modal-header.no-title {
@@ -51,22 +50,33 @@
 }
 
 .modal-header-title {
-    flex-grow: 0;
-    color: rgb(68, 64, 60);
-    font-size: 24px;
+    font-size: 38px;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
+    -unity-text-align: middle-center;
     -unity-font-style: bold;
+    letter-spacing: 1px;
+    margin-left: 18px;
 }
 
 .modal-close-button {
-    width: 26px;
-    height: 26px;
-    background-color: rgb(214, 211, 209);
-    border-radius: 4px;
-    color: rgb(68, 64, 60);
+    width: 60px;
+    height: 60px;
+    font-size: 32px;
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/red_default.png");
+    -unity-text-align: upper-center;
+    border-color: transparent;
+    background-color: transparent;
+    color: white;
     -unity-font-style: bold;
-    border-width: 2px;
-    border-color: rgb(168, 162, 158);
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);
     flex-shrink: 0;
+    margin-right: 18px;
+}
+
+.modal-close-button:active {
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/red_pressed.png");
+    -unity-text-align: lower-center;
 }
 
 .modal-content-container {
@@ -78,8 +88,29 @@
     flex-grow: 1;
 }
 
-.modal-button:hover {
-    background-color: rgb(233, 229, 227);
+.modal-info-element {
+    -unity-slice-scale: 0.35px;
+    margin: 4px;
+    height: 60px;
+    width: 200px;
+    background-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.modal-info-element.Label {
+    font-size: 5090px;
+}
+
+.modal-button {
+    border-radius: 4px;
+    border-width: 3px;
+    border-color: #674324;
+    padding: 8px 16px;
+    margin: 4px;
+    -unity-slice-scale: 0.35px;
 }
 
 .modal-title {
@@ -99,28 +130,6 @@
 
 .modal-content {
     flex-grow: 1;
-}
-
-.modal-button {
-    padding: 8px 16px;
-    background-color: rgb(245, 245, 244);
-    border-radius: 4px;
-    color: rgb(68, 64, 60);
-    margin: 4px;
-    border-width: 3px;
-    border-color: rgb(168, 162, 158);
-    width: 200px;
-}
-
-.modal-button {
-    padding: 8px 16px;
-    background-color: rgb(245, 245, 244);
-    border-radius: 4px;
-    color: rgb(68, 64, 60);
-    margin: 4px;
-    border-width: 3px;
-    border-color: rgb(168, 162, 158);
-    width: 200px;
 }
 
 .vote-entry {
