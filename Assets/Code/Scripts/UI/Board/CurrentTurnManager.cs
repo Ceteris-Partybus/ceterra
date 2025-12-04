@@ -47,7 +47,11 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
 
     private IEnumerator WaitForAndSetSettings() {
         yield return new WaitUntil(() => SettingsController.Instance != null);
-        settingsButton.clicked += SettingsController.Instance.OpenSettingsPanel;
+
+        settingsButton.clicked += () => {
+            Audiomanager.Instance?.PlayClickSound();
+            SettingsController.Instance.OpenSettingsPanel();
+        };
     }
 
     private void UpdateTurnUI(BoardPlayer currentPlayer, int currentRound, int maxRounds) {
@@ -72,8 +76,12 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
     }
 
     private string FormatTurnMessage(string playerName) {
-        var possessive = playerName.EndsWith("s") ? "'" : "'s";
-        return $"It's {playerName}{possessive} turn";
+        var name = LocalizationManager.Instance.GetCurrentLocaleCode() switch {
+            "en" => playerName + (playerName.EndsWith("s") ? "'" : "'s"),
+            _ => playerName
+        };
+
+        return LocalizationManager.Instance.GetLocalizedText(61449390745026560, new object[] { name });
     }
 
     private void OnRollDiceButtonClicked() {
@@ -83,7 +91,9 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
         SetButtonsInteractable(false);
 
         boardPlayer.CmdToggleDiceRoll();
-        rollDiceButton.text = rollDiceButton.text == "Roll Dice" ? "Cancel Roll" : "Roll Dice";
+        string rollDiceText = LocalizationManager.Instance.GetLocalizedText(61449390812135424);
+        string cancelRollText = LocalizationManager.Instance.GetLocalizedText(61449390812135425);
+        rollDiceButton.text = rollDiceButton.text == rollDiceText ? cancelRollText : rollDiceText;
 
         var animationSequence = DOTween.Sequence();
 
@@ -104,7 +114,9 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
         SetButtonsInteractable(false);
 
         boardPlayer.CmdToggleBoardOverview();
-        boardButton.text = boardButton.text == "View Board" ? "Go back to Player" : "View Board";
+        string viewBoardText = LocalizationManager.Instance.GetLocalizedText(61449390812135426);
+        string backToPlayerText = LocalizationManager.Instance.GetLocalizedText(61449390812135427);
+        boardButton.text = boardButton.text == viewBoardText ? backToPlayerText : viewBoardText;
 
         var animationSequence = DOTween.Sequence();
 
@@ -149,7 +161,8 @@ public class CurrentTurnManager : NetworkedSingleton<CurrentTurnManager> {
     }
 
     private Sequence ShowSequentialAnnouncements(int roundNumber, string playerName) {
-        return ShowAnnouncementText(() => $"ROUND {roundNumber}")
+        string announcementRoundText = LocalizationManager.Instance.GetLocalizedText(61449390812135428, new object[] { roundNumber });
+        return ShowAnnouncementText(() => announcementRoundText)
             .Append(ShowAnnouncementText(() => FormatTurnMessage(playerName)));
     }
 

@@ -11,13 +11,11 @@ public class MgGarbageTrash : NetworkBehaviour {
     private MgGarbageTrashType trashType;
     public MgGarbageTrashType TrashType => trashType;
 
-    [SerializeField]
     private GameObject destructionLine;
     public GameObject DestructionLine {
         set { destructionLine = value; }
     }
 
-    [SerializeField]
     private GameObject binsHolder;
     public GameObject BinsHolder {
         set { binsHolder = value; }
@@ -28,11 +26,15 @@ public class MgGarbageTrash : NetworkBehaviour {
 
     [ClientCallback]
     void Update() {
+        transform.Rotate(Vector3.forward * 360f * Time.deltaTime);
+
         if (!isDragging) {
             transform.position += Vector3.down * fallSpeed * Time.deltaTime;
             if (destructionLine != null && transform.position.y <= destructionLine.transform.position.y) {
                 Destroy(gameObject);
-                MgGarbageContext.Instance.GetLocalPlayer().CmdSubtractScore(1);
+                if (trashType != MgGarbageTrashType.NONE) {
+                    MgGarbageContext.Instance.GetLocalPlayer().CmdSubtractScore(1);
+                }
             }
         }
     }
@@ -71,26 +73,18 @@ public class MgGarbageTrash : NetworkBehaviour {
 
     [ClientCallback]
     void OnMouseUp() {
-        Debug.Log("ENDED DRAGGIN");
         if (binsHolder != null) {
-            Debug.Log("HOLDER AINT NULL");
             foreach (Transform binTransform in binsHolder.transform) {
                 MgGarbageBin bin = binTransform.GetComponent<MgGarbageBin>();
                 BoxCollider2D binCollider = binTransform.GetComponent<BoxCollider2D>();
-                Debug.Log("BIN: " + bin + " COLLIDER: " + binCollider);
                 if (bin != null && binCollider != null) {
-                    Debug.Log("BOTH AINT NULL");
                     if (binCollider.OverlapPoint(transform.position)) {
-                        Debug.Log("HELL THEY EVEN OVERLAP!");
                         if (bin.AcceptedTrashType == this.trashType) {
-                            Debug.Log("TRASH TYPE MATCHES");
                             MgGarbageContext.Instance.GetLocalPlayer().CmdAddScore(1);
                         }
                         else {
-                            Debug.Log("TRASH TYPE DOES NOT MATCH");
                             MgGarbageContext.Instance.GetLocalPlayer().CmdSubtractScore(1);
                         }
-                        Debug.Log("DESTROYING TRASH");
                         Destroy(gameObject);
                     }
                 }

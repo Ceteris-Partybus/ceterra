@@ -1,5 +1,7 @@
 using Mirror;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using UnityEngine;
 
@@ -23,6 +25,7 @@ public class GameManager : NetworkRoomManager {
     public int CharacterCount => selectableCharacters.Length;
     public GameObject GetCharacter(int index) => selectableCharacters[index];
     [SerializeField] private GameObject[] selectableDices;
+    [SerializeField] private GameObject[] developmentOnlyDices;
     public int DiceCount => selectableDices.Length;
     public GameObject GetDice(int index) => selectableDices[index];
 
@@ -43,6 +46,15 @@ public class GameManager : NetworkRoomManager {
     public int CurrentRound => currentRound;
 
     public int[] PlayerIds => roomSlots.Select(slot => slot.index).ToArray();
+
+    public override void Awake() {
+        base.Awake();
+
+        if (Debug.isDebugBuild || Application.isEditor) {
+            selectableDices = selectableDices.Concat(developmentOnlyDices).ToArray();
+            GetComponent<NetworkManagerHUD>().enabled = true;
+        }
+    }
 
     [Server]
     public void IncrementRound() {
@@ -135,4 +147,56 @@ public class GameManager : NetworkRoomManager {
             ServerChangeScene(GameplayScene);
         }
     }
+
+    #region Server Connection Logging
+
+    [Serializable]
+    private class LogData {
+        public string Event;
+        public string EventID;
+        public string Timestamp;
+        public int ConnectionId;
+        public string Address;
+        public int TotalPlayersAmount;
+        public string PlayerName;
+    }
+
+
+    private void LogConnectionEvent(string eventType, NetworkConnectionToClient conn, string playerName = "Unknown") {
+        if (!NetworkServer.active) {
+            return;
+        }
+        // timezone Europe/Berlin works on windows but not on linux / will be handled on server-side
+        string timestamp = DateTime.UtcNow.ToString("o"); // ISO 8601 format
+        var activeConnections = NetworkServer.connections.Count;
+
+        var logData = new LogData {
+            Event = eventType,
+            EventID = Guid.NewGuid().ToString(),
+            Timestamp = timestamp,
+            ConnectionId = conn.connectionId,
+            Address = conn.address,
+            TotalPlayersAmount = activeConnections,
+            PlayerName = playerName,
+        };
+
+        Debug.Log(JsonUtility.ToJson(logData));
+    }
+
+    public override void OnRoomServerConnect(NetworkConnectionToClient conn) {
+        base.OnRoomServerConnect(conn);
+        LogConnectionEvent("ClientConnected", conn);
+    }
+
+    public override void OnRoomServerDisconnect(NetworkConnectionToClient conn) {
+        string playerName = conn.identity != null ?
+            conn.identity.GetComponent<LobbyPlayer>()?.PlayerName ?? "Unknown" :
+            "Unknown";
+
+        LogConnectionEvent("ClientDisconnected", conn, playerName);
+        base.OnRoomServerDisconnect(conn);
+    }
+
+    #endregion
+
 }

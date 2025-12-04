@@ -6,7 +6,14 @@ public class MgOceanPlayer : SceneConditionalPlayer, IMinigameRewardHandler {
     [SerializeField]
     [SyncVar(hook = nameof(OnScoreChanged))]
     private int score;
-    public int Score => score;
+    private int earnedCoinReward = 0;
+
+    public int playerScore => score;
+
+    [Server]
+    public void SetMinigameReward(int reward) {
+        earnedCoinReward = reward;
+    }
 
     [SerializeField]
     private GameObject playerModel;
@@ -32,9 +39,9 @@ public class MgOceanPlayer : SceneConditionalPlayer, IMinigameRewardHandler {
             MgOceanRemotePlayerHUD.Instance.UpdatePlayerScore(PlayerId, score);
         }
 
-        if (isActive && isLocalPlayer) {
-            CmdSpawnPlayer(connectionToClient);
-        }
+        // if (isActive && isLocalPlayer) {
+        //     CmdSpawnPlayer(connectionToClient);
+        // }
 
         var boardPlayers = FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
         if (isActive) {
@@ -60,7 +67,7 @@ public class MgOceanPlayer : SceneConditionalPlayer, IMinigameRewardHandler {
     }
 
     [Command]
-    private void CmdSpawnPlayer(NetworkConnectionToClient conn = null) {
+    public void CmdSpawnPlayer(NetworkConnectionToClient conn = null) {
         Debug.Log($"Spawning player model for player {PlayerId}");
         Vector3 spawnPosition = MgOceanContext.Instance.GetPlayerSpawnPosition();
         var model = Instantiate(playerModel, spawnPosition, Quaternion.identity);
@@ -82,14 +89,14 @@ public class MgOceanPlayer : SceneConditionalPlayer, IMinigameRewardHandler {
     [Server]
     public void ServerReduceScore(int points) {
         score -= points;
-    }   
+    }
 
     public override bool ShouldBeActiveInScene(string sceneName) {
         return sceneName == "MgOcean";
     }
 
     public void HandleMinigameRewards(BoardPlayer player) {
-        player.PlayerStats.ModifyCoins(Math.Max(0, score));
+        player.PlayerStats.ModifyCoins(earnedCoinReward);
         player.PlayerStats.ModifyScore(Math.Max(0, score / 5));
     }
 }

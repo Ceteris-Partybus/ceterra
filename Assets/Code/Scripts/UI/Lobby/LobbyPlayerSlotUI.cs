@@ -31,7 +31,7 @@ public class LobbyPlayerSlotUI {
         characterSelectionBtn.clicked += () => Audiomanager.Instance?.PlayClickSound();
         readyBtn.clicked += () => Audiomanager.Instance?.PlayClickSound();
 
-        waitingAnimation = new DottedAnimation(playerDisplayName, "Waiting for player");
+        waitingAnimation = new DottedAnimation(playerDisplayName, LocalizationManager.Instance.GetLocalizedText(61452920784519168));
         Clear();
     }
 
@@ -40,7 +40,7 @@ public class LobbyPlayerSlotUI {
 
         parent.RemoveFromClassList("empty-slot");
 
-        playerDisplayName.text = lobbyPlayer.PlayerName ?? "New Player";
+        playerDisplayName.text = lobbyPlayer.PlayerName ?? LocalizationManager.Instance.GetLocalizedText(61453271277338624);
         playerPing.text = lobbyPlayer.Ping.ToString() + " ms";
 
         var character = lobbyPlayer?.CurrentCharacterInstance?.GetComponent<Character>();
@@ -54,12 +54,16 @@ public class LobbyPlayerSlotUI {
         }
 
         var isReady = lobbyPlayer.readyToBegin;
-        readyStatusDisplayLabel.text = isReady ? "Is ready" : "Is not ready";
+        string isReadyText = LocalizationManager.Instance.GetLocalizedText(61453348007936000);
+        string isNotReadyText = LocalizationManager.Instance.GetLocalizedText(61453405545398272);
+        readyStatusDisplayLabel.text = isReady ? isReadyText : isNotReadyText;
         readyStatusDisplayLabel.parent.EnableInClassList("ready", isReady);
         readyStatusDisplayLabel.parent.style.display = !lobbyPlayer.isLocalPlayer ? DisplayStyle.Flex : DisplayStyle.None;
         parent.EnableInClassList("ready", isReady);
         readyBtn.EnableInClassList("ready", isReady);
-        readyBtn.text = isReady ? "Click to unready" : "Click to ready";
+        string clickToReadyText = LocalizationManager.Instance.GetLocalizedText(61453992487911424);
+        string clickToUnreadyText = LocalizationManager.Instance.GetLocalizedText(61453481038675968);
+        readyBtn.text = isReady ? clickToUnreadyText : clickToReadyText;
         characterSelectionBtn.SetEnabled(!isReady);
 
         if (lobbyPlayer.isLocalPlayer && !isInitialized) {

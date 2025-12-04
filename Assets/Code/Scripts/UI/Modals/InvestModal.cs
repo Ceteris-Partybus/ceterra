@@ -64,7 +64,7 @@ public class InvestModal : Modal {
         var societyGrid = societyTab?.contentContainer.Q<VisualElement>("investments-grid");
         var environmentGrid = environmentTab?.contentContainer.Q<VisualElement>("investments-grid");
 
-        var investments = BoardContext.Instance.investments.OrderBy(inv => inv.completed).ToList();
+        var investments = BoardContext.Instance.investments.OrderBy(inv => inv.completed).ThenByDescending(inv => CalculateFundingProgress(inv)).ToList();
 
         foreach (var investment in investments) {
             VisualElement investCard = CreateInvestmentCard(investment);
@@ -88,13 +88,24 @@ public class InvestModal : Modal {
         }
     }
 
+    private float CalculateFundingProgress(Investment investment) {
+        if (investment == null) {
+            return 0f;
+        }
+
+        if (investment.requiredMoney <= 0) {
+            return investment.currentMoney > 0 ? 1f : 0f;
+        }
+        return Mathf.Clamp01(investment.currentMoney / (float)investment.requiredMoney);
+    }
+
     private VisualElement CreateInvestmentCard(Investment investment) {
 
         VisualElement investCard = investmentCardTemplate.Instantiate();
         investCard.name = $"investment-card-{investment.id}";
         investCard.Q<Label>("invest-card-title").text = LocalizationManager.Instance.GetLocalizedText(investment.displayName);
         investCard.Q<Label>("invest-card-description").text = LocalizationManager.Instance.GetLocalizedText(investment.description);
-        investCard.Q<Label>("invest-card-required-money").text = investment.requiredMoney.ToString();
+        investCard.Q<Label>("invest-card-required-money").text = (investment.requiredMoney - investment.currentMoney).ToString();
         investCard.Q<Label>("invest-card-required-resources").text = investment.requiredResources.ToString();
         investCard.Q<Label>("invest-card-cooldown").text = investment.cooldown.ToString();
 
@@ -116,6 +127,8 @@ public class InvestModal : Modal {
 
         TemplateContainer moneyProgressBarContainer = investCard.Q<TemplateContainer>("invest-card-money-progress-bar");
         ProgressBar moneyProgressBar = moneyProgressBarContainer?.Children().OfType<ProgressBar>().FirstOrDefault();
+
+        moneyProgressBar.AddToClassList("health-bar--green");
 
         if (moneyProgressBar != null) {
             moneyProgressBar.value = investment.currentMoney / (float)investment.requiredMoney * 100;
@@ -182,7 +195,7 @@ public class InvestModal : Modal {
 
         investCard.Q<Label>("invest-card-title").text = LocalizationManager.Instance.GetLocalizedText(investment.displayName);
         investCard.Q<Label>("invest-card-description").text = LocalizationManager.Instance.GetLocalizedText(investment.description);
-        investCard.Q<Label>("invest-card-required-money").text = investment.requiredMoney.ToString();
+        investCard.Q<Label>("invest-card-required-money").text = (investment.requiredMoney - investment.currentMoney).ToString();
         investCard.Q<Label>("invest-card-required-resources").text = investment.requiredResources.ToString();
         investCard.Q<Label>("invest-card-cooldown").text = investment.cooldown.ToString();
 

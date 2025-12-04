@@ -9,7 +9,6 @@ public class MgQuizduelController : NetworkedSingleton<MgQuizduelController> {
     [SerializeField] private UIDocument uiDocument;
 
     private const string LOCALIZATION_TABLE = "ceterra";
-    private const long LOCALIZATION_KEY_REWARD = 50359450810896384; // "+{0} Münzen" (DE) / "+{0} Coins" (EN)
     private const long LOCALIZATION_KEY_WAITING = 50355143541706752; // "Warten auf andere Spieler..." (DE) / "Waiting for other players..." (EN)
 
     private static readonly StyleColor COLOR_CORRECT = new StyleColor(new Color(31f / 255f, 156f / 255f, 51f / 255f));
@@ -26,12 +25,7 @@ public class MgQuizduelController : NetworkedSingleton<MgQuizduelController> {
     private Label waitingLabel;
 
     private VisualElement quizScreen;
-    private VisualElement scoreboardScreen;
     private VisualElement waitingScreen;
-    private readonly List<Label> playerNameLabels = new();
-    private readonly List<Label> playerScoreLabels = new();
-    private readonly List<Label> playerRewardLabels = new();
-    private readonly List<VisualElement> playerRankElements = new();
 
     private int dotCount = 0;
     private IVisualElementScheduledItem waitingAnimation;
@@ -58,40 +52,25 @@ public class MgQuizduelController : NetworkedSingleton<MgQuizduelController> {
         }
 
         quizScreen = root.Q<VisualElement>("quiz-screen");
-        scoreboardScreen = root.Q<VisualElement>("scoreboard-screen");
         waitingScreen = root.Q<VisualElement>("waiting-screen");
         waitingLabel = root.Q<Label>("waiting-label");
-
-        for (var i = 1; i <= 4; i++) {
-            playerNameLabels.Add(root.Q<Label>($"player-name-{i}"));
-            playerScoreLabels.Add(root.Q<Label>($"player-score-{i}"));
-
-            var rewardContainer = root.Q<VisualElement>($"player-reward-{i}");
-            var rewardLabel = rewardContainer?.Q<Label>();
-            playerRewardLabels.Add(rewardLabel);
-
-            playerRankElements.Add(root.Q<VisualElement>($"player-rank-{i}"));
-        }
 
         InitializeProgressDots();
         SetupAnswerButtonEvents();
     }
 
     private void SetupAnswerButtonEvents() {
-        answerButton0.clicked += () =>
-        {
+        answerButton0.clicked += () => {
             Audiomanager.Instance?.PlayClickSound();
             OnAnswerButtonClicked(0);
         };
 
-        answerButton1.clicked += () =>
-        {
+        answerButton1.clicked += () => {
             Audiomanager.Instance?.PlayClickSound();
             OnAnswerButtonClicked(1);
         };
 
-        answerButton2.clicked += () =>
-        {
+        answerButton2.clicked += () => {
             Audiomanager.Instance?.PlayClickSound();
             OnAnswerButtonClicked(2);
         };
@@ -153,37 +132,6 @@ public class MgQuizduelController : NetworkedSingleton<MgQuizduelController> {
         if (width > 0) {
             dot.style.borderLeftColor = dot.style.borderRightColor = dot.style.borderTopColor = dot.style.borderBottomColor = color;
         }
-    }
-
-    [Server]
-    public void ShowScoreboard(List<MgQuizduelPlayerRankingData> playerRankings) {
-        RpcShowScoreboard(playerRankings);
-    }
-
-    [ClientRpc]
-    private void RpcShowScoreboard(List<MgQuizduelPlayerRankingData> playerRankings) {
-        SetElementDisplay(quizScreen, false);
-        SetElementDisplay(scoreboardScreen, true);
-
-        for (var i = 0; i < playerRankElements.Count; i++) {
-            if (i < playerRankings.Count) {
-
-                playerNameLabels[i].text = playerRankings[i].playerName;
-                playerScoreLabels[i].text = $"{playerRankings[i].score}/{MgQuizduelContext.Instance.MaxQuestions}";
-                playerRewardLabels[i].text = GetLocalizedRewardText(playerRankings[i].reward);
-
-                SetElementDisplay(playerRankElements[i], true);
-            }
-            else {
-                SetElementDisplay(playerRankElements[i], false);
-            }
-        }
-    }
-
-    private string GetLocalizedRewardText(int reward) {
-        return LocalizationSettings.StringDatabase
-        .GetLocalizedStringAsync(LOCALIZATION_TABLE, LOCALIZATION_KEY_REWARD, new object[] { reward })
-        .Result;
     }
 
     [Server]

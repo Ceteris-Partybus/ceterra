@@ -1141,7 +1141,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 56145873707458560
-    m_Localized: 'Betroffene Spieler:'
+    m_Localized: 'Schadensbericht:'
     m_Metadata:
       m_Items: []
   - m_Id: 56146686244806656
@@ -1284,6 +1284,18 @@ MonoBehaviour:
     m_Localized: Farben
     m_Metadata:
       m_Items: []
+  - m_Id: 59276947101401088
+    m_Localized: "B\xFCrger"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149824
+    m_Localized: "B\xFCrgerin"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149825
+    m_Localized: "Unterst\xFCtzt Ver\xE4nderungen von Grund auf"
+    m_Metadata:
+      m_Items: []
   - m_Id: 59267532939935744
     m_Localized: Hemd
     m_Metadata:
@@ -1306,6 +1318,18 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 59267532973490180
     m_Localized: Haare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149826
+    m_Localized: Koch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149827
+    m_Localized: "K\xF6chin"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149828
+    m_Localized: "St\xE4rkt die Gemeinschaft mit regionalen Zutaten"
     m_Metadata:
       m_Items: []
   - m_Id: 59267532977684508
@@ -1338,6 +1362,18 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 59267532977684520
     m_Localized: "Kochm\xFCtze"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149829
+    m_Localized: Farmer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149830
+    m_Localized: Farmerin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149831
+    m_Localized: Arbeitet im Einklang mit der Natur
     m_Metadata:
       m_Items: []
   - m_Id: 59267532977684527
@@ -1376,6 +1412,18 @@ MonoBehaviour:
     m_Localized: Haare
     m_Metadata:
       m_Items: []
+  - m_Id: 59276947139149832
+    m_Localized: Arzt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149833
+    m_Localized: "\xC4rztin"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149834
+    m_Localized: "H\xE4lt die Gemeinschaft gesund und lebendig"
+    m_Metadata:
+      m_Items: []
   - m_Id: 59267532977684553
     m_Localized: Gesicht
     m_Metadata:
@@ -1400,6 +1448,18 @@ MonoBehaviour:
     m_Localized: Haare
     m_Metadata:
       m_Items: []
+  - m_Id: 59276947139149835
+    m_Localized: Trainer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149836
+    m_Localized: Trainerin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149837
+    m_Localized: "St\xE4rkt die Gemeinschaft mit neuen F\xE4higkeiten"
+    m_Metadata:
+      m_Items: []
   - m_Id: 59267532981878785
     m_Localized: Kimono
     m_Metadata:
@@ -1418,6 +1478,18 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 59267532981878789
     m_Localized: Haare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149838
+    m_Localized: "B\xFCrgermeister"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149839
+    m_Localized: "B\xFCrgermeisterin"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149840
+    m_Localized: Vereint die Gemeinschaft mit einer gemeinsamen Vision
     m_Metadata:
       m_Items: []
   - m_Id: 59267532981878794
@@ -1452,6 +1524,18 @@ MonoBehaviour:
     m_Localized: Haare
     m_Metadata:
       m_Items: []
+  - m_Id: 59276947139149841
+    m_Localized: Architekt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149842
+    m_Localized: Architektin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149843
+    m_Localized: "Entwirft den Plan f\xFCr eine bessere Zukunft"
+    m_Metadata:
+      m_Items: []
   - m_Id: 59267532981878810
     m_Localized: Anzug
     m_Metadata:
@@ -1478,6 +1562,18 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 59267532981878816
     m_Localized: Haare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149844
+    m_Localized: Bauarbeiter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149845
+    m_Localized: Bauarbeiterin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59276947139149846
+    m_Localized: Setzt nachhaltige Visionen in die Tat um
     m_Metadata:
       m_Items: []
   - m_Id: 59267532981878824
@@ -1512,102 +1608,6 @@ MonoBehaviour:
     m_Localized: "W\xE4hle eine Farbe f\xFCr"
     m_Metadata:
       m_Items: []
-  - m_Id: 59276947101401088
-    m_Localized: "B\xFCrger"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149824
-    m_Localized: "B\xFCrgerin"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149825
-    m_Localized: "Unterst\xFCtzt Ver\xE4nderungen von Grund auf"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149826
-    m_Localized: Koch
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149827
-    m_Localized: "K\xF6chin"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149828
-    m_Localized: "St\xE4rkt die Gemeinschaft mit regionalen Zutaten"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149829
-    m_Localized: Farmer
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149830
-    m_Localized: Farmerin
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149831
-    m_Localized: Arbeitet im Einklang mit der Natur
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149832
-    m_Localized: Arzt
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149833
-    m_Localized: "\xC4rztin"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149834
-    m_Localized: "H\xE4lt die Gemeinschaft gesund und lebendig"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149835
-    m_Localized: Trainer
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149836
-    m_Localized: Trainerin
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149837
-    m_Localized: "St\xE4rkt die Gemeinschaft mit neuen F\xE4higkeiten"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149838
-    m_Localized: "B\xFCrgermeister"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149839
-    m_Localized: "B\xFCrgermeisterin"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149840
-    m_Localized: Vereint die Gemeinschaft mit einer gemeinsamen Vision
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149841
-    m_Localized: Architekt
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149842
-    m_Localized: Architektin
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149843
-    m_Localized: "Entwirft den Plan f\xFCr eine bessere Zukunft"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149844
-    m_Localized: Bauarbeiter
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149845
-    m_Localized: Bauarbeiterin
-    m_Metadata:
-      m_Items: []
-  - m_Id: 59276947139149846
-    m_Localized: Setzt nachhaltige Visionen in die Tat um
-    m_Metadata:
-      m_Items: []
   - m_Id: 59285773968031744
     m_Localized: "Normaler W\xFCrfel"
     m_Metadata:
@@ -1622,6 +1622,8 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 59285780553089024
     m_Localized: "Entwickler W\xFCrfel"
+    m_Metadata:
+      m_Items: []
   - m_Id: 56636904074215424
     m_Localized: Katastrophe
     m_Metadata:
@@ -1656,8 +1658,7 @@ MonoBehaviour:
   - m_Id: 56641707357601792
     m_Localized: Im Aufbau, {0} Runde(n) verbleibend.
     m_Metadata:
-      m_Items:
-      - rid: 7894437812287832148
+      m_Items: []
   - m_Id: 56645878458712064
     m_Localized: Fertiggestellt
     m_Metadata:
@@ -1734,19 +1735,17 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 56652191783813120
-    m_Localized: Round end
+    m_Localized: Rundenende
     m_Metadata:
       m_Items: []
   - m_Id: 56652337988861952
     m_Localized: Das Investment {0} wurde fertiggestellt!
     m_Metadata:
-      m_Items:
-      - rid: 7894437812287832148
+      m_Items: []
   - m_Id: 56659020039421952
     m_Localized: "Finanzierung f\xFCr {0}"
     m_Metadata:
-      m_Items:
-      - rid: 7894437812287832148
+      m_Items: []
   - m_Id: 56659352559648768
     m_Localized: "Ressourcen f\xFCr {0}"
     m_Metadata:
@@ -1760,14 +1759,248 @@ MonoBehaviour:
     m_Localized: "Das Investment wurde mit {0} M\xFCnzen finanziert, ben\xF6tigt
       aber noch weitere Gelder. Die Ressourcen wurden noch nicht abgezogen."
     m_Metadata:
-      m_Items:
-      - rid: 7894437812287832148
+      m_Items: []
   - m_Id: 56668768562413568
-    m_Localized: '{0} - {1}m entfernt, nimmt {2} Schaden'
+    m_Localized: '{0}, {1}m entfernt, nimmt {2} Schaden'
     m_Metadata:
       m_Items: []
   - m_Id: 56670997235204096
     m_Localized: "M\xFCnzen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60010223864074240
+    m_Localized: VALIDIERE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011225140908032
+    m_Localized: VERBINDE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011435313287168
+    m_Localized: VALIDIERE CODE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011804634337280
+    m_Localized: Zahlencode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928023429120
+    m_Localized: Nachhaltigkeits-Quiz Duell
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983552
+    m_Localized: "Wer kennt sich am besten mit Nachhaltigkeit aus? Ihr tretet gegeneinander
+      an und beantwortet sechs knifflige Fragen rund um Umweltschutz, Ressourcen
+      und nachhaltiges Leben. Nur wer die richtigen Antworten schnell findet, holt
+      sich die Punkte! Am Ende wird der Ranking angezeigt \u2013 wer ist der Nachhaltigkeits-Champion?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983553
+    m_Localized: "1. Frage lesen \u2013 Eine Frage wird angezeigt\r\n\r\n2. Antwort
+      w\xE4hlen \u2013 Klicke auf eine der drei Antwortm\xF6glichkeiten\r\n\r\n3.
+      Feedback erhalten \u2013 Sofort siehst du mit einem gr\xFCnen Haken (\u2713)
+      oder roten X (\u2717), ob du richtig lagst\r\n\r\n4. N\xE4chste Frage \u2013
+      Nach kurzer Verz\xF6gerung geht's zur n\xE4chsten Frage\r\n\r\n5. Ergebnisse
+      vergleichen \u2013 Nach allen 6 Fragen seht ihr das Ranking mit allen Spielern"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983554
+    m_Localized: "M\xFCll-Meister: Schnelle Trennung"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177856
+    m_Localized: "M\xFCll f\xE4llt vom Himmel \u2013 und du musst schnell reagieren!
+      Sortiere die fallenden Abf\xE4lle blitzschnell in die richtige M\xFClltonne
+      ein und sammle Punkte. Aber Vorsicht: Wer zu langsam ist oder den M\xFCll in
+      die falsche Tonne wirft, verliert Punkte! Wie viel schaffst du zu retten, bevor
+      der M\xFCll die rote Linie \xFCberschreitet?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177857
+    m_Localized: "1. M\xFCll beobachten \u2013 Verschiedene M\xFCllarten fallen vom
+      Bildschirmrand herab\r\n\r\n2. M\xFCll greifen \u2013 Klicke auf ein M\xFCllst\xFCck
+      und halte es fest (Drag)\r\n\r\n3. In die richtige Tonne werfen \u2013 Ziehe
+      den M\xFCll zur passenden M\xFClltonne und lasse ihn los (Drop)\r\n\r\n4. Punkte
+      verdienen \u2013 Richtige Sortierung = +Punkte\r\n\r\n5. Achtung vor Strafen
+      \u2013 Falsches Sortieren oder zu langsam sein = -Punkte\r\n\r\n6. Rote Linie
+      beachten \u2013 Wenn M\xFCll die rote Linie erreicht, ist es zu sp\xE4t!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177858
+    m_Localized: "Ozean-Rettung: M\xFCll-Sammelfahrt"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177859
+    m_Localized: "Der Ozean braucht eure Hilfe! Fahrt mit eurem Boot \xFCbers Meer
+      und sammelt den M\xFCll ein, der von allen Seiten angeschwemmt wird. Wer am
+      meisten M\xFCll aufsammelt, gewinnt! Je schneller und geschickter du bist,
+      desto mehr Punkte holst du dir. Aber passt auf: Schildkr\xF6ten und andere
+      Meerestiere d\xFCrfen nicht verletzt werden \u2013 wer sie ber\xFChrt, verliert
+      Punkte. Wer wird der beste Ozean-Retter?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177860
+    m_Localized: "1. Boot steuern \u2013 Nutze WASD-Tasten um dein Boot zu bewegen:\r\n\r   
+      -W = Vorw\xE4rts\r\n\r    -A = Links\r\n\r    -S = R\xFCckw\xE4rts\r\n\r   
+      -D = Rechts\r\n\r\n2. M\xFCll einsammeln \u2013 Fahre \xFCber den M\xFCll,
+      der von links und rechts ins Meer gesp\xFClt wird\r\n\r\n3. Punkte verdienen
+      \u2013 Jedes eingesammelte M\xFCllst\xFCck = +Punkte f\xFCr dich\r\n\r\n4.
+      Tiere sch\xFCtzen \u2013 Ber\xFChre keine Schildkr\xF6ten oder Meerestiere!
+      Das kostet dich Punkte!\r\n\r\n5. Wettbewerb gewinnen \u2013 Sammle mehr M\xFCll
+      als deine Gegner und sichere dir den ersten Platz!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61449390745026560
+    m_Localized: '{0} ist am Zug'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61449390812135424
+    m_Localized: "W\xFCrfeln"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61449390812135425
+    m_Localized: Wurf abbrechen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61449390812135426
+    m_Localized: Brett anzeigen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61449390812135427
+    m_Localized: "Zur\xFCck zum Spieler"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61449390812135428
+    m_Localized: RUNDE {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61452399050850304
+    m_Localized: Charakterauswahl
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61452502310420480
+    m_Localized: Nicht Bereit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61452920784519168
+    m_Localized: Warte auf Spieler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453271277338624
+    m_Localized: Neuer Spieler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453348007936000
+    m_Localized: Ist bereit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453405545398272
+    m_Localized: Ist nicht bereit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453481038675968
+    m_Localized: Nicht bereit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61453992487911424
+    m_Localized: Klicke wenn bereit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63999993620021248
+    m_Localized: "Das Feuer schw\xE4cht sich ab, doch unter dem Rauch glimmen noch
+      die letzten Funken."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65747542009790464
+    m_Localized: Die Flammen sind erloschen, doch leichter Rauch liegt noch in der
+      Luft.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63999993661964288
+    m_Localized: "Der Rauch hat sich verzogen und hinterl\xE4sst Stille und verbrannte
+      Erde."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602888757248
+    m_Localized: "Die Sonne brennt unerbittlich, und der Boden beginnt zu rei\xDFen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602922311680
+    m_Localized: Das Wasser wird knapp und die Felder beginnen zu verdorren.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602922311681
+    m_Localized: "Die Ernten fallen aus und die Vorr\xE4te schwinden, w\xE4hrend
+      die D\xFCrre anh\xE4lt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602922311682
+    m_Localized: "Die Fl\xFCsse sind versiegt und der Hunger breitet sich im Land
+      aus."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66478602922311683
+    m_Localized: "Das Land liegt brach und der Durst h\xE4lt in jedem Haus Einzug."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66479609035177984
+    m_Localized: "Endlich kehrt Regen zur\xFCck und bringt Erleichterung f\xFCr das
+      ausged\xF6rrte Land."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67262900449394688
+    m_Localized: "Der Boden bebt heftig, Geb\xE4ude werden besch\xE4digt und die
+      Menschen geraten in Panik."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67262900487143424
+    m_Localized: "Gl\xFCcklicherweise gab es keine Nachbeben, aber die Reparaturarbeiten
+      in der ganzen Stadt dauern an."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67262900487143425
+    m_Localized: "Die Reparaturen sind abgeschlossen und die Stadt kehrt zur Normalit\xE4t
+      zur\xFCck."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65711785694019584
+    m_Localized: '{0} nimmt {1} Schaden'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67188403738329088
+    m_Localized: "Es wurden keine Sch\xE4den festgestellt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67264907419664384
+    m_Localized: Erdbeben
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66070708549767168
+    m_Localized: 'Paare:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71158853507141632
+    m_Localized: 'Nachhaltigkeits-Memory: Fakten sammeln'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71159084911087616
+    m_Localized: "Findet die passenden Paare und lernt dabei Spannendes \xFCber Nachhaltigkeit!
+      Reihum decken die Spieler Karten auf \u2013 wer zwei gleiche Motive findet,
+      bekommt Punkte und darf direkt weitermachen. Zus\xE4tzlich lernt ihr bei jedem
+      Match einen interessanten Fakt zum Thema. Wer am Ende die meisten Paare gesammelt
+      hat, ist der Memory-Champion!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71159319133605888
+    m_Localized: "1. Spieler wechseln \u2013 Spieler 1 beginnt, dann Spieler 2, 3
+      und 4 der Reihe nach\r\n\r\n2. Karten aufdecken \u2013 Klicke auf zwei Karten,
+      um sie umzudrehen\r\n\r\n3. Nach einem Match suchen \u2013 Falls die Motive
+      gleich sind, hast du ein Match gefunden!\r\n\r\n4. Punkte verdienen \u2013
+      Jedes gefundene Paar = +Punkte f\xFCr dich\r\n\r\n5. Fakt lernen \u2013 Nach
+      jedem Match siehst du einen interessanten Fakt zum Motiv\r\n\r\n6. Weitermachen
+      oder Weitergabe \u2013 Bei einem Match darfst du direkt nochmal spielen. Kein
+      Match? Der n\xE4chste Spieler ist dran!\r\n\r\n7. Gewinnen \u2013 Wer am Ende
+      die meisten Paare hat, gewinnt das Spiel!"
     m_Metadata:
       m_Items: []
   references:
@@ -1782,3 +2015,5 @@ MonoBehaviour:
         - id: 56652337988861952
         - id: 56659020039421952
         - id: 56661867099422721
+        - id: 61449390745026560
+        - id: 61449390812135428

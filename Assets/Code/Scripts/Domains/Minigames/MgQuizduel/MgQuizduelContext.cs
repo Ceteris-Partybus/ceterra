@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using Mirror;
 using UnityEngine;
 
-public class MgQuizduelContext : NetworkedSingleton<MgQuizduelContext> {
+public class MgQuizduelContext : MgContext<MgQuizduelContext, MgQuizduelPlayer> {
 
     [Header("Minigame Settings")]
     [SerializeField] private float GameDuration;
@@ -22,6 +22,9 @@ public class MgQuizduelContext : NetworkedSingleton<MgQuizduelContext> {
 
     protected override void Start() {
         base.Start();
+    }
+
+    public override void OnStartGame() {
         InitializeQuiz();
         if (isServer) {
             StartCoroutine(QuizduelRoutine());
@@ -69,24 +72,9 @@ public class MgQuizduelContext : NetworkedSingleton<MgQuizduelContext> {
             timeElapsed += 1f;
         }
 
-        var allActivePlayers = FindObjectsByType<MgQuizduelPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
-            .Where(p => p.IsActiveForCurrentScene)
-            .OrderByDescending(p => p.Score)
-            .ToList();
-
-        var rankings = new List<MgQuizduelPlayerRankingData>();
-        for (var i = 0; i < allActivePlayers.Count; i++) {
-            var player = allActivePlayers[i];
-            var rank = i + 1;
-            var reward = CalculateCoinReward(rank);
-
-            player.SetEarnedCoinReward(reward);
-
-            rankings.Add(MgQuizduelPlayerRankingData.FromPlayer(player, rank));
-        }
         isQuizActive = false;
 
-        MgQuizduelController.Instance.ShowScoreboard(rankings);
+        MgRewardService.Instance.DistributeRewards();
         yield return new WaitForSeconds(scoreboardDuration);
 
         StopQuiz();

@@ -6,10 +6,6 @@
                 <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56147343727124480)" />
             </Bindings>
         </ui:Label>
-        <ui:Label name="error-message" style="font-size: 24px; white-space: normal;">
-            <Bindings>
-                <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56147427596427264)" />
-            </Bindings>
-        </ui:Label>
+        <ui:Label name="error-message" style="font-size: 24px; white-space: normal;" />
     </ui:VisualElement>
 </ui:UXML>

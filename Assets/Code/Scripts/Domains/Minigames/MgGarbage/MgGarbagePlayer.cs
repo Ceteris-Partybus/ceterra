@@ -8,6 +8,14 @@ public class MgGarbagePlayer : SceneConditionalPlayer, IMinigameRewardHandler {
     [SerializeField]
     [SyncVar(hook = nameof(OnScoreChanged))]
     private int score;
+    private int earnedCoinReward = 0;
+
+    public int playerScore => score;
+
+    [Server]
+    public void SetMinigameReward(int reward) {
+        earnedCoinReward = reward;
+    }
 
     private void OnScoreChanged(int old, int new_) {
         Debug.Log($"Score changed from {old} to {new_}");
@@ -72,7 +80,7 @@ public class MgGarbagePlayer : SceneConditionalPlayer, IMinigameRewardHandler {
 
     [Server]
     public void HandleMinigameRewards(BoardPlayer player) {
-        player.PlayerStats.ModifyCoins(Math.Max(0, score));
+        player.PlayerStats.ModifyCoins(earnedCoinReward);
         player.PlayerStats.ModifyScore(Math.Max(0, score / 5));
     }
 }
