@@ -35,8 +35,19 @@ public class MgOceanPlayer3D : SceneConditionalPlayer, IMinigameRewardHandler {
     }
 
     private void OnScoreChanged(int oldScore, int newScore) {
-        // Update HUD when score changes (implement HUD separately if needed)
         Debug.Log($"[MgOceanPlayer3D] Score changed: {oldScore} -> {newScore}");
+        
+        if (isLocalPlayer) {
+            // Update local player HUD
+            if (MgOcean3DLocalPlayerHUD.Instance != null) {
+                MgOcean3DLocalPlayerHUD.Instance.UpdateScore(newScore);
+            }
+        } else {
+            // Update remote player HUD
+            if (MgOcean3DRemotePlayerHUD.Instance != null) {
+                MgOcean3DRemotePlayerHUD.Instance.UpdatePlayerScore(PlayerId, newScore);
+            }
+        }
     }
 
     [Command]
