@@ -1615,6 +1615,10 @@ MonoBehaviour:
   moveSpeed: 25
   turnSpeed: 65
   waterDepth: 0
+  boostMultiplier: 2.5
+  boostDuration: 5
+  boostDecayStep: 0.5
+  boostKey: 32
   cameraOffset: {x: 0, y: 22, z: -33}
   cameraSmoothSpeed: 5
 --- !u!64 &3796736608096958451

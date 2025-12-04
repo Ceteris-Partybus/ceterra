@@ -15,6 +15,10 @@ public class MgOceanContext3D : MgContext<MgOceanContext3D, MgOceanPlayer3D> {
     [SerializeField] private float respawnInterval = 5f;
     [SerializeField] private int maxTrashCount = 50;
 
+    [Header("Trash Rotation Range Settings")]
+    [SerializeField] private float rotationRangeY = 33f;
+    [SerializeField] private float rotationRangeZ = 33f;
+
     [Header("Game Settings")]
     [SerializeField] private float gameDuration = 60f;
     [SerializeField] private float scoreboardDuration = 10f;
@@ -76,7 +80,11 @@ public class MgOceanContext3D : MgContext<MgOceanContext3D, MgOceanPlayer3D> {
         }
 
         Vector3 spawnPosition = GetRandomSpawnPosition();
-        Quaternion spawnRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+        Quaternion spawnRotation = Quaternion.Euler(
+            0f,
+            Random.Range(-rotationRangeY, rotationRangeY),
+            Random.Range(-rotationRangeZ, rotationRangeZ)
+        );
 
         GameObject prefab = trashPrefabs[Random.Range(0, trashPrefabs.Length)];
         Debug.Log($"[MgOceanContext3D] Spawning trash prefab: {prefab.name} at {spawnPosition}");
