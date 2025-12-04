@@ -843,14 +843,14 @@ MonoBehaviour:
   screenshot: {fileID: 0}
   spawnAreaCollider: {fileID: 301842506}
   trashPrefabs:
-  - {fileID: 3241251890801266441, guid: 656c7806a9a133946a3368ad2028a0ea, type: 3}
   - {fileID: 2420595831316329519, guid: 6b4e61f966060824ba2ac55584654ff9, type: 3}
+  - {fileID: 6983154674072108430, guid: 1aef631ced293e046b990ae5954d2a5a, type: 3}
   - {fileID: 5417231204415523250, guid: 7ef1b7e04cd21454a8e2f708a6d8a005, type: 3}
-  initialTrashCount: 30
+  initialTrashCount: 60
   trashSpawnHeight: 0
-  respawnInterval: 5
-  maxTrashCount: 50
-  gameDuration: 60
+  respawnInterval: 15
+  maxTrashCount: 80
+  gameDuration: 6000
   scoreboardDuration: 10
 --- !u!1 &961739749
 GameObject:
