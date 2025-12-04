@@ -580,7 +580,8 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
         int index = investments.IndexOf(investment);
 
         UpdateFundsStat(-coins);
-        string fundsHistoryEntryName = LocalizationManager.Instance.GetLocalizedText(56659020039421952, new object[] { investment.displayName });
+        string investmentName = LocalizationManager.Instance.GetLocalizedText(investment.displayName);
+        string fundsHistoryEntryName = LocalizationManager.Instance.GetLocalizedText(56659020039421952, new object[] { investmentName });
         FundsHistoryEntry fundsEntry = new FundsHistoryEntry(coins, HistoryEntryType.WITHDRAW, fundsHistoryEntryName);
         this.fundsHistory.Add(fundsEntry);
 
@@ -588,7 +589,8 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
 
         if (investment.fullyFinanced) {
             UpdateResourceStat(-investment.requiredResources);
-            string resourceHistoryEntryName = LocalizationManager.Instance.GetLocalizedText(56659352559648768, new object[] { investment.displayName });
+            string resourceName = LocalizationManager.Instance.GetLocalizedText(investment.displayName);
+            string resourceHistoryEntryName = LocalizationManager.Instance.GetLocalizedText(56659352559648768, new object[] { resourceName });
             ResourceHistoryEntry entry = new ResourceHistoryEntry(investment.requiredResources, HistoryEntryType.WITHDRAW, resourceHistoryEntryName);
             this.resourceHistory.Add(entry);
             investment.inConstruction = true;
