@@ -2,8 +2,8 @@
 .funds-invest-proposal-root {
     flex-grow: 1;
     padding: 0;
-    width: 450px;
-    height: 250px;
+    width: 320px;
+    height: 190px;
 }
 
 /* Main content wrapper */
@@ -29,28 +29,27 @@
 .funds-invest-proposal-button-row {
     flex-direction: row;
     justify-content: space-between;
-    width: 210px;
     margin-top: 8px;
 }
 
 /* Add all funding button */
 .funds-invest-proposal-add-all-button {
-    height: 32px;
-    width: 210px;
-    font-size: 18px;
+    min-width: auto;
+    height: 45px;
+    font-size: 22px;
     text-shadow: 1px 1px 0 #000000;
-    color: #FFFFFF;
+    color: #FFFFFF; 
     border-width: 0;
     border-color: transparent;
     background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_default.png");
     background-color: transparent;
     -unity-slice-scale: 0.35px;
-    -unity-text-align: lower-center;
+    -unity-text-align: upper-center;
 }
 
 .funds-invest-proposal-add-all-button:active {
     background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_pressed.png");
-    -unity-text-align: middle-center;
+    -unity-text-align: lower-center;
 }
 
 /* Fully financed info container */
@@ -76,11 +75,11 @@
 
 /* Submit button */
 .funds-invest-proposal-submit-button {
-    min-width: 100px;
-    height: 40px;
-    font-size: 20px;
+    width: auto;
+    height: 50px;
+    font-size: 28px;
     text-shadow: 1px 1px 0 #000000;
-    color: #FFFFFF;
+    color: #FFFFFF; 
     border-width: 0;
     border-color: transparent;
     background-image: url("project://database/Assets/Art/Sprites/Buttons/green_default.png");
@@ -91,5 +90,5 @@
 
 .funds-invest-proposal-submit-button:active {
     background-image: url("project://database/Assets/Art/Sprites/Buttons/green_pressed.png");
-    -unity-text-align: middle-center;
+    -unity-text-align: lower-center;
 }

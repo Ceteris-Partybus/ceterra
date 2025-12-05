@@ -38,7 +38,9 @@ public class FundsHistoryModal : Modal {
         entryCard.Q<Label>("entry-source").text = entry.source;
         char sign = entry.type == HistoryEntryType.DEPOSIT ? '+' : '-';
         entryCard.Q<Label>("entry-amount").text = $"{sign}{entry.amount}";
-        entryCard.Q<Label>("entry-amount").style.color = entry.type == HistoryEntryType.DEPOSIT ? Color.green : Color.red;
+
+        string colorClass = entry.type == HistoryEntryType.DEPOSIT ? "history-entry-amount-deposit" : "history-entry-amount-withdraw";
+        entryCard.Q<Label>("entry-amount").AddToClassList(colorClass);
 
         return entryCard;
     }

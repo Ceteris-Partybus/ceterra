@@ -1,0 +1,115 @@
+/* Root container */
+.funds-modal-root {
+    flex-grow: 1;
+    padding: 0;
+    width: 300px;
+    height: 350px;
+}
+
+/* Main content wrapper */
+.funds-modal-content {
+    flex-grow: 1;
+    align-items: center;
+}
+
+/* Safe container */
+.funds-safe-container {
+    flex-grow: 0;
+    width: 200px;
+}
+
+/* Safe image */
+.funds-safe-image {
+    flex-grow: 0;
+    background-image: url("project://database/Assets/Resources/Board/Safe.png");
+    width: 200px;
+    height: 200px;
+    border-width: 0;
+    border-color: transparent;
+    background-color: transparent;
+}
+
+/* Value row container */
+.funds-value-row {
+    flex-grow: 0;
+    flex-direction: row;
+    align-items: center;
+    height: 50px;
+}
+
+/* Value display container */
+.funds-value-container {
+    color: #745136;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    border-width: 0;
+    height: 100%;
+    border-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    background-color: transparent;
+    -unity-slice-scale: 0.35px;
+}
+
+/* Value label */
+.funds-value-label {
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+}
+
+/* History button */
+.funds-history-button {
+    width: 45px;
+    height: 45px;
+    margin-left: 8px;
+    border-width: 0;
+    border-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/blue_default.png");
+    background-color: transparent;
+    -unity-slice-scale: 0.35px;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5px;
+}
+
+.funds-history-button:active {
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/blue_pressed.png");
+    padding-bottom: 0;
+    padding-top: 4px;
+}
+
+/* History button icon */
+.funds-history-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    background-image: resource('Icons/history_white');
+}
+
+/* Button row container */
+.funds-button-row {
+    flex-grow: 0;
+    margin-top: 24px;
+    flex-direction: row;
+}
+
+/* Action buttons (Invest/Deposit) */
+.funds-action-button {
+    height: 55px;
+    width: 140px;
+    font-size: 28px;
+    text-shadow: 1px 1px 0 #000000;
+    color: #FFFFFF; 
+    border-width: 0;
+    border-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_default.png");
+    background-color: transparent;
+    -unity-slice-scale: 0.35px;
+    -unity-text-align: upper-center;
+}
+
+.funds-action-button:active {
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_pressed.png");
+    -unity-text-align: lower-center;
+}

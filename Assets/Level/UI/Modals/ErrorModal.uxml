@@ -1,11 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Level/UI/Modals/ModalStyles.uss?fileID=7433441132597879392&amp;guid=7765ef12d5826884abfaffcb5834fca5&amp;type=3#ModalStyles" />
-    <ui:VisualElement style="flex-grow: 1; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; width: 450px; height: 150px;">
-        <ui:Label class="modal-title" style="color: rgb(212, 63, 70);">
-            <Bindings>
-                <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56147343727124480)" />
-            </Bindings>
-        </ui:Label>
-        <ui:Label name="error-message" style="font-size: 24px; white-space: normal;" />
+    <Style src="project://database/Assets/Level/UI/Modals/ErrorModal.uss" />
+    <ui:VisualElement class="error-modal-root">
+        <ui:Label name="error-message" class="error-modal-message" />
     </ui:VisualElement>
 </ui:UXML>

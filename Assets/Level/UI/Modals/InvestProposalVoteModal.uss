@@ -1,0 +1,112 @@
+/* Root container */
+.invest-proposal-vote-root {
+    flex-grow: 1;
+    padding: 0;
+    width: 450px;
+    height: 325px;
+}
+
+/* Main content wrapper */
+.invest-proposal-vote-content {
+    flex-grow: 1;
+    align-items: center;
+}
+
+/* Info text */
+.invest-proposal-vote-info-text {
+    white-space: normal;
+    font-size: 24px;
+    color: #745136;
+    letter-spacing: 1px;
+    -unity-text-align: upper-center;
+}
+
+/* Values row container */
+.invest-proposal-vote-values-row {
+    flex-grow: 0;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 16px;
+}
+
+/* Value display container */
+.invest-proposal-vote-value-container {
+    color: #745136;
+    flex-grow: 0;
+    width: 80px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    border-width: 0;
+    border-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    background-color: transparent;
+    -unity-slice-scale: 0.35px;
+    margin: 0 4px;
+}
+
+/* Value label */
+.invest-proposal-vote-value-label {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+}
+
+/* Button row container */
+.invest-proposal-vote-button-row {
+    flex-grow: 0;
+    margin-top: 24px;
+    flex-direction: row;
+}
+
+/* Vote Yes button */
+.invest-proposal-vote-yes-button {
+    height: 40px;
+    width: 80px;
+    font-size: 18px;
+    text-shadow: 1px 1px 0 #000000;
+    color: #FFFFFF;
+    border-width: 0;
+    border-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/green_default.png");
+    background-color: transparent;
+    -unity-slice-scale: 0.35px;
+    -unity-text-align: upper-center;
+    margin-right: 8px;
+}
+
+.invest-proposal-vote-yes-button:active {
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/green_pressed.png");
+    -unity-text-align: middle-center;
+}
+
+/* Vote No button */
+.invest-proposal-vote-no-button {
+    height: 40px;
+    width: 80px;
+    font-size: 18px;
+    text-shadow: 1px 1px 0 #000000;
+    color: #FFFFFF;
+    border-width: 0;
+    border-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/red_default.png");
+    background-color: transparent;
+    -unity-slice-scale: 0.35px;
+    -unity-text-align: upper-center;
+    margin-left: 8px;
+}
+
+.invest-proposal-vote-no-button:active {
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/red_pressed.png");
+    -unity-text-align: middle-center;
+}
+
+/* Votings row container */
+.invest-proposal-vote-votings-row {
+    flex-grow: 0;
+    margin-top: 24px;
+    flex-direction: row;
+    width: 60%;
+    justify-content: space-evenly;
+}

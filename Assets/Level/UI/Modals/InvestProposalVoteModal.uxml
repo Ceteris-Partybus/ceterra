@@ -1,32 +1,33 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Level/UI/Modals/ModalStyles.uss?fileID=7433441132597879392&amp;guid=7765ef12d5826884abfaffcb5834fca5&amp;type=3#ModalStyles" />
-    <ui:VisualElement style="flex-grow: 1; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; width: 450px; height: 325px;">
-        <ui:VisualElement style="flex-grow: 1; align-items: center;">
-            <ui:Label text="Player 1 has proposed investing in sea cleaner via the funds. Cast your vote." name="info-text" style="white-space: normal; font-size: 20px; -unity-text-align: upper-center;" />
-            <ui:VisualElement style="flex-grow: 0; width: auto; flex-direction: row; justify-content: center; align-items: center;">
-                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: 80px; align-items: center; justify-content: center;">
-                    <ui:Label text="X.XXX" name="required-funds" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+    <Style src="project://database/Assets/Level/UI/Modals/InvestProposalVoteModal.uss" />
+    <ui:VisualElement class="invest-proposal-vote-root">
+        <ui:VisualElement class="invest-proposal-vote-content">
+            <ui:Label text="Player 1 has proposed investing in sea cleaner via the funds. Cast your vote." name="info-text" class="invest-proposal-vote-info-text" />
+            <ui:VisualElement class="invest-proposal-vote-values-row">
+                <ui:VisualElement class="invest-proposal-vote-value-container">
+                    <ui:Label text="X.XXX" name="required-funds" class="invest-proposal-vote-value-label" />
                 </ui:VisualElement>
-                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: 80px; align-items: center; justify-content: center;">
-                    <ui:Label text="X.XXX" name="required-resources" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                <ui:VisualElement class="invest-proposal-vote-value-container">
+                    <ui:Label text="X.XXX" name="required-resources" class="invest-proposal-vote-value-label" />
                 </ui:VisualElement>
-                <ui:VisualElement class="modal-button" style="flex-grow: 0; width: 80px; align-items: center; justify-content: center;">
-                    <ui:Label text="X.XXX" name="cooldown" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                <ui:VisualElement class="invest-proposal-vote-value-container">
+                    <ui:Label text="X.XXX" name="cooldown" class="invest-proposal-vote-value-label" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement style="flex-grow: 0; margin-top: 34px; flex-direction: row;">
-                <ui:Button name="vote-yes" class="modal-button" style="width: auto; background-color: rgb(178, 255, 160);">
+            <ui:VisualElement class="invest-proposal-vote-button-row">
+                <ui:Button name="vote-yes" class="invest-proposal-vote-yes-button">
                     <Bindings>
                         <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56156196548108288)" />
                     </Bindings>
                 </ui:Button>
-                <ui:Button name="vote-no" class="modal-button" style="width: auto; background-color: rgb(255, 160, 169);">
+                <ui:Button name="vote-no" class="invest-proposal-vote-no-button">
                     <Bindings>
                         <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56156284435554304)" />
                     </Bindings>
                 </ui:Button>
             </ui:VisualElement>
-            <ui:VisualElement name="votings" style="flex-grow: 0; margin-top: 34px; flex-direction: row; width: 60%; justify-content: space-evenly;" />
+            <ui:VisualElement name="votings" class="invest-proposal-vote-votings-row" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

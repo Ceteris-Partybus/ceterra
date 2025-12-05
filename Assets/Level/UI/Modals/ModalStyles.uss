@@ -61,6 +61,24 @@
     margin-left: 18px;
 }
 
+/* Error modal title */
+.error-modal-title {
+    color: rgb(212, 63, 70);
+    -unity-text-outline-color: #FFFFFF;
+    -unity-text-outline-width: 2px;
+    -unity-font-style: bold;
+    text-shadow: none;
+}
+
+/* Info modal title */
+.info-modal-title {
+    color: rgb(63, 189, 212);
+    -unity-text-outline-color: #FFFFFF;
+    -unity-text-outline-width: 2px;
+    -unity-font-style: bold;
+    text-shadow: none;
+}
+
 .modal-close-button {
     width: 60px;
     height: 60px;

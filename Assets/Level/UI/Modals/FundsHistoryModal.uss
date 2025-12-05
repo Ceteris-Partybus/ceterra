@@ -1,0 +1,14 @@
+/* Root container */
+.funds-history-modal-root {
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding: 0;
+    width: 400px;
+    height: 600px;
+}
+
+/* Scroll view */
+.funds-history-scroll {
+    flex-grow: 1;
+    align-items: center;
+}

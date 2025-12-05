@@ -75,6 +75,7 @@
 }
 
 #resources-value-container {
+    min-width: 50px;
     flex-grow: 1;
     justify-content: center;
     align-self: auto;
