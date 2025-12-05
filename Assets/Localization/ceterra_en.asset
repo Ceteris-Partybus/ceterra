@@ -1172,7 +1172,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 56151484889292800
-    m_Localized: Not ready
+    m_Localized: Not Ready
     m_Metadata:
       m_Items: []
   - m_Id: 56151999538782208
@@ -1890,7 +1890,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 61453992487911424
-    m_Localized: Click to ready
+    m_Localized: Ready
     m_Metadata:
       m_Items: []
   - m_Id: 63999993620021248
