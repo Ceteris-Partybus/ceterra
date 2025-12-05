@@ -112,6 +112,12 @@
     align-items: center;
 }
 
+#unity-text-input {
+    background-color: transparent;
+    border-color: transparent;
+    color: #5f432e;
+}
+
 .player-input {
     width: 100%;
     background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");

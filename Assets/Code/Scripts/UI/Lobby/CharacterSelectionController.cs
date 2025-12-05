@@ -119,6 +119,9 @@ public class CharacterSelectionController : MonoBehaviour {
     }
 
     private void ChangeCharacter(int newIndex) {
+        if (!ColorPicker.done) {
+            ColorPicker.Cancel();
+        }
         currentCharacter.SetActive(false);
         currentCharacterIndex = newIndex;
         currentCharacter = characterInstances[currentCharacterIndex];
@@ -126,6 +129,10 @@ public class CharacterSelectionController : MonoBehaviour {
     }
 
     private void OnSelectionConfirmed() {
+        if (!ColorPicker.done) {
+            ColorPicker.Cancel();
+        }
+
         playerName = playerName.Trim();
 
         var smr = currentCharacter.GetComponentInChildren<SkinnedMeshRenderer>();
