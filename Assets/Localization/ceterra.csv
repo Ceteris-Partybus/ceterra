@@ -5,7 +5,7 @@ Key,Id,English(en),German(de)
 "settingsMenu.fullscreen",20003004387328,"Fullscreen","Vollbild"
 "settingsMenu.resolution",20117852819456,"Resolution","Auflösung"
 "settingsMenu.language",20313164779520,"Language","Sprache"
-"playMenu.server_connection",23214629097472,"Server Connection","Serververbindung"
+"playMenu.server_connection",23214629097472,"Code","Code"
 "playMenu.join_lobby",24296382042112,"JOIN LOBBY","LOBBY BEITRETEN"
 "playMenu.back",24827854884864,"Back","Zurück"
 "playMenu.playmenu",782933199196160,"Play Menu","Spielmenü"
