@@ -56,7 +56,7 @@
     color: #FFFFFF;
     text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
     -unity-text-align: middle-center;
-    -unity-font-style: bold;
+    -unity-font-style: normal;
     letter-spacing: 1px;
     margin-left: 18px;
 }
@@ -206,5 +206,68 @@
 }
 
 .unity-scroller .unity-repeat-button:active {
-    background-color: #a89078;
+    background-color: #735239;
+}
+
+/* Unity Tab overwrites */
+
+/* Tab view container */
+.unity-tab-view {
+    background-color: transparent;
+}
+
+/* Tab header container */
+.unity-tab-view__header-container {
+    background-color: transparent;
+    border-bottom-width: 0;
+    border-color: transparent;
+}
+
+/* Individual tab header */
+.unity-tab__header {
+    background-color: #f5ebe0;
+    border-color: #d4b896;
+    border-width: 1px;
+    border-radius: 8px 8px 0 0;
+    margin: 0 4px;
+    padding: 12px 28px;
+    min-width: 100px;
+    min-height: 42px;
+    justify-content: center;
+    align-items: center;
+}
+
+.unity-tab__header:hover {
+    background-color: #faf4ec;
+}
+
+.unity-tab__header:checked {
+    background-color: #735239 !important;
+    border-color: #e8c8a0;
+    border-width: 2px;
+}
+
+/* Tab header label */
+.unity-tab__header-label {
+    color: #6a5030;
+    font-size: 22px;
+    -unity-font-style: normal;
+    -unity-text-align: middle-center;
+}
+
+.unity-tab__header:checked .unity-tab__header-label {
+    color: #FFFFFF;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+    letter-spacing: 1px;
+    font-size: 30px;
+}
+
+/* Tab underline (active indicator) */
+.unity-tab__header-underline {
+    background-color: #e8c090;
+    height: 3px;
+}
+
+#unity-tab__header, #unity-tab-view__header-container {
+  height: 40px;
 }
