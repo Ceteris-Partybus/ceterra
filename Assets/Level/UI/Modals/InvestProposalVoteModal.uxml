@@ -1,11 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Level/UI/Modals/ModalStyles.uss?fileID=7433441132597879392&amp;guid=7765ef12d5826884abfaffcb5834fca5&amp;type=3#ModalStyles" />
     <ui:VisualElement style="flex-grow: 1; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; width: 450px; height: 325px;">
-        <ui:Label class="modal-title">
-            <Bindings>
-                <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56156036074037248)" />
-            </Bindings>
-        </ui:Label>
         <ui:VisualElement style="flex-grow: 1; align-items: center;">
             <ui:Label text="Player 1 has proposed investing in sea cleaner via the funds. Cast your vote." name="info-text" style="white-space: normal; font-size: 20px; -unity-text-align: upper-center;" />
             <ui:VisualElement style="flex-grow: 0; width: auto; flex-direction: row; justify-content: center; align-items: center;">

@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 public class InvestModal : Modal {
     public static InvestModal Instance => GetInstance<InvestModal>();
     protected override string GetHeaderTitle() {
-        return "Investemnet und so ";
+        return LocalizationManager.Instance.GetLocalizedText(56147874730205184);
     }
 
     private List<VisualElement> investCards = new();

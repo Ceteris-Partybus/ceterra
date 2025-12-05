@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class FundsHistoryModal : Modal {
-
     public static FundsHistoryModal Instance => GetInstance<FundsHistoryModal>();
-
+    protected override string GetHeaderTitle() {
+        return LocalizationManager.Instance.GetLocalizedText(56155423755984896);
+    }
     [SerializeField]
     private VisualTreeAsset entryTemplate;
 
@@ -15,6 +16,7 @@ public class FundsHistoryModal : Modal {
 
     protected override void Start() {
         this.visualTreeAsset = ModalMap.Instance.FundsHistoryModalTemplate;
+        showModalTypeInHeader = true;
         base.Start();
     }
 

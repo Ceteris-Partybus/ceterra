@@ -271,3 +271,10 @@
 #unity-tab__header, #unity-tab-view__header-container {
   height: 40px;
 }
+
+/* Unity textfield overwrites */
+#unity-text-input {
+    background-color: transparent;
+    border-color: transparent;
+    color: #5f432e;
+}

@@ -2,15 +2,17 @@ using Mirror;
 using UnityEngine.UIElements;
 
 public class FundsModal : Modal {
-
     public static FundsModal Instance => GetInstance<FundsModal>();
-
+    protected override string GetHeaderTitle() {
+        return LocalizationManager.Instance.GetLocalizedText(56147786268139520);
+    }
     Button depositButton;
     Button fundsHistoryButton;
     Button investButton;
 
     protected override void Start() {
         this.visualTreeAsset = ModalMap.Instance.FundsModalTemplate;
+        showModalTypeInHeader = true;
         base.Start();
     }
 
