@@ -12,6 +12,7 @@ public class LedgeFieldBehaviour : FieldBehaviour {
     public override IEnumerator OnPlayerCross(BoardPlayer player) {
         Debug.Log($"Player crossed a ledge field.");
         yield return MakePlayerJumpToNextField(player);
+        yield return MakePlayerJumpToNextField(player);
     }
 
     [Server]
