@@ -2,7 +2,9 @@
     <ui:Template name="MgPrepPlayer" src="project://database/Assets/Level/UI/MgPrepScreen/MgPrepPlayer.uxml?fileID=9197481963319205126&amp;guid=b666ba5bbb897e24b8d1fa992c9a109f&amp;type=3#MgPrepPlayer" />
     <Style src="project://database/Assets/Level/UI/MgPrepScreen/MgPrepScreen.uss?fileID=7433441132597879392&amp;guid=d566996728042c14489f3a4d5eca4cc5&amp;type=3#MgPrepScreen" />
     <ui:VisualElement class="root">
-        <ui:Label name="Title" class="title" />
+        <ui:VisualElement class="title-header">
+            <ui:Label name="Title" class="title" />
+        </ui:VisualElement>
         <ui:VisualElement class="content-section">
             <ui:VisualElement class="players-section">
                 <ui:Instance template="MgPrepPlayer" />

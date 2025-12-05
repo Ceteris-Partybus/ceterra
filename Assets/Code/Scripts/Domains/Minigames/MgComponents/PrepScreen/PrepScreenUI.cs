@@ -21,6 +21,10 @@ public class PrepScreenUI : MonoBehaviour {
         controlsLabel = screenUIDoc.rootVisualElement.Q<Label>("Controls");
         screenshotImage = screenUIDoc.rootVisualElement.Q<VisualElement>("Screenshot");
         playerList = screenUIDoc.rootVisualElement.Query<VisualElement>(className: "player-row").ToList();
+
+        if (playerList.Count == 4) {
+            playerList[3].AddToClassList("player-row-last");
+        }
     }
 
     public void Initialize(IPrepScreen context) {

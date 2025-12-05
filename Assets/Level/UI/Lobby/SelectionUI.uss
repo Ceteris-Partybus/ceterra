@@ -90,18 +90,14 @@
 
 .selector-title {
     font-size: 42px;
-    color: #ffffff;
-    -unity-text-outline-color: #745136;
-    -unity-text-outline-width: 3px;
-    -unity-font-style: bold;
-    -unity-text-align: middle-center;
+    color: #5f432e;
     overflow: hidden;
     text-overflow: ellipsis;
     margin-bottom: 5px;
 }
 
 .selector-info {
-    font-size: 24px;
+    font-size: 25px;
     color: #745136;
     -unity-text-align: middle-center;
     white-space: normal;
