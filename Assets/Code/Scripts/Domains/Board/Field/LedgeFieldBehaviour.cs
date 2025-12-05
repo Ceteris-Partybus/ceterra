@@ -28,5 +28,8 @@ public class LedgeFieldBehaviour : FieldBehaviour {
 
         player.NormalizedSplinePosition = targetField.NormalizedSplinePosition;
         player.SplineKnotIndex = targetField.SplineKnotIndex;
+        player.PlayerMovement.IsJumping = false;
+
+        yield return targetField.OnPlayerCross(player);
     }
 }
