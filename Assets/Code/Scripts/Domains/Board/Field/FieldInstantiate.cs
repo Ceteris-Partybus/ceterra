@@ -123,6 +123,9 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
         if (instance is CatastropheFieldBehaviour catastropheField) {
             catastropheField.CatastropheType = ((CatastropheFieldBehaviour)field).CatastropheType;
         }
+        else if (instance is LedgeFieldBehaviour ledgeField) {
+            ledgeField.jumpPower = ((LedgeFieldBehaviour)field).jumpPower;
+        }
 
         return instance;
     }
