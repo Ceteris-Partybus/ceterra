@@ -116,16 +116,22 @@ public class InvestModal : Modal {
             investCard.AddToClassList("in-construction");
             string constructionStatusInfo = LocalizationManager.Instance.GetLocalizedText(56641707357601792, new object[] { investment.cooldown });
             investCard.Q<Label>("construction-status-info").text = constructionStatusInfo;
+            investCard.Q<Label>("construction-status-info").style.display = DisplayStyle.Flex;
+            investCard.Q<Label>("completion-status-info").style.display = DisplayStyle.None;
         }
         else if (investment.completed) {
             investCard.AddToClassList("completion");
             investCard.Q<Label>("completion-status-info").text = LocalizationManager.Instance.GetLocalizedText(56645878458712064);
+            investCard.Q<Label>("completion-status-info").style.display = DisplayStyle.Flex;
+            investCard.Q<Label>("construction-status-info").style.display = DisplayStyle.None;
         }
         else {
             investCard.RemoveFromClassList("in-construction");
             investCard.RemoveFromClassList("completion");
             investCard.Q<Label>("construction-status-info").text = "";
             investCard.Q<Label>("completion-status-info").text = "";
+            investCard.Q<Label>("construction-status-info").style.display = DisplayStyle.None;
+            investCard.Q<Label>("completion-status-info").style.display = DisplayStyle.None;
         }
 
         TemplateContainer moneyProgressBarContainer = investCard.Q<TemplateContainer>("invest-card-money-progress-bar");
@@ -220,16 +226,21 @@ public class InvestModal : Modal {
             investCard.AddToClassList("in-construction");
             string constructionStatusInfo = LocalizationManager.Instance.GetLocalizedText(56641707357601792, new object[] { investment.cooldown });
             investCard.Q<Label>("construction-status-info").text = constructionStatusInfo;
+            investCard.Q<Label>("construction-status-info").style.display = DisplayStyle.Flex;
         }
         else if (investment.completed) {
             investCard.AddToClassList("completion");
             investCard.Q<Label>("completion-status-info").text = LocalizationManager.Instance.GetLocalizedText(56645878458712064);
+            investCard.Q<Label>("construction-status-info").style.display = DisplayStyle.None;
+            investCard.Q<Label>("completion-status-info").style.display = DisplayStyle.Flex;
         }
         else {
             investCard.RemoveFromClassList("in-construction");
             investCard.RemoveFromClassList("completion");
             investCard.Q<Label>("construction-status-info").text = "";
             investCard.Q<Label>("completion-status-info").text = "";
+            investCard.Q<Label>("construction-status-info").style.display = DisplayStyle.None;
+            investCard.Q<Label>("completion-status-info").style.display = DisplayStyle.None;
         }
 
         TemplateContainer moneyProgressBarContainer = investCard.Q<TemplateContainer>("invest-card-money-progress-bar");

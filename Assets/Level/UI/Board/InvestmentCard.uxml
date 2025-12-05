@@ -3,14 +3,13 @@
     <Style src="project://database/Assets/Level/UI/Board/InvestmentCard.uss?fileID=7433441132597879392&amp;guid=75815511be359f349a3d61282330b31e&amp;type=3#InvestmentCard" />
     <Style src="project://database/Assets/Level/UI/Modals/ModalStyles.uss?fileID=7433441132597879392&amp;guid=7765ef12d5826884abfaffcb5834fca5&amp;type=3#ModalStyles" />
     <ui:VisualElement class="investment-card-element">
-        <ui:VisualElement class="investment-card-">
+        <ui:VisualElement class="investment-card-header">
             <ui:Label text="Sea Cleaner" name="invest-card-title" />
             <ui:Label text="Sea Cleaner" name="invest-card-description" />
         </ui:VisualElement>
         <ui:VisualElement class="investment-card-content">
             <ui:VisualElement class="modal-button investment-card-icon" />
             <ui:VisualElement class="investment-card-info">
-
                 <ui:VisualElement name="investment-stats">
                     <ui:VisualElement class="investment-stat-item">
                         <ui:Label enable-rich-text="false" class="investment-stat-icon investment-stat-icon-coin" />

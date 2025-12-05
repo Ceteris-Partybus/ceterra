@@ -3,53 +3,57 @@
   background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
   -unity-slice-scale: 0.35px;
   flex-grow: 0;
-  padding-top: 15px;
-  padding-right: 15px;
-  padding-bottom: 15px;
-  padding-left: 16px;
-  width: 500px;
+  padding: 10px 14px;
+  width: 550px;
   margin-right: 0;
   margin-top: 0;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   margin-left: 0px;
-  height: 225px;
+  height: auto;
+  min-height: 170px;
+}
+
+/* Card header with title and description */
+.investment-card-header {
+  flex-grow: 0;
+  margin-bottom: 2px;
 }
 
 /* Card content row */
 .investment-card-content {
-  flex-grow: 1;
+  flex-grow: 0;
   flex-direction: row;
   align-self: auto;
-  justify-content: center;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 4px;
 }
 
 /* Card image/icon container */
 .investment-card-icon {
   flex-grow: 0;
-  width: 100px;
-  height: 100px;
-  align-self: center;
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  align-self: flex-start;
+  margin-right: 8px;
 }
 
 /* Card info container */
 .investment-card-info {
   flex-grow: 1;
-  margin-left: 10px;
+  flex-shrink: 1;
+  margin-left: 4px;
+  justify-content: flex-start;
 }
 
 /* Card title */
 #invest-card-title {
-  font-size: 32px;
-  color: #5e3e1c;
-  letter-spacing: 1px;
-  margin-top: 0;
-  margin-right: 0;
-  margin-bottom: 0;
-  margin-left: 0;
-  padding-top: 0;
-  padding-right: 0;
-  padding-bottom: 0;
-  padding-left: 0;
+  font-size: 30px;
+  color: #4b311a;
+  letter-spacing: 0.5px;
+  margin: 0 0 1px 0;
+  padding: 0;
   -unity-font-definition: resource('Fonts/Jersey_15/Jersey15-Regular');
   -unity-font-style: normal;
   white-space: normal;
@@ -57,55 +61,47 @@
 
 /* Card description */
 #invest-card-description {
-  font-size: 20px;
-  color: #745136;
-  letter-spacing: 1px;
+  font-size: 18px;
+  color: #674324;
+  letter-spacing: 0.2px;
   -unity-font-style: normal;
-  margin-top: 0;
-  margin-right: 0;
-  margin-bottom: 11px;
-  margin-left: 0;
-  padding-top: 0;
-  padding-right: 0;
-  padding-bottom: 0;
-  padding-left: 0;
+  margin: 0 0 2px 0;
+  padding: 0;
   white-space: normal;
+  -unity-text-overflow-position: end;
+  overflow: hidden;
 }
 
 /* Investment stats container */
 #investment-stats {
   flex-grow: 0;
   flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 2px;
 }
 
 /* Stat item container */
 .investment-stat-item {
-  font-size: 20px;
   border-color: transparent;
-  padding: 8px 16px;
-  margin: 4px;
+  padding: 6px 12px;
+  margin: 2px 5px 2px 0;
   background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
   -unity-slice-scale: 0.35px;
   flex-grow: 0;
   width: auto;
   max-width: none;
   flex-direction: row;
+  align-items: center;
 }
 
 /* Small icon in stats */
 .investment-stat-icon {
-  width: 15px;
-  height: 15px;
-  margin-top: 0;
-  margin-right: 0;
-  margin-bottom: 0;
-  margin-left: 0;
-  padding-top: 0;
-  padding-right: 0;
-  padding-bottom: 0;
-  padding-left: 0;
-  -unity-background-scale-mode: stretch-to-fill;
-  translate: -3px 2px;
+  width: 22px;
+  height: 22px;
+  margin: 0 6px 0 0;
+  padding: 0;
+  -unity-background-scale-mode: scale-to-fit;
+  flex-shrink: 0;
 }
 
 .investment-stat-icon-coin {
@@ -122,14 +118,11 @@
 
 /* Stat value label */
 .investment-stat-value {
-  margin-top: 0;
-  margin-right: 0;
-  margin-bottom: 0;
-  margin-left: 0;
-  padding-top: 0;
-  padding-right: 0;
-  padding-bottom: 0;
-  padding-left: 0;
+  margin: 0;
+  padding: 0;
+  -unity-text-align: middle-left;
+  color: #674324;
+  font-size: 24px;
 }
 
 /* Construction status container */
@@ -157,38 +150,43 @@
 
 /* Progress bar row */
 .investment-progress-row {
-  flex-grow: 1;
+  flex-grow: 0;
   flex-direction: row;
-  align-self: auto;
+  align-self: stretch;
   align-items: center;
+  margin-top: 6px;
 }
 
 /* Progress bar instance */
 #invest-card-money-progress-bar {
   flex-grow: 1;
-  margin-right: 8px;
-  margin-left: 6px;
+  margin-right: 10px;
+  margin-left: 0;
 }
 
 /* Buttons container */
 .investment-buttons-container {
   flex-grow: 0;
+  flex-shrink: 0;
   flex-direction: row;
+  align-items: center;
 }
 
 /* Action buttons */
 .investment-action-button {
   height: 32px;
   width: 60px;
-  font-size: 20px;
+  font-size: 18px;
+  -unity-font-style: normal;
   border-width: 0;
   border-color: transparent;
   color: #FFFFFF;
-  text-shadow: 1px 1px 1px #000000;
+  text-shadow: 1px 1px 0 #000000;
   background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_default.png");
   background-color: transparent;
   -unity-slice-scale: 0.35px;
   -unity-text-align: lower-center;
+  margin-left: 4px;
 }
 
 .investment-action-button:active {
