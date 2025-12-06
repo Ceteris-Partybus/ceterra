@@ -19,6 +19,160 @@ MonoBehaviour:
     m_Items:
     - rid: 7894437812287832148
   m_TableData:
+  - m_Id: 614498603008
+    m_Localized: Spielen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19179993862144
+    m_Localized: Einstellungen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19894984282112
+    m_Localized: "Lautst\xE4rke"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20003004387328
+    m_Localized: Vollbild
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20117852819456
+    m_Localized: "Aufl\xF6sung"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20313164779520
+    m_Localized: Sprache
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23214629097472
+    m_Localized: Serververbindung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24296382042112
+    m_Localized: LOBBY BEITRETEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24827854884864
+    m_Localized: "Zur\xFCck"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 782933199196160
+    m_Localized: "Spielmen\xFC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60010223864074240
+    m_Localized: VALIDIERE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011225140908032
+    m_Localized: VERBINDE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011435313287168
+    m_Localized: VALIDIERE CODE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011804634337280
+    m_Localized: Zahlencode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1528244501925888
+    m_Localized: "Men\xFC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 51544089527181312
+    m_Localized: "Musiklautst\xE4rke"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 51544635864637440
+    m_Localized: "Soundlautst\xE4rke"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 49116520167165952
+    m_Localized: Lade Frage ...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 49117036817338368
+    m_Localized: Lade Antwort ...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50355143541706752
+    m_Localized: Warten auf andere Spieler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50357163094888448
+    m_Localized: Endstand
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50359450810896384
+    m_Localized: "+{0} M\xFCnzen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928023429120
+    m_Localized: Nachhaltigkeits-Quiz Duell
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983552
+    m_Localized: "Wer kennt sich am besten mit Nachhaltigkeit aus? Ihr tretet gegeneinander
+      an und beantwortet sechs knifflige Fragen rund um Umweltschutz, Ressourcen
+      und nachhaltiges Leben. Nur wer die richtigen Antworten schnell findet, holt
+      sich die Punkte! Am Ende wird der Ranking angezeigt \u2013 wer ist der Nachhaltigkeits-Champion?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983553
+    m_Localized: "1. Frage lesen \u2013 Eine Frage wird angezeigt\n\n2. Antwort w\xE4hlen
+      \u2013 Klicke auf eine der drei Antwortm\xF6glichkeiten\n\n3. Feedback erhalten
+      \u2013 Sofort siehst du mit einem gr\xFCnen Haken (\u2713) oder roten X (\u2717),
+      ob du richtig lagst\n\n4. N\xE4chste Frage \u2013 Nach kurzer Verz\xF6gerung
+      geht's zur n\xE4chsten Frage\n\n5. Ergebnisse vergleichen \u2013 Nach allen
+      6 Fragen seht ihr das Ranking mit allen Spielern"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983554
+    m_Localized: "M\xFCll-Meister: Schnelle Trennung"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177856
+    m_Localized: "M\xFCll f\xE4llt vom Himmel \u2013 und du musst schnell reagieren!
+      Sortiere die fallenden Abf\xE4lle blitzschnell in die richtige M\xFClltonne
+      ein und sammle Punkte. Aber Vorsicht: Wer zu langsam ist oder den M\xFCll in
+      die falsche Tonne wirft, verliert Punkte! Wie viel schaffst du zu retten, bevor
+      der M\xFCll die rote Linie \xFCberschreitet?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177857
+    m_Localized: "1. M\xFCll beobachten \u2013 Verschiedene M\xFCllarten fallen vom
+      Bildschirmrand herab\n\n2. M\xFCll greifen \u2013 Klicke auf ein M\xFCllst\xFCck
+      und halte es fest (Drag)\n\n3. In die richtige Tonne werfen \u2013 Ziehe den
+      M\xFCll zur passenden M\xFClltonne und lasse ihn los (Drop)\n\n4. Punkte verdienen
+      \u2013 Richtige Sortierung = +Punkte\n\n5. Achtung vor Strafen \u2013 Falsches
+      Sortieren oder zu langsam sein = -Punkte\n\n6. Rote Linie beachten \u2013 Wenn
+      M\xFCll die rote Linie erreicht, ist es zu sp\xE4t!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177858
+    m_Localized: "Ozean-Rettung: M\xFCll-Sammelfahrt"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177859
+    m_Localized: "Der Ozean braucht eure Hilfe! Fahrt mit eurem Boot \xFCbers Meer
+      und sammelt den M\xFCll ein, der von allen Seiten angeschwemmt wird. Wer am
+      meisten M\xFCll aufsammelt, gewinnt! Je schneller und geschickter du bist,
+      desto mehr Punkte holst du dir. Aber passt auf: Schildkr\xF6ten und andere
+      Meerestiere d\xFCrfen nicht verletzt werden \u2013 wer sie ber\xFChrt, verliert
+      Punkte. Wer wird der beste Ozean-Retter?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177860
+    m_Localized: "1. Boot steuern \u2013 Nutze WASD-Tasten um dein Boot zu bewegen:\n\n   
+      -W = Vorw\xE4rts\n\n    -A = Links\n\n    -S = R\xFCckw\xE4rts\n\n    -D =
+      Rechts\n\n2. M\xFCll einsammeln \u2013 Fahre \xFCber den M\xFCll, der von links
+      und rechts ins Meer gesp\xFClt wird\n\n3. Punkte verdienen \u2013 Jedes eingesammelte
+      M\xFCllst\xFCck = +Punkte f\xFCr dich\n\n4. Tiere sch\xFCtzen \u2013 Ber\xFChre
+      keine Schildkr\xF6ten oder Meerestiere! Das kostet dich Punkte!\n\n5. Wettbewerb
+      gewinnen \u2013 Sammle mehr M\xFCll als deine Gegner und sichere dir den ersten
+      Platz!"
+    m_Metadata:
+      m_Items: []
   - m_Id: 54051235973255168
     m_Localized: "Auch Getr\xE4nkekartons tragen zum M\xFCllberg bei. Wie kannst
       du ihn verringern?"
@@ -95,20 +249,8 @@ MonoBehaviour:
     m_Localized: "Reichliches Planktonangebot f\xFCr Wassertiere"
     m_Metadata:
       m_Items: []
-  - m_Id: 19894984282112
-    m_Localized: "Lautst\xE4rke"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 19179993862144
-    m_Localized: Einstellungen
-    m_Metadata:
-      m_Items: []
   - m_Id: 54053500918386705
     m_Localized: "Gro\xDFe Fische bedeuten immer sauberes Wasser"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 614498603008
-    m_Localized: Spielen
     m_Metadata:
       m_Items: []
   - m_Id: 54053500918386706
@@ -831,121 +973,8 @@ MonoBehaviour:
     m_Localized: 45%
     m_Metadata:
       m_Items: []
-  - m_Id: 20003004387328
-    m_Localized: Vollbild
-    m_Metadata:
-      m_Items: []
-  - m_Id: 20117852819456
-    m_Localized: "Aufl\xF6sung"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 20313164779520
-    m_Localized: Sprache
-    m_Metadata:
-      m_Items: []
-  - m_Id: 23214629097472
-    m_Localized: Serververbindung
-    m_Metadata:
-      m_Items: []
-  - m_Id: 24296382042112
-    m_Localized: LOBBY BEITRETEN
-    m_Metadata:
-      m_Items: []
-  - m_Id: 24827854884864
-    m_Localized: "Zur\xFCck"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 782933199196160
-    m_Localized: "Spielmen\xFC"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1528244501925888
-    m_Localized: "Men\xFC"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 51544089527181312
-    m_Localized: "Musiklautst\xE4rke"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 51544635864637440
-    m_Localized: "Soundlautst\xE4rke"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 49116520167165952
-    m_Localized: Lade Frage ...
-    m_Metadata:
-      m_Items: []
-  - m_Id: 49117036817338368
-    m_Localized: Lade Antwort ...
-    m_Metadata:
-      m_Items: []
-  - m_Id: 50355143541706752
-    m_Localized: Warten auf andere Spieler
-    m_Metadata:
-      m_Items: []
-  - m_Id: 50357163094888448
-    m_Localized: Endstand
-    m_Metadata:
-      m_Items: []
-  - m_Id: 50359450810896384
-    m_Localized: "+{0} M\xFCnzen"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 54816396556324877
-    m_Localized: "Extreme Luftverschmutzung in Megast\xE4dten erreicht gesundheitsgef\xE4hrdende
-      Werte. Smog und Feinstaub verursachen Millionen von vorzeitigen Todesf\xE4llen."
-    m_Metadata:
-      m_Items: []
-  - m_Id: 54816396556324876
-    m_Localized: Luftverschmutzung
-    m_Metadata:
-      m_Items: []
-  - m_Id: 54816396556324875
-    m_Localized: "Das sechste Massenaussterben beschleunigt sich. Best\xE4uber verschwinden,
-      \xD6kosysteme kollabieren und die genetische Vielfalt nimmt rapide ab."
-    m_Metadata:
-      m_Items: []
-  - m_Id: 54816396556324874
-    m_Localized: Artensterben
-    m_Metadata:
-      m_Items: []
-  - m_Id: 54816396556324873
-    m_Localized: "Schwere D\xFCrren und Wasserknappheit betreffen Milliarden von
-      Menschen. Grundwasserspiegel sinken dramatisch und Konflikte um Wasserressourcen
-      nehmen zu."
-    m_Metadata:
-      m_Items: []
-  - m_Id: 54816396556324872
-    m_Localized: Wasserkrise
-    m_Metadata:
-      m_Items: []
-  - m_Id: 54816396556324871
-    m_Localized: "Die Verschmutzung der Ozeane durch Plastik erreicht kritische Ausma\xDFe.
-      Mikroplastik gef\xE4hrdet die Nahrungskette und die menschliche Gesundheit."
-    m_Metadata:
-      m_Items: []
-  - m_Id: 54816396556324870
-    m_Localized: Plastikkatastrophe
-    m_Metadata:
-      m_Items: []
-  - m_Id: 54816396556324869
-    m_Localized: "Massive Entwaldung und Waldbr\xE4nde zerst\xF6ren kritische \xD6kosysteme
-      weltweit. Der Verlust von W\xE4ldern beschleunigt den Klimawandel und bedroht
-      die Biodiversit\xE4t. "
-    m_Metadata:
-      m_Items: []
-  - m_Id: 54816396556324868
-    m_Localized: Waldsterben
-    m_Metadata:
-      m_Items: []
-  - m_Id: 54816396556324867
-    m_Localized: "Ein bedeutender technologischer Fortschritt in den Bereichen erneuerbare
-      Energien und nachhaltige Landwirtschaft bietet neue M\xF6glichkeiten zur Bew\xE4ltigung
-      globaler Herausforderungen."
-    m_Metadata:
-      m_Items: []
-  - m_Id: 54816396556324866
-    m_Localized: Technologischer Durchbruch
+  - m_Id: 54816396556324864
+    m_Localized: Klimawandel
     m_Metadata:
       m_Items: []
   - m_Id: 54816396556324865
@@ -954,8 +983,61 @@ MonoBehaviour:
       f\xFChrt."
     m_Metadata:
       m_Items: []
-  - m_Id: 54816396556324864
-    m_Localized: Klimawandel
+  - m_Id: 54816396556324866
+    m_Localized: Technologischer Durchbruch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324867
+    m_Localized: "Ein bedeutender technologischer Fortschritt in den Bereichen erneuerbare
+      Energien und nachhaltige Landwirtschaft bietet neue M\xF6glichkeiten zur Bew\xE4ltigung
+      globaler Herausforderungen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324868
+    m_Localized: Waldsterben
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324869
+    m_Localized: "Massive Entwaldung und Waldbr\xE4nde zerst\xF6ren kritische \xD6kosysteme
+      weltweit. Der Verlust von W\xE4ldern beschleunigt den Klimawandel und bedroht
+      die Biodiversit\xE4t. "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324870
+    m_Localized: Plastikkatastrophe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324871
+    m_Localized: "Die Verschmutzung der Ozeane durch Plastik erreicht kritische Ausma\xDFe.
+      Mikroplastik gef\xE4hrdet die Nahrungskette und die menschliche Gesundheit."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324872
+    m_Localized: Wasserkrise
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324873
+    m_Localized: "Schwere D\xFCrren und Wasserknappheit betreffen Milliarden von
+      Menschen. Grundwasserspiegel sinken dramatisch und Konflikte um Wasserressourcen
+      nehmen zu."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324874
+    m_Localized: Artensterben
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324875
+    m_Localized: "Das sechste Massenaussterben beschleunigt sich. Best\xE4uber verschwinden,
+      \xD6kosysteme kollabieren und die genetische Vielfalt nimmt rapide ab."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324876
+    m_Localized: Luftverschmutzung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54816396556324877
+    m_Localized: "Extreme Luftverschmutzung in Megast\xE4dten erreicht gesundheitsgef\xE4hrdende
+      Werte. Smog und Feinstaub verursachen Millionen von vorzeitigen Todesf\xE4llen."
     m_Metadata:
       m_Items: []
   - m_Id: 54816396556324878
@@ -1181,7 +1263,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 56151484889292800
-    m_Localized: Nicht bereit
+    m_Localized: Nicht Bereit
     m_Metadata:
       m_Items: []
   - m_Id: 56151999538782208
@@ -1768,88 +1850,6 @@ MonoBehaviour:
     m_Localized: "M\xFCnzen"
     m_Metadata:
       m_Items: []
-  - m_Id: 60010223864074240
-    m_Localized: VALIDIERE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 60011225140908032
-    m_Localized: VERBINDE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 60011435313287168
-    m_Localized: VALIDIERE CODE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 60011804634337280
-    m_Localized: Zahlencode
-    m_Metadata:
-      m_Items: []
-  - m_Id: 56521928023429120
-    m_Localized: Nachhaltigkeits-Quiz Duell
-    m_Metadata:
-      m_Items: []
-  - m_Id: 56521928056983552
-    m_Localized: "Wer kennt sich am besten mit Nachhaltigkeit aus? Ihr tretet gegeneinander
-      an und beantwortet sechs knifflige Fragen rund um Umweltschutz, Ressourcen
-      und nachhaltiges Leben. Nur wer die richtigen Antworten schnell findet, holt
-      sich die Punkte! Am Ende wird der Ranking angezeigt \u2013 wer ist der Nachhaltigkeits-Champion?"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 56521928056983553
-    m_Localized: "1. Frage lesen \u2013 Eine Frage wird angezeigt\r\n\r\n2. Antwort
-      w\xE4hlen \u2013 Klicke auf eine der drei Antwortm\xF6glichkeiten\r\n\r\n3.
-      Feedback erhalten \u2013 Sofort siehst du mit einem gr\xFCnen Haken (\u2713)
-      oder roten X (\u2717), ob du richtig lagst\r\n\r\n4. N\xE4chste Frage \u2013
-      Nach kurzer Verz\xF6gerung geht's zur n\xE4chsten Frage\r\n\r\n5. Ergebnisse
-      vergleichen \u2013 Nach allen 6 Fragen seht ihr das Ranking mit allen Spielern"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 56521928056983554
-    m_Localized: "M\xFCll-Meister: Schnelle Trennung"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 56521928061177856
-    m_Localized: "M\xFCll f\xE4llt vom Himmel \u2013 und du musst schnell reagieren!
-      Sortiere die fallenden Abf\xE4lle blitzschnell in die richtige M\xFClltonne
-      ein und sammle Punkte. Aber Vorsicht: Wer zu langsam ist oder den M\xFCll in
-      die falsche Tonne wirft, verliert Punkte! Wie viel schaffst du zu retten, bevor
-      der M\xFCll die rote Linie \xFCberschreitet?"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 56521928061177857
-    m_Localized: "1. M\xFCll beobachten \u2013 Verschiedene M\xFCllarten fallen vom
-      Bildschirmrand herab\r\n\r\n2. M\xFCll greifen \u2013 Klicke auf ein M\xFCllst\xFCck
-      und halte es fest (Drag)\r\n\r\n3. In die richtige Tonne werfen \u2013 Ziehe
-      den M\xFCll zur passenden M\xFClltonne und lasse ihn los (Drop)\r\n\r\n4. Punkte
-      verdienen \u2013 Richtige Sortierung = +Punkte\r\n\r\n5. Achtung vor Strafen
-      \u2013 Falsches Sortieren oder zu langsam sein = -Punkte\r\n\r\n6. Rote Linie
-      beachten \u2013 Wenn M\xFCll die rote Linie erreicht, ist es zu sp\xE4t!"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 56521928061177858
-    m_Localized: "Ozean-Rettung: M\xFCll-Sammelfahrt"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 56521928061177859
-    m_Localized: "Der Ozean braucht eure Hilfe! Fahrt mit eurem Boot \xFCbers Meer
-      und sammelt den M\xFCll ein, der von allen Seiten angeschwemmt wird. Wer am
-      meisten M\xFCll aufsammelt, gewinnt! Je schneller und geschickter du bist,
-      desto mehr Punkte holst du dir. Aber passt auf: Schildkr\xF6ten und andere
-      Meerestiere d\xFCrfen nicht verletzt werden \u2013 wer sie ber\xFChrt, verliert
-      Punkte. Wer wird der beste Ozean-Retter?"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 56521928061177860
-    m_Localized: "1. Boot steuern \u2013 Nutze WASD-Tasten um dein Boot zu bewegen:\r\n\r   
-      -W = Vorw\xE4rts\r\n\r    -A = Links\r\n\r    -S = R\xFCckw\xE4rts\r\n\r   
-      -D = Rechts\r\n\r\n2. M\xFCll einsammeln \u2013 Fahre \xFCber den M\xFCll,
-      der von links und rechts ins Meer gesp\xFClt wird\r\n\r\n3. Punkte verdienen
-      \u2013 Jedes eingesammelte M\xFCllst\xFCck = +Punkte f\xFCr dich\r\n\r\n4.
-      Tiere sch\xFCtzen \u2013 Ber\xFChre keine Schildkr\xF6ten oder Meerestiere!
-      Das kostet dich Punkte!\r\n\r\n5. Wettbewerb gewinnen \u2013 Sammle mehr M\xFCll
-      als deine Gegner und sichere dir den ersten Platz!"
-    m_Metadata:
-      m_Items: []
   - m_Id: 61449390745026560
     m_Localized: '{0} ist am Zug'
     m_Metadata:
@@ -1903,7 +1903,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 61453992487911424
-    m_Localized: Klicke wenn bereit
+    m_Localized: Bereit
     m_Metadata:
       m_Items: []
   - m_Id: 63999993620021248
@@ -1948,6 +1948,10 @@ MonoBehaviour:
       ausged\xF6rrte Land."
     m_Metadata:
       m_Items: []
+  - m_Id: 67264907419664384
+    m_Localized: Erdbeben
+    m_Metadata:
+      m_Items: []
   - m_Id: 67262900449394688
     m_Localized: "Der Boden bebt heftig, Geb\xE4ude werden besch\xE4digt und die
       Menschen geraten in Panik."
@@ -1971,10 +1975,6 @@ MonoBehaviour:
     m_Localized: "Es wurden keine Sch\xE4den festgestellt."
     m_Metadata:
       m_Items: []
-  - m_Id: 67264907419664384
-    m_Localized: Erdbeben
-    m_Metadata:
-      m_Items: []
   - m_Id: 66070708549767168
     m_Localized: 'Paare:'
     m_Metadata:
@@ -1993,14 +1993,14 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 71159319133605888
     m_Localized: "1. Spieler wechseln \u2013 Spieler 1 beginnt, dann Spieler 2, 3
-      und 4 der Reihe nach\r\n\r\n2. Karten aufdecken \u2013 Klicke auf zwei Karten,
-      um sie umzudrehen\r\n\r\n3. Nach einem Match suchen \u2013 Falls die Motive
-      gleich sind, hast du ein Match gefunden!\r\n\r\n4. Punkte verdienen \u2013
-      Jedes gefundene Paar = +Punkte f\xFCr dich\r\n\r\n5. Fakt lernen \u2013 Nach
-      jedem Match siehst du einen interessanten Fakt zum Motiv\r\n\r\n6. Weitermachen
-      oder Weitergabe \u2013 Bei einem Match darfst du direkt nochmal spielen. Kein
-      Match? Der n\xE4chste Spieler ist dran!\r\n\r\n7. Gewinnen \u2013 Wer am Ende
-      die meisten Paare hat, gewinnt das Spiel!"
+      und 4 der Reihe nach\n\n2. Karten aufdecken \u2013 Klicke auf zwei Karten,
+      um sie umzudrehen\n\n3. Nach einem Match suchen \u2013 Falls die Motive gleich
+      sind, hast du ein Match gefunden!\n\n4. Punkte verdienen \u2013 Jedes gefundene
+      Paar = +Punkte f\xFCr dich\n\n5. Fakt lernen \u2013 Nach jedem Match siehst
+      du einen interessanten Fakt zum Motiv\n\n6. Weitermachen oder Weitergabe \u2013
+      Bei einem Match darfst du direkt nochmal spielen. Kein Match? Der n\xE4chste
+      Spieler ist dran!\n\n7. Gewinnen \u2013 Wer am Ende die meisten Paare hat,
+      gewinnt das Spiel!"
     m_Metadata:
       m_Items: []
   - m_Id: 74532023659216896
