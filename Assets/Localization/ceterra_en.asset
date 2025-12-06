@@ -843,7 +843,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 23214629097472
-    m_Localized: Server Connection
+    m_Localized: Code
     m_Metadata:
       m_Items: []
   - m_Id: 24296382042112
@@ -1786,11 +1786,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 56521928056983553
-    m_Localized: "1. Read the question \u2013 A question is displayed\n\n2. Choose
-      your answer \u2013 Click on one of the three answer options\n\n3. Get feedback
+    m_Localized: "1. Read the question \u2013 A question is displayed\r\n\r\n2. Choose
+      your answer \u2013 Click on one of the three answer options\r\n\r\n3. Get feedback
       \u2013 You'll instantly see a green checkmark (\u2713) or red X (\u2717) showing
-      if you were right\n\n4. Next question \u2013 After a short delay, the next
-      question appears\n\n5. Compare results \u2013 After all 6 questions, you'll
+      if you were right\r\n\r\n4. Next question \u2013 After a short delay, the next
+      question appears\r\n\r\n5. Compare results \u2013 After all 6 questions, you'll
       see the ranking with all players"
     m_Metadata:
       m_Items: []
@@ -1807,12 +1807,12 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 56521928061177857
     m_Localized: "1. Watch the waste \u2013 Different types of trash fall from the
-      top of the screen\n\n2. Grab the waste \u2013 Click on a piece of trash and
-      hold it (Drag)\n\n3. Throw into the correct bin \u2013 Drag the waste to the
-      matching bin and release it (Drop)\n\n4. Earn points \u2013 Correct sorting
-      = +Points\n\n5. Watch out for penalties \u2013 Wrong sorting or being too slow
-      = -Points\n\n6. Mind the red line \u2013 If waste reaches the red line, it's
-      too late!"
+      top of the screen\r\n\r\n2. Grab the waste \u2013 Click on a piece of trash
+      and hold it (Drag)\r\n\r\n3. Throw into the correct bin \u2013 Drag the waste
+      to the matching bin and release it (Drop)\r\n\r\n4. Earn points \u2013 Correct
+      sorting = +Points\r\n\r\n5. Watch out for penalties \u2013 Wrong sorting or
+      being too slow = -Points\r\n\r\n6. Mind the red line \u2013 If waste reaches
+      the red line, it's too late!"
     m_Metadata:
       m_Items: []
   - m_Id: 56521928061177858
@@ -1828,13 +1828,13 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 56521928061177860
-    m_Localized: "1. Steer the boat \u2013 Use WASD keys to move your boat:\n\n   
-      -W = Forward\n\n    -A = Left\n    -S = Backward\n\n    -D = Right\n\n2. Collect
-      trash \u2013 Drive over the trash that washes in from the left and right\n\n3.
-      Earn points \u2013 Each collected piece of trash = +Points for you\n\n4. Protect
-      wildlife \u2013 Don't touch sea turtles or marine animals! That costs you points!\n\n5.
-      Win the competition \u2013 Collect more trash than your opponents and claim
-      first place!"
+    m_Localized: "1. Steer the boat \u2013 Use WASD keys to move your boat:\r\n\r\n   
+      -W = Forward\r\n\r\n    -A = Left\r\n    -S = Backward\r\n\r\n    -D = Right\r\n\r\n2.
+      Collect trash \u2013 Drive over the trash that washes in from the left and
+      right\r\n\r\n3. Earn points \u2013 Each collected piece of trash = +Points
+      for you\r\n\r\n4. Protect wildlife \u2013 Don't touch sea turtles or marine
+      animals! That costs you points!\r\n\r\n5. Win the competition \u2013 Collect
+      more trash than your opponents and claim first place!"
     m_Metadata:
       m_Items: []
   - m_Id: 61449390745026560
@@ -1973,13 +1973,13 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 71159319133605888
     m_Localized: "1. Player turns \u2013 Player 1 starts, then Players 2, 3, and
-      4 take turns\n\n2. Flip cards \u2013 Click on two cards to turn them over\n\n3.
-      Find a match \u2013 If the motifs are the same, you've found a match!\n\n4.
-      Earn points \u2013 Each pair found = +Points for you\n\n5. Learn a fact \u2013
-      After every match, you'll see an interesting fact about the motif\n\n6. Play
-      again or pass \u2013 With a match, you get to play immediately again. No match?
-      The next player's turn!\n\n7. Win \u2013 Whoever has collected the most pairs
-      at the end wins the game!"
+      4 take turns\r\n\r\n2. Flip cards \u2013 Click on two cards to turn them over\r\n\r\n3.
+      Find a match \u2013 If the motifs are the same, you've found a match!\r\n\r\n4.
+      Earn points \u2013 Each pair found = +Points for you\r\n\r\n5. Learn a fact
+      \u2013 After every match, you'll see an interesting fact about the motif\r\n\r\n6.
+      Play again or pass \u2013 With a match, you get to play immediately again.
+      No match? The next player's turn!\r\n\r\n7. Win \u2013 Whoever has collected
+      the most pairs at the end wins the game!"
     m_Metadata:
       m_Items: []
   - m_Id: 74532023659216896

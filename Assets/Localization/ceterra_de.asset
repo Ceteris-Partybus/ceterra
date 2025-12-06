@@ -44,7 +44,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 23214629097472
-    m_Localized: Serververbindung
+    m_Localized: Code
     m_Metadata:
       m_Items: []
   - m_Id: 24296382042112
@@ -119,12 +119,12 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 56521928056983553
-    m_Localized: "1. Frage lesen \u2013 Eine Frage wird angezeigt\n\n2. Antwort w\xE4hlen
-      \u2013 Klicke auf eine der drei Antwortm\xF6glichkeiten\n\n3. Feedback erhalten
-      \u2013 Sofort siehst du mit einem gr\xFCnen Haken (\u2713) oder roten X (\u2717),
-      ob du richtig lagst\n\n4. N\xE4chste Frage \u2013 Nach kurzer Verz\xF6gerung
-      geht's zur n\xE4chsten Frage\n\n5. Ergebnisse vergleichen \u2013 Nach allen
-      6 Fragen seht ihr das Ranking mit allen Spielern"
+    m_Localized: "1. Frage lesen \u2013 Eine Frage wird angezeigt\r\n\r\n2. Antwort
+      w\xE4hlen \u2013 Klicke auf eine der drei Antwortm\xF6glichkeiten\r\n\r\n3.
+      Feedback erhalten \u2013 Sofort siehst du mit einem gr\xFCnen Haken (\u2713)
+      oder roten X (\u2717), ob du richtig lagst\r\n\r\n4. N\xE4chste Frage \u2013
+      Nach kurzer Verz\xF6gerung geht's zur n\xE4chsten Frage\r\n\r\n5. Ergebnisse
+      vergleichen \u2013 Nach allen 6 Fragen seht ihr das Ranking mit allen Spielern"
     m_Metadata:
       m_Items: []
   - m_Id: 56521928056983554
@@ -141,12 +141,12 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 56521928061177857
     m_Localized: "1. M\xFCll beobachten \u2013 Verschiedene M\xFCllarten fallen vom
-      Bildschirmrand herab\n\n2. M\xFCll greifen \u2013 Klicke auf ein M\xFCllst\xFCck
-      und halte es fest (Drag)\n\n3. In die richtige Tonne werfen \u2013 Ziehe den
-      M\xFCll zur passenden M\xFClltonne und lasse ihn los (Drop)\n\n4. Punkte verdienen
-      \u2013 Richtige Sortierung = +Punkte\n\n5. Achtung vor Strafen \u2013 Falsches
-      Sortieren oder zu langsam sein = -Punkte\n\n6. Rote Linie beachten \u2013 Wenn
-      M\xFCll die rote Linie erreicht, ist es zu sp\xE4t!"
+      Bildschirmrand herab\r\n\r\n2. M\xFCll greifen \u2013 Klicke auf ein M\xFCllst\xFCck
+      und halte es fest (Drag)\r\n\r\n3. In die richtige Tonne werfen \u2013 Ziehe
+      den M\xFCll zur passenden M\xFClltonne und lasse ihn los (Drop)\r\n\r\n4. Punkte
+      verdienen \u2013 Richtige Sortierung = +Punkte\r\n\r\n5. Achtung vor Strafen
+      \u2013 Falsches Sortieren oder zu langsam sein = -Punkte\r\n\r\n6. Rote Linie
+      beachten \u2013 Wenn M\xFCll die rote Linie erreicht, ist es zu sp\xE4t!"
     m_Metadata:
       m_Items: []
   - m_Id: 56521928061177858
@@ -163,14 +163,14 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 56521928061177860
-    m_Localized: "1. Boot steuern \u2013 Nutze WASD-Tasten um dein Boot zu bewegen:\n\n   
-      -W = Vorw\xE4rts\n\n    -A = Links\n\n    -S = R\xFCckw\xE4rts\n\n    -D =
-      Rechts\n\n2. M\xFCll einsammeln \u2013 Fahre \xFCber den M\xFCll, der von links
-      und rechts ins Meer gesp\xFClt wird\n\n3. Punkte verdienen \u2013 Jedes eingesammelte
-      M\xFCllst\xFCck = +Punkte f\xFCr dich\n\n4. Tiere sch\xFCtzen \u2013 Ber\xFChre
-      keine Schildkr\xF6ten oder Meerestiere! Das kostet dich Punkte!\n\n5. Wettbewerb
-      gewinnen \u2013 Sammle mehr M\xFCll als deine Gegner und sichere dir den ersten
-      Platz!"
+    m_Localized: "1. Boot steuern \u2013 Nutze WASD-Tasten um dein Boot zu bewegen:\r\n\r\n   
+      -W = Vorw\xE4rts\r\n\r\n    -A = Links\r\n\r\n    -S = R\xFCckw\xE4rts\r\n\r\n   
+      -D = Rechts\r\n\r\n2. M\xFCll einsammeln \u2013 Fahre \xFCber den M\xFCll,
+      der von links und rechts ins Meer gesp\xFClt wird\r\n\r\n3. Punkte verdienen
+      \u2013 Jedes eingesammelte M\xFCllst\xFCck = +Punkte f\xFCr dich\r\n\r\n4.
+      Tiere sch\xFCtzen \u2013 Ber\xFChre keine Schildkr\xF6ten oder Meerestiere!
+      Das kostet dich Punkte!\r\n\r\n5. Wettbewerb gewinnen \u2013 Sammle mehr M\xFCll
+      als deine Gegner und sichere dir den ersten Platz!"
     m_Metadata:
       m_Items: []
   - m_Id: 54051235973255168
@@ -1993,14 +1993,14 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 71159319133605888
     m_Localized: "1. Spieler wechseln \u2013 Spieler 1 beginnt, dann Spieler 2, 3
-      und 4 der Reihe nach\n\n2. Karten aufdecken \u2013 Klicke auf zwei Karten,
-      um sie umzudrehen\n\n3. Nach einem Match suchen \u2013 Falls die Motive gleich
-      sind, hast du ein Match gefunden!\n\n4. Punkte verdienen \u2013 Jedes gefundene
-      Paar = +Punkte f\xFCr dich\n\n5. Fakt lernen \u2013 Nach jedem Match siehst
-      du einen interessanten Fakt zum Motiv\n\n6. Weitermachen oder Weitergabe \u2013
-      Bei einem Match darfst du direkt nochmal spielen. Kein Match? Der n\xE4chste
-      Spieler ist dran!\n\n7. Gewinnen \u2013 Wer am Ende die meisten Paare hat,
-      gewinnt das Spiel!"
+      und 4 der Reihe nach\r\n\r\n2. Karten aufdecken \u2013 Klicke auf zwei Karten,
+      um sie umzudrehen\r\n\r\n3. Nach einem Match suchen \u2013 Falls die Motive
+      gleich sind, hast du ein Match gefunden!\r\n\r\n4. Punkte verdienen \u2013
+      Jedes gefundene Paar = +Punkte f\xFCr dich\r\n\r\n5. Fakt lernen \u2013 Nach
+      jedem Match siehst du einen interessanten Fakt zum Motiv\r\n\r\n6. Weitermachen
+      oder Weitergabe \u2013 Bei einem Match darfst du direkt nochmal spielen. Kein
+      Match? Der n\xE4chste Spieler ist dran!\r\n\r\n7. Gewinnen \u2013 Wer am Ende
+      die meisten Paare hat, gewinnt das Spiel!"
     m_Metadata:
       m_Items: []
   - m_Id: 74532023659216896
