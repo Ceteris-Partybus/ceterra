@@ -1,10 +1,12 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class MgOcean3DRemotePlayerHUD : NetworkedSingleton<MgOcean3DRemotePlayerHUD> {
     [SerializeField]
-    private UIDocument uiDocument; // Should have LocalPlayerHUD.uxml assigned (contains remote-player-overview)
+    private UIDocument uiDocument;
 
     private VisualElement remotePlayerOverview;
 
@@ -12,18 +14,15 @@ public class MgOcean3DRemotePlayerHUD : NetworkedSingleton<MgOcean3DRemotePlayer
     [SerializeField]
     private VisualTreeAsset playerEntryTemplate;
 
+    // Call in OnEnable to ensure the field is set before AddPlayer is called
     void OnEnable() {
-        if (uiDocument == null) {
-            Debug.LogError("[MgOcean3DRemotePlayerHUD] UIDocument not assigned!");
-            return;
+        StartCoroutine(WaitForAllPlayers());
+        IEnumerator WaitForAllPlayers() {
+            yield return new WaitUntil(() => netIdentity != null && netIdentity.observers.Count == GameManager.Singleton.PlayerIds.Count());
         }
 
         var root = uiDocument.rootVisualElement;
         remotePlayerOverview = root.Q<VisualElement>("remote-player-overview");
-        
-        if (remotePlayerOverview == null) {
-            Debug.LogError("[MgOcean3DRemotePlayerHUD] Could not find 'remote-player-overview' element in UI document!");
-        }
     }
 
     public bool IsPlayerAdded(int playerId) {
@@ -31,11 +30,6 @@ public class MgOcean3DRemotePlayerHUD : NetworkedSingleton<MgOcean3DRemotePlayer
     }
 
     public void AddPlayer(MgOceanPlayer3D player) {
-        if (remotePlayerOverview == null) {
-            Debug.LogWarning("[MgOcean3DRemotePlayerHUD] remotePlayerOverview not initialized yet!");
-            return;
-        }
-        
         var playerElement = playerEntryTemplate.CloneTree();
         playerElement.Q<Label>("player-name").text = player.PlayerName;
         playerElement.Q<Label>("player-score").text = "0";

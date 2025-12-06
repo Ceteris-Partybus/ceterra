@@ -33,6 +33,7 @@ public class MgOcean3DLocalPlayerHUD : NetworkedSingleton<MgOcean3DLocalPlayerHU
 
         scoreLabel.text = $"{score}";
     }
+
     public void UpdateCountdown(float timeLeft) {
         if (countdownLabel == null) {
             return;
