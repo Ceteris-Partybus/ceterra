@@ -2,15 +2,17 @@ using Mirror;
 using UnityEngine.UIElements;
 
 public class ResourceModal : Modal {
-
     public static ResourceModal Instance => GetInstance<ResourceModal>();
-
+    protected override string GetHeaderTitle() {
+        return LocalizationManager.Instance.GetLocalizedText(56155672947974144);
+    }
     private Label resourceNextRoundLabel;
 
     private Button resourcesHistoryButton;
 
     protected override void Start() {
         this.visualTreeAsset = ModalMap.Instance.ResourceModalTemplate;
+        showModalTypeInHeader = true;
         base.Start();
     }
 

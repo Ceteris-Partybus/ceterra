@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,8 +9,7 @@ public class PrepScreenUI : MonoBehaviour {
     Label descriptionLabel;
     Label controlsLabel;
     VisualElement screenshotImage;
-    List<Label> playerList;
-    List<Button> buttonList;
+    List<VisualElement> playerList;
     List<PrepPlayerUI> playerObjectList = new();
     int playersCount;
     IPrepScreen context;
@@ -20,21 +20,22 @@ public class PrepScreenUI : MonoBehaviour {
         descriptionLabel = screenUIDoc.rootVisualElement.Q<Label>("Description");
         controlsLabel = screenUIDoc.rootVisualElement.Q<Label>("Controls");
         screenshotImage = screenUIDoc.rootVisualElement.Q<VisualElement>("Screenshot");
-        playerList = screenUIDoc.rootVisualElement.Query<Label>("PlayerName").ToList();
-        buttonList = screenUIDoc.rootVisualElement.Query<Button>("readyButton").ToList();
+        playerList = screenUIDoc.rootVisualElement.Query<VisualElement>(className: "player-row").ToList();
+
+        if (playerList.Count == 4) {
+            playerList[3].AddToClassList("player-row-last");
+        }
     }
 
     public void Initialize(IPrepScreen context) {
         titleLabel.text = context.GetTitle();
         descriptionLabel.text = context.GetDescription();
         controlsLabel.text = context.GetControls();
-        var players = context.GetPlayers();
+        var players = context.GetPlayers().OrderBy(p => p.netId).ToList();
         playersCount = players.Count;
-        for (int i = 0; i < players.Count; i++) {
-            playerList[i].parent.parent.style.display = DisplayStyle.Flex;
-            playerList[i].text = players[i].PlayerName;
-
-            playerObjectList.Add(new PrepPlayerUI(buttonList[i], players[i]));
+        for (var i = 0; i < players.Count; i++) {
+            playerList[i].style.display = DisplayStyle.Flex;
+            playerObjectList.Add(new PrepPlayerUI(playerList[i], players[i]));
         }
         screenshotImage.style.backgroundImage = new StyleBackground(context.GetScreenshot());
         this.context = context;
@@ -44,22 +45,14 @@ public class PrepScreenUI : MonoBehaviour {
         if (context == null || allPlayersReady) {
             return;
         }
+        var readyCount = 0;
         foreach (var player in playerObjectList) {
-            if (player.isPlayerReady) {
-                player.OnReady();
-                continue;
-            }
-            player.OnNotReady();
+            player.UpdateMe();
+            readyCount += player.isPlayerReady ? 1 : 0;
         }
-        int readyCount = 0;
-        foreach (var button in buttonList) {
-            if (button.text == "Bereit") {
-                readyCount++;
-            }
-        }
+
         if (readyCount == playersCount) {
             allPlayersReady = true;
-            Debug.Log("All players ready");
             context.StartGame();
             Destroy(gameObject);
         }

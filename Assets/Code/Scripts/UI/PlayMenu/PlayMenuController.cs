@@ -17,9 +17,9 @@ public class PlayMenuController : MonoBehaviour {
 
     [SerializeField]
     private UIDocument uIDocument;
+    [SerializeField] private GameObject mainMenuObject;
 
     private const int CONNECTION_TIMEOUT = 5;
-    private const string MAIN_MENU_SCENE = "MainMenu";
 
     private void Awake() {
         if (InviteCodeValidator.Instance == null) {
@@ -29,8 +29,52 @@ public class PlayMenuController : MonoBehaviour {
     }
 
     private void OnEnable() {
+        if (mainMenuObject.activeSelf) {
+            gameObject.SetActive(false);
+            return;
+        }
+
         var root = uIDocument.rootVisualElement;
         InitializeUIElements(root);
+
+        if (!SceneManager.GetSceneByName("BackgroundView").isLoaded) {
+            StartCoroutine(LoadBackgroundSmoothly(root));
+        }
+    }
+
+    private IEnumerator LoadBackgroundSmoothly(VisualElement root) {
+        var fader = new VisualElement();
+        fader.style.backgroundColor = Color.black;
+        fader.style.position = Position.Absolute;
+        fader.style.top = 0;
+        fader.style.bottom = 0;
+        fader.style.left = 0;
+        fader.style.right = 0;
+        root.Insert(0, fader);
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("BackgroundView", LoadSceneMode.Additive);
+        asyncLoad.allowSceneActivation = false;
+
+        while (asyncLoad.progress < 0.9f) {
+            yield return null;
+        }
+
+        asyncLoad.allowSceneActivation = true;
+
+        while (!asyncLoad.isDone) {
+            yield return null;
+        }
+
+        float duration = 1.0f;
+        float timer = 0f;
+
+        while (timer < duration) {
+            timer += Time.deltaTime;
+            fader.style.opacity = Mathf.Lerp(1, 0, timer / duration);
+            yield return null;
+        }
+
+        fader.RemoveFromHierarchy();
     }
 
     private void OnDisable() {
@@ -42,7 +86,7 @@ public class PlayMenuController : MonoBehaviour {
     private void InitializeUIElements(VisualElement root) {
         backButton = root.Q<Button>("BackButton");
         backButton.clicked += () => {
-            LoadScene(MAIN_MENU_SCENE);
+            ReturnToMainMenu();
             Audiomanager.Instance?.PlayClickSound();
         };
 
@@ -246,11 +290,12 @@ public class PlayMenuController : MonoBehaviour {
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
-            LoadScene(MAIN_MENU_SCENE);
+            ReturnToMainMenu();
         }
     }
 
-    private void LoadScene(string sceneName) {
-        SceneManager.LoadScene(sceneName);
+    private void ReturnToMainMenu() {
+        mainMenuObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 }

@@ -1,7 +1,6 @@
 using UnityEngine.UIElements;
 
 public class EventModal : Modal {
-
     public static EventModal Instance => GetInstance<EventModal>();
 
     public string Title = "";
@@ -10,6 +9,9 @@ public class EventModal : Modal {
     Label descriptionLabel;
 
     protected override void Start() {
+        this.closeOnBackgroundClick = false;
+        this.closeOnEscapeKey = false;
+        this.showCloseButton = false;
         this.visualTreeAsset = ModalMap.Instance.EventModalTemplate;
         base.Start();
     }

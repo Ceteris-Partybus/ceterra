@@ -843,7 +843,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 23214629097472
-    m_Localized: Server Connection
+    m_Localized: Code
     m_Metadata:
       m_Items: []
   - m_Id: 24296382042112
@@ -1172,7 +1172,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 56151484889292800
-    m_Localized: Not ready
+    m_Localized: Not Ready
     m_Metadata:
       m_Items: []
   - m_Id: 56151999538782208
@@ -1828,8 +1828,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 56521928061177860
-    m_Localized: "1. Steer the boat \u2013 Use WASD keys to move your boat:\r\n\r   
-      -W = Forward\r\n\r    -A = Left\r\n    -S = Backward\r\n\r    -D = Right\r\n\r\n2.
+    m_Localized: "1. Steer the boat \u2013 Use WASD keys to move your boat:\r\n\r\n   
+      -W = Forward\r\n\r\n    -A = Left\r\n    -S = Backward\r\n\r\n    -D = Right\r\n\r\n2.
       Collect trash \u2013 Drive over the trash that washes in from the left and
       right\r\n\r\n3. Earn points \u2013 Each collected piece of trash = +Points
       for you\r\n\r\n4. Protect wildlife \u2013 Don't touch sea turtles or marine
@@ -1890,7 +1890,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 61453992487911424
-    m_Localized: Click to ready
+    m_Localized: Ready
     m_Metadata:
       m_Items: []
   - m_Id: 63999993620021248
@@ -1980,6 +1980,10 @@ MonoBehaviour:
       Play again or pass \u2013 With a match, you get to play immediately again.
       No match? The next player's turn!\r\n\r\n7. Win \u2013 Whoever has collected
       the most pairs at the end wins the game!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74532023659216896
+    m_Localized: Exit
     m_Metadata:
       m_Items: []
   references:

@@ -248,7 +248,7 @@ MonoBehaviour:
   headlessStartMode: 1
   editorAutoStart: 0
   sendRate: 60
-  offlineScene: Assets/Level/Scenes/PlayMenu.unity
+  offlineScene: Assets/Level/Scenes/MainMenu.unity
   onlineScene: Assets/Level/Scenes/Lobby.unity
   offlineSceneLoadDelay: 0
   transport: {fileID: 1926814284}
@@ -341,11 +341,11 @@ MonoBehaviour:
   - {fileID: 6898479745603750494, guid: 61c25c01cfd527642933da0a0b9e5661, type: 3}
   - {fileID: 4409142715930399886, guid: bb96dfbe8c8d3634a923f4fbe83a4ed9, type: 3}
   selectableDices:
-  - {fileID: 5754625222157326443, guid: 7dc5a4f6f3794f341abde5c12b57d9f8, type: 3}
   - {fileID: 5754625222157326443, guid: ce1d4306273adfb43ad9b0da4a68151e, type: 3}
   - {fileID: 5754625222157326443, guid: 29be8da3abdb685439646832481bfb5b, type: 3}
+  developmentOnlyDices:
+  - {fileID: 5754625222157326443, guid: 7dc5a4f6f3794f341abde5c12b57d9f8, type: 3}
   - {fileID: 5754625222157326443, guid: 52a019e5466317c469ac5c90dce851a5, type: 3}
-  developmentOnlyDices: []
   minigameScenes:
   - MgGarbage
   - MgQuizduel

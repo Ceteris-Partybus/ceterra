@@ -71,6 +71,22 @@ MonoBehaviour:
     m_Key: playmenu.digit-code
     m_Metadata:
       m_Items: []
+  - m_Id: 60010223864074240
+    m_Key: playmenu.loading
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011225140908032
+    m_Key: playmenu.connecting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011435313287168
+    m_Key: playmenu.validate-code
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011804634337280
+    m_Key: playmenu.digit-code
+    m_Metadata:
+      m_Items: []
   - m_Id: 1528244501925888
     m_Key: sideMenu.menu
     m_Metadata:
@@ -101,6 +117,42 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 50359450810896384
     m_Key: MgQuizduel.rewardCoins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928023429120
+    m_Key: MgQuizduel.PrepScreen.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983552
+    m_Key: MgQuizduel.PrepScreen.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983553
+    m_Key: MgQuizduel.PrepScreen.controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928056983554
+    m_Key: MgGarbage.PrepScreen.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177856
+    m_Key: MgGarbage.PrepScreen.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177857
+    m_Key: MgGarbage.PrepScreen.controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177858
+    m_Key: MgOcean.PrepScreen.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177859
+    m_Key: MgOcean.PrepScreen.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56521928061177860
+    m_Key: MgOcean.PrepScreen.controls
     m_Metadata:
       m_Items: []
   - m_Id: 56521928023429120
@@ -1071,6 +1123,10 @@ MonoBehaviour:
     m_Key: investment.displayname.4
     m_Metadata:
       m_Items: []
+  - m_Id: 54829781717045254
+    m_Key: investment.displayname.4
+    m_Metadata:
+      m_Items: []
   - m_Id: 54829781717045255
     m_Key: invsetment.description.4
     m_Metadata:
@@ -1145,6 +1201,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 56145165381787648
     m_Key: modal.deposit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56145873707458560
+    m_Key: modal.affected_players
     m_Metadata:
       m_Items: []
   - m_Id: 56145873707458560
@@ -1707,12 +1767,20 @@ MonoBehaviour:
     m_Key: modal.catastrophe.wildfire.start
     m_Metadata:
       m_Items: []
+  - m_Id: 56648972298977280
+    m_Key: modal.catastrophe.wildfire.start
+    m_Metadata:
+      m_Items: []
   - m_Id: 56649363690455040
     m_Key: modal.catastrophe.glacier.title
     m_Metadata:
       m_Items: []
   - m_Id: 56649388873056256
     m_Key: modal.catastrophe.glacier.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56649684747649024
+    m_Key: modal.catastrophe.drought.title
     m_Metadata:
       m_Items: []
   - m_Id: 56649684747649024
@@ -1729,6 +1797,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 56649934925299712
     m_Key: modal.catastrophe.tsunami.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56652191783813120
+    m_Key: globals.round_end
     m_Metadata:
       m_Items: []
   - m_Id: 56652191783813120
@@ -1897,6 +1969,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 71159319133605888
     m_Key: MgMemory.PrepScreen.controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74532023659216896
+    m_Key: mainmenu.exit-button
     m_Metadata:
       m_Items: []
   m_Metadata:

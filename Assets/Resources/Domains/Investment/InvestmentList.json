@@ -17,7 +17,8 @@
                 "magnitude": 5
             }
         ],
-        "cooldown": 2
+        "cooldown": 2,
+        "iconPath": "Board/Investments/inv_ocean_cleaner"
     },
     {
         "displayName": 54829781717045252,
@@ -37,7 +38,8 @@
                 "magnitude": 5
             }
         ],
-        "cooldown": 3
+        "cooldown": 3,
+        "iconPath": "Board/Investments/inv_solar_farm"
     },
     {
         "displayName": 54829781717045254,
@@ -57,7 +59,8 @@
                 "magnitude": 5
             }
         ],
-        "cooldown": 2
+        "cooldown": 2,
+        "iconPath": "Board/Investments/inv_educational_program"
     },
     {
         "displayName": 54829781717045256,
@@ -77,7 +80,8 @@
                 "magnitude": 4
             }
         ],
-        "cooldown": 3
+        "cooldown": 3,
+        "iconPath": "Board/Investments/inv_fair_trade_network"
     },
     {
         "displayName": 54829781717045258,
@@ -97,7 +101,8 @@
                 "magnitude": 3
             }
         ],
-        "cooldown": 2
+        "cooldown": 2,
+        "iconPath": "Board/Investments/inv_default"
     },
     {
         "displayName": 54829781717045260,
@@ -117,7 +122,8 @@
                 "magnitude": 5
             }
         ],
-        "cooldown": 1
+        "cooldown": 1,
+        "iconPath": "Board/Investments/inv_default"
     },
     {
         "displayName": 54829781717045262,
@@ -142,7 +148,8 @@
                 "magnitude": 6
             }
         ],
-        "cooldown": 3
+        "cooldown": 3,
+        "iconPath": "Board/Investments/inv_default"
     },
     {
         "displayName": 54829781717045264,
@@ -162,7 +169,8 @@
                 "magnitude": 6
             }
         ],
-        "cooldown": 2
+        "cooldown": 2,
+        "iconPath": "Board/Investments/inv_default"
     },
     {
         "displayName": 54829781717045266,
@@ -182,6 +190,7 @@
                 "magnitude": 3
             }
         ],
-        "cooldown": 3
+        "cooldown": 3,
+        "iconPath": "Board/Investments/inv_default"
     }
 ]

@@ -37,12 +37,16 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
         }
     }
 
-    protected override void Awake() {
-        base.Awake();
+    public void ClearEditorFields() {
         if (!IsInitialized) { return; }
         foreach (var fieldToDestroy in FindAllEditorFields()) {
             Destroy(fieldToDestroy.gameObject);
         }
+    }
+
+    [ClientRpc]
+    public void RpcClearEditorFields() {
+        ClearEditorFields();
     }
 
     public override void OnStartServer() {
@@ -122,6 +126,9 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
 
         if (instance is CatastropheFieldBehaviour catastropheField) {
             catastropheField.CatastropheType = ((CatastropheFieldBehaviour)field).CatastropheType;
+        }
+        else if (instance is LedgeFieldBehaviour ledgeField) {
+            ledgeField.jumpPower = ((LedgeFieldBehaviour)field).jumpPower;
         }
 
         return instance;

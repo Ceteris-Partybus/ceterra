@@ -5,10 +5,14 @@ Key,Id,English(en),German(de)
 "settingsMenu.fullscreen",20003004387328,"Fullscreen","Vollbild"
 "settingsMenu.resolution",20117852819456,"Resolution","Auflösung"
 "settingsMenu.language",20313164779520,"Language","Sprache"
-"playMenu.server_connection",23214629097472,"Server Connection","Serververbindung"
+"playMenu.server_connection",23214629097472,"Code","Code"
 "playMenu.join_lobby",24296382042112,"JOIN LOBBY","LOBBY BEITRETEN"
 "playMenu.back",24827854884864,"Back","Zurück"
 "playMenu.playmenu",782933199196160,"Play Menu","Spielmenü"
+"playmenu.loading",60010223864074240,"VALIDATING","VALIDIERE"
+"playmenu.connecting",60011225140908032,"CONNECTING","VERBINDE"
+"playmenu.validate-code",60011435313287168,"VALIDATE CODE","VALIDIERE CODE"
+"playmenu.digit-code",60011804634337280,"Digit Code","Zahlencode"
 "playmenu.loading",60010223864074240,"VALIDATING","VALIDIERE"
 "playmenu.connecting",60011225140908032,"CONNECTING","VERBINDE"
 "playmenu.validate-code",60011435313287168,"VALIDATE CODE","VALIDIERE CODE"
@@ -66,10 +70,13 @@ Key,Id,English(en),German(de)
 "MgOcean.PrepScreen.title",56521928061177858,"Ocean Rescue: Trash Collection Mission","Ozean-Rettung: Müll-Sammelfahrt"
 "MgOcean.PrepScreen.description",56521928061177859,"The ocean needs your help! Sail your boat across the sea and collect the trash that washes in from all directions. Whoever collects the most trash wins! The faster and more skillfully you play, the more points you earn. But be careful: Sea turtles and other marine animals must not be harmed – touching them will cost you points. Who will be the best ocean rescuer?","Der Ozean braucht eure Hilfe! Fahrt mit eurem Boot übers Meer und sammelt den Müll ein, der von allen Seiten angeschwemmt wird. Wer am meisten Müll aufsammelt, gewinnt! Je schneller und geschickter du bist, desto mehr Punkte holst du dir. Aber passt auf: Schildkröten und andere Meerestiere dürfen nicht verletzt werden – wer sie berührt, verliert Punkte. Wer wird der beste Ozean-Retter?"
 "MgOcean.PrepScreen.controls",56521928061177860,"1. Steer the boat – Use WASD keys to move your boat:
-    -W = Forward
-    -A = Left
+
+    -W = Forward
+
+    -A = Left
     -S = Backward
-    -D = Right
+
+    -D = Right
 
 2. Collect trash – Drive over the trash that washes in from the left and right
 
@@ -78,10 +85,90 @@ Key,Id,English(en),German(de)
 4. Protect wildlife – Don't touch sea turtles or marine animals! That costs you points!
 
 5. Win the competition – Collect more trash than your opponents and claim first place!","1. Boot steuern – Nutze WASD-Tasten um dein Boot zu bewegen:
-    -W = Vorwärts
-    -A = Links
-    -S = Rückwärts
-    -D = Rechts
+
+    -W = Vorwärts
+
+    -A = Links
+
+    -S = Rückwärts
+
+    -D = Rechts
+
+2. Müll einsammeln – Fahre über den Müll, der von links und rechts ins Meer gespült wird
+
+3. Punkte verdienen – Jedes eingesammelte Müllstück = +Punkte für dich
+
+4. Tiere schützen – Berühre keine Schildkröten oder Meerestiere! Das kostet dich Punkte!
+
+5. Wettbewerb gewinnen – Sammle mehr Müll als deine Gegner und sichere dir den ersten Platz!"
+"MgQuizduel.PrepScreen.title",56521928023429120,"Sustainability Quiz Duel","Nachhaltigkeits-Quiz Duell"
+"MgQuizduel.PrepScreen.description",56521928056983552,"Who knows the most about sustainability? Face off against each other and answer six challenging questions about environmental protection, resources, and sustainable living. Only those who find the right answers quickly rack up the points! At the end, the ranking will be revealed – who's the sustainability champion?","Wer kennt sich am besten mit Nachhaltigkeit aus? Ihr tretet gegeneinander an und beantwortet sechs knifflige Fragen rund um Umweltschutz, Ressourcen und nachhaltiges Leben. Nur wer die richtigen Antworten schnell findet, holt sich die Punkte! Am Ende wird der Ranking angezeigt – wer ist der Nachhaltigkeits-Champion?"
+"MgQuizduel.PrepScreen.controls",56521928056983553,"1. Read the question – A question is displayed
+
+2. Choose your answer – Click on one of the three answer options
+
+3. Get feedback – You'll instantly see a green checkmark (✓) or red X (✗) showing if you were right
+
+4. Next question – After a short delay, the next question appears
+
+5. Compare results – After all 6 questions, you'll see the ranking with all players","1. Frage lesen – Eine Frage wird angezeigt
+
+2. Antwort wählen – Klicke auf eine der drei Antwortmöglichkeiten
+
+3. Feedback erhalten – Sofort siehst du mit einem grünen Haken (✓) oder roten X (✗), ob du richtig lagst
+
+4. Nächste Frage – Nach kurzer Verzögerung geht's zur nächsten Frage
+
+5. Ergebnisse vergleichen – Nach allen 6 Fragen seht ihr das Ranking mit allen Spielern"
+"MgGarbage.PrepScreen.title",56521928056983554,"Waste Master: Quick Sorting","Müll-Meister: Schnelle Trennung"
+"MgGarbage.PrepScreen.description",56521928061177856,"Waste falls from the sky – and you need to react fast! Sort the falling trash into the correct bin as quickly as possible and rack up points. But watch out: If you're too slow or put trash in the wrong bin, you'll lose points! How much can you save before the waste crosses the red line?","Müll fällt vom Himmel – und du musst schnell reagieren! Sortiere die fallenden Abfälle blitzschnell in die richtige Mülltonne ein und sammle Punkte. Aber Vorsicht: Wer zu langsam ist oder den Müll in die falsche Tonne wirft, verliert Punkte! Wie viel schaffst du zu retten, bevor der Müll die rote Linie überschreitet?"
+"MgGarbage.PrepScreen.controls",56521928061177857,"1. Watch the waste – Different types of trash fall from the top of the screen
+
+2. Grab the waste – Click on a piece of trash and hold it (Drag)
+
+3. Throw into the correct bin – Drag the waste to the matching bin and release it (Drop)
+
+4. Earn points – Correct sorting = +Points
+
+5. Watch out for penalties – Wrong sorting or being too slow = -Points
+
+6. Mind the red line – If waste reaches the red line, it's too late!","1. Müll beobachten – Verschiedene Müllarten fallen vom Bildschirmrand herab
+
+2. Müll greifen – Klicke auf ein Müllstück und halte es fest (Drag)
+
+3. In die richtige Tonne werfen – Ziehe den Müll zur passenden Mülltonne und lasse ihn los (Drop)
+
+4. Punkte verdienen – Richtige Sortierung = +Punkte
+
+5. Achtung vor Strafen – Falsches Sortieren oder zu langsam sein = -Punkte
+
+6. Rote Linie beachten – Wenn Müll die rote Linie erreicht, ist es zu spät!"
+"MgOcean.PrepScreen.title",56521928061177858,"Ocean Rescue: Trash Collection Mission","Ozean-Rettung: Müll-Sammelfahrt"
+"MgOcean.PrepScreen.description",56521928061177859,"The ocean needs your help! Sail your boat across the sea and collect the trash that washes in from all directions. Whoever collects the most trash wins! The faster and more skillfully you play, the more points you earn. But be careful: Sea turtles and other marine animals must not be harmed – touching them will cost you points. Who will be the best ocean rescuer?","Der Ozean braucht eure Hilfe! Fahrt mit eurem Boot übers Meer und sammelt den Müll ein, der von allen Seiten angeschwemmt wird. Wer am meisten Müll aufsammelt, gewinnt! Je schneller und geschickter du bist, desto mehr Punkte holst du dir. Aber passt auf: Schildkröten und andere Meerestiere dürfen nicht verletzt werden – wer sie berührt, verliert Punkte. Wer wird der beste Ozean-Retter?"
+"MgOcean.PrepScreen.controls",56521928061177860,"1. Steer the boat – Use WASD keys to move your boat:
+
+    -W = Forward
+
+    -A = Left
+    -S = Backward
+
+    -D = Right
+
+2. Collect trash – Drive over the trash that washes in from the left and right
+
+3. Earn points – Each collected piece of trash = +Points for you
+
+4. Protect wildlife – Don't touch sea turtles or marine animals! That costs you points!
+
+5. Win the competition – Collect more trash than your opponents and claim first place!","1. Boot steuern – Nutze WASD-Tasten um dein Boot zu bewegen:
+
+    -W = Vorwärts
+
+    -A = Links
+
+    -S = Rückwärts
+
+    -D = Rechts
 
 2. Müll einsammeln – Fahre über den Müll, der von links und rechts ins Meer gespült wird
 
@@ -323,6 +410,7 @@ Key,Id,English(en),German(de)
 "investment.displayname.3",54829781717045252,"Solar farm","Solarpark"
 "invsetment.description.3",54829781717045253,"Generates renewable energy using solar power.","Erzeugt erneuerbare Energie durch Sonnenkraft."
 "investment.displayname.4",54829781717045254,"Educational program","Bildungsprogramm"
+"investment.displayname.4",54829781717045254,"Educational program","Bildungsprogramm"
 "invsetment.description.4",54829781717045255,"Improves access to education and knowledge about sustainability.","Verbessert den Zugang zu Bildung und Wissen über Nachhaltigkeit."
 "investment.displayname.5",54829781717045256,"Fair Trade network","Fair-Trade-Netzwerk"
 "invsetment.description.5",54829781717045257,"Supports local producers with fair prices.","Unterstützt lokale Produzenten mit fairen Preisen."
@@ -343,6 +431,7 @@ Key,Id,English(en),German(de)
 "end.other_players",56144566892355584,"Other players:","Andere Spieler:"
 "modal.deposit",56145165381787648,"Deposit","Einzahlen"
 "modal.affected_players",56145873707458560,"Damage report:","Schadensbericht:"
+"modal.affected_players",56145873707458560,"Damage report:","Schadensbericht:"
 "globals.environment",56146686244806656,"Environment","Umwelt"
 "globals.economy",56146825365676032,"Economy","Wirtschaft"
 "globals.society",56146969926557696,"Society","Gesellschaft"
@@ -352,7 +441,7 @@ Key,Id,English(en),German(de)
 "modal.invest",56147874730205184,"Invest","Investieren"
 "modal.all",56149215993126912,"All","Alle"
 "modal.controls",56151189501239296,"Controls","Steuerung"
-"modal.not_ready",56151484889292800,"Not ready","Nicht bereit"
+"modal.not_ready",56151484889292800,"Not Ready","Nicht Bereit"
 "modal.deposit_abbreviation",56151999538782208,"Dep.","Einz."
 "modal.invest_abbreviation",56152165855518720,"Inv.","Inv."
 "selection.title",56152728932442112,"Character","Charakter"
@@ -482,12 +571,15 @@ Key,Id,English(en),German(de)
 "modal.catastrophe.landslide.description",56648729599770624,"Massive rocks and debris crash down, burying everything in their path.","Massive Felsen und Trümmer stürzen herab und begraben alles, was sich ihnen in den Weg stellt."
 "modal.catastrophe.wildfire.title",56648926065164288,"Raging Wildfire","Waldbrand"
 "modal.catastrophe.wildfire.start",56648972298977280,"Uncontrolled flames consume everything, leaving only ash behind.","Unkontrollierte Flammen verschlingen alles und hinterlassen nur Asche."
+"modal.catastrophe.wildfire.start",56648972298977280,"Uncontrolled flames consume everything, leaving only ash behind.","Unkontrollierte Flammen verschlingen alles und hinterlassen nur Asche."
 "modal.catastrophe.glacier.title",56649363690455040,"Glacier Melting","Gletscherschmelze"
 "modal.catastrophe.glacier.description",56649388873056256,"Rising waters flood the landscape as ancient ice rapidly melts.","Steigende Wasserstände überschwemmen die Landschaft, während das alte Eis schnell schmilzt."
+"modal.catastrophe.drought.title",56649684747649024,"Drought","Dürre"
 "modal.catastrophe.drought.title",56649684747649024,"Drought","Dürre"
 "modal.catastrophe.draught.description",56649705719169024,"Extreme heat and lack of water turn fertile land into barren wasteland.","Extreme Hitze und Wassermangel verwandeln fruchtbares Land in unfruchtbare Ödnis."
 "modal.catastrophe.tsunami.title",56649910111797248,"Tsunami","Tsunami"
 "modal.catastrophe.tsunami.description",56649934925299712,"Massive waves surge inland, destroying everything in their wake.","Riesige Wellen schlagen ins Landesinnere und zerstören alles, was sich ihnen in den Weg stellt."
+"globals.round_end",56652191783813120,"Round end","Rundenende"
 "globals.round_end",56652191783813120,"Round end","Rundenende"
 "globals.investment_completed",56652337988861952,"The investment {0} has been finished!","Das Investment {0} wurde fertiggestellt!"
 "globals.funds.expenses_investment",56659020039421952,"Financing {0}","Finanzierung für {0}"
@@ -510,7 +602,7 @@ Key,Id,English(en),German(de)
 "lobby.is_ready",61453348007936000,"Is ready","Ist bereit"
 "lobby.is_not_ready",61453405545398272,"Is not ready","Ist nicht bereit"
 "lobby.click_to_unready",61453481038675968,"Click to unready","Nicht bereit"
-"lobby.click_to_ready",61453992487911424,"Click to ready","Klicke wenn bereit"
+"lobby.click_to_ready",61453992487911424,"Ready","Bereit"
 "modal.catastrophe.wildfire.ongoing-1",63999993620021248,"The fire weakens, but embers still glow beneath the smoke.","Das Feuer schwächt sich ab, doch unter dem Rauch glimmen noch die letzten Funken."
 "modal.catastrophe.wildfire.ongoing-2",65747542009790464,"The flames have died out, but faint smoke still lingers in the air.","Die Flammen sind erloschen, doch leichter Rauch liegt noch in der Luft."
 "modal.catastrophe.wildfire.end",63999993661964288,"The smoke has cleared, leaving behind silence and scorched earth.","Der Rauch hat sich verzogen und hinterlässt Stille und verbrannte Erde."
@@ -554,3 +646,4 @@ Key,Id,English(en),German(de)
 6. Weitermachen oder Weitergabe – Bei einem Match darfst du direkt nochmal spielen. Kein Match? Der nächste Spieler ist dran!
 
 7. Gewinnen – Wer am Ende die meisten Paare hat, gewinnt das Spiel!"
+"mainmenu.exit-button",74532023659216896,"Exit","Beenden"

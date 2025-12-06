@@ -1,9 +1,8 @@
-using Mirror;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [Serializable]
 public class Investment : IEquatable<Investment> {
@@ -21,12 +20,16 @@ public class Investment : IEquatable<Investment> {
     [SerializeField] public bool fullyFinanced;
     [SerializeField] public bool inConstruction; // Investment is being constructed
     [SerializeField] public bool completed; // Investment is completed and its effects are active
+    [SerializeField] public string iconPath;
+
+    [JsonIgnore]
+    public StyleBackground Icon => new StyleBackground(Resources.Load<Texture2D>(iconPath));
 
     // Mirror requires a default constructor
     public Investment() { }
 
     [JsonConstructor]
-    private Investment(long displayName, long description, int requiredMoney, int requiredResources, InvestmentType type, List<InvestmentModifier> modifier, int cooldown) {
+    private Investment(long displayName, long description, int requiredMoney, int requiredResources, InvestmentType type, List<InvestmentModifier> modifier, int cooldown, string iconPath) {
         this.id = nextId++;
         this.displayName = displayName;
         this.description = description;
@@ -37,6 +40,7 @@ public class Investment : IEquatable<Investment> {
         this.cooldown = cooldown;
         this.inConstruction = false;
         this.completed = false;
+        this.iconPath = iconPath;
     }
 
     public void Tick() {

@@ -2,9 +2,10 @@ using Mirror;
 using UnityEngine.UIElements;
 
 public class InvestDepositModal : Modal {
-
     public static InvestDepositModal Instance => GetInstance<InvestDepositModal>();
-
+    protected override string GetHeaderTitle() {
+        return LocalizationManager.Instance.GetLocalizedText(56145165381787648);
+    }
     private Button depositSubmitButton;
     private UnsignedIntegerField depositValueField;
     private Button depositAdd10Button;
@@ -14,6 +15,7 @@ public class InvestDepositModal : Modal {
 
     protected override void Start() {
         this.visualTreeAsset = ModalMap.Instance.InvestDepositModalTemplate;
+        showModalTypeInHeader = true;
         base.Start();
     }
 

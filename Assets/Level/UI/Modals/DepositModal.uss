@@ -1,0 +1,80 @@
+/* Root container */
+.deposit-modal-root {
+    flex-grow: 1;
+    padding: 0;
+    width: 320px;
+    height: 190px;
+}
+
+/* Main content wrapper */
+.deposit-modal-content {
+    flex-grow: 1;
+    align-items: center;
+}
+
+/* Value input field */
+.deposit-value-input {
+    font-size: 24px;
+    -unity-text-align: upper-left;
+    width: 180px;
+    height: 50px;
+    border-width: 0;
+    border-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    background-color: transparent;
+    -unity-slice-scale: 0.35px;
+}
+
+/* Button row container */
+.deposit-button-row {
+    flex-direction: row;
+    justify-content: space-between;
+    width: auto;
+    margin-top: 8px;
+}
+
+/* Increment buttons */
+.deposit-increment-button {
+    height: 44px;
+    width: 80px;
+    font-size: 24px;
+    text-shadow: 1px 1px 0 #000000;
+    color: #FFFFFF; 
+    border-width: 0;
+    border-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_default.png");
+    background-color: transparent;
+    -unity-slice-scale: 0.35px;
+  -unity-text-align: upper-center;
+}
+
+.deposit-increment-button:active {
+  background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_pressed.png");
+  -unity-text-align: lower-center;
+}
+
+/* Submit button container */
+.deposit-submit-container {
+    margin-top: 24px;
+    justify-content: flex-start;
+}
+
+/* Submit button */
+.deposit-submit-button {
+    min-width: 120px;
+    height: 50px;
+    font-size: 28px;
+    text-shadow: 1px 1px 0 #000000;
+    color: #FFFFFF; 
+    border-width: 0;
+    border-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/green_default.png");
+    background-color: transparent;
+    -unity-slice-scale: 0.35px;
+    -unity-text-align: upper-center;
+}
+
+.deposit-submit-button:active {
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/green_pressed.png");
+    -unity-text-align: lower-center;
+}
