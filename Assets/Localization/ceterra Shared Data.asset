@@ -1899,6 +1899,10 @@ MonoBehaviour:
     m_Key: MgMemory.PrepScreen.controls
     m_Metadata:
       m_Items: []
+  - m_Id: 74532023659216896
+    m_Key: mainmenu.exit-button
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

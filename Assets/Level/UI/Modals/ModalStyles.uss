@@ -67,7 +67,7 @@
     -unity-text-outline-color: #FFFFFF;
     -unity-text-outline-width: 2px;
     -unity-font-style: bold;
-    text-shadow: none;
+    text-shadow: 0 0 0 transparent;
 }
 
 /* Info modal title */
@@ -76,7 +76,7 @@
     -unity-text-outline-color: #FFFFFF;
     -unity-text-outline-width: 2px;
     -unity-font-style: bold;
-    text-shadow: none;
+    text-shadow: 0 0 0 transparent;
 }
 
 .modal-close-button {
