@@ -1426,8 +1426,8 @@ MonoBehaviour:
   trashSpawnHeight: 0
   respawnInterval: 15
   maxTrashCount: 80
-  gameDuration: 80
-  scoreboardDuration: 10
+  gameDuration: 60
+  scoreboardDuration: 5
 --- !u!1 &961739749
 GameObject:
   m_ObjectHideFlags: 0
