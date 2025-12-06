@@ -45,6 +45,8 @@ public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
 
     [ClientRpc]
     private void RpcShowFactPopup(MemoryFactData factData, float duration) {
+        Audiomanager.Instance?.PlaySuccessSound();
+
         canvas.sortingOrder = 0;
         factTitle.text = factData.title;
         this.factDescription.text = factData.description;

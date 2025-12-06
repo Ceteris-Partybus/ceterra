@@ -57,13 +57,18 @@ public class Card : NetworkBehaviour {
         StartFlipAnimation(iconSprite, true);
     }
 
-    public void ShakeAndFlip() {
+    public void ShakeAndFlip(bool playSound = true) {
         if (isAnimating) {
             return;
         }
+        var sequence = DOTween.Sequence()
+            .Join(cardImage.transform.DOShakePosition(.3f, strength: 50f, vibrato: 50));
 
-        cardImage.transform.DOShakePosition(.3f, strength: 50f, vibrato: 50)
-                .onComplete += () => StartFlipAnimation(hiddenIconSprite, false);
+        if (playSound) {
+            sequence.JoinCallback(() => Audiomanager.Instance?.PlayFailSound());
+        }
+
+        sequence.OnComplete(() => StartFlipAnimation(hiddenIconSprite, false));
     }
 
     private void StartFlipAnimation(Sprite targetSprite, bool willBeSelected) {
