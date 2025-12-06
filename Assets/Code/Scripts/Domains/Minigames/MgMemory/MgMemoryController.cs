@@ -1,10 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.Localization.Settings;
-using System;
 
 public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
     [SerializeField] private UIDocument uiDocument;
