@@ -1074,10 +1074,10 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  title: 0
-  description: 0
-  controls: 0
-  screenshot: {fileID: 0}
+  title: 5652192805698355599
+  description: 5652192806118570099
+  controls: 5652192806117785899
+  screenshot: {fileID: 21300000, guid: a60b064d3662f2e4da5b117346308683, type: 3}
   spawnAreaCollider: {fileID: 301842506}
   trashPrefabs:
   - {fileID: 2420595831316329519, guid: 6b4e61f966060824ba2ac55584654ff9, type: 3}
@@ -1090,7 +1090,7 @@ MonoBehaviour:
   trashSpawnHeight: 0
   respawnInterval: 15
   maxTrashCount: 80
-  gameDuration: 6000
+  gameDuration: 80
   scoreboardDuration: 10
 --- !u!1 &961739749
 GameObject:

@@ -19,6 +19,10 @@ public class MgOceanContext3D : MgContext<MgOceanContext3D, MgOceanPlayer3D> {
     [SerializeField] private float gameDuration = 60f;
     [SerializeField] private float scoreboardDuration = 10f;
 
+    [SyncVar]
+    private bool hasStarted = false;
+    public bool HasStarted => hasStarted;
+
     private List<GameObject> spawnedTrash = new List<GameObject>();
 
     public override void OnStartGame() {
@@ -29,6 +33,7 @@ public class MgOceanContext3D : MgContext<MgOceanContext3D, MgOceanPlayer3D> {
             SpawnInitialTrash();
             StartCoroutine(GameLoop());
             StartCoroutine(TrashRespawnLoop());
+            hasStarted = true;
         }
 
         if (isClient) {

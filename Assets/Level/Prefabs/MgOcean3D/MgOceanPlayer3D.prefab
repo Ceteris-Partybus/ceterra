@@ -1493,7 +1493,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8764403747236410647}
@@ -1612,15 +1612,19 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  moveSpeed: 25
-  turnSpeed: 65
+  moveSpeed: 30
+  turnSpeed: 60
   waterDepth: 0
   boostMultiplier: 2.5
-  boostDuration: 5
-  boostDecayStep: 0.5
+  boostDuration: 4
+  boostDecayStep: 1
   boostKey: 32
   cameraOffset: {x: 0, y: 22, z: -33}
   cameraSmoothSpeed: 5
+  bobAmplitude: 0.4
+  bobSpeed: 1.1
+  tiltAmplitude: 2.8
+  tiltSpeed: 1.2
 --- !u!64 &3796736608096958451
 MeshCollider:
   m_ObjectHideFlags: 0

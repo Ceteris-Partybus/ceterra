@@ -1975,6 +1975,18 @@ MonoBehaviour:
     m_Key: mainmenu.exit-button
     m_Metadata:
       m_Items: []
+  - m_Id: 5652192805698355599
+    m_Key: MgOcean3d.PrepScreen.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5652192806118570099
+    m_Key: MgOcean3d.PrepScreen.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5652192806117785899
+    m_Key: MgOcean3d.PrepScreen.controls
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
