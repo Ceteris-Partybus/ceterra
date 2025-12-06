@@ -9833,6 +9833,7 @@ GameObject:
   - component: {fileID: 4558549600286242843}
   - component: {fileID: 228138223675335676}
   - component: {fileID: 7571951203067458301}
+  - component: {fileID: 8781318719748701522}
   m_Layer: 0
   m_Name: BoardPlayer
   m_TagString: Untagged
@@ -10165,6 +10166,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8781318719748701522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3676788033899490170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9e28490e765d624c94493d19e2e6489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  playerId: -1
+  playerName: 
+  isReady: 0
+  boatPrefab: {fileID: 8764403747236833621, guid: 309bad3ad1aa9334fa577958b80ab024, type: 3}
 --- !u!1 &3794690170027941192
 GameObject:
   m_ObjectHideFlags: 0
