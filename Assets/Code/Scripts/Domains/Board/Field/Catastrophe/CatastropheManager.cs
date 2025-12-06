@@ -14,6 +14,7 @@ public class CatastropheManager : NetworkedSingleton<CatastropheManager> {
     public IEnumerator RegisterCatastrophe(CatastropheType type) {
         var catastrophe = type.CreateEffect();
         ongoingCatastrophes.Add(catastrophe);
+        RpcInvokeSoundEmitter(catastrophe);
         yield return catastrophe.OnStart();
     }
 
@@ -67,6 +68,11 @@ public class CatastropheManager : NetworkedSingleton<CatastropheManager> {
                     .Where(result => result.Distance <= effectRadius)
                     .OrderByDescending(result => result.Distance)
                     .ToList();
+    }
+
+    [ClientRpc]
+    public void RpcInvokeSoundEmitter(CatastropheEffect catastrophe) {
+        catastrophe.GetSoundEmitter()?.Invoke();
     }
 
     [ClientRpc]

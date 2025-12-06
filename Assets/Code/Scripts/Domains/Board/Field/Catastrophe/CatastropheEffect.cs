@@ -41,7 +41,6 @@ public abstract class CatastropheEffect {
     }
 
     public IEnumerator OnStart() {
-        GetSoundEmitter()?.Invoke();
         yield return Start();
         yield return ApplyDamage();
         remainingRounds--;
@@ -74,7 +73,7 @@ public abstract class CatastropheEffect {
         return 0;
     }
 
-    protected virtual Action GetSoundEmitter() {
+    public virtual Action GetSoundEmitter() {
         return null;
     }
 
