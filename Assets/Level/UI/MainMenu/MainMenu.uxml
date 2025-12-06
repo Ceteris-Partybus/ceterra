@@ -3,9 +3,14 @@
     <Style src="project://database/Assets/Level/UI/Other/settings.uss?fileID=7433441132597879392&amp;guid=b49e5940a6019634582cec31c74af891&amp;type=3#settings" />
     <ui:VisualElement class="background-render" />
     <ui:VisualElement name="Panel" class="panel">
+        <ui:VisualElement name="Logo" class="logo" />
         <ui:VisualElement name="ButtonContainer" class="play-menu-container">
             <ui:VisualElement class="main-menu-header">
-                <ui:Label text="CETERRA" class="main-menu-title" />
+                <ui:Label class="main-menu-title">
+                    <Bindings>
+                        <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(74777641807855616)" />
+                    </Bindings>
+                </ui:Label>
             </ui:VisualElement>
             <ui:VisualElement class="menu-button-container">
                 <ui:Button name="PlayButton" class="play-button">

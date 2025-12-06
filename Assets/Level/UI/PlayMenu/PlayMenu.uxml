@@ -1,43 +1,46 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Level/UI/PlayMenu/play-menu.uss?fileID=7433441132597879392&amp;guid=72147caebc60b5244aae6ef8944e189d&amp;type=3#play-menu" />
-    <ui:VisualElement name="PlayMenuContainer" class="play-menu-container">
-        <ui:VisualElement name="HeaderSection" class="header-section">
-            <ui:Label text="PLAY MENU" class="title">
-                <Bindings>
-                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(782933199196160)" />
-                </Bindings>
-            </ui:Label>
-        </ui:VisualElement>
-        <ui:VisualElement name="ConnectionSection" class="connection-section">
-            <ui:Label text="SERVER CONNECTION" class="section-title">
-                <Bindings>
-                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(23214629097472)" />
-                </Bindings>
-            </ui:Label>
-            <ui:VisualElement name="OTPContainer" class="otp-container">
-                <ui:TextField name="Digit1" maxlength="1" class="otp-digit" />
-                <ui:TextField name="Digit2" maxlength="1" class="otp-digit" />
-                <ui:TextField name="Digit3" maxlength="1" class="otp-digit" />
-                <ui:TextField name="Digit4" maxlength="1" class="otp-digit" />
+    <ui:VisualElement name="Panel" class="panel">
+        <ui:VisualElement name="Logo" class="logo" />
+        <ui:VisualElement name="PlayMenuContainer" class="play-menu-container">
+            <ui:VisualElement name="HeaderSection" class="header-section">
+                <ui:Label text="PLAY MENU" class="title">
+                    <Bindings>
+                        <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(782933199196160)" />
+                    </Bindings>
+                </ui:Label>
             </ui:VisualElement>
-            <ui:Button text="JOIN LOBBY" name="JoinLobbyButton" class="join-lobby">
-                <Bindings>
-                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(24296382042112)" />
-                </Bindings>
-            </ui:Button>
-            <ui:VisualElement class="server-selection-container">
-                <ui:DropdownField name="ServerDropdown" class="server-dropdown" />
-                <ui:Button name="RefreshButton" class="refresh-button">
-                    <ui:VisualElement class="refresh-icon" />
+            <ui:VisualElement name="ConnectionSection" class="connection-section">
+                <ui:Label text="SERVER CONNECTION" class="section-title">
+                    <Bindings>
+                        <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(23214629097472)" />
+                    </Bindings>
+                </ui:Label>
+                <ui:VisualElement name="OTPContainer" class="otp-container">
+                    <ui:TextField name="Digit1" maxlength="1" class="otp-digit" />
+                    <ui:TextField name="Digit2" maxlength="1" class="otp-digit" />
+                    <ui:TextField name="Digit3" maxlength="1" class="otp-digit" />
+                    <ui:TextField name="Digit4" maxlength="1" class="otp-digit" />
+                </ui:VisualElement>
+                <ui:Button text="JOIN LOBBY" name="JoinLobbyButton" class="join-lobby">
+                    <Bindings>
+                        <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(24296382042112)" />
+                    </Bindings>
+                </ui:Button>
+                <ui:VisualElement class="server-selection-container">
+                    <ui:DropdownField name="ServerDropdown" class="server-dropdown" />
+                    <ui:Button name="RefreshButton" class="refresh-button">
+                        <ui:VisualElement class="refresh-icon" />
+                    </ui:Button>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="FooterSection" class="footer-section">
+                <ui:Button text="BACK" name="BackButton" class="back-button">
+                    <Bindings>
+                        <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(24827854884864)" />
+                    </Bindings>
                 </ui:Button>
             </ui:VisualElement>
-        </ui:VisualElement>
-        <ui:VisualElement name="FooterSection" class="footer-section">
-            <ui:Button text="BACK" name="BackButton" class="back-button">
-                <Bindings>
-                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(24827854884864)" />
-                </Bindings>
-            </ui:Button>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

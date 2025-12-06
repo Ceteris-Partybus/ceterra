@@ -22,8 +22,17 @@
 .panel {
     flex-grow: 1;
     background-color: transparent;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.logo {
+    width: 900px;
+    height: 180px;
+    background-image: url("project://database/Assets/Level/UI/MainMenu/Logo.png");
+    -unity-background-scale-mode: scale-to-fit;
+    margin-bottom: 20px;
 }
 
 .main-menu-header {
@@ -38,7 +47,7 @@
 }
 
 .main-menu-title {
-    font-size: 140px;
+    font-size: 100px;
     color: #FFFFFF;
     text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
     -unity-text-align: middle-center;
@@ -50,14 +59,16 @@
 .play-menu-container {
     background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
     -unity-slice-scale: 0.35px;
-    position: absolute;
     flex-direction: column;
     align-items: stretch;
     width: 750px;
 }
 
 .menu-button-container {
+    height: 490px;
     padding: 60px;
+    flex-direction: column;
+    justify-content: center;
 }
 
 /* Play Button */
@@ -92,7 +103,7 @@
     -unity-font-style: normal;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.8);
     -unity-text-align: upper-center;
-    margin-bottom: 15px;
+    margin-bottom: 140px;
 }
 
 .settings-button:active {

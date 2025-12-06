@@ -1987,6 +1987,10 @@ MonoBehaviour:
     m_Key: MgOcean3d.PrepScreen.controls
     m_Metadata:
       m_Items: []
+  - m_Id: 74777641807855616
+    m_Key: mainmenu.welcome
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

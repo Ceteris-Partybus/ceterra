@@ -1986,6 +1986,10 @@ MonoBehaviour:
     m_Localized: Exit
     m_Metadata:
       m_Items: []
+  - m_Id: 74777641807855616
+    m_Localized: Save the Planet
+    m_Metadata:
+      m_Items: []
   - m_Id: 5652192806118570099
     m_Localized: "Pilot a cleanup boat and help reduce the Great Pacific Garbage
       Patch. Plastics persist for decades at sea and harm marine life and potentially
