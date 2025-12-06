@@ -12,7 +12,7 @@
                 <ui:Instance template="MgPrepPlayer" />
                 <ui:Instance template="MgPrepPlayer" />
             </ui:VisualElement>
-            <ui:VisualElement name="Screenshot" class="thumbnail" />
+            <ui:VisualElement name="Screenshot" class="thumbnail" style="-unity-background-scale-mode: stretch-to-fill;" />
         </ui:VisualElement>
         <ui:VisualElement class="bottom-section">
             <ui:VisualElement class="description-section">

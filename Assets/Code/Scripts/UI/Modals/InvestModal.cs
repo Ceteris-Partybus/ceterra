@@ -111,6 +111,7 @@ public class InvestModal : Modal {
         investCard.Q<Label>("invest-card-required-money").text = (investment.requiredMoney - investment.currentMoney).ToString();
         investCard.Q<Label>("invest-card-required-resources").text = investment.requiredResources.ToString();
         investCard.Q<Label>("invest-card-cooldown").text = investment.cooldown.ToString();
+        investCard.Q<VisualElement>(className: "investment-card-icon").style.backgroundImage = investment.Icon;
 
         if (investment.inConstruction) {
             investCard.AddToClassList("in-construction");

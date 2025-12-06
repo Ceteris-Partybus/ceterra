@@ -1771,7 +1771,7 @@ MonoBehaviour:
   title: 56521928056983554
   description: 56521928061177856
   controls: 56521928061177857
-  screenshot: {fileID: 21300000, guid: 2c8f5b1b4d964604b96ae1fc436a477d, type: 3}
+  screenshot: {fileID: 21300000, guid: 85fba7c240377e848af41e7c44a48877, type: 3}
   spawnPointsHolder: {fileID: 509397702}
   trashPrefabs:
   - {fileID: 4723995398127203178, guid: c0cac805e09aa0c4e9d75f4ead79c116, type: 3}

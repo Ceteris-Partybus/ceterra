@@ -130,7 +130,6 @@
     flex-basis: 40%;
     justify-content: center;
     align-items: center;
-    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
     -unity-slice-scale: 0.35px;
     display: flex;
     border-width: 0px;
