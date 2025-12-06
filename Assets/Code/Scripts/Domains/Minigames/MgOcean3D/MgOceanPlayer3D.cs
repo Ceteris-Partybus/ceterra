@@ -1,6 +1,8 @@
 using Mirror;
 using System;
 using UnityEngine;
+using System.Collections;
+using System.Linq;
 
 public class MgOceanPlayer3D : SceneConditionalPlayer, IMinigameRewardHandler {
     [Header("Boat Prefab")]
@@ -25,28 +27,41 @@ public class MgOceanPlayer3D : SceneConditionalPlayer, IMinigameRewardHandler {
     }
 
     protected override void OnClientActiveStateChanged(bool isActive) {
+        StartCoroutine(WaitForAllPlayers());
+
+        IEnumerator WaitForAllPlayers() {
+            yield return new WaitUntil(() => netIdentity != null && netIdentity.observers.Count == GameManager.Singleton.PlayerIds.Count());
+        }
+
         base.OnClientActiveStateChanged(isActive);
 
+        if (!isLocalPlayer && isActive && MgOcean3DRemotePlayerHUD.Instance != null) {
+            if (!MgOcean3DRemotePlayerHUD.Instance.IsPlayerAdded(PlayerId)) {
+                MgOcean3DRemotePlayerHUD.Instance.AddPlayer(this);
+            }
+            MgOcean3DRemotePlayerHUD.Instance.UpdatePlayerScore(PlayerId, score);
+        }
+
         var boardPlayers = FindObjectsByType<BoardPlayer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-        foreach (var bp in boardPlayers) {
-            if (isActive) bp.Hide();
-            else bp.Show();
+        if (isActive) {
+            foreach (var bp in boardPlayers) {
+                bp.Hide();
+            }
+        }
+        else {
+            foreach (var bp in boardPlayers) {
+                bp.Show();
+            }
         }
     }
 
     private void OnScoreChanged(int oldScore, int newScore) {
-        Debug.Log($"[MgOceanPlayer3D] Score changed: {oldScore} -> {newScore}");
-        
+        Debug.Log($"Score changed from {oldScore} to {newScore}");
         if (isLocalPlayer) {
-            // Update local player HUD
-            if (MgOcean3DLocalPlayerHUD.Instance != null) {
-                MgOcean3DLocalPlayerHUD.Instance.UpdateScore(newScore);
-            }
-        } else {
-            // Update remote player HUD
-            if (MgOcean3DRemotePlayerHUD.Instance != null) {
-                MgOcean3DRemotePlayerHUD.Instance.UpdatePlayerScore(PlayerId, newScore);
-            }
+            MgOcean3DLocalPlayerHUD.Instance.UpdateScore(newScore);
+        }
+        else {
+            MgOcean3DRemotePlayerHUD.Instance.UpdatePlayerScore(PlayerId, newScore);
         }
     }
 
@@ -66,14 +81,14 @@ public class MgOceanPlayer3D : SceneConditionalPlayer, IMinigameRewardHandler {
         spawnedBoat = boat;
     }
 
-    [Command]
-    public void CmdAddScore(int amount) {
-        score += amount;
-    }
-
     [Server]
     public void ServerAddScore(int points) {
         score += points;
+    }
+
+    [Server]
+    public void ServerSubtractScore(int amount) {
+        score = Mathf.Max(score - amount, 0);
     }
 
     [Server]

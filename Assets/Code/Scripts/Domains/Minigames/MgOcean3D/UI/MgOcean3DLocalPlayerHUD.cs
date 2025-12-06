@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -12,17 +13,17 @@ public class MgOcean3DLocalPlayerHUD : NetworkedSingleton<MgOcean3DLocalPlayerHU
     private Label countdownLabel;
 
     protected override void Start() {
-        base.Start();
-        
-        if (uiDocument != null) {
-            var root = uiDocument.rootVisualElement;
-            scoreLabel = root.Q<Label>("local-player-score");
+        StartCoroutine(WaitForAllPlayers());
+        IEnumerator WaitForAllPlayers() {
+            yield return new WaitUntil(() => netIdentity != null && netIdentity.observers.Count == GameManager.Singleton.PlayerIds.Count());
         }
 
-        if (countdownDocument != null) {
-            var countdownRoot = countdownDocument.rootVisualElement;
-            countdownLabel = countdownRoot.Q<Label>("countdown-label");
-        }
+        base.Start();
+        var root = uiDocument.rootVisualElement;
+        scoreLabel = root.Q<Label>("local-player-score");
+
+        var countdownRoot = countdownDocument.rootVisualElement;
+        countdownLabel = countdownRoot.Q<Label>("countdown-label");
     }
 
     public void UpdateScore(int score) {
@@ -32,7 +33,6 @@ public class MgOcean3DLocalPlayerHUD : NetworkedSingleton<MgOcean3DLocalPlayerHU
 
         scoreLabel.text = $"{score}";
     }
-
     public void UpdateCountdown(float timeLeft) {
         if (countdownLabel == null) {
             return;
