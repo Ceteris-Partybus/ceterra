@@ -174,59 +174,6 @@
     background-image: resource('Icons/loader-circle');
 }
 
-
-/* Unity default Scroller overwrites */
-
-/* Scroller track background */
-.unity-scroller--vertical {
-    width: 14px;
-}
-
-.unity-scroller--horizontal {
-    height: 14px;
-}
-
-/* Scroller slider track */
-.unity-scroller .unity-base-slider__tracker {
-    background-color: #d4c4a8;
-    border-color: #b8a080;
-    border-width: 1px;
-    border-radius: 4px;
-}
-
-/* Scroller dragger (thumb) */
-.unity-scroller .unity-base-slider__dragger {
-    background-color: #a08060;
-    border-color: #806040;
-    border-width: 1px;
-    border-radius: 4px;
-}
-
-.unity-scroller .unity-base-slider__dragger:hover {
-    background-color: #b89070;
-}
-
-.unity-scroller .unity-base-slider__dragger:active {
-    background-color: #907050;
-}
-
-/* Repeat buttons (arrows) */
-.unity-scroller .unity-repeat-button {
-    background-color: #c4b498;
-    border-color: #a08060;
-    border-width: 1px;
-    border-radius: 3px;
-    -unity-background-image-tint-color: #5a4030;
-}
-
-.unity-scroller .unity-repeat-button:hover {
-    background-color: #d4c4a8;
-}
-
-.unity-scroller .unity-repeat-button:active {
-    background-color: #735239;
-}
-
 /* Unity Tab overwrites */
 
 /* Tab view container */

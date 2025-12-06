@@ -1,23 +1,3 @@
-:root {
-    --overlay-bg: rgba(0, 0, 0, 0.5);
-    --menu-bg: rgb(87, 82, 82);
-    --settings-bg: rgb(119, 115, 115);
-    --close-btn-bg: rgb(217, 217, 217);
-    --font-color: rgb(255, 255, 255);
-    --slider-bg-img: resource('UI/Other/Slider');
-    --dragger-bg-img: resource('UI/Other/Dragger');
-    --toggle-img: resource('UI/Other/Toggle');
-    --dropdown-bg: rgb(60, 60, 60);
-    --dropdown-border: rgb(59, 163, 94);
-    --popup-arrow-tint: rgb(87, 82, 82);
-    --dropdown-checkmark: rgb(255, 255, 255);
-    --field-label: rgb(204, 204, 204);
-    --field-input-bg: rgb(255, 255, 255);
-    --settings-icon-img: resource('UI/Other/Settings');
-    --arrow-left-img: resource('UI/Other/Arrow_left');
-    --transparent-bg: rgba(255, 255, 255, 0);
-}
-
 * {
     -unity-font-definition: resource('UI/Other/Jersey15-Regular');
 }
@@ -36,113 +16,199 @@
 }
 
 .overlay {
-    background-color: var(--overlay-bg);
+    background-color: rgba(0, 0, 0, 0.5);
     height: 100%;
 }
 
 .menu {
-    background-color: var(--menu-bg);
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
+    -unity-slice-scale: 0.35px;
     width: 870px;
     height: 100%;
+    padding: 0;
 }
 
+/* Title Bar */
 .title-bar {
     flex-direction: row;
-    height: 15%;
-    -unity-font-style: normal;
+    height: 120px;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_title_with_stroke.png");
+    -unity-slice-scale: 0.35px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
 .menu-icon {
-    background-image: var(--settings-icon-img);
-    width: 156px;
+    background-image: resource('UI/MainMenu/Settings');
+    width: 70px;
+    height: 70px;
+    -unity-background-scale-mode: scale-to-fit;
+    margin-right: 15px;
 }
 
 .menu-title {
-    color: var(--font-color);
-    font-size: 130px;
-    -unity-text-align: middle-left;
+    color: #FFFFFF;
+    font-size: 90px;
+    -unity-text-align: middle-center;
     -unity-font-style: normal;
+    text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.8);
 }
 
+/* Settings Container */
 .settings-container {
     position: relative;
-    background-color: var(--settings-bg);
-    padding: 20px;
-    border-radius: 20px;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    -unity-slice-scale: 0.35px;
+    padding: 25px;
     width: 90%;
-    height: 83%;
-    margin-left: 3%;
+    flex-grow: 1;
+    margin-top: 2%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 30px;
 }
 
+/* Close Button */
 .close-button {
     position: absolute;
     top: 20px;
-    right: -55px;
-    background-color: var(--close-btn-bg);
-    background-image: var(--arrow-left-img);
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border-top-width: 2px;
-    border-right-width: 2px;
-    border-bottom-width: 2px;
-    border-left-width: 2px;
+    right: 20px;
+    width: 80px;
+    height: 80px;
+    background-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/red_default.png");
+    -unity-slice-scale: 0.35px;
+    border-width: 0;
+    justify-content: center;
+    align-items: center;
 }
 
 .close-button:active {
-    scale: 1;
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/red_pressed.png");
+    padding-top: 18px;
+}
+
+.close-button-icon {
+    width: 40px;
+    height: 40px;
+    background-image: resource('Icons/x');
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: #FFFFFF;
+}
+
+.close-button:active .close-button-icon {
+    margin-top: 3px;
+}
+
+/* Settings Items */
+.settingsitem {
+    margin-bottom: 25px;
 }
 
 .settings-label {
-    color: var(--font-color);
-    font-size: 60px;
-    margin-top: 20px;
+    color: #745136;
+    font-size: 50px;
+    margin-bottom: 10px;
     -unity-font-style: normal;
 }
 
+/* Slider Container */
+.settings-slider-container {
+    flex-grow: 1;
+    flex-direction: row;
+    align-items: center;
+}
+
+/* Slider */
 .settings-slider {
-    background-image: var(--slider-bg-img);
+    height: 20px;
+    flex-grow: 1;
+    margin-right: 15px;
 }
 
 .settings-slider #unity-tracker {
-    background-color: rgba(0, 0, 0, 0);
-    border-width: 0;
+    background-color: #c9a87c;
+    border-color: #745136;
+    border-width: 2px;
+    border-radius: 10px;
+    height: 20px;
+    margin-top: 0;
+}
+
+.settings-slider #unity-drag-container {
+    height: 20px;
+    top: -8px;
 }
 
 .settings-slider #unity-dragger {
-    background-image: var(--dragger-bg-img);
-    background-color: rgba(0, 0, 0, 0);
-    width: 40px;
-    height: 100%;
-    border-width: 0;
+    background-color: #e79e16;
+    border-color: #745136;
+    border-width: 3px;
+    width: 30px;
+    height: 30px;
     margin: 0;
-    top: 0;
+    top: 5px;
+    border-radius: 15px;
 }
 
+.settings-slider #unity-dragger:hover {
+    background-color: #f0b030;
+}
+
+.settings-slider #unity-dragger:active {
+    background-color: #cc8a10;
+}
+
+/* Slider Value Label */
 .settings-value {
-    color: var(--font-color);
-    font-size: 50px;
-    margin-left: 15px;
-    -unity-text-align: middle-left;
+    color: #745136;
+    font-size: 40px;
+    -unity-text-align: middle-center;
+    height: 40px;
+    width: 60px;
+}
+
+/* Toggle */
+.settings-toggle {
+    width: 45px;
 }
 
 .settings-toggle #unity-checkmark {
-    background-image: var(--toggle-img);
-    background-color: var(--transparent-bg);
-    width: 55px;
-    height: 55px;
+    -unity-background-image-tint-color: #4a8c2a;
+    background-color: transparent;
+    width: 45px;
+    height: 45px;
     border-width: 0;
-    -unity-background-image-tint-color: var(--font-color);
 }
 
+/* Dropdown */
 .settings-dropdown {
-    width: 270px;
+    width: 300px;
     height: 55px;
-    font-size: 35px;
+    font-size: 32px;
+}
+
+.settings-dropdown > .unity-base-field__label {
+    display: none;
+}
+
+.settings-dropdown .unity-base-popup-field__text {
+    font-size: 32px;
+    color: #745136;
 }
 
 .settings-dropdown .unity-base-field__input {
-    background-color: var(--field-input-bg);
-    border-color: var(--field-input-bg);
-    border-radius: 10px;
+    height: 55px;
+    background-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
+    -unity-slice-scale: 0.35px;
+    border-width: 0;
+    border-radius: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.settings-dropdown .unity-base-popup-field__arrow {
+    -unity-background-image-tint-color: #745136;
 }
