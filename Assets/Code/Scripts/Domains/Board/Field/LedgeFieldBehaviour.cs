@@ -12,7 +12,6 @@ public class LedgeFieldBehaviour : FieldBehaviour {
     public override IEnumerator OnPlayerCross(BoardPlayer player) {
         Debug.Log($"Player crossed a ledge field.");
         yield return MakePlayerJumpToNextField(player);
-        yield return MakePlayerJumpToNextField(player);
     }
 
     [Server]
@@ -44,7 +43,9 @@ public class LedgeFieldBehaviour : FieldBehaviour {
         float h = Mathf.Max(heightAboveStart, 0.1f);
 
         // If jumping up, ensure we clear the target height
-        if (dy > 0 && h < dy) h = dy + 0.2f;
+        if (dy > 0 && h < dy) {
+            h = dy + 0.2f;
+        }
 
         float sqrt2h = Mathf.Sqrt(2 * h);
         float sqrtTerm = Mathf.Sqrt(2 * h - 2 * dy);
