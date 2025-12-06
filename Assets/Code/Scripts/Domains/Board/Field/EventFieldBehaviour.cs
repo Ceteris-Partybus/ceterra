@@ -7,5 +7,6 @@ public class EventFieldBehaviour : FieldBehaviour {
     protected override IEnumerator OnPlayerLand(BoardPlayer player) {
         BoardContext.Instance.TriggerRandomEvent();
         yield return new WaitForSeconds(Modal.DEFAULT_DISPLAY_DURATION);
+        ModalManager.Instance.Hide(true);
     }
 }

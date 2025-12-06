@@ -11,7 +11,7 @@ public class Earthquake : CatastropheEffect {
     public Earthquake() : base(ROUNDS) { }
 
     public override CatastropheType GetCatastropheType() => CatastropheType.EARTHQUAKE;
-    protected override Action GetSoundEmitter() => () => Audiomanager.Instance?.PlayEarthquakeSound();
+    public override Action GetSoundEmitter() => () => Audiomanager.Instance?.PlayEarthquakeSound();
     public override long GetEndDescriptionId() => 67262900487143425;
     public override long GetDisplayNameId() => 67264907419664384;
     public override bool IsGlobal() => true;
