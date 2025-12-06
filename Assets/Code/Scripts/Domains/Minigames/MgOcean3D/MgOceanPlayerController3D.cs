@@ -35,7 +35,7 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
     private Camera playerCamera;
     private AudioListener audioListener;
     private Camera disabledMainCamera;
-    
+
     private float inputForward;
     private float inputTurn;
 
@@ -47,20 +47,25 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
 
     void Awake() {
         rb = GetComponent<Rigidbody>();
-        
+
         // Only freeze rotation to prevent tipping - allow position for physics collisions
         rb.constraints = RigidbodyConstraints.FreezeRotationX |
                          RigidbodyConstraints.FreezeRotationZ;
         rb.useGravity = false;
         rb.interpolation = RigidbodyInterpolation.Interpolate;
         rb.collisionDetectionMode = CollisionDetectionMode.Continuous; // Better collision detection for fast objects
-        
+
         floatTimeOffset = Random.Range(0f, Mathf.PI * 2f);
     }
 
     public override void OnStartAuthority() {
         base.OnStartAuthority();
         SetupCamera();
+        FetchBoundsFromContext();
+    }
+
+    public override void OnStartServer() {
+        base.OnStartServer();
         FetchBoundsFromContext();
     }
 
@@ -76,7 +81,8 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
             minZ = bounds.min.z;
             maxZ = bounds.max.z;
             boundsInitialized = true;
-        } else {
+        }
+        else {
             Debug.LogError("[MgOceanPlayerController3D] MgOceanContext3D.Instance is null!");
         }
     }
@@ -84,10 +90,10 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
     private void SetupCamera() {
         var cameraObj = new GameObject("TempPlayerCamera_LocalPlayer");
         playerCamera = cameraObj.AddComponent<Camera>();
-        
+
         //required for HDRP to render
         cameraObj.AddComponent<HDAdditionalCameraData>();
-        
+
         audioListener = cameraObj.AddComponent<AudioListener>();
         playerCamera.tag = "MainCamera";
         playerCamera.nearClipPlane = 0.1f;
@@ -97,7 +103,7 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
         Vector3 targetPosition = transform.position + cameraOffset;
         cameraObj.transform.position = targetPosition;
         cameraObj.transform.LookAt(transform.position);
-        
+
         Debug.Log($"[MgOceanPlayerController3D] Camera created at {targetPosition}, looking at {transform.position}, offset: {cameraOffset}");
     }
 
@@ -110,59 +116,54 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
         Quaternion yawRotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
         Vector3 desiredOffset = yawRotation * cameraOffset;
         Vector3 targetPosition = transform.position + desiredOffset;
-        
+
         playerCamera.transform.position = Vector3.Lerp(
-            playerCamera.transform.position, 
-            targetPosition, 
+            playerCamera.transform.position,
+            targetPosition,
             cameraSmoothSpeed * Time.deltaTime
         );
         playerCamera.transform.LookAt(transform.position);
     }
 
     void Update() {
-        if (!isOwned) {
-            return;
+        if (isOwned) {
+            float v = Input.GetAxisRaw("Vertical");
+            float h = Input.GetAxisRaw("Horizontal");
+
+            if (v != inputForward || h != inputTurn) {
+                CmdSetInput(v, h);
+            }
+
+            // Boost activation
+            if (Input.GetKeyDown(boostKey)) {
+                CmdActivateBoost();
+            }
         }
 
-        inputForward = Input.GetAxisRaw("Vertical");
-        inputTurn = Input.GetAxisRaw("Horizontal");
-
-        // Boost activation
-        if (Input.GetKeyDown(boostKey) && !isBoosting) {
-            ActivateBoost();
+        if (isServer) {
+            if (isBoosting) {
+                UpdateBoostDecay();
+            }
         }
-
-        if (isBoosting) {
-            UpdateBoostDecay();
-        }
-
-        ApplyFloatingAnimation();
     }
 
-    private void ApplyFloatingAnimation() {
-        float time = Time.time + floatTimeOffset;
-        
-        // Gentle bobbing on Y axis
-        Vector3 pos = transform.position;
-        float bobOffset = Mathf.Sin(time * bobSpeed) * bobAmplitude;
-        pos.y = waterDepth + bobOffset;
-        transform.position = pos;
+    [Command]
+    private void CmdSetInput(float v, float h) {
+        inputForward = v;
+        inputTurn = h;
+    }
 
-        // Gentle tilt/wobble rotation
-        float tiltX = Mathf.Sin(time * tiltSpeed) * tiltAmplitude;
-        float tiltZ = Mathf.Sin(time * tiltSpeed * 0.5f) * tiltAmplitude;
-        
-        // Combine base Y rotation with tilt
-        Vector3 currentEuler = transform.eulerAngles;
-        transform.rotation = Quaternion.Euler(tiltX, currentEuler.y, tiltZ);
+    [Command]
+    private void CmdActivateBoost() {
+        if (!isBoosting) {
+            ActivateBoost();
+        }
     }
 
     void FixedUpdate() {
-        if (!isOwned) {
-            return;
+        if (isServer) {
+            ApplyMovement();
         }
-
-        ApplyMovement();
     }
 
     private void ActivateBoost() {
@@ -180,7 +181,8 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
             if (currentBoostMultiplier <= 1f) {
                 currentBoostMultiplier = 1f;
                 isBoosting = false;
-            } else {
+            }
+            else {
                 boostTimer = boostDuration;
             }
         }
@@ -191,27 +193,44 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
             return;
         }
 
-        // Keep boat at water level
         Vector3 pos = rb.position;
-        pos.y = waterDepth;
-        rb.position = pos;
+        Quaternion rot = rb.rotation;
 
+        // 1. Rotation from Input
         if (Mathf.Abs(inputTurn) > 0.01f) {
             float rotationAmount = inputTurn * turnSpeed * Time.fixedDeltaTime;
-            rb.MoveRotation(rb.rotation * Quaternion.Euler(0f, rotationAmount, 0f));
+            rot = rot * Quaternion.Euler(0f, rotationAmount, 0f);
         }
 
+        // 2. Position from Input
         if (Mathf.Abs(inputForward) > 0.01f) {
             float currentSpeed = moveSpeed * currentBoostMultiplier;
-            Vector3 movement = transform.forward * inputForward * currentSpeed * Time.fixedDeltaTime;
-            Vector3 newPosition = rb.position + movement;
-
-            newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
-            newPosition.z = Mathf.Clamp(newPosition.z, minZ, maxZ);
-            newPosition.y = waterDepth;
-
-            rb.MovePosition(newPosition);
+            // Use the new rotation to determine forward direction
+            Vector3 forwardDir = rot * Vector3.forward;
+            Vector3 movement = forwardDir * inputForward * currentSpeed * Time.fixedDeltaTime;
+            pos += movement;
         }
+
+        // 3. Clamp Position
+        pos.x = Mathf.Clamp(pos.x, minX, maxX);
+        pos.z = Mathf.Clamp(pos.z, minZ, maxZ);
+
+        // 4. Apply Floating (Bobbing) to Position
+        float time = Time.time + floatTimeOffset;
+        float bobOffset = Mathf.Sin(time * bobSpeed) * bobAmplitude;
+        pos.y = waterDepth + bobOffset;
+
+        // 5. Apply Floating (Tilt) to Rotation
+        float tiltX = Mathf.Sin(time * tiltSpeed) * tiltAmplitude;
+        float tiltZ = Mathf.Sin(time * tiltSpeed * 0.5f) * tiltAmplitude;
+
+        // Combine tilt with the Y rotation
+        Vector3 euler = rot.eulerAngles;
+        rot = Quaternion.Euler(tiltX, euler.y, tiltZ);
+
+        // Apply final
+        rb.MovePosition(pos);
+        rb.MoveRotation(rot);
     }
 
     private void OnCollisionEnter(Collision collision) {

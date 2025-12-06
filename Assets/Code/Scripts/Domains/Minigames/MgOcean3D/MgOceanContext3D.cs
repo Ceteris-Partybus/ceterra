@@ -23,14 +23,20 @@ public class MgOceanContext3D : MgContext<MgOceanContext3D, MgOceanPlayer3D> {
     private bool hasStarted = false;
     public bool HasStarted => hasStarted;
 
+    [SyncVar]
+    private double gameEndTime;
+
+    public double TimeRemaining => hasStarted ? Mathf.Max(0f, (float)(gameEndTime - NetworkTime.time)) : gameDuration;
+
     private List<GameObject> spawnedTrash = new List<GameObject>();
 
     public override void OnStartGame() {
         Debug.Log($"[MgOceanContext3D] OnStartGame called! isServer: {isServer}, isClient: {isClient}");
-        
+
         if (isServer) {
             Debug.Log($"[MgOceanContext3D] Server: Spawning trash. Prefabs count: {trashPrefabs?.Length ?? 0}");
             SpawnInitialTrash();
+            gameEndTime = NetworkTime.time + gameDuration;
             StartCoroutine(GameLoop());
             StartCoroutine(TrashRespawnLoop());
             hasStarted = true;
@@ -85,7 +91,7 @@ public class MgOceanContext3D : MgContext<MgOceanContext3D, MgOceanPlayer3D> {
 
         GameObject prefab = trashPrefabs[Random.Range(0, trashPrefabs.Length)];
         Debug.Log($"[MgOceanContext3D] Spawning trash prefab: {prefab.name} at {spawnPosition}");
-        
+
         GameObject trash = Instantiate(prefab, spawnPosition, spawnRotation);
 
         NetworkServer.Spawn(trash);
