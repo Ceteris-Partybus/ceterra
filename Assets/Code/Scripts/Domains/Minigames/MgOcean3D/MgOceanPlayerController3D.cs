@@ -19,6 +19,12 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
     [SerializeField] private Vector3 cameraOffset = new Vector3(0f, 30f, -55f);
     [SerializeField] private float cameraSmoothSpeed = 5f;
 
+    [Header("Floating Animation")]
+    [SerializeField] private float bobAmplitude = 0.4f;
+    [SerializeField] private float bobSpeed = 1.8f;
+    [SerializeField] private float tiltAmplitude = 3f;
+    [SerializeField] private float tiltSpeed = 1.5f;
+
     private float minX;
     private float maxX;
     private float minZ;
@@ -37,6 +43,8 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
     private float boostTimer = 0f;
     private bool isBoosting = false;
 
+    private float floatTimeOffset;
+
     void Awake() {
         rb = GetComponent<Rigidbody>();
         
@@ -46,6 +54,8 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
         rb.useGravity = false;
         rb.interpolation = RigidbodyInterpolation.Interpolate;
         rb.collisionDetectionMode = CollisionDetectionMode.Continuous; // Better collision detection for fast objects
+        
+        floatTimeOffset = Random.Range(0f, Mathf.PI * 2f);
     }
 
     public override void OnStartAuthority() {
@@ -96,8 +106,9 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
             return;
         }
 
-        // Calculate camera position: behind the boat based on its rotation
-        Vector3 desiredOffset = transform.rotation * cameraOffset;
+        // Calculate camera position using only Y rotation (ignore tilt from floating animation)
+        Quaternion yawRotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
+        Vector3 desiredOffset = yawRotation * cameraOffset;
         Vector3 targetPosition = transform.position + desiredOffset;
         
         playerCamera.transform.position = Vector3.Lerp(
@@ -124,6 +135,26 @@ public class MgOceanPlayerController3D : NetworkBehaviour {
         if (isBoosting) {
             UpdateBoostDecay();
         }
+
+        ApplyFloatingAnimation();
+    }
+
+    private void ApplyFloatingAnimation() {
+        float time = Time.time + floatTimeOffset;
+        
+        // Gentle bobbing on Y axis
+        Vector3 pos = transform.position;
+        float bobOffset = Mathf.Sin(time * bobSpeed) * bobAmplitude;
+        pos.y = waterDepth + bobOffset;
+        transform.position = pos;
+
+        // Gentle tilt/wobble rotation
+        float tiltX = Mathf.Sin(time * tiltSpeed) * tiltAmplitude;
+        float tiltZ = Mathf.Sin(time * tiltSpeed * 0.5f) * tiltAmplitude;
+        
+        // Combine base Y rotation with tilt
+        Vector3 currentEuler = transform.eulerAngles;
+        transform.rotation = Quaternion.Euler(tiltX, currentEuler.y, tiltZ);
     }
 
     void FixedUpdate() {
