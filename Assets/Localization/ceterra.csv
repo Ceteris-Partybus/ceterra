@@ -647,4 +647,36 @@ Key,Id,English(en),German(de)
 
 7. Gewinnen – Wer am Ende die meisten Paare hat, gewinnt das Spiel!"
 "mainmenu.exit-button",74532023659216896,"Exit","Beenden"
+"MgOcean3d.PrepScreen.title",5652192805698355599,"Ocean Rescue: Trash Collection Mission","Ozean-Rettung: Müll-Sammelfahrt"
+"MgOcean3d.PrepScreen.description",5652192806118570099,"Pilot a cleanup boat and help reduce the Great Pacific Garbage Patch. Plastics persist for decades at sea and harm marine life and potentially human health. An estimated 1.15–2.41 million tonnes of plastic enter the ocean each year from rivers alone. Collect drifting waste, avoid all marine animals, and clean the waters before the currents spread the debris further.","Steuere ein Reinigungsboot und hilf dabei, den Great Pacific Garbage Patch zu verkleinern. Kunststoffe bleiben jahrzehntelang im Meer, schaden Meereslebewesen und können auch die menschliche Gesundheit beeinflussen. Schätzungen zufolge gelangen jedes Jahr 1,15–2,41 Millionen Tonnen Plastik allein über Flüsse ins Meer."
+"MgOcean3d.PrepScreen.controls",5652192806117785899,"1. Steer the boat – Use WASD keys to move your boat:
+
+    -W = Forward
+
+    -A = Left
+
+    -S = Backward
+
+    -D = Right
+
+    -Space = Speed Boost
+
+1. Collect only trash items
+
+2. Avoid marine animals","1. Boot steuern – Nutze WASD-Tasten um dein Boot zu bewegen:
+
+    -W = Vorwärts
+
+    -A = Links
+
+    -S = Rückwärts
+
+    -D = Rechts 
+
+    -Space = Geschwindigkeits-Boost
+
+1. Nur Müll einsammeln
+
+2. Meide Meereslebewesen"
+
 "mainmenu.welcome",74777641807855616,"Save the Planet","Rette den Planeten"

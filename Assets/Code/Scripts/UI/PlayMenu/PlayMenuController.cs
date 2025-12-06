@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 using Mirror;
-using UnityEngine.Localization;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

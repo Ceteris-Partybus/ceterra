@@ -65,6 +65,12 @@ public class CameraHandler : NetworkedSingleton<CameraHandler> {
     [ClientRpc]
     public void RpcSwitchZoomTarget(BoardPlayer player) {
         if (!IsZoomedIn) { return; }
+
+        if (zoomCamera.Follow == player.transform) {
+            CmdHasReachedTarget(true);
+            return;
+        }
+
         zoomCamera.Follow = player.transform;
         StartCoroutine(WaitForCameraMovementAfterTargetSwitch());
     }
@@ -139,7 +145,18 @@ public class CameraHandler : NetworkedSingleton<CameraHandler> {
 
     private IEnumerator WaitForCameraMovementAfterTargetSwitch() {
         var startPosition = Camera.main.transform.position;
-        yield return new WaitUntil(() => startPosition != Camera.main.transform.position);
+
+        float timeout = 1.0f;
+        float timer = 0f;
+        while (startPosition == Camera.main.transform.position && timer < timeout) {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        if (startPosition == Camera.main.transform.position) {
+            CmdHasReachedTarget(true);
+            yield break;
+        }
 
         var lastPosition = Camera.main.transform.position;
         while (true) {
