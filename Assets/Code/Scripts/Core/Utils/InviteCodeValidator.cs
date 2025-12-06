@@ -11,12 +11,14 @@ public class InviteCodeValidator : Singleton<InviteCodeValidator> {
 
     public static readonly Dictionary<string, string> API_SERVERS = new Dictionary<string, string> {
         { "DE/NÜRNBERG01", "https://ceterra-api.fklk.dev" },
-        { "DE/NÜRNBERG02", "https://api.okolyt.com"}
+        { "DE/NÜRNBERG02", "https://api.okolyt.com" },
+        { "DE/KARLSRUHE01", "https://ceterra-api.ossenbeck.dev" }
     };
 
     public static readonly Dictionary<string, string> GAME_SERVERS = new Dictionary<string, string> {
         { "DE/NÜRNBERG01", "ceterra.fklk.dev" },
-        { "DE/NÜRNBERG02", "unity.okolyt.com"}
+        { "DE/NÜRNBERG02", "unity.okolyt.com" },
+        { "DE/KARLSRUHE01", "ceterra.ossenbeck.dev" }
     };
 
     [Serializable]
