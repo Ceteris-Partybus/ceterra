@@ -1157,6 +1157,9 @@ MonoBehaviour:
   - {fileID: 2420595831316329519, guid: 6b4e61f966060824ba2ac55584654ff9, type: 3}
   - {fileID: 6983154674072108430, guid: 1aef631ced293e046b990ae5954d2a5a, type: 3}
   - {fileID: 5417231204415523250, guid: 7ef1b7e04cd21454a8e2f708a6d8a005, type: 3}
+  - {fileID: 8264218793534278510, guid: a33378d0fc593574d80d39070629cad8, type: 3}
+  - {fileID: 1809855982420343196, guid: ec21b53db40930c4d88e73a57f990f99, type: 3}
+  - {fileID: 7660056815385157646, guid: 2cc098097a11aa34cbc55608f19c878d, type: 3}
   initialTrashCount: 60
   trashSpawnHeight: 0
   respawnInterval: 15

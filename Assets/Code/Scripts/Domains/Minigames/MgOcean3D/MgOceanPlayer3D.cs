@@ -87,11 +87,6 @@ public class MgOceanPlayer3D : SceneConditionalPlayer, IMinigameRewardHandler {
     }
 
     [Server]
-    public void ServerSubtractScore(int amount) {
-        score = Mathf.Max(score - amount, 0);
-    }
-
-    [Server]
     public void SetMinigameReward(int reward) {
         earnedCoinReward = reward;
     }
