@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
 
 public class BoardContext : NetworkedSingleton<BoardContext> {
     protected override bool ShouldPersistAcrossScenes => true;
@@ -350,12 +349,14 @@ public class BoardContext : NetworkedSingleton<BoardContext> {
     [Server]
     public void StartPlayerTurn() {
         currentState = State.PLAYER_TURN;
+        FieldInstantiate.Instance.ClearEditorFields();
         StartCoroutine(DelayedRpcNotify());
 
         IEnumerator DelayedRpcNotify() {
             yield return new WaitUntil(() => netIdentity != null && netIdentity.observers.Count == GameManager.Singleton.roomSlots.Count);
 
             if (totalMovementsCompleted == 0) {
+                FieldInstantiate.Instance.RpcClearEditorFields();
                 SkyboxManager.Instance.RpcOnBoardSceneEntered();
                 yield return CatastropheManager.Instance.Tick();
             }

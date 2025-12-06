@@ -1,10 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.Localization.Settings;
-using System;
 
 public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
     [SerializeField] private UIDocument uiDocument;
@@ -48,6 +45,8 @@ public class MgMemoryController : NetworkedSingleton<MgMemoryController> {
 
     [ClientRpc]
     private void RpcShowFactPopup(MemoryFactData factData, float duration) {
+        Audiomanager.Instance?.PlaySuccessSound();
+
         canvas.sortingOrder = 0;
         factTitle.text = factData.title;
         this.factDescription.text = factData.description;

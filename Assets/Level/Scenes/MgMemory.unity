@@ -671,10 +671,6 @@ MonoBehaviour:
   description: 71159084911087616
   controls: 71159319133605888
   screenshot: {fileID: 21300000, guid: 27c59727c03e7284bbb019c529d4e477, type: 3}
-  scoreboardDuration: 15
-  factPopupDuration: 3
-  memoryFactsFileName: Data/Productiondata/Minigames/Memory/memory_facts
-  totalPairs: 2
 --- !u!114 &1055850417
 MonoBehaviour:
   m_ObjectHideFlags: 0

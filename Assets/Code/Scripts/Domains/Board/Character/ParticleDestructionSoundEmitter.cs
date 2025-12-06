@@ -9,7 +9,6 @@ public abstract class ParticleDestructionSoundEmitter : MonoBehaviour {
 
     void Update() {
         if (_particleSystem.particleCount < currentParticleCount) {
-            Debug.Log("Playing particle destruction sound");
             GetDestroySoundEmitter()?.Invoke(boardPlayer);
         }
         currentParticleCount = _particleSystem.particleCount;

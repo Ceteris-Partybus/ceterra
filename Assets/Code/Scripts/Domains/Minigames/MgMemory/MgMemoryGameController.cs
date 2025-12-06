@@ -86,8 +86,6 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
                 FindCardByIndex(currentPlayer.SecondSelectedCardIndex).GetIconSprite;
 
             if (match) {
-                Audiomanager.Instance?.PlaySuccessSound();
-
                 currentPlayer.AddScore(pointsForCorrectMatch);
                 currentPlayer.CmdAddScore(pointsForCorrectMatch); // Für Auswertung der Punkte -> Scoreboard
 
@@ -98,8 +96,6 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
                 CmdHandleMatch(matchedCard.FactData);
             }
             else {
-                Audiomanager.Instance?.PlayFailSound();
-
                 CmdHideCardsOnAllClients(currentPlayer.FirstSelectedCardIndex, currentPlayer.SecondSelectedCardIndex);
                 CmdHandleMismatch();
             }
@@ -137,8 +133,7 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
     private IEnumerator HideCardsOnAllClientsWithDelay(int firstCardIndex, int secondCardIndex) {
         yield return new WaitForSeconds(checkDelay);
 
-        RpcHideCard(firstCardIndex);
-        RpcHideCard(secondCardIndex);
+        RpcHideCards(firstCardIndex, secondCardIndex);
     }
 
     [ClientRpc]
@@ -147,8 +142,9 @@ public class MgMemoryGameController : NetworkedSingleton<MgMemoryGameController>
     }
 
     [ClientRpc]
-    public void RpcHideCard(int cardIndex) {
-        FindCardByIndex(cardIndex).ShakeAndFlip();
+    public void RpcHideCards(int firstCardIndex, int secondCardIndex) {
+        FindCardByIndex(firstCardIndex).ShakeAndFlip();
+        FindCardByIndex(secondCardIndex).ShakeAndFlip(playSound: false);
     }
 
     [ClientRpc]

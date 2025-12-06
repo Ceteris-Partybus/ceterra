@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +6,10 @@ using Mirror;
 using UnityEngine;
 
 public class MgMemoryContext : MgContext<MgMemoryContext, MgMemoryPlayer> {
-
-    [Header("Minigame Settings")]
-    [SerializeField] private float scoreboardDuration;
-    [SerializeField] private float factPopupDuration = 10f;
-    [SerializeField] private string memoryFactsFileName = "Data/Productiondata/Minigames/Memory/memory_facts";
-    [SerializeField] private int totalPairs = 12;
+    private float scoreboardDuration;
+    private float factPopupDuration = 10f;
+    private string memoryFactsFileName = "Data/Productiondata/Minigames/Memory/memory_facts";
+    private int totalPairs = 12;
 
     private List<MemoryFactData> memoryFacts = new();
     [SyncVar(hook = nameof(OnCurrentPlayerChanged))]
