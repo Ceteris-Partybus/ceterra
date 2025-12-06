@@ -153,10 +153,10 @@ public class CameraHandler : NetworkedSingleton<CameraHandler> {
 
     void Update() {
         if (!IsShowingBoard || BoardContext.Instance == null || BoardContext.Instance.GetCurrentPlayer() == null || !BoardContext.Instance.GetCurrentPlayer().isLocalPlayer) { return; }
-        if (Input.GetKeyDown(KeyCode.A)) {
+        if (Input.GetKeyDown(KeyCode.D)) {
             CmdSetActiveBoardCamera((activeBoardCamera - 1 + boardCamera.Length) % boardCamera.Length);
         }
-        else if (Input.GetKeyDown(KeyCode.D)) {
+        else if (Input.GetKeyDown(KeyCode.A)) {
             CmdSetActiveBoardCamera((activeBoardCamera + 1) % boardCamera.Length);
         }
     }
