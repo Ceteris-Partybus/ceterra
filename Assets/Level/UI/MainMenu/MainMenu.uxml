@@ -2,7 +2,6 @@
     <Style src="project://database/Assets/Level/UI/MainMenu/main-menu.uss?fileID=7433441132597879392&amp;guid=12beb740677607c4083b46270436952b&amp;type=3#main-menu" />
     <Style src="project://database/Assets/Level/UI/Other/settings.uss?fileID=7433441132597879392&amp;guid=b49e5940a6019634582cec31c74af891&amp;type=3#settings" />
     <ui:VisualElement class="background-render" />
-    <ui:VisualElement class="background-overlay" />
     <ui:VisualElement name="Panel" class="panel">
         <ui:VisualElement name="ButtonContainer" class="play-menu-container">
             <ui:VisualElement class="main-menu-header">

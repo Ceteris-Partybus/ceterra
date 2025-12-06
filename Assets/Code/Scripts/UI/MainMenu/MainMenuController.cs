@@ -10,13 +10,12 @@ public class MainMenuController : MonoBehaviour {
     private Button settingsButton;
     private Button exitButton;
 
-    [SerializeField]
-    private UIDocument uIDocument;
+    [SerializeField] private UIDocument uIDocument;
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private AudioSource uiAudioSource;
     [SerializeField] private AudioClip buttonClickSound;
     [SerializeField] private AudioClip Soundtrack;
-
+    [SerializeField] private GameObject playMenuObject;
 
     private void OnEnable() {
         root = uIDocument.rootVisualElement;
@@ -27,13 +26,53 @@ public class MainMenuController : MonoBehaviour {
         !Audiomanager.Instance.soundtrack.isPlaying) {
             Audiomanager.Instance.PlayMusic(Soundtrack);
         }
+
+        if (!SceneManager.GetSceneByName("BackgroundView").isLoaded) {
+            StartCoroutine(LoadBackgroundSmoothly());
+        }
+    }
+
+    private IEnumerator LoadBackgroundSmoothly() {
+        var fader = new VisualElement();
+        fader.style.backgroundColor = Color.black;
+        fader.style.position = Position.Absolute;
+        fader.style.top = 0;
+        fader.style.bottom = 0;
+        fader.style.left = 0;
+        fader.style.right = 0;
+        root.Insert(0, fader);
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("BackgroundView", LoadSceneMode.Additive);
+        asyncLoad.allowSceneActivation = false;
+
+        while (asyncLoad.progress < 0.9f) {
+            yield return null;
+        }
+
+        asyncLoad.allowSceneActivation = true;
+
+        while (!asyncLoad.isDone) {
+            yield return null;
+        }
+
+        float duration = 1.0f;
+        float timer = 0f;
+
+        while (timer < duration) {
+            timer += Time.deltaTime;
+            fader.style.opacity = Mathf.Lerp(1, 0, timer / duration);
+            yield return null;
+        }
+
+        fader.RemoveFromHierarchy();
     }
 
     private void InitializeUIElements() {
         playButton = root.Q<Button>("PlayButton");
         playButton.clicked += () => {
             Audiomanager.Instance?.PlayClickSound();
-            SceneManager.LoadScene("PlayMenu");
+            gameObject.SetActive(false);
+            playMenuObject.SetActive(true);
         };
 
         settingsButton = root.Q<Button>("SettingsButton");
