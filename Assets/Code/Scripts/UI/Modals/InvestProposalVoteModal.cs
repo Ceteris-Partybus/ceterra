@@ -13,6 +13,9 @@ public class InvestProposalVoteModal : Modal {
     }
 
     public static InvestProposalVoteModal Instance => GetInstance<InvestProposalVoteModal>();
+    protected override string GetHeaderTitle() {
+        return LocalizationManager.Instance.GetLocalizedText(56156036074037248);
+    }
     private bool hasVoted;
     private Dictionary<int, VoteResult> votes = new();
 
@@ -35,6 +38,7 @@ public class InvestProposalVoteModal : Modal {
         this.closeOnEscapeKey = false;
         this.showCloseButton = false;
         this.visualTreeAsset = ModalMap.Instance.InvestProposalVoteModalTemplate;
+        showModalTypeInHeader = true;
         base.Start();
     }
 

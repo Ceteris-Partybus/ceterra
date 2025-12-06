@@ -256,12 +256,6 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         }
     }
 
-    public void UpdateEnvironmentValue(int value) {
-        this.enviromentBar.value = Mathf.Clamp(value, 0, 100);
-        this.enviromentBar.title = $"{value} %";
-        this.enviromentValueLabel.text = $"{value}/100";
-    }
-
     [ClientCallback]
     public void UpdateResourcesNextRoundValue() {
         if (ResourceModal.Instance?.IsVisible() ?? false) {
@@ -269,16 +263,22 @@ public class BoardOverlay : NetworkedSingleton<BoardOverlay> {
         }
     }
 
+    public void UpdateEnvironmentValue(int value) {
+        UpdateProgressBarValue(this.enviromentBar, this.enviromentValueLabel, value);
+    }
+
     public void UpdateSocietyValue(int value) {
-        this.societyBar.value = Mathf.Clamp(value, 0, 100);
-        this.societyBar.title = $"{value}/100";
-        this.societyValueLabel.text = $"{value}/100";
+        UpdateProgressBarValue(this.societyBar, this.societyValueLabel, value);
     }
 
     public void UpdateEconomyValue(int value) {
-        this.economyBar.value = Mathf.Clamp(value, 0, 100);
-        this.economyBar.title = $"{value} %";
-        this.economyValueLabel.text = $"{value}/100";
+        UpdateProgressBarValue(this.economyBar, this.economyValueLabel, value);
+    }
+
+    private void UpdateProgressBarValue(ProgressBar bar, Label label, int value) {
+        bar.value = Mathf.Clamp(value, 0, 100);
+        bar.title = $"{value} %";
+        label.text = $"{value}/100";
     }
 
     public void UpdateTrends() {

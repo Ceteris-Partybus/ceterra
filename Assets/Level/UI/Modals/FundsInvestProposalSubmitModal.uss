@@ -1,0 +1,94 @@
+/* Root container */
+.funds-invest-proposal-root {
+    flex-grow: 1;
+    padding: 0;
+    width: 320px;
+    height: 190px;
+}
+
+/* Main content wrapper */
+.funds-invest-proposal-content {
+    flex-grow: 1;
+    align-items: center;
+}
+
+/* Value input field */
+.funds-invest-proposal-value-input {
+    font-size: 24px;
+    -unity-text-align: upper-left;
+    width: 180px;
+    height: 50px;
+    border-width: 0;
+    border-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    background-color: transparent;
+    -unity-slice-scale: 0.35px;
+}
+
+/* Button row container */
+.funds-invest-proposal-button-row {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+/* Add all funding button */
+.funds-invest-proposal-add-all-button {
+    min-width: auto;
+    height: 45px;
+    font-size: 22px;
+    text-shadow: 1px 1px 0 #000000;
+    color: #FFFFFF; 
+    border-width: 0;
+    border-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_default.png");
+    background-color: transparent;
+    -unity-slice-scale: 0.35px;
+    -unity-text-align: upper-center;
+}
+
+.funds-invest-proposal-add-all-button:active {
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_pressed.png");
+    -unity-text-align: lower-center;
+}
+
+/* Fully financed info container */
+.funds-invest-proposal-info {
+    flex-grow: 1;
+    background-size: 100% 100%;
+    width: 80%;
+    display: none;
+}
+
+/* Fully financed info label */
+.funds-invest-proposal-info-label {
+    white-space: normal;
+    height: 32px;
+}
+
+/* Submit button container */
+.funds-invest-proposal-submit-container {
+    flex-grow: 1;
+    margin-top: 24px;
+    justify-content: flex-start;
+}
+
+/* Submit button */
+.funds-invest-proposal-submit-button {
+    width: auto;
+    height: 50px;
+    font-size: 28px;
+    text-shadow: 1px 1px 0 #000000;
+    color: #FFFFFF; 
+    border-width: 0;
+    border-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/green_default.png");
+    background-color: transparent;
+    -unity-slice-scale: 0.35px;
+    -unity-text-align: upper-center;
+}
+
+.funds-invest-proposal-submit-button:active {
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/green_pressed.png");
+    -unity-text-align: lower-center;
+}

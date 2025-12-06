@@ -1,39 +1,39 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <ui:Template name="PlayerCard" src="project://database/Assets/Level/UI/Board/PlayerCard.uxml?fileID=9197481963319205126&amp;guid=cf9272ab0a555f74e916fab91d0b2574&amp;type=3#PlayerCard" />
     <ui:Template name="ProgressBar" src="project://database/Assets/Level/UI/Board/ProgressBar.uxml?fileID=9197481963319205126&amp;guid=b7a507bd332063d4fb87ffbd154e639a&amp;type=3#ProgressBar" />
-    <Style src="project://database/Assets/Level/UI/Board/Card.uss?fileID=7433441132597879392&amp;guid=788ddb1472ea9d34790d902073b1aee9&amp;type=3#Card" />
     <Style src="project://database/Assets/Level/UI/Board/ProgressBar.uss?fileID=7433441132597879392&amp;guid=d93a944e8d3c81a48b436f49f11a14b5&amp;type=3#ProgressBar" />
     <Style src="project://database/Assets/Level/UI/Board/BoardOverlay.uss?fileID=7433441132597879392&amp;guid=7c96f86103154ed4bbcd69588431bdea&amp;type=3#BoardOverlay" />
     <Style src="project://database/Assets/Level/UI/Modals/ModalStyles.uss?fileID=7433441132597879392&amp;guid=7765ef12d5826884abfaffcb5834fca5&amp;type=3#ModalStyles" />
     <Style src="project://database/Assets/Level/UI/Other/settings.uss?fileID=7433441132597879392&amp;guid=b49e5940a6019634582cec31c74af891&amp;type=3#settings" />
+    <Style src="project://database/Assets/Level/UI/Board/Card.uss?fileID=7433441132597879392&amp;guid=788ddb1472ea9d34790d902073b1aee9&amp;type=3#Card" />
     <ui:VisualElement name="main-container">
         <ui:VisualElement name="content-container">
             <ui:Instance template="PlayerCard" name="client-player-card" />
             <ui:VisualElement name="right-side">
                 <ui:VisualElement name="ui-buttons">
                     <ui:Button name="ui-buttons__resources">
-                        <ui:Label name="resources-icon" style="background-image: resource(&apos;Icons/package&apos;);" />
-                        <ui:VisualElement name="resources-value-container">
+                        <ui:Label name="resources-icon" class="icon" style="background-image: resource(&apos;Icons/package&apos;);" />
+                        <ui:VisualElement name="resources-value-container" class="container-background">
                             <ui:VisualElement name="resources-value-background" />
                             <ui:Label text="1000" name="resources-value" />
                         </ui:VisualElement>
                     </ui:Button>
                     <ui:Button name="ui-buttons__funds">
-                        <ui:Label name="funds-icon" style="background-image: resource(&apos;Icons/landmark&apos;);" />
-                        <ui:VisualElement name="funds-value-container">
+                        <ui:Label name="funds-icon" class="icon" style="background-image: resource(&apos;Icons/landmark&apos;);" />
+                        <ui:VisualElement name="funds-value-container" class="container-background">
                             <ui:VisualElement name="funds-value-background" />
                             <ui:Label text="1000" name="funds-value" />
                         </ui:VisualElement>
                     </ui:Button>
                     <ui:Button name="ui-buttons__invest">
-                        <ui:Label name="invest-icon" style="background-image: resource(&apos;Icons/hand-coins&apos;);" />
+                        <ui:Label name="invest-icon" class="icon" style="background-image: resource(&apos;Icons/hand-coins&apos;);" />
                     </ui:Button>
                 </ui:VisualElement>
                 <ui:VisualElement name="global-displays-card" class="card">
                     <ui:VisualElement name="global-displays-card-bars">
-                        <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                        <ui:VisualElement class="bar-trend-wrapper" style="flex-grow: 1; flex-direction: row;">
                             <ui:VisualElement name="environment-bar-wrapper" style="width: 186px;">
-                                <ui:VisualElement name="environment-bar-info">
+                                <ui:VisualElement name="environment-bar-info" class="bar-info">
                                     <ui:Label>
                                         <Bindings>
                                             <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56146686244806656)" />
@@ -45,9 +45,9 @@
                             </ui:VisualElement>
                             <ui:Label name="trend-environment" style="background-size: 50% 50%;" />
                         </ui:VisualElement>
-                        <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                        <ui:VisualElement class="bar-trend-wrapper" style="flex-grow: 1; flex-direction: row;">
                             <ui:VisualElement name="economy-bar-wrapper" style="width: 186px;">
-                                <ui:VisualElement name="economy-bar-info">
+                                <ui:VisualElement name="economy-bar-info" class="bar-info">
                                     <ui:Label>
                                         <Bindings>
                                             <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56146825365676032)" />
@@ -59,9 +59,9 @@
                             </ui:VisualElement>
                             <ui:Label name="trend-economy" style="background-size: 50% 50%;" />
                         </ui:VisualElement>
-                        <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                        <ui:VisualElement class="bar-trend-wrapper" style="flex-grow: 1; flex-direction: row;">
                             <ui:VisualElement name="society-bar-wrapper" style="width: 186px;">
-                                <ui:VisualElement name="society-bar-info">
+                                <ui:VisualElement name="society-bar-info" class="bar-info">
                                     <ui:Label>
                                         <Bindings>
                                             <UnityEngine.Localization.LocalizedString property="text" table="GUID:0bcae4cae5373ec479ceeeee5b1d030f" entry="Id(56146969926557696)" />
@@ -78,7 +78,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="bottom-container">
-                <ui:VisualElement name="player-overview" class="card" />
+                <ui:VisualElement name="player-overview" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

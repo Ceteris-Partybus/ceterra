@@ -1,0 +1,66 @@
+/* Dropdown list container */
+.unity-base-dropdown__container-outer {
+    border-width: 0;
+    border-radius: 0;
+}
+
+.unity-base-dropdown__container-inner {
+    border-width: 3px;
+    border-color: rgba(116, 81, 54, 0.5);
+    border-radius: 5px;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
+    -unity-slice-scale: 0.35px;
+    background-color: transparent;
+}
+
+/* Dropdown scroll view */
+.unity-base-dropdown__container-inner .unity-scroll-view {
+    background-color: transparent;
+}
+
+.unity-scroll-view--scroll {
+    background-color: transparent;
+}
+
+.unity-scroll-view__content-container {
+    background-color: transparent;
+}
+
+/* Dropdown items */
+.unity-base-dropdown__item {
+    background-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    -unity-slice-scale: 0.35px;
+    padding: 10px 15px;
+    margin: 4px 8px;
+}
+
+.unity-base-dropdown__item:hover {
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    -unity-slice-scale: 0.35px;
+    background-color: rgba(116, 81, 54, 0.2);
+}
+
+.unity-base-dropdown__item:checked {
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    -unity-slice-scale: 0.35px;
+    background-color: transparent;
+}
+
+.unity-base-dropdown__item-content {
+    background-color: transparent;
+}
+
+.unity-base-dropdown__checkmark {
+    -unity-background-image-tint-color: #4a8c2a;
+    width: 28px;
+    height: 28px;
+    margin-right: 10px;
+    align-self: center;
+}
+
+.unity-base-dropdown__label {
+    font-size: 24px;
+    color: #745136;
+    -unity-text-align: middle-left;
+}

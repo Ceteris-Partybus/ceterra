@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class FundsInvestProposalSubmitModal : Modal {
-
     public static FundsInvestProposalSubmitModal Instance => GetInstance<FundsInvestProposalSubmitModal>();
-
+    protected override string GetHeaderTitle() {
+        return LocalizationManager.Instance.GetLocalizedText(56156702553137152);
+    }
     private UnsignedIntegerField amountField;
     private Button addAllFundingButton;
     private Button submitProposalButton;
@@ -16,6 +17,7 @@ public class FundsInvestProposalSubmitModal : Modal {
 
     protected override void Start() {
         this.visualTreeAsset = ModalMap.Instance.FundsInvestProposalSubmitModalTemplate;
+        showModalTypeInHeader = true;
         base.Start();
     }
 

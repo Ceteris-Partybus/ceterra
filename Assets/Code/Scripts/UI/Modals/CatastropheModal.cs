@@ -13,7 +13,6 @@ public class CatastropheModal : Modal {
         this.closeOnBackgroundClick = false;
         this.closeOnEscapeKey = false;
         this.showCloseButton = false;
-        this.showModalTypeInHeader = true;
         this.visualTreeAsset = ModalMap.Instance.CatastropheModalTemplate;
         base.Start();
     }
@@ -26,9 +25,5 @@ public class CatastropheModal : Modal {
         titleLabel.text = Title;
         descriptionLabel.text = Description;
         affectedPlayersLabel.text = AffectedPlayers;
-    }
-
-    protected override string GetHeaderTitle() {
-        return LocalizationManager.Instance.GetLocalizedText(56636904074215424);
     }
 }

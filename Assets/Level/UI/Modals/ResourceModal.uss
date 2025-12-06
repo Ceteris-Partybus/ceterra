@@ -1,0 +1,99 @@
+/* Root container */
+.resource-modal-root {
+    flex-grow: 1;
+    padding: 0;
+    width: 420px;
+    height: 120px;
+}
+
+/* Main content wrapper */
+.resource-modal-content {
+    flex-grow: 1;
+}
+
+/* Top row container */
+.resource-top-row {
+    flex-grow: 0;
+    flex-direction: row;
+    align-items: center;
+    height: 50px;
+}
+
+/* Value container wrapper */
+.resource-value-wrapper {
+    flex-grow: 1;
+    margin-right: 8px;
+    height: 100%;
+}
+
+/* Value display container */
+.resource-value-container {
+    color: #745136;
+    flex-grow: 1;
+    width: 100%;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    border-width: 0;
+    border-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    background-color: transparent;
+    -unity-slice-scale: 0.35px;
+}
+
+/* Value label */
+.resource-value-label {
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+}
+
+/* History button */
+.resource-history-button {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    border-width: 0;
+    border-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/blue_default.png");
+    background-color: transparent;
+    -unity-slice-scale: 0.35px;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5px;
+}
+
+.resource-history-button:active {
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/blue_pressed.png");
+    padding-bottom: 0;
+    padding-top: 4px;
+}
+
+/* History button icon */
+.resource-history-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    background-image: resource('Icons/history_white');
+}
+
+/* Bottom row container */
+.resource-bottom-row {
+    flex-grow: 0;
+    flex-direction: row;
+    margin-top: 20px;
+    align-items: center;
+}
+
+/* Next round label */
+.resource-next-round-label {
+    font-size: 28px;
+    color: #745136;
+    letter-spacing: 1px;
+    margin-right: 12px;
+}
+
+/* Next round value wrapper */
+.resource-next-round-wrapper {
+    flex-grow: 1;
+}

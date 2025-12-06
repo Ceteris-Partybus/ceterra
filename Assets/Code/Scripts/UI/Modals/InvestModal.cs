@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class InvestModal : Modal {
-
     public static InvestModal Instance => GetInstance<InvestModal>();
+    protected override string GetHeaderTitle() {
+        return LocalizationManager.Instance.GetLocalizedText(56147874730205184);
+    }
 
     private List<VisualElement> investCards = new();
 
@@ -19,6 +21,7 @@ public class InvestModal : Modal {
 
     protected override void Start() {
         this.visualTreeAsset = ModalMap.Instance.InvestModalTemplate;
+        showModalTypeInHeader = true;
         base.Start();
     }
 
@@ -108,21 +111,28 @@ public class InvestModal : Modal {
         investCard.Q<Label>("invest-card-required-money").text = (investment.requiredMoney - investment.currentMoney).ToString();
         investCard.Q<Label>("invest-card-required-resources").text = investment.requiredResources.ToString();
         investCard.Q<Label>("invest-card-cooldown").text = investment.cooldown.ToString();
+        investCard.Q<VisualElement>(className: "investment-card-icon").style.backgroundImage = investment.Icon;
 
         if (investment.inConstruction) {
             investCard.AddToClassList("in-construction");
             string constructionStatusInfo = LocalizationManager.Instance.GetLocalizedText(56641707357601792, new object[] { investment.cooldown });
             investCard.Q<Label>("construction-status-info").text = constructionStatusInfo;
+            investCard.Q<Label>("construction-status-info").style.display = DisplayStyle.Flex;
+            investCard.Q<Label>("completion-status-info").style.display = DisplayStyle.None;
         }
         else if (investment.completed) {
             investCard.AddToClassList("completion");
             investCard.Q<Label>("completion-status-info").text = LocalizationManager.Instance.GetLocalizedText(56645878458712064);
+            investCard.Q<Label>("completion-status-info").style.display = DisplayStyle.Flex;
+            investCard.Q<Label>("construction-status-info").style.display = DisplayStyle.None;
         }
         else {
             investCard.RemoveFromClassList("in-construction");
             investCard.RemoveFromClassList("completion");
             investCard.Q<Label>("construction-status-info").text = "";
             investCard.Q<Label>("completion-status-info").text = "";
+            investCard.Q<Label>("construction-status-info").style.display = DisplayStyle.None;
+            investCard.Q<Label>("completion-status-info").style.display = DisplayStyle.None;
         }
 
         TemplateContainer moneyProgressBarContainer = investCard.Q<TemplateContainer>("invest-card-money-progress-bar");
@@ -217,16 +227,21 @@ public class InvestModal : Modal {
             investCard.AddToClassList("in-construction");
             string constructionStatusInfo = LocalizationManager.Instance.GetLocalizedText(56641707357601792, new object[] { investment.cooldown });
             investCard.Q<Label>("construction-status-info").text = constructionStatusInfo;
+            investCard.Q<Label>("construction-status-info").style.display = DisplayStyle.Flex;
         }
         else if (investment.completed) {
             investCard.AddToClassList("completion");
             investCard.Q<Label>("completion-status-info").text = LocalizationManager.Instance.GetLocalizedText(56645878458712064);
+            investCard.Q<Label>("construction-status-info").style.display = DisplayStyle.None;
+            investCard.Q<Label>("completion-status-info").style.display = DisplayStyle.Flex;
         }
         else {
             investCard.RemoveFromClassList("in-construction");
             investCard.RemoveFromClassList("completion");
             investCard.Q<Label>("construction-status-info").text = "";
             investCard.Q<Label>("completion-status-info").text = "";
+            investCard.Q<Label>("construction-status-info").style.display = DisplayStyle.None;
+            investCard.Q<Label>("completion-status-info").style.display = DisplayStyle.None;
         }
 
         TemplateContainer moneyProgressBarContainer = investCard.Q<TemplateContainer>("invest-card-money-progress-bar");

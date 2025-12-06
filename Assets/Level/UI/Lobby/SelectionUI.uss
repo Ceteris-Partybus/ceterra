@@ -10,6 +10,7 @@
 
 #MainContainer {
     background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
+    -unity-slice-scale: 0.35px;
     position: absolute;
     right: 5%;
     flex-direction: column;
@@ -20,6 +21,7 @@
 
 .selection-header {
     background-image: url("project://database/Assets/Art/Sprites/Panels/panel_title_with_stroke.png");
+    -unity-slice-scale: 0.35px;
     height: 120px;
     width: 700px;
     justify-content: center;
@@ -51,6 +53,7 @@
 
 .selector-box {
     background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    -unity-slice-scale: 0.35px;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -60,38 +63,22 @@
 }
 
 .selector-button {
-    height: 70px;
-    width: 70px;
+    height: 60px;
+    width: 60px;
     font-size: 38px;
     border-width: 0;
-    color: #FFFFFF;
-    text-shadow: 2px 2px 2px #000000;
-    -unity-text-align: upper-center;
-    transition-duration: 0.3s;
-    transition-property: background-image, scale, translate, text-shadow;
-    transition-timing-function: ease-out;
-    background-color: rgba(0, 0, 0, 0);
-    background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_default.png");
     border-color: transparent;
-    letter-spacing: 1px;
-}
-
-.selector-button:hover {
-    transition-duration: 0.2s;
-    scale: 1.01 1.01;
+    color: #FFFFFF;
+    text-shadow: 1px 1px 1px #000000;
+    -unity-text-align: upper-center;
+    background-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_default.png");
+    -unity-slice-scale: 0.35px;
 }
 
 .selector-button:active {
     background-image: url("project://database/Assets/Art/Sprites/Buttons/yellow_pressed.png");
     -unity-text-align: lower-center;
-}
-
-.selector-button:hover {
-    scale: 1.05 1.05;
-}
-
-.selector-button:active {
-    scale: 0.95 0.95;
 }
 
 .selector-content {
@@ -103,18 +90,14 @@
 
 .selector-title {
     font-size: 42px;
-    color: #ffffff;
-    -unity-text-outline-color: #745136;
-    -unity-text-outline-width: 3px;
-    -unity-font-style: bold;
-    -unity-text-align: middle-center;
+    color: #5f432e;
     overflow: hidden;
     text-overflow: ellipsis;
     margin-bottom: 5px;
 }
 
 .selector-info {
-    font-size: 24px;
+    font-size: 25px;
     color: #745136;
     -unity-text-align: middle-center;
     white-space: normal;
@@ -125,24 +108,33 @@
     align-items: center;
 }
 
+#unity-text-input {
+    background-color: transparent;
+    border-color: transparent;
+    color: #5f432e;
+}
+
 .player-input {
     width: 100%;
     background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    -unity-slice-scale: 0.35px;
     color: rgba(0, 0, 0, 0.9);
     font-size: 32px;
     padding: 15px 20px;
 }
 
 .select-button {
-    height: 70px;
-    font-size: 40px;
+    height: 60px;
+    font-size: 38px;
     border-width: 0;
     color: #FFFFFF;
+    border-width: 0;
+    border-color: transparent;
     text-shadow: 1px 1px 1px #000000;
     -unity-text-align: upper-center;
     background-color: transparent;
     background-image: url("project://database/Assets/Art/Sprites/Buttons/green_default.png");
-    border-color: transparent;
+    -unity-slice-scale: 0.35px;
     letter-spacing: 1px;
 }
 

@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class FundsHistoryModal : Modal {
-
     public static FundsHistoryModal Instance => GetInstance<FundsHistoryModal>();
-
+    protected override string GetHeaderTitle() {
+        return LocalizationManager.Instance.GetLocalizedText(56155423755984896);
+    }
     [SerializeField]
     private VisualTreeAsset entryTemplate;
 
@@ -15,6 +16,7 @@ public class FundsHistoryModal : Modal {
 
     protected override void Start() {
         this.visualTreeAsset = ModalMap.Instance.FundsHistoryModalTemplate;
+        showModalTypeInHeader = true;
         base.Start();
     }
 
@@ -36,7 +38,9 @@ public class FundsHistoryModal : Modal {
         entryCard.Q<Label>("entry-source").text = entry.source;
         char sign = entry.type == HistoryEntryType.DEPOSIT ? '+' : '-';
         entryCard.Q<Label>("entry-amount").text = $"{sign}{entry.amount}";
-        entryCard.Q<Label>("entry-amount").style.color = entry.type == HistoryEntryType.DEPOSIT ? Color.green : Color.red;
+
+        string colorClass = entry.type == HistoryEntryType.DEPOSIT ? "history-entry-amount-deposit" : "history-entry-amount-withdraw";
+        entryCard.Q<Label>("entry-amount").AddToClassList(colorClass);
 
         return entryCard;
     }

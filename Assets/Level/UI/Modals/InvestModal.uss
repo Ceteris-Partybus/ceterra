@@ -1,13 +1,106 @@
-#unity-tab__header {
+/* Root container */
+.invest-modal-root {
+  flex-grow: 1;
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  width: 1200px;
+  height: 800px;
+}
+
+/* Main content wrapper */
+.invest-modal-content {
+  flex-grow: 0;
+  align-items: flex-end;
+  height: 100%;
+}
+
+/* Top info bar container */
+.invest-info-bar {
+  flex-grow: 0;
+  align-items: auto;
+  flex-direction: row;
+  width: 500px;
+  align-self: auto;
+  align-content: auto;
+}
+
+/* Modal info element with row layout */
+.modal-info-element-row {
+  flex-grow: 1;
+  width: auto;
+  padding-left: 30px;
+  padding-right: 30px;
+  flex-direction: row;
+}
+
+/* Icon labels */
+.icon-label {
+  background-size: contain;
+  height: 28px;
+  width: 28px;
+  margin-right: 20px;
+}
+
+.icon-coin {
+  background-image: resource('Icons/coin');
+}
+
+.icon-landmark {
+  background-image: resource('Icons/landmark');
+}
+
+.icon-package {
+  background-image: resource('Icons/package');
+}
+
+/* Value labels */
+.value-label {
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
   font-size: 24px;
-  margin-right: 2px;
+  color: #674324;
 }
 
-#unity-tab__header:checked {
-  border-bottom-color: transparent !important;
-  background-color: rgb(168, 162, 158) !important;
+/* Tab view container */
+.invest-tab-container {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
 }
 
-#unity-tab__header, #unity-tab-view__header-container {
-  height: 40px;
+/* Tab content */
+.invest-tab {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  margin-top: 20px;
+}
+
+/* Tab scroll view */
+.invest-tab-scroll {
+  flex-grow: 1;
+  height: 100%;
+  margin-top: 10px;
+}
+
+/* Investments grid */
+#investments-grid {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  margin-top: 10px;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  flex-basis: auto;
+  padding-left: 15px;
+  padding-right: 15px;
 }

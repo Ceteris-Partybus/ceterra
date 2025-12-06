@@ -35,88 +35,11 @@ MonoBehaviour:
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
-  - From: Board_1
-    To: Board_2
+  - From: '**ANY CAMERA**'
+    To: '**ANY CAMERA**'
     Blend:
       Style: 3
-      Time: 0.3
-      CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - From: Board_1
-    To: Board_4
-    Blend:
-      Style: 3
-      Time: 0.3
-      CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - From: Board_2
-    To: Board_1
-    Blend:
-      Style: 3
-      Time: 0.3
-      CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - From: Board_2
-    To: Board_3
-    Blend:
-      Style: 3
-      Time: 0.3
-      CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - From: Board_3
-    To: Board_4
-    Blend:
-      Style: 3
-      Time: 0.3
-      CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - From: Board_3
-    To: Board_2
-    Blend:
-      Style: 3
-      Time: 0.3
-      CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - From: Board_4
-    To: Board_1
-    Blend:
-      Style: 3
-      Time: 0.3
-      CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - From: Board_4
-    To: Board_3
-    Blend:
-      Style: 3
-      Time: 0.5
+      Time: 0.4
       CustomCurve:
         serializedVersion: 2
         m_Curve: []

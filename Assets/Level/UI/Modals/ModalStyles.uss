@@ -29,21 +29,22 @@
     max-width: 75%;
     width: auto;
     min-height: 200px;
-    background-color: rgb(245, 245, 244);
-    border-radius: 4px;
-    border-width: 3px;
-    border-color: rgb(168, 162, 158);
-    border-bottom-right-radius: 0;
+    background-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel.png");
+    -unity-slice-scale: 0.35px;
     position: relative;
 }
 
 .modal-header {
+    height: 100px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 8px;
-    border-bottom-width: 1px;
-    border-bottom-color: rgb(168, 162, 158);
+    background-color: transparent;
+    border-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_title_with_stroke.png");
+    -unity-slice-scale: 0.35px;
 }
 
 .modal-header.no-title {
@@ -51,22 +52,52 @@
 }
 
 .modal-header-title {
-    flex-grow: 0;
-    color: rgb(68, 64, 60);
-    font-size: 24px;
+    font-size: 38px;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
+    -unity-text-align: middle-center;
+    -unity-font-style: normal;
+    letter-spacing: 1px;
+    margin-left: 18px;
+}
+
+/* Error modal title */
+.error-modal-title {
+    color: rgb(212, 63, 70);
+    -unity-text-outline-color: #FFFFFF;
+    -unity-text-outline-width: 2px;
     -unity-font-style: bold;
+    text-shadow: 0 0 0 transparent;
+}
+
+/* Info modal title */
+.info-modal-title {
+    color: rgb(63, 189, 212);
+    -unity-text-outline-color: #FFFFFF;
+    -unity-text-outline-width: 2px;
+    -unity-font-style: bold;
+    text-shadow: 0 0 0 transparent;
 }
 
 .modal-close-button {
-    width: 26px;
-    height: 26px;
-    background-color: rgb(214, 211, 209);
-    border-radius: 4px;
-    color: rgb(68, 64, 60);
+    width: 60px;
+    height: 60px;
+    font-size: 32px;
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/red_default.png");
+    -unity-slice-scale: 0.35px;
+    -unity-text-align: upper-center;
+    border-color: transparent;
+    background-color: transparent;
+    color: white;
     -unity-font-style: bold;
-    border-width: 2px;
-    border-color: rgb(168, 162, 158);
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);
     flex-shrink: 0;
+    margin-right: 18px;
+}
+
+.modal-close-button:active {
+    background-image: url("project://database/Assets/Art/Sprites/Buttons/red_pressed.png");
+    -unity-text-align: lower-center;
 }
 
 .modal-content-container {
@@ -78,8 +109,29 @@
     flex-grow: 1;
 }
 
-.modal-button:hover {
-    background-color: rgb(233, 229, 227);
+.modal-info-element {
+    margin: 4px;
+    height: 60px;
+    width: 200px;
+    background-color: transparent;
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    -unity-slice-scale: 0.35px;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.modal-info-element.Label {
+    font-size: 5090px;
+}
+
+.modal-button {
+    border-radius: 4px;
+    border-width: 3px;
+    border-color: #674324;
+    padding: 8px 16px;
+    margin: 4px;
+    -unity-slice-scale: 0.35px;
 }
 
 .modal-title {
@@ -101,28 +153,6 @@
     flex-grow: 1;
 }
 
-.modal-button {
-    padding: 8px 16px;
-    background-color: rgb(245, 245, 244);
-    border-radius: 4px;
-    color: rgb(68, 64, 60);
-    margin: 4px;
-    border-width: 3px;
-    border-color: rgb(168, 162, 158);
-    width: 200px;
-}
-
-.modal-button {
-    padding: 8px 16px;
-    background-color: rgb(245, 245, 244);
-    border-radius: 4px;
-    color: rgb(68, 64, 60);
-    margin: 4px;
-    border-width: 3px;
-    border-color: rgb(168, 162, 158);
-    width: 200px;
-}
-
 .vote-entry {
     min-height: 30px;
     max-height: 30px;
@@ -142,4 +172,127 @@
 
 .vote-entry.pending { 
     background-image: resource('Icons/loader-circle');
+}
+
+
+/* Unity default Scroller overwrites */
+
+/* Scroller track background */
+.unity-scroller--vertical {
+    width: 14px;
+}
+
+.unity-scroller--horizontal {
+    height: 14px;
+}
+
+/* Scroller slider track */
+.unity-scroller .unity-base-slider__tracker {
+    background-color: #d4c4a8;
+    border-color: #b8a080;
+    border-width: 1px;
+    border-radius: 4px;
+}
+
+/* Scroller dragger (thumb) */
+.unity-scroller .unity-base-slider__dragger {
+    background-color: #a08060;
+    border-color: #806040;
+    border-width: 1px;
+    border-radius: 4px;
+}
+
+.unity-scroller .unity-base-slider__dragger:hover {
+    background-color: #b89070;
+}
+
+.unity-scroller .unity-base-slider__dragger:active {
+    background-color: #907050;
+}
+
+/* Repeat buttons (arrows) */
+.unity-scroller .unity-repeat-button {
+    background-color: #c4b498;
+    border-color: #a08060;
+    border-width: 1px;
+    border-radius: 3px;
+    -unity-background-image-tint-color: #5a4030;
+}
+
+.unity-scroller .unity-repeat-button:hover {
+    background-color: #d4c4a8;
+}
+
+.unity-scroller .unity-repeat-button:active {
+    background-color: #735239;
+}
+
+/* Unity Tab overwrites */
+
+/* Tab view container */
+.unity-tab-view {
+    background-color: transparent;
+}
+
+/* Tab header container */
+.unity-tab-view__header-container {
+    background-color: transparent;
+    border-bottom-width: 0;
+    border-color: transparent;
+}
+
+/* Individual tab header */
+.unity-tab__header {
+    background-color: #f5ebe0;
+    border-color: #d4b896;
+    border-width: 1px;
+    border-radius: 8px 8px 0 0;
+    margin: 0 4px;
+    padding: 12px 28px;
+    min-width: 100px;
+    min-height: 42px;
+    justify-content: center;
+    align-items: center;
+}
+
+.unity-tab__header:hover {
+    background-color: #faf4ec;
+}
+
+.unity-tab__header:checked {
+    background-color: #735239 !important;
+    border-color: #e8c8a0;
+    border-width: 2px;
+}
+
+/* Tab header label */
+.unity-tab__header-label {
+    color: #6a5030;
+    font-size: 22px;
+    -unity-font-style: normal;
+    -unity-text-align: middle-center;
+}
+
+.unity-tab__header:checked .unity-tab__header-label {
+    color: #FFFFFF;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+    letter-spacing: 1px;
+    font-size: 30px;
+}
+
+/* Tab underline (active indicator) */
+.unity-tab__header-underline {
+    background-color: #e8c090;
+    height: 3px;
+}
+
+#unity-tab__header, #unity-tab-view__header-container {
+  height: 40px;
+}
+
+/* Unity textfield overwrites */
+#unity-text-input {
+    background-color: transparent;
+    border-color: transparent;
+    color: #5f432e;
 }

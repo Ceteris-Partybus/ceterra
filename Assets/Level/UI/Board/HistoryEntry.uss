@@ -1,0 +1,41 @@
+/* History entry card container */
+.history-entry-card {
+    background-image: url("project://database/Assets/Art/Sprites/Panels/panel_inner.png");
+    -unity-slice-scale: 0.35px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding: 12px 16px;
+    width: 372px;
+    height: 70px;
+    margin-bottom: 8px;
+    border-width: 0;
+    border-color: transparent;
+    background-color: transparent;
+}
+
+/* Entry source label */
+.history-entry-source {
+    font-size: 22px;
+    margin: 0;
+    padding: 0 0 4px 0;
+    color: #4b311a;
+    -unity-font-style: normal;
+}
+
+/* Entry amount label */
+.history-entry-amount {
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+    -unity-font-style: bold;
+}
+
+/* Deposit amount (green) */
+.history-entry-amount-deposit {
+    color: #2d6b2f;
+}
+
+/* Withdraw amount (red) */
+.history-entry-amount-withdraw {
+    color: #8b3232;
+}

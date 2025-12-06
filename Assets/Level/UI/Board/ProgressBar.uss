@@ -3,46 +3,67 @@
 }
 
 #progress-bar {
-  margin: 0;
-}
-
-.health-bar--green .unity-progress-bar__progress {
-    background-color: #4CAF50;
-}
-
-.health-bar--yellow .unity-progress-bar__progress {
-    background-color: #FF9800;
+  margin: -4px;
+  background-image: url("project://database/Assets/Art/Sprites/Slider/slider_background.png");
+  -unity-slice-left: 42;
+  -unity-slice-top: 0;
+  -unity-slice-right: 42;
+  -unity-slice-bottom: 0;
+  -unity-slice-scale: 0.16px;
 }
 
 .health-bar--red .unity-progress-bar__progress {
-    background-color: #F44336;
+  background-color: transparent !important;
+  background-image: url("project://database/Assets/Art/Sprites/Slider/slider_fill_red.png");
+  -unity-slice-left: 42;
+  -unity-slice-top: 0;
+  -unity-slice-right: 42;
+  -unity-slice-bottom: 0;
+  -unity-slice-scale: 0.16px;
 }
 
-.progress-bar--environment .unity-progress-bar__progress {
-    background-color: #84cc16;
-}
+.progress-bar--environment .unity-progress-bar__progress,
+.health-bar--green .unity-progress-bar__progress {
+  background-color: transparent !important;
+  background-image: url("project://database/Assets/Art/Sprites/Slider/slider_fill_green.png");
+  -unity-slice-left: 42;
+  -unity-slice-top: 0;
+  -unity-slice-right: 42;
+  -unity-slice-bottom: 0;
+  -unity-slice-scale: 0.16px;
+  }
 
 .progress-bar--economy .unity-progress-bar__progress {
-    background-color: #06b6d4;
+  background-color: transparent !important;
+  background-image: url("project://database/Assets/Art/Sprites/Slider/slider_fill_blue.png");
+  -unity-slice-left: 42;
+  -unity-slice-top: 0;
+  -unity-slice-right: 42;
+  -unity-slice-bottom: 0;
+  -unity-slice-scale: 0.16px;
 }
 
-.progress-bar--society .unity-progress-bar__progress {
-    background-color: #fbbf24;
+.progress-bar--society .unity-progress-bar__progress,
+.health-bar--yellow .unity-progress-bar__progress {
+  background-color: transparent !important;
+  background-image: url("project://database/Assets/Art/Sprites/Slider/slider_fill_yellow.png");
+  -unity-slice-left: 42;
+  -unity-slice-top: 0;
+  -unity-slice-right: 42;
+  -unity-slice-bottom: 0;
+  -unity-slice-scale: 0.16px;
 }
 
 /* Unity default overwrites */
 
 :root {
-  --progress-bar-height: 15px;
+  --progress-bar-height: 22px;
 }
 
 #unity-progress-bar {
   min-height: var(--progress-bar-height) !important;
   max-height: var(--progress-bar-height) !important;
-  border-radius: 3px !important;
   overflow: hidden !important;
-  border-width: 1px !important;
-  border-color: rgba(0, 0, 0, 0.8) !important;
 }
  
 .unity-progress-bar__title-container {
@@ -50,7 +71,7 @@
 }
 
 .unity-progress-bar__background {
-  background-color: rgba(0, 0, 0, 0.4) !important;
+  background-color: transparent !important;
   border-width: 0 !important;
   position: relative !important;
   overflow: hidden !important;
@@ -67,6 +88,7 @@
   transform-origin: left !important;
 }
 
+
 .unity-progress-bar__title {
   padding: 0 !important;
   display: none !important;
@@ -76,4 +98,5 @@
 
 #unity-progress-bar:hover .unity-progress-bar__title {
   display: flex !important;
+  color: white !important;
 }

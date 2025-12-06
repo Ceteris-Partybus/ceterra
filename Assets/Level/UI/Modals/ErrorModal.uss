@@ -1,0 +1,13 @@
+/* Root container */
+.error-modal-root {
+    flex-grow: 1;
+    padding: 0;
+    width: 450px;
+    height: 150px;
+}
+
+/* Error message */
+.error-modal-message {
+    font-size: 24px;
+    white-space: normal;
+}
