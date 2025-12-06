@@ -37,12 +37,16 @@ public class FieldInstantiate : NetworkedSingleton<FieldInstantiate> {
         }
     }
 
-    protected override void Awake() {
-        base.Awake();
+    public void ClearEditorFields() {
         if (!IsInitialized) { return; }
         foreach (var fieldToDestroy in FindAllEditorFields()) {
             Destroy(fieldToDestroy.gameObject);
         }
+    }
+
+    [ClientRpc]
+    public void RpcClearEditorFields() {
+        ClearEditorFields();
     }
 
     public override void OnStartServer() {
