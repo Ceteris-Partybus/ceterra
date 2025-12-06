@@ -26,6 +26,12 @@ public class MgOcean3DLocalPlayerHUD : NetworkedSingleton<MgOcean3DLocalPlayerHU
         countdownLabel = countdownRoot.Q<Label>("countdown-label");
     }
 
+    private void Update() {
+        if (MgOceanContext3D.Instance != null) {
+            UpdateCountdown((float)MgOceanContext3D.Instance.TimeRemaining);
+        }
+    }
+
     public void UpdateScore(int score) {
         if (scoreLabel == null) {
             return;
